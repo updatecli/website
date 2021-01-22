@@ -31,6 +31,12 @@ jobs:
       with:
         hugo-version: 'latest'
         extended: true
+
+    - name: Install Bundler
+      run: gem install bundler
+
+    - name: Install Asciidoctor
+      run: bundle install
     
     - name: Check install Hugo
       run: hugo version
