@@ -1,0 +1,165 @@
+---
+title: "Dockerfile"
+description: "Manipulate Dockerfile information"
+lead: "kind: dockerfile"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "resources"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The Dockerfile "source" retrieves information from a Dockerfile then use it for later stages
+
+**condition**
+
+The Dockerfile "condition" tests that a Dockerfile instruction is correctly set to a value
+
+**target**
+
+The Dockerfile "target" updates if needed the Dockerfile
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| file  | &#10004; | - | Set Dockerfile  file name.
+| instruction | &#10004; | - | Set key need to be manipulate using a custom syntax, `INSTRUCTION[x][y]` more information in section Instruction
+| value | | source output | Set the key value.
+|===
+
+
+== Syntax
+
+Updatecli represents internally a Dockerfile as a two-dimensional array where the first dimension is a list of Dockerfile instruction like "FROM", "RUN", etc..., and the second dimension represents a list of arguments for each instruction. 
+
+In the following example "Dockerfile", the first dimension is ["FROM","LABEL","LABEL"]
+
+.Dockefile
+```
+FROM jenkins/jenkins:2.274
+LABEL maintainer=olblak
+LABEL version=2.274 \
+      date = "2021/01/09"
+```
+
+And the second dimension is :
+```
+FROM    = ["jenkins/jenkins:2.274"]
+LABEL0  = ["maintainer", "olblak"]
+LABEL1  = ["version", "2.274", "date", "2021/01/09"]
+```
+
+**instruction**
+
+To identify which instruction you need to manipulate, updatecli uses a custom syntax `INSTRUCTION[x][y]` where:
+
+* `INSTRUCTION` must be replaced by a valid Dockerfile instruction like `ARG`, `ENV`, `LABEL`, etc
+* "x" references a specific instruction position where x is replaced by any integer starting from 0. So "0" means the first instruction of type `INSTRUCTION`, "1" means the second, etc
+* "y" references a specific argument element for the `INSTRUCTION[x]` where "y" is replaced by any integer starting from 0. So "0" means the first argument, "1" means the second, etc
+
+Based on the Dockerfile example, here is the list of instruction equivalent
+* `LABEL[0][0]` equal `maintainer`
+* `LABEL[0][1]` equal `olblak`
+* `LABEL[1][0]` equal `version`
+* `LABEL[1][4]` equal `2021/01/09`
+
+NOTE: A shorter syntax is available where `INSTRUCTION` is an alias for `INSTRUCTION[0][0]`.
+
+[IMPORTANT]
+====
+* Dockerfile update doesn't keep the initial syntax
+* Dockerfile update drop comments from the initial files
+====
+
+== Example
+
+.updatecli.yaml
+```
+source:
+  name: Get Latest helm release version
+  kind: githubRelease
+  spec:
+    owner: "helm"
+    repository: "helm"
+    token: {{ requiredEnv .github.token }}
+    username: olblak
+    version: latest
+conditions:
+  isENVSet:
+    name: Is ENV HELM_VERSION set
+    kind: dockerfile
+    spec:
+      file: docker/Dockerfile
+      Instruction: ENV[1][0]
+      Value: "HELM_VERSION"
+    scm:
+      github:
+        user: "updatecli"
+        email: "updatecli@olblak.com"
+        owner: "olblak"
+        repository: "charts"
+        token: {{ requiredEnv "GITHUB_TOKEN" }}
+        username: "olblak"
+        branch: "master"
+targets:
+  updateENVHELMVERSION:
+    name: Update HELM_VERSION
+    kind: dockerfile
+    spec:
+      file: docker/Dockerfile
+      Instruction: ENV[1][1]
+    scm:
+      github:
+        user: "updatecli"
+        email: "updatecli@olblak.com"
+        owner: "olblak"
+        repository: "charts"
+        token: {{ requiredEnv "GITHUB_TOKEN" }}
+        username: "olblak"
+        branch: "master"
+```
+
+What it says:
+
+*Source*
+
+Retrieve the helm version from its github release located on https://github.com/helm/helm
+  => v3.4.2
+
+*Conditions*
+
+Then it will test one condition:
+If the dockerfile 'docker/Dockerfile' is located on the git repository https://github.com/olblak/charts 
+has the instruction ENV[1][0] set to "HELM_VERSION". ENV[1][0] is a custom syntax to represent 
+a two-dimensional array where the first element represents a specific Dockerfile instruction identifier
+starting from "0" at the beginning of the document, so we are looking for the second INSTRUCTION "ENV".
+The second element represents an instruction argument position. In this case, we want to check that ENV key
+is set to "HELM_VERSION"
+
+*Targets*
+
+If the condition is met, which is to be sure that the ENV key set to "HELM_VERSION" exist, then we'll 
+are going to update its value if needed based on the version retrieved from the source.
+The syntax is the same for the condition excepted that this time we are looking for ENV[1][1]
+which means that the second argument of the second ENV instruction.

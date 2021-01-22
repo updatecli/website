@@ -1,0 +1,37 @@
+---
+title: "Installation"
+description: "Give a try to updatecli !"
+lead: "Give a try to updatecli !"
+date: 2020-10-13T15:21:01+02:00
+lastmod: 2020-10-13T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "prologue"
+weight: 119
+toc: true
+---
+
+== Packages
+
+Updatecli is available on https://github.com/olblak/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
+
+
+== Docker
+A docker image is also available on:
+
+* https://github.com/users/olblak/packages/container/package/updatecli[Ghcr]
+* https://hub.docker.com/r/olblak/updatecli[Dockerhub] 
+
+Remark: Because of the limits on DockerHub free account, it's better to use the ghcr.io image.
+
+=== Usage
+
+```
+ docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/olblak/updatecli:latest diff --config /updatecli/updateCli.yaml
+
+ docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/olblak/updatecli:latest apply --config /updatecli/updateCli.yaml
+
+ docker run -i -t ghcr.io/olblak/updatecli:latest help
+```

@@ -13,46 +13,51 @@ weight: 100
 toc: true
 ---
 
+Updatecli is a tool uses to apply file update strategies.
+It reads a yaml or a go template configuration file, then works into three stages:
+
+1. Source: Based on a rule fetch a value from a third location that will be injected in later stages.
+2. Conditions: Ensure that conditions are met based on the value retrieved during the source stage.
+3. Target: Update and publish the target files based on a value retrieved from the source stage.
+
+## Why?
+
+In today's word, we are at one api close to be able to automate everything, we write infra as code, we script everywher
+
 ## Get started
 
-There are two main ways to get started with Doks:
-
-### Tutorial
-
-{{< alert icon="👉" text="The Tutorial is intended for novice to intermediate users." >}}
-
-Step-by-step instructions on how to start a new Doks project. [Tutorial →](https://getdoks.org/tutorial/introduction/)
+There are two main ways to get started with Updatecli:
 
 ### Quick Start
 
 {{< alert icon="👉" text="The Quick Start is intended for intermediate to advanced users." >}}
 
-One page summary of how to start a new Doks project. [Quick Start →]({{< ref "quick-start" >}})
+One page summary of how to use updatecli [Quick Start →]({{< ref "quick-start" >}})
 
 ## Go further
 
-Recipes, Reference Guides, Extensions, and Showcase.
+Resources, SCM, Stages, CI
 
-### Recipes
+### Stages
 
-Get instructions on how to accomplish common tasks with Doks. [Recipes →](https://getdoks.org/docs/recipes/project-configuration/)
+Understand on how the different stages work. [Stages →](/docs/stages/)
 
-### Reference Guides
+### Resources
 
-Learn how to customize Doks to fully make it your own. [Reference Guides →](https://getdoks.org/docs/reference-guides/security/)
+Understand on how to parametrize resources. [Resources →](/docs/resources/)
 
-### Extensions
+### Scm
 
-Get instructions on how to add even more to Doks. [Extensions →](https://getdoks.org/docs/extensions/add-google-fonts/)
+Learn how to use updatecli with scm repository. [SCM →](/docs/scm/)
 
-### Showcase
+### Continously Update Everything
 
-See what others have build with Doks. [Showcase →](https://getdoks.org/showcase/neutrino-oscillations/)
+Learn how to continuously run updatecli to apply updates. [CI →](/docs/automate/)
 
 ## Contributing
 
-Find out how to contribute to Doks. [Contributing →](https://getdoks.org/docs/contributing/how-to-contribute/)
+Find out how to contribute to Updatecli. [Contributing →](https://getdoks.org/docs/contributing/how-to-contribute/)
 
 ## Help
 
-Get help on Doks. [Help →]({{< ref "how-to-update" >}})
+Get some help. [Help →]({{< ref "help" >}})

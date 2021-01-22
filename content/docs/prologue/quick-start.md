@@ -1,7 +1,7 @@
 ---
 title: "Quick Start"
-description: "One page summary of how to start a new Doks project."
-lead: "One page summary of how to start a new Doks project."
+description: "One page summary of how to apply a strategy update."
+lead: "One page summary of how to apply a strategy update."
 date: 2020-11-16T13:59:39+01:00
 lastmod: 2020-11-16T13:59:39+01:00
 draft: false
@@ -15,51 +15,46 @@ toc: true
 
 ## Requirements
 
-{{< alert icon="👉" text="Node.js is needed to install npm packages and run commands." >}}
+Make sure you downloaded the latest updatecli binary [Installation →]({{< ref "installation/#_packages" >}}):
 
-Make sure all dependencies have been installed:
+### Linux
 
-- [Hugo](https://gohugo.io/getting-started/installing/) >= 0.75.0/extended
-- [Node.js](https://nodejs.org/) >= 14.15.0
+{{< btn-copy text="curl -sSfL -o updatecli https://github.com/olblak/updatecli/releases/latest/download/updatecli.linux.amd64 && chmod +x ./updatecl" >}}
 
-## Start a new Doks project
-
-Create a new site, change directories, install npm packages, and start development server.
-
-### Create a new site
-
-{{< btn-copy text="git clone https://github.com/h-enk/doks.git my-doks-site" >}}
-
-```bash
-git clone https://github.com/h-enk/doks.git my-doks-site
+```
+  curl -sSfL -o updatecli https://github.com/olblak/updatecli/releases/latest/download/updatecli.linux.amd64
+  chmod +x ./updatecl
 ```
 
-### Change directories
+## Init the updatecli project
 
-{{< btn-copy text="cd my-doks-site" >}}
+Create a new directory that will hold your updatecli configuration.
+
+{{< btn-copy text="mkdir -p ./updatecli/updatecli.d" >}}
+```
+  mkdir -p ./updatecli/updatecli.d
+```
+updatecli is the root of you project and updatecli.d will contains your updatecli configuration
+
+## Create a docker-compose.yaml
+
+### Create your first configuration
+
+{{< btn-copy text="touch ./updatecli/updatecli.d && vim ./udpatecli/updatecli.d" >}}
 
 ```bash
-cd my-doks-site
+touch ./updatecli/updatecli.d
+vim ./udpatecli/updatecli.d"
 ```
 
-### Install npm packages
+#### Source
 
-{{< btn-copy text="npm install" >}}
+Work in Progress
 
-```bash
-npm install
-```
+#### Condition
 
-### Start development server
+Work in Progress
 
-{{< btn-copy text="npm run start" >}}
+#### Target
 
-```bash
-npm run start
-```
-
-Doks will start the Hugo development webserver accessible by default at `http://localhost:1313`. Saved changes will live reload in the browser.
-
-## Other commands
-
-Doks comes with commands for common tasks. [Commands →]({{< ref "commands" >}})
+Work in Progress

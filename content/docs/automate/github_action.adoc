@@ -1,0 +1,63 @@
+---
+title: "GitHub Actions"
+description: "Automate Updatecli with GitHub Action"
+lead: "Automate Updatecli with GitHub Action"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "automate"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Updatecli is better when executed regularly so let see how GitHub Action becomes handy.
+
+IMPORTANT: Environment variable starting with GITHUB_ are reserved by GitHub Action
+
+== Example
+
+The current example is inspired from the repository https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra].
+
+Once you have your update strategy configuration in the directory `./updateCli/updatecli.d`, then you need following files in order to run updatecli from Github Action.
+
+.updatecli/values.yaml
+```
+github:
+  user: "GitHub Actions"
+  email: "41898282+github-actions[bot]@users.noreply.github.com"
+  username: "github-actions"
+  token: "UPDATECLI_GITHUB_TOKEN"
+```
+..github/workflows/updatecli.yaml
+```
+name: Update CLI
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
+
+jobs:
+  update_cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Update CLI
+        env:
+          UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -sSfL -o updatecli https://github.com/olblak/updatecli/releases/latest/download/updatecli.linux.amd64
+          chmod +x ./updatecli
+          ./updatecli diff --config ./updateCli/updateCli.d --values ./updateCli/values.yaml
+          ./updatecli apply --config ./updateCli/updateCli.d --values ./updateCli/values.yaml
+```

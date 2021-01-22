@@ -1,0 +1,68 @@
+---
+title: "Github"
+description: "Interact with github repositories"
+lead: "kind: github"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "scm"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Depending on the situation a specific SCM block can be provided to manipulate information from a Github SCM repository by either fetching files from a repository or pushing files to them
+
+**condition**
+
+When the SCM block is used in a condition, it usually means fetching a file from that repository.
+
+**target**
+
+When the SCM block is used in a target, it usually means pushing a file to that repository.
+
+It's important to notice that the Github SCM implements the Github workflow and therefore will push changes to a temporary branch then open a pull request targeting the branch defined in the configuration.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| user | &#10004; |-| Git user to push from changes
+| email | &#10004; |-| Git user email to push from change
+| directory | | Default to tmp location, /tmp on linux  | Directory where to clone the git repository"
+| owner | &#10004; | | Github owner
+| repository| &#10004; | | Github repository
+| token | &#10004; || Github token with enough permission on repository
+| username | &#10004; | | github username used for push git changes
+| branch | &#10004; | | git branch where to push changes
+|===
+
+== Example
+
+```
+targets:
+  id:
+    kind: yaml
+    spec:
+      file: "Yaml file path from the root repository"
+      key: "yaml key to update"
+    scm:
+      github:
+        user: "git user to push from changes"
+        email: "git user email to push from change"
+        directory: "directory where to clone the git repository"
+        owner: "github owner"
+        repository: "github repository"
+        token: "github token with enough permission on repository"
+        username: "github username used for push git changes"
+        branch: "git branch where to push changes"
+```

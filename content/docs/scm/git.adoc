@@ -1,0 +1,65 @@
+---
+title: "Git"
+description: "Interact with git repositories"
+lead: "kind: git"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "scm"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Depending on the situation a specific scm block can be provided to manipulate information from a scm repository by either fetching files from a repository or pushing files to them
+
+**condition**
+
+When the scm block is used in a condition, it usually means fetching a file from that repository.
+
+**target**
+
+When the scm block is used in a target, it usually means pushing file to that repository.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| url | &#10004; | | Define Git repository url
+| branch | &#10004; | master | Define the git branch
+| user | &#10004; | | Define Git user used by git config
+| email | &#10004; | | Define Git email used by the git config
+| directory | |Default to tmp location, /tmp on linux | Define where to clone the git repository
+|===
+
+== Example
+
+```
+source:
+# ...
+conditions
+# ...
+targets:
+  id:
+    kind: yaml
+    spec:
+      file: values.yaml
+      key: tag
+    scm:
+      git:
+        url: "git repository url"
+        branch: "git branch to push changes"
+        user: "git user to push from changes"
+        email: "git user email to push from change"
+        directory: "directory where to clone the git repository"
+```
+

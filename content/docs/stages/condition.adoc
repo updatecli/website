@@ -1,0 +1,51 @@
+---
+title: "Condition"
+description: "Condition run test which have to succeed to proceed"
+lead: "Condition is the 'when' you want to update"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "stages"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The "condition" stage test based on a third "resource" like a file, an api, etc..., if we can proceed the pipeline or if we must abort.
+
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| kind | &#10004; |-| Define the resource type used for the `spec`
+| name | &#10004; |-| Small description used in message, reports, etc. 
+| spec | &#10004; |-| Define resource parameters, cfr to appropriated documentation
+|===
+
+== Examples
+
+```
+# Source return v1.0.0
+
+conditions:
+  docker:
+    name: "Docker Image Published on Registry"
+    kind: dockerImage
+    spec:
+      image: "jenkinsciinfra/plugin-site-api"
+
+# stop here because the condition doesn't pass
+
+```
+
+In this example, we use the dockerImage condition. According to its documentation, we are checking if the docker image 'jenkinsciinfra/plugin-site-api' with the tag 'v1.0.0' (returned from the source) exist on DockerHub. it's not the case so it stop the pipeline here

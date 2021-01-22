@@ -13,36 +13,10 @@ weight: 630
 toc: true
 ---
 
-## Hyas?
+## Updatecli?
 
-Doks is a [Hyas theme](https://gethyas.com/themes/) build by the creator of Hyas.
+Updatecli is a tool to enforce file update strategy
 
-## Footer notice?
+## Is "updatecli" pull or push based?
 
-Please keep it in place.
-
-## Keyboard shortcuts for search?
-
-- focus: `/`
-- select: `↓` and `↑`
-- open: `Enter`
-- close: `Esc`
-
-## Other documentation?
-
-- [Netlify](https://docs.netlify.com/)
-- [Hugo](https://gohugo.io/documentation/)
-
-## Can I get support?
-
-Create a topic:
-
-- [Netlify Community](https://community.netlify.com/)
-- [Hugo Forums](https://discourse.gohugo.io/)
-
-## Contact the creator?
-
-Send `h-enk` a message:
-
-- [Netlify Community](https://community.netlify.com/)
-- [Hugo Forums](https://discourse.gohugo.io/)
+Well, it's kind of both. Updatecli pull information from a third location, run some test and the push the result to another location

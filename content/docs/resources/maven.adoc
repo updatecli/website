@@ -1,0 +1,119 @@
+---
+title: "Maven"
+description: "Manipulate Maven information"
+lead: "kind: maven"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "resources"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+**source**
+
+The maven "source" retrieves the latest version from a maven repository
+
+**condition**
+
+The maven "condition" tests if a version exist on a maven repository.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| url | &#10004; | | Define maven repository url
+| groupID | &#10004; | | Set maven goupID
+| repository | &#10004; | | Set maven repository name
+| artifactID | &#10004; | | Set artifactID name
+| version  | &#10004; | source output | Set artifactID version
+|===
+
+== Example 
+
+.updatecli.conf
+```
+source:
+  kind: maven
+  postfix: "-jdk11"
+  spec:
+    owner: "maven"
+    url: "repo.jenkins-ci.org"
+    repository: "releases"
+    groupID: "org.jenkins-ci.main"
+    artifactID: "jenkins-war"
+conditions:
+  docker:
+    name: "Docker Image Published on Registry"
+    kind: "dockerImage"
+    spec:
+      image: "jenkins/jenkins"
+  imageTag:
+    name: "Is jenkins/jenkins docker image used"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.master.image"
+      value: "jenkins/jenkins"
+    scm:
+      git:
+        url: "git@github.com:olblak/charts.git"
+        branch: "master"
+        user: "olblak"
+        email: "me@olblak.com"
+targets:
+  imageTag:
+    name: "jenkins/jenkins docker tag"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.master.imageTag"
+    scm:
+      git:
+        url: "git@github.com:olblak/charts.git"
+        branch: master
+        user: olblak
+        email: me@olblak.com
+        directory: "/home/olblak/Project/Jenkins-infra/charts"
+```
+
+What it says:
+
+**Source**
+
+Retrieve the version from a Maven source for the artifactID "jenkins-war" from the group "org.jenkins-ci.org"
+in the repository "releases" located on "repo.jenkins-ci.org"
+  => 2.264
+Append "jdk11" to it
+  => 2.264-jdk11
+
+**Conditions**
+
+Then it tests two conditions:
+
+. Do we have a docker image published on Dockerhub for the "jenkins/jenkins" using the tag "2.264-jdk11"? Yes, proceed, No then abort
+. Do we have a the key jenkins.master.image set to the value "jenkins/jenkins" from the file "charts/jenkins/values.yaml" located on the git repository "git@github.com:olblak/charts.git"?
+      => Yes, proceed, No then abort
+
+**Targets**
+
+If conditions are all met then updatecli updates, if necessary, the key
+"jenkins.master.imageTag" to "2.264-jdk11" for the file "charts/jenkins/values.yaml"
+from the git repository "git@github.com:olblak/charts.git" then commit the change to the
+branch master.

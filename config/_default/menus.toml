@@ -11,10 +11,29 @@
   url = "/docs/stages/"
 
 [[docs]]
-  name = "Resources"
+  name = "SCM"
   weight = 30
+  identifier = "scm"
+  url = "/docs/scm/"
+
+
+[[docs]]
+  name = "Resources"
+  weight = 40
   identifier = "resources"
   url = "/docs/resources/"
+
+[[docs]]
+  name = "Commands"
+  weight = 50
+  identifier = "commands"
+  url = "/docs/commands/"
+
+[[docs]]
+  name = "Automate"
+  identifier = "automate"
+  url = "/docs/automate"
+  weight = 60
 
 [[docs]]
   name = "Help"
@@ -26,6 +45,7 @@
   name = "Docs"
   url = "/docs/prologue/introduction/"
   weight = 10
+
 
 #[[main]]
 #  name = "Blog"
