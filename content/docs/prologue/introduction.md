@@ -37,8 +37,6 @@ Updatecli allows combining blocks, aka resources, to specify what information ne
 
 ## Get started
 
-There are two main ways to get started with Updatecli:
-
 ### Quick Start
 
 {{< alert icon="👉" text="The Quick Start is intended for intermediate to advanced users." >}}
