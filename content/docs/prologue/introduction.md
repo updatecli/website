@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
-description: "Doks is a Hugo theme helping you build modern documentation websites that are secure, fast, and SEO-ready — by default."
-lead: "Doks is a Hugo theme helping you build modern documentation websites that are secure, fast, and SEO-ready — by default."
+description: "Updatecli is a tool uses to apply file update strategies."
+lead: "Updatecli is a tool uses to apply file update strategies."
 date: 2020-10-06T08:48:57+00:00
 lastmod: 2020-10-06T08:48:57+00:00
 draft: false
@@ -22,7 +22,18 @@ It reads a yaml or a go template configuration file, then works into three stage
 
 ## Why?
 
-In today's word, we are at one api close to be able to automate everything, we write infra as code, we script everywher
+Deciding how, when, where to update information is hard.
+
+Nowadays they are countless tools that can apply continuous delivery or continuous deployment. 
+To configure our infrastructure, we write ansible playbooks, puppet manifest, helm chart, etc. We heavily rely 
+on configuration files to specify the version we need to install. But too often those files are manually updated. 
+
+Because it's hard to automatically detect what information must be updated and when.
+
+The logic that manipulates information from a configuration file is defined outside that configuration file. Information comes from many different sources like maven, docker, files, git repository, etc..
+Before modifying information, we probably want to validate some assumptions.
+
+Updatecli allows combining blocks, aka resources, to specify what information needs to be updated, when, and where. So we easily implement the workflow that suits our needs.
 
 ## Get started
 

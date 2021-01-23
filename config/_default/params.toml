@@ -8,18 +8,16 @@ description = "Automatically open a PR on your GitOps repository when a third se
 
 ## Open Graph + Twitter Cards
 images = ["doks.png"]
-twitterSite = "henkverlinde"
-twitterCreator = "henkverlinde"
-facebookAuthor = "verlinde.henk"
-facebookPublisher = "verlinde.henk"
+twitterSite = "0lblak"
+twitterCreator = "0lblak"
 ogLocale = "en_US"
 
 ## JSON-LD
 schemaType = "Organization"
 schemaLogo = "logo-doks.png"
-schemaTwitter = "https://twitter.com/henkverlinde"
-schemaLinkedIn = "https://www.linkedin.com/in/henkverlinde/"
-schemaGitHub = "https://github.com/h-enk"
+schemaTwitter = "https://twitter.com/0lblak"
+#schemaLinkedIn = "https://www.linkedin.com/in/overnin/"
+schemaGitHub = "https://github.com/olblak"
 schemaSection = "blog"
 
 ## Sitelinks Search Box
@@ -40,8 +38,8 @@ footer = "Powered by <a href=\"https://www.netlify.com/\">Netlify</a>, <a href=\
 
 # Alert
 alert = false
-alertText = "Like Doks? <a class=\"alert-link\" href=\"https://github.com/h-enk/doks/stargazers\">Star on GitHub</a>. Thanks!</a>"
+alertText = "Like Updatecli? <a class=\"alert-link\" href=\"https://github.com/olblak/updatecli/stargazers\">Star on GitHub</a>. Thanks!</a>"
 
 # Edit Page
-docsRepo = "https://github.com/olblak/updatecli"
+docsRepo = "https://github.com/updatecli/website"
 editPage = true
