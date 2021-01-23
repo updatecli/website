@@ -81,7 +81,7 @@ spec:
     - "99d"
     command:
     - "sleep"
-    image: "ghcr.io/olblak/updatecli:latest"
+    image: "ghcr.io/updatecli/updatecli:latest"
     imagePullPolicy: "Always"
     name: "updatecli"
     resources:

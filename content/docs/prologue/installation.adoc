@@ -15,13 +15,13 @@ toc: true
 
 == Packages
 
-Updatecli is available on https://github.com/olblak/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
+Updatecli is available on https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
 
 
 == Docker
 A docker image is also available on:
 
-* https://github.com/users/olblak/packages/container/package/updatecli[Ghcr]
+* https://github.com/users/updatecli/packages/container/package/updatecli[Ghcr]
 * https://hub.docker.com/r/olblak/updatecli[Dockerhub] 
 
 Remark: Because of the limits on DockerHub free account, it's better to use the ghcr.io image.
@@ -29,9 +29,9 @@ Remark: Because of the limits on DockerHub free account, it's better to use the 
 === Usage
 
 ```
- docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/olblak/updatecli:latest diff --config /updatecli/updateCli.yaml
+ docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/updatecli/updatecli:latest diff --config /updatecli/updateCli.yaml
 
- docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/olblak/updatecli:latest apply --config /updatecli/updateCli.yaml
+ docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/updatecli/updatecli:latest apply --config /updatecli/updateCli.yaml
 
- docker run -i -t ghcr.io/olblak/updatecli:latest help
+ docker run -i -t ghcr.io/updatecli/updatecli:latest help
 ```

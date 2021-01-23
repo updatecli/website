@@ -19,10 +19,10 @@ Make sure you downloaded the latest updatecli binary [Installation →]({{< ref 
 
 ### Linux
 
-{{< btn-copy text="curl -sSfL -o updatecli https://github.com/olblak/updatecli/releases/latest/download/updatecli.linux.amd64 && chmod +x ./updatecl" >}}
+{{< btn-copy text="curl -sSfL -o updatecli https://github.com/updatecli/updatecli/releases/latest/download/updatecli.linux.amd64 && chmod +x ./updatecl" >}}
 
 ```
-  curl -sSfL -o updatecli https://github.com/olblak/updatecli/releases/latest/download/updatecli.linux.amd64
+  curl -sSfL -o updatecli https://github.com/updatecli/updatecli/releases/latest/download/updatecli.linux.amd64
   chmod +x ./updatecl
 ```
 
