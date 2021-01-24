@@ -33,11 +33,11 @@ jobs:
         extended: true
 
     - name: Install Bundler
-      run: gem install bundler
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7 # Not needed with a .ruby-version file
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-    - name: Install Asciidoctor
-      run: bundle install
-    
     - name: Check install Hugo
       run: hugo version
 
