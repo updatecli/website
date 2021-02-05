@@ -65,7 +65,7 @@ Learn how to continuously run updatecli to apply updates. [CI →](/docs/automat
 
 ## Contributing
 
-Find out how to contribute to Updatecli. [Contributing →](https://getdoks.org/docs/contributing/how-to-contribute/)
+Find out how to contribute to Updatecli. [Contributing →](/docs/help/contributing/)
 
 ## Help
 
