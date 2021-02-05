@@ -2,8 +2,8 @@
 title: updateCli version
 description: Documentation for the command `updateCli version`
 lead: Documentation for the command `updateCli version`
-date: 2021-01-22T22:28:28+01:00
-lastmod: 2021-01-22T22:28:28+01:00
+date: 2021-02-05T20:03:07+01:00
+lastmod: 2021-02-05T20:03:07+01:00
 draft: false
 images: []
 menu:
@@ -29,6 +29,12 @@ updateCli version [flags]
 
 ```
   -h, --help   help for version
+```
+
+### Options inherited from parent commands
+
+```
+      --debug   Debug Output
 ```
 
 ### SEE ALSO

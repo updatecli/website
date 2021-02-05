@@ -2,8 +2,8 @@
 title: updateCli
 description: Documentation for the command `updateCli`
 lead: Documentation for the command `updateCli`
-date: 2021-01-22T22:28:28+01:00
-lastmod: 2021-01-22T22:28:28+01:00
+date: 2021-02-05T20:03:07+01:00
+lastmod: 2021-02-05T20:03:07+01:00
 draft: false
 images: []
 menu:
@@ -31,7 +31,8 @@ It reads a yaml or a go template configuration file, then works into three stage
 ### Options
 
 ```
-  -h, --help   help for updateCli
+      --debug   Debug Output
+  -h, --help    help for updateCli
 ```
 
 ### SEE ALSO

@@ -2,8 +2,8 @@
 title: updateCli apply
 description: Documentation for the command `updateCli apply`
 lead: Documentation for the command `updateCli apply`
-date: 2021-01-22T22:28:28+01:00
-lastmod: 2021-01-22T22:28:28+01:00
+date: 2021-02-05T20:03:07+01:00
+lastmod: 2021-02-05T20:03:07+01:00
 draft: false
 images: []
 menu:
@@ -34,6 +34,12 @@ updateCli apply [flags]
   -h, --help            help for apply
       --push            Update remote refs '--push=false' (default: true) (default true)
   -v, --values string   Sets values file uses for templating (required {.tpl,.tmpl} config)
+```
+
+### Options inherited from parent commands
+
+```
+      --debug   Debug Output
 ```
 
 ### SEE ALSO

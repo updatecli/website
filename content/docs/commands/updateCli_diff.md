@@ -2,8 +2,8 @@
 title: updateCli diff
 description: Documentation for the command `updateCli diff`
 lead: Documentation for the command `updateCli diff`
-date: 2021-01-22T22:28:28+01:00
-lastmod: 2021-01-22T22:28:28+01:00
+date: 2021-02-05T20:03:07+01:00
+lastmod: 2021-02-05T20:03:07+01:00
 draft: false
 images: []
 menu:
@@ -32,6 +32,12 @@ updateCli diff [flags]
   -c, --config string   Sets config file or directory. (default: './updateCli.yaml') (default "./updateCli.yaml")
   -h, --help            help for diff
   -v, --values string   Sets values file uses for templating (required {.tpl,.tmpl} config)
+```
+
+### Options inherited from parent commands
+
+```
+      --debug   Debug Output
 ```
 
 ### SEE ALSO
