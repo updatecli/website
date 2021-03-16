@@ -44,11 +44,11 @@ The GitHub Release "source" retrieves the latest release version
 
 
 === Version Type
-The `version` value can be set to a version pattern and that version pattern has different behaviors depending on the version type. It can either be a simple text value or semantic version compliant, the latter one offers more advanced pattern..
+The `version` value can be set to a version pattern and that version pattern has different behaviors depending on the version type. It can either be a simple text value or semantic version compliant, the latter one offers a more advanced pattern.
 
 ==== Semantic Versionning ["semver"]
 link:https://github.com/Masterminds/semver#checking-version-constraints[More information]
-If version type is set to "semver" then we assume that we are manipulating version respecting semantic version rules. The version pattern can be specified by the ke `version` as in the following example
+If version type is set to "semver" then we assume that we are manipulating version respecting semantic version rules. The version pattern can be specified using the key `version` as in the following example
 
 **Remark**
 
@@ -69,7 +69,7 @@ source:
 => Return v1.10.3
 
 ==== Text ["text"]
-Because not everybody project respects semantic versionning, we can also specify a basic rule, so the pattern would return the latest version return by the github api, starting with a text pattern.
+Because not everybody's project respects semantic versioning, we can also specify a basic rule, so the pattern would return the latest version return by the Github api, starting with a text pattern.
 
 **Remark**:
 
@@ -143,7 +143,7 @@ What it says:
 
 *Source*
 
-Retrieve the latest helm version from its github release located on https://github.com/helm/helm
+Retrieve the latest helm version from its Github release located on https://github.com/helm/helm
   => v3.4.2
 
 *Conditions*
