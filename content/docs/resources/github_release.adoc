@@ -85,8 +85,6 @@ source:
     token: "{{ requiredEnv "ENV_VARIABLE" }}"
     username: "john"
     version: "v1.10"
-  transformers:
-    - addPrefix: "v"
 ```
 => Return v1.10.3
 
