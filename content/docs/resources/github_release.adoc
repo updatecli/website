@@ -20,7 +20,7 @@ toc: true
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10004; | &#10007;
+| &#10004; | &#10007; | &#10007;
 |===
 
 == Description
@@ -28,10 +28,6 @@ toc: true
 **source**
 
 The GitHub Release "source" retrieves the latest release version 
-
-**condition**
-
-The GitHub Release "condition" tests if a release version exist.
 
 == Parameter
 
@@ -43,12 +39,56 @@ The GitHub Release "condition" tests if a release version exist.
 | token | &#10004; | - | Define the token needed to authenticate with the docker registry
 | url | | github.com | Define github url
 | version | | source output | Define Github Release version.
+| versiontype | | semver | Version type. accepted values: ["semver","text"]
 |===
+
+
+=== Version Type
+The `version` value can be set to a version pattern and that version pattern has different behaviors depending on the version type. It can either be a simple text value or semantic version compliant, the latter one offers more advanced pattern..
+
+==== Semantic Versionning ["semver"]
+link:https://github.com/Masterminds/semver#checking-version-constraints[More information]
+If version type is set to "semver" then we assume that we are manipulating version respecting semantic version rules. The version pattern can be specified by the ke `version` as in the following example
+
+**Remark**
+
+In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can added it back using `transformers`.
+
+```
+source:
+  kind: githubRelease
+  spec:
+    owner: "jenkins-infra"
+    repository: "jenkins-wiki-exporter"
+    token: "{{ requiredEnv "ENV_VARIABLE" }}"
+    username: "john"
+    version: "~1.10"
+  transformers:
+    - addPrefix: "v"
+```
+=> Return v1.10.3
+
+==== Text ["text"]
+Because not everybody project respects semantic versionning, we can also specify a basic rule, so the pattern would return the latest version return by the github api, starting with a text pattern.
 
 **Remark**:
 
 It's considered a very bad practice to store credentials in an un-encrypted file.
 Consider using an environment variable to store the token.
+
+```
+source:
+  kind: githubRelease
+  spec:
+    owner: "jenkins-infra"
+    repository: "jenkins-wiki-exporter"
+    token: "{{ requiredEnv "ENV_VARIABLE" }}"
+    username: "john"
+    version: "v1.10"
+  transformers:
+    - addPrefix: "v"
+```
+=> Return v1.10.3
 
 == Example 
 
