@@ -49,9 +49,7 @@ The Helm chart "target" updates a helmchart and bump the chart metadata. It hand
 | value| | source | [T] Define the value that need to be present in helm chart file
 | key | &#10004; | - | [T] Define the key that need to be present in helm chart file 
 | appversion | | false | [T] Boolean that defines if the value should also be used for the AppVersion
-| incminor| | false | [T] Boolean that defines if the chart version should bump the minor version
-| incpatch| | false | [T] Boolean that defines if the chart version should bump the patch version
-| incmajor| | false | [T] Boolean that defines if the chart version should bump the major version
+| versionincrement| | minor | [T] Define the rule to automatically increment the helm chart version. It accept a comma separated list of major,minor,patch.
 |===
 
 == Example
@@ -95,7 +93,7 @@ targets:
       Name: "charts/jenkins"
       file: "requirements.yaml"
       key: "dependencies[0].version"
-      incminor: true
+      versionIncrement: minor
     scm:
       github:
         user: "john"
