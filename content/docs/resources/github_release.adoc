@@ -27,7 +27,9 @@ toc: true
 
 **source**
 
-The GitHub Release "source" retrieves the latest release version 
+The GitHub Release "source" retrieves the latest release version sorted by release date.
+If no release can be found then we fallback to release tags sorted on tag date creation.
+It's important to notice that both information are mutually exclusive.
 
 == Parameter
 
@@ -38,38 +40,86 @@ The GitHub Release "source" retrieves the latest release version
 | repository | &#10004; | - | Define Github repository name.
 | token | &#10004; | - | Define the token needed to authenticate with the docker registry
 | url | | github.com | Define github url
-| version | | source output | Define Github Release version.
-| versiontype | | semver | Version type. accepted values: ["semver","text"]
+| version | | source output | **Deprecated** Define Github Release version.
+| versionFilter | | | Provide version filtering information
+| versionFilter.kind | | "latest" | VersionFilter.kind accept on of the following values: ["semver","latest","regex"]
+| versionFilter.pattern | | | The default pattern value depends on the version kind
+
 |===
 
 
-=== Version Type
-The `version` value can be set to a version pattern and that version pattern has different behaviors depending on the version type. It can either be a simple text value or semantic version compliant, the latter one offers a more advanced pattern.
+=== VersionFilter
 
-==== Semantic Versionning ["semver"]
-link:https://github.com/Masterminds/semver#checking-version-constraints[More information]
-If version type is set to "semver" then we assume that we are manipulating version respecting semantic version rules. The version pattern can be specified using the key `version` as in the following example
+`versionFilter` allows to specify the kind of version retrieved from Github and the version pattern.
+Default value is "latest" as we want to retrieve the newest version from Github. 
 
+==== latest
+
+If kind is set to `latest` then no need to specify the patter as we gonna retrieve the newest version from Github
+
+.Example
+```
+sources:
+  kubectl:
+    kind: githubRelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubectl"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      versionFilter:
+        kind: latest
+    transformers:
+      - trimPrefix: "kubernetes-"
+```
+Return the latest Github release and remove "kubernetes-" from it.
+
+==== regex
+
+If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to 
+return the newest version returned from Github matching the regex
+
+```
+sources:
+  kubectl:
+    kind: githubRelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubectl"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      versionFilter:
+        kind: regex
+        pattern: "kubernetes-1.(\d*).(\d*)$"
+    transformers:
+      - trimPrefix: "kubernetes-"
+```
+=> Return the newest kubectl version matching pattern "kubernetes-1.(\d*).(\d*)$" and remove "kubernetes-" from it
+
+==== semver
+
+If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort
+If a version doesn't respect semantic versioning, then it's not the value is just ignored. 
 **Remark**
 
 In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can added it back using `transformers`.
 
+.example
 ```
-source:
-  kind: githubRelease
-  spec:
-    owner: "jenkins-infra"
-    repository: "jenkins-wiki-exporter"
-    token: "{{ requiredEnv "ENV_VARIABLE" }}"
-    username: "john"
-    version: "~1.10"
-  transformers:
-    - addPrefix: "v"
+  jenkins-wiki-exporter:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "jenkins-wiki-exporter"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      version: "~1.10"
+      versioning:
+        kind: semver
+    transformers:
+      - addPrefix: "v"
 ```
-=> Return v1.10.3
-
-==== Text ["text"]
-Because not everybody's project respects semantic versioning, we can also specify a basic rule, so the pattern would return the latest version return by the Github api, starting with a text pattern.
+=> Return the version "v1.10.3" 
 
 **Remark**:
 
