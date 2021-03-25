@@ -78,6 +78,7 @@ Return the latest Github release and remove "kubernetes-" from it.
 
 If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to 
 return the newest version returned from Github matching the regex
+If no versionFilter.pattern is provided then it uses '.*' which return the newest version
 
 ```
 sources:
@@ -98,7 +99,8 @@ sources:
 
 ==== semver
 
-If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort
+If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
 If a version doesn't respect semantic versioning, then it's not the value is just ignored. 
 **Remark**
 
