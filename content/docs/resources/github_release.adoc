@@ -20,18 +20,16 @@ toc: true
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10004; | &#10007;
+| &#10004; | &#10007; | &#10007;
 |===
 
 == Description
 
 **source**
 
-The GitHub Release "source" retrieves the latest release version 
-
-**condition**
-
-The GitHub Release "condition" tests if a release version exist.
+The GitHub Release "source" retrieves the latest release version sorted by release date.
+If no release can be found then we fallback to release tags sorted on tag date creation.
+It's important to notice that both information are mutually exclusive.
 
 == Parameter
 
@@ -42,13 +40,105 @@ The GitHub Release "condition" tests if a release version exist.
 | repository | &#10004; | - | Define Github repository name.
 | token | &#10004; | - | Define the token needed to authenticate with the docker registry
 | url | | github.com | Define github url
-| version | | source output | Define Github Release version.
+| version | | source output | **Deprecated** Define Github Release version.
+| versionFilter | | | Provide version filtering information
+| versionFilter.kind | | "latest" | VersionFilter.kind accept on of the following values: ["semver","latest","regex"]
+| versionFilter.pattern | | | The default pattern value depends on the version kind
+
 |===
+
+
+=== VersionFilter
+
+`versionFilter` allows to specify the kind of version retrieved from Github and the version pattern.
+Default value is "latest" as we want to retrieve the newest version from Github. 
+
+==== latest
+
+If kind is set to `latest` then no need to specify the patter as we gonna retrieve the newest version from Github
+
+.Example
+```
+sources:
+  kubectl:
+    kind: githubRelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubectl"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      versionFilter:
+        kind: latest
+    transformers:
+      - trimPrefix: "kubernetes-"
+```
+Return the latest Github release and remove "kubernetes-" from it.
+
+==== regex
+
+If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to 
+return the newest version returned from Github matching the regex
+If no versionFilter.pattern is provided then it uses '.*' which return the newest version
+
+```
+sources:
+  kubectl:
+    kind: githubRelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubectl"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      versionFilter:
+        kind: regex
+        pattern: "kubernetes-1.(\d*).(\d*)$"
+    transformers:
+      - trimPrefix: "kubernetes-"
+```
+=> Return the newest kubectl version matching pattern "kubernetes-1.(\d*).(\d*)$" and remove "kubernetes-" from it
+
+==== semver
+
+If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
+If a version doesn't respect semantic versioning, then it's not the value is just ignored. 
+**Remark**
+
+In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can added it back using `transformers`.
+
+.example
+```
+  jenkins-wiki-exporter:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "jenkins-wiki-exporter"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      version: "~1.10"
+      versioning:
+        kind: semver
+    transformers:
+      - addPrefix: "v"
+```
+=> Return the version "v1.10.3" 
 
 **Remark**:
 
 It's considered a very bad practice to store credentials in an un-encrypted file.
 Consider using an environment variable to store the token.
+
+```
+source:
+  kind: githubRelease
+  spec:
+    owner: "jenkins-infra"
+    repository: "jenkins-wiki-exporter"
+    token: "{{ requiredEnv "ENV_VARIABLE" }}"
+    username: "john"
+    version: "v1.10"
+```
+=> Return v1.10.3
 
 == Example 
 
@@ -103,7 +193,7 @@ What it says:
 
 *Source*
 
-Retrieve the latest helm version from its github release located on https://github.com/helm/helm
+Retrieve the latest helm version from its Github release located on https://github.com/helm/helm
   => v3.4.2
 
 *Conditions*
