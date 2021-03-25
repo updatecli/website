@@ -22,7 +22,7 @@ toc: true
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10004; | &#10007;
+| &#10004; | &#10004; | &#10004;
 |===
 
 **source**
@@ -33,14 +33,23 @@ The Helm chart "source" retrieves the latest version of a Helm package.
 
 The Helm chart "condition" tests if a helm chart release exist. 
 
+**condition**
+
+The Helm chart "target" updates a helmchart and bump the chart metadata. It handle AppVersion, incremental version update and requirements.lock. It both works with helm chart located locally or on a git repository. If the helm chart is located locally, then chart name must be an absolute path to the chart.
+
 == Parameter
 
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
-| url  | &#10004; | - | Define url for remote Helm chart repository
-| name | &#10004; | - | Define Helm chart package name.
-| version | &#10004; | Source | Define Helm chart version.
+| url  | &#10004; | - | [S,C]Define url for remote Helm chart repository
+| name | &#10004; | - | [S,C,T]Define Helm chart package name.
+| version | &#10004; | Source | [S,C] Define Helm chart version.
+| file| | values.yaml |[T] Define the file that needs to be updated
+| value| | source | [T] Define the value that need to be present in helm chart file
+| key | &#10004; | - | [T] Define the key that need to be present in helm chart file 
+| appversion | | false | [T] Boolean that defines if the value should also be used for the AppVersion
+| versionincrement| | minor | [T] Define the rule to automatically increment the helm chart version. It accept a comma separated list of major,minor,patch.
 |===
 
 == Example
@@ -77,21 +86,23 @@ conditions:
         username: "{{ .github.username }}"
         branch: "{{ .github.branch }}"
 targets:
-  chartVersion:
-    name: "jenkinsci/jenkins Helm Chart"
-    kind: yaml
+  chartjenkins:
+    name: Bump Jenkins Upstream Chart Version
+    kind: helmChart
     spec:
-      file: "charts/jenkins/requirements.yaml"
+      Name: "charts/jenkins"
+      file: "requirements.yaml"
       key: "dependencies[0].version"
+      versionIncrement: minor
     scm:
       github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
+        user: "john"
+        email: "john@example.com"
+        owner: "olblak"
+        repository: "charts"
+        token: {{ requiredEnv .github.token }}
+        username: "john"
+        branch: "master"
 ```
 
 What it says:
@@ -111,13 +122,4 @@ Then it tests two conditions.
   => Yes, proceed, No then abort
 
 **Targets**
-
-If conditions are all met, then updatecli will update (if needed) the first element of the key
-"dependencies" to "2.7.1" for the file "charts/jenkins/requirements.yaml"
-from the github repository olblak/chart then publish changes using a Github Pull Request targeting the master from a temporary branch.
-
-[NOTE]
-====
-The specificity in this example is that we are using a go template
-so we could reuse information accross the yaml file or use environment variable which contains the github token
-====
+If all conditions are met, we bump the Jenkins upstream version into our local one. We remove the requirements.lock if it exists.  We bump the chart version using the incremental version (patch,minor,major). Finally we commit our changes and then open a pull request on Github.
