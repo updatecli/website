@@ -34,7 +34,9 @@ When the scm block is used in a target, it usually means pushing file to that re
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
-| url | &#10004; | | Define Git repository url
+| url | &#10004; | | Define Git repository url, username and password can't be embedded inside the url as it's not supported, inside use the specific setting
+| username | | | Define the username used to authenticate with the git repository
+| password | | | Define the password used to authenticate with the git repository
 | branch | &#10004; | master | Define the git branch
 | user | &#10004; | | Define Git user used by git config
 | email | &#10004; | | Define Git email used by the git config
@@ -44,7 +46,7 @@ When the scm block is used in a target, it usually means pushing file to that re
 == Example
 
 ```
-source:
+sources:
 # ...
 conditions
 # ...
@@ -60,6 +62,7 @@ targets:
         branch: "git branch to push changes"
         user: "git user to push from changes"
         email: "git user email to push from change"
-        directory: "directory where to clone the git repository"
+        username: "username used to authenticate with the git repository"
+        password: "password used to authenticate with the git repository"
 ```
 
