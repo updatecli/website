@@ -1,9 +1,9 @@
 ---
-title: "Maven"
-description: "Manipulate Maven information"
+title: "Maven Repository"
+description: "Manipulate version from a maven repository"
 lead: "kind: maven"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2021-04-09T15:21:01+02:00
 draft: false
 images: []
 menu: 
@@ -49,23 +49,24 @@ The maven "condition" tests if a version exist on a maven repository.
 
 .updatecli.conf
 ```
-source:
-  kind: maven
-  postfix: "-jdk11"
-  spec:
-    owner: "maven"
-    url: "repo.jenkins-ci.org"
-    repository: "releases"
-    groupID: "org.jenkins-ci.main"
-    artifactID: "jenkins-war"
+sources:
+  default:
+    kind: maven
+    postfix: "-jdk11"
+    spec:
+      owner: "maven"
+      url: "repo.jenkins-ci.org"
+      repository: "releases"
+      groupID: "org.jenkins-ci.main"
+      artifactID: "jenkins-war"
 conditions:
   docker:
-    name: "Docker Image Published on Registry"
+    name: "Test Docker Image Published on Registry with the correct tag"
     kind: "dockerImage"
     spec:
       image: "jenkins/jenkins"
   imageTag:
-    name: "Is jenkins/jenkins docker image used"
+    name: "Test if jenkins/jenkins docker image used"
     kind: yaml
     spec:
       file: "charts/jenkins/values.yaml"
@@ -95,7 +96,7 @@ targets:
 
 What it says:
 
-**Source**
+**Sources**
 
 Retrieve the version from a Maven source for the artifactID "jenkins-war" from the group "org.jenkins-ci.org"
 in the repository "releases" located on "repo.jenkins-ci.org"
