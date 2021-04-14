@@ -1,0 +1,75 @@
+=== VersionFilter
+
+`versionFilter` allows to specify the kind of version retrieved from a resource and its version pattern.
+Default value is "latest" as we want to retrieve the newest version from a resource. 
+
+==== latest
+
+If kind is set to `latest` then no need to specify the patter as we gonna retrieve the newest version from the resource.
+
+.Example
+```
+sources:
+  kubectl:
+    kind: githubRelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubectl"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      versionFilter:
+        kind: latest
+    transformers:
+      - trimPrefix: "kubernetes-"
+```
+Return the latest Github release and remove "kubernetes-" from it.
+
+==== regex
+
+If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to 
+return the newest version returned from a resource matching the regex
+If no versionFilter.pattern is provided then it uses '.*' which return the newest version
+
+```
+sources:
+  kubectl:
+    kind: githubRelease
+    spec:
+      owner: "kubernetes"
+      repository: "kubectl"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      versionFilter:
+        kind: regex
+        pattern: "kubernetes-1.(\d*).(\d*)$"
+    transformers:
+      - trimPrefix: "kubernetes-"
+```
+=> Return the newest kubectl version matching pattern "kubernetes-1.(\d*).(\d*)$" and remove "kubernetes-" from it
+
+==== semver
+
+If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
+If a version doesn't respect semantic versioning, then it's not the value is just ignored. 
+
+**Remark**
+
+In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can added it back using `transformers`.
+
+.example
+```
+  jenkins-wiki-exporter:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "jenkins-wiki-exporter"
+      token: "{{ requiredEnv .github.token }}"
+      username: "john"
+      version: "~1.10"
+      versioning:
+        kind: semver
+    transformers:
+      - addPrefix: "v"
+```
+=> Return the version "v1.10.3" 
