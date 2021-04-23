@@ -70,11 +70,14 @@ jobs:
         uses: updatecli/updatecli-action@v1
         with:
           command: diff
+          flags: "--config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Apply
         uses: updatecli/updatecli-action@v1
+        with:
+          flags: "--config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
