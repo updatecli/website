@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "resources"
-weight: 130 
+weight: 130
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -38,7 +38,212 @@ The Dockerfile "condition" tests that a Dockerfile instruction is correctly set 
 
 The Dockerfile "target" updates if needed the Dockerfile
 
-== Parameters
+== Methods
+
+There are 2 available methods for the resource "Dockerfile":
+
+* <<By Text Matching>>
+** Batch: Can match multiple instructions
+** Keeper: Does not remove Dockerfile comments
+
+* <<By Specific Coordinates>>
+** Precise: only 1 instruction matched
+** Full Support: all keywords are supported
+
+== By Text Matching
+
+Matches a set of Dockerfile instructions to manipulate,
+by filtering per keyword and text matching on the keyword's arguments.
+
+=== Usage
+
+Given the following file:
+
+[source,Dockerfile]
+----
+### File: Dockerfile.webapp
+ARG GO_VERSION=1.15.8
+FROM golang:"${GO_VERSION}-alpine" AS build
+# Retrieve source code
+WORKDIR /app
+COPY . /app
+# Build application
+RUN go build -X "GoVersion=${GO_VERSION}" -o ./webapp
+
+FROM ubuntu AS test
+ARG GO_VERSION
+ENV GO_VERSION=${GO_VERSION}
+RUN ./run_tests.sh
+
+FROM ubuntu:18.04 AS run
+COPY --from=builder /app/webapp /usr/local/bin/webapp
+----
+
+And the following configuration:
+
+[source,yaml]
+----
+title: "Bump golang version"
+# Define custom source here
+targets:
+  updateGoVersion:
+    name: "Update the value of ARG GO_VERSION in the Dockerfile"
+    sourceID: getGolangVersion
+    kind: dockerfile
+    spec:
+      file: Dockerfile.webapp
+      instruction:
+        keyword: "ARG"
+        matcher: "GO_VERSION"
+  updateUbuntuVersion:
+    name: "Update Ubuntu image to latest LTS"
+    sourceID: getLatestUbuntuLTSVersion
+    kind: dockerfile
+    spec:
+      file: Dockerfile.webapp
+      instruction:
+        keyword: "FROM"
+        matcher: "ubuntu"
+----
+
+With the following:
+
+* `getGolangVersion`: `1.15.11`
+* `getLatestUbuntuLTSVersion`: `20.04`
+
+
+Then the result is:
+
+[source,Dockerfile]
+----
+### File: Dockerfile.webapp
+ARG GO_VERSION=1.15.11 <1>
+FROM golang:"${GO_VERSION}-alpine" AS build
+# Retrieve source code
+WORKDIR /app
+COPY . /app
+# Build application
+RUN go build -X "GoVersion=${GO_VERSION}" -o ./webapp
+
+FROM ubuntu:20.04 AS test <2>
+ARG GO_VERSION=1.15.11 <1>
+ENV GO_VERSION=${GO_VERSION}
+RUN ./run_tests.sh
+
+FROM ubuntu:20.04 AS run <2>
+COPY --from=builder /app/webapp /usr/local/bin/webapp
+----
+
+<1> Changed by the target `updateGoVersion`
+<2> Changed by the target `updateUbuntuVersion`
+
+Please look at <<Supported Keywords>> to see more specific examples.
+
+=== Parameters
+
+[cols="2,1,1,3",options=header]
+|===
+| Name | Required | Default |Description
+| file  | &#10004; | - | Set the Dockerfile file name.
+| instruction.keyword | &#10004; | - | Set the <<Supported Keywords>> to be matched.
+| instruction.matcher | &#10004; | - | Set the text to be matched.
+|===
+
+=== Supported Keywords
+
+From the https://docs.docker.com/engine/reference/builder/[Dockerfile reference, window="_blank"] ,
+the following keyword are currently supported:
+
+* <<FROM>>
+* <<ARG>>
+
+If you need an unsupported keyword, or an unsuported scenario:
+
+* Consider using the method <<By Specific Coordinates>>
+* Do not hesitate to add the keyword support by https://github.com/updatecli/updatecli/blob/main/doc/CONTRIBUTING.adoc[contributing to updatecli, window="_blank"]
+
+==== FROM
+
+Matches https://docs.docker.com/engine/reference/builder/#from[Dockerfile FROM, window="_blank"] instructions by image name to manipulate their image's tags.
+
+* Matches *only* on the image name
+** Matching is case sensitive
+** Multi stages with an alias are supported, but the alias is not used for matching
+
+* When used as a target, *only* the image tag is modified by Updatecli
+** "Friends don't let friend use `latest`": if an instruction is matched and it has no tag,
+  then Updatecli append the values as a tag.
+
+With the following definition:
+
+[source, yaml]
+----
+spec:
+  file: Dockerfile
+  instruction:
+    keyword: "FROM"
+    matcher: "alpine"
+----
+
+you get the following results:
+
+[source, Dockerfile]
+----
+# Matches
+FROM alpine:3.12
+from alpine:3.13
+FROM alpine:3.11 AS builder
+FROM alpine
+FROM alpine:latest
+
+## Does NOT matches
+FROM ubuntu:20.04
+FROM debian:buster AS alpine
+FROM moutain:alpine
+FROM ALPINE:3.11
+----
+
+==== ARG
+
+Matches https://docs.docker.com/engine/reference/builder/#arg[Dockerfile ARG, window="_blank"] instructions by argument's key to manipulate their argument's values.
+
+* Matches *only* on the argument's key (left of the `=` when present)
+** Matching is case sensitive
+
+* When used as a target, *only* the value of the argument (right of the `=` when present)
+** When no argument value is found (e.g. default value, no character `=` or empty value),
+  then UpdateCli append the `=` characted followed by the value.
+
+With the following definition:
+
+[source, yaml]
+----
+spec:
+  file: Dockerfile
+  instruction:
+    keyword: "ARG"
+    matcher: "UPDATECLI_VERSION"
+----
+
+you get the following results:
+
+[source, Dockerfile]
+----
+# Matches
+ARG UPDATECLI_VERSION
+ARG UPDATECLI_VERSION=
+ARG UPDATECLI_VERSION=0.1.0
+arg UPDATECLI_VERSION=0.1.0
+
+## Does NOT matches
+ARG GOLANG_VERSION
+ARG RUST_VERSION=UPDATECLI_VERSION
+ARG updatecli_version
+----
+
+== By Specific Coordinates
+
+=== Parameters
 
 [cols="1,1,1,4",options=header]
 |===
@@ -49,9 +254,9 @@ The Dockerfile "target" updates if needed the Dockerfile
 |===
 
 
-== Syntax
+=== Syntax
 
-Updatecli represents internally a Dockerfile as a two-dimensional array where the first dimension is a list of Dockerfile instruction like "FROM", "RUN", etc..., and the second dimension represents a list of arguments for each instruction. 
+Updatecli represents internally a Dockerfile as a two-dimensional array where the first dimension is a list of Dockerfile instruction like "FROM", "RUN", etc..., and the second dimension represents a list of arguments for each instruction.
 
 In the following example "Dockerfile", the first dimension is ["FROM","LABEL","LABEL"]
 
@@ -70,9 +275,8 @@ LABEL0  = ["maintainer", "olblak"]
 LABEL1  = ["version", "2.274", "date", "2021/01/09"]
 ```
 
-**instruction**
-
-To identify which instruction you need to manipulate, updatecli uses a custom syntax `INSTRUCTION[x][y]` where:
+Updatecli identifies a specific Dockerfile instruction through its coordinates,
+by using the syntax `INSTRUCTION[x][y]` where:
 
 * `INSTRUCTION` must be replaced by a valid Dockerfile instruction like `ARG`, `ENV`, `LABEL`, etc
 * "x" references a specific instruction position where x is replaced by any integer starting from 0. So "0" means the first instruction of type `INSTRUCTION`, "1" means the second, etc
@@ -88,11 +292,13 @@ NOTE: A shorter syntax is available where `INSTRUCTION` is an alias for `INSTRUC
 
 [IMPORTANT]
 ====
-* Dockerfile update doesn't keep the initial syntax
-* Dockerfile update drop comments from the initial files
+When used as a target (and writing to a file):
+
+* "Specific Coordinates" method might not keep the initial Dockerfile syntax
+* "Specific Coordinates" method drops comments from the initial Dockerfile
 ====
 
-== Example
+=== Examples
 
 .updatecli.yaml
 ```
@@ -150,8 +356,8 @@ Retrieve the helm version from its github release located on https://github.com/
 *Conditions*
 
 Then it will test one condition:
-If the dockerfile 'docker/Dockerfile' is located on the git repository https://github.com/olblak/charts 
-has the instruction ENV[1][0] set to "HELM_VERSION". ENV[1][0] is a custom syntax to represent 
+If the dockerfile 'docker/Dockerfile' is located on the git repository https://github.com/olblak/charts
+has the instruction ENV[1][0] set to "HELM_VERSION". ENV[1][0] is a custom syntax to represent
 a two-dimensional array where the first element represents a specific Dockerfile instruction identifier
 starting from "0" at the beginning of the document, so we are looking for the second INSTRUCTION "ENV".
 The second element represents an instruction argument position. In this case, we want to check that ENV key
@@ -159,7 +365,7 @@ is set to "HELM_VERSION"
 
 *Targets*
 
-If the condition is met, which is to be sure that the ENV key set to "HELM_VERSION" exist, then we'll 
+If the condition is met, which is to be sure that the ENV key set to "HELM_VERSION" exist, then we'll
 are going to update its value if needed based on the version retrieved from the source.
 The syntax is the same for the condition excepted that this time we are looking for ENV[1][1]
 which means that the second argument of the second ENV instruction.
