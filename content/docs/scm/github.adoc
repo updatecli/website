@@ -40,6 +40,7 @@ It's important to notice that the Github SCM implements the Github workflow and 
 | email | &#10004; |-| Git user email to push from change
 | directory | | Default to tmp location, /tmp on linux  | Directory where to clone the git repository"
 | owner | &#10004; | | Github owner
+| force | | false | Run git push using --force option
 | repository| &#10004; | | Github repository
 | token | &#10004; || Github token with enough permission on repository
 | username | &#10004; | | github username used for push git changes

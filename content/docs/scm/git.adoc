@@ -3,7 +3,7 @@ title: "Git"
 description: "Interact with git repositories"
 lead: "kind: git"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2021-05-02T20:44:01+02:00
 draft: false
 images: []
 menu: 
@@ -38,6 +38,7 @@ When the scm block is used in a target, it usually means pushing file to that re
 | branch | &#10004; | master | Define the git branch
 | user | &#10004; | | Define Git user used by git config
 | email | &#10004; | | Define Git email used by the git config
+| force | | false | Run git push using --force option
 | directory | |Default to tmp location, /tmp on linux | Define where to clone the git repository
 |===
 
