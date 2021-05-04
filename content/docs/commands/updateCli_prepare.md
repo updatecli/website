@@ -2,8 +2,8 @@
 title: updateCli prepare
 description: Documentation for the command `updateCli prepare`
 lead: Documentation for the command `updateCli prepare`
-date: 2021-02-05T20:03:07+01:00
-lastmod: 2021-02-05T20:03:07+01:00
+date: 2021-05-04T21:19:16+02:00
+lastmod: 2021-05-04T21:19:16+02:00
 draft: false
 images: []
 menu:
@@ -17,10 +17,6 @@ toc: true
 
 prepare run tasks needed for a run like `git clone`
 
-### Synopsis
-
-prepare run tasks needed for a run like `git clone`
-
 ```
 updateCli prepare [flags]
 ```
@@ -28,10 +24,11 @@ updateCli prepare [flags]
 ### Options
 
 ```
-      --clean           Remove updatecli working directory like '--clean=true '(default: false)
-  -c, --config string   Sets config file or directory. (default: './updateCli.yaml') (default "./updateCli.yaml")
-  -h, --help            help for prepare
-  -v, --values string   Sets values file uses for templating (required {.tpl,.tmpl} config)
+      --clean                 Remove updatecli working directory like '--clean=true '(default: false)
+  -c, --config string         Sets config file or directory. (default: './updateCli.yaml') (default "./updateCli.yaml")
+  -h, --help                  help for prepare
+      --secrets stringArray   Sets Sops secrets file uses for templating
+  -v, --values stringArray    Sets values file uses for templating
 ```
 
 ### Options inherited from parent commands
