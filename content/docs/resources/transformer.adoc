@@ -1,0 +1,97 @@
+---
+title: "Transformer"
+description: "Transform information"
+lead: "**joker**"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-05-04T21:02:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "resources"
+weight: 130 
+toc: true
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The parameter "transformers" can be used by any stage definitions as "source", "condition", or "target".
+A "transformers" contains a list of transformer rules which depending on the rule modify iteratively information.
+
+**source**
+
+Source returns information modified by a list of transformers
+
+**condition**
+
+A condition receives information from the source then modifies that value using transformers before using it in the resource.
+
+**target**
+
+A target receives information from the source then modifies that value with the transformers rule before using the resource.
+
+== Parameters
+
+We also deprecated string manipulation like prefix/postfix/replacer defined outside a transformers definition
+
+|===
+| Name | Default |Description
+| replacer |-| Replace a string with another one, more information in the replace section
+| replacers |-| A list of Replacer
+| addPrefix |-| Add prefix to the value
+| addSuffix |-| Add suffix to the value
+| trimPrefix |-| Remove prefix to the value
+| trimSuffix |-| Remove suffix to the value
+| find |-| Search for a string value using regular expression
+| semverInc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
+
+|===
+
+
+=== Replacer
+
+A replacer rule modifies the information by replacing the "from" value by the "to" value.
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| from | &#10004;|-| "from" value defines the string that will be replaced
+| to | &#10004;|-| "to" value defines the string that we want to have
+|===
+
+== Example
+
+
+.updatecli.yaml
+```
+sources:
+  default:
+    name: "Get latest jenkins weekly version"
+    kind: jenkins
+    transformers:
+      - addPrefix: "alpha-"
+      - addSuffix: "-jdk11"
+      - trimSuffix: "-jdk11"
+      - trimPrefix: "alpha-"
+      - replacer:
+          from: "-jdk11"
+          to: "-jdk15"
+      - replacers:
+          - from: "-jdk15"
+            to: "-jdk17"
+      - semverInc: "major,minor"
+      - find: "2.234.(.*)$"
+    spec:
+      release: weekly
+targets:
+  targetID:
+    name: "Update file file"
+    kind: file
+    spec:
+      file: TODO
+```
