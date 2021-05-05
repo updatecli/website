@@ -21,7 +21,8 @@ toc: true
 == Description
 
 The parameter "transformers" can be used by any stage definitions as "source", "condition", or "target".
-A "transformers" contains a list of transformer rules which depending on the rule modify iteratively information.
+A "transformers" contains a list of transformer. Each kind transformer rule apply a string manipulation like adding or removing characters.
+Depending on the stage, a "transformers" block achieves different objectives.
 
 **source**
 
@@ -41,13 +42,13 @@ We also deprecated string manipulation like prefix/postfix/replacer defined outs
 
 |===
 | Name | Default |Description
-| replacer |-| Replace a string with another one, more information in the replace section
+| replacer |-| Replace a string with another one, more link:#_replacer[here]
 | replacers |-| A list of Replacer
 | addPrefix |-| Add prefix to the value
 | addSuffix |-| Add suffix to the value
 | trimPrefix |-| Remove prefix to the value
 | trimSuffix |-| Remove suffix to the value
-| find |-| Search for a string value using regular expression
+| find |-| Search for a string value using regular expression and then return its value if found
 | semverInc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
 
 |===
