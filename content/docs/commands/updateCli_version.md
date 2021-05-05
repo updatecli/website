@@ -2,8 +2,8 @@
 title: updateCli version
 description: Documentation for the command `updateCli version`
 lead: Documentation for the command `updateCli version`
-date: 2021-02-05T20:03:07+01:00
-lastmod: 2021-02-05T20:03:07+01:00
+date: 2021-05-04T21:19:16+02:00
+lastmod: 2021-05-04T21:19:16+02:00
 draft: false
 images: []
 menu:
@@ -14,10 +14,6 @@ toc: true
 ---
 
 ## updateCli version
-
-Print current application version
-
-### Synopsis
 
 Print current application version
 
