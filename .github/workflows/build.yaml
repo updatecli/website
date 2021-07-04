@@ -43,8 +43,5 @@ jobs:
       - name: Check for linting errors
         run: npm test
 
-      - name: Delete temporary directories
-        run: npm run clean
-
       - name: Build production website
         run: npm run build
