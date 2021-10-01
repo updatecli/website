@@ -1,0 +1,261 @@
+---
+title: "aws/ami"
+description: "Manipulate AWS EC2 AMI information"
+lead: "kind: aws/ami"
+date: 2021-10-01T10:39:00+02:00
+lastmod: 2021-10-01T10:39:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "resources"
+weight: 130
+toc: true
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+:sectlinks:
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+**source**
+
+The `aws/ami` "source" retrieves the latest AWS AMI ID for specific filters.
+
+**condition**
+
+The `aws/ami` "condition" test that an AWS AMI exist based on specific filters.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| accessKey | | - | One of the authentication methods to specify AWS access key xref:_authentication[here].
+| secretKey | | - | One of the authentication methods to specify the secret key.
+| region | | us-east-1 | Define AWS region to use.
+| filters | &#10004; | - | Define a list of AMI filters, more information on the Filters section xref:_name[here].
+| endpoint | | ec2.<region>.amazonaws.com | Define API endpoint.
+|===
+
+=== Filter
+
+AMI are identified based on different filter such platform, name,etc.
+
+|===
+| Name | Required | Default |Description
+[cols="1,1,1,4",options=header]
+| Name | &#10004; | - | Define the filter xref:_name[Name].
+| Values | &#10004; | - | Define the filter value associated to the filter name.
+|===
+
+
+=== Name
+
+* architecture - The image architecture (i386 | x86_64 | arm64).
+
+* block-device-mapping.delete-on-termination - A Boolean value that indicates
+whether the Amazon EBS volume is deleted on instance termination.
+
+* block-device-mapping.device-name - The device name specified in the
+block device mapping (for example, /dev/sdh or xvdh).
+
+* block-device-mapping.snapshot-id - The ID of the snapshot used for the
+EBS volume.
+
+* block-device-mapping.volume-size - The volume size of the EBS volume,
+in GiB.
+
+* block-device-mapping.volume-type - The volume type of the EBS volume
+(gp2 | io1 | io2 | st1 | sc1 | standard).
+
+* block-device-mapping.encrypted - A Boolean that indicates whether the
+EBS volume is encrypted.
+
+* description - The description of the image (provided during image creation).
+
+* ena-support - A Boolean that indicates whether enhanced networking with
+ENA is enabled.
+
+* hypervisor - The hypervisor type (ovm | xen).
+
+* image-id - The ID of the image.
+
+* image-type - The image type (machine | kernel | ramdisk).
+
+* is-public - A Boolean that indicates whether the image is public.
+
+* kernel-id - The kernel ID.
+
+* manifest-location - The location of the image manifest.
+
+* name - The name of the AMI (provided during image creation).
+
+* owner-alias - The owner alias (amazon | aws-marketplace). The valid
+aliases are defined in an Amazon-maintained list. This is not the AWS
+account alias that can be set using the IAM console. We recommend that
+you use the Owner request parameter instead of this filter.
+
+* owner-id - The AWS account ID of the owner. We recommend that you use
+the Owner request parameter instead of this filter.
+
+* platform - The platform. To only list Windows-based AMIs, use windows.
+
+* product-code - The product code.
+
+* product-code.type - The type of the product code (devpay | marketplace).
+
+* ramdisk-id - The RAM disk ID.
+
+* root-device-name - The device name of the root device volume (for example,
+/dev/sda1).
+
+* root-device-type - The type of the root device volume (ebs | instance-store).
+
+* state - The state of the image (available | pending | failed).
+
+* state-reason-code - The reason code for the state change.
+
+* state-reason-message - The message for the state change.
+
+* sriov-net-support - A value of simple indicates that enhanced networking
+with the Intel 82599 VF interface is enabled.
+
+* tag:<key> - The key/value combination of a tag assigned to the resource.
+Use the tag key in the filter name and the tag value as the filter value.
+For example, to find all resources that have a tag with the key Owner
+and the value TeamA, specify tag:Owner for the filter name and TeamA for
+the filter value.
+
+* tag-key - The key of a tag assigned to the resource. Use this filter
+to find all resources assigned a tag with a specific key, regardless of
+the tag value.
+
+* virtualization-type - The virtualization type (paravirtual | hvm).
+
+== Authentication
+
+Different mechanisms can be used to authenticate with AWS API. They are applied in the following order.
+
+. xref:_environment_variables[Environment Variables]
+. xref:_shared_credentials_file[Shared Credentials Files]
+. xref:_updatecli_configuration[Updatecli configuration]
+
+=== Environment Variables
+
+updatecli retrieves credentials from the environment variables.
+
+Environment variables used:
+
+* Access Key ID: `AWS_ACCESS_KEY_ID` or `AWS_ACCESS_KEY`
+* Secret Access Key: `AWS_SECRET_ACCESS_KEY` or `AWS_SECRET_KEY`
+
+=== Shared Credentials File
+
+updatecli can retrieves credentials from the AWS cli credential file.
+By default, it looks for the file location into `AWS_SHARED_CREDENTIALS_FILE` env variable, otherwise it fall back to the current user's home directory.
+
+* Linux/OSX: "$HOME/.aws/credentials"
+* Windows:   "%USERPROFILE%\.aws\credentials"
+
+The AWS "profile" used is defined by the environment variable `AWS_PROFILE` and fallback to "default" if not defined.
+
+=== Updatecli configuration
+
+We can provide credentials directly from a updatecli configuration by using the two following settings `access_key` and `secret_key` as in the following example.
+
+.updatecli configuration
+```
+kind: aws/ami
+name: resource to manipulate aws ami id
+spec:
+  access_key: "insert AWS access key"
+  secret_key: "insert AWS secret key"
+  filters:
+    - name: "name"
+      values: "image name "
+```
+
+== Example
+
+
+```
+---
+title: Bump agent templates version on all controllers
+sources:
+  packerImageVersion:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "packer-images"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+  getLatestUbuntuAgentAMIAmd64:
+    kind: aws/ami
+    depends_on:
+      - packerImageVersion
+    spec:
+      region: us-east-2
+      filters:
+        - name: "name"
+          values: "jenkins-agent-ubuntu-20-amd64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+  getLatestWindowsAgentAMIAmd64:
+    kind: aws/ami
+    depends_on:
+      - packerImageVersion
+    spec:
+      region: us-east-2
+      filters:
+        - name: "name"
+          values: "jenkins-agent-windows-2019-amd64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+  getLatestUbuntuAgentAMIArm64:
+    kind: aws/ami
+    depends_on:
+      - packerImageVersion
+    spec:
+      region: us-east-2
+      filters:
+        - name: "name"
+          values: "jenkins-agent-ubuntu-20-arm64-*"
+        - name: "tag:build_type"
+          values: "prod"
+        - name: "tag:version"
+          values: '{{ source "packerImageVersion" }}'
+
+targets:
+  setUbuntuAgentAMIAmd64:
+    name: "Bump AMI ID for Ubuntu AMD64 agents"
+    kind: shell
+    sourceID: getLatestUbuntuAgentAMIAmd64
+    spec:
+      command: echo ubuntu-amd
+  setUbuntuAgentAMIArm64:
+    name: "Bump AMI ID for Ubuntu ARM64 agents"
+    kind: shell
+    sourceID: getLatestUbuntuAgentAMIArm64
+    spec:
+      command: echo ubuntu-arm
+  setWindowsAgentAMIAmd64:
+    name: "Bump AMI ID for Windows ARM64 agents"
+    kind: shell
+    sourceID: getLatestWindowsAgentAMIAmd64
+    spec:
+      command: echo windows-amd
+```
