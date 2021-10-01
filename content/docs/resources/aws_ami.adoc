@@ -45,7 +45,14 @@ The `aws/ami` "condition" test that an AWS AMI exist based on specific filters.
 | region | | us-east-1 | Define AWS region to use.
 | filters | &#10004; | - | Define a list of AMI filters, more information on the Filters section xref:_name[here].
 | endpoint | | ec2.<region>.amazonaws.com | Define API endpoint.
+| sortBy | | | Override default sorting, more information on xref:_sortby[sortBy]
 |===
+
+=== SortBy
+
+Considering that the AMI resource is designed to manipulate the latest AMI found based on filters, the parameter `SortBy` can be used to specify how the list of results is sorted which affects the latest element returned.
+
+`sortBy` accept one of the following `creationDateAsc` and `creationDateDesc` where they will respectively return the newest or the oldest AMI ID based on creation time.
 
 === Filter
 
