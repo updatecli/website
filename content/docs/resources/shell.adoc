@@ -43,6 +43,7 @@ The Shell "targets" delegates the update of your files to a shell command with a
 |===
 | Name | Required | Default |Description
 | command | &#10004; | | Command to execute (Linux or Windows)
+| suppressSource | | False | Boolean that suppress the source append to command if set to True
 |===
 
 == Shell Source
@@ -154,6 +155,37 @@ stderr=
 stdout=
 
 ✗ condition not met, skipping pipeline
+--
+
+In this example the command is executed without the source appended:
+
+[source,yaml]
+--
+# source-shell-OK.yaml
+conditions:
+  checkIfMavenReleaseIsAvailable:
+    kind: shell
+    sourceID: mavenVersion
+    spec:
+      command: curl https://google.com
+      suppressSource: true
+--
+
+[source,shell]
+--
+$ updatecli diff --config=./source-shell-OK.yaml
+# ...
+
+CONDITIONS:
+===========
+✔ The shell 🐚 command "curl https://google.com" successfully validated the condition.
+ # ...
+ Run Summary
+ ===========
+ 1 job run
+ 0 job succeed
+ 0 job failed
+ 1 job applied changes
 --
 
 == Shell Target
