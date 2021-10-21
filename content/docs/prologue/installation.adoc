@@ -17,6 +17,13 @@ toc: true
 
 Updatecli is available on https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
 
+== Homebrew
+
+[source,shell]
+----
+brew tap updatecli/updatecli
+brew install updatecli
+----
 
 == Docker
 A docker image is also available on:
