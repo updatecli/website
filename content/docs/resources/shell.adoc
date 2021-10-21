@@ -216,7 +216,7 @@ Consider the following shell script `target.sh`:
 # - if different than $1 and DRY_RUN is set to:
 #   - "false" then it updates it with the value of $1
 #   - "true" then it only reports the value of $1
-# - otherwise it exists without any value reported
+# - otherwise it exits without any value reported
 version_file=version.txt
 
 if test "$1" == "$(cat "${version_file}")"
