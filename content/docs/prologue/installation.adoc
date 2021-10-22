@@ -13,6 +13,11 @@ weight: 119
 toc: true
 ---
 
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
 == Packages
 
 Updatecli is available on https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
