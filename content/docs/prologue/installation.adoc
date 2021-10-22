@@ -22,11 +22,12 @@ toc: true
 
 Updatecli is available on https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
 
-== Mac OSX via Homebrew
+== macOS via Homebrew
 
-`Homebrew` is the easiest way to install `updatecli` on a Mac. See the https://brew.sh/[Homebrew documentation] for installation and usage explanations.
+link:https://brew.sh/[Homebrew] is the easiest way to install `updatecli` on macOS. 
+See the link:https://brew.sh/[Homebrew documentation] for installation and usage explanations.
 
-First configure the `updatecli` third-party repository (called a "tap") with: 
+First configure the `updatecli` third-party repository (called a link:https://docs.brew.sh/Taps["tap"]) with: 
 
 [source,shell]
 ----
@@ -40,7 +41,8 @@ Then proceed with the actual installation with:
 brew install updatecli
 ----
 
-To check, later, if a newer version is available, use `brew outdated updatecli`. Should you then want to upgrade to the latest version, use `brew upgrade updatecli`.
+To check, later, if a newer version is available, use `brew outdated updatecli`. 
+Should you then want to upgrade to the latest version, use `brew upgrade updatecli`.
 
 == Docker
 A docker image is also available on:
