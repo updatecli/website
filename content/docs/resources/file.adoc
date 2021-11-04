@@ -1,15 +1,15 @@
 ---
 title: "File"
-description: "Manipulate File information"
+description: "Read and write file content"
 lead: "kind: file"
 date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "resources"
-weight: 130 
+weight: 130
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -27,164 +27,685 @@ toc: true
 
 **source**
 
-The File "source" retrieve a file content.
+The File "source" retrieves the content of a file (from the local filesystem or from a remote URL).
 
 **condition**
 
-The File "condition" test if a file content match.
+The File "condition" tests if the content of a file (either local or remote URL) matches the specified constraints.
 
 **target**
 
-The File "target" test if the file content match in the targeted file and update it if necessary.
+The File "target" updates a the content of a file (only local filesystem) from the input source value and specified constraints.
 
 == Parameters
+
+The following parameters can be specified through the `spec` attributes map:
 
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
-| file | &#10004; | | Set file name
-| content | | source output | Set File content
+| file | &#10004; | | Path to the file (either local filesystem or an URL)
+| content | | | (Only for condition and target) Expected content of the file
+| line | | | Number (integer starting at `1`) of the line to use/update in the file
+| matchPattern | | | Regex to match content in the file (https://pkg.go.dev/regexp[Golang regexp syntax])
+| replacepattern | | | (Only for target) Regex to replace content matched by `matchPattern` in the file from the `match` (https://pkg.go.dev/regexp[Golang regexp syntax])
+| forcecreate | | false | (Only for target) Wether to create the file if the specified location does not exist.
 |===
 
-=== File
-When used from a source or condition, `file` can accept different value
-If the value start with `https://` or `http://` then it will read the file from a http location
-If the value start with `file://` then it means that we explicitely want to read a file
-Otherwise any other file name is accepted.
+=== File Location
 
-== Example
+The location of the file (attribute `file`) can be specified as an URL (prefixed with `https://` or `http://`) or as a local filesystem path (optional prefix `file://` or any relative or absolute path of the current operating system: Unix or Windows)
 
-.updatecli.file
-```
+== File Source
+
+It retrieves the content of the file at the location `file` and use it as the source value.
+
+:bulb: Please note that the source value might be a multiline string with endline characters.
+
+⚠️ A file source does not support the following attributes (and is expected to error):
+
+* `content`
+* `forcecreate`
+* `replacepattern`
+
+=== Filtering File Source Content
+
+You may filter the content with one of the options below:
+
+* If the attribute `spec.line` is specified, then the source value is set to the content of this line only
+* If the attribute `spec.matchPattern` is specified, then the source value is set to the matched content in the file
+** The specified pattern must be a valid https://pkg.go.dev/regexp[Golang regexp]
+** When there are no matched content (e.g. the matched content is the empty string), then the source fails
+
+
+=== Source Examples
+
+* The following example should result in a source value set to the whole content of the file `./README.md`:
++
+[source,yaml]
+.updateCli.yaml:
 --
-source:
-  kind: file
-  spec:
-    # Test url
-    # file: https://get.helm.sh/helm-v3.5.0-darwin-amd64.tar.gz.sha256sum
-    # Test file url
-    #file: file://LICENSE
-    # Test file
-    file: LICENSE
-  scm:
-    github:
-      user: "{{ .github.user }}"
-      email: "{{ .github.email }}"
-      owner: "{{ .github.owner }}"
-      repository: "{{ .github.repository }}"
-      token: "{{ requiredEnv .github.token }}"
-      username: "{{ .github.username }}"
-      branch: "{{ .github.branch }}"
+sources:
+  ContentFromLocalFile:
+    kind: file
+    spec:
+      file: README.md
+--
++
+[source,markdown]
+.README.md:
+--
+# Read Me
+Hello world
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+SOURCES
+=======
+
+ContentFromLocalFile
+--------------------
+✔ Content: found from file "README.md":
+# Read Me
+Hello world
+
+=============================
+# ...
+--
+
+* The following example should result in a source value set to the whole content of the file located at the URL `https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS`:
++
+[source,yaml]
+.updateCli.yaml:
+--
+sources:
+  ContentFromURL:
+    kind: file
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+SOURCES
+=======
+
+ContentFromURL
+--------------
+✔ Content: found from file "https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS":
+363d0e0c5c4cb4e69f5f2c7f64f9bf01ab73af0801665d577441521a24313a07  terraform_0.14.5_darwin_amd64.zip
+5a3e0c7873faa048f59d563a2a98caf7f04045967cbb5ad6cf05f5991e20b8d1  terraform_0.14.5_freebsd_386.zip
+4b7f2b878a9854652493b2c94ac586586f2ab53f93e3baa55fc2199ccd5a042d  terraform_0.14.5_freebsd_amd64.zip
+03c201a9a3e1d2776d0cfc0163e52484f3dbbbd73eb08d5bac491ca87a9aa3b7  terraform_0.14.5_freebsd_arm.zip
+b262998c85a7cad1c24b90f3d309d592bd349d411167a2939eb482dc2b99702d  terraform_0.14.5_linux_386.zip
+2899f47860b7752e31872e4d57b1c03c99de154f12f0fc84965e231bc50f312f  terraform_0.14.5_linux_amd64.zip
+a971a5f5da82ea896a2e91fd828c90ea9c28e3de575d03a7ce25a5840ed7ae2b  terraform_0.14.5_linux_arm.zip
+d3cab7d777eec230b67eb9723f3b271cd43e29c688439e4c67e3398cdaf6406b  terraform_0.14.5_linux_arm64.zip
+67b153c8c754ca03e3f8954b201cf27ec31387c8d3c77d302d647417bc4a23f4  terraform_0.14.5_openbsd_386.zip
+062fbc3f596490e33e6493a8e186ae50e7b6077ac2a842392991d918189187fc  terraform_0.14.5_openbsd_amd64.zip
+f66920ffedd7e81cd116d185ada479ba466f5514f8b20194cc180d3c6184e060  terraform_0.14.5_solaris_amd64.zip
+f8bf1fca0ef11a33955d225198d1211e15827d43488cc9174dcda14d1a7a1d19  terraform_0.14.5_windows_386.zip
+5d25f9afc71fc49d5f3e8c7ccc3ccd83a840c56e7a015f55f321fc970a73050b  terraform_0.14.5_windows_amd64.zip
+
+=============================
+# ...
+--
+
+* The following example should result in a source value set to `Hello World` (e.g. the 2nd line of the file `./README.md`):
++
+[source,yaml]
+.source-file.yaml:
+--
+sources:
+  ContentFromLocalFile:
+    kind: file
+    spec:
+      file: README.md
+      line: 2
+--
++
+[source,markdown]
+.README.md:
+--
+# Read Me
+Hello world
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+SOURCES
+=======
+
+ContentFromLocalFile
+--------------------
+✔ Content: found from file "README.md":
+Hello world
+
+=============================
+# ...
+--
+
+* The following example should result in a source value set to `2899f47860b7752e31872e4d57b1c03c99de154f12f0fc84965e231bc50f312f  terraform_0.14.5_linux_amd64.zip` (e.g. the only line matching the pattern `'.*terraform_.*_linux_amd64.*'` at the URL `https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS`):
++
+[source,yaml]
+.updateCli.yaml:
+--
+sources:
+  ContentFromURL:
+    kind: file
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+      matchPattern: '.*terraform_.*_linux_amd64.*'
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+SOURCES
+=======
+
+ContentFromURL
+--------------
+✔ Content: found from file "https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS":
+2899f47860b7752e31872e4d57b1c03c99de154f12f0fc84965e231bc50f312f  terraform_0.14.5_linux_amd64.zip
+
+=============================
+# ...
+--
+
+== File Condition
+
+It checks that the content of the file matches the specified content and continue the pipeline execution,
+or fails the pipeline (and never run the pipeline's targets).
+
+
+⚠️ A file condition does not support the following attributes (and is expected to error):
+
+* `forcecreate`
+* `replacepattern`
+
+=== Condition Input Value
+
+The "Input Value" is the string to compare with the specified file content.
+
+By default, the input value is set to the input source value associated to the condition
+(e.g. either the source specified with the `sourceID` attribute or the only source if the pipeline only have one).
+
+Alternatively you can disable the source input value with `disablesourceinput: true` and specify a custom content  with the `spec.content` attribute (see examples below).
+
+⚠️ If both a source input value and a `spec.content` are detected, then the condition fails with an error.
+
+=== Filtering File Condition Content
+
+You may filter the content of the file to be compared to the <<Input Value>> with one of the options below:
+
+* If the attribute `spec.line` is specified, then the input value is only compared to the content of this line
+* If the attribute `spec.matchPattern` is specified, then the input value is only compared to the matched content in the file
+** The specified pattern must be a valid https://pkg.go.dev/regexp[Golang regexp]
+
+=== Condition Examples
+
+* The following example returns "true" if the content of the file `./LICENSE` is the same as
+the value of the source named `ContentFromURL`:
++
+[source,yaml]
+--
 conditions:
-  # Test that it doesn't match
-  #condition0:
-  #  name: condition0
-  #  kind: file
-  #  spec:
-  #    file: CODEOWNERS
-  condition1:
-    name: condition1
+  LocalFileHasSameContentAsSource:
+    kind: file
+    sourceID: ContentFromURL
+    spec:
+      file: LICENSE
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+CONDITIONS:
+===========
+
+LocalFileHasSameContentAsSource
+-------------------------------
+✔ Content of the file "LICENSE" is the same as the input source value.
+
+=============================
+--
+
+* The following example returns "true" if the content of the URL `https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS` is the same as
+the value of the source named `checksums`:
++
+[source,yaml]
+.updateCli.yaml
+--
+# ...
+conditions:
+  URLHasSameContentAsSource:
+    kind: file
+    sourceID: checksums
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+CONDITIONS:
+===========
+
+URLHasSameContentAsSource
+-------------------------------
+✔ Content of the file "https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS" is the same as the input source value.
+
+=============================
+--
+
+* The following example returns "true" if the line n°2 of the local file `README.md` is equal to the specified content `Hello world` (input value defers to `spec.content` as the input source is disabled):
++
+[source,yaml]
+.updateCli.yaml
+--
+conditions:
+  LocalFileHasLineMatchingCustomContent:
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: README.md
+      line: 2
+      content: 'Hello world'
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+CONDITIONS:
+===========
+
+LocalFileHasLineMatchingCustomContent
+-------------------------------------
+✔ Content of the file "README.md" (line 2) is the same as the specified content.
+
+=============================
+--
+
+* The following example returns "true" if the line n°5 of the local file `README.md` exists (e.g. is not empty, because no source input value and no `spec.content` are specified):
++
+[source,yaml]
+.updateCli.yaml
+--
+conditions:
+  LocalFileHasLine2NonEmpty:
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: README.md
+      line: 2
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+CONDITIONS:
+===========
+
+LocalFileHasLine2NonEmpty
+-------------------------
+✔ Content of the file "README.md" (line 2) is not empty and the file exists.
+
+=============================
+--
+
+* The following example returns "true" if the content from the URL `https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS` matches the pattern `'.*terraform_.*_linux.*'` (there are 4 lines matching this pattern in this example):
++
+[source,yaml]
+.updateCli.yaml
+--
+conditions:
+  UrlContentMatchesPattern:
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+      matchPattern: '.*terraform_.*_linux.*'
+--
++
+[source,shell]
+--
+$ updatecli apply
+# ...
+
+CONDITIONS:
+===========
+
+UrlContentMatchesPattern
+------------------------
+✔ Content of the file "https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS" matched the pattern ".*terraform_.*_linux.*"
+
+=============================
+--
+
+== File Target
+
+It writes the input value into the specified file.
+The content update can be restricted (see the section <<Restricting File Content Update>> below) and the file can be created if it does not exist.
+
+⚠️ A file target only supports local files but does not support URLs (remote files).
+
+=== Create File When Absent
+
+By default, a file target errors when the specified file does not exist.
+
+If you want to force the creation of the file prior to the file target execution,
+you can specify the `spec.forcecreate` attribute to `true`.
+
+⚠️ If the attribute `spec.line` is defined along with `spec.forcecreate`, then the target is expected to fail, as it makes no sense to write a line in a file which does not exist.
+
+=== Target Input Value
+
+The "Input Value" is the string to write to the specified file.
+
+* By default, the input value is set to the input source value associated to the target
+(e.g. either the source specified with the `sourceID` attribute or the only source if the pipeline only have one).
+
+* You can also specify a custom content with the `spec.content` attribute instead of using the input source value.
+Using the `spec.content` is useful when you need to templatize with the source input value (see example below).
+
+* Finally, you can define a https://pkg.go.dev/regexp[Golang regexp] in the attribute `spec.ReplacePattern`,
+if and only if you also specified a `spec.matchPattern` (see <<Restricting File Content Update>> and <<Target Examples>> for more details).
+** Regexp's capturing group are supported (this is the recommended use case)
+
+=== Restricting File Content Update
+
+You may restrict which part of the specified file to be updated with the input value with the following options:
+
+* If the attribute `spec.line` is specified, then the input value is only written to the specified line.
+** When the input value is a multi-line string, then additional lines are inserted (the 1st line of the input value is written to the specified line, and subsequent input value's lines are inserted)
+
+* If the attribute `spec.matchPattern` is specified, then all the matching patterns are replaced by the input value.
+** The specified pattern must be a valid https://pkg.go.dev/regexp[Golang regexp]
+** As described in <<Target Input Value>>, the input value can be the input source, a content string or a regexp "replace pattern"
+** Please note that the matched content can be a line but also a substring!
+
+=== Target Examples
+
+* The following target writes the result of the input source `generatedReadMeContent` to the file `README.md` (overriding the existing content) and creates the file if does not exist:
++
+[source,yaml]
+.updateCli.yaml:
+--
+# ..
+targets:
+  setFileContent:
+    kind: file
+    sourceID: generatedReadMeContent
+    spec:
+      file: README.md
+      forcecreate: true
+--
++
+[source,shell]
+--
+$ updatecli diff
+
+#...
+TARGETS
+========
+
+setFileContent
+--------------
+
+**Dry Run enabled**
+
+Creating a new file at "README.md"
+✔ File content for "README.md", updated.
+
+<
+---
+> # ReadMe
+> Hello world
+--
+
+* The following target only overrides the 3rd line of the file `versions.txt` with the templatized value specified with the `spec.content` attribute.
+In this example, is defines a new version from the input source named `getMavenVersion`:
++
+[source,yaml]
+.updateCli.yaml:
+--
+# ..
+targets:
+  updateCopyrightYear:
+    kind: file
+    sourceID: getMavenVersion # Source Value is "3.8.3"
+    spec:
+      file: versions.txt
+      line: 3
+      content: maven_version = "{{ source `getMavenVersion` }}"
+--
++
+[source,shell]
+--
+$ updatecli diff
+
+#...
+TARGETS
+========
+
+setLineOfFileWithContent
+------------------------
+
+**Dry Run enabled**
+
+✔ The line 3 of the file "versions.txt" was updated:
+
+< maven_version = "3.6.2"
+---
+> maven_version = "3.8.3"
+--
+
+
+* The following target replaces, in the file `LICENSE`, the string occurrences matched by the pattern `Copyright \(c\) (\d*) (.\*)` by
+the string `Copyright (c) 2021 $2` where `$2` is the content right-matched by `(.*)`
+(e.g this example updates the year on the "Copyright" substrings to 2021 while keeping the existing content such as contributors).:
++
+[source,yaml]
+.updateCli.yaml:
+--
+# ..
+targets:
+  updateCopyrightYear:
+    kind: file
+    sourceID: whateverSource # Will be ignored as `replacepattern` is specified
+    spec:
+      file: LICENSE
+      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      replacepattern: 'Copyright (c) 2021 $2'
+--
++
+[source,shell]
+--
+$ updatecli diff
+
+TARGETS
+========
+
+updateCopyrightYear
+--------------
+
+**Dry Run enabled**
+
+✔ File content for "LICENSE", updated.
+
+< Copyright (c) 2020 Olblak
+---
+> Copyright (c) 2021 Olblak
+--
+
+
+== Reference
+
+
+[source,yaml]
+----
+---
+title: Show a set of file resources as a generic example
+sources:
+  ContentFromLocalFile:
     kind: file
     spec:
       file: LICENSE
-  condition2:
-    name: condition2
+  ContentFromURL:
+    kind: file
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+  LineFromLocalFile:
     kind: file
     spec:
       file: LICENSE
-      # !!! \n is important at the end of the file
-      content: |
-        MIT License
-
-        Copyright (c) 2020 Olblak
-
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
-
-        The above copyright notice and this permission notice shall be included in all
-        copies or substantial portions of the Software.
-
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-  condition3:
-    name: condition3
+      line: 3
+  LineFromURL:
     kind: file
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+      line: 3
+  SingleLineFromFileWithPattern:
+    kind: file
+    spec:
+      file: LICENSE
+      matchPattern: 'Copyright.*' # Returns a single line
+  MultipleLinesFromURLWithPattern:
+    kind: file
+    spec:
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+      matchPattern: '.*terraform_.*_linux.*' # Returns a multi-line content as multiple lines are matched
+conditions:
+  LocalFileHasSameContentAsSource:
+    kind: file
+    sourceID: ContentFromLocalFile
+    spec:
+      file: LICENSE
+  URLFileMatchesSpecifiedContent:
+    kind: file
+    disablesourceinput: true
     spec:
       file: https://get.helm.sh/helm-v3.5.0-darwin-amd64.tar.gz.sha256sum
       content: |
         53378d8de087395ece3876795111a8077f2451f080ec6150d777cc3105214520  helm-v3.5.0-darwin-amd64.tar.gz
-  condition4:
-    name: condition4
+  LocalFileHasLine:
     kind: file
-    spec:
-      file: /home/olblak/Project/Olblak/updatecli/LICENSE
-      content: |
-        MIT License
-
-        Copyright (c) 2020 Olblak
-
-        Permission is hereby granted, free of charge, to any person obtaining a copy
-        of this software and associated documentation files (the "Software"), to deal
-        in the Software without restriction, including without limitation the rights
-        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        copies of the Software, and to permit persons to whom the Software is
-        furnished to do so, subject to the following conditions:
-
-        The above copyright notice and this permission notice shall be included in all
-        copies or substantial portions of the Software.
-
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
-targets:
-  file1:
-    name: target1
-    kind: file
+    disablesourceinput: true
     spec:
       file: LICENSE
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-  file2:
-    name: target2
+      line: 5 # The file './LICENSE' has a 5th line which is NOT empty
+  URLFileHasLineMatchingSource:
     kind: file
+    sourceID: LineFromURL
     spec:
-      file: CODEOWNERS
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-```
+      file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+      line: 3 # The line 3 of the file matches the source LineFromURL
+  LocalFileHasLineMatchingSource:
+    kind: file
+    sourceID: LineFromLocalFile
+    spec:
+      file: LICENSE
+      line: 3 # The file './LICENSE' has a 3rd line which is NOT empty and matches the source LineFromLocalFile
+  LocalFileHasLineMatchingCustomContent:
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: LICENSE
+      line: 3
+      content: '{{ source `LineFromLocalFile` }}'
+  LocalFileMatchesPattern:
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: "LICENSE"
+      matchPattern: 'Copyright \(c\) (\d*) Olblak'
+  ######## Expected Failures
+  ## Should fail condition if uncommented
+  # LocalFileHasDifferentContentAsSource:
+  #   kind: file
+  #   sourceID: ContentFromURL
+  #   spec:
+  #     file: LICENSE
+  # URLFileDifferentThanSpecifiedContent:
+  #   kind: file
+  #   disablesourceinput: true
+  #   spec:
+  #     file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
+  #     content: |
+  #       53378d8de087395ece3876795111a8077f2451f080ec6150d777cc3105214520  helm-v3.5.0-darwin-amd64.tar.gz
+  # LocalFileDoesNotHasLine:
+  #   kind: file
+  #   disablesourceinput: true
+  #   spec:
+  #     file: LICENSE
+  #     line: 12345 # The file './LICENSE' does NOT have a 12345th line
+  ## Should fail validation if uncommented
+  # FailsToValidateBecauseMutuallyExclusiveAttributes:
+  #   kind: file
+  #   sourceID: ContentFromLocalFile
+  #   spec:
+  #     file: https://get.helm.sh/helm-v3.5.0-darwin-amd64.tar.gz.sha256sum
+  #     content: |
+  #       53378d8de087395ece3876795111a8077f2451f080ec6150d777cc3105214520  helm-v3.5.0-darwin-amd64.tar.gz
+targets:
+  setFileContent:
+    kind: file
+    sourceID: ContentFromURL
+    spec:
+      file: terraform_0.14.5_SHA256SUMS
+      forcecreate: true
+  setLineOfFile:
+    kind: file
+    sourceID: LineFromLocalFile
+    spec:
+      file: LICENSE
+      line: 5
+  setLineOfFileWithContent:
+    kind: file
+    sourceID: LineFromLocalFile
+    spec:
+      file: LICENSE
+      line: 3
+      content: oldline was "{{ source `LineFromLocalFile` }}"
+  setLineWithMatchAndReplacePatterns:
+    kind: file
+    sourceID: ContentFromURL
+    spec:
+      file: LICENSE
+      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      replacepattern: 'Copyright (c) 2021 $2'
+  setLineWithMatchAndContent:
+    kind: file
+    sourceID: ContentFromURL
+    spec:
+      file: LICENSE
+      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      content: 'Copyright (c) 2021 FooBar'
+  setLineWithMatchAndSource:
+    kind: file
+    sourceID: ContentFromURL
+    spec:
+      file: LICENSE
+      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+----
