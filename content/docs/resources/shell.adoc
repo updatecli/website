@@ -39,11 +39,12 @@ The Shell "targets" delegates the update of your files to a shell command with a
 
 == Parameters
 
+The following parameters can be specified through the `spec` attributes map:
+
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
 | command | &#10004; | | Command to execute (Linux or Windows)
-| suppressSource | | False | Boolean that suppress the source append to command if set to True
 |===
 
 == Shell Source
@@ -60,8 +61,8 @@ The error prints the content from both standard error (stderr) and output (stdou
 * The following example should result in a source value of `1.2.3`:
 +
 [source,yaml]
+.updateCli.yaml:
 --
-# source-shell-OK.yaml
 sources:
   example:
     kind: shell
@@ -71,7 +72,7 @@ sources:
 +
 [source,shell]
 --
-$ updatecli --config=./source-shell-OK.yaml apply
+$ updatecli apply
 # ...
 
 SOURCE:
@@ -85,8 +86,8 @@ SOURCE:
 * The following example should result in a failing source:
 +
 [source,yaml]
+.updateCli.yaml:
 --
-# source-shell-FAIL.yaml
 sources:
   example:
     kind: shell
@@ -96,7 +97,7 @@ sources:
 +
 [source,shell]
 --
-$ updatecli --config=./source-shell-FAIL.yaml apply
+$ updatecli apply
 # ...
 
 SOURCE:
@@ -115,11 +116,11 @@ The command provided by your `spec` section is executed by `updatecli` to valida
 * If the commands runs successfully (e.g. with an exit code of zero), then the condition is validated.
 * Otherwise (an exit code different than zero) the condition is marked as not valid, and both the standard error and outputs are logged.
 
-The source associated to this condition (the default source or through the key `sourceID`) is appended as the last argument to the command line.
+💡 The source associated to this condition (the default source or through the key `sourceID`) is appended as the last argument to the command line unless the attribute `disablesourceinput` is set to `true`.
 
 === Condition Examples
 
-The following example shows how to test if the value from the source named `newVersion` equals to `1.2.3`:
+The following examples show how to test if the value from the source named `newVersion` equals to `1.2.3`:
 
 [source,yaml]
 --
@@ -160,20 +161,19 @@ stdout=
 In this example the command is executed without the source appended:
 
 [source,yaml]
+.updateCli.yaml:
 --
-# source-shell-OK.yaml
 conditions:
   checkIfMavenReleaseIsAvailable:
     kind: shell
-    sourceID: mavenVersion
+    disablesourceinput: true
     spec:
       command: curl https://google.com
-      suppressSource: true
 --
 
 [source,shell]
 --
-$ updatecli diff --config=./source-shell-OK.yaml
+$ updatecli apply
 # ...
 
 CONDITIONS:
@@ -200,9 +200,9 @@ The command provided by your `spec` section is executed by `updatecli` to change
 
 Please note that:
 
-* ℹ️ The source associated to this target (the default source or through the key `sourceID`) is appended as the last argument to the command line.
+* 💡 The source associated to this target (the default source or through the key `sourceID`) is appended as the last argument to the command line.
 
-* ℹ️ The environment variable `DRY_RUN` is set to the value `true` when using `updatecli diff` to report that any change should only be reported and not applied.
+* 💡 The environment variable `DRY_RUN` is set to the value `true` when using `updatecli diff` to report that any change should only be reported and not applied.
 
 === Target Examples
 
@@ -237,11 +237,11 @@ else
 fi
 --
 
-With this updatecli configuration `shell-target.yaml`:
+With the following manifest:
 
 [source,yaml]
+.updateCli.yaml:
 --
-# shell-target.yaml
 sources:
   default:
     kind: shell
@@ -265,7 +265,7 @@ You would have the following behaviors:
 $ cat version.txt
 1.0.0
 
-$ updatecli --config=./shell-target.yaml diff
+$ updatecli diff
 #...
 
 TARGETS:
@@ -283,7 +283,7 @@ $ cat version.txt
 +
 [source,shell]
 --
-$ updatecli --config=./shell-target.yaml apply
+$ updatecli apply
 #...
 
 TARGETS:
