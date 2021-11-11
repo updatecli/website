@@ -48,7 +48,8 @@ We also deprecated string manipulation like prefix/postfix/replacer defined outs
 | addSuffix |-| Add suffix to the value
 | trimPrefix |-| Remove prefix to the value
 | trimSuffix |-| Remove suffix to the value
-| find |-| Search for a string value using regular expression and then return its value if found
+| find |-| Search for a string value using regular expression and then return its value exist
+| findSubMatch |-| Search for a substring using regular expression and then return its content
 | semverInc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
 
 |===
