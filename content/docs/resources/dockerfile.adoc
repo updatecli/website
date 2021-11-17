@@ -152,8 +152,9 @@ the following keyword are currently supported:
 
 * <<FROM>>
 * <<ARG>>
+* <<ENV>>
 
-If you need an unsupported keyword, or an unsuported scenario:
+If you need an unsupported keyword, or an unsupported scenario:
 
 * Consider using the method <<By Specific Coordinates>>
 * Do not hesitate to add the keyword support by https://github.com/updatecli/updatecli/blob/main/doc/CONTRIBUTING.adoc[contributing to updatecli, window="_blank"]
@@ -195,20 +196,20 @@ FROM alpine:latest
 ## Does NOT matches
 FROM ubuntu:20.04
 FROM debian:buster AS alpine
-FROM moutain:alpine
+FROM mountain:alpine
 FROM ALPINE:3.11
 ----
 
 ==== ARG
 
-Matches https://docs.docker.com/engine/reference/builder/#arg[Dockerfile ARG, window="_blank"] instructions by argument's key to manipulate their argument's values.
+Matches https://docs.docker.com/engine/reference/builder/#arg[Dockerfile ARG, window="_blank"] instruction by key to manipulate their values.
 
-* Matches *only* on the argument's key (left of the `=` when present)
+* *Only* matches by key (left of the `=` when present)
 ** Matching is case sensitive
 
 * When used as a target, *only* the value of the argument (right of the `=` when present)
 ** When no argument value is found (e.g. default value, no character `=` or empty value),
-  then UpdateCli append the `=` characted followed by the value.
+  then updatecli appends the `=` character followed by the value.
 
 With the following definition:
 
@@ -237,6 +238,52 @@ ARG RUST_VERSION=UPDATECLI_VERSION
 ARG updatecli_version
 ----
 
+==== ENV
+
+Matches https://docs.docker.com/engine/reference/builder/#env[Dockerfile ENV, window="_blank"] instruction by keys to manipulate their values.
+
+* *Only* matches on the environment key (left of the `=` when present)
+** Matching is case sensitive
+
+* *Only* matches single and valid key/value pairs:
+** `ENV foo=bar` is supported
+** `ENV foo=bar toto=titi` is NOT supported
+** `ENV foo` is NOT supported (invalid Dockerfile instruction as a value is mandatory)
+
+* When used as a target, *only* the value of the environment (right of the `=` when present)
+** When no environment value is found (e.g. default value, no character `=` or empty value),
+  then updatecli appends the `=` character followed by the value.
+
+With the following definition:
+
+[source, yaml]
+----
+spec:
+  file: Dockerfile
+  instruction:
+    keyword: "ENV"
+    matcher: "UPDATECLI_VERSION"
+----
+
+you get the following results:
+
+[source, Dockerfile]
+----
+# Matches
+ENV UPDATECLI_VERSION=0.1.0
+env UPDATECLI_VERSION=0.1.0
+
+## Does NOT matches
+# Invalid
+ENV GOLANG_VERSION
+# No match
+ENV RUST_VERSION=UPDATECLI_VERSION
+# lower case: no match
+ENV updatecli_version
+# Multiple key/value pairs
+ENV FOO=BAR UPDATECLI_VERSION=0.1.0
+----
+
 == By Specific Coordinates
 
 === Parameters
@@ -256,7 +303,7 @@ Updatecli represents internally a Dockerfile as a two-dimensional array where th
 
 In the following example "Dockerfile", the first dimension is ["FROM","LABEL","LABEL"]
 
-.Dockefile
+.Dockerfile
 ```
 FROM jenkins/jenkins:2.274
 LABEL maintainer=olblak
