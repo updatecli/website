@@ -21,14 +21,10 @@ toc: true
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10004; | &#10004;
+| &#10007; | &#10004; | &#10004;
 |===
 
 == Description
-
-**source**
-
-The Dockerfile "source" retrieves information from a Dockerfile then use it for later stages
 
 **condition**
 
