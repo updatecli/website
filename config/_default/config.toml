@@ -76,6 +76,7 @@ rel  = "sitemap"
 
 [taxonomies]
   contributor = "contributors"
+  plugin = "plugins"
 
 [permalinks]
   blog = "/blog/:title/"
