@@ -16,18 +16,17 @@
   identifier = "scm"
   url = "/docs/scm/"
 
-
-[[docs]]
-  name = "Resources"
-  weight = 40
-  identifier = "resources"
-  url = "/docs/resources/"
-
 [[docs]]
   name = "Commands"
   weight = 50
   identifier = "commands"
   url = "/docs/commands/"
+
+[[docs]]
+  name = "Plugins"
+  weight = 50
+  identifier = "plugins"
+  url = "/plugins/"
 
 [[docs]]
   name = "Automate"

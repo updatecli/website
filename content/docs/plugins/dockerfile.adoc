@@ -8,9 +8,12 @@ draft: false
 images: []
 menu:
   docs:
-    parent: "resources"
+    parent: "plugins"
 weight: 130
 toc: true
+plugins:
+  - condition
+  - target
 ---
 // <!-- Required for asciidoctor -->
 :toc:
