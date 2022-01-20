@@ -8,11 +8,9 @@ draft: false
 images: []
 menu: 
   docs:
-    parent: "plugins"
+    parent: "resources"
 weight: 130 
 toc: true
-plugins:
-  - source
 ---
 // <!-- Required for asciidoctor -->
 :toc:
@@ -50,7 +48,7 @@ It's important to notice that both information are mutually exclusive.
 |===
 
 
-include::content/docs/plugins/_versionFilter.adoc[]
+include::content/docs/resources/_versionFilter.adoc[]
 
 **Remark**:
 

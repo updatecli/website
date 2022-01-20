@@ -1,30 +1,13 @@
 {{ $currentPage := . -}}
 {{ range .Site.Menus.docs -}}
   <h3>{{ .Name }}</h3>
-
-  {{ if ne .Name "Plugins" }}
-
-      <!-- Custom updatecli logic to improve plugins visualiation in the side menu -->
-
-      {{ if .HasChildren -}}
-      <ul class="list-unstyled">
-        {{ range .Children -}}
-          {{- $active := or ($currentPage.IsMenuCurrent "docs" .) ($currentPage.HasMenuCurrent "docs" .) -}}
-          {{- $active = or $active (eq .Name $currentPage.Title) -}}
-          <li><a class="docs-link{{ if $active }} active{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
-        {{ end -}}
-      </ul>
-      {{ end -}}
-    {{ else }}
-    {{ range $name, $plugin := $.Site.Taxonomies.plugins }}
-      {{ with $.Site.GetPage (printf "/plugins/%s" $name) }}
-        <a class="docs-link" href="{{ .Permalink }}"><b>{{ $name }}</b></a>
-        <ul class="list-unstyled">
-            {{ range $plugin }}
-              <li><a class="docs-link" href="{{ .Permalink }}" >&nbsp;&nbsp;&nbsp;&nbsp;{{ .Title }}</a></li>
-            {{ end }}
-        </ul>
-      {{ end }}
-    {{ end }}
-    {{ end }}
+  {{ if .HasChildren -}}
+  <ul class="list-unstyled">
+    {{ range .Children -}}
+      {{- $active := or ($currentPage.IsMenuCurrent "docs" .) ($currentPage.HasMenuCurrent "docs" .) -}}
+      {{- $active = or $active (eq .Name $currentPage.Title) -}}
+      <li><a class="docs-link{{ if $active }} active{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+    {{ end -}}
+  </ul>
+  {{ end -}}
 {{ end -}}

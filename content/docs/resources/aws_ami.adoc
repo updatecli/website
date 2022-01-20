@@ -1,5 +1,5 @@
 ---
-title: "Amazon AMI"
+title: "aws/ami"
 description: "Manipulate AWS EC2 AMI information"
 lead: "kind: aws/ami"
 date: 2021-10-01T10:39:00+02:00
@@ -8,12 +8,9 @@ draft: false
 images: []
 menu:
   docs:
-    parent: "plugins"
+    parent: "resources"
 weight: 130
 toc: true
-plugins:
-  - source
-  - condition
 ---
 
 // <!-- Required for asciidoctor -->
