@@ -1,7 +1,7 @@
 ---
 title: "Contributing"
-description: "Contributing to updatecli"
-lead: "Contributing to updatecli"
+description: "Easily add new resources"
+lead: "Easily add new resources"
 date: 2020-10-06T08:49:31+00:00
 lastmod: 2020-10-06T08:49:31+00:00
 draft: false
@@ -15,7 +15,7 @@ toc: true
 :toc:
 :toclevels: 4
 
-Instead of rewritng the "almost" same script over and over, this project has been created to easily implement update pipeline. The project is open to contribution as long as they remain generic enough or with a shared interest.
+Instead of rewritng the "almost" same script over and over, this project has been created to easily implement update pipeline. I am open to pull request as long as it remains generic enough or with a shared interest.
 
 Thanks for your interest in this project, feel free to ask any questions you may have.
 
@@ -26,7 +26,7 @@ Here I'll just highlight some of them
 
 === FEEDBACK
 
-It significantly harder to build a solution that could be used by different people. It involves many different skills that are hard to master and it's easy to get stuck in the local optimum. So we welcome any feedbacks you may have.
+It significantly harder to build a solution that could be used by different people. It involves many different skills that are hard to master and it's easy to get stuck in the local optimum. So feel free to reach out to say what's wrong and what could be improved.
 
 === CODE
 
@@ -52,7 +52,7 @@ docker run --rm -v "$PWD":/usr/src/updatecli -w /usr/src/updatecli -e GOOS=windo
 ```
 
 
-The code is divided into two categories, core, and plugins. It says what it says. Core is designed to be independent and to provide the skeleton for the updatecli while plugins define specific third party behaviors.. The easiest part is probably plugins as it allows you to contribute independently to the process you are looking to automate.
+The code is divided into two categories, core, and plugins. It says what it says. The core is designed to be independent and to provide the skeleton for the application while the plugins define how things are automated for a specific use-case. The easiest part is probably plugins as it allows you to contribute independently to the process you are looking to automate.
 
 ==== CORE
 
@@ -144,7 +144,7 @@ type Spec interface {
 
 ===== 4. Claim your name
 
-Each stage which can be configured using a yaml/go template has to bind a plugin name and a package name, this is done in the "Unmarshal" function
+Each stage which can be configured using a yaml/go template has to bind a resource kind and a package name, this is done in the "Unmarshal" function
 
 ```
   import "github.com/olblak/updateCli/pkg/plugins/packageName"
