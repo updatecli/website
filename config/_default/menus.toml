@@ -17,8 +17,14 @@
   url = "/docs/commands/"
 
 [[docs]]
+  name = "Guide"
+  weight = 40
+  identifier = "guide"
+  url = "/docs/guide/"
+
+[[docs]]
   name = "Plugins"
-  weight = 50
+  weight = 25
   identifier = "plugins"
   url = "/plugins/"
 
@@ -26,7 +32,7 @@
   name = "Automate"
   identifier = "automate"
   url = "/docs/automate"
-  weight = 60
+  weight = 30
 
 [[docs]]
   name = "Help"
