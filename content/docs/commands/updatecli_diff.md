@@ -1,9 +1,9 @@
 ---
-title: updateCli diff
-description: Documentation for the command `updateCli diff`
-lead: Documentation for the command `updateCli diff`
-date: 2021-05-04T21:19:16+02:00
-lastmod: 2021-05-04T21:19:16+02:00
+title: updatecli diff
+description: Documentation for the command `updatecli diff`
+lead: Documentation for the command `updatecli diff`
+date: 2022-01-22T16:28:14+01:00
+lastmod: 2022-01-22T16:28:14+01:00
 draft: false
 images: []
 menu:
@@ -13,19 +13,19 @@ weight: 130
 toc: true
 ---
 
-## updateCli diff
+## updatecli diff
 
 diff shows changes
 
 ```
-updateCli diff [flags]
+updatecli diff [flags]
 ```
 
 ### Options
 
 ```
       --clean                 Remove updatecli working directory like '--clean=false '(default: true) (default true)
-  -c, --config string         Sets config file or directory. (default: './updateCli.yaml') (default "./updateCli.yaml")
+  -c, --config string         Sets config file or directory. (default: './updatecli.yaml') (default "./updatecli.yaml")
   -h, --help                  help for diff
       --secrets stringArray   Sets Sops secrets file uses for templating
   -v, --values stringArray    Sets values file uses for templating
@@ -39,5 +39,5 @@ updateCli diff [flags]
 
 ### SEE ALSO
 
-* [updateCli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
+* [updatecli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
 

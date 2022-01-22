@@ -1,9 +1,9 @@
 ---
-title: updateCli prepare
-description: Documentation for the command `updateCli prepare`
-lead: Documentation for the command `updateCli prepare`
-date: 2021-05-04T21:19:16+02:00
-lastmod: 2021-05-04T21:19:16+02:00
+title: updatecli prepare
+description: Documentation for the command `updatecli prepare`
+lead: Documentation for the command `updatecli prepare`
+date: 2022-01-22T16:28:14+01:00
+lastmod: 2022-01-22T16:28:14+01:00
 draft: false
 images: []
 menu:
@@ -13,19 +13,19 @@ weight: 130
 toc: true
 ---
 
-## updateCli prepare
+## updatecli prepare
 
 prepare run tasks needed for a run like `git clone`
 
 ```
-updateCli prepare [flags]
+updatecli prepare [flags]
 ```
 
 ### Options
 
 ```
       --clean                 Remove updatecli working directory like '--clean=true '(default: false)
-  -c, --config string         Sets config file or directory. (default: './updateCli.yaml') (default "./updateCli.yaml")
+  -c, --config string         Sets config file or directory. (default: './updatecli.yaml') (default "./updatecli.yaml")
   -h, --help                  help for prepare
       --secrets stringArray   Sets Sops secrets file uses for templating
   -v, --values stringArray    Sets values file uses for templating
@@ -39,5 +39,5 @@ updateCli prepare [flags]
 
 ### SEE ALSO
 
-* [updateCli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
+* [updatecli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
 
