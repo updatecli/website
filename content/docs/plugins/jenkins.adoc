@@ -1,0 +1,132 @@
+---
+title: "Jenkins"
+description: "Manipulate Jenkins information"
+lead: "kind: jenkins"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugins"
+weight: 131
+toc: true
+plugings:
+  - source
+  - condition
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+**source**  
+
+The jenkins "source" retrieves the latest version for a specific Jenkins release 
+
+**condition**  
+
+The jenkins "condition" test that a version exists and also that the version corresponds to a specific release type
+
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| release | &#10004; | stable | Define the Jenkins release type, accepted values are ["weekly","stable"]
+| version | &#10004; | source output| Set Jenkins release version
+| github.token | | | If defined then it retrieves the Jenkins changelog from Github, it requires github.username
+| github.username | | | If defined, it retrieves the Jenkins changelog from Github, it requires github.token
+|
+|===
+
+How to create a Github Personal Access Token https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token[Doc]
+
+== Example
+
+In the following example, we want to update a valid Jenkins Docker Image tag inside a yaml each time a new jenkins weekly release is published. But before we do, we need to validate few assumptions:
+
+. A valid docker image has been published
+. Our infrastructure uses the correct docker image name
+. A that the version we are going to install a weekly release
+
+To apply this update strategy, we can run the following command
+
+`updatecli --config updatecli.tpl --values values.yaml`
+
+.updatecli.tpl
+```
+---
+source:
+  # Get latest jenkins weekly version with changelog from github
+  kind: jenkins
+  spec:
+    release: weekly
+    github:
+      token: {{ requiredEnv .github.token }}
+      username: {{ .github.username }}
+conditions:
+  # Test that a specific Jenkins version exists
+  jenkinsVersion:
+    kind: jenkins
+    spec:
+      version: "2.275"
+  # Test that the version from source is a weekly release
+  jenkinsWeekly:
+    kind: jenkins
+    spec:
+      release: weekly
+  # Test that our yaml file is correctly set to a jenkins image
+  imageTag:
+    name: "jenkins/jenkins docker image set"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.controller.image"
+      value: "jenkins/jenkins"
+    scm:
+      git:
+        url: "git@github.com:alice/example.git"
+        branch: main
+        user: alice
+        email: alice@example.com
+  # Test that there is a docker image with the correct tag 
+  # set to "<version>-jdk11"
+  dockerImage:
+    kind: dockerImage
+    postfix: "-jdk11"
+    spec:
+      image: jenkins/jenkins
+targets:
+  imageTag:
+    name: "jenkins/jenkins docker tag"
+    kind: yaml
+    postfix: "-jdk11"
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.controller.tag"
+    scm:
+      git:
+        url: "git@github.com:alice/example.git"
+        branch: master
+        user: alice
+        email: alice@example.com
+```
+
+.values.yaml
+```
+github:
+  token: ENVIRONMENT_VARIABLE_NAME
+  username: alice
+
+```

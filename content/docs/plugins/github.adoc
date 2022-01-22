@@ -1,0 +1,129 @@
+---
+title: "Github"
+description: "Interact with github repositories"
+lead: "kind: github"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "plugins"
+weight: 130 
+toc: true
+plugins:
+  - scm
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Depending on the situation a specific SCM block can be provided to manipulate information from a Github SCM repository by either fetching files from a repository or pushing files to them
+
+**condition**
+
+When the SCM block is used in a condition, it usually means fetching a file from that repository.
+
+**target**
+
+When the SCM block is used in a target, it usually means pushing a file to that repository.
+
+It's important to notice that the Github SCM implements the Github workflow and therefore will push changes to a temporary branch then open a pull request targeting the branch defined in the configuration.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| user | &#10004; |-| Git user to push from changes
+| email | &#10004; |-| Git user email to push from change
+| directory | | Default to tmp location, /tmp on linux  | Directory where to clone the git repository"
+| owner | &#10004; | | Github owner
+| force | | false | Run git push using --force option
+| repository| &#10004; | | Github repository
+| token | &#10004; || Github token with enough permission on the repository
+| username | &#10004; | | Github username used for push git changes
+| branch | &#10004; | | Git branch where to push changes
+| commitMessage | | | Customize commit message
+|===
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+|type ||chore| Specify commit type
+|scope ||| Specify commit scope
+|footer ||| Specify commit footer message
+|title ||| Override default body message
+|hideCredit ||| Remove "Made with ❤️️  by updatecli" from commit message
+|body ||| Override default body message
+|===
+
+== Example
+
+=== Default
+
+```
+targets:
+  id:
+    kind: yaml
+    spec:
+      file: "Yaml file path from the root repository"
+      key: "yaml key to update"
+    scm:
+      github:
+        user: "git user to push from changes"
+        email: "git user email to push from change"
+        directory: "directory where to clone the git repository"
+        owner: "github owner"
+        repository: "github repository"
+        token: "github token with enough permission on repository"
+        username: "github username used for push git changes"
+        branch: "git branch where to push changes"
+```
+
+=== CommitMessage
+
+```
+targets:
+  id:
+    kind: yaml
+    spec:
+      file: "Yaml file path from the root repository"
+      key: "yaml key to update"
+    scm:
+      github:
+        user: "git user to push from changes"
+        email: "git user email to push from change"
+        directory: "directory where to clone the git repository"
+        owner: "github owner"
+        repository: "github repository"
+        token: "github token with enough permission on repository"
+        username: "github username used for push git changes"
+        branch: "git branch where to push changes"
+        commitMessage:
+          type: "feat"
+```

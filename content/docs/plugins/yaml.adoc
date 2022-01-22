@@ -1,0 +1,148 @@
+---
+title: "Yaml"
+description: "Manipulate Yaml information"
+lead: "kind: yaml"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu: 
+  docs:
+    parent: "plugins"
+weight: 130 
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The Yaml "source" retrieve a key value from a yaml file.
+
+**condition**
+
+The Yaml "condition" test if an association of key/value match in the defined file.
+
+**target**
+
+The Yaml "target" test if an association of key/value match in the defined file and update it if necessary.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| file | &#10004; | | Set YAML file
+| key | &#10004; | | Set YAML key
+| value | | source output | Set YAML value
+|===
+
+=== File
+When used from a source or condition, `file` can accept different value
+If the value start with `https://` or `http://` then it will read the file from a http location
+If the value start with `file://` then it means that we explicitely want to read a file
+Otherwise any other file name is accepted.
+
+=== Key
+
+When we need to reference a specific position inside a YAML array, using the parameter `key`, we use the a custom syntax which is `key[x]` where the `key` represents a YAML key of type array and `[x]` represents the position inside that array starting from zero.
+
+example_array.yaml
+```
+COUNTRY_CODE:
+- BE
+- FR
+- LU
+```
+
+The key `COUNTRY_CODE[1]` equal `FR`
+
+NOTE: Arrays can also be grouped with dots like `key.array[3].key`
+
+== Example
+
+.updatecli.yaml
+```
+source:
+  kind: helmChart
+  spec:
+    url: https://charts.jenkins.io
+    name: jenkins
+conditions:
+  isPrometheuseHelmChartVersionAvailable:
+    name: "Test if the prometheus helm chart is available"
+    kind: helmChart
+    spec:
+      url: https://prometheus-community.github.io/helm-charts
+      name: prometheus
+      version: 11.16.5
+  chartVersion:
+    name: "jenkinsci/jenkins Helm Chart used"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/requirements.yaml"
+      key: "dependencies[0].name"
+      value: "jenkins"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+targets:
+  chartVersion:
+    name: "jenkinsci/jenkins Helm Chart"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/requirements.yaml"
+      key: "dependencies[0].version"
+    scm:
+      github:
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
+        owner: "{{ .github.owner }}"
+        repository: "{{ .github.repository }}"
+        token: "{{ requiredEnv .github.token }}"
+        username: "{{ .github.username }}"
+        branch: "{{ .github.branch }}"
+```
+
+What it says:
+
+**Source**
+
+Retrieve the version from the Jenkins helm chart repository located on "https://charts.jenkins.io"
+  => 2.7.1
+
+**Conditions**
+
+Then it tests two conditions.
+
+. Test a helmchart condition, "Is the prometheus helm chart version "11.16.5" is available from https://prometheus-community.github.io/helm-charts?
+  => Yes, proceed, No then abort
+. - Test a YAML condition, "Do we have a YAML file named "charts/jenkins/requirements.yaml" with the key dependencies that contains an array where the first element is set to "jenkins" ?"
+  => Yes, proceed, No then abort
+
+**Targets**
+
+If conditions are all met, then updatecli will update (if needed) the first element of the key
+"dependencies" to "2.7.1" for the file "charts/jenkins/requirements.yaml"
+from the github repository olblak/chart then publish changes using a Github Pull Request targeting the master from a temporary branch.
+

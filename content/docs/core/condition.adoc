@@ -1,0 +1,103 @@
+---
+title: "Condition"
+description: "Condition run test which have to succeed to proceed"
+lead: "Condition is the 'when' you want to update"
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+A "condition" stage defines if the link:../target["Target" stage] stage of a pipeline should be executed or not.
+It runs a check (depending on the resource kind) that return a boolean indicating its success (`true`) or failure (`true`).
+
+Please look at each kind of resource (shell, file, etc.) for details about "how is the success/failure determined?".
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name     | Required | Default |Description
+| `sourceID` | &#10008; | Sets to the only source if there is only 1 defined. | Reference of the link:../source["Source"] to use as input value. Required if `disablesourceinput` is false and there are multiple sources defined.
+| `disablesourceinput` | &#10008; |`false`| Wether to expect an input source value or not
+| `kind`     | &#10004; |-| Define the resource type used for the `spec`
+| `name`     | &#10004; |-| Small description used in message, reports, etc.
+| `spec`     | &#10004; |-| Define resource parameters, cfr to appropriated documentation
+|===
+
+== Examples
+
+* Example with only 1 source:
+
+[source,yaml]
+----
+sources:
+  printsName:
+    kind: shell
+    spec:
+      command: echo Ada
+conditions:
+  checkIfFileExistsWithName:
+    kind: shell
+    # Implicit instruction (only source)
+    # sourceID: printsName
+    spec:
+      # Should execute the command ""test -f Ada"" (e.g. tests if the file "Ada" exists)
+      command: test -f
+----
+
+* Example with source input disabled:
+
+[source,yaml]
+----
+# Sources defined here
+# ...
+conditions:
+  checkIfFileExistsWithName:
+    kind: shell
+    disablesourceinput: true
+    spec:
+      # Should execute the command "test -f pom.xml" (e.g. tests if the file "pom.xml" exists)
+      # There are no source value appended
+      command: test -f pom.xml
+----
+
+
+* Example checking if a Docker Image is published on the registry.
+It verifies that the docker image `jenkinsciinfra/plugin-site-api` with the tag returned from the source exists on the DockerHub.
+The targets of this pipeline are not executed if this condition fails.
+
+[source,yaml]
+----
+source:
+  tagVersion:
+    kind: shell
+    spec:
+      command: echo v1.0.0
+
+conditions:
+  IsDockerImagePublished:
+    name: |
+      Is the Docker Image
+      'jenkinsciinfra/plugin-site-api:{{ source `tagVersion` }}
+      published on the registry?
+    kind: dockerImage
+    sourceID: tagVersion
+    spec:
+      image: "jenkinsciinfra/plugin-site-api"
+
+# The targets defined below are not executed if
+# the image 'jenkinsciinfra/plugin-site-api:v1.0.0'
+# is absent on the DockerHub
+----

@@ -1,0 +1,23 @@
+sources:
+  sourceID:
+    name: Get release version from
+    kind: githubRelease
+    spec:
+      owner: "updatecli"
+      repository: "updatecli"
+      token: "{{ .github.token }}" 
+      username: "olblak"
+      version: "latest"
+
+conditions:
+  conditionID:
+    name: Test if version exist
+    kind: <resourceType>
+    spec: 
+      <resourceTypeSpec>
+targets:  
+  targetID:
+    name: Update version in target1
+    kind: <resourceType>
+    spec:
+      <resourceTypeSpec>

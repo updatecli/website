@@ -5,23 +5,10 @@
   url = "/docs/prologue/"
 
 [[docs]]
-  name = "Stages"
+  name = "Core"
   weight = 20
-  identifier = "stages"
-  url = "/docs/stages/"
-
-[[docs]]
-  name = "SCM"
-  weight = 30
-  identifier = "scm"
-  url = "/docs/scm/"
-
-
-[[docs]]
-  name = "Resources"
-  weight = 40
-  identifier = "resources"
-  url = "/docs/resources/"
+  identifier = "core"
+  url = "/docs/core/"
 
 [[docs]]
   name = "Commands"
@@ -30,10 +17,22 @@
   url = "/docs/commands/"
 
 [[docs]]
+  name = "Guide"
+  weight = 40
+  identifier = "guide"
+  url = "/docs/guide/"
+
+[[docs]]
+  name = "Plugins"
+  weight = 25
+  identifier = "plugins"
+  url = "/plugins/"
+
+[[docs]]
   name = "Automate"
   identifier = "automate"
   url = "/docs/automate"
-  weight = 60
+  weight = 30
 
 [[docs]]
   name = "Help"
