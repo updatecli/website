@@ -39,6 +39,7 @@ For us, it's a YAML file defining the "latest" Jenkins Docker image tag running 
 
 [source,yaml]
 ----
+# data.yaml
 {{<include "assets/code_example/doc/prologue/quickstart/data.yaml">}}
 ----
 
@@ -54,8 +55,10 @@ In our manifest, we introduce the most three important concepts of an updatecli 
 
 {{< btn-copy text="touch ./updatecli/updatecli.d/jenkins.yaml" >}}
 
+
 [soure,yaml]
 ----
+# manifest.yaml
 {{<include "assets/code_example/doc/prologue/quickstart/updatecli.yaml">}}
 ----
 
@@ -67,9 +70,9 @@ Now that we have a data file and an updatecli manifest, describing how to update
 
 So for doing so, please execute the following command:
 
-1. To see what would change: `updatecli diff --config updatecli.yaml`
-2. To apply the change: `updatecli apply --config updatecli.yaml`
-3. To see that nothing needs to be changed anymore: `updatecli apply --config pipeline.yaml`
+1. To see what would change: `updatecli diff --config manifest.yaml`
+2. To apply the change: `updatecli apply --config manifest.yaml`
+3. To see that nothing needs to be changed anymore: `updatecli apply --config manifest.yaml`
 
 == Conclusion
 
