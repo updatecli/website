@@ -1,0 +1,25 @@
+title: QuickStart example
+# Defines how to get "source" information such as Jenkins version
+sources:
+  jenkinsVersion:
+    name: Get the latest Jenkins weekly version
+    kind: jenkins
+    spec:
+      release: weekly
+# Defines "conditions" required to update targets 
+conditions:
+  dockerimage:
+    name: Is Jenkins weekly tag published on DockerHub
+    kind: dockerImage
+    spec:
+      image: jenkins/jenkins
+
+# Defines "targets" which need to be updated if different than "source" information.
+targets:
+  dataFile:
+    name: Bump Jenkins Docker Image Tag 
+    kind: yaml
+    spec:
+      key: container.tag
+      file: data.yaml
+

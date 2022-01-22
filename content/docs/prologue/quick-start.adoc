@@ -1,0 +1,100 @@
+---
+title: "Quick Start"
+description: "One page summary of how to apply a strategy update."
+lead: "Introducing a very basic updatecli workflow."
+date: 2020-11-16T13:59:39+01:00
+lastmod: 2020-11-16T13:59:39+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "prologue"
+weight: 110
+toc: true
+---
+
+Updatecli is a command-line tool used to update your file. You specify in manifest how you expect your files to be updated and then you run updatecli to enforce the result.
+
+For this quickstart we are going to need three components:
+
+. Updatecli binary installed.
+. The data file to update is provided in this guide.
+. The updatecli manifest is also provided in this guide.
+
+== Installation
+
+Updatecli is a standalone binary available on link:https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux, and OSX.
+
+If you don't have it yet locally, please make sure you downloaded the latest updatecli as explained on link:{{< ref "installation/#_packages" >}}[Installation →]
+
+== Scenario
+
+Let's see what a simple updatecli pipeline can look like.
+
+=== Data file
+
+Firstly, we need a sample data file that we want to update (if needed).
+It could be your puppet hieradata file, your helm value file, or whatever data file you need.
+For us, it's a YAML file defining the "latest" Jenkins Docker image tag running in our infrastructure.
+
+[source,yaml]
+----
+{{<include "assets/code_example/doc/prologue/quickstart/data.yaml">}}
+----
+
+=== Updatecli Pipeline
+
+Updatecli needs at least one manifest to know what update pipeline to apply.
+
+In our manifest, we introduce the most three important concepts of an updatecli manifest.
+
+. A **Source** definition describes where a piece of information is coming from. In the current example, we are looking for the latest Jenkins weekly version.
+. A **Target** definition describes what we want to update based on a *source* output. In our example, we want to update the key "container.tag" in the file "data.yaml" to the version retrieved from the source so the latest Jenkins weekly version.
+. A **Condition** definition defined conditions required to update the target. In our example, we want to test that the docker image "jenkinsci/jenkins:<latest Jenkins weekly version>" exists on DockerHub.
+
+{{< btn-copy text="touch ./updatecli/updatecli.d/jenkins.yaml" >}}
+
+[soure,yaml]
+----
+{{<include "assets/code_example/doc/prologue/quickstart/updatecli.yaml">}}
+----
+
+Source, Condition, Target will behave differently based on the plugin used which is defined by the key "kind".
+
+=== Updatecli Execution
+
+Now that we have a data file and an updatecli manifest, describing how to update our file, let's see how to use updatecli.
+
+So for doing so, please execute the following command:
+
+1. To see what would change: `updatecli diff --config updatecli.yaml`
+2. To apply the change: `updatecli apply --config updatecli.yaml`
+3. To see that nothing needs to be changed anymore: `updatecli apply --config pipeline.yaml`
+
+== Conclusion
+
+Through this example, we saw how updatecli works with a very simple pipeline. They are many improvements possible for this pipeline, such as automatically publishing updated files to a git repository, using the GitHub pull-request workflow, transforming the source value, not retrieving the latest version, etc.
+
+The real power of updatecli is to combine different plugins to easily implement a customized update pipeline.
+
+== Go Further
+
+==== Core
+
+Understand how the different core concepts work. link:/docs/core/[Core →]
+
+=== Plugins
+
+Understand how to combine the different plugins. link:/plugins/[Plugins →]
+
+=== Continously Update Everything
+
+Learn how to continuously run updatecli to apply updates. link:/docs/automate/[CI →]
+
+== Contributing
+
+Find out how to contribute to Updatecli. link:/docs/help/contributing/[Contributing →]
+
+== Help
+
+Get some help. link:{{< ref "help" >}}[Help →]
