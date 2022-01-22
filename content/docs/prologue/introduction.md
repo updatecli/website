@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
-description: "Updatecli is a tool uses to apply file update strategies."
-lead: "Updatecli is a tool uses to apply file update strategies."
+description: "Updatecli is a command-line tool used to apply update pipeline."
+lead: "Updatecli is a command-line tool used to apply update pipeline."
 date: 2020-10-06T08:48:57+00:00
 lastmod: 2022-01-22T08:16:01+02:00
 draft: false
@@ -13,20 +13,20 @@ weight: 100
 toc: true
 ---
 
-Updatecli is a tool uses to define and apply file update strategies.
-It reads a yaml or a go template configuration file, then works into three stages:
+Updatecli is a command-line tool used to define and apply update strategies.
+It reads a manifest then works into three stages:
 
-1. Source: Based on a rule fetch a value from a third location that will be injected into later stages.
-2. Conditions: Ensure that conditions are met based on the value retrieved during the source stage.
-3. Target: Update and publish the target files based on a value retrieved from the source stage.
+1. **Source**, which describes where a piece of information is coming from.
+2. **Target**, which describes what we want to update based on a *source* output.
+3. **Condition**, which defined a condition required to update the target.
 
 ## Why?
 
-Deciding how, when, where to update information is hard.
+Deciding **how**, **when**, **where** to update information is hard.
 
 Nowadays they are countless tools that can apply continuous delivery or continuous deployment. 
 To configure our infrastructure, we write ansible playbooks, puppet manifest, helm chart, etc. We heavily rely 
-on configuration files to specify the version we need to install. But too often those files are manually updated. 
+on configuration files to specify the version we need to install. Unfortunately too often those files are manually updated. 
 
 Because it's hard to automatically detect what information must be updated and when.
 
@@ -39,13 +39,11 @@ Updatecli allows combining blocks, aka plugins, to specify what information need
 
 ### Quick Start
 
-{{< alert icon="👉" text="The Quick Start is intended for intermediate to advanced users." >}}
+{{< alert icon="👉" text="The Quick Start is intended for users new to updatecli." >}}
 
 One page summary of how to use updatecli [Quick Start →]({{< ref "quick-start" >}})
 
 ## Go further
-
-Core, Plugins, CI
 
 ### Core
 
@@ -55,7 +53,7 @@ Understand how updatecli core concept works. [Core →](/docs/core/)
 
 Understand how to combine the different plugins to define an update pipeline that suits your need. [Plugins →](/docs/plugins/)
 
-### Continously Update Everything
+### Continuously Update Everything
 
 Understand how to use updatecli from your CI environment to apply updates. [CI →](/docs/automate/)
 
