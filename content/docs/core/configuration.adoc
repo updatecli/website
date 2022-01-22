@@ -1,7 +1,7 @@
 ---
 title: "Configuration"
-description: "Updatecli must be feeded"
-lead: "Updatecli must be feeded !"
+description: "Updatecli must be fed!"
+lead: "Updatecli must be fed!"
 date: 2020-10-13T15:21:01+02:00
 lastmod: 2020-10-13T15:21:01+02:00
 draft: false
@@ -17,96 +17,56 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-Updatecli requires a configuration file which defines the update strategy. A strategy can be seen as the definition of a full pipeline where we define the "what", the "when", and the "where" of our update strategy.
+Updatecli requires a configuration file, aka "manifest", which describes the update pipeline. A manifest can be seen as the "what", the "when", and the "where" of our update pipeline.
 
 **What**
 
-The "what" is named "source" and define what information we need, like an application release name, a docker image tag, etc.
+The "what" is named "source" and defines what piece of information we are looking for such as the latest application release version, a docker image tag, etc.
 
 **When**
 
-The "when" is named "conditions", conditions are list things which must pass in order to proceed
+The "when" is named "condition", the condition is that which must succeed to update the target.
 
 **Where**
 
-The "where" is named "target" and defines where we want to update an information like a a value from Dockerfile or a YAML. 
+The "where" is named "target" and defines where we want to update a piece of information like a value from Dockerfile or a YAML. 
 
 
-== Files
+== Manifest
 
-Updatecli reads one update strategy, aka pipeline, per file. The pipeline is split in three stages "source", "conditions", "targets", every stage use a resource that shape the pipeline and not every resource can be used in every situation.
+=== File
 
-! Please verify your need according resource documentation
+Updatecli expects one file per manifest, aka pipeline. The manifest is split into different stages, "source", "conditions", "targets", where every stage relies on a plugin to adapt the behavior.
 
-A configuration accepts different type of file.
+A file can be of type yaml or "Go Template" using file extension ".yaml",".yml",".tpl").
 
-=== YAML
+Manifest are provided to the updatecli command using the global flag `--config <go_template_file>` and `--values <yaml_file>`. It accepts either a single file or a directory. If a directory is specified, then it runs recursively on every go templates (or yaml file) inside the directory.
 
-**Accepted extensions:** [".yaml",".yml"]
 
-A YAML configuration can be specified using `--config <yaml_file>`, it accepts either a single file or a directory, if a directory is specified, then it runs recursively on every file inside the directory.
+=== Content
 
-! Remark it's a very bad practice to put credentials in a YAML file.
-
-.strategy.yaml
-```
-source:
-  name: Get release version from
-  kind: <resourceKind>
-  spec:
-    <resourceSpec>>
-conditions:
-  conditionID:
-    name: Test if version exist
-    kind: <resourceType>
-    spec: 
-      <resourceTypeSpec>
-targets:  
-  targetID:
-    name: Update version in target1
-    kind: <resourceType>
-    spec:
-      <resourceTypeSpec>
-```
-
-=== Go Templates
-
-**Accepted extensions**: [".tpl",".tmpl"]
-
-A go template configuration can be specified using `--config <go_template_file>` and `--values <yaml_file>`, it accepts either a single file or a directory, if a directory is specified, then it runs recursively on every go templates (or yaml file) inside the directory.
-
-Using go templates allow us to specify generic values in a different YAML file, using `--values`, then reference those values from each go templates.
+Using go templates allows us to specify generic values in a different YAML file, using `--values`, then reference those values from each go template.
 Updatecli also provides a custom function called `requireEnv` to inject any environment variable in the template example, `{{ requiredEnv "PATH" }}`.
 
 More information on Go templates can be found https://golang.org/pkg/text/template/[here]
 
-.example.values.yaml
-```
-token: XXX
-```
+[source,yaml]
+----
+{{<include "assets/code_example/doc/core/configuration/values.yaml">}}
+----
 
-.example.strategy.yaml
-```
-source:
-  name: Get release version from
-  kind: githubRelease
-  spec:
-    owner: "updatecli"
-    repository: "updatecli"
-    token: "{{ .github.token }}" 
-    username: "olblak"
-    version: "latest"
+[source,yaml]
+----
+{{<include "assets/code_example/doc/core/configuration/updatecli.yaml">}}
+----
 
-conditions:
-  conditionID:
-    name: Test if version exist
-    kind: <resourceType>
-    spec: 
-      <resourceTypeSpec>
-targets:  
-  targetID:
-    name: Update version in target1
-    kind: <resourceType>
-    spec:
-      <resourceTypeSpec>
-```
+== Go Further
+
+* To know more about Condition syntax link:/docs/core/condition[condition]
+* To know more about Source syntax link:/docs/core/source[source]
+* To know more about Target syntax link:/docs/core/target[target]
+* To know more about link:/plugins/[Plugins]
+** More specifically about the link:/plugins/source[source]
+** More specifically about the link:/plugins/condition[condition]
+** More specifically about the link:/plugins/target[target]
+** More specifically about the link:/plugins/target[SCM]
