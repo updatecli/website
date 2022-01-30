@@ -1,0 +1,29 @@
+scms:
+  website:
+    kind: "github"
+    spec:
+      user: "user"
+      email: "updatecli@example."
+      owner: "updatecli"
+      repository: "website"
+      token: '{{ requiredEnv GITHUB_TOKEN }}'
+      username: "{{ requiredEnv GITHUB_AUTHOR }}"
+      branch: "main"
+
+# Define pullrequest configuration if one needs to be created
+pullrequests:
+  helm-charts:
+    kind: "github"
+    scmID: "website"
+    spec:
+      automerge: true
+      description: "Prepend description"
+      draft: false
+      labels:
+        - "dependencies"
+        - "epinio"
+      title: "PullRequest Title"
+#
+#sources:
+#conditions:
+#targets:
