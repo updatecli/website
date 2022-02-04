@@ -11,6 +11,8 @@ menu:
     parent: "plugins"
 weight: 130 
 toc: true
+plugins:
+  - conditions
 ---
 // <!-- Required for asciidoctor -->
 :toc:
