@@ -7,7 +7,7 @@ scms:
       user: updatecli
       email: me@olblak.com
       owner: updatecli
-      repository: updatecli
+      repository: website
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       branch: main
