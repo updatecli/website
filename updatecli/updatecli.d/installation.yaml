@@ -1,0 +1,47 @@
+title: Bump udpatecli version in installation documentation
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: updatecli
+      email: me@olblak.com
+      owner: updatecli
+      repository: updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: main
+
+sources:
+  updatecli:
+    name: Get latest updatecli release
+    kind: githubRelease
+    spec:
+      owner: updatecli
+      repository: updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+
+targets:
+  opensuse:
+    name: '[bug-report] Update updatecli version to {{ source "updatecli" }}'
+    kind: file
+    spec:
+      file: content/docs/prologue/installation.adoc
+      matchPattern: 'sudo zypper install .*'
+      content: 'sudo zypper install https://github.com/updatecli/updatecli/releases/download/{{ source `updatecli` }}/updatecli_amd64.rpm'
+    scmID: default
+
+pullrequests:
+  default:
+    title: '[updatecli] Bump updatecli version used withing documentation to {{ source "updatecli" }}'
+    kind: github
+    scmID: default
+    targets:
+      - opensuse
+    spec:
+      automerge: true
+      mergemethod: squash
+      labels:
+        - chore
+        - skip-changelog
