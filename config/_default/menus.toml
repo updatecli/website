@@ -64,6 +64,12 @@
   post = "v0.1.0"
   weight = 20
 
+[[social]]
+  name = "GitHub Stars"
+  pre = '<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/updatecli/updatecli?style=for-the-badge">'
+  url = "https://github.com/updatecli/updatecli/stargazers"
+  weight = 25
+
 [[footer]]
   name = "Privacy"
   url = "/privacy-policy/"
