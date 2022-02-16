@@ -27,13 +27,13 @@ jobs:
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: tibdex/github-app-token@v1.5
         id: generate_token
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         with:
           app_id: ${{ secrets.UPDATECLIBOT_APP_ID }}
           private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
       - name: Apply
         uses: updatecli/updatecli-action@v1.22.0
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         with:
           command: apply
           flags: "--config ./updatecli/updatecli.d"
