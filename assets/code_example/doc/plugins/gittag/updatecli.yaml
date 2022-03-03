@@ -1,0 +1,73 @@
+---
+title: "Test new gitTag resource"
+
+scms:
+  gitExample:
+    kind: "git"
+    spec:
+        url: "git@github.com:updatecli/updatecli.git"
+        branch: "main"
+  githubExample:
+    kind: "github"
+    spec:
+        user: "updatecli-bot"
+        email: "updatecli@example.com"
+        owner: "updatecli"
+        repository: "updatecli"
+        token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+        username: "john"
+        branch: "main"
+sources:
+  gitExample1:
+    name: "Get Latest updatecli test"
+    kind: gitTag
+    scmID: gitExample
+    spec:
+
+  gitExample2: # Without scmID
+    name: Get Latest updatecli test
+    kind: gitTag
+    spec:
+      path: "./git_repository_path/"
+
+  githubSemver:
+    name: Get Latest updatecli test
+    kind: gitTag
+    scmID: githubExample
+    spec:
+      versionFilter:
+        kind: semver
+        pattern: "~0.1"
+  githubRegex:
+    name: Get Latest updatecli test
+    kind: gitTag
+    scmID: githubExample
+    spec:
+      versionFilter:
+        kind: regex
+        pattern: "v0.*"
+conditions:
+  gitRegex:
+    name: Test Get Latest updatecli test
+    disablesourceinput: true
+    kind: gitTag
+    scmID: gitExample
+    spec:
+      versionFilter:
+        pattern: "v0.1.2"
+targets:
+  github:
+    sourceID: githubRegex
+    name: Publish tag with -github
+    scmID: githubExample
+    kind: gitTag
+    transformers:
+      - addSuffix: "-github"
+  git:
+    scmID: gitExample
+    sourceID: githubRegex
+    name: Publish tag with -git
+    kind: gitTag
+    transformers:
+      - addSuffix: "-git"
+
