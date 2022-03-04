@@ -67,7 +67,7 @@ rel  = "sitemap"
     getenv = ['^HUGO_']
   [security.http]
     methods = ['(?i)GET|POST']
-    urls = ['.*']
+    urls = ['.*','asciinema.org']
 
 [sitemap]
   changefreq = "weekly"
