@@ -12,6 +12,11 @@ menu:
 weight: 110
 toc: true
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
 
 Updatecli is a command-line tool used to update your file. You specify in manifest how you expect your files to be updated and then you run updatecli to enforce the result.
 
@@ -20,6 +25,17 @@ For this quickstart we are going to need three components:
 . Updatecli binary installed.
 . The data file to update is provided in this guide.
 . The updatecli manifest is also provided in this guide.
+
+== Record
+
+**! spoiler alert !**
+
+The following video is a record of the quickStart guide.
+Feel free to continu
+
+{{<asciinema "B5qIkTojFb5Yoy3vlqUFvu5BO">}}
+
+INFO: You can improve this video by contributing to link:https://github.com/updatecli/demo-terminal/tree/main/quickstart[updatecli/demo-terminal]
 
 == Installation
 
