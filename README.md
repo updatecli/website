@@ -36,6 +36,13 @@ Point your browser to `http://localhost:1313`
 
 Doks comes with [commands](https://getdoks.org/docs/prologue/commands/) for common tasks.
 
+## Contibuting
+
+### Asciinema Shortcode
+
+To add a asciinema video, we can use the shortcode  `{{<asciinema "asciinema_video_id">}}`
+
+
 ## Documentation
 
 - [Netlify](https://docs.netlify.com/)
