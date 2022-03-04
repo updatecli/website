@@ -15,15 +15,3 @@
 
 [context.branch-deploy]
   command = "hugo -b $DEPLOY_PRIME_URL --gc --minify"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cache-Control = '''
-    max-age=300
-    must-revalidate'''
-    Content-Security-Policy = "default-src https://www.updatecli.io https://updatecli.io https://amazing-golick-2d0138.netlify.app; script-src https://asciinema.org 'self' 'unsafe-inline' ; style-src 'self' 'unsafe-inline'"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
