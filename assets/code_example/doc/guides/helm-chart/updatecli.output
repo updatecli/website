@@ -1,0 +1,95 @@
++++++++++++
++ PREPARE +
++++++++++++
+
+Loading Pipeline "assets/code_example/doc/guides/helm-chart/updatecli.yaml"
+Repository retrieved: 1
+
+
+++++++++++++
++ PIPELINE +
+++++++++++++
+
+
+
+#####################################################################
+# BUMP `JENKINS-WIKI-EXPORTER` DOCKER IMAGE AND HELM CHART VERSIONS #
+#####################################################################
+
+
+SOURCES
+=======
+
+jenkins-wiki-exporter
+---------------------
+Searching for version matching pattern "latest"
+✔ Github Release version "v1.12.1" found matching pattern "latest"
+
+
+CHANGELOG:
+----------
+
+Release published on the 2021-10-02 18:36:27 +0000 UTC at the url https://github.com/jenkins-infra/jenkins-wiki-exporter/releases/tag/v1.12.1
+
+<!-- Optional: add a release summary here -->
+* Dont allow non pull requests in the project from breaking the report (#303) @halkeye
+
+## 📦 Dependency updates
+
+* Bump node from 16.7.0 to 16.8.0 (#288) @dependabot
+* Bump jest from 27.0.6 to 27.1.0 (#287) @dependabot
+
+
+
+CONDITIONS:
+===========
+
+DockerContainerUsed
+-------------------
+✔ Key "image.repository", in YAML file "/tmp/updatecli/jenkins-infra/helm-charts/charts/jenkins-wiki-exporter/values.yaml", is correctly set to "jenkinsciinfra/jenkins-wiki-exporter"
+
+DockerImagePublished
+--------------------
+^[[B✔ The Docker image registry-1.docker.io/jenkinsciinfra/jenkins-wiki-exporter:v1.12.1 exists and is available.
+
+
+TARGETS
+========
+
+jenkins-wiki-exporter
+---------------------
+
+**Dry Run enabled**
+
+✔ Key 'image.tag', from file '/tmp/updatecli/jenkins-infra/helm-charts/charts/jenkins-wiki-exporter/values.yaml', already set to v1.12.1, nothing else need to be done
+
+
+PULL REQUESTS
+=============
+
+
+=============================
+
+REPORTS:
+
+
+✔ UPDATECLI.YAML:
+	Sources:
+		✔ [jenkins-wiki-exporter] Get jenkins-infra/jenkins-wiki-exporter latest version (kind: githubRelease)
+	Condition:
+		✔ [DockerContainerUsed] Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag (kind: yaml)
+		✔ [DockerImagePublished] Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag (kind: dockerImage)
+	Target:
+		✔ [jenkins-wiki-exporter] Update jenkins-wiki-exporter helm chart (kind: helmChart)
+
+
+
+Run Summary
+===========
+Pipeline(s) run:
+  * Changed:	0
+  * Failed:	0
+  * Skipped:	0
+  * Succeeded:	1
+  * Total:	1
+
