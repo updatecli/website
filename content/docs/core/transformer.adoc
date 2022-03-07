@@ -70,7 +70,8 @@ A replacer rule modifies the information by replacing the "from" value by the "t
 
 === FindSubMatch
 
-A findSubMatch rule capture the information by applying "pattern" as a regexp and using "captureIndex" value as the index for the capture to return (default 0).
+
+A findSubMatch rule captures the desired information by applying "pattern" as a regexp and using "captureIndex" value as the index for the capture to return (default 0).
 
 [cols="1,1,1,4",options=header]
 |===
@@ -101,7 +102,7 @@ sources:
           - from: "-jdk15"
             to: "-jdk17"
       - findsubmatch:
-          pattern: '"(.*?):'
+          pattern: '"(.*?):(.*)v'
           captureIndex: 1
       - semverInc: "major,minor"
       - find: "2.234.(.*)$"
