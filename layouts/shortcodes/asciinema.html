@@ -1,2 +1,9 @@
 {{ $videoID := .Get 0 }}
-<script id="asciicast-{{ $videoID }}" src="https://asciinema.org/a/{{ $videoID }}.js" async></script>
+<script id="asciicast-{{ $videoID }}"
+        src="https://asciinema.org/a/{{ $videoID }}.js"
+        data-cols="80"
+        data-rows="43"
+        data-theme="solarized-dark"
+        data-idleTimeLimit="2"
+        data-loop="0"
+        async></script>

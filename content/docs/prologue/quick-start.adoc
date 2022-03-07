@@ -26,17 +26,6 @@ For this quickstart we are going to need three components:
 . The data file to update is provided in this guide.
 . The updatecli manifest is also provided in this guide.
 
-== Record
-
-**! spoiler alert !**
-
-The following video is a record of the quickstart guide.
-Feel free to continue the guide before watching the video
-
-{{<asciinema "B5qIkTojFb5Yoy3vlqUFvu5BO">}}
-
-INFO: You can improve this video by contributing to link:https://github.com/updatecli/demo-terminal/tree/main/quickstart[updatecli/demo-terminal]
-
 == Installation
 
 Updatecli is a standalone binary available on link:https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux, and OSX.
@@ -89,6 +78,13 @@ So for doing so, please execute the following command:
 1. To see what would change: `updatecli diff --config manifest.yaml`
 2. To apply the change: `updatecli apply --config manifest.yaml`
 3. To see that nothing needs to be changed anymore: `updatecli apply --config manifest.yaml`
+
+== Video
+
+{{<asciinema "B5qIkTojFb5Yoy3vlqUFvu5BO">}}
+
+INFO: You can improve this video by contributing to link:https://github.com/updatecli/demo-terminal/tree/main/quickstart[updatecli/demo-terminal]
+
 
 == Conclusion
 
