@@ -1,0 +1,32 @@
+pipeline {
+  agent {
+    kubernetes {
+      label 'updatecli'
+      yamlFile 'PodTemplates.yaml'
+    }   
+  }
+  environment {
+    UPDATECLI_GITHUB_TOKEN  = credentials('updatecli-github-token')
+  }
+
+  triggers {
+    cron 'H/30 * * * *'
+  }
+
+  stages {
+    stage('Check Configuration Update') {
+      steps {
+        container('updatecli') {
+          sh 'updatecli diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
+        }
+      }
+    }
+    stage('Apply Configuration Update') {
+      steps {
+        container('updatecli') {
+          sh 'updatecli apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
+        }
+      }
+    }
+  }
+
