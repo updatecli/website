@@ -47,8 +47,8 @@ github:
   username: "github-actions"
   token: "UPDATECLI_GITHUB_TOKEN"
 ```
-..github/workflows/updatecli.yaml
 
+.github/workflows/updatecli.yaml
 ```
 name: updatecli
 

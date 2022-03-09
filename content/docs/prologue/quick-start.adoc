@@ -45,7 +45,7 @@ For us, it's a YAML file defining the "latest" Jenkins Docker image tag running 
 [source,yaml]
 ----
 # data.yaml
-{{<include "assets/code_example/doc/prologue/quickstart/data.yaml">}}
+{{<include "assets/code_example/docs/prologue/quickstart/data.yaml">}}
 ----
 
 === Updatecli Pipeline
@@ -64,7 +64,7 @@ In our manifest, we introduce the most three important concepts of an updatecli 
 [soure,yaml]
 ----
 # manifest.yaml
-{{<include "assets/code_example/doc/prologue/quickstart/updatecli.yaml">}}
+{{<include "assets/code_example/docs/prologue/quickstart/updatecli.yaml">}}
 ----
 
 Source, Condition, Target will behave differently based on the plugin used which is defined by the key "kind".

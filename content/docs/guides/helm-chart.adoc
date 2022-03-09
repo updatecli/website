@@ -60,7 +60,7 @@ As you'll see in our updatecli manifest, we define:
 [source,yaml]
 ----
 # updatecli.yaml
-{{<include "assets/code_example/doc/guides/helm-chart/updatecli.yaml">}}
+{{<include "assets/code_example/docs/guides/helm-chart/updatecli.yaml">}}
 ----
 
 Now we can run our updatecli pipeline using the following commands:
@@ -78,7 +78,7 @@ WARNING: Using environment variables to store credentials is convenient for runn
 [source,yaml]
 ----
 # data.yaml
-{{<include "assets/code_example/doc/guides/helm-chart/updatecli.output">}}
+{{<include "assets/code_example/docs/guides/helm-chart/updatecli.output">}}
 ----
 
 == Go Further
