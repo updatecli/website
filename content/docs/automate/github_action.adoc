@@ -21,7 +21,8 @@ toc: true
 
 Updatecli is better when executed regularly so let see how GitHub Action becomes handy.
 
-IMPORTANT: Environment variable starting with GITHUB_ are reserved by GitHub Action
+
+IMPORTANT:Environment variables starting with `GITHUB_` are reserved by GitHub Action
 
 == Parameter
 
@@ -39,46 +40,12 @@ The current example is inspired from the repository https://github.com/jenkins-i
 
 Once you have your update strategy configuration in the directory `./updatecli/updatecli.d`, then you need following files in order to run updatecli from Github Action.
 
-.updatecli/values.yaml
+**./updatecli/values.yaml**
 ```
-github:
-  user: "GitHub Actions"
-  email: "41898282+github-actions[bot]@users.noreply.github.com"
-  username: "github-actions"
-  token: "UPDATECLI_GITHUB_TOKEN"
+{{< include "assets/code_example/docs/automate/github_action/values.yaml" >}}
 ```
 
-.github/workflows/updatecli.yaml
+**./github/workflows/updatecli.yaml**
 ```
-name: updatecli
-
-on:
-  workflow_dispatch:
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    # Run once a day 
-    - cron: '0 0 * * *'
-
-jobs:
-  updatecli:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Diff
-        uses: updatecli/updatecli-action@v1
-        with:
-          command: diff
-          flags: "--config ./updatecli/updatecli.d --values updatecli/values.yaml"
-        env:
-          UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Apply
-        uses: updatecli/updatecli-action@v1
-        with:
-          flags: "--config ./updatecli/updatecli.d --values updatecli/values.yaml"
-        env:
-          UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+{{< include "assets/code_example/docs/automate/github_action/updatecli.yaml" >}}
 ```
-
