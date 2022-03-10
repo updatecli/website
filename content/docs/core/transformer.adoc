@@ -102,7 +102,7 @@ sources:
           - from: "-jdk15"
             to: "-jdk17"
       - findsubmatch:
-          pattern: '"(.*?):(.*)v'
+          pattern: '"(.*?):(.*)'
           captureIndex: 1
       - semverInc: "major,minor"
       - find: "2.234.(.*)$"
