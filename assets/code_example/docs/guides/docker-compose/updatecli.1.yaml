@@ -1,0 +1,31 @@
+---
+sources:
+  jenkins:
+    name: "Get latest Jenkins version from maven repo"
+    kind: "maven"
+    transformers:
+      # - addPrefix: "v"
+      - addSuffix: "-jdk11"
+    spec:
+      owner: "maven"
+      url: "repo.jenkins-ci.org"
+      repository: "releases"
+      groupID: "org.jenkins-ci.main"
+      artifactID: "jenkins-war"
+conditions:
+  docker:
+    name: "Docker Image Published on Registry"
+    kind: "dockerImage"
+    spec:
+      image: "jenkins/jenkins"
+      architecture: "amd64"
+targets:
+  imageTag:
+    name: "Update docker-compose jenkins service"
+    kind: "yaml"
+    transformers:
+      - addPrefix: "jenkins/jenkins:"
+    spec:
+      file: "./docker-compose.yaml"
+      key: "services.jenkins.image"
+

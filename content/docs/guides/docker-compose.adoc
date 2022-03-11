@@ -18,6 +18,23 @@ toc: true
 
 In this scenario, we have to maintain a docker-compose file and we want to be sure that we always use the newest docker images available.
 
+== Prerequisite
+
+1. Updatecli binary
+2. A GitHub Personal Access Token
+
+**Updatecli Binary**
+
+Updatecli is a command-line available for Linux/macOS/Windows.
+
+Check out installation instructions on link:https://www.updatecli.io/docs/prologue/installation/[www.updatecli.io/docs/prologue/installation] to know how to install it on your machine.
+
+**GitHub Personal Access Token**
+
+As we are going to interact with resources on Github such as github repository and GitHub packages, we need a personal access token. More information on the GitHub documentation link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[creating-a-personal-access-token]
+
+== Description
+
 Docker image versions can be identified using two methods, either we use the docker image tag or the docker image digest.
 
 *Tag*
@@ -45,150 +62,74 @@ So let take this example where we want to regularly update the Jenkins version, 
 
 Let's consider this docker compose file:
 
-.docker-compose.yaml
+**docker-compose.yaml**
 ```
-version: '3'
-services:
-  jenkins:
-    image: jenkins/jenkins:2.245
-    ports:
-        - 8080:8080
+{{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
 ```
 
 Now we write an updatecli configuration that contains a source, a conditions, and one target
 
-.strategy.yaml
+**updatecli.1.yaml**
 ```
-sources:
-  jenkins:
-    kind: maven
-    postfix: "-jdk11" # will be add to the value returned by the spec definition
-    transformers:
-      - addSuffix: "v"
-    spec:
-      owner: "maven"
-      url: "repo.jenkins-ci.org"
-      repository: "releases"
-      groupID: "org.jenkins-ci.main"
-      artifactID: "jenkins-war"
-conditions:
-  docker:
-    name: "Docker Image Published on Registry"
-    kind: dockerImage
-    spec:
-      image: "jenkins/jenkins"
-targets:
-  imageTag:
-    name: "docker-compose jenkins service"
-    kind: "yaml"
-    prefix: "jenkins/jenkins:" # will be add to the value returned by the spec definition
-    spec:
-      file: "./docker-compose.yaml"
-      key: "services.jenkins.image"
-
+{{< include "assets/code_example/docs/guides/docker-compose/updatecli.1.yaml" >}}
 ```
 
-`docker run -i -t -v $(pwd):/updatecli --workdir /updatecli ghcr.io/updatecli/updatecli:v0.6.1 diff --config ./strategy.yaml`
+`updatecli diff --config updatecli.1.yaml`
 
 Updatecli will query the maven repository 'releases' located on `repo.jenkins-ci.org`, to have the latest version. If it finds one, then we add to the value retrieved, the prefix `jenkins/jenkins:` and the suffix `-jdk11` as we are looking specifically for the java 11 version. We validate that docker image effectively exist on DockerHub and then we test if the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct otherwise we bump it.
 
 If we are good with the changes then we apply them by using `apply` instead of `diff`.
 
-`docker run -i -t -v $(pwd):/updatecli --workdir /updatecli ghcr.io/updatecli/updatecli:v0.6.1 apply --config ./strategy.yaml`
+`updatecli apply --config ./updatecli.1.yaml`
 
 == Docker Image Digest
 
 As explained earlier, sometimes we prefer to use docker image digest, if we need to rely on a specific version or if we want to easily rollback. While most of the configuration remains the same as in the previous example, this time the source will be `dockerhub` and we won't test if an image already exists on DockerHub as we already ask DockerHub for the latest image available.
 
-.docker-compose.yaml
+**docker-compose.yaml**
 ```
-version: '3'
-services:
-  jenkins:
-    image: jenkins/jenkins:2.245
-    ports:
-        - 8080:8080
+{{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
 ```
 
-.strategy.yaml
+**updatecli.2.yaml**
 ```
-sources:
-  jenkins:
-    kind: dockerDigest
-    spec:
-      image: "jenkins/jenkins"
-      tag: "lts-jdk11"
-targets:
-  imageTag:
-    name: "jenkins/jenkins:lts-jdk11 docker digest"
-    kind: yaml
-    spec:
-      file: "./docker-compose.yaml"
-      key: "services.jenkins.image"
+{{< include "assets/code_example/docs/guides/docker-compose/updatecli.2.yaml" >}}
 ```
-
 
 This time updatecli queries DockerHub to retrieve the digest for the docker image `jenkins/jenkins:lts-jdk11`. If it finds one, then we test if the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct otherwise we change it.
 
 Again if we are ok with the changes then we apply them by using `apply` instead of `diff`.
 
-* `docker run -i -t -v $(pwd):/updatecli -workdir /updatecli ghcr.io/updatecli/updatecli:v0.6.1 diff --config strategy.yaml`
-* `docker run -i -t -v $(pwd):/updatecli -workdir /updatecli ghcr.io/updatecli/updatecli:v0.6.1 apply --config stragegy.yaml`
+* `updatecli diff --config updatecli.2.yaml`
+* `updatecli apply --config updatecli.2.yaml`
 
 == Git/GitHub
 
 Now that we have an easy way to update docker image version, we are missing a way to save, review, rollback those changes, and git for this is a tremendous tool.
 Either we directly commit and push to a git repository or we use the GitHub workflow by pushing to a temporary branch. If we are using GitHub we can also we submit our changes via a pull request which can then be approved.
 
-.docker-compose.yaml
+**docker-compose.yaml**
 ```
-version: '3'
-services:
-  jenkins:
-    image: jenkins/jenkins:2.245
-    ports:
-        - 8080:8080
+{{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
 ```
 
-While the configuration remains quite similar to our previous example, this time we introduce two new elements. First, `strategy.yaml` becomes `strategy.tpl` which is a go template.
-By using go template we can define generic values and reference them from our template or read values from an environment variable like `{{ requiredEnv  GITHUB_TOKEN }}`.
-The second major change is the 'scm' block which should be quiet obvious and defines where to push commits.
+While the configuration remains quite similar to our previous example, this time we introduce a new element.
+We can define generic values in file or read values from an environment variable like `{{ requiredEnv  "GITHUB_TOKEN" }}`.
+The second major change is the 'scms' block which should be quiet obvious and defines the github repository configuration.
 
-.strategy.tpl
+**updatecli.3.yaml**
 ```
-sources:
-  jenkins:
-    kind: dockerDigest
-    spec:
-      image: "jenkins/jenkins"
-      tag: "lts-jdk11"
-targets:
-  imageTag:
-    name: "jenkins/jenkins:lts-jdk11 docker digest"
-    kind: yaml
-    spec:
-      file: "./docker-compose.yaml"
-      key: "services.jenkins.image"
-    scm:
-      github:
-        user: "John"
-        email: "john@example.com"
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: "{{ requiredEnv GITHUB_TOKEN }}"
-        username: "johnDoe"
-        branch: "main"
-
+{{< include "assets/code_example/docs/guides/docker-compose/updatecli.3.yaml" >}}
 ```
 
 And now you can use the same command than before
 
-* `docker run -i -t -v $(pwd):/updatecli -workdir /updatecli ghcr.io/updatecli/updatecli:v0.6.1 diff --config.tpl`
-* `docker run -i -t -v $(pwd):/updatecli -workdir /updatecli ghcr.io/updatecli/updatecli:v0.6.1 apply --config.tpl`
+* `updatecli diff --config updatecli.3.yaml`
+* `updatecli apply --config updatecli.3.yaml`
 
 
 == Conclusion
 
-In this scenario, we saw how to automatically update docker-compose file using custom strategies by using updatecli. Updatecli is a small tool that can be used from your favorite CI environment.
+During this scenario, we saw how to automatically update docker-compose file using custom strategies with Updatecli. Updatecli is a small tool that can be used from your favorite CI environment.
 
 Now we can replace our docker-compose file by any other YAML file to automate YAML update.

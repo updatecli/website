@@ -1,0 +1,17 @@
+---
+sources:
+  jenkins:
+    kind: dockerDigest
+    spec:
+      image: "jenkins/jenkins"
+      tag: "lts-jdk11"
+      architecture: "amd64"
+targets:
+  imageTag:
+    name: "jenkins/jenkins:lts-jdk11 docker digest"
+    kind: yaml
+    transformers:
+      - addPrefix: "jenkins/jenkins@sha256:"
+    spec:
+      file: "./docker-compose.yaml"
+      key: "services.jenkins.image"
