@@ -1,0 +1,8 @@
+---
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:2.245
+    ports:
+        - 8080:8080
+
