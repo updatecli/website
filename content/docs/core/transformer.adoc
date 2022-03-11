@@ -82,7 +82,7 @@ A findSubMatch rule captures the desired information by applying "pattern" as a 
 
 
 == Example
-
+The `findSubmatch` below will return the submatch captured with `(.*?)`:
 
 .updatecli.yaml
 ```
