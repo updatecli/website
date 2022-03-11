@@ -77,7 +77,7 @@ A findSubMatch rule captures the desired information by applying "pattern" as a 
 |===
 | Name | Required | Default |Description
 | pattern | &#10004;|-| "pattern" value defines the regular expression to apply
-| captureIndex |-|-| "captureIndex" value defines the index of the capture to return (0 by default)
+| captureIndex |-|-| "captureIndex" value defines the index of the capture to return. Note that the default value `0` returns all submatches, and individual submatch indexes start at `1`.
 |===
 
 
