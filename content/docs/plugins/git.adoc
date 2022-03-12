@@ -21,19 +21,20 @@ plugins:
 
 == Description
 
-Depending on the situation a specific scm block can be provided to manipulate information from a scm repository by either fetching files from a repository or pushing files to them
+The "scm" of kind `git`, defines parameters to interact with a git repository. It is then referenced from another "resource" by using the key `scmID`.
+Depending on the resource that referenced the git configuration, the behavior will change.
 
 **source**
 
-When the scm block is used in a source then it usually means fetching a file from that repository.
+When a source resource references a scm configuration, then it usually means using a file from that repository.
 
 **condition**
 
-When the scm block is used in a condition, then it usually means fetching a file from that repository.
+When a condition references a scm configuration, then it usually means using a file from that repository.
 
 **target**
 
-When the scm block is used in a target, it usually means pushing file to that repository.
+When a target references a scm configuration, it usually means pushing file to that repository.
 
 == Parameters
 
@@ -44,12 +45,26 @@ When the scm block is used in a target, it usually means pushing file to that re
 | username | | | Define the username used to authenticate with the git repository
 | password | | | Define the password used to authenticate with the git repository
 | branch | &#10004; | master | Define the git branch
-| user | &#10004; | | Define Git user used by git config
-| email | &#10004; | | Define Git email used by the git config
+| user | | | Define Git user used by git config
+| email | | | Define Git email used by the git config
 | force | | false | Run git push using --force option
 | directory | |Default to tmp location, /tmp on linux | Define where to clone the git repository
-| commitMessage | | | [T] Customize commit message
+| commitMessage | | | [T] Customize commit message. More information link:#_commitmessage[here]
+| gpg | | | [T] Sign commit with a GPG key. More information link:#_gpg[here]
 |===
+
+=== GPG
+
+Updatecli can sign commits using a private GPG key if configured accordingly.
+
+---
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| signingkey ||| Defines the armored private gpg key
+| password ||| Defines the gpg key password
+|===
+
 
 === CommitMessage
 
@@ -85,54 +100,11 @@ Date:   Tue May 4 15:41:44 2021 +0200
 
 === Authentication
 
-At the moment they are two ways to authentication with a git repository, either using a username/password from the updatecli configuration, or relying on the local ssh-agent. Most of the time, the latter option is more convenient.
+At the moment they are two ways to authentication with a git repository, either using a `username`/`password`` from the updatecli configuration, or relying on the local ssh-agent.
 
 == Example
 
-=== Default
+**updatecli.yaml**
 ```
-sources:
-# ...
-conditions
-# ...
-targets:
-  id:
-    kind: yaml
-    spec:
-      file: values.yaml
-      key: tag
-    scm:
-      git:
-        url: "git repository url"
-        branch: "git branch to push changes"
-        user: "git user to push from changes"
-        email: "git user email to push from change"
-        username: "username used to authenticate with the git repository"
-        password: "password used to authenticate with the git repository"
-```
-
-=== CommitMessage
-
-```
-sources:
-# ...
-conditions
-# ...
-targets:
-  id:
-    kind: yaml
-    spec:
-      file: values.yaml
-      key: tag
-    scm:
-      git:
-        url: "git repository url"
-        branch: "git branch to push changes"
-        user: "git user to push from changes"
-        email: "git user email to push from change"
-        username: "username used to authenticate with the git repository"
-        password: "password used to authenticate with the git repository"
-        commitMessage:
-          type: "chore"
-          scope: "(deps)"
+{{< include "assets/code_example/docs/plugins/git/updatecli.yaml" >}}
 ```

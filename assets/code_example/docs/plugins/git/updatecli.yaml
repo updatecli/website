@@ -1,0 +1,68 @@
+---
+title: "Example Git scm"
+
+scms:
+  scenario-source:
+    kind: git 
+    spec:
+      username: "git username used for authentication"
+      password: 'git password used for authentication'
+      url: "https://github.com/updatecli/experiment.git"
+      branch: "main"
+
+  scenario-condition:
+    kind: git 
+    spec:
+      url: "https://github.com/updatecli/updatecli.git"
+      branch: "main"
+
+  scenario-target:
+    kind: git 
+    spec:
+      url: "git@github.com:updatecli/updatecli.git"
+      branch: "main"
+      user: "git user to push from changes"
+      email: "git user email to push from change"
+      commitMessage:
+        type: "chore"
+        scope: "(deps)"
+      gpg:
+        signingKey: | 
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          mDMEYitSPBYJKwYBBAHaRw8BAQdAR3mMGagDsa1P2HziXehsurCBw5ak58aNnfPP
+          uRQtcq60SlVwZGF0ZWNsaSBUZXN0aW5nIEtleSAoVXNlIGZvciB0ZXN0aW5nIGNv
+          bW1pdCBzaWduaW5nKSA8aW5mb0B1cGRhdGVjbGkuaW8+iI8EExYKADcWIQSfbrE/
+          jBl2/jyNP1zp/q0C4DwCsAUCYitSPAIbAwULCQgHAwQVCgkIBRYDAgEAAh4FAheA
+          AAoJEOn+rQLgPAKwbFwBALgzusdciqTZVvzTT/MG9Rtba6FPUUR/3pZn0t5mYrT4
+          AQDQjBipUNWOwQ6T7teBJuqZS2hFU6oMDv9cSzjNjrxQArg4BGIrUjwSCisGAQQB
+          l1UBBQEBB0CAKp9rGdo2JojPTnq/I2ZqPx8YydCTPDKQzRGv54bSDgMBCAeIeAQY
+          FgoAIBYhBJ9usT+MGXb+PI0/XOn+rQLgPAKwBQJiK1I8AhsMAAoJEOn+rQLgPAKw
+          fH0A/2ZmCpmuGN4grG8UJwAbCHzrbTuWV456R2k6+MxKMiDmAQD5pOgx+Xs0PXyz
+          rxOShppuh5wlhB0xMsx4iZJmRczPDQ==
+          =FiJF
+          -----END PGP PUBLIC KEY BLOCK-----
+        passphrase: updatecli
+
+sources:
+  source-1:
+    name: "Source 1"
+    kind: file
+    scmID: scenario-source
+    spec:
+      file: README.md
+
+condition:
+  condition-1:
+    name: "Condition 1"
+    kind: file
+    scmID: scenario-condition
+    spec:
+      file: README.md
+
+targets:
+  target-1:
+    name: "Target 1"
+    kind: file
+    scmID: scenario-target
+    spec:
+      file: README.md
