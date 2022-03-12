@@ -23,18 +23,18 @@ sources:
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
 
 targets:
-  opensuse:
-    name: '[bug-report] Update updatecli version to {{ source "updatecli" }}'
+  download-url:
+    name: 'Update Installation URL'
     kind: file
     spec:
       file: content/docs/prologue/installation.adoc
-      matchPattern: 'sudo zypper install .*'
-      content: 'sudo zypper install https://github.com/updatecli/updatecli/releases/download/{{ source `updatecli` }}/updatecli_amd64.rpm'
+      matchPattern: 'https://github.com/updatecli/updatecli/releases/download/(.*)/'
+      replacePattern: 'https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/'
     scmID: default
 
 pullrequests:
   default:
-    title: '[updatecli] Bump updatecli version used withing documentation to {{ source "updatecli" }}'
+    title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
     kind: github
     scmID: default
     targets:
@@ -44,4 +44,3 @@ pullrequests:
       mergemethod: squash
       labels:
         - chore
-        - skip-changelog
