@@ -45,8 +45,8 @@ When a target references a scm configuration, it usually means pushing file to t
 | username | | | Define the username used to authenticate with the git repository
 | password | | | Define the password used to authenticate with the git repository
 | branch | &#10004; | master | Define the git branch
-| user | &#10004; | | Define Git user used by git config
-| email | &#10004; | | Define Git email used by the git config
+| user | | | Define Git user used by git config
+| email | | | Define Git email used by the git config
 | force | | false | Run git push using --force option
 | directory | |Default to tmp location, /tmp on linux | Define where to clone the git repository
 | commitMessage | | | [T] Customize commit message. More information link:#_commitmessage[here]
@@ -57,6 +57,7 @@ When a target references a scm configuration, it usually means pushing file to t
 
 Updatecli can sign commits using a private GPG key if configured accordingly.
 
+---
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
