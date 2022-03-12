@@ -44,14 +44,11 @@ brew install updatecli
 To check, later, if a newer version is available, use `brew outdated updatecli`. 
 Should you then want to upgrade to the latest version, use `brew upgrade updatecli`.
 
-== Linux 
+== Linux
 
 **Opensuse**
 [source,shell]
 ```
-<<<<<<< Updated upstream
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_amd64.rpm
-=======
 # amd64
 sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.21.0/updatecli_amd64.rpm
 # arm64
@@ -80,7 +77,6 @@ dnf install https://github.com/updatecli/updatecli/releases/download/v0.22.0/upd
 dnf install https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_arm64.rpm
 # armv6
 dnf install https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_armv6.rpm
->>>>>>> Stashed changes
 ```
 
 == Docker
