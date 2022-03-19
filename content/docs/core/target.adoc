@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "core"
-weight: 130 
+weight: 130
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -27,9 +27,7 @@ The "target" stage update if necessary "resource" like a file based on informati
 |===
 | Name | Required | Default |Description
 | kind | &#10004; |-| Define the resource type used for the `spec`
-| name | &#10004; |-| Small description used in message, reports, etc. 
-| prefix |-|-| Define the prefix to be added to the information retrieved from source.
-| postfix |-|-| Define the postfix to be added to the information retrieved from source.
+| name | &#10004; |-| Small description used in message, reports, etc.
 | spec | &#10004; |-| Define resource parameters, cfr to appropriated documentation
 | scm |-|-| Define scm parameters, cfr to the scm documentation
 |===

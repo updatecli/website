@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-04-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "plugins"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - source
@@ -48,20 +48,21 @@ The maven "condition" tests if a version exist on a maven repository.
 | version  | &#10004; | source output | Set artifactID version
 |===
 
-== Example 
+== Example
 
 .updatecli.conf
 ```
 sources:
   default:
     kind: maven
-    postfix: "-jdk11"
     spec:
       owner: "maven"
       url: "repo.jenkins-ci.org"
       repository: "releases"
       groupID: "org.jenkins-ci.main"
       artifactID: "jenkins-war"
+    transformers:
+      - addSuffix: "-jdk11"
 conditions:
   docker:
     name: "Test Docker Image Published on Registry with the correct tag"

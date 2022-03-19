@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-05-04T21:02:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "core"
-weight: 130 
+weight: 130
 toc: true
 ---
 
@@ -37,8 +37,6 @@ A condition receives information from the source then modifies that value using 
 A target receives information from the source then modifies that value with the transformers rule before using the resource.
 
 == Parameters
-
-We also deprecated string manipulation like prefix/postfix/replacer defined outside a transformers definition
 
 |===
 | Name | Default |Description

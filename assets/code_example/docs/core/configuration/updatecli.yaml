@@ -5,17 +5,18 @@ sources:
     spec:
       owner: "updatecli"
       repository: "updatecli"
-      token: "{{ .github.token }}" 
+      token: "{{ .github.token }}"
       username: "olblak"
-      version: "latest"
+      versionFilter:
+        kind: "latest"
 
 conditions:
   conditionID:
     name: Test if version exist
     kind: <resourceType>
-    spec: 
+    spec:
       <resourceTypeSpec>
-targets:  
+targets:
   targetID:
     name: Update version in target1
     kind: <resourceType>

@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "core"
-weight: 130 
+weight: 130
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -27,47 +27,30 @@ The "source" stage retrieve an information from a third "resource" like a file, 
 |===
 | Name | Required | Default |Description
 | kind | &#10004; |-| Define the resource type used for the `spec`
-| name | &#10004; |-| Small description used in message, reports, etc. 
-| prefix |-|-| Define the prefix to be added to the retrieved information.
-| postfix |-|-| Define the postfix to be added to the retrieved information.
-| replaces |-|-| A list of replacer rules that modify the information retrieved from the resource
-| scm |-|-| Define source control management parameters, cfr to the scm 
+| name | &#10004; |-| Small description used in message, reports, etc.
+| scm |-|-| Define source control management parameters, cfr to the scm
 | spec | &#10004; |-| Define resource parameters, cfr to appropriated resource documentation
-|===
-
-=== Replacer
-
-A replacer rule modify the information by replacing the "from" value by the "to" value.
-
-==== Parameters
-
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| from | &#10004;|-| "from" value defines the string that will be replaced
-| to | &#10004;|-| "to" value defines the string that we want to have
 |===
 
 == Example
 
 .updatecli.yaml
 ```
-source:
-  name: "Retrieve latest jenkins weekly version"
-  kind: githubRelease
-  prefix: "jenkins/jenkins:"
-  postfix: "-jdk11"
-  replaces:
-    - from: "jenkins-"
-      to: ""
-  spec:
-    owner: "jenkinsci"
-    repository: "jenkins"
-    token: "{{ requiredEnv .github.token }}" 
-    username: "{{ .github.username }}" 
-    version: "latest"
-
-## To be continued
+sources:
+  latestVersion:
+    name: Get latest Venom release
+    kind: githubRelease
+    spec:
+      owner: ovh
+      repository: venom
+      # Value from environment variable '$UPDATECLI_GITHUB_TOKEN'
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      # Value from environment variable '$UPDATECLI_GITHUB_ACTOR'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      versioning:
+        kind: semver
+    transformers:
+      - addPrefix: "v"
 ```
 
 In this example we are looking for the latest release tag from https://github.com/jenkinsci/jenkins which is 'jenkins-2.75'. Unfortunately it contains the prefix "jenkins" which is useless for later stages, so we replace 'jenkins-' by nothing so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image that can now be used in the later stages.

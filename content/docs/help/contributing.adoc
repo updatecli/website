@@ -6,7 +6,7 @@ date: 2020-10-06T08:49:31+00:00
 lastmod: 2020-10-06T08:49:31+00:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "help"
 weight: 630
@@ -89,7 +89,7 @@ In the `main.go`, you need to define the `struct` that you'll use to configure y
 ```
 type Capitalized_package_name struct {
 	Field1        string
-	Field2        string 
+	Field2        string
 	Field3        string
 	Field4        string
 }
@@ -167,11 +167,12 @@ config.value
 ```
 # updatecli diff --config config.value
 
-source:
-  kind: packageName
-  spec:
-    field1: "value"
-    field3: "value"
+sources:
+  lastPackage:
+    kind: packageName
+    spec:
+      field1: "value"
+      field3: "value"
 targets:
   idName:
     name: "updatecli"
