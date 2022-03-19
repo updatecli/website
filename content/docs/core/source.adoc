@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "core"
-weight: 130 
+weight: 130
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -27,11 +27,11 @@ The "source" stage retrieve an information from a third "resource" like a file, 
 |===
 | Name | Required | Default |Description
 | kind | &#10004; |-| Define the resource type used for the `spec`
-| name | &#10004; |-| Small description used in message, reports, etc. 
+| name | &#10004; |-| Small description used in message, reports, etc.
 | prefix |-|-| Define the prefix to be added to the retrieved information.
 | postfix |-|-| Define the postfix to be added to the retrieved information.
 | replaces |-|-| A list of replacer rules that modify the information retrieved from the resource
-| scm |-|-| Define source control management parameters, cfr to the scm 
+| scm |-|-| Define source control management parameters, cfr to the scm
 | spec | &#10004; |-| Define resource parameters, cfr to appropriated resource documentation
 |===
 
@@ -52,20 +52,19 @@ A replacer rule modify the information by replacing the "from" value by the "to"
 
 .updatecli.yaml
 ```
-source:
-  name: "Retrieve latest jenkins weekly version"
-  kind: githubRelease
-  prefix: "jenkins/jenkins:"
-  postfix: "-jdk11"
-  replaces:
-    - from: "jenkins-"
-      to: ""
-  spec:
-    owner: "jenkinsci"
-    repository: "jenkins"
-    token: "{{ requiredEnv .github.token }}" 
-    username: "{{ .github.username }}" 
-    version: "latest"
+sources:
+  lastJenkinsWeeklyVersion:
+    name: "Retrieve latest jenkins weekly version"
+    kind: githubRelease
+    prefix: "jenkins/jenkins:"
+    postfix: "-jdk11"
+    replaces:
+      - from: "jenkins-"
+        to: ""
+    spec:
+      owner: "jenkinsci"
+      repository: "jenkins"
+      version: "weekly"
 
 ## To be continued
 ```

@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "plugins"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - source
@@ -35,7 +35,7 @@ The Helm chart "source" retrieves the latest version of a Helm package.
 
 **condition**
 
-The Helm chart "condition" tests if a helm chart release exist. 
+The Helm chart "condition" tests if a helm chart release exist.
 
 **target**
 
@@ -51,7 +51,7 @@ The Helm chart "target" updates a helmchart and bump the chart metadata. It hand
 | version | &#10004; | Source | [S,C] Define Helm chart version.
 | file| | values.yaml |[T] Define the file that needs to be updated
 | value| | source | [T] Define the value that need to be present in helm chart file
-| key | &#10004; | - | [T] Define the key that need to be present in helm chart file 
+| key | &#10004; | - | [T] Define the key that need to be present in helm chart file
 | appversion | | false | [T] Boolean that defines if the value should also be used for the AppVersion
 | versionincrement| | minor | [T] Define the rule to automatically increment the helm chart version. It accept a comma separated list of major,minor,patch.
 |===
@@ -60,11 +60,12 @@ The Helm chart "target" updates a helmchart and bump the chart metadata. It hand
 
 .updatecli.yaml
 ```
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.jenkins.io
-    name: jenkins
+sources:
+  lastRelease:
+    kind: helmChart
+    spec:
+      url: https://charts.jenkins.io
+      name: jenkins
 conditions:
   isPrometheuseHelmChartVersionAvailable:
     name: "Test if the prometheus helm chart is available"

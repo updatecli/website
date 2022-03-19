@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "plugins"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - source
@@ -77,11 +77,12 @@ NOTE: Arrays can also be grouped with dots like `key.array[3].key`
 
 .updatecli.yaml
 ```
-source:
-  kind: helmChart
-  spec:
-    url: https://charts.jenkins.io
-    name: jenkins
+sources:
+  lastRelease:
+    kind: helmChart
+    spec:
+      url: https://charts.jenkins.io
+      name: jenkins
 conditions:
   isPrometheuseHelmChartVersionAvailable:
     name: "Test if the prometheus helm chart is available"
@@ -145,4 +146,3 @@ Then it tests two conditions.
 If conditions are all met, then updatecli will update (if needed) the first element of the key
 "dependencies" to "2.7.1" for the file "charts/jenkins/requirements.yaml"
 from the github repository olblak/chart then publish changes using a Github Pull Request targeting the master from a temporary branch.
-

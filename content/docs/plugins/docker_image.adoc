@@ -6,10 +6,10 @@ date: 2020-10-13T15:21:01+02:00
 lastmod: 2020-10-13T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "plugins"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - condition
@@ -77,14 +77,15 @@ The main motivation is to use {{ requiredEnv ENV_VARIABLE }} to read the github 
 .updatecli.tpl
 ```
 ---
-source:
-  kind: githubRelease
-  spec:
-    owner: "jenkins-infra"
-    repository: "plugin-site-api"
-    token: "{{ requiredEnv .github.token }}" 
-    username: "olblak"
-    version: "latest"
+sources:
+  lastGithubRelease:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "plugin-site-api"
+      token: "{{ requiredEnv .github.token }}"
+      username: "olblak"
+      version: "latest"
 conditions:
   docker:
     name: "Docker Image Published on Registry"
@@ -100,11 +101,11 @@ targets:
       key: "backend.image.tag"
     scm:
       github:
-        user: "{{ .github.user }}" 
-        email: "{{ .github.email }}" 
+        user: "{{ .github.user }}"
+        email: "{{ .github.email }}"
         owner: "jenkins-infra"
         repository: "charts"
-        token: "{{ requiredEnv .github.token }}" 
+        token: "{{ requiredEnv .github.token }}"
         username: "olblak"
         branch: "master"
 ```

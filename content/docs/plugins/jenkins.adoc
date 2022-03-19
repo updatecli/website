@@ -29,11 +29,11 @@ plugins:
 
 == Description
 
-**source**  
+**source**
 
-The jenkins "source" retrieves the latest version for a specific Jenkins release 
+The jenkins "source" retrieves the latest version for a specific Jenkins release
 
-**condition**  
+**condition**
 
 The jenkins "condition" test that a version exists and also that the version corresponds to a specific release type
 
@@ -67,14 +67,12 @@ To apply this update strategy, we can run the following command
 .updatecli.tpl
 ```
 ---
-source:
-  # Get latest jenkins weekly version with changelog from github
-  kind: jenkins
-  spec:
-    release: weekly
-    github:
-      token: {{ requiredEnv .github.token }}
-      username: {{ .github.username }}
+sources:
+  lastWeeklyRelease:
+    # Get latest jenkins weekly version with changelog from github
+    kind: jenkins
+    spec:
+      release: weekly
 conditions:
   # Test that a specific Jenkins version exists
   jenkinsVersion:
@@ -100,7 +98,7 @@ conditions:
         branch: main
         user: alice
         email: alice@example.com
-  # Test that there is a docker image with the correct tag 
+  # Test that there is a docker image with the correct tag
   # set to "<version>-jdk11"
   dockerImage:
     kind: dockerImage

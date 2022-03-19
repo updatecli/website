@@ -348,15 +348,16 @@ When used as a target (and writing to a file):
 
 .updatecli.yaml
 ```
-source:
-  name: Get Latest helm release version
-  kind: githubRelease
-  spec:
-    owner: "helm"
-    repository: "helm"
-    token: {{ requiredEnv .github.token }}
-    username: olblak
-    version: latest
+sources:
+  lastHelmVersion:
+    name: Get Latest helm release version
+    kind: githubRelease
+    spec:
+      owner: "helm"
+      repository: "helm"
+      token: {{ requiredEnv .github.token }}
+      username: olblak
+      version: latest
 conditions:
   isENVSet:
     name: Is ENV HELM_VERSION set
