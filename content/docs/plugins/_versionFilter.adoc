@@ -1,7 +1,7 @@
 === VersionFilter
 
 `versionFilter` allows to specify the kind of version retrieved from a resource and its version pattern.
-Default value is "latest" as we want to retrieve the newest version from a resource. 
+Default value is "latest" as we want to retrieve the newest version from a resource.
 
 ==== latest
 
@@ -26,7 +26,7 @@ Return the latest Github release and remove "kubernetes-" from it.
 
 ==== regex
 
-If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to 
+If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to
 return the newest version returned from a resource matching the regex
 If no versionFilter.pattern is provided then it uses '.*' which return the newest version
 
@@ -51,7 +51,7 @@ sources:
 
 If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
 If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
-If a version doesn't respect semantic versioning, then it's not the value is just ignored. 
+If a version doesn't respect semantic versioning, then it's not the value is just ignored.
 
 **Remark**
 
@@ -66,10 +66,8 @@ In the process we drop any characters not respecting semantic version like in th
       repository: "jenkins-wiki-exporter"
       token: "{{ requiredEnv .github.token }}"
       username: "john"
-      version: "~1.10"
-      versioning:
+      versionFilter:
         kind: semver
-    transformers:
-      - addPrefix: "v"
+        pattern: "~1.10"
 ```
-=> Return the version "v1.10.3" 
+=> Return the version "v1.10.3"

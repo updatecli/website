@@ -6,10 +6,10 @@ date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "plugins"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - source
@@ -42,7 +42,6 @@ It's important to notice that both information are mutually exclusive.
 | repository | &#10004; | - | Define Github repository name.
 | token | &#10004; | - | Define the token needed to authenticate with the docker registry
 | url | | github.com | Define github url
-| version | | source output | **Deprecated** Define Github Release version.
 | versionFilter | | | Provide version filtering information
 | versionFilter.kind | | "latest" | VersionFilter.kind accept on of the following values: ["semver","latest","regex"]
 | versionFilter.pattern | | | The default pattern value depends on the version kind
@@ -58,30 +57,35 @@ It's considered a very bad practice to store credentials in an un-encrypted file
 Consider using an environment variable to store the token.
 
 ```
-source:
-  kind: githubRelease
-  spec:
-    owner: "jenkins-infra"
-    repository: "jenkins-wiki-exporter"
-    token: "{{ requiredEnv "ENV_VARIABLE" }}"
-    username: "john"
-    version: "v1.10"
+sources:
+  lastRelease:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "jenkins-wiki-exporter"
+      token: "{{ requiredEnv "ENV_VARIABLE" }}"
+      username: "john"
+      versionFilter:
+        kind: regexp
+        pattern: "v1.10\.(.*)"
 ```
 => Return v1.10.3
 
-== Example 
+== Example
 
 .updatecli.yaml
 ```
-source:
-  name: Get Latest helm release version
-  kind: githubRelease
-  spec:
-    owner: "helm"
-    repository: "helm"
-    token: {{ requiredEnv .github.token }}
-    username: olblak
-    version: latest
+sources:
+  lastRelease:
+    name: Get Latest helm release version
+    kind: githubRelease
+    spec:
+      owner: "helm"
+      repository: "helm"
+      token: {{ requiredEnv .github.token }}
+      username: olblak
+      versionFilter:
+        kind: latest
 conditions:
   isENVSet:
     name: Is ENV HELM_VERSION set
@@ -127,8 +131,8 @@ Retrieve the latest helm version from its Github release located on https://gith
 *Conditions*
 
 Then it tests one condition:
-If the dockerfile 'docker/Dockerfile' is located on the git repository https://github.com/olblak/charts 
-has the instruction ENV[1][0] set to "HELM_VERSION". ENV[1][0] is a custom syntax to represent 
+If the dockerfile 'docker/Dockerfile' is located on the git repository https://github.com/olblak/charts
+has the instruction ENV[1][0] set to "HELM_VERSION". ENV[1][0] is a custom syntax to represent
 a two-dimensional array where the first element represents a specific Dockerfile instruction identifier
 starting from "0" at the beginning of the document, so we are looking for the second INSTRUCTION "ENV".
 The second element represents an instruction argument position. In this case, we want to check that ENV key
@@ -136,7 +140,7 @@ is set to "HELM_VERSION"
 
 *Targets*
 
-If the condition is met, which is to be sure that the ENV key set to "HELM_VERSION" exist, then we'll 
+If the condition is met, which is to be sure that the ENV key set to "HELM_VERSION" exist, then we'll
 are going to update its value if needed based on the version retrieved from the source.
 The syntax is the same for the condition excepted that this time we are looking for ENV[1][1]
 which means that the second argument of the second ENV instruction.

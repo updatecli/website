@@ -80,7 +80,7 @@ The targets of this pipeline are not executed if this condition fails.
 
 [source,yaml]
 ----
-source:
+sources:
   tagVersion:
     kind: shell
     spec:
