@@ -38,7 +38,7 @@ pullrequests:
     kind: github
     scmID: default
     targets:
-      - opensuse
+      - download-url
     spec:
       automerge: true
       mergemethod: squash
