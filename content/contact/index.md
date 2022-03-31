@@ -9,3 +9,4 @@ images: []
 
 Thank you for your interest in Updatecli.
 No matter what brought you here, feel free to drop us an email at [contact@updatecli.io](mailto:contact@updatecli.io).
+We are looking forward to reading you.
