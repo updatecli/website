@@ -41,15 +41,19 @@
   url = "/docs/help/"
 
 [[main]]
-  name = "Docs"
-  url = "/docs/prologue/introduction/"
+  name = "Blog"
+  url = "/blog/"
   weight = 10
 
+[[main]]
+  name = "Docs"
+  url = "/docs/prologue/introduction/"
+  weight = 20
 
-#[[main]]
-#  name = "Blog"
-#  url = "/blog/"
-#  weight = 20
+[[main]]
+  name = "Support"
+  url = "/support/"
+  weight = 20
 
 [[social]]
   name = "Twitter"
@@ -68,3 +72,8 @@
   name = "Privacy"
   url = "/privacy-policy/"
   weight = 10
+
+[[footer]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 30
