@@ -1,0 +1,34 @@
+title: "Update jsonschema"
+
+scms:
+  default:
+    kind: "github"
+    spec:
+      user: "updatecli"
+      email: "me@olblak.com"
+      owner: "updatecli"
+      repository: "website"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: "master"
+
+targets:
+  jsonschema:
+    name: "Update updatecli jsonschema"
+    kind: "shell"
+    spec:
+      command: "updatecli jsonschema --baseid https://www.updatecli.io/latest/schema"
+
+pullrequests:
+  default:
+    title: '[updatecli] Bump jsonschema'
+    kind: "github"
+    scmid: "default"
+    targets:
+      - "jsonschema"
+    spec:
+      automerge: true
+      mergemethod: "squash"
+      labels:
+        - "chore"
+

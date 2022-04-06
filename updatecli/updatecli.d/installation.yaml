@@ -1,46 +1,46 @@
-title: Bump udpatecli version in installation documentation
+title: "Bump udpatecli version in installation documentation"
 
 scms:
   default:
-    kind: github
+    kind: "github"
     spec:
-      user: updatecli
-      email: me@olblak.com
-      owner: updatecli
-      repository: website
+      user: "updatecli"
+      email: "me@olblak.com"
+      owner: "updatecli"
+      repository: "website"
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: master
+      branch: "master"
 
 sources:
   updatecli:
-    name: Get latest updatecli release
-    kind: githubRelease
+    name: "Get latest updatecli release"
+    kind: "githubrelease"
     spec:
-      owner: updatecli
-      repository: updatecli
+      owner: "updatecli"
+      repository: "updatecli"
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
 
 targets:
   download-url:
     name: 'Update Installation URL'
-    kind: file
+    kind: "file"
     spec:
-      file: content/docs/prologue/installation.adoc
-      matchPattern: 'https://github.com/updatecli/updatecli/releases/download/(.*)/'
-      replacePattern: 'https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/'
-    scmID: default
+      file: "content/docs/prologue/installation.adoc"
+      matchpattern: 'https://github.com/updatecli/updatecli/releases/download/(.*)/'
+      replacepattern: 'https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/'
+    scmid: "default"
 
 pullrequests:
   default:
     title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
-    kind: github
-    scmID: default
+    kind: "github"
+    scmid: "default"
     targets:
-      - download-url
+      - "download-url"
     spec:
       automerge: true
-      mergemethod: squash
+      mergemethod: "squash"
       labels:
-        - chore
+        - "chore"
