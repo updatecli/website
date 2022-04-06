@@ -25,7 +25,7 @@ pullrequests:
     kind: "github"
     scmid: "default"
     targets:
-      - "download-url"
+      - "jsonschema"
     spec:
       automerge: true
       mergemethod: "squash"
