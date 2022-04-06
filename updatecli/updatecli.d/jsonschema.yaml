@@ -17,7 +17,7 @@ targets:
     name: "Update updatecli jsonschema"
     kind: "shell"
     spec:
-      command: "updatecli jsonschema --baseID https://www.updatecli.io/latest/schema"
+      command: "updatecli jsonschema --baseid https://www.updatecli.io/latest/schema"
 
 pullrequests:
   default:
@@ -31,3 +31,4 @@ pullrequests:
       mergemethod: "squash"
       labels:
         - "chore"
+
