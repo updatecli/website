@@ -16,8 +16,9 @@ targets:
   jsonschema:
     name: "Update updatecli jsonschema"
     kind: "shell"
+    scmid: "default"
     spec:
-      command: "updatecli jsonschema --baseid https://www.updatecli.io/latest/schema"
+      command: "updatecli jsonschema --baseid https://www.updatecli.io/latest/schema --directory ./content/schema/latest"
 
 pullrequests:
   default:
