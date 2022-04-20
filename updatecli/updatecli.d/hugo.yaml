@@ -42,7 +42,7 @@ targets:
     spec:
       file: ".github/workflows/build.yaml"
       matchpattern: 'hugo-version: (.*)'
-      replacepattern: 'node-version: {{ source "hugo" }}'
+      replacepattern: 'hugo-version: {{ source "hugo" }}'
 
 pullrequests:
   default:
