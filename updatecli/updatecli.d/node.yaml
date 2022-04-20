@@ -21,18 +21,45 @@ sources:
       repository: "node"
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      versionfilter:
+        kind: semver
+        pattern: "~16"
+
+  majornodeversion:
+    name: "Get latest HUGO version"
+    kind: "githubrelease"
+    spec:
+      owner: "nodejs"
+      repository: "node"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      versionfilter:
+        kind: semver
+        pattern: "~16"
     transformers:
-      - trimPrefix: "v"
+      - findSubMatch:
+          pattern: '^(\d*)'
 
 targets:
   netlify:
     name: Update Node version used on Netlify
     kind: file
     scmid: "default"
+    sourceid: node
     spec:
       file: "netlify.toml"
       matchpattern: 'NODE_VERSION = "(.*)"'
       replacepattern: 'NODE_VERSION = "{{ source "node" }}"'
+
+  githubaction:
+    name: Update Node version used in Github Action
+    kind: file
+    scmid: "default"
+    sourceid: majornodeversion
+    spec:
+      file: ".github/workflows/build.yaml"
+      matchpattern: 'node-version: (.*)'
+      replacepattern: 'node-version: {{ source "majornodeversion" }}'
 
 pullrequests:
   default:
@@ -41,6 +68,7 @@ pullrequests:
     scmid: "default"
     targets:
       - "netlify"
+      - "githubaction"
     spec:
       automerge: true
       mergemethod: "squash"
