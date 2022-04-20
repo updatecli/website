@@ -1,0 +1,49 @@
+title: Bump Hugo version
+
+scms:
+  default:
+    kind: "github"
+    spec:
+      user: "updatecli"
+      email: "updatecli@olblak.com"
+      owner: "updatecli"
+      repository: "website"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: "master"
+
+sources:
+  node:
+    name: "Get latest HUGO version"
+    kind: "githubrelease"
+    spec:
+      owner: "nodejs"
+      repository: "node"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+    transformers:
+      - trimPrefix: "v"
+
+targets:
+  netlify:
+    name: Update Node version used on Netlify
+    kind: file
+    scmid: "default"
+    spec:
+      file: "netlify.toml"
+      matchpattern: 'NODE_VERSION = "(.*)"'
+      replacepattern: 'NODE_VERSION = "{{ source "node" }}"'
+
+pullrequests:
+  default:
+    title: '[updatecli] Bump nodejs to {{ source "node" }}'
+    kind: "github"
+    scmid: "default"
+    targets:
+      - "netlify"
+    spec:
+      automerge: true
+      mergemethod: "squash"
+      labels:
+        - "chore"
+        - "dependencies"
