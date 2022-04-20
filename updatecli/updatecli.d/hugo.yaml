@@ -34,6 +34,16 @@ targets:
       matchpattern: 'HUGO_VERSION = "(.*)"'
       replacepattern: 'HUGO_VERSION = "{{ source "hugo" }}"'
 
+  githubaction:
+    name: Update Hugo version used in Github Action
+    kind: file
+    scmid: "default"
+    sourceid: hugo
+    spec:
+      file: ".github/workflows/build.yaml"
+      matchpattern: 'hugo-version: (.*)'
+      replacepattern: 'hugo-version: {{ source "hugo" }}'
+
 pullrequests:
   default:
     title: '[updatecli] Bump HUGO to {{ source "hugo" }}'
@@ -41,6 +51,7 @@ pullrequests:
     scmid: "default"
     targets:
       - "netlify"
+      - "githubaction"
     spec:
       automerge: true
       mergemethod: "squash"
