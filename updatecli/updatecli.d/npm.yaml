@@ -1,4 +1,4 @@
-title: Bump Hugo version
+title: Bump npm version
 
 scms:
   default:
@@ -36,7 +36,7 @@ targets:
 
 pullrequests:
   default:
-    title: '[updatecli] Bump HUGO to {{ source "npm" }}'
+    title: '[updatecli] Bump npm to {{ source "npm" }}'
     kind: "github"
     scmid: "default"
     targets:
