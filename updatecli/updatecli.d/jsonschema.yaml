@@ -5,7 +5,7 @@ scms:
     kind: "github"
     spec:
       user: "updatecli"
-      email: "me@olblak.com"
+      email: "updatecli@olblak.com"
       owner: "updatecli"
       repository: "website"
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
