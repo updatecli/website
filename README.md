@@ -1,5 +1,7 @@
 # README
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5aa3d179-6a7a-41c4-8f31-b201badf0a39/deploy-status)](https://app.netlify.com/sites/amazing-golick-2d0138/deploys)
+
 ## Requirements
 
 Make sure all dependencies have been installed:
