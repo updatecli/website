@@ -21,8 +21,8 @@ sources:
       repository: "cli"
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-    transformers:
-      - trimPrefix: "v"
+      versionfilter:
+        kind: semver
 
 targets:
   netlify:
