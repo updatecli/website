@@ -282,330 +282,6 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "dockerfile"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "file": {
-                                            "type": "string",
-                                            "description": "File specifies the dockerimage file such as Dockerfile"
-                                        },
-                                        "instruction": {
-                                            "description": "Instruction specifies a DockerImage instruction such as ENV"
-                                        },
-                                        "value": {
-                                            "type": "string",
-                                            "description": "Value specifies the value for a specified Dockerfile instruction."
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"dockerfile\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "dockerimage"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "architecture": {
-                                            "type": "string",
-                                            "description": "Architecture specifies the container image architecture such as `amd64`"
-                                        },
-                                        "image": {
-                                            "type": "string",
-                                            "description": "Image specifies the container image such as `updatecli/updatecli`"
-                                        },
-                                        "tag": {
-                                            "type": "string",
-                                            "description": "Tag specifies the container image tag such as `latest`"
-                                        },
-                                        "username": {
-                                            "type": "string",
-                                            "description": "Username specifies the container registry username to use for authentication. Not compatible with token"
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "description": "Password specifies the container registry password to use for authentication. Not compatible with token"
-                                        },
-                                        "token": {
-                                            "type": "string",
-                                            "description": "Token specifies the container registry token to use for authentication. Not compatible with username/password"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"dockerimage\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "helmchart"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "file": {
-                                            "type": "string"
-                                        },
-                                        "key": {
-                                            "type": "string"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "url": {
-                                            "type": "string"
-                                        },
-                                        "value": {
-                                            "type": "string"
-                                        },
-                                        "version": {
-                                            "type": "string"
-                                        },
-                                        "versionincrement": {
-                                            "type": "string"
-                                        },
-                                        "appversion": {
-                                            "type": "boolean"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for an \"helmchart\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "jenkins"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "release": {
-                                            "type": "string"
-                                        },
-                                        "version": {
-                                            "type": "string"
-                                        },
-                                        "github": {
-                                            "properties": {
-                                                "branch": {
-                                                    "type": "string"
-                                                },
-                                                "directory": {
-                                                    "type": "string"
-                                                },
-                                                "email": {
-                                                    "type": "string"
-                                                },
-                                                "owner": {
-                                                    "type": "string"
-                                                },
-                                                "repository": {
-                                                    "type": "string"
-                                                },
-                                                "token": {
-                                                    "type": "string"
-                                                },
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "username": {
-                                                    "type": "string"
-                                                },
-                                                "user": {
-                                                    "type": "string"
-                                                },
-                                                "pullrequest": {
-                                                    "properties": {
-                                                        "automerge": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "description": {
-                                                            "type": "string"
-                                                        },
-                                                        "labels": {
-                                                            "items": {
-                                                                "type": "string"
-                                                            },
-                                                            "type": "array"
-                                                        },
-                                                        "draft": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "maintainercannotmodify": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "mergemethod": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "additionalProperties": false,
-                                                    "type": "object"
-                                                },
-                                                "gpg": {
-                                                    "properties": {
-                                                        "signingkey": {
-                                                            "type": "string"
-                                                        },
-                                                        "passphrase": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "additionalProperties": false,
-                                                    "type": "object"
-                                                }
-                                            },
-                                            "additionalProperties": false,
-                                            "type": "object"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"jenkins\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
                                         "gittag"
                                     ]
                                 },
@@ -714,6 +390,133 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "dockerfile"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string",
+                                            "description": "File specifies the dockerimage file such as Dockerfile"
+                                        },
+                                        "instruction": {
+                                            "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        },
+                                        "value": {
+                                            "type": "string",
+                                            "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"dockerfile\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "dockerimage"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "architecture": {
+                                            "type": "string",
+                                            "description": "Architecture specifies the container image architecture such as `amd64`"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "description": "Image specifies the container image such as `updatecli/updatecli`"
+                                        },
+                                        "tag": {
+                                            "type": "string",
+                                            "description": "Tag specifies the container image tag such as `latest`"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Username specifies the container registry username to use for authentication. Not compatible with token"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Password specifies the container registry password to use for authentication. Not compatible with token"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "description": "Token specifies the container registry token to use for authentication. Not compatible with username/password"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"dockerimage\" resource parsed from an updatecli manifest file"
                                 },
                                 "scm": {
                                     "type": "object",
@@ -874,64 +677,6 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "yaml"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "file": {
-                                            "type": "string"
-                                        },
-                                        "key": {
-                                            "type": "string"
-                                        },
-                                        "value": {
-                                            "type": "string"
-                                        },
-                                        "keyonly": {
-                                            "type": "boolean"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"yaml\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
                                         "aws/ami"
                                     ]
                                 },
@@ -1041,6 +786,261 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "Spec defines a specification for a \"shell\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "helmchart"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        },
+                                        "version": {
+                                            "type": "string"
+                                        },
+                                        "versionincrement": {
+                                            "type": "string"
+                                        },
+                                        "appversion": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for an \"helmchart\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "yaml"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        },
+                                        "keyonly": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"yaml\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "jenkins"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "release": {
+                                            "type": "string"
+                                        },
+                                        "version": {
+                                            "type": "string"
+                                        },
+                                        "github": {
+                                            "properties": {
+                                                "branch": {
+                                                    "type": "string"
+                                                },
+                                                "directory": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "owner": {
+                                                    "type": "string"
+                                                },
+                                                "repository": {
+                                                    "type": "string"
+                                                },
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "string"
+                                                },
+                                                "pullrequest": {
+                                                    "properties": {
+                                                        "automerge": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "title": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "labels": {
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "draft": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "maintainercannotmodify": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "mergemethod": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "additionalProperties": false,
+                                                    "type": "object"
+                                                },
+                                                "gpg": {
+                                                    "properties": {
+                                                        "signingkey": {
+                                                            "type": "string"
+                                                        },
+                                                        "passphrase": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "additionalProperties": false,
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"jenkins\" resource parsed from an updatecli manifest file"
                                 },
                                 "scm": {
                                     "type": "object",
@@ -1150,69 +1150,6 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "dockerfile"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "file": {
-                                            "type": "string",
-                                            "description": "File specifies the dockerimage file such as Dockerfile"
-                                        },
-                                        "instruction": {
-                                            "description": "Instruction specifies a DockerImage instruction such as ENV"
-                                        },
-                                        "value": {
-                                            "type": "string",
-                                            "description": "Value specifies the value for a specified Dockerfile instruction."
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"dockerfile\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                },
-                                "disablesourceinput": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
                                         "dockerimage"
                                     ]
                                 },
@@ -1330,6 +1267,450 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "Spec defines a specification for a \"file\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "helmchart"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        },
+                                        "version": {
+                                            "type": "string"
+                                        },
+                                        "versionincrement": {
+                                            "type": "string"
+                                        },
+                                        "appversion": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for an \"helmchart\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "aws/ami"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "accesskey": {
+                                            "type": "string",
+                                            "description": "accesskey specifies the aws access key which combined with `secretkey`, is one of the way to authenticate"
+                                        },
+                                        "secretkey": {
+                                            "type": "string",
+                                            "description": "secretkey specifies the aws secret key which combined with `accesskey`, is one of the way to authenticate"
+                                        },
+                                        "filters": {
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "description": "Name specifies a filter name."
+                                                    },
+                                                    "values": {
+                                                        "type": "string",
+                                                        "description": "Values specifies a filter value for a specific filter name."
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "Filter represents the updatecli configuration describing AMI filters."
+                                            },
+                                            "type": "array",
+                                            "description": "Filters specifies a list of AMI filters"
+                                        },
+                                        "region": {
+                                            "type": "string",
+                                            "description": "Region specifies the AWS region to use when looking for AMI"
+                                        },
+                                        "endpoint": {
+                                            "type": "string",
+                                            "description": "Endpoint specifies the AWS endpoin to use when looking for AMI"
+                                        },
+                                        "dryrun": {
+                                            "type": "boolean",
+                                            "description": "Dryrun allows to Check whether you have the required permissions for the action."
+                                        },
+                                        "sortby": {
+                                            "type": "string",
+                                            "description": "Sortby specifies the order of AMI-ID that will be used to retrieve the last element such as `creationdateasc`"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec contains the updatecli configuration provided by users."
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "shell"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "command": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"shell\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "githubrelease"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "owner": {
+                                            "type": "string"
+                                        },
+                                        "repository": {
+                                            "type": "string"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        },
+                                        "versionfilter": {
+                                            "properties": {
+                                                "kind": {
+                                                    "type": "string"
+                                                },
+                                                "pattern": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "dockerdigest"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "architecture": {
+                                            "type": "string",
+                                            "description": "Architecture specifies the container image architecture such as `amd64`"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "description": "Image specifies the container image such as `updatecli/updatecli`"
+                                        },
+                                        "tag": {
+                                            "type": "string",
+                                            "description": "Tag specifies the container image tag such as `latest`"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Username specifies the container registry username to use for authentication. Not compatible with token"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Password specifies the container registry password to use for authentication. Not compatible with token"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "description": "Token specifies the container registry token to use for authentication. Not compatible with username/password"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"dockerdigest\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "dockerfile"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string",
+                                            "description": "File specifies the dockerimage file such as Dockerfile"
+                                        },
+                                        "instruction": {
+                                            "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        },
+                                        "value": {
+                                            "type": "string",
+                                            "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"dockerfile\" resource parsed from an updatecli manifest file"
                                 },
                                 "scm": {
                                     "type": "object",
@@ -1432,70 +1813,6 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "yaml"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "file": {
-                                            "type": "string"
-                                        },
-                                        "key": {
-                                            "type": "string"
-                                        },
-                                        "value": {
-                                            "type": "string"
-                                        },
-                                        "keyonly": {
-                                            "type": "boolean"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"yaml\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                },
-                                "disablesourceinput": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
                                         "jenkins"
                                     ]
                                 },
@@ -1629,7 +1946,7 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "shell"
+                                        "gittag"
                                     ]
                                 },
                                 "transformers": {
@@ -1642,13 +1959,28 @@
                                 "spec": {
                                     "$schema": "http://json-schema.org/draft-04/schema",
                                     "properties": {
-                                        "command": {
+                                        "path": {
+                                            "type": "string"
+                                        },
+                                        "versionfilter": {
+                                            "properties": {
+                                                "kind": {
+                                                    "type": "string"
+                                                },
+                                                "pattern": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object"
+                                        },
+                                        "message": {
                                             "type": "string"
                                         }
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "Spec defines a specification for a \"shell\" resource parsed from an updatecli manifest file"
+                                    "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                                 },
                                 "scm": {
                                     "type": "object",
@@ -1684,7 +2016,366 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "dockerdigest"
+                                        "yaml"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        },
+                                        "keyonly": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"yaml\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                },
+                                "disablesourceinput": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        }
+                    ]
+                }
+            },
+            "type": "object",
+            "description": "Conditions defines the list of condition configuration"
+        },
+        "targets": {
+            "patternProperties": {
+                ".*": {
+                    "oneOf": [
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "jenkins"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "release": {
+                                            "type": "string"
+                                        },
+                                        "version": {
+                                            "type": "string"
+                                        },
+                                        "github": {
+                                            "properties": {
+                                                "branch": {
+                                                    "type": "string"
+                                                },
+                                                "directory": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "owner": {
+                                                    "type": "string"
+                                                },
+                                                "repository": {
+                                                    "type": "string"
+                                                },
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "string"
+                                                },
+                                                "pullrequest": {
+                                                    "properties": {
+                                                        "automerge": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "title": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "labels": {
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "draft": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "maintainercannotmodify": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "mergemethod": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "additionalProperties": false,
+                                                    "type": "object"
+                                                },
+                                                "gpg": {
+                                                    "properties": {
+                                                        "signingkey": {
+                                                            "type": "string"
+                                                        },
+                                                        "passphrase": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "additionalProperties": false,
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"jenkins\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "pipelineid": {
+                                    "type": "string"
+                                },
+                                "reporttitle": {
+                                    "type": "string"
+                                },
+                                "reportbody": {
+                                    "type": "string"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "shell"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "command": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"shell\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "pipelineid": {
+                                    "type": "string"
+                                },
+                                "reporttitle": {
+                                    "type": "string"
+                                },
+                                "reportbody": {
+                                    "type": "string"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "githubrelease"
+                                    ]
+                                },
+                                "transformers": {
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "type": "array",
+                                    "description": "transformers defines how the default input value need to be transformed"
+                                },
+                                "spec": {
+                                    "$schema": "http://json-schema.org/draft-04/schema",
+                                    "properties": {
+                                        "owner": {
+                                            "type": "string"
+                                        },
+                                        "repository": {
+                                            "type": "string"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        },
+                                        "versionfilter": {
+                                            "properties": {
+                                                "kind": {
+                                                    "type": "string"
+                                                },
+                                                "pattern": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
+                                },
+                                "scm": {
+                                    "type": "object",
+                                    "description": "Deprecated field on version [1.17.0]"
+                                },
+                                "scmid": {
+                                    "type": "string",
+                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
+                                },
+                                "pipelineid": {
+                                    "type": "string"
+                                },
+                                "reporttitle": {
+                                    "type": "string"
+                                },
+                                "reportbody": {
+                                    "type": "string"
+                                },
+                                "sourceid": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
+                        },
+                        {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "depends_on": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "depends_on specifies which resources must be executed before the current one"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "name specifies the resource name"
+                                },
+                                "kind": {
+                                    "enum": [
+                                        "dockerimage"
                                     ]
                                 },
                                 "transformers": {
@@ -1724,7 +2415,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "Spec defines a specification for a \"dockerdigest\" resource parsed from an updatecli manifest file"
+                                    "description": "Spec defines a specification for a \"dockerimage\" resource parsed from an updatecli manifest file"
                                 },
                                 "scm": {
                                     "type": "object",
@@ -1734,11 +2425,17 @@
                                     "type": "string",
                                     "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
                                 },
-                                "sourceid": {
+                                "pipelineid": {
                                     "type": "string"
                                 },
-                                "disablesourceinput": {
-                                    "type": "boolean"
+                                "reporttitle": {
+                                    "type": "string"
+                                },
+                                "reportbody": {
+                                    "type": "string"
+                                },
+                                "sourceid": {
+                                    "type": "string"
                                 }
                             },
                             "additionalProperties": false,
@@ -1810,574 +2507,6 @@
                                     "type": "string",
                                     "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
                                 },
-                                "sourceid": {
-                                    "type": "string"
-                                },
-                                "disablesourceinput": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "aws/ami"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "accesskey": {
-                                            "type": "string",
-                                            "description": "accesskey specifies the aws access key which combined with `secretkey`, is one of the way to authenticate"
-                                        },
-                                        "secretkey": {
-                                            "type": "string",
-                                            "description": "secretkey specifies the aws secret key which combined with `accesskey`, is one of the way to authenticate"
-                                        },
-                                        "filters": {
-                                            "items": {
-                                                "properties": {
-                                                    "name": {
-                                                        "type": "string",
-                                                        "description": "Name specifies a filter name."
-                                                    },
-                                                    "values": {
-                                                        "type": "string",
-                                                        "description": "Values specifies a filter value for a specific filter name."
-                                                    }
-                                                },
-                                                "additionalProperties": false,
-                                                "type": "object",
-                                                "description": "Filter represents the updatecli configuration describing AMI filters."
-                                            },
-                                            "type": "array",
-                                            "description": "Filters specifies a list of AMI filters"
-                                        },
-                                        "region": {
-                                            "type": "string",
-                                            "description": "Region specifies the AWS region to use when looking for AMI"
-                                        },
-                                        "endpoint": {
-                                            "type": "string",
-                                            "description": "Endpoint specifies the AWS endpoin to use when looking for AMI"
-                                        },
-                                        "dryrun": {
-                                            "type": "boolean",
-                                            "description": "Dryrun allows to Check whether you have the required permissions for the action."
-                                        },
-                                        "sortby": {
-                                            "type": "string",
-                                            "description": "Sortby specifies the order of AMI-ID that will be used to retrieve the last element such as `creationdateasc`"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec contains the updatecli configuration provided by users."
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                },
-                                "disablesourceinput": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "gittag"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "versionfilter": {
-                                            "properties": {
-                                                "kind": {
-                                                    "type": "string"
-                                                },
-                                                "pattern": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "additionalProperties": false,
-                                            "type": "object"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                },
-                                "disablesourceinput": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "githubrelease"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "owner": {
-                                            "type": "string"
-                                        },
-                                        "repository": {
-                                            "type": "string"
-                                        },
-                                        "token": {
-                                            "type": "string"
-                                        },
-                                        "url": {
-                                            "type": "string"
-                                        },
-                                        "username": {
-                                            "type": "string"
-                                        },
-                                        "versionfilter": {
-                                            "properties": {
-                                                "kind": {
-                                                    "type": "string"
-                                                },
-                                                "pattern": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "additionalProperties": false,
-                                            "type": "object"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                },
-                                "disablesourceinput": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        }
-                    ]
-                }
-            },
-            "type": "object",
-            "description": "Conditions defines the list of condition configuration"
-        },
-        "targets": {
-            "patternProperties": {
-                ".*": {
-                    "oneOf": [
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "aws/ami"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "accesskey": {
-                                            "type": "string",
-                                            "description": "accesskey specifies the aws access key which combined with `secretkey`, is one of the way to authenticate"
-                                        },
-                                        "secretkey": {
-                                            "type": "string",
-                                            "description": "secretkey specifies the aws secret key which combined with `accesskey`, is one of the way to authenticate"
-                                        },
-                                        "filters": {
-                                            "items": {
-                                                "properties": {
-                                                    "name": {
-                                                        "type": "string",
-                                                        "description": "Name specifies a filter name."
-                                                    },
-                                                    "values": {
-                                                        "type": "string",
-                                                        "description": "Values specifies a filter value for a specific filter name."
-                                                    }
-                                                },
-                                                "additionalProperties": false,
-                                                "type": "object",
-                                                "description": "Filter represents the updatecli configuration describing AMI filters."
-                                            },
-                                            "type": "array",
-                                            "description": "Filters specifies a list of AMI filters"
-                                        },
-                                        "region": {
-                                            "type": "string",
-                                            "description": "Region specifies the AWS region to use when looking for AMI"
-                                        },
-                                        "endpoint": {
-                                            "type": "string",
-                                            "description": "Endpoint specifies the AWS endpoin to use when looking for AMI"
-                                        },
-                                        "dryrun": {
-                                            "type": "boolean",
-                                            "description": "Dryrun allows to Check whether you have the required permissions for the action."
-                                        },
-                                        "sortby": {
-                                            "type": "string",
-                                            "description": "Sortby specifies the order of AMI-ID that will be used to retrieve the last element such as `creationdateasc`"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec contains the updatecli configuration provided by users."
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "pipelineid": {
-                                    "type": "string"
-                                },
-                                "reporttitle": {
-                                    "type": "string"
-                                },
-                                "reportbody": {
-                                    "type": "string"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "shell"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "command": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"shell\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "pipelineid": {
-                                    "type": "string"
-                                },
-                                "reporttitle": {
-                                    "type": "string"
-                                },
-                                "reportbody": {
-                                    "type": "string"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "gittag"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "versionfilter": {
-                                            "properties": {
-                                                "kind": {
-                                                    "type": "string"
-                                                },
-                                                "pattern": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "additionalProperties": false,
-                                            "type": "object"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "pipelineid": {
-                                    "type": "string"
-                                },
-                                "reporttitle": {
-                                    "type": "string"
-                                },
-                                "reportbody": {
-                                    "type": "string"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "file"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "file": {
-                                            "type": "string"
-                                        },
-                                        "files": {
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "type": "array"
-                                        },
-                                        "line": {
-                                            "type": "integer"
-                                        },
-                                        "content": {
-                                            "type": "string"
-                                        },
-                                        "forcecreate": {
-                                            "type": "boolean"
-                                        },
-                                        "matchpattern": {
-                                            "type": "string"
-                                        },
-                                        "replacepattern": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"file\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
                                 "pipelineid": {
                                     "type": "string"
                                 },
@@ -2480,7 +2609,7 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "jenkins"
+                                        "aws/ami"
                                     ]
                                 },
                                 "transformers": {
@@ -2493,91 +2622,53 @@
                                 "spec": {
                                     "$schema": "http://json-schema.org/draft-04/schema",
                                     "properties": {
-                                        "release": {
-                                            "type": "string"
+                                        "accesskey": {
+                                            "type": "string",
+                                            "description": "accesskey specifies the aws access key which combined with `secretkey`, is one of the way to authenticate"
                                         },
-                                        "version": {
-                                            "type": "string"
+                                        "secretkey": {
+                                            "type": "string",
+                                            "description": "secretkey specifies the aws secret key which combined with `accesskey`, is one of the way to authenticate"
                                         },
-                                        "github": {
-                                            "properties": {
-                                                "branch": {
-                                                    "type": "string"
-                                                },
-                                                "directory": {
-                                                    "type": "string"
-                                                },
-                                                "email": {
-                                                    "type": "string"
-                                                },
-                                                "owner": {
-                                                    "type": "string"
-                                                },
-                                                "repository": {
-                                                    "type": "string"
-                                                },
-                                                "token": {
-                                                    "type": "string"
-                                                },
-                                                "url": {
-                                                    "type": "string"
-                                                },
-                                                "username": {
-                                                    "type": "string"
-                                                },
-                                                "user": {
-                                                    "type": "string"
-                                                },
-                                                "pullrequest": {
-                                                    "properties": {
-                                                        "automerge": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "description": {
-                                                            "type": "string"
-                                                        },
-                                                        "labels": {
-                                                            "items": {
-                                                                "type": "string"
-                                                            },
-                                                            "type": "array"
-                                                        },
-                                                        "draft": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "maintainercannotmodify": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "mergemethod": {
-                                                            "type": "string"
-                                                        }
+                                        "filters": {
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "description": "Name specifies a filter name."
                                                     },
-                                                    "additionalProperties": false,
-                                                    "type": "object"
+                                                    "values": {
+                                                        "type": "string",
+                                                        "description": "Values specifies a filter value for a specific filter name."
+                                                    }
                                                 },
-                                                "gpg": {
-                                                    "properties": {
-                                                        "signingkey": {
-                                                            "type": "string"
-                                                        },
-                                                        "passphrase": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "additionalProperties": false,
-                                                    "type": "object"
-                                                }
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "Filter represents the updatecli configuration describing AMI filters."
                                             },
-                                            "additionalProperties": false,
-                                            "type": "object"
+                                            "type": "array",
+                                            "description": "Filters specifies a list of AMI filters"
+                                        },
+                                        "region": {
+                                            "type": "string",
+                                            "description": "Region specifies the AWS region to use when looking for AMI"
+                                        },
+                                        "endpoint": {
+                                            "type": "string",
+                                            "description": "Endpoint specifies the AWS endpoin to use when looking for AMI"
+                                        },
+                                        "dryrun": {
+                                            "type": "boolean",
+                                            "description": "Dryrun allows to Check whether you have the required permissions for the action."
+                                        },
+                                        "sortby": {
+                                            "type": "string",
+                                            "description": "Sortby specifies the order of AMI-ID that will be used to retrieve the last element such as `creationdateasc`"
                                         }
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "Spec defines a specification for a \"jenkins\" resource parsed from an updatecli manifest file"
+                                    "description": "Spec contains the updatecli configuration provided by users."
                                 },
                                 "scm": {
                                     "type": "object",
@@ -2619,7 +2710,7 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "githubrelease"
+                                        "gittag"
                                     ]
                                 },
                                 "transformers": {
@@ -2632,19 +2723,7 @@
                                 "spec": {
                                     "$schema": "http://json-schema.org/draft-04/schema",
                                     "properties": {
-                                        "owner": {
-                                            "type": "string"
-                                        },
-                                        "repository": {
-                                            "type": "string"
-                                        },
-                                        "token": {
-                                            "type": "string"
-                                        },
-                                        "url": {
-                                            "type": "string"
-                                        },
-                                        "username": {
+                                        "path": {
                                             "type": "string"
                                         },
                                         "versionfilter": {
@@ -2658,6 +2737,9 @@
                                             },
                                             "additionalProperties": false,
                                             "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2855,89 +2937,7 @@
                                 },
                                 "kind": {
                                     "enum": [
-                                        "dockerimage"
-                                    ]
-                                },
-                                "transformers": {
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "type": "array",
-                                    "description": "transformers defines how the default input value need to be transformed"
-                                },
-                                "spec": {
-                                    "$schema": "http://json-schema.org/draft-04/schema",
-                                    "properties": {
-                                        "architecture": {
-                                            "type": "string",
-                                            "description": "Architecture specifies the container image architecture such as `amd64`"
-                                        },
-                                        "image": {
-                                            "type": "string",
-                                            "description": "Image specifies the container image such as `updatecli/updatecli`"
-                                        },
-                                        "tag": {
-                                            "type": "string",
-                                            "description": "Tag specifies the container image tag such as `latest`"
-                                        },
-                                        "username": {
-                                            "type": "string",
-                                            "description": "Username specifies the container registry username to use for authentication. Not compatible with token"
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "description": "Password specifies the container registry password to use for authentication. Not compatible with token"
-                                        },
-                                        "token": {
-                                            "type": "string",
-                                            "description": "Token specifies the container registry token to use for authentication. Not compatible with username/password"
-                                        }
-                                    },
-                                    "additionalProperties": false,
-                                    "type": "object",
-                                    "description": "Spec defines a specification for a \"dockerimage\" resource parsed from an updatecli manifest file"
-                                },
-                                "scm": {
-                                    "type": "object",
-                                    "description": "Deprecated field on version [1.17.0]"
-                                },
-                                "scmid": {
-                                    "type": "string",
-                                    "description": "!deprecated, please use scmid\nscmid specifies the scm configuration key associated to the current resource"
-                                },
-                                "pipelineid": {
-                                    "type": "string"
-                                },
-                                "reporttitle": {
-                                    "type": "string"
-                                },
-                                "reportbody": {
-                                    "type": "string"
-                                },
-                                "sourceid": {
-                                    "type": "string"
-                                }
-                            },
-                            "additionalProperties": false,
-                            "type": "object"
-                        },
-                        {
-                            "$schema": "http://json-schema.org/draft-04/schema",
-                            "properties": {
-                                "depends_on": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array",
-                                    "description": "depends_on specifies which resources must be executed before the current one"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "name specifies the resource name"
-                                },
-                                "kind": {
-                                    "enum": [
-                                        "helmchart"
+                                        "file"
                                     ]
                                 },
                                 "transformers": {
@@ -2953,31 +2953,31 @@
                                         "file": {
                                             "type": "string"
                                         },
-                                        "key": {
+                                        "files": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "line": {
+                                            "type": "integer"
+                                        },
+                                        "content": {
                                             "type": "string"
                                         },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "url": {
-                                            "type": "string"
-                                        },
-                                        "value": {
-                                            "type": "string"
-                                        },
-                                        "version": {
-                                            "type": "string"
-                                        },
-                                        "versionincrement": {
-                                            "type": "string"
-                                        },
-                                        "appversion": {
+                                        "forcecreate": {
                                             "type": "boolean"
+                                        },
+                                        "matchpattern": {
+                                            "type": "string"
+                                        },
+                                        "replacepattern": {
+                                            "type": "string"
                                         }
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "Spec defines a specification for an \"helmchart\" resource parsed from an updatecli manifest file"
+                                    "description": "Spec defines a specification for a \"file\" resource parsed from an updatecli manifest file"
                                 },
                                 "scm": {
                                     "type": "object",
