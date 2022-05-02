@@ -14,7 +14,7 @@ scms:
 
 sources:
   node:
-    name: "Get latest HUGO version"
+    name: "Get latest NodeJS version"
     kind: "githubrelease"
     spec:
       owner: "nodejs"
