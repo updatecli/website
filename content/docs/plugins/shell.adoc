@@ -328,3 +328,24 @@ targets:
     spec:
       command: bash apply.sh
 --
+
+== FAQ
+
+*Why can't I execute an updatecli manifest with a local script using the shell provider?*
+
+Updatecli behaves differently if it uses a SCM configuration or not. If no SCM configuration is provided, then it sets the working directory to where updatecli is executed.
+But if a SCM configuration is provided, then it clones the git repository in a temporary directory such as `/tmp/updatecli` and then set the working directory to that temporary such as `/tmp/updatecli/<git repository>`.
+While it allows updatecli to work from a "clean" directory, it makes the testing of the local updatecli manifest a bit more complicated. We are investigating the best solution to address this but until now, the best way to test
+is to comment ou `scmid` such as
+
+```
+targets:
+  jsonschema:
+    name: "Update updatecli jsonschema"
+    kind: "shell"
+    #scmid: "default"
+    spec:
+      command: "./updatecli/scripts/jsonschema.sh"
+```
+
+Issues: link:https://github.com/updatecli/updatecli/issues/660[issues#660],link:https://github.com/updatecli/updatecli/issues/465[issues#465]
