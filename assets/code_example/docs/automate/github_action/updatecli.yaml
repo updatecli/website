@@ -19,18 +19,15 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v2"
 
-      - name: "Diff"
-        uses: "updatecli/updatecli-action@v1"
-        with:
-          command: "diff"
-          flags: "--config ./updatecli/updatecli.d --values updatecli/values.yaml"
+      - name: Install Updatecli in the runner
+        uses: updatecli/updatecli-action@v2
+
+      - name: Run Updatecli in Dry Run mode
+        run : "updatecli diff --config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: "Apply"
-        uses: "updatecli/updatecli-action@v1"
-        with:
-          flags: "--config ./updatecli/updatecli.d --values updatecli/values.yaml"
+      - name: Run Updatecli in apply mode
+        run : "updatecli apply --config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-

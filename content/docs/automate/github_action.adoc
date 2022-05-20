@@ -19,19 +19,13 @@ toc: true
 
 == Description
 
-Updatecli is better when executed regularly so let see how GitHub Action becomes handy.
-
-
-IMPORTANT:Environment variables starting with `GITHUB_` are reserved by GitHub Action
+Updatecli is better when executed regularly so let see how to use this GitHub Action install Updatecli in your runner.
 
 == Parameter
 
-=== command
-Specify updatecli command, default value set to `apply`.
-Required: false
+=== version
+`version`: Specify the Updatecli version to install. Accepted values are any valid releases such as "v0.25.0". Default value is set to the latest updatecli version
 
-=== flags
-Specify updatecli command flags, default value set to `--config ./updatecli/updatecli.d --values updatecli/values.yaml`.
 Required: false
 
 == Example
@@ -49,3 +43,5 @@ Once you have your update strategy configuration in the directory `./updatecli/u
 ```
 {{< include "assets/code_example/docs/automate/github_action/updatecli.yaml" >}}
 ```
+
+IMPORTANT:Environment variables starting with `GITHUB_` are reserved by GitHub Action
