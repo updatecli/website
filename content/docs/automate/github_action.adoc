@@ -1,5 +1,5 @@
 ---
-title: "GitHub Actions"
+title: "GitHub Action"
 description: "Automate Updatecli with GitHub Action"
 lead: "Automate Updatecli with GitHub Action"
 date: 2021-01-09T15:21:01+02:00
@@ -19,19 +19,22 @@ toc: true
 
 == Description
 
-Updatecli is better when executed regularly so let see how GitHub Action becomes handy.
+Updatecli is better when executed regularly so let see how to use this GitHub Action install Updatecli in your GitHub runner so you can use it.
 
 
-IMPORTANT:Environment variables starting with `GITHUB_` are reserved by GitHub Action
+== Migration
+
+=== From V1 to v2
+
+The updatecli action v1 was a "Github Action" of type docker. While It was easier to start with, that type of Github Action runs in a docker container and so in a fully isolated environment.
+We noticed that in many situations, updatecli was used with other tools hence the need to switch to a javascript GitHub action. That second type of GitHub action can install updatecli directly on the Github Action runner.
+Now, the goal of this GitHub action evolved from running updatecli to installing updatecli.
 
 == Parameter
 
-=== command
-Specify updatecli command, default value set to `apply`.
-Required: false
+=== version
+`version`: Specify the Updatecli version to install. Accepted values are any valid releases such as "v0.25.0". Default value is set to the latest updatecli version
 
-=== flags
-Specify updatecli command flags, default value set to `--config ./updatecli/updatecli.d --values updatecli/values.yaml`.
 Required: false
 
 == Example
@@ -49,3 +52,5 @@ Once you have your update strategy configuration in the directory `./updatecli/u
 ```
 {{< include "assets/code_example/docs/automate/github_action/updatecli.yaml" >}}
 ```
+
+IMPORTANT:Environment variables starting with `GITHUB_` are reserved by GitHub Action
