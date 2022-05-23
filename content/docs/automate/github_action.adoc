@@ -1,5 +1,5 @@
 ---
-title: "GitHub Actions"
+title: "GitHub Action"
 description: "Automate Updatecli with GitHub Action"
 lead: "Automate Updatecli with GitHub Action"
 date: 2021-01-09T15:21:01+02:00
@@ -19,7 +19,16 @@ toc: true
 
 == Description
 
-Updatecli is better when executed regularly so let see how to use this GitHub Action install Updatecli in your runner.
+Updatecli is better when executed regularly so let see how to use this GitHub Action install Updatecli in your GitHub runner so you can use it.
+
+
+== Migration
+
+=== From V1 to v2
+
+The updatecli action v1 was a "Github Action" of type docker. While It was easier to start with, that type of Github Action runs in a docker container and so in a fully isolated environment.
+We noticed that in many situations, updatecli was used with other tools hence the need to switch to a javascript GitHub action. That second type of GitHub action can install updatecli directly on the Github Action runner.
+Now, the goal of this GitHub action evolved from running updatecli to installing updatecli.
 
 == Parameter
 
