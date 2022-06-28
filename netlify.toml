@@ -5,7 +5,7 @@
 [build.environment]
   HUGO_VERSION = "0.100.2"
   NODE_VERSION = "16.15.1"
-  NPM_VERSION = "8.12.1"
+  NPM_VERSION = "8.13.1"
 
 [context.production]
   command = "hugo -b $URL --gc --minify && npm run build:functions"
