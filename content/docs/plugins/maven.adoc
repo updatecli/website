@@ -41,12 +41,14 @@ The maven "condition" tests if a version exist on a maven repository.
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
-| url | &#10004; | | Define maven repository url
+| url | &#10004; | | Define maven repository base url
 | groupID | &#10004; | | Set maven goupID
 | repository | &#10004; | | Set maven repository name
 | artifactID | &#10004; | | Set artifactID name
 | version  | &#10004; | source output | Set artifactID version
 |===
+
+Url can contains Basic Auth credentials following the standard notation: `username:password@url`
 
 == Example
 
