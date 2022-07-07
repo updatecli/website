@@ -22,7 +22,7 @@ jobs:
       - name: Install Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 0.100.2
+          hugo-version: 0.101.0
           extended: true
 
       - name: Install Bundler
@@ -38,7 +38,7 @@ jobs:
         run: hugo version
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Check for linting errors
         run: npm test
