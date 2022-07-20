@@ -1,49 +1,50 @@
+name: NPM.YAML
+pipelineid: d1a5a0d74124c1415dffe650ecd0079f00d19a5b1b7fc046ea4f02013612d7f2
 title: Bump npm version
-
-scms:
-  default:
-    kind: "github"
-    spec:
-      user: "updatecli"
-      email: "updatecli@olblak.com"
-      owner: "updatecli"
-      repository: "website"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: "master"
-
-sources:
-  npm:
-    name: "Get latest npm version"
-    kind: "githubrelease"
-    spec:
-      owner: "npm"
-      repository: "cli"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      versionfilter:
-        kind: semver
-
-targets:
-  netlify:
-    name: Update npm version used on Netlify
-    kind: file
-    scmid: "default"
-    spec:
-      file: "netlify.toml"
-      matchpattern: 'NPM_VERSION = "(.*)"'
-      replacepattern: 'NPM_VERSION = "{{ source "npm" }}"'
-
 pullrequests:
-  default:
-    title: '[updatecli] Bump npm to {{ source "npm" }}'
-    kind: "github"
-    scmid: "default"
-    targets:
-      - "netlify"
-    spec:
-      automerge: true
-      mergemethod: "squash"
-      labels:
-        - "chore"
-        - "dependencies"
+    default:
+        title: '[updatecli] Bump npm to {{ source "npm" }}'
+        kind: github
+        spec:
+            automerge: true
+            labels:
+                - chore
+                - dependencies
+            mergemethod: squash
+        scmid: default
+        targets:
+            - netlify
+scms:
+    default:
+        kind: github
+        spec:
+            branch: master
+            email: updatecli@olblak.com
+            owner: updatecli
+            repository: website
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            user: updatecli
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+        disabled: false
+sources:
+    npm:
+        name: Get latest npm version
+        kind: githubrelease
+        spec:
+            owner: npm
+            repository: cli
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+            versionfilter:
+                kind: semver
+targets:
+    netlify:
+        name: Update npm version used on Netlify
+        kind: file
+        spec:
+            file: netlify.toml
+            matchpattern: NPM_VERSION = "(.*)"
+            replacepattern: NPM_VERSION = "{{ source "npm" }}"
+        scmid: default
+        sourceid: npm
+version: 0.28.0

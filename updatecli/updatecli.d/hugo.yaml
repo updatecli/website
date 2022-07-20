@@ -1,60 +1,60 @@
+name: HUGO.YAML
+pipelineid: 0bfa782c851649c0be48e2b3d3bcfe3df8b95e411baae829b741991006661bc4
 title: Bump Hugo version
-
-scms:
-  default:
-    kind: "github"
-    spec:
-      user: "updatecli"
-      email: "updatecli@olblak.com"
-      owner: "updatecli"
-      repository: "website"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: "master"
-
-sources:
-  hugo:
-    name: "Get latest HUGO version"
-    kind: "githubrelease"
-    spec:
-      owner: "gohugoio"
-      repository: "hugo"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-    transformers:
-      - trimPrefix: "v"
-
-targets:
-  netlify:
-    name: Update Hugo version used on Netlify
-    kind: file
-    scmid: "default"
-    spec:
-      file: "netlify.toml"
-      matchpattern: 'HUGO_VERSION = "(.*)"'
-      replacepattern: 'HUGO_VERSION = "{{ source "hugo" }}"'
-
-  githubaction:
-    name: Update Hugo version used in Github Action
-    kind: file
-    scmid: "default"
-    sourceid: hugo
-    spec:
-      file: ".github/workflows/build.yaml"
-      matchpattern: 'hugo-version: (.*)'
-      replacepattern: 'hugo-version: {{ source "hugo" }}'
-
 pullrequests:
-  default:
-    title: '[updatecli] Bump HUGO to {{ source "hugo" }}'
-    kind: "github"
-    scmid: "default"
-    targets:
-      - "netlify"
-      - "githubaction"
-    spec:
-      automerge: true
-      mergemethod: "squash"
-      labels:
-        - "chore"
-        - "dependencies"
+    default:
+        title: '[updatecli] Bump HUGO to {{ source "hugo" }}'
+        kind: github
+        spec:
+            automerge: true
+            labels:
+                - chore
+                - dependencies
+            mergemethod: squash
+        scmid: default
+        targets:
+            - netlify
+            - githubaction
+scms:
+    default:
+        kind: github
+        spec:
+            branch: master
+            email: updatecli@olblak.com
+            owner: updatecli
+            repository: website
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            user: updatecli
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+        disabled: false
+sources:
+    hugo:
+        name: Get latest HUGO version
+        kind: githubrelease
+        transformers:
+            - trimprefix: v
+        spec:
+            owner: gohugoio
+            repository: hugo
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+targets:
+    githubaction:
+        name: Update Hugo version used in Github Action
+        kind: file
+        spec:
+            file: .github/workflows/build.yaml
+            matchpattern: 'hugo-version: (.*)'
+            replacepattern: 'hugo-version: {{ source "hugo" }}'
+        scmid: default
+        sourceid: hugo
+    netlify:
+        name: Update Hugo version used on Netlify
+        kind: file
+        spec:
+            file: netlify.toml
+            matchpattern: HUGO_VERSION = "(.*)"
+            replacepattern: HUGO_VERSION = "{{ source "hugo" }}"
+        scmid: default
+        sourceid: hugo
+version: 0.28.0
