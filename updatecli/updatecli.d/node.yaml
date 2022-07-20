@@ -1,77 +1,77 @@
+name: NODE.YAML
+pipelineid: fea1ab6e846c666b2b2246d19864e5545eb9f4371c9c1c7f520a4a1ece51b57b
 title: Bump Hugo version
-
-scms:
-  default:
-    kind: "github"
-    spec:
-      user: "updatecli"
-      email: "updatecli@olblak.com"
-      owner: "updatecli"
-      repository: "website"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: "master"
-
-sources:
-  node:
-    name: "Get latest NodeJS version"
-    kind: "githubrelease"
-    spec:
-      owner: "nodejs"
-      repository: "node"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      versionfilter:
-        kind: semver
-        pattern: "~16"
-
-  majornodeversion:
-    name: "Get latest HUGO version"
-    kind: "githubrelease"
-    spec:
-      owner: "nodejs"
-      repository: "node"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      versionfilter:
-        kind: semver
-        pattern: "~16"
-    transformers:
-      - findSubMatch:
-          pattern: '^(\d*)'
-
-targets:
-  netlify:
-    name: Update Node version used on Netlify
-    kind: file
-    scmid: "default"
-    sourceid: node
-    spec:
-      file: "netlify.toml"
-      matchpattern: 'NODE_VERSION = "(.*)"'
-      replacepattern: 'NODE_VERSION = "{{ source "node" }}"'
-
-  githubaction:
-    name: Update Node version used in Github Action
-    kind: file
-    scmid: "default"
-    sourceid: majornodeversion
-    spec:
-      file: ".github/workflows/build.yaml"
-      matchpattern: 'node-version: (.*)'
-      replacepattern: 'node-version: {{ source "majornodeversion" }}'
-
 pullrequests:
-  default:
-    title: '[updatecli] Bump nodejs to {{ source "node" }}'
-    kind: "github"
-    scmid: "default"
-    targets:
-      - "netlify"
-      - "githubaction"
-    spec:
-      automerge: true
-      mergemethod: "squash"
-      labels:
-        - "chore"
-        - "dependencies"
+    default:
+        title: '[updatecli] Bump nodejs to {{ source "node" }}'
+        kind: github
+        spec:
+            automerge: true
+            labels:
+                - chore
+                - dependencies
+            mergemethod: squash
+        scmid: default
+        targets:
+            - netlify
+            - githubaction
+scms:
+    default:
+        kind: github
+        spec:
+            branch: master
+            email: updatecli@olblak.com
+            owner: updatecli
+            repository: website
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            user: updatecli
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+        disabled: false
+sources:
+    majornodeversion:
+        name: Get latest HUGO version
+        kind: githubrelease
+        transformers:
+            - findsubmatch:
+                pattern: ^(\d*)
+                captureIndex: 0
+                captureindex: 0
+        spec:
+            owner: nodejs
+            repository: node
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+            versionfilter:
+                kind: semver
+                pattern: ~16
+    node:
+        name: Get latest NodeJS version
+        kind: githubrelease
+        spec:
+            owner: nodejs
+            repository: node
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+            versionfilter:
+                kind: semver
+                pattern: ~16
+targets:
+    githubaction:
+        name: Update Node version used in Github Action
+        kind: file
+        spec:
+            file: .github/workflows/build.yaml
+            matchpattern: 'node-version: (.*)'
+            replacepattern: 'node-version: {{ source "majornodeversion" }}'
+        scmid: default
+        sourceid: majornodeversion
+    netlify:
+        name: Update Node version used on Netlify
+        kind: file
+        spec:
+            file: netlify.toml
+            matchpattern: NODE_VERSION = "(.*)"
+            replacepattern: NODE_VERSION = "{{ source "node" }}"
+        scmid: default
+        sourceid: node
+version: 0.28.0

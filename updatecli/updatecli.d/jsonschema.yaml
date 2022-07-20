@@ -1,35 +1,37 @@
-title: "Update jsonschema"
-
-scms:
-  default:
-    kind: "github"
-    spec:
-      user: "updatecli"
-      email: "updatecli@olblak.com"
-      owner: "updatecli"
-      repository: "website"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: "master"
-
-targets:
-  jsonschema:
-    name: "Update updatecli jsonschema"
-    kind: "shell"
-    scmid: "default"
-    spec:
-      command: "./updatecli/scripts/jsonschema.sh"
-
+name: JSONSCHEMA.YAML
+pipelineid: 017992c6dbbf1c64d8e383e0fd47f217bde8ec72300ab18571327e56262553e2
+title: Update jsonschema
 pullrequests:
-  default:
-    title: '[updatecli] Bump jsonschema'
-    kind: "github"
-    scmid: "default"
-    targets:
-      - "jsonschema"
-    spec:
-      automerge: true
-      mergemethod: "squash"
-      labels:
-        - "chore"
-
+    default:
+        title: '[updatecli] Bump jsonschema'
+        kind: github
+        spec:
+            automerge: true
+            labels:
+                - chore
+            mergemethod: squash
+        scmid: default
+        targets:
+            - jsonschema
+scms:
+    default:
+        kind: github
+        spec:
+            branch: master
+            email: updatecli@olblak.com
+            owner: updatecli
+            repository: website
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            user: updatecli
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+        disabled: false
+targets:
+    jsonschema:
+        name: Update updatecli jsonschema
+        kind: shell
+        spec:
+            command: ./updatecli/scripts/jsonschema.sh
+            environments:
+                - name: PATH
+        scmid: default
+version: 0.28.0
