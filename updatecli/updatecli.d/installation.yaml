@@ -1,46 +1,47 @@
-title: "Bump udpatecli version in installation documentation"
-
-scms:
-  default:
-    kind: "github"
-    spec:
-      user: "updatecli"
-      email: "updatecli@olblak.com"
-      owner: "updatecli"
-      repository: "website"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: "master"
-
-sources:
-  updatecli:
-    name: "Get latest updatecli release"
-    kind: "githubrelease"
-    spec:
-      owner: "updatecli"
-      repository: "updatecli"
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-
-targets:
-  download-url:
-    name: 'Update Installation URL'
-    kind: "file"
-    spec:
-      file: "content/docs/prologue/installation.adoc"
-      matchpattern: 'https://github.com/updatecli/updatecli/releases/download/(.*)/'
-      replacepattern: 'https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/'
-    scmid: "default"
-
+name: INSTALLATION.YAML
+pipelineid: c7b98e864610b0801ea8671b64e964af8494cc71b0ddcc68bc2cf4c5a3584dad
+title: Bump udpatecli version in installation documentation
 pullrequests:
-  default:
-    title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
-    kind: "github"
-    scmid: "default"
-    targets:
-      - "download-url"
-    spec:
-      automerge: true
-      mergemethod: "squash"
-      labels:
-        - "chore"
+    default:
+        title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
+        kind: github
+        spec:
+            automerge: true
+            labels:
+                - chore
+            mergemethod: squash
+        scmid: default
+        targets:
+            - download-url
+scms:
+    default:
+        kind: github
+        spec:
+            branch: master
+            email: updatecli@olblak.com
+            owner: updatecli
+            repository: website
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            user: updatecli
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+        disabled: false
+sources:
+    updatecli:
+        name: Get latest updatecli release
+        kind: githubrelease
+        spec:
+            owner: updatecli
+            repository: updatecli
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+targets:
+    download-url:
+        name: Update Installation URL
+        kind: file
+        spec:
+            file: content/docs/prologue/installation.adoc
+            matchpattern: https://github.com/updatecli/updatecli/releases/download/(.*)/
+            replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
+        scmid: default
+        sourceid: updatecli
+version: 0.28.0
