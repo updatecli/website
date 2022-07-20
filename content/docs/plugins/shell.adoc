@@ -49,7 +49,44 @@ The following parameters can be specified through the `spec` attributes map:
 |===
 | Name | Required | Default |Description
 | command | &#10004; | | Command to execute (Linux or Windows)
+| environments | | | Environments allows to pass a list of environment variable(s) to the shell script
 |===
+
+
+=== Environments
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| name | &#10004; | | Environment variable name
+| value | | | Environments variable value. If the value is empty, then we inherit the value from the updatecli process.
+|===
+
+By default the command doesn't herit any environment variables from the updatecli process. The motivation is to avoid environment variable leak into the command.
+
+To specify an environment variable, you can use one of the following example:
+
+```
+  scenario1:
+    name: PATH value is inherited from Updatecli process
+    kind: shell
+    spec:
+      command: ./examples/scripts.d/env.sh
+      environments:
+        - name: PATH
+
+  scenario2:
+    name: MY_ENV value is set by the Updatecli manifest
+    kind: shell
+    spec:
+      command: ./examples/scripts.d/env.sh
+      environments:
+        - name: PATH
+          value: setmyvalue
+```
+
+Please note the environment variable "DRY_RUN" is always defined by Updatecli to either true or false depending if we run `updatecli diff` or `updatecli apply`
+
 
 == Shell Source
 
