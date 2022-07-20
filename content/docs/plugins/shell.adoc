@@ -81,7 +81,7 @@ To specify an environment variable, you can use one of the following example:
     spec:
       command: ./examples/scripts.d/env.sh
       environments:
-        - name: PATH
+        - name: MY_ENV
           value: setmyvalue
 ```
 
