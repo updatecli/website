@@ -19,6 +19,8 @@ targets:
     scmid: "default"
     spec:
       command: "./updatecli/scripts/jsonschema.sh"
+      environments:
+        - name: PATH
 
 pullrequests:
   default:
