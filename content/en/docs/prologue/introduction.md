@@ -24,9 +24,9 @@ It reads a manifest then works into three stages:
 
 Deciding **how**, **when**, **where** to update information is hard.
 
-Nowadays they are countless tools that can apply continuous delivery or continuous deployment. 
-To configure our infrastructure, we write ansible playbooks, puppet manifest, helm chart, etc. We heavily rely 
-on configuration files to specify the version we need to install. Unfortunately too often those files are manually updated. 
+Nowadays they are countless tools that can apply continuous delivery or continuous deployment.
+To configure our infrastructure, we write ansible playbooks, puppet manifest, helm chart, etc. We heavily rely
+on configuration files to specify the version we need to install. Unfortunately too often those files are manually updated.
 
 Because it's hard to automatically detect what information must be updated and when.
 

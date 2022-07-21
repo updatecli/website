@@ -20,4 +20,3 @@ Thank you for your support
 
 [![image alt text](/images/blog/2022/02/devopsish.png)](https://twitter.com/ChrisShort/status/1492256383747637251?s=20&t=LlRHfA1CVglJ7K5YbvJ5BQ)
 [![image alt text](/images/blog/2022/02/hackernews.png)](https://twitter.com/betterhn50/status/1491890903560171523?s=20&t=0xHW4xifrsV8PjwWGIU2Yw)
-
