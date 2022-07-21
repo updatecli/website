@@ -2,8 +2,8 @@
 title: updatecli completion fish
 description: Documentation for the command `updatecli completion fish`
 lead: Documentation for the command `updatecli completion fish`
-date: 2022-01-22T16:28:14+01:00
-lastmod: 2022-01-22T16:28:14+01:00
+date: 2022-07-21T08:40:13+02:00
+lastmod: 2022-07-21T08:40:13+02:00
 draft: false
 images: []
 menu:

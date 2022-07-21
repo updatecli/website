@@ -1,7 +1,7 @@
 ---
-title: updatecli version
-description: Documentation for the command `updatecli version`
-lead: Documentation for the command `updatecli version`
+title: updatecli manifest
+description: Documentation for the command `updatecli manifest`
+lead: Documentation for the command `updatecli manifest`
 date: 2022-07-21T08:40:13+02:00
 lastmod: 2022-07-21T08:40:13+02:00
 draft: false
@@ -13,18 +13,14 @@ weight: 130
 toc: true
 ---
 
-## updatecli version
+## updatecli manifest
 
-Print current application version
-
-```
-updatecli version [flags]
-```
+manifest executes specific manifest task such as upgrade
 
 ### Options
 
 ```
-  -h, --help   help for version
+  -h, --help   help for manifest
 ```
 
 ### Options inherited from parent commands
@@ -36,4 +32,5 @@ updatecli version [flags]
 ### SEE ALSO
 
 * [updatecli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
+* [updatecli manifest upgrade](/docs/commands/updatecli_manifest_upgrade)	 - upgrade executes manifest upgrade task
 

@@ -2,8 +2,8 @@
 title: updatecli completion zsh
 description: Documentation for the command `updatecli completion zsh`
 lead: Documentation for the command `updatecli completion zsh`
-date: 2022-01-22T16:28:14+01:00
-lastmod: 2022-01-22T16:28:14+01:00
+date: 2022-07-21T08:40:13+02:00
+lastmod: 2022-07-21T08:40:13+02:00
 draft: false
 images: []
 menu:
@@ -26,6 +26,10 @@ to enable it.  You can execute the following once:
 
 	echo "autoload -U compinit; compinit" >> ~/.zshrc
 
+To load completions in your current shell session:
+
+	source <(updatecli completion zsh); compdef _updatecli updatecli
+
 To load completions for every new session, execute once:
 
 #### Linux:
@@ -34,7 +38,7 @@ To load completions for every new session, execute once:
 
 #### macOS:
 
-	updatecli completion zsh > /usr/local/share/zsh/site-functions/_updatecli
+	updatecli completion zsh > $(brew --prefix)/share/zsh/site-functions/_updatecli
 
 You will need to start a new shell for this setup to take effect.
 

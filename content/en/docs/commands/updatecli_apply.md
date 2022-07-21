@@ -2,8 +2,8 @@
 title: updatecli apply
 description: Documentation for the command `updatecli apply`
 lead: Documentation for the command `updatecli apply`
-date: 2022-01-22T16:28:14+01:00
-lastmod: 2022-01-22T16:28:14+01:00
+date: 2022-07-21T08:40:13+02:00
+lastmod: 2022-07-21T08:40:13+02:00
 draft: false
 images: []
 menu:

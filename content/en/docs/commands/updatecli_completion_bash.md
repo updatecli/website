@@ -2,8 +2,8 @@
 title: updatecli completion bash
 description: Documentation for the command `updatecli completion bash`
 lead: Documentation for the command `updatecli completion bash`
-date: 2022-01-22T16:28:14+01:00
-lastmod: 2022-01-22T16:28:14+01:00
+date: 2022-07-21T08:40:13+02:00
+lastmod: 2022-07-21T08:40:13+02:00
 draft: false
 images: []
 menu:
@@ -36,7 +36,7 @@ To load completions for every new session, execute once:
 
 #### macOS:
 
-	updatecli completion bash > /usr/local/etc/bash_completion.d/updatecli
+	updatecli completion bash > $(brew --prefix)/etc/bash_completion.d/updatecli
 
 You will need to start a new shell for this setup to take effect.
 
