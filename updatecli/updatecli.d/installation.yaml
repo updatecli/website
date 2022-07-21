@@ -39,7 +39,7 @@ targets:
         name: Update Installation URL
         kind: file
         spec:
-            file: content/docs/prologue/installation.adoc
+            file: content/en/docs/prologue/installation.adoc
             matchpattern: https://github.com/updatecli/updatecli/releases/download/(.*)/
             replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
         scmid: default
