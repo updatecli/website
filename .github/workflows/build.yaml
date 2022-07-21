@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3.3.0
+      with:
+        node-version: 16
+
+    - name: Install Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 0.101.0
+        extended: true
+
+    - name: Install Bundler
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+
+    - name: Install asciidoctor
+      run: gem install asciidoctor
+
+    - name: Show Hugo Version
+      run: hugo version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Hyas test script
+      run: npm test
+
+    - name: Build production website
+      run: npm run build
