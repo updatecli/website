@@ -1,0 +1,38 @@
+---
+title: "Autodiscovery"
+description: "Autodiscovery is the mechanism where we let Updatecli identify available pipeline based on a directory"
+lead: "Autodiscovery, auto pilot mode on"
+date: 2022-01-09T15:21:01+02:00
+lastmod: 2022-01-09T15:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+In the lifecycle of a software project, dependencies are everywhere. From that third application used to render the documentation website to the container image used to distribute our application.
+
+While Updatecli is a great tool to define tailored update scenarios, many times, we also face situation where we could automatically identify update scenario, when we deal with standard data structure.
+
+An example would be to look for any files named "Dockerfile" and within each of those file, look for the "FROM" instruction trying to upgrade the value. This would help us maintain our Docker images without having to write any manifest.
+
+Each `autodiscovery` scenario is defined by a crawler. The goal of the crawler is to parse recursively all files from a directory looking for pattern then trying to generate any updatecli manifest that it can. Once all manifest have been generated, then we run them as we would do with custom manifest, by running `updatecli diff` or `updatecli apply`
+
+== Crawlers
+
+Crawlers implements common update scenarios.
+
+=== Helm
+
+The helm crawler will looks recursively for all Helm chart from a specific root directory. Then for each of them, it will try to automate the update of helm chart dependencies.
+
+== Scm

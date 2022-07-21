@@ -1,6 +1,6 @@
 ---
 name: "Feature request \U0001F680"
-about: Suggest an idea for updatecli
+about: Suggest an idea for Updatecli website
 
 ---
 

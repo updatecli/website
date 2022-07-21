@@ -1,8 +1,5 @@
-functions
 node_modules
 public
-resources/
-!content/**
-*.swp
-*.code-workspace
+resources
+.netlify
 .hugo_build.lock
