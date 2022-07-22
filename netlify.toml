@@ -8,13 +8,40 @@
   NPM_VERSION = "8.15.0"
 
 [context.production]
-  command = "hugo -b $URL --gc --minify && npm run build:functions"
+  command = "npm run build"
 
 [context.deploy-preview]
-  command = "hugo -b $DEPLOY_PRIME_URL --gc --minify"
+  command = "npm run build -- -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy]
-  command = "hugo -b $DEPLOY_PRIME_URL --gc --minify"
+  command = "npm run build -- -b $DEPLOY_PRIME_URL"
+
+[context.next]
+  command = "npm run build"
+
+[context.next.environment]
+  HUGO_ENV = "next"
+
+####
+[[plugins]]
+  package = "netlify-plugin-submit-sitemap"
+
+	[plugins.inputs]
+    baseUrl = "https://www.updatecli.io/"
+    sitemapPath = "/sitemap.xml"
+    ignorePeriod = 0
+    providers = [
+      "google",
+      "yandex"
+    ]
+
+[dev]
+  framework = "#custom"
+  command = "npm run start"
+  targetPort = 1313
+  port = 8888
+  publish = "public"
+  autoLaunch = false
 
 ## A significant amount traffic is not detected by plausible
 ## https://plausible.io/blog/google-analytics-adblockers-missing-data
@@ -31,3 +58,4 @@
   to = "https://plausible.io/api/event"
   status = 200
   force = true
+
