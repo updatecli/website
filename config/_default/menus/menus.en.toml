@@ -29,6 +29,28 @@
   url = "/plugins/"
 
 [[docs]]
+  name = "resource"
+  weight = 25
+  identifier = "plugin-resource"
+  url = "/plugins/resource/"
+  parent= "plugins"
+
+[[docs]]
+  name = "pullrequest"
+  weight = 25
+  identifier = "plugin-pullrequest"
+  url = "/plugins/pullrequest/"
+  parent= "plugins"
+
+[[docs]]
+  name = "scm"
+  weight = 25
+  identifier = "plugin-scm"
+  url = "/plugins/scm/"
+  parent= "plugins"
+
+
+[[docs]]
   name = "Automate"
   identifier = "automate"
   url = "/docs/automate"

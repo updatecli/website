@@ -1,15 +1,15 @@
 ---
-title: "Github PullRequest"
-description: "Interact with Github PullRequest"
+title: "Github"
+description: "Manipulate Github PullRequest"
 lead: "kind: github"
 date: 2022-01-30T08:21:01+02:00
 lastmod: 2022-01-30T08:21:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
-    parent: "plugins"
-weight: 130 
+    parent: "plugin-pullrequest"
+weight: 130
 toc: true
 plugins:
   - pullrequest
@@ -38,7 +38,7 @@ The `pullrequests` section describes the link:https://docs.github.com/en/pull-re
 | title | | "" | Set the pull request title
 |===
 
-== Example 
+== Example
 
 [source,yaml]
 ----
