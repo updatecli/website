@@ -1,0 +1,48 @@
+---
+title: "Gitea"
+description: "Manipulate Gitea PullRequest"
+lead: "kind: gitea"
+date: 2022-07-25T21:09:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-pullrequest"
+toc: true
+plugins:
+  - pullrequest
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The `pullrequests` section describes the link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub Pull Requests] that updatecli is expected to open (or update) when the manifest is applied.
+
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| sourcebranch | | | SourceBranch specifies the pullrequest source branch
+| targetbranch| | | TargetBranch specifies the pullrequest target branch
+| owner| &#10004; | Owner specifies repository owner|
+| repository| &#10004; | | Repository specifies the name of a repository for a specific owner
+| title | | | Title defines the Gitea pullrequest title.
+| body | | | Body defines the Gitea pullrequest body
+| url | | | URL specifies the default github url in case of Gitea enterprise
+| username| | | Username specifies the username used to authenticate with Gitea API
+| token| | | Token specifies the credential used to authenticate with
+|===
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/gitea_pullrequest/updatecli.yaml">}}
+----
+
