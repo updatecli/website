@@ -1,0 +1,66 @@
+---
+title: "Helm"
+description: "Discover Helm depedencies updatec"
+lead: "kind: helm"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130 
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The helm crawler looks recursively for all Helm chart from a specific root directory. Then for each of them, it tries to automate the update of the Helm Chart dependencies.
+
+An example of a manifest generated from the repository `github.com/epinio/helm-chart` is:
+
+```
+####################
+# EPINIO-EPINIO-UI #
+####################
+
+spec:
+    name: epinio-epinio-ui
+    sources:
+        epinio-ui:
+            name: Get latest "epinio-ui" Helm Chart Version
+            kind: helmchart
+            spec:
+                name: epinio-ui
+                url: https://epinio.github.io/helm-charts
+    conditions:
+        epinio-ui:
+            name: Ensure dependency "epinio-ui" is specified
+            kind: yaml
+            spec:
+                file: chart/epinio/Chart.yaml
+                key: dependencies[2].name
+                value: epinio-ui
+            disablesourceinput: true
+    targets:
+        epinio-ui:
+            name: Bump chart dependency "epinio-ui" in Chart "epinio"
+            kind: helmchart
+            spec:
+                file: Chart.yaml
+                key: dependencies[2].version
+                name: chart/epinio
+                versionincrement: minor
+            sourceid: epinio-ui
+```
+
+A crawler should be able to:
+* Ignore manifest based on rules such as
+  * pipeline name
+  * dependency name
+* Only update based on rules such as
+  * pipeline name
+  * dependency name
+
+This is especially important as we may have a "classic" manifest that handle a dependency in a specific way.
+
