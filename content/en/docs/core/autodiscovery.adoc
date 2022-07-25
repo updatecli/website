@@ -1,0 +1,143 @@
+---
+title: "Autodiscovery"
+description: "Autodiscovery is the mechanism where we let Updatecli identify available pipeline based on a directory"
+lead: "Autodiscovery, auto pilot mode on"
+date: 2022-01-09T15:21:01+02:00
+lastmod: 2022-01-09T15:21:01+02:00
+draft: true
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+In the lifecycle of a software project, dependencies are everywhere.
+From that third application used to lint our code, the tool used to build our documentation website, or the container image used to distribute our application.
+As the project grows, the number of dependencies grows as long. Some dependencies are context-dependent, and others are expressed using a standard data structure.
+
+Updatecli is a great tool to handle both situations. It can either manage tailored update scenarios by using a manifest provided by a maintainer or automatically identify available update scenarios.
+
+The latter approach removes the need to write manifest.
+We name the behavior "autodiscovery". When autodiscovery is used, Updatecli tries to generate manifests before applying them.
+An example would be to look for any files named "Dockerfile" and within each of those files, look for the "FROM" instruction so we could upgrade the base image.
+This would help us maintain our Dockerfile images without having to write any manifests.
+Each autodiscovery scenario is handled by a crawler. The goal of the crawler is to parse recursively all files from a directory looking for the pattern and then try to generate as many updatecli manifests as it can. Once all manifests have been generated, we run them as we would do with custom manifest, by running updatecli diff or updatecli apply
+The autodiscovery is enabled by default and should work out of the box just by running one of the following commands.
+
+* `updatecli diff`
+* `updatecli show`
+* `updatecli apply`
+
+As in any opinionated way of working, a bit of adaptability is required. The next part of this document covers the different kinds of customization that can be used with autodiscovery.
+
+
+== Parameters
+
+Autodiscovery could benefit from some customization, such as providing SCM configuration or defining pull request information. Some parameters are crawlers specific and others apply to all crawlers.
+
+If a Updatecli manifest specifies the root key "autodiscovery" such as in the following example, then on top of the default autodiscovery, it enables an additional autodiscovery feature where we clone the epinio/helm-chart repository in a temporary location and then we look in that location for all Helm chart that specifies dependencies and we try to update them.
+
+```
+scms:
+  default:
+    kind: git
+    spec:
+      url: https://github.com/epinio/helm-charts.git
+autodiscovery:
+  scmid: default
+  crawlers:
+    helm:
+```
+
+By default the autodiscovery looks for pattern from the local directory but we can also specify manifest from remote git repositories.
+
+=== Scm
+
+We assume that each crawler relies on the same scm configuration and if we can add more autodiscovery manifest to handle more repository
+
+=== Pull Request
+
+work in progress
+
+Scenario to describe:
+
+* One pullrequest for everything
+* One pullrequest per crawler
+* One pullrequest per manifest from each crawlers
+
+=== Crawlers
+
+Crawlers implement common update scenarios.
+
+==== Type
+
+The purpose of a crawler is to generate manifest that updatecli can used.
+We identify two kinds of crawler, "standard", and "custom"
+
+**standard**
+
+A "standard" crawler is enabled by default but can be disabled on per case.
+
+**custom**
+
+A "custom" crawler is context specific, such as tailored to a company or a OSS project. By default it won't be enabled by default.
+
+==== Helm
+
+The helm crawler looks recursively for all Helm chart from a specific root directory. Then for each of them, it tries to automate the update of the Helm Chart dependencies.
+
+An example of a manifest generated from the repository `github.com/epinio/helm-chart` is:
+
+```
+####################
+# EPINIO-EPINIO-UI #
+####################
+
+spec:
+    name: epinio-epinio-ui
+    sources:
+        epinio-ui:
+            name: Get latest "epinio-ui" Helm Chart Version
+            kind: helmchart
+            spec:
+                name: epinio-ui
+                url: https://epinio.github.io/helm-charts
+    conditions:
+        epinio-ui:
+            name: Ensure dependency "epinio-ui" is specified
+            kind: yaml
+            spec:
+                file: chart/epinio/Chart.yaml
+                key: dependencies[2].name
+                value: epinio-ui
+            disablesourceinput: true
+    targets:
+        epinio-ui:
+            name: Bump chart dependency "epinio-ui" in Chart "epinio"
+            kind: helmchart
+            spec:
+                file: Chart.yaml
+                key: dependencies[2].version
+                name: chart/epinio
+                versionincrement: minor
+            sourceid: epinio-ui
+```
+
+A crawler should be able to:
+* Ignore manifest based on rules such as
+  * pipeline name
+  * dependency name
+* Only update based on rules such as
+  * pipeline name
+  * dependency name
+
+This is especially important as we may have a "classic" manifest that handle a dependency in a specific way.
+
