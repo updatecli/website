@@ -26,7 +26,7 @@ As the project grows, the number of dependencies grows as long. Some dependencie
 Updatecli is a great tool to handle both situations. It can either manage tailored update scenarios by using a manifest provided by a maintainer or automatically identify available update scenarios.
 
 The latter approach removes the need to write manifest.
-We name the behavior "autodiscovery". When autodiscovery is used, Updatecli tries to generate manifests before applying them.
+This behavior is refered as "autodiscovery". When autodiscovery is enabled, Updatecli generates manifests in-memory before applying them (instead of reading manifests and applying).
 An example would be to look for any files named "Dockerfile" and within each of those files, look for the "FROM" instruction so we could upgrade the base image.
 This would help us maintain our Dockerfile images without having to write any manifests.
 Each autodiscovery scenario is handled by a crawler. The goal of the crawler is to parse recursively all files from a directory looking for the pattern and then try to generate as many updatecli manifests as it can. Once all manifests have been generated, we run them as we would do with custom manifest, by running updatecli diff or updatecli apply
