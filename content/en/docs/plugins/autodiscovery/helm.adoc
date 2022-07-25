@@ -17,6 +17,14 @@ plugins:
 
 The helm crawler looks recursively for all Helm chart from a specific root directory. Then for each of them, it tries to automate the update of the Helm Chart dependencies.
 
+== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| disabled | | false | Disable the helm crawler
+|===
+
 An example of a manifest generated from the repository `github.com/epinio/helm-chart` is:
 
 ```
@@ -55,12 +63,13 @@ spec:
 ```
 
 A crawler should be able to:
+
 * Ignore manifest based on rules such as
-  * pipeline name
-  * dependency name
+** Pipeline name
+** Dependency name
 * Only update based on rules such as
-  * pipeline name
-  * dependency name
+** Pipeline name
+** Dependency name
 
 This is especially important as we may have a "classic" manifest that handle a dependency in a specific way.
 
