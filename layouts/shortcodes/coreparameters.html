@@ -1,0 +1,51 @@
+{{ $stage := .Get 0 }}
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+{{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
+    {{ range $k, $v := $dataJ.properties.spec.properties }}
+      {{ if eq $k $stage }}
+        {{ range $k, $oneOf := $v.patternProperties }}
+            {{ range $_, $one := index $oneOf }}
+              {{ $core := index $one 0 }}
+                {{ range $paramName, $paramValue := $core.properties }}
+    <tr>
+        <td><b>{{ $paramName }}</b></td>
+        <td>{{ $paramValue.type }}</td>
+        <td>{{ $paramValue.description }}</td>
+        <td>{{ $paramValue.required }}</td>
+    </tr>
+            {{ if eq $paramValue.type "object" }}
+              {{ if ne $paramName "spec" }}
+                {{ range $objectKey, $objectValue := $paramValue.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $objectKey }}</b></td>
+        <td>{{ $objectValue.type }}</td>
+        <td>{{ $objectValue.description }}</td>
+        <td>{{ $objectValue.required }}</td>
+    </tr>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            {{ if eq $paramValue.type "array" }}
+              {{ range $itemKey, $item := $paramValue.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
+        <td>{{ $item.type }}</td>
+        <td>{{ $item.description }}</td>
+        <td>{{ $item.required }}</td>
+    </tr>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+{{ end }}
+
+</table>
+

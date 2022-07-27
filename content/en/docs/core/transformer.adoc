@@ -49,7 +49,6 @@ A target receives information from the source then modifies that value with the 
 | find |-| Search for a string value using regular expression and then return its value exist
 | findSubMatch |-| Search for a substring using regular expression and then return its content, more link:#_FindSubMatch[here]
 | semverInc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
-
 |===
 
 

@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - condition
@@ -291,13 +290,7 @@ ENV FOO=BAR UPDATECLI_VERSION=0.1.0
 
 === Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| file  | &#10004; | - | Set Dockerfile  file name.
-| instruction | &#10004; | - | Set key need to be manipulate using a custom syntax, `INSTRUCTION[x][y]` more information in section Instruction
-| value | | source output | Set the key value.
-|===
+{{< resourceparameters "sources" "dockerfile" >}}
 
 
 === Syntax
