@@ -1,0 +1,34 @@
+---
+title: "Scm"
+description: "scm provide git repository configuration"
+lead: ""
+date: 2021-01-09T15:21:01+02:00
+lastmod: 2021-01-09T15:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+A scm configuration, provides git repository information used by a source/condition/target
+
+When a Updatecli pipeline is triggered, the first thing Updatecli does, is cloning all referenced git repositories in a temporary directory.
+
+== Parameters
+
+{{< coreparameters "scms" >}}
+
+== Examples
+
+**updatecli.yaml**
+```
+{{< include "assets/code_example/docs/plugins/scm/git/updatecli.d/default.yaml" >}}
+```
