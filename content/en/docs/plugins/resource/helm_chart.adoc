@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - source
@@ -43,74 +42,15 @@ The Helm chart "target" updates a helmchart and bump the chart metadata. It hand
 
 == Parameter
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| url  | &#10004; | - | [S,C]Define url for remote Helm chart repository
-| name | &#10004; | - | [S,C,T]Define Helm chart package name.
-| version | &#10004; | Source | [S,C] Define Helm chart version.
-| file| | values.yaml |[T] Define the file that needs to be updated
-| value| | source | [T] Define the value that need to be present in helm chart file
-| key | &#10004; | - | [T] Define the key that need to be present in helm chart file
-| appversion | | false | [T] Boolean that defines if the value should also be used for the AppVersion
-| versionincrement| | minor | [T] Define the rule to automatically increment the helm chart version. It accept a comma separated list of major,minor,patch.
-|===
+{{< resourceparameters "sources" "helmchart" >}}
 
 == Example
 
-.updatecli.yaml
-```
-sources:
-  lastRelease:
-    kind: helmChart
-    spec:
-      url: https://charts.jenkins.io
-      name: jenkins
-conditions:
-  isPrometheuseHelmChartVersionAvailable:
-    name: "Test if the prometheus helm chart is available"
-    kind: helmChart
-    spec:
-      url: https://prometheus-community.github.io/helm-charts
-      name: prometheus
-      versionFilter:
-        kind: latest
-        pattern: "11.16.5"
-  chartVersion:
-    name: "jenkinsci/jenkins Helm Chart used"
-    kind: yaml
-    spec:
-      file: "charts/jenkins/requirements.yaml"
-      key: "dependencies[0].name"
-      value: "jenkins"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "{{ .github.owner }}"
-        repository: "{{ .github.repository }}"
-        token: "{{ requiredEnv .github.token }}"
-        username: "{{ .github.username }}"
-        branch: "{{ .github.branch }}"
-targets:
-  chartjenkins:
-    name: Bump Jenkins Upstream Chart Version
-    kind: helmChart
-    spec:
-      Name: "charts/jenkins"
-      file: "requirements.yaml"
-      key: "dependencies[0].version"
-      versionIncrement: minor
-    scm:
-      github:
-        user: "john"
-        email: "john@example.com"
-        owner: "olblak"
-        repository: "charts"
-        token: {{ requiredEnv .github.token }}
-        username: "john"
-        branch: "master"
-```
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/helmchart/updatecli.d/default.yaml">}}
+----
 
 What it says:
 

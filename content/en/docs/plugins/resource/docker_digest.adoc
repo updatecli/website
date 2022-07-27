@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - source
@@ -33,14 +32,7 @@ The Docker Digest "source" retrieves the Docker image digest for a specific Dock
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| hostname| | hub.docker.com | Docker Registry URL. Accept "hub.docker.com", "ghcr.io", "quay.io", or any valid api compliant OCI registry
-| image | &#10004; | - | Define Docker image name
-| tag | &#10004; | source result | Define Docker image tag.
-| token | | - | Define the token needed to authenticate with the Docker registry
-|===
+{{< resourceparameters "sources" "dockerdigest" >}}
 
 **Remark**:
 

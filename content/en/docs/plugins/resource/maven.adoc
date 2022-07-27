@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - source
@@ -38,67 +37,17 @@ The maven "condition" tests if a version exist on a maven repository.
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| url | &#10004; | | Define maven repository url
-| groupID | &#10004; | | Set maven goupID
-| repository | &#10004; | | Set maven repository name
-| artifactID | &#10004; | | Set artifactID name
-| version  | &#10004; | source output | Set artifactID version
-|===
+{{< resourceparameters "sources" "maven" >}}
 
-Url can contain Basic Auth credentials following the standard notation: `username:password@url`
+NOTE: Url can contain Basic Auth credentials following the standard notation: `username:password@url`
 
 == Example
 
-.updatecli.conf
-```
-sources:
-  default:
-    kind: maven
-    spec:
-      owner: "maven"
-      url: "repo.jenkins-ci.org"
-      repository: "releases"
-      groupID: "org.jenkins-ci.main"
-      artifactID: "jenkins-war"
-    transformers:
-      - addSuffix: "-jdk11"
-conditions:
-  docker:
-    name: "Test Docker Image Published on Registry with the correct tag"
-    kind: "dockerImage"
-    spec:
-      image: "jenkins/jenkins"
-  imageTag:
-    name: "Test if jenkins/jenkins docker image used"
-    kind: yaml
-    spec:
-      file: "charts/jenkins/values.yaml"
-      key: "jenkins.master.image"
-      value: "jenkins/jenkins"
-    scm:
-      git:
-        url: "git@github.com:olblak/charts.git"
-        branch: "master"
-        user: "olblak"
-        email: "me@olblak.com"
-targets:
-  imageTag:
-    name: "jenkins/jenkins docker tag"
-    kind: yaml
-    spec:
-      file: "charts/jenkins/values.yaml"
-      key: "jenkins.master.imageTag"
-    scm:
-      git:
-        url: "git@github.com:olblak/charts.git"
-        branch: master
-        user: olblak
-        email: me@olblak.com
-        directory: "/home/olblak/Project/Jenkins-infra/charts"
-```
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/maven/updatecli.d/default.yaml">}}
+----
 
 What it says:
 
