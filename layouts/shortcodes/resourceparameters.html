@@ -16,7 +16,7 @@
                   {{ if eq ( index $plugin.properties.kind.enum 0) $pluginName }}
                     {{ range $key, $value := $plugin.properties.spec.properties }}
     <tr>
-        <td>{{ $key }}</td>
+        <td><b>{{ $key }}</b></td>
         <td>{{ $value.type }}</td>
         <td>{{ $value.description }}</td>
         <td>{{ $value.required }}</td>
@@ -24,13 +24,23 @@
                         {{ if eq $value.type "object" }}
                           {{ range $subkey, $subvalue := $value.properties }}
     <tr>
-        <td>{{ $key }}.{{ $subkey }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $subkey }}</b></td>
         <td>{{ $subvalue.type }}</td>
         <td>{{ $subvalue.description }}</td>
         <td>{{ $subvalue.required }}</td>
     </tr>
                           {{ end }}
                         {{ end }}
+                        {{ if eq $value.type "array" }}
+                          {{ range $itemKey, $item := $value.items.properties }}
+    <tr>
+      <td><b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
+      <td>{{ $item.type }}</td>
+      <td>{{ $item.description }}</td>
+      <td>{{ $item.required }}</td>
+    </tr>
+                        {{ end }}
+                      {{ end }}
                     {{ end }}
                   {{ end }}
             {{ end }}
