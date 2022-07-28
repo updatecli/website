@@ -24,19 +24,7 @@ The `pullrequests` section describes the link:https://docs.github.com/en/pull-re
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| sourcebranch | | | SourceBranch specifies the pullrequest source branch
-| targetbranch| | | TargetBranch specifies the pullrequest target branch
-| owner| &#10004; | Owner specifies repository owner|
-| repository| &#10004; | | Repository specifies the name of a repository for a specific owner
-| title | | | Title defines the Gitea pullrequest title.
-| body | | | Body defines the Gitea pullrequest body
-| url | | | URL specifies the default github url in case of Gitea enterprise
-| username| | | Username specifies the username used to authenticate with Gitea API
-| token| | | Token specifies the credential used to authenticate with
-|===
+{{< resourceparameters "pullrequests" "gitea" >}}
 
 == Example
 
