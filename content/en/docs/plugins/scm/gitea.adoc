@@ -28,23 +28,7 @@ The Gitea scm plugin is used to manage git repositories hosted on Gitea, dependi
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| branch | &#10004; | main | Branch specifies which Gitea repository branch to work on
-| commitMessage | | | CommitMessage represents conventional commit metadata as type or scope, used to generate the final commit message.
-| directory | | Default to tmp location, /tmp on linux  | Directory where to clone the git repository"
-| email | &#10004; |-| Email specifies which emails to use when creating commits
-| force | | false | Run git push using --force option
-| gpg | | | GPG key and passphrased used for commit signing
-| owner | &#10004; | | Owner specifies repository owner
-| repository| &#10004; | | Repository specifies the name of a repository for a specific owner
-| token | &#10004; || Token specifies the credential used to authenticate with
-| username | | | Username specifies the username used to authenticate with Gitea API
-| user | &#10004; |-| Git user to push from changes
-| url | | | URL specifies the default github url in case of Gitea enterprise
-
-|===
+{{< resourceparameters "scms" "gitea" >}}
 
 === CommitMessage
 
