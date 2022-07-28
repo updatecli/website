@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-scm"
-weight: 130
 toc: true
 plugins:
   - scm
@@ -38,20 +37,7 @@ When a target references a scm configuration, it usually means pushing file to t
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| url | &#10004; | | Define Git repository url, username and password can't be embedded inside the url as it's not supported, instead use specific username/password settings
-| username | | | Define the username used to authenticate with the git repository
-| password | | | Define the password used to authenticate with the git repository
-| branch | &#10004; | master | Define the git branch
-| user | | | Define Git user used by git config
-| email | | | Define Git email used by the git config
-| force | | false | Run git push using --force option
-| directory | |Default to tmp location, /tmp on linux | Define where to clone the git repository
-| commitMessage | | | [T] Customize commit message. More information link:#_commitmessage[here]
-| gpg | | | [T] Sign commit with a GPG key. More information link:#_gpg[here]
-|===
+{{< resourceparameters "scms" "git" >}}
 
 === GPG
 
@@ -106,5 +92,5 @@ At the moment they are two ways to authentication with a git repository, either 
 
 **updatecli.yaml**
 ```
-{{< include "assets/code_example/docs/plugins/git/updatecli.yaml" >}}
+{{< include "assets/code_example/docs/plugins/scm/git/updatecli.d/default.yaml" >}}
 ```
