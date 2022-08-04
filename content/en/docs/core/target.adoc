@@ -23,13 +23,6 @@ The "target" stage update if necessary "resource" like a file based on informati
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| kind | &#10004; |-| Define the resource type used for the `spec`
-| name | &#10004; |-| Small description used in message, reports, etc.
-| spec | &#10004; |-| Define resource parameters, cfr to appropriated documentation
-| scm |-|-| Define scm parameters, cfr to the scm documentation
-|===
+{{< coreparameters "targets" >}}
 
 == Examples

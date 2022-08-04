@@ -1,0 +1,46 @@
+scms:
+  default:
+    kind: git
+    spec:
+      url: "git@github.com:olblak/charts.git"
+      branch: master
+      user: olblak
+      email: me@olblak.com
+      directory: "/home/olblak/Project/Jenkins-infra/charts"
+
+sources:
+  default:
+    kind: maven
+    spec:
+      owner: "maven"
+      url: "repo.jenkins-ci.org"
+      repository: "releases"
+      groupID: "org.jenkins-ci.main"
+      artifactID: "jenkins-war"
+    transformers:
+      - addSuffix: "-jdk11"
+
+conditions:
+  docker:
+    name: "Test Docker Image Published on Registry with the correct tag"
+    kind: "dockerImage"
+    spec:
+      image: "jenkins/jenkins"
+  imageTag:
+    name: "Test if jenkins/jenkins docker image used"
+    scmid: default
+    kind: yaml
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.master.image"
+      value: "jenkins/jenkins"
+
+targets:
+  imageTag:
+    name: "jenkins/jenkins docker tag"
+    kind: yaml
+    scmid: default
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.master.imageTag"
+

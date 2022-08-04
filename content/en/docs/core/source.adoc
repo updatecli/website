@@ -23,14 +23,7 @@ The "source" stage retrieve an information from a third "resource" like a file, 
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| kind | &#10004; |-| Define the resource type used for the `spec`
-| name | &#10004; |-| Small description used in message, reports, etc.
-| scm |-|-| Define source control management parameters, cfr to the scm
-| spec | &#10004; |-| Define resource parameters, cfr to appropriated resource documentation
-|===
+{{< coreparameters "sources" >}}
 
 == Example
 
