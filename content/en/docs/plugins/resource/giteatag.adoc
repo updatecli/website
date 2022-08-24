@@ -1,0 +1,54 @@
+---
+title: "Gitea Tag"
+description: "Manipulate Gitea repository Tag"
+lead: "kind: gitea/tag"
+date: 2022-07-28T11:42:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+The Gitea "tag" plugin allows to manipulate Gitea repository tags.
+
+**source**
+
+When used as a "source", the Gitea tag plugin allows to get a Gitea repository tag according the version filter rule provided.
+
+**condition**
+
+When used as a "condition". the Gitea tag plugin allows to test that specific Gitea tag exist.
+
+**target** 
+
+Target is not supported, feel free to manifest your interest by opening an issue on link:https://github.com/updatecli/updatecli/issues[updatecil/updatecli/issues], or highlighting an existing one.
+
+== Parameters
+
+{{< resourceparameters "sources" "gitea/tag" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/gitea/tag/updatecli.d/default.yaml">}}
+----
+

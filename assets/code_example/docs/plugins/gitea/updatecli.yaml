@@ -1,0 +1,20 @@
+---
+name: Test Gitea scm
+
+scms:
+  gitea:
+    kind: gitea
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-mirror"
+      branch: main
+
+sources:
+  license:
+    name: Retrieve license file content
+    kind: file
+    scmid: gitea
+    spec:
+      file: LICENSE
+

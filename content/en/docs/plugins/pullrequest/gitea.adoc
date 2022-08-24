@@ -1,0 +1,36 @@
+---
+title: "Gitea"
+description: "Manipulate Gitea PullRequest"
+lead: "kind: gitea"
+date: 2022-07-25T21:09:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-pullrequest"
+toc: true
+plugins:
+  - pullrequest
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The `pullrequests` section describes the link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub Pull Requests] that updatecli is expected to open (or update) when the manifest is applied.
+
+== Parameters
+
+{{< resourceparameters "pullrequests" "gitea" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/gitea_pullrequest/updatecli.yaml">}}
+----
+
