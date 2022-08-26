@@ -1,0 +1,54 @@
+---
+title: "Gitea Branch"
+description: "Manipulate Gitea repository Branch"
+lead: "kind: gitea/branch"
+date: 2022-07-28T11:42:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+The Gitea "branch" plugin allows to manipulate Gitea repository branches.
+
+**source**
+
+When used as a "source", the Gitea branch plugin allows to get a Gitea repository branch according the version filter rule provided.
+
+**condition**
+
+When used as a "condition". the Gitea branch plugin allows to test that specific Gitea branch exist.
+
+**target** 
+
+Target is not supported, feel free to manifest your interest by opening an issue on link:https://github.com/updatecli/updatecli/issues[updatecil/updatecli/issues], or highlighting an existing one.
+
+== Parameters
+
+{{< resourceparameters "sources" "gitea/branch" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/gitea/branch/updatecli.d/default.yaml">}}
+----
+

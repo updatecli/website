@@ -1,0 +1,51 @@
+name: "Show Gitea tag usage"
+
+sources:
+  default:
+    name: "Get tag using versionFilter from a Gitea repository"
+    kind: "gitea/tag"
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-test"
+      versionfilter:
+        kind: "semver"
+        pattern: "~0.0"
+
+  latest:
+    name: "Get latest tag tag from a Gitea repository"
+    kind: "gitea/tag"
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-test"
+    
+conditions:
+  default:
+    name: "Test tag '0.0.2' exist on the Gitea repository"
+    kind: "gitea/tag"
+    disablesourceinput: true
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-test"
+      tag: "0.0.2"
+
+  sourcedefault:
+    name: "Test that the tag retrieved from source 'default' exist on the Gitea repository"
+    kind: "gitea/tag"
+    sourceid: "default"
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-test"
+
+  latest:
+    name: "Test that the tag retrieved from source 'latest' exist on the Gitea repository"
+    kind: "gitea/tag"
+    sourceid: "latest"
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-test"
+
