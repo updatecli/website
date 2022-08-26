@@ -42,13 +42,13 @@ A target receives information from the source then modifies that value with the 
 | Name | Default |Description
 | replacer |-| Replace a string with another one, more link:#_replacer[here]
 | replacers |-| A list of Replacer
-| addPrefix |-| Add prefix to the value
-| addSuffix |-| Add suffix to the value
-| trimPrefix |-| Remove prefix to the value
-| trimSuffix |-| Remove suffix to the value
+| addprefix |-| Add prefix to the value
+| addsuffix |-| Add suffix to the value
+| trimprefix |-| Remove prefix to the value
+| trimsuffix |-| Remove suffix to the value
 | find |-| Search for a string value using regular expression and then return its value exist
-| findSubMatch |-| Search for a substring using regular expression and then return its content, more link:#_FindSubMatch[here]
-| semverInc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
+| findsubmatch |-| Search for a substring using regular expression and then return its content, more link:#_FindSubMatch[here]
+| semverinc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
 |===
 
 
@@ -64,22 +64,21 @@ A replacer rule modifies the information by replacing the "from" value by the "t
 |===
 
 
-
 === FindSubMatch
 
-
-A findSubMatch rule captures the desired information by applying "pattern" as a regexp and using "captureIndex" value as the index for the capture to return (default 0).
+A `findsubmatch` rule captures the desired information by applying `pattern`` as a regexp and using `captureindex`` value as the index for the capture to return (defaults to 0).
 
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
-| pattern | &#10004;|-| "pattern" value defines the regular expression to apply
-| captureIndex |-|-| "captureIndex" value defines the index of the capture to return. Note that the default value `0` returns all submatches, and individual submatch indexes start at `1`.
+| pattern | &#10004;|-| `pattern` value defines the regular expression to apply
+| captureindex |-|-| `captureindex` value defines the index of the capture to return. Note that the default value `0` returns all submatches, and individual submatch indexes start at `1`.
 |===
 
 
 == Example
-The `findSubmatch` below will return the submatch captured with `(.*?)`:
+
+The `findsubmatch` below will return the submatch captured with `(.*?)`:
 
 .updatecli.yaml
 ```
@@ -88,10 +87,10 @@ sources:
     name: "Get latest jenkins weekly version"
     kind: jenkins
     transformers:
-      - addPrefix: "alpha-"
-      - addSuffix: "-jdk11"
-      - trimSuffix: "-jdk11"
-      - trimPrefix: "alpha-"
+      - addprefix: "alpha-"
+      - addsuffix: "-jdk11"
+      - trimsuffix: "-jdk11"
+      - trimprefix: "alpha-"
       - replacer:
           from: "-jdk11"
           to: "-jdk15"
@@ -100,8 +99,8 @@ sources:
             to: "-jdk17"
       - findsubmatch:
           pattern: '"(.*?):(.*)'
-          captureIndex: 1
-      - semverInc: "major,minor"
+          captureindex: 1
+      - semverinc: "major,minor"
       - find: "2.234.(.*)$"
     spec:
       release: weekly
