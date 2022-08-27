@@ -1,0 +1,54 @@
+name: Show Gitea release usage
+
+sources:
+  default:
+    name: Retrieve latest release matching versionFilter rule
+    kind: gitea/release  
+    spec:
+      url: "try.gitea.io"
+      owner: olblak
+      repository: updatecli-test
+      versionfilter:
+        kind: semver
+        pattern: "~0"
+    
+conditions:
+  default:
+    name: Test that release "0.0.2" exist 
+    kind: gitea/release  
+    spec:
+      url: "try.gitea.io"
+      owner: olblak
+      repository: updatecli-test
+      tag: "0.0.2"
+  sourcedefault:
+    name: Test that release retrieved from source 'default' exist
+    kind: gitea/release  
+    sourceid: default
+    spec:
+      url: "try.gitea.io"
+      owner: olblak
+      repository: updatecli-test
+
+targets:
+  default:
+    name: "Ensure release 0.0.1 from branch main exist"
+    kind: gitea/release  
+    spec:
+      url: "try.gitea.io"
+      owner: olblak
+      repository: updatecli-test
+      commitish: main
+      token: xxx
+      tag: "0.0.1"
+  sourcedefault:
+    name: "Ensure release where tag is retrieved from source 'default' from branch main exist"
+    kind: gitea/release  
+    sourceid: default
+    spec:
+      url: "try.gitea.io"
+      owner: olblak
+      repository: updatecli-test
+      token: xxx
+      commitish: main
+

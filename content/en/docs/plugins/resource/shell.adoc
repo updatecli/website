@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - source
@@ -45,13 +44,7 @@ The Shell "targets" delegates the update of your files to a shell command with a
 
 The following parameters can be specified through the `spec` attributes map:
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| command | &#10004; | | Command to execute (Linux or Windows)
-| environments | | | Environments allows to pass a list of environment variable(s) to the shell script
-|===
-
+{{< resourceparameters "sources" "shell" >}}
 
 === Environments
 

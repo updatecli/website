@@ -1,0 +1,58 @@
+scms:
+  default:
+    kind: git
+    spec:
+      url: "git@github.com:alice/example.git"
+      branch: master
+      user: alice
+      email: alice@example.com
+
+sources:
+  lastWeeklyRelease:
+    # Get latest jenkins weekly version with changelog from github
+    kind: jenkins
+    spec:
+      release: weekly
+
+conditions:
+  # Test that a specific Jenkins version exists
+  jenkinsVersion:
+    kind: jenkins
+    spec:
+      version: "2.275"
+
+  # Test that the version from source is a weekly release
+  jenkinsWeekly:
+    kind: jenkins
+    spec:
+      release: weekly
+
+  # Test that our yaml file is correctly set to a jenkins image
+  imageTag:
+    name: "jenkins/jenkins docker image set"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.controller.image"
+      value: "jenkins/jenkins"
+    scmID: default
+
+  # Test that there is a docker image with the correct tag
+  # set to "<version>-jdk11"
+  dockerImage:
+    kind: dockerImage
+    spec:
+      image: jenkins/jenkins
+    transformers:
+      - addSuffix: "-jdk11"
+
+targets:
+  imageTag:
+    name: "jenkins/jenkins docker tag"
+    kind: yaml
+    spec:
+      file: "charts/jenkins/values.yaml"
+      key: "jenkins.controller.tag"
+    transformers:
+      - addSuffix: "-jdk11"
+    scmId: default

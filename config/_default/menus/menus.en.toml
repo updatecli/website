@@ -29,6 +29,13 @@
   url = "/plugins/"
 
 [[docs]]
+  name = "autodiscovery"
+  weight = 25
+  identifier = "plugin-autodiscovery"
+  url = "/plugins/autodiscovery/"
+  parent= "plugins"
+
+[[docs]]
   name = "resource"
   weight = 25
   identifier = "plugin-resource"

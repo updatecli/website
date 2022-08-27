@@ -26,15 +26,7 @@ Please look at each kind of resource (shell, file, etc.) for details about "how 
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name     | Required | Default |Description
-| `sourceID` | &#10008; | Sets to the only source if there is only 1 defined. | Reference of the link:../source["Source"] to use as input value. Required if `disablesourceinput` is false and there are multiple sources defined.
-| `disablesourceinput` | &#10008; |`false`| Wether to expect an input source value or not
-| `kind`     | &#10004; |-| Define the resource type used for the `spec`
-| `name`     | &#10004; |-| Small description used in message, reports, etc.
-| `spec`     | &#10004; |-| Define resource parameters, cfr to appropriated documentation
-|===
+{{< coreparameters "conditions" >}}
 
 == Examples
 

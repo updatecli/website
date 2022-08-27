@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - source
@@ -40,16 +39,7 @@ The `aws/ami` "condition" test that an AWS AMI exist based on specific filters.
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| accessKey | | - | One of the authentication methods to specify AWS access key xref:_authentication[here].
-| secretKey | | - | One of the authentication methods to specify the secret key.
-| region | | us-east-1 | Define AWS region to use.
-| filters | &#10004; | - | Define a list of AMI filters, more information on the Filters section xref:_name[here].
-| endpoint | | ec2.<region>.amazonaws.com | Define API endpoint.
-| sortBy | | | Override default sorting, more information on xref:_sortby[sortBy]
-|===
+{{< resourceparameters "sources" "aws/ami" >}}
 
 === SortBy
 

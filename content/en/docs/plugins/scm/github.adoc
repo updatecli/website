@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-scm"
-weight: 130
 toc: true
 plugins:
   - scm
@@ -35,20 +34,7 @@ It's important to notice that the Github SCM implements the Github workflow and 
 
 == Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| user | &#10004; |-| Git user to push from changes
-| email | &#10004; |-| Git user email to push from change
-| directory | | Default to tmp location, /tmp on linux  | Directory where to clone the git repository"
-| owner | &#10004; | | Github owner
-| force | | false | Run git push using --force option
-| repository| &#10004; | | Github repository
-| token | &#10004; || Github token with enough permission on the repository
-| username | &#10004; | | Github username used for push git changes
-| branch | &#10004; | | Git branch where to push changes
-| commitMessage | | | Customize commit message
-|===
+{{< resourceparameters "scms" "github" >}}
 
 === CommitMessage
 
@@ -70,60 +56,21 @@ Date:   Tue May 4 15:41:44 2021 +0200
 ```
 ---
 
-
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-|type ||chore| Specify commit type
-|scope ||| Specify commit scope
-|footer ||| Specify commit footer message
-|title ||| Override default body message
-|hideCredit ||| Remove "Made with ❤️️  by updatecli" from commit message
-|body ||| Override default body message
-|===
-
 == Example
 
 === Default
 
-```
-targets:
-  id:
-    kind: yaml
-    spec:
-      file: "Yaml file path from the root repository"
-      key: "yaml key to update"
-    scm:
-      github:
-        user: "git user to push from changes"
-        email: "git user email to push from change"
-        directory: "directory where to clone the git repository"
-        owner: "github owner"
-        repository: "github repository"
-        token: "github token with enough permission on repository"
-        username: "github username used for push git changes"
-        branch: "git branch where to push changes"
-```
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/github/updatecli.d/default.yaml">}}
+----
 
 === CommitMessage
 
-```
-targets:
-  id:
-    kind: yaml
-    spec:
-      file: "Yaml file path from the root repository"
-      key: "yaml key to update"
-    scm:
-      github:
-        user: "git user to push from changes"
-        email: "git user email to push from change"
-        directory: "directory where to clone the git repository"
-        owner: "github owner"
-        repository: "github repository"
-        token: "github token with enough permission on repository"
-        username: "github username used for push git changes"
-        branch: "git branch where to push changes"
-        commitMessage:
-          type: "feat"
-```
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/github/updatecli.d/commitmessage.yaml">}}
+----
+

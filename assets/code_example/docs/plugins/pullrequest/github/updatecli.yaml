@@ -23,7 +23,11 @@ pullrequests:
         - "dependencies"
         - "epinio"
       title: "PullRequest Title"
-#
-#sources:
-#conditions:
-#targets:
+
+targets:
+  default:
+    title: Target update to automated
+    scmid: website
+    kind: file
+    spec:
+      ...

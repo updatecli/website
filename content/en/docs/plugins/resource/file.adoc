@@ -9,7 +9,6 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
-weight: 130
 toc: true
 plugins:
   - source
@@ -55,6 +54,12 @@ The following parameters can be specified through the `spec` attributes map:
 | replacepattern | | | (Only for target) Regex to replace content matched by `matchPattern` in the file from the `match` (https://pkg.go.dev/regexp[Golang regexp syntax])
 | forcecreate | | false | (Only for target) Wether to create the file if the specified location does not exist.
 |===
+
+{{< resourceparameters "sources" "file" >}}
+
+Links :
+
+* https://pkg.go.dev/regexp[Documentation: Golang regexp syntax]
 
 === File Location
 
