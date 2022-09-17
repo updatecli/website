@@ -23,7 +23,7 @@ A bit of context, when I started working on Updatecli I wanted a tool that would
 
 I could have leveraged the Updatecli XML resource (https://www.updatecli.io/docs/plugins/resource/xml[more here]), to automate my pom.xml. But considering that pom.xml files are well structured, I was more in favour of leveraging some work I did on a new Updatecli feature named “autodiscovery”.
 
-So instead of relying on an updatecli manifest that describes how a pom.xml should be updated,  “autodiscovery” allows Updatecli to analyse directories, files, to automate common pattern.
+So instead of relying on an updatecli manifest that describes how a pom.xml should be updated,  “autodiscovery” allows Updatecli to analyse directories and files to automate common manifest patterns.
 
 ---
 image::/images/blog/2022/09/maven.png["Java"]
