@@ -2,8 +2,8 @@
 title: updatecli manifest upgrade
 description: Documentation for the command `updatecli manifest upgrade`
 lead: Documentation for the command `updatecli manifest upgrade`
-date: 2022-07-21T08:40:13+02:00
-lastmod: 2022-07-21T08:40:13+02:00
+date: 2022-09-20T18:24:41+02:00
+lastmod: 2022-09-20T18:24:41+02:00
 draft: false
 images: []
 menu:
@@ -24,7 +24,7 @@ updatecli manifest upgrade [flags]
 ### Options
 
 ```
-  -c, --config string   Sets config file or directory. (default: './updatecli.yaml') (default "./updatecli.yaml")
+  -c, --config string   Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
   -h, --help            help for upgrade
   -i, --in-place        Write updated Updatecli manifest back to the same file instead of stdout
 ```
@@ -32,7 +32,8 @@ updatecli manifest upgrade [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug   Debug Output
+      --debug          Debug Output
+      --experimental   Enable Experimental mode
 ```
 
 ### SEE ALSO
