@@ -77,8 +77,8 @@ cd jenkins
 “Autodiscovery” is the easiest approach, all you have to do, is going at the root of your project directory and run:
 
 
-* `updatecli diff –local-autodiscovery –experimental`: to see what would change
-* `updatecli apply –local-autodiscovery –experimental`: to apply what you saw in the previous command output
+* `updatecli diff --local-autodiscovery --experimental`: to see what would change
+* `updatecli apply --local-autodiscovery --experimental`: to apply what you saw in the previous command output
 
 By default the autodiscovery doesn’t handle any git service operation. This could be provided using a manifest that requires credentials.
 
@@ -105,16 +105,16 @@ autodiscovery:
   	    enable: true
 ``` 
 
-* `updatecli diff –local-autodiscovery –experimental –config updatecli.d/manifest.yaml`: to see what would change
-* `updatecli apply –local-autodiscovery –experimental –config updatecli.d/manifest.yaml`: to apply what you saw in the previous command output
+* `updatecli diff --local-autodiscovery --experimental --config updatecli.d/manifest.yaml`: to see what would change
+* `updatecli apply --local-autodiscovery --experimental --config updatecli.d/manifest.yaml`: to apply what you saw in the previous command output
 
 Tips: If you use an IDE that supports Jsonschema by default, such as vscode, then you can benefit from auto-completion by creating the updatecli manifest inside the directory named “updatecli.d”. While the directory “updatecli.d” is not mandatory, It allows IDE that support “json schema store” to know which schema to use, to benefit from autocompletion such as IntelliJ or VsCode
 
 Once again you can use the following command:
 
 
-* `updatecli diff –local-autodiscovery –experimental –config updatecli.d/maven.yaml`: to see what would change
-* `updatecli apply –local-autodiscovery –experimental  –config updatecli.d/maven.yaml`: to apply what you saw in the previous command output
+* `updatecli diff --local-autodiscovery --experimental --config updatecli.d/maven.yaml`: to see what would change
+* `updatecli apply --local-autodiscovery --experimental  --config updatecli.d/maven.yaml`: to apply what you saw in the previous command output
 
 This time, the behaviour is slightly different. Updatecli clones the git repository in a temporary location and works from that location. It runs the same way, except that it creates a temporary git branch and opens a pull-request on your GitHub repository. 
 
