@@ -1,0 +1,69 @@
+---
+title: "TOML"
+description: "Manipulate Toml information"
+lead: "kind: toml"
+date: 2021-09-24T19:19:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The TOML "source" retrieves an information from a TOML file.
+
+**condition**
+
+The TOML "condition" tests that an information exist in a TOML file.
+
+**target**
+
+The TOML "target" ensures that a TOML file content a specific value at specific location.
+
+== Parameters
+
+{{< resourceparameters "sources" "toml" >}}
+
+=== Xpath
+
+Under construction, some help would be need to document common jsonpath query that work with Updatecli
+https://www.w3.org/TR/1999/REC-xpath-19991116/
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/toml/updatecli.d/default.yaml">}}
+----
+
+== Important
+
+The library used to manipulate TOML files, drops comments. More information is available on
+link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Until we find a solution, a potential workaround is to use the resource `file` like in the following example:
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/toml/updatecli.d/fallback.yaml">}}
+----
+
