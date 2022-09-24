@@ -7,40 +7,46 @@ scms:
       url: https://github.com/updatecli/updatecli.git
 
 sources:
-  local: 
+  local:
     name: Get value from json
     kind: json
-    spec: 
+    scmid: default
+    spec:
       file: pkg/plugins/resources/json/testdata/data.json
       key: firstName
   http:
-    name: Get value from json 
+    name: Get value from json
     kind: json
     spec:
       file: https://www.updatecli.io/schema/latest/config.json
-      key: id
+      key: $id
 
 conditions:
-  local: 
+  local:
     name: Test value from json
     kind: json
-    spec: 
+    sourceid: local
+    scmid: default
+    spec:
       file: pkg/plugins/resources/json/testdata/data.json
       key: firstName
   http:
-    name: Test value from json 
+    name: Test value from json
     kind: json
     disablesourceinput: true
     spec:
       file: https://www.updatecli.io/schema/latest/config.json
-      key: id
+      key: $schema
       value: http://json-schema.org/draft-04/schema
 
 targets:
-  local: 
+  local:
     name: Test value from json
     kind: json
-    spec: 
+    sourceid: local
+    scmid: default
+    spec:
       file: pkg/plugins/resources/json/testdata/data.json
       key: firstName
       value: John
+
