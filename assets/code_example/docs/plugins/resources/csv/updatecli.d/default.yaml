@@ -1,0 +1,37 @@
+title: CSV manipulation examples
+
+sources:
+  default:
+    name: Basic get query
+    kind: csv 
+    spec:
+      file: pkg/plugins/resources/csv/testdata/data.csv
+      key: .[0].firstname
+
+conditions:
+  single:
+    name: Basic condition query
+    kind: csv 
+    disablesourceinput: true
+    spec:
+      file: pkg/plugins/resources/csv/testdata/data.csv
+      key: .[0].firstname
+      value: John
+
+targets:
+  single:
+    name: Basic target update
+    kind: csv 
+    spec:
+      file: pkg/plugins/resources/csv/testdata/data.csv
+      key: .[1].firstname
+      value: John
+
+  multiple:
+    name: Mulitple target update
+    kind: csv 
+    spec:
+      file: pkg/plugins/resources/csv/testdata/data.csv
+      key: .[*].firstname
+      multiple: true
+

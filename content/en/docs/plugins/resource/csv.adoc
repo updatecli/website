@@ -1,0 +1,62 @@
+---
+title: "CSV"
+description: "Manipulate csv information"
+lead: "kind: csv"
+date: 2021-09-27T19:19:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The CSV "source" retrieves an information from a CSV file.
+
+**condition**
+
+The CSV "condition" tests that an information exist in a CSV file.
+
+**target**
+
+The CSV "target" ensures that a CSV file content a specific value at specific location.
+
+== Parameters
+
+{{< resourceparameters "sources" "csv" >}}
+
+=== Query
+
+The csv resource benefits from the Dasel library https://daseldocs.tomwright.me/
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/csv/updatecli.d/default.yaml">}}
+----
+
+== Important
+
+The library used to manipulate CSV files, drops comments. More information is available on
+link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Until we find a solution, a potential workaround is to use the resource `file` like in the following example:
+
