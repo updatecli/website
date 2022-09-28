@@ -1,0 +1,22 @@
+sources:
+    hugo:
+        name: Get latest HUGO version
+        kind: githubrelease
+        transformers:
+            - trimprefix: v
+        spec:
+            owner: gohugoio
+            repository: hugo
+            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+
+targets:
+    netlify:
+        name: Update Hugo version used on Netlify
+        kind: file
+        spec:
+            file: netlify.toml
+            matchpattern: HUGO_VERSION = "(.*)"
+            replacepattern: HUGO_VERSION = "{{ source "hugo" }}"
+        scmid: default
+        sourceid: hugo
