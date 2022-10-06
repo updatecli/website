@@ -84,6 +84,22 @@ image:
     tag: latest
 ```
 
+data.yaml
+```
+targets:
+  helm-chart-label:
+    name: bump chart dependencies
+    kind: yaml
+    disablesourceinput: true
+    spec:
+      file: "/tmp/gateway.yaml"
+      key: 'spec\.values\.labels\.service\.istio\.io/canonical-revision'
+      value: "test"
+```
+
+Please note that for the escaping to work in Updatecli, the YAML value must be single quote otherwise the escaping character is used to escape YAML special characters
+
+
 == Example
 
 [source,yaml]
