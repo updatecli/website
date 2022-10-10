@@ -54,7 +54,7 @@ targets:
         spec:
             file: netlify.toml
             matchpattern: HUGO_VERSION = "(.*)"
-            replacepattern: HUGO_VERSION = "{{ source "hugo" }}"
+            replacepattern: 'HUGO_VERSION = "{{ source "hugo" }}"'
         scmid: default
         sourceid: hugo
 version: 0.28.0
