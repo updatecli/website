@@ -32,7 +32,7 @@ jobs:
           UPDATECLI_GITHUB_ACTOR: ${{ github.actor }}
           UPDATECLI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: tibdex/github-app-token@v1.6
+      - uses: tibdex/github-app-token@v1.7
         id: generate_token
         if: github.ref == 'refs/heads/master'
         with:
