@@ -2,8 +2,8 @@
 title: updatecli jsonschema
 description: Documentation for the command `updatecli jsonschema`
 lead: Documentation for the command `updatecli jsonschema`
-date: 2022-07-21T08:40:13+02:00
-lastmod: 2022-07-21T08:40:13+02:00
+date: 2022-09-20T18:24:41+02:00
+lastmod: 2022-09-20T18:24:41+02:00
 draft: false
 images: []
 menu:
@@ -32,7 +32,8 @@ updatecli jsonschema [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug   Debug Output
+      --debug          Debug Output
+      --experimental   Enable Experimental mode
 ```
 
 ### SEE ALSO

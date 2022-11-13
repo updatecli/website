@@ -1,0 +1,150 @@
+---
+title: "Updatecli with Java"
+description: "Automate Maven Dependencies"
+lead: "Let's automate Maven dependencies"
+date: 2022-09-22T16:13:42+01:00
+draft: false
+weight: 50
+images: [""]
+contributors: ["olblak"]
+---
+:toc: right
+:hide-uri-scheme:
+
+== Updatecli && Java?
+
+I recently spent some time on a Java application using Maven and wondered what if I could bump all my Java dependencies in one command, directly from my machine? How much time would it save me?
+
+A bit of context, when I started working on Updatecli I wanted a tool that would work from anywhere and allow me to automate file changes, stored on git repositories.
+
+I wanted a declarative dependency management tool.
+
+So, I could have written several Updatecli manifests using the XML resource (https://www.updatecli.io/docs/plugins/resource/xml[more here]), to automate my pom.xml. But considering that pom.xml files are well structured, I was more in favour to not have to write any Updatecli manifest.
+
+Over summer, I started working on a feature named “autodiscovery”. This feature allows Updatecli to analyze directories and files to automate common patterns.
+
+---
+image::/images/blog/2022/09/maven.png["Java"]
+---
+
+Before sharing my thoughts, I propose to let you build your own opinion, first.
+
+Here is how you would do
+
+1. Install Updatecli
+2. Run Updatecli in your project directory
+3. Reach your conclusion
+
+
+=== Install
+
+First we need to install Updatecli.
+
+As Updatecli is a Golang application available for Linux/Windows/MacOSx, all you have to do is download and execute it.
+
+For Homebrew users:
+
+* `brew tap updatecli/updatecli`
+* `brew install updatecli`
+
+Or download the right package for your favourite OS/Architecture from <link below>
+
+=> https://github.com/updatecli/updatecli/releases/latest
+
+
+=== Run
+
+Updatecli works in two different modes:
+
+Either it detects automatically what needs to be changed using the experimental “autodiscovery” feature.
+
+Or in a more declarative way, **you** specify **your** update scenario using a YAML manifest.
+
+Before running any command, we need a Java project using Maven.
+
+Use whatever you want, but I’ll use the Jenkins repository as it contains many dependencies.
+
+```
+cd /tmp
+git clone https://github.com/jenkinsci/jenkins.git
+cd jenkins
+```
+
+==== Autodiscovery
+
+“Autodiscovery” is the easiest approach to understand Updatecli. All you have to do, is going at the root of your project directory and run:
+
+* ```updatecli diff --local-autodiscovery --experimental```: to see what would change
+* ```updatecli apply --local-autodiscovery --experimental```: to apply what you saw in the previous command output
+
+By default the autodiscovery doesn’t handle any git service operation. This could be provided using a manifest that requires credentials.
+
+
+```
+# updatecli.d/manifest.yaml**
+
+scms:
+  default:
+	kind: github
+	spec:
+  	    branch: main
+  	    owner: <your owner repository>
+  	    repository: <your repository name>
+  	    token: <your token>
+  	    username: "your username"
+pullrequests:
+  default:
+	kind: github
+	spec:
+
+autodiscovery:
+  scmid: default
+  crawlers:
+	maven:
+  	    enable: true
+```
+
+* `updatecli diff --local-autodiscovery --experimental --config updatecli.d/manifest.yaml`: to see what would change
+* `updatecli apply --local-autodiscovery --experimental --config updatecli.d/manifest.yaml`: to apply what you saw in the previous command output
+
+NOTE: If you use an IDE that supports link:https://www.schemastore.org/json/[JSON schema store], such as Vscode or IntelliJ. then you can benefit from auto-completion and validation by creating the updatecli manifest inside the directory named “updatecli.d”.
+
+Once again you can use the following command:
+
+* ```updatecli diff --local-autodiscovery --experimental --config updatecli.d/maven.yaml```: to see what would change
+* ```updatecli apply --local-autodiscovery --experimental  --config updatecli.d/maven.yaml```: to apply what you saw in the previous command output
+
+This time, the behaviour is slightly different. Updatecli clones the git repository in a temporary location and works from that location. It runs the same way, except that it creates a temporary git branch and opens a pull-request on your GitHub repository.
+
+That’s all on the Maven autodiscovery experiment.
+
+==== Learning
+
+I learned a few things in the process:
+
+Firstly, I was surprised to discover that some dependencies were not available anymore from the Maven repositories mentioned in the project. This means that some clean up is needed in the pom.xml
+
+Updatecli suggested to me many updates, but I had no generic way, at least that I am aware of, to retrieve changelog information or the git repositories used to build those Maven artefacts. So for each of those updates, I have some homework to do to understand what changed and why.
+
+Finally, I was a bit naive about how Maven handles dependencies. It can be pretty complex and It's not always obvious how to retrieve repository information. And the fact that the default behaviour is to fallback to Maven Central makes it even more confusing.
+
+So I went back to my initial feeling when I started Updatecli. Knowing how to update an artefact can be really though, and we need both the declarative to catch those specific behaviors, and a more generic way, to not have to maintain any manifest.
+
+
+
+== Conclusion
+
+I am glad I got a way to quickly assess, and remediate outdated dependencies.
+It works very fast, and executing updatecli locally provides a great feedback loop.
+
+I already identified a few improvements:
+
+. To specify Maven credentials
+. To use Maven proxies
+. To updating properties if they are used in dependencies, even though I must admit that they are sidecases to deal with.
+. To better use settings.xml
+
+
+Feel free to share feedback by one of the following option on link:https://twitter.com/0lblak[Twitter], or start a discussion on link:https://github.com/orgs/updatecli/discussions[updatecli#discuss]
+
+---

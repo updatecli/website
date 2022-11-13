@@ -7,7 +7,7 @@
       <th>Required</th>
     </tr>
 {{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
-    {{ range $k, $v := $dataJ.properties.spec.properties }}
+    {{ range $k, $v := $dataJ.properties }}
       {{ if eq $k $stage }}
         {{ range $k, $oneOf := $v.patternProperties }}
             {{ range $_, $one := index $oneOf }}

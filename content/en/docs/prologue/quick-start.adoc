@@ -60,6 +60,9 @@ In our manifest, we introduce the most three important concepts of an updatecli 
 
 {{< btn-copy text="touch ./updatecli/updatecli.d/jenkins.yaml" >}}
 
+---
+image::/images/diagrams/pipeline.png["Updatecli Pipeline"]
+---
 
 [soure,yaml]
 ----
