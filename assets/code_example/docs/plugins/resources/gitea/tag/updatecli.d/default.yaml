@@ -2,7 +2,7 @@ name: "Show Gitea tag usage"
 
 sources:
   default:
-    name: "Get tag using versionFilter from a Gitea repository"
+    name: "Get tag using versionfilter from a Gitea repository"
     kind: "gitea/tag"
     spec:
       url: "try.gitea.io"
@@ -19,7 +19,7 @@ sources:
       url: "try.gitea.io"
       owner: "olblak"
       repository: "updatecli-test"
-    
+
 conditions:
   default:
     name: "Test tag '0.0.2' exist on the Gitea repository"
@@ -48,4 +48,3 @@ conditions:
       url: "try.gitea.io"
       owner: "olblak"
       repository: "updatecli-test"
-

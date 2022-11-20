@@ -49,11 +49,11 @@ The `diff` allows us to run updatecli in dry-mode so we identify what updatecli 
 
 As you'll see in our updatecli manifest, we define:
 
-1. One "source" resource of a kind "githubRelease" which describes, where to retrieve the latest version of our application, jenkins-wiki-exporter, published on GitHub Release. 
-2. Two "condition" "resources which need to succeed before updating our Helm chart. In the first condition, we want to ensure that our Helm chart uses the right container name "jenkinsciinfra/jenkins-wiki-exporter". The second condition of a kind "dockerImage", ensures that a Docker image "jenkinsciinfra/jenkins-wiki-exporter" exists on DockerHub where the tag is the same than the source output aka the latest jenkins-wiki-exporter version. 
+1. One "source" resource of a kind "githubRelease" which describes, where to retrieve the latest version of our application, jenkins-wiki-exporter, published on GitHub Release.
+2. Two "condition" "resources which need to succeed before updating our Helm chart. In the first condition, we want to ensure that our Helm chart uses the right container name "jenkinsciinfra/jenkins-wiki-exporter". The second condition of a kind "dockerimage", ensures that a Docker image "jenkinsciinfra/jenkins-wiki-exporter" exists on DockerHub where the tag is the same than the source output aka the latest jenkins-wiki-exporter version.
 3. A "target" resource of kind "helmChart", has a chart name "charts/jenkins-wiki-exporter" with a file "values.yaml" where the key "image.tag" is set to the latest jenkins-wiki-exporter version. If it's not the case then bump the path version of the chart.
 4. A "scms" resource of kind "github", that describes which GitHub repository store the Helm chart "code".
-5. A "pullrequest" resource of kind "github", that describes pull-request parameters such as label assigned to the pull request created by Updatecli, and the auto-merge flag.  
+5. A "pullrequest" resource of kind "github", that describes pull-request parameters such as label assigned to the pull request created by Updatecli, and the auto-merge flag.
 
 [source,yaml]
 ----
@@ -92,7 +92,7 @@ In this pipeline we used the following resources:
 * link:https://www.updatecli.io/docs/plugins/yaml/[YAML]
 * link:https://www.updatecli.io/docs/plugins/github_release/[GitHub Release]
 * link:https://www.updatecli.io/docs/plugins/helm_chart/[Helm Chart]
-* link:https://www.updatecli.io/docs/plugins/github/[GitHub Repository]  
+* link:https://www.updatecli.io/docs/plugins/github/[GitHub Repository]
 * link:https://www.updatecli.io/docs/plugins/github_pullrequest/[GitHub Pullrequest]
 * link:https://www.updatecli.io/docs/plugins/docker_image/[Docker Image]
 

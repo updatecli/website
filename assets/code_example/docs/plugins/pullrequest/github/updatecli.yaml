@@ -1,3 +1,5 @@
+name: Update a file content and open a GitHub Pull Request
+
 scms:
   website:
     kind: "github"
@@ -14,7 +16,7 @@ scms:
 pullrequests:
   helm-charts:
     kind: "github"
-    scmID: "website"
+    scmid: "website"
     spec:
       automerge: true
       description: "Prepend description"
@@ -26,8 +28,7 @@ pullrequests:
 
 targets:
   default:
-    title: Target update to automated
     scmid: website
     kind: file
-    spec:
-      ...
+    # spec:
+    # ...

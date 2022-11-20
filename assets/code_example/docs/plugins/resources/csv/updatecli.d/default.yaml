@@ -1,9 +1,9 @@
-title: CSV manipulation examples
+name: CSV manipulation examples
 
 sources:
   default:
     name: Basic get query
-    kind: csv 
+    kind: csv
     spec:
       file: pkg/plugins/resources/csv/testdata/data.csv
       key: .[0].firstname
@@ -11,7 +11,7 @@ sources:
 conditions:
   single:
     name: Basic condition query
-    kind: csv 
+    kind: csv
     disablesourceinput: true
     spec:
       file: pkg/plugins/resources/csv/testdata/data.csv
@@ -21,17 +21,17 @@ conditions:
 targets:
   single:
     name: Basic target update
-    kind: csv 
+    kind: csv
     spec:
       file: pkg/plugins/resources/csv/testdata/data.csv
       key: .[1].firstname
       value: John
 
   multiple:
-    name: Mulitple target update
-    kind: csv 
+    name: Multiple target update
+    kind: csv
     spec:
-      file: pkg/plugins/resources/csv/testdata/data.csv
-      key: .[*].firstname
-      multiple: true
-
+      files:
+        - pkg/plugins/resources/csv/testdata/data1.csv
+        - pkg/plugins/resources/csv/testdata/data2.csv
+      query: .[*].firstname
