@@ -1,22 +1,22 @@
----
+name: Example 3
+
 sources:
   jenkins:
     name: "Get latest Jenkins version from maven repo"
     kind: "maven"
     transformers:
-      # - addPrefix: "v"
-      - addSuffix: "-jdk11"
+      # - addprefix: "v"
+      - addsuffix: "-jdk11"
     spec:
-      owner: "maven"
       url: "repo.jenkins-ci.org"
       repository: "releases"
-      groupID: "org.jenkins-ci.main"
-      artifactID: "jenkins-war"
+      groupid: "org.jenkins-ci.main"
+      artifactid: "jenkins-war"
 
 conditions:
   docker:
     name: "Docker Image Published on Registry"
-    kind: "dockerImage"
+    kind: "dockerimage"
     spec:
       image: "jenkins/jenkins"
       architecture: "amd64"
@@ -25,9 +25,9 @@ targets:
   imageTag:
     name: "Update docker-compose jenkins service"
     kind: "yaml"
-    scmID: "updatecli/website"
+    scmid: "updatecli/website"
     transformers:
-      - addPrefix: "jenkins/jenkins:"
+      - addprefix: "jenkins/jenkins:"
     spec:
       file: "assets/code_example/docs/guides/docker-compose/docker-compose.yaml"
       key: "services.jenkins.image"

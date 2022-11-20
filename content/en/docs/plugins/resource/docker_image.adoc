@@ -1,7 +1,7 @@
 ---
 title: "Docker Image"
 description: "Manipulate information from docker image"
-lead: "kind: dockerImage"
+lead: "kind: dockerimage"
 date: 2020-10-13T15:21:01+02:00
 lastmod: 2020-10-13T15:21:01+02:00
 draft: false
@@ -82,7 +82,7 @@ sources:
 conditions:
   docker:
     name: "Docker Image Published on Registry"
-    kind: dockerImage
+    kind: dockerimage
     spec:
       image: "jenkinsciinfra/plugin-site-api"
 targets:

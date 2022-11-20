@@ -1,3 +1,5 @@
+name: Example with Jenkins resource
+
 scms:
   default:
     kind: git
@@ -35,16 +37,16 @@ conditions:
       file: "charts/jenkins/values.yaml"
       key: "jenkins.controller.image"
       value: "jenkins/jenkins"
-    scmID: default
+    scmid: default
 
   # Test that there is a docker image with the correct tag
   # set to "<version>-jdk11"
-  dockerImage:
-    kind: dockerImage
+  dockerimage:
+    kind: dockerimage
     spec:
       image: jenkins/jenkins
     transformers:
-      - addSuffix: "-jdk11"
+      - addsuffix: "-jdk11"
 
 targets:
   imageTag:
@@ -54,5 +56,5 @@ targets:
       file: "charts/jenkins/values.yaml"
       key: "jenkins.controller.tag"
     transformers:
-      - addSuffix: "-jdk11"
-    scmId: default
+      - addsuffix: "-jdk11"
+    scmid: default

@@ -21,11 +21,10 @@ conditions:
       branch: "main"
 
   sourcedefault:
-    name: Show condition using branch name fetch from source input 
+    name: Show condition using branch name fetch from source input
     kind: "gitea/branch"
     sourceid: "default"
     spec:
       url: "try.gitea.io"
       owner: "olblak"
       repository: "updatecli-test"
-

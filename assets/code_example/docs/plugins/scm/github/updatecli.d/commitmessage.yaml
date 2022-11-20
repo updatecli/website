@@ -1,4 +1,5 @@
-title: Show commitmessage usage
+name: Example with a GitHub commit message
+
 scms:
   default:
     kind: github
@@ -11,7 +12,7 @@ scms:
       token: "github token with enough permission on repository"
       username: "github username used for push git changes"
       branch: "git branch where to push changes"
-      commitMessage:
+      commitmessage:
         type: "feat"
         title: "Override default commit title"
 
