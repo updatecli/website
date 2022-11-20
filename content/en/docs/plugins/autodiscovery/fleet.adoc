@@ -1,0 +1,35 @@
+---
+title: "Rancher Fleet"
+description: "Discover Rancher Fleet dependencies"
+lead: "kind: rancher/fleet"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130 
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Rancher Fleet crawler looks recursively for all Rancher Fleet bundle from a specific root directory.
+Then for each of them, it tries to update each Helm Chart version found.
+
+== Manifest
+=== Parameters
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+|===
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/fleet/updatecli.d/default.yaml">}}
+----

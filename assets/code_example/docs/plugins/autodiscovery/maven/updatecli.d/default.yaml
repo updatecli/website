@@ -1,0 +1,19 @@
+name: "Maven autodiscovery using git scm"
+scms:
+  default:
+    kind: git 
+    spec:
+      url: https://github.com/olblak/jenkins-datadog-plugin.git
+      branch: master
+    
+autodiscovery:
+  # scmid is applied to all crawlers
+  scmid: default
+  crawlers:
+    maven:
+      # To ignore specific path
+      #ignore:
+      #  - path: <filepath relative to scm repository>
+      #only:
+      #  - path: <filepath relative to scm repository>
+

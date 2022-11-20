@@ -1,0 +1,31 @@
+name: "Fleet Autodiscovery using github scm"
+scms:
+  fleet-lab:
+    kind: github
+    spec:
+      owner: olblak
+      repository: fleet-lab
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+      branch: main
+
+pullrequests:
+  fleet-lab:
+    kind: github
+    scmid: fleet-lab
+    spec:
+      labels:
+        - dependencies
+
+autodiscovery:
+  # scmid is applied to all crawlers
+  scmid: fleet-lab
+  pullrequestid: fleet-lab
+  crawlers:
+    rancher/fleet:
+      # To ignore specific path
+      #ignore:
+      # - path: <filepath relative to scm repository>
+      # To only update a specific file
+      #only:
+      #  - path: <filepath relative to scm repository>
