@@ -1,0 +1,59 @@
+---
+title: "JSON"
+description: "Manipulate Json information"
+lead: "kind: json"
+date: 2021-09-24T19:19:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The JSON "source" retrieves an information from a JSON file.
+
+**condition**
+
+The JSON "condition" tests that an information exist in a JSON file.
+
+**target**
+
+The JSON "target" ensures that a JSON file content a specific value at specific location.
+
+== Parameters
+
+{{< resourceparameters "sources" "json" >}}
+
+=== Xpath
+
+Under construction, some help would be need to document common jsonpath query that work with Updatecli
+https://www.w3.org/TR/1999/REC-xpath-19991116/
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/json/updatecli.d/default.yaml">}}
+----
+
+

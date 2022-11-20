@@ -50,8 +50,8 @@ The following parameters can be specified through the `spec` attributes map:
 | file | &#10004; | | Path to the file (either local filesystem or an URL)
 | content | | | (Only for condition and target) Expected content of the file
 | line | | | Number (integer starting at `1`) of the line to use/update in the file
-| matchPattern | | | Regex to match content in the file (https://pkg.go.dev/regexp[Golang regexp syntax])
-| replacepattern | | | (Only for target) Regex to replace content matched by `matchPattern` in the file from the `match` (https://pkg.go.dev/regexp[Golang regexp syntax])
+| matchpattern | | | Regex to match content in the file (https://pkg.go.dev/regexp[Golang regexp syntax])
+| replacepattern | | | (Only for target) Regex to replace content matched by `matchpattern` in the file from the `match` (https://pkg.go.dev/regexp[Golang regexp syntax])
 | forcecreate | | false | (Only for target) Wether to create the file if the specified location does not exist.
 |===
 
@@ -82,7 +82,7 @@ It retrieves the content of the file at the location `file` and use it as the so
 You may filter the content with one of the options below:
 
 * If the attribute `spec.line` is specified, then the source value is set to the content of this line only
-* If the attribute `spec.matchPattern` is specified, then the source value is set to the matched content in the file
+* If the attribute `spec.matchpattern` is specified, then the source value is set to the matched content in the file
 ** The specified pattern must be a valid https://pkg.go.dev/regexp[Golang regexp]
 ** When there are no matched content (e.g. the matched content is the empty string), then the source fails
 
@@ -214,7 +214,7 @@ sources:
     kind: file
     spec:
       file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
-      matchPattern: '.*terraform_.*_linux_amd64.*'
+      matchpattern: '.*terraform_.*_linux_amd64.*'
 --
 +
 [source,shell]
@@ -250,7 +250,7 @@ or fails the pipeline (and never run the pipeline's targets).
 The "Input Value" is the string to compare with the specified file content.
 
 By default, the input value is set to the input source value associated to the condition
-(e.g. either the source specified with the `sourceID` attribute or the only source if the pipeline only have one).
+(e.g. either the source specified with the `sourceid` attribute or the only source if the pipeline only have one).
 
 Alternatively you can disable the source input value with `disablesourceinput: true` and specify a custom content  with the `spec.content` attribute (see examples below).
 
@@ -261,7 +261,7 @@ Alternatively you can disable the source input value with `disablesourceinput: t
 You may filter the content of the file to be compared to the <<Input Value>> with one of the options below:
 
 * If the attribute `spec.line` is specified, then the input value is only compared to the content of this line
-* If the attribute `spec.matchPattern` is specified, then the input value is only compared to the matched content in the file
+* If the attribute `spec.matchpattern` is specified, then the input value is only compared to the matched content in the file
 ** The specified pattern must be a valid https://pkg.go.dev/regexp[Golang regexp]
 
 === Condition Examples
@@ -274,7 +274,7 @@ the value of the source named `ContentFromURL`:
 conditions:
   LocalFileHasSameContentAsSource:
     kind: file
-    sourceID: ContentFromURL
+    sourceid: ContentFromURL
     spec:
       file: LICENSE
 --
@@ -304,7 +304,7 @@ the value of the source named `checksums`:
 conditions:
   URLHasSameContentAsSource:
     kind: file
-    sourceID: checksums
+    sourceid: checksums
     spec:
       file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
 --
@@ -394,7 +394,7 @@ conditions:
     disablesourceinput: true
     spec:
       file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
-      matchPattern: '.*terraform_.*_linux.*'
+      matchpattern: '.*terraform_.*_linux.*'
 --
 +
 [source,shell]
@@ -433,13 +433,13 @@ you can specify the `spec.forcecreate` attribute to `true`.
 The "Input Value" is the string to write to the specified file.
 
 * By default, the input value is set to the input source value associated to the target
-(e.g. either the source specified with the `sourceID` attribute or the only source if the pipeline only have one).
+(e.g. either the source specified with the `sourceid` attribute or the only source if the pipeline only have one).
 
 * You can also specify a custom content with the `spec.content` attribute instead of using the input source value.
 Using the `spec.content` is useful when you need to templatize with the source input value (see example below).
 
 * Finally, you can define a https://pkg.go.dev/regexp[Golang regexp] in the attribute `spec.ReplacePattern`,
-if and only if you also specified a `spec.matchPattern` (see <<Restricting File Content Update>> and <<Target Examples>> for more details).
+if and only if you also specified a `spec.matchpattern` (see <<Restricting File Content Update>> and <<Target Examples>> for more details).
 ** Regexp's capturing group are supported (this is the recommended use case)
 
 === Restricting File Content Update
@@ -449,7 +449,7 @@ You may restrict which part of the specified file to be updated with the input v
 * If the attribute `spec.line` is specified, then the input value is only written to the specified line.
 ** When the input value is a multi-line string, then additional lines are inserted (the 1st line of the input value is written to the specified line, and subsequent input value's lines are inserted)
 
-* If the attribute `spec.matchPattern` is specified, then all the matching patterns are replaced by the input value.
+* If the attribute `spec.matchpattern` is specified, then all the matching patterns are replaced by the input value.
 ** The specified pattern must be a valid https://pkg.go.dev/regexp[Golang regexp]
 ** As described in <<Target Input Value>>, the input value can be the input source, a content string or a regexp "replace pattern"
 ** Please note that the matched content can be a line but also a substring!
@@ -465,7 +465,7 @@ You may restrict which part of the specified file to be updated with the input v
 targets:
   setFileContent:
     kind: file
-    sourceID: generatedReadMeContent
+    sourceid: generatedReadMeContent
     spec:
       file: README.md
       forcecreate: true
@@ -503,7 +503,7 @@ In this example, is defines a new version from the input source named `getMavenV
 targets:
   updateCopyrightYear:
     kind: file
-    sourceID: getMavenVersion # Source Value is "3.8.3"
+    sourceid: getMavenVersion # Source Value is "3.8.3"
     spec:
       file: versions.txt
       line: 3
@@ -542,10 +542,10 @@ the string `Copyright (c) 2021 $2` where `$2` is the content right-matched by `(
 targets:
   updateCopyrightYear:
     kind: file
-    sourceID: whateverSource # Will be ignored as `replacepattern` is specified
+    sourceid: whateverSource # Will be ignored as `replacepattern` is specified
     spec:
       file: LICENSE
-      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      matchpattern: 'Copyright \(c\) (\d*) (.*)'
       replacepattern: 'Copyright (c) 2021 $2'
 --
 +
@@ -599,16 +599,16 @@ sources:
     kind: file
     spec:
       file: LICENSE
-      matchPattern: 'Copyright.*' # Returns a single line
+      matchpattern: 'Copyright.*' # Returns a single line
   MultipleLinesFromURLWithPattern:
     kind: file
     spec:
       file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
-      matchPattern: '.*terraform_.*_linux.*' # Returns a multi-line content as multiple lines are matched
+      matchpattern: '.*terraform_.*_linux.*' # Returns a multi-line content as multiple lines are matched
 conditions:
   LocalFileHasSameContentAsSource:
     kind: file
-    sourceID: ContentFromLocalFile
+    sourceid: ContentFromLocalFile
     spec:
       file: LICENSE
   URLFileMatchesSpecifiedContent:
@@ -626,13 +626,13 @@ conditions:
       line: 5 # The file './LICENSE' has a 5th line which is NOT empty
   URLFileHasLineMatchingSource:
     kind: file
-    sourceID: LineFromURL
+    sourceid: LineFromURL
     spec:
       file: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_SHA256SUMS
       line: 3 # The line 3 of the file matches the source LineFromURL
   LocalFileHasLineMatchingSource:
     kind: file
-    sourceID: LineFromLocalFile
+    sourceid: LineFromLocalFile
     spec:
       file: LICENSE
       line: 3 # The file './LICENSE' has a 3rd line which is NOT empty and matches the source LineFromLocalFile
@@ -648,12 +648,12 @@ conditions:
     disablesourceinput: true
     spec:
       file: "LICENSE"
-      matchPattern: 'Copyright \(c\) (\d*) Olblak'
+      matchpattern: 'Copyright \(c\) (\d*) Olblak'
   ######## Expected Failures
   ## Should fail condition if uncommented
   # LocalFileHasDifferentContentAsSource:
   #   kind: file
-  #   sourceID: ContentFromURL
+  #   sourceid: ContentFromURL
   #   spec:
   #     file: LICENSE
   # URLFileDifferentThanSpecifiedContent:
@@ -672,7 +672,7 @@ conditions:
   ## Should fail validation if uncommented
   # FailsToValidateBecauseMutuallyExclusiveAttributes:
   #   kind: file
-  #   sourceID: ContentFromLocalFile
+  #   sourceid: ContentFromLocalFile
   #   spec:
   #     file: https://get.helm.sh/helm-v3.5.0-darwin-amd64.tar.gz.sha256sum
   #     content: |
@@ -680,41 +680,41 @@ conditions:
 targets:
   setFileContent:
     kind: file
-    sourceID: ContentFromURL
+    sourceid: ContentFromURL
     spec:
       file: terraform_0.14.5_SHA256SUMS
       forcecreate: true
   setLineOfFile:
     kind: file
-    sourceID: LineFromLocalFile
+    sourceid: LineFromLocalFile
     spec:
       file: LICENSE
       line: 5
   setLineOfFileWithContent:
     kind: file
-    sourceID: LineFromLocalFile
+    sourceid: LineFromLocalFile
     spec:
       file: LICENSE
       line: 3
       content: oldline was "{{ source `LineFromLocalFile` }}"
   setLineWithMatchAndReplacePatterns:
     kind: file
-    sourceID: ContentFromURL
+    sourceid: ContentFromURL
     spec:
       file: LICENSE
-      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      matchpattern: 'Copyright \(c\) (\d*) (.*)'
       replacepattern: 'Copyright (c) 2021 $2'
   setLineWithMatchAndContent:
     kind: file
-    sourceID: ContentFromURL
+    sourceid: ContentFromURL
     spec:
       file: LICENSE
-      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      matchpattern: 'Copyright \(c\) (\d*) (.*)'
       content: 'Copyright (c) 2021 FooBar'
   setLineWithMatchAndSource:
     kind: file
-    sourceID: ContentFromURL
+    sourceid: ContentFromURL
     spec:
       file: LICENSE
-      matchPattern: 'Copyright \(c\) (\d*) (.*)'
+      matchpattern: 'Copyright \(c\) (\d*) (.*)'
 ----

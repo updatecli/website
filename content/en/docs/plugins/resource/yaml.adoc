@@ -52,6 +52,8 @@ Otherwise any other file name is accepted.
 
 === Key
 
+==== Array
+
 When we need to reference a specific position inside a YAML array, using the parameter `key`, we use the a custom syntax which is `key[x]` where the `key` represents a YAML key of type array and `[x]` represents the position inside that array starting from zero.
 
 example_array.yaml
@@ -65,6 +67,38 @@ COUNTRY_CODE:
 The key `COUNTRY_CODE[1]` equal `FR`
 
 NOTE: Arrays can also be grouped with dots like `key.array[3].key`
+
+==== Escaping
+
+In yaml keys, the dots character can be escaped using "/" to identify a key containing dots, such as the following example. 
+
+.`image\.tag`
+```
+image.tag: latest
+```
+
+.`image.tag`
+```
+# Is different than
+image:
+    tag: latest
+```
+
+data.yaml
+```
+targets:
+  helm-chart-label:
+    name: bump chart dependencies
+    kind: yaml
+    disablesourceinput: true
+    spec:
+      file: "/tmp/gateway.yaml"
+      key: 'spec\.values\.labels\.service\.istio\.io/canonical-revision'
+      value: "test"
+```
+
+Please note that for the escaping to work in Updatecli, the YAML value must be single quote otherwise the escaping character is used to escape YAML special characters
+
 
 == Example
 

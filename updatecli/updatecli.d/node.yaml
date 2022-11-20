@@ -29,9 +29,10 @@ scms:
         disabled: false
 sources:
     majornodeversion:
-        name: Get latest HUGO version
+        name: Get latest NodeJS version
         kind: githubrelease
         transformers:
+            - trimprefix: v
             - findsubmatch:
                 pattern: ^(\d*)
                 captureIndex: 0
@@ -55,6 +56,8 @@ sources:
             versionfilter:
                 kind: semver
                 pattern: ~16
+        transformers:
+            - trimprefix: v
 targets:
     githubaction:
         name: Update Node version used in Github Action
