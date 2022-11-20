@@ -1,4 +1,4 @@
-name: Basic Json Example
+name: Basic TOML Example
 
 sources:
   local:
@@ -24,4 +24,3 @@ targets:
       file: pkg/plugins/resources/toml/testdata/data.toml
       key: owner.firstName
       value: John
-

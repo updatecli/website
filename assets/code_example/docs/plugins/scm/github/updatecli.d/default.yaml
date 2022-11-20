@@ -1,8 +1,10 @@
-title: Show a basic github scm configuration
+name: Example of a GitHub SCM configuration
+
 scms:
   default:
-    kind: github:
-    spec: user: "git user to push from changes"
+    kind: github
+    spec:
+      user: "git user to push from changes"
       email: "git user email to push from change"
       directory: "directory where to clone the git repository"
       owner: "github owner"

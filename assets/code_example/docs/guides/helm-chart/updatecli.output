@@ -78,9 +78,9 @@ REPORTS:
 		✔ [jenkins-wiki-exporter] Get jenkins-infra/jenkins-wiki-exporter latest version (kind: githubRelease)
 	Condition:
 		✔ [DockerContainerUsed] Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag (kind: yaml)
-		✔ [DockerImagePublished] Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag (kind: dockerImage)
+		✔ [DockerImagePublished] Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag (kind: dockerimage)
 	Target:
-		✔ [jenkins-wiki-exporter] Update jenkins-wiki-exporter helm chart (kind: helmChart)
+		✔ [jenkins-wiki-exporter] Update jenkins-wiki-exporter helm chart (kind: helmchart)
 
 
 
@@ -92,4 +92,3 @@ Pipeline(s) run:
   * Skipped:	0
   * Succeeded:	1
   * Total:	1
-

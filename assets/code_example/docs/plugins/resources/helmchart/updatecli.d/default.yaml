@@ -1,3 +1,5 @@
+name: Example of Helm Chart resources
+
 scms:
   default:
     kind: github
@@ -6,13 +8,13 @@ scms:
       email: "john@example.com"
       owner: "olblak"
       repository: "charts"
-      token: {{ requiredEnv .github.token }}
+      token: "{{ requiredEnv .github.token }}"
       username: "john"
       branch: "master"
 
 sources:
   lastRelease:
-    kind: helmChart
+    kind: helmchart
     spec:
       url: https://charts.jenkins.io
       name: jenkins
@@ -20,28 +22,18 @@ sources:
 conditions:
   isPrometheuseHelmChartVersionAvailable:
     name: "Test if the prometheus helm chart is available"
-    kind: helmChart
+    kind: helmchart
     spec:
       url: https://prometheus-community.github.io/helm-charts
       name: prometheus
-      versionfilter:
-        kind: latest
-        pattern: "11.16.5"
-  chartVersion:
-    name: "jenkinsci/jenkins Helm Chart used"
-    kind: yaml
-    scmid: default
-    spec:
-      file: "charts/jenkins/requirements.yaml"
-      key: "dependencies[0].name"
-      value: "jenkins"
+      version: "11.16.5"
 
 targets:
   chartjenkins:
     name: Bump Jenkins Upstream Chart Version
-    kind: helmChart
+    kind: helmchart
     spec:
-      Name: "charts/jenkins"
+      name: "charts/jenkins"
       file: "requirements.yaml"
       key: "dependencies[0].version"
       versionincrement: minor

@@ -1,5 +1,5 @@
 sources:
-  sourceID:
+  sourceid:
     name: Get release version from
     kind: githubRelease
     spec:
@@ -7,7 +7,7 @@ sources:
       repository: "updatecli"
       token: "{{ .github.token }}"
       username: "olblak"
-      versionFilter:
+      versionfilter:
         kind: "latest"
 
 conditions:

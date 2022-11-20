@@ -1,5 +1,5 @@
 ---
-title: "Test new gitTag resource"
+name: "Test new gittag resource"
 
 scms:
   gitExample:
@@ -20,54 +20,54 @@ scms:
 sources:
   gitExample1:
     name: "Get Latest updatecli test"
-    kind: gitTag
-    scmID: gitExample
+    kind: gittag
+    scmid: gitExample
     spec:
+      path: "./git_repository_path/"
 
-  gitExample2: # Without scmID
+  gitExample2: # Without scmid
     name: Get Latest updatecli test
-    kind: gitTag
+    kind: gittag
     spec:
       path: "./git_repository_path/"
 
   githubSemver:
     name: Get Latest updatecli test
-    kind: gitTag
-    scmID: githubExample
+    kind: gittag
+    scmid: githubExample
     spec:
-      versionFilter:
+      versionfilter:
         kind: semver
         pattern: "~0.1"
   githubRegex:
     name: Get Latest updatecli test
-    kind: gitTag
-    scmID: githubExample
+    kind: gittag
+    scmid: githubExample
     spec:
-      versionFilter:
+      versionfilter:
         kind: regex
         pattern: "v0.*"
 conditions:
   gitRegex:
     name: Test Get Latest updatecli test
     disablesourceinput: true
-    kind: gitTag
-    scmID: gitExample
+    kind: gittag
+    scmid: gitExample
     spec:
-      versionFilter:
+      versionfilter:
         pattern: "v0.1.2"
 targets:
   github:
-    sourceID: githubRegex
+    sourceid: githubRegex
     name: Publish tag with -github
-    scmID: githubExample
-    kind: gitTag
+    scmid: githubExample
+    kind: gittag
     transformers:
-      - addSuffix: "-github"
+      - addsuffix: "-github"
   git:
-    scmID: gitExample
-    sourceID: githubRegex
+    scmid: gitExample
+    sourceid: githubRegex
     name: Publish tag with -git
-    kind: gitTag
+    kind: gittag
     transformers:
-      - addSuffix: "-git"
-
+      - addsuffix: "-git"

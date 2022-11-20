@@ -1,9 +1,8 @@
----
-title: "Example Git scm"
+name: "Example with Git SCM"
 
 scms:
   scenario-source:
-    kind: git 
+    kind: git
     spec:
       username: "git username used for authentication"
       password: 'git password used for authentication'
@@ -11,23 +10,23 @@ scms:
       branch: "main"
 
   scenario-condition:
-    kind: git 
+    kind: git
     spec:
       url: "https://github.com/updatecli/updatecli.git"
       branch: "main"
 
   scenario-target:
-    kind: git 
+    kind: git
     spec:
       url: "git@github.com:updatecli/updatecli.git"
       branch: "main"
       user: "git user to push from changes"
       email: "git user email to push from change"
-      commitMessage:
+      commitmessage:
         type: "chore"
         scope: "(deps)"
       gpg:
-        signingKey: | 
+        signingkey: |
           -----BEGIN PGP PUBLIC KEY BLOCK-----
           mDMEYitSPBYJKwYBBAHaRw8BAQdAR3mMGagDsa1P2HziXehsurCBw5ak58aNnfPP
           uRQtcq60SlVwZGF0ZWNsaSBUZXN0aW5nIEtleSAoVXNlIGZvciB0ZXN0aW5nIGNv
@@ -47,15 +46,15 @@ sources:
   source-1:
     name: "Source 1"
     kind: file
-    scmID: scenario-source
+    scmid: scenario-source
     spec:
       file: README.md
 
-condition:
+conditions:
   condition-1:
     name: "Condition 1"
     kind: file
-    scmID: scenario-condition
+    scmid: scenario-condition
     spec:
       file: README.md
 
@@ -63,6 +62,6 @@ targets:
   target-1:
     name: "Target 1"
     kind: file
-    scmID: scenario-target
+    scmid: scenario-target
     spec:
       file: README.md

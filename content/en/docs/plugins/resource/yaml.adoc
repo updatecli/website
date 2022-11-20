@@ -70,7 +70,7 @@ NOTE: Arrays can also be grouped with dots like `key.array[3].key`
 
 ==== Escaping
 
-In yaml keys, the dots character can be escaped using "/" to identify a key containing dots, such as the following example. 
+In yaml keys, the dots character can be escaped using "/" to identify a key containing dots, such as the following example.
 
 .`image\.tag`
 ```
@@ -117,11 +117,7 @@ Retrieve the version from the Jenkins helm chart repository located on "https://
 
 **Conditions**
 
-Then it tests two conditions.
-
-. Test a helmchart condition, "Is the prometheus helm chart version "11.16.5" is available from https://prometheus-community.github.io/helm-charts?
-  => Yes, proceed, No then abort
-. - Test a YAML condition, "Do we have a YAML file named "charts/jenkins/requirements.yaml" with the key dependencies that contains an array where the first element is set to "jenkins" ?"
+Then there is a YAML condition: "Do we have a YAML file named "charts/jenkins/requirements.yaml" with the key dependencies that contains an array where the first element is set to "jenkins" ?"
   => Yes, proceed, No then abort
 
 **Targets**
