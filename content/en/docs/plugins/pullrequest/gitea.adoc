@@ -20,11 +20,11 @@ plugins:
 
 == Description
 
-The `pullrequests` section describes the link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub Pull Requests] that updatecli is expected to open (or update) when the manifest is applied.
+The `actions` section describes the link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub Pull Requests] that updatecli is expected to open (or update) when the manifest is applied.
 
 == Parameters
 
-{{< resourceparameters "pullrequests" "gitea" >}}
+{{< resourceparameters "actions" "gitea" >}}
 
 == Example
 
@@ -33,4 +33,3 @@ The `pullrequests` section describes the link:https://docs.github.com/en/pull-re
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/gitea_pullrequest/updatecli.yaml">}}
 ----
-

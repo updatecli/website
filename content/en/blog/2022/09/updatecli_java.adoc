@@ -92,7 +92,7 @@ scms:
   	    repository: <your repository name>
   	    token: <your token>
   	    username: "your username"
-pullrequests:
+actions:
   default:
 	kind: github
 	spec:
