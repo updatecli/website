@@ -11,7 +11,7 @@ autodiscovery:
   crawlers:
     dockercompose:
       ignore:
-       - path: "*/docker-compose.yaml"
+       - path: 'docker-compose.yaml'
          services:
           -  traefik
       #only:
