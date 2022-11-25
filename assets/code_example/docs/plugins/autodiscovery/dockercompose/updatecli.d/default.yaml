@@ -1,0 +1,22 @@
+name: "Docker compose autodiscovery using git scm"
+scms:
+  updatemonitor:
+    kind: git
+    spec:
+      url: https://github.com/updatecli/updatemonitor.git
+
+autodiscovery:
+  # scmid is applied to all crawlers
+  scmid: updatemonitor
+  crawlers:
+    dockercompose:
+      ignore:
+       - path: "*/docker-compose.yaml"
+         services:
+          -  traefik
+      #only:
+      #  # - path: <filepath relative to scm repository>
+      #      services: <docker compoes service name to match>
+      #      platform: <docker compose service platform to match>
+      #      image: <docker compose image to match>
+
