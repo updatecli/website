@@ -26,7 +26,12 @@ Updatecli looks for the following file patterns:
 * `docker-compose.*.yml`
 
 == Manifest
+
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `docker-compose` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
 === Parameters
+
+The crawler `docker-compose` supports the following parameters:
 
 [cols="1,1,1,4",options=header]
 |===
