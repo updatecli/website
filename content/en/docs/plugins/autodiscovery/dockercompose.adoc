@@ -18,7 +18,7 @@ plugins:
 The Docker compose crawler looks recursively for all docker compose manifests from a specific root directory.
 Then, for each of them, it tries to update each Docker image tag found.
 
-Updatecli looks for the following file pattern:
+Updatecli looks for the following file patterns:
 
 * `docker-compose.yaml`
 * `docker-compose.yml`
