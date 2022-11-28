@@ -25,9 +25,34 @@ Updatecli looks for the following file patterns:
 * `docker-compose.*.yaml`
 * `docker-compose.*.yml`
 
-== Manifest
-
 The automatic discovery behavior can be tuned by providing a YAML manifest with a `docker-compose` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+=== Usage
+
+The docker-compose autodiscovery can use with or without manifest.
+
+**Without manifest**
+
+Without manifest available, Updatecli will enable all default crawlers, including docker-compose.
+
+`updatecli diff` to run updatecli in dryrun
+`updatecli apply` to apply the changes locally
+
+**With a manifest**
+
+If a manifest is provided, Updatecli will only execute crawlers specified in the manifest such as in the following example
+
+
+* `updatecli diff --config updatecli.d/default.yaml` to run updatecli in dryrun
+* `updatecli apply --config updatecli.d/default.yaml` to apply the changes
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/dockercompose/updatecli.d/default.yaml">}}
+----
+
+== Manifest
 
 === Parameters
 
@@ -83,31 +108,6 @@ We are planning to add new versionFitler kinds in the futur as the need raise.
 
 Feel free to:
 
-1. Open an issue explaining the version pattern you are looking for.
-2. Add a `+1` to an existing issue as it helps us to prioritise
+1. Open an link:https://github.com/updatecli/updatecli/issues/new/choose[issue] explaining the version pattern you are looking for.
+2. Add a `+1` to an existing link:https://github.com/updatecli/updatecli/issues[issue] as it helps us to prioritise
 3. Contribute to an existing one as it will move things faster.
-
-=== Usage
-
-The docker-compose autodiscovery can use with or without manifest.
-
-**Without manifest**
-
-Without manifest available, Updatecli will enable all default crawlers, including docker-compose.
-
-`updatecli diff` to run updatecli in dryrun
-`updatecli apply` to apply the changes locally
-
-**With a manifest**
-
-If a manifest is provided, Updatecli will only execute crawlers specified in the manifest such as in the following example
-
-
-* `updatecli diff --config updatecli.d/default.yaml` to run updatecli in dryrun
-* `updatecli apply --config updatecli.d/default.yaml` to apply the changes
-
-[source,yaml]
-----
-# updatecli.d/default.yaml
-{{<include "assets/code_example/docs/plugins/autodiscovery/dockercompose/updatecli.d/default.yaml">}}
-----
