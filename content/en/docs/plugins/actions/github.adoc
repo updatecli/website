@@ -1,17 +1,17 @@
 ---
-title: "Github"
-description: "Manipulate Github PullRequest"
-lead: "kind: github"
+title: "Github Pull Request"
+description: "Open a Github Pull Request"
+lead: "kind: github/pullrequest"
 date: 2022-01-30T08:21:01+02:00
 lastmod: 2022-01-30T08:21:01+02:00
 draft: false
 images: []
 menu:
   docs:
-    parent: "plugin-pullrequest"
+    parent: "plugin-actions"
 toc: true
 plugins:
-  - pullrequest
+  - actions
 ---
 
 // <!-- Required for asciidoctor -->
