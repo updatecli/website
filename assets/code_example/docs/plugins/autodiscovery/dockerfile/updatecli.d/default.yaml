@@ -1,0 +1,38 @@
+name: "[asciidoctor/docker-asciidoctor] Dockerfile autodiscovery using git scm"
+scms:
+  asciidoctor:
+    kind: git
+    spec:
+      url: https://github.com/asciidoctor/docker-asciidoctor.git
+      branch: main
+
+autodiscovery:
+  # scmid is applied to all crawlers
+  scmid: asciidoctor
+  crawlers:
+    dockerfile:
+      #rootdir: <custom root directory, overriden by scm configuration>
+      #
+      ## Ignore Dockerfile update matching following rules
+      #ignore:
+      #  - archs:
+      #      - "amd64"
+      #    path: "qa/*"
+      #    images:
+      #      - alpine
+      #      - alpine:3
+      #  
+      ## Only update Dockerfile matching following rules
+      #only:
+      #  - archs:
+      #      - "amd64"
+      #    path: "qa/*"
+      #    images:
+      #      - alpine
+      #      - alpine:3
+      #
+      # auths:
+      # Override default dockerfile filematch
+      #filematch:
+      #  - "Dockerfile.example"
+
