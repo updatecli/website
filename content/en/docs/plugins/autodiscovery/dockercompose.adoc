@@ -1,0 +1,113 @@
+---
+title: "Docker Compose"
+description: "Discover Docker compose image tag update"
+lead: "kind: dockercompose"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Docker compose crawler looks recursively for all docker compose manifests from a specific root directory.
+Then, for each of them, it tries to update each Docker image tag found.
+
+Updatecli looks for the following file patterns:
+
+* `docker-compose.yaml`
+* `docker-compose.yml`
+* `docker-compose.*.yaml`
+* `docker-compose.*.yml`
+
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `docker-compose` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+=== Usage
+
+The docker-compose autodiscovery can use with or without manifest.
+
+**Without manifest**
+
+Without manifest available, Updatecli will enable all default crawlers, including docker-compose.
+
+`updatecli diff` to run updatecli in dryrun
+`updatecli apply` to apply the changes locally
+
+**With a manifest**
+
+If a manifest is provided, Updatecli will only execute crawlers specified in the manifest such as in the following example
+
+
+* `updatecli diff --config updatecli.d/default.yaml` to run updatecli in dryrun
+* `updatecli apply --config updatecli.d/default.yaml` to apply the changes
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/dockercompose/updatecli.d/default.yaml">}}
+----
+
+== Manifest
+
+=== Parameters
+
+The crawler `docker-compose` supports the following parameters:
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| `rootdir` | | current dir| Define root directory to look for docker-compose files
+| `filematch` | | ["docker-compose.yaml","docker-compose.yml","docker-compose.*.yaml","docker-compose.*.yml"] | FileMatch allows to override default docker-compose.yaml file matching.
+| `only` | | | Define a list of rules to only update a subset of docker-compose files
+| `only.images` | | | Define a list of images to only update
+| `only.services` | | | Define a list of docker compose services only update
+| `only.path` | | |  Define a list of docker compose file path to only update
+| `only.archs` | | |  Define a list of docker image architecture to only update
+| `ignore` | | | Define a list of rules to ignore update a subset of docker-compose files
+| `ignore.images` | | | Define a list of images to only update
+| `ignore.services` | | | Define a list of docker compose services only update
+| `ignore.path` | | |  Define a list of docker compose file path to only update
+| `ignore.archs` | | |  Define a list of docker image architecture to only update
+| `auths` | | | Auths allows to specify a list of docker registry credentials
+| `auths.username` | | | Username defines a docker registry username
+| `auths.password` | | | Password defines a docker registry password
+| `auths.token` | | | Token defines a docker registry token
+|===
+
+
+=== Docker Image Tag
+
+The Docker ecosystem has no versioning guidelines. This means that it's the wild west out there and pretty much impossible to detect all cases. Hence why Updatecli manifest was created.
+
+That being said we are still interested in an autodiscovery feature that would detect as many cases as possible.
+This section is about documentation what is covered and what's missing.
+Do not hesitate to look at the contributing section
+
+**Semantic Versioning**
+
+In the Docker ecosystem, many tags look like semver but are not.
+For instance, `node:18.12.1-alpine` would match the semver regular expression but the prerelease `-alpine` is not a prerelease information as per semver convention but a variant of `node:18.12.1-buster` or `node:18.12.1`.
+This means that we would expect a newer version with the `-alpine` such as `node:19.0.0-alpine`.
+
+The docker-compose autodiscovery will handle the following scenarios
+
+* `1` will suggest a version such `2` otherwise stick to `1`
+* `1-alpine` will suggest a version such `2-alpine` otherwise stick to `1-alpine`
+* `1.0` will suggest a version such `2.1` otherwise stick to `1.0`
+* `1.0-alpine` will suggest a version such `2.1-alpine` otherwise stick to `1.0-alpine`
+* `1.0.0` will suggest a version such `2.1.0` otherwise stick to `1.0.0`
+* `1.0.0-alpine` will suggest a version such `2.1.0-alpine` otherwise stick to `1.0.0-alpine`
+
+Any other version pattern such as PEP 440 are ignored in the current state.
+We are planning to add new versionFitler kinds in the futur as the need raise.
+
+Feel free to:
+
+1. Open an link:https://github.com/updatecli/updatecli/issues/new/choose[issue] explaining the version pattern you are looking for.
+2. Add a `+1` to an existing link:https://github.com/updatecli/updatecli/issues[issue] as it helps us to prioritise
+3. Contribute to an existing one as it will move things faster.
