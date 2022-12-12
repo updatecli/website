@@ -55,7 +55,7 @@ scms:
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "GITHUB_ACTOR" }}'
 
-pullrequests:
+actions:
   default:
     kind: "github"
     scmid: "helm-charts"

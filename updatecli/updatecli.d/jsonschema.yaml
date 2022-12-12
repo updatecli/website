@@ -1,7 +1,7 @@
 name: JSONSCHEMA.YAML
 pipelineid: 017992c6dbbf1c64d8e383e0fd47f217bde8ec72300ab18571327e56262553e2
 title: Update jsonschema
-pullrequests:
+actions:
     default:
         title: '[updatecli] Bump jsonschema'
         kind: github

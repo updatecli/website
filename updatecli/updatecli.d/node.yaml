@@ -1,7 +1,7 @@
 name: NODE.YAML
 pipelineid: fea1ab6e846c666b2b2246d19864e5545eb9f4371c9c1c7f520a4a1ece51b57b
 title: Bump Hugo version
-pullrequests:
+actions:
     default:
         title: '[updatecli] Bump nodejs to {{ source "node" }}'
         kind: github
