@@ -44,17 +44,6 @@ The File "target" updates a the content of a file (only local filesystem) from t
 
 The following parameters can be specified through the `spec` attributes map:
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| file | &#10004; | | Path to the file (either local filesystem or an URL)
-| content | | | (Only for condition and target) Expected content of the file
-| line | | | Number (integer starting at `1`) of the line to use/update in the file
-| matchpattern | | | Regex to match content in the file (https://pkg.go.dev/regexp[Golang regexp syntax])
-| replacepattern | | | (Only for target) Regex to replace content matched by `matchpattern` in the file from the `match` (https://pkg.go.dev/regexp[Golang regexp syntax])
-| forcecreate | | false | (Only for target) Wether to create the file if the specified location does not exist.
-|===
-
 {{< resourceparameters "sources" "file" >}}
 
 Links :
