@@ -84,7 +84,7 @@ conditions:
       Is the Docker Image
       'jenkinsciinfra/plugin-site-api:{{ source `tagVersion` }}
       published on the registry?
-    kind: dockerImage
+    kind: dockerimage
     sourceID: tagVersion
     spec:
       image: "jenkinsciinfra/plugin-site-api"

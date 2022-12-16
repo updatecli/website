@@ -40,8 +40,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.19",
-    "@babel/core": "^7.19",
-    "@babel/preset-env": "^7.19",
+    "@babel/core": "^7.20",
+    "@babel/preset-env": "^7.20",
     "@fullhuman/postcss-purgecss": "^5.0",
     "@hyas/doks": "^0.5",
     "@hyas/images": "^0.2.2",
@@ -49,10 +49,10 @@
     "autoprefixer": "^10.4",
     "bootstrap": "^5.2",
     "clipboard": "^2.0",
-    "eslint": "^8.26",
+    "eslint": "^8.29",
     "exec-bin": "^1.0.0",
     "flexsearch": "^0.7.31",
-    "highlight.js": "^11.6",
+    "highlight.js": "^11.7",
     "hugo-installer": "^4.0",
     "instant.page": "^5.1",
     "katex": "^0.16",
@@ -63,7 +63,7 @@
     "postcss-cli": "^10.0",
     "purgecss-whitelister": "^2.4",
     "shx": "^0.3",
-    "stylelint": "^14.14",
+    "stylelint": "^14.15",
     "stylelint-config-standard-scss": "^5.0"
   },
   "otherDependencies": {

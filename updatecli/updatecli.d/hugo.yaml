@@ -1,7 +1,7 @@
 name: HUGO.YAML
 pipelineid: 0bfa782c851649c0be48e2b3d3bcfe3df8b95e411baae829b741991006661bc4
 title: Bump Hugo version
-pullrequests:
+actions:
     default:
         title: '[updatecli] Bump HUGO to {{ source "hugo" }}'
         kind: github

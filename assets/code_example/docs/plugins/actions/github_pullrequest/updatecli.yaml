@@ -1,3 +1,5 @@
+name: Update a file content and open a GitHub Pull Request
+
 scms:
   website:
     kind: "github"
@@ -10,11 +12,11 @@ scms:
       username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
       branch: "main"
 
-# Define pullrequest configuration if one needs to be created
-pullrequests:
+# Define action configurations if one needs to be created
+actions:
   helm-charts:
     kind: "github"
-    scmID: "website"
+    scmid: "website"
     spec:
       automerge: true
       description: "Prepend description"
@@ -22,12 +24,11 @@ pullrequests:
       labels:
         - "dependencies"
         - "epinio"
-      title: "PullRequest Title"
+      title: "Pull Request Title"
 
 targets:
   default:
-    title: Target update to automated
     scmid: website
     kind: file
-    spec:
-      ...
+    # spec:
+    # ...

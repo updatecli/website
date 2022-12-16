@@ -28,7 +28,7 @@ Updatecli is a great tool to handle both situations. It can either manage tailor
 The latter approach removes the need to write manifest.
 This behavior is refered as "autodiscovery". When autodiscovery is enabled, Updatecli generates manifests in-memory before applying them (instead of reading manifests and applying).
 
-A use case: a repository with a collection of `Dockerfile`s. 
+A use case: a repository with a collection of `Dockerfile`s.
 To keep the Dockerfiles' `FROM` instructions up to date, writing one manifest file per `Dockerfile` is not practical. With autodiscovery enabled, Updatecli scans the repository for all `Dockerfile` and automatically tracks the `FROM` instruction to propose updates if needed.
 This would help us maintain our Dockerfile images without having to write any manifests.
 Each autodiscovery scenario is handled by a crawler. The goal of the crawler is to parse recursively all files from a directory looking for the pattern and then try to generate as many updatecli manifests as it can. Once all manifests have been generated, we run them as we would do with custom manifest, by running updatecli diff or updatecli apply
@@ -71,9 +71,9 @@ work in progress
 
 Scenario to describe:
 
-* One pullrequest for everything
-* One pullrequest per crawler
-* One pullrequest per manifest from each crawlers
+* One pull request for everything
+* One pull request per crawler
+* One pull request per manifest from each crawlers
 
 === Crawlers
 
@@ -91,4 +91,3 @@ A "standard" crawler is enabled by default but can be disabled on per case.
 **custom**
 
 A "custom" crawler is context specific, such as tailored to a company or a OSS project. By default it won't be enabled by default.
-

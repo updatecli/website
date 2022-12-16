@@ -1,4 +1,4 @@
-name: Test Gitea scm 
+name: Test Gitea scm
 
 scms:
   gitea:
@@ -26,6 +26,6 @@ targets:
     spec:
       file: LICENSE
 
-pullrequests:
+actions:
   gitea:
     kind: gitea

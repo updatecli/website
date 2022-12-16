@@ -1,7 +1,7 @@
 name: INSTALLATION.YAML
 pipelineid: c7b98e864610b0801ea8671b64e964af8494cc71b0ddcc68bc2cf4c5a3584dad
 title: Bump udpatecli version in installation documentation
-pullrequests:
+actions:
     default:
         title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
         kind: github

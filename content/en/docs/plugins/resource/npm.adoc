@@ -1,0 +1,49 @@
+---
+title: "NPM"
+description: "Interact with the NPM registry"
+lead: "kind: npm"
+date: 2022-12-03T20:49:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+**source**
+
+The NPM "source" retrieves the latest version of a npm package matching a specific version filter.
+
+**condition**
+
+The NPM "condition" test that a specific verison is published on a NPM registry.
+
+**target**
+
+The NPM "target" is not supported as we couldn't think about a useful usecase. Feel free to open an issue suggesting one.
+
+== Parameter
+
+{{< resourceparameters "sources" "npm" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/npm/updatecli.d/default.yaml">}}
+----

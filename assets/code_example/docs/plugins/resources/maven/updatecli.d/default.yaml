@@ -1,3 +1,5 @@
+name: Example with Maven resource
+
 scms:
   default:
     kind: git
@@ -12,18 +14,17 @@ sources:
   default:
     kind: maven
     spec:
-      owner: "maven"
       url: "repo.jenkins-ci.org"
       repository: "releases"
-      groupID: "org.jenkins-ci.main"
-      artifactID: "jenkins-war"
+      groupid: "org.jenkins-ci.main"
+      artifactid: "jenkins-war"
     transformers:
-      - addSuffix: "-jdk11"
+      - addsuffix: "-jdk11"
 
 conditions:
   docker:
     name: "Test Docker Image Published on Registry with the correct tag"
-    kind: "dockerImage"
+    kind: "dockerimage"
     spec:
       image: "jenkins/jenkins"
   imageTag:
@@ -43,4 +44,3 @@ targets:
     spec:
       file: "charts/jenkins/values.yaml"
       key: "jenkins.master.imageTag"
-

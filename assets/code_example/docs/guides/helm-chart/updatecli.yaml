@@ -1,8 +1,8 @@
-title: "Bump `jenkins-wiki-exporter` docker image and helm chart versions"
+name: "Bump `jenkins-wiki-exporter` docker image and helm chart versions"
 
 sources:
   jenkins-wiki-exporter:
-    kind: "githubRelease"
+    kind: "githubrelease"
     name: "Get jenkins-infra/jenkins-wiki-exporter latest version"
     spec:
       owner: "jenkins-infra"
@@ -10,14 +10,14 @@ sources:
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "GITHUB_ACTOR" }}'
       # Added to take care of "v" prefix in version until the chart is updated to use the semver versioning (which doesn't have the "v" prefix)
-      versionFilter:
+      versionfilter:
         kind: "latest"
 
 conditions:
   DockerImagePublished:
     name: "Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag"
-    kind: "dockerImage"
-    sourceID: "jenkins-wiki-exporter"
+    kind: "dockerimage"
+    sourceid: "jenkins-wiki-exporter"
     spec:
       image: "jenkinsciinfra/jenkins-wiki-exporter"
       architecture: "amd64"
@@ -26,7 +26,7 @@ conditions:
     name: "Test jenkinsciinfra/jenkins-wiki-exporter:<latest_version> docker image tag"
     kind: "yaml"
     disablesourceinput: true
-    scmID: "helm-charts"
+    scmid: "helm-charts"
     spec:
       file: "charts/jenkins-wiki-exporter/values.yaml"
       value: "jenkinsciinfra/jenkins-wiki-exporter"
@@ -34,14 +34,14 @@ conditions:
 targets:
   jenkins-wiki-exporter:
     name: "Update jenkins-wiki-exporter helm chart"
-    kind: "helmChart"
+    kind: "helmchart"
     spec:
       name: "charts/jenkins-wiki-exporter"
       file: "values.yaml"
       key: "image.tag"
       versionincrement: "patch"
-    scmID: "helm-charts"
-    sourceID: "jenkins-wiki-exporter"
+    scmid: "helm-charts"
+    sourceid: "jenkins-wiki-exporter"
 
 scms:
   helm-charts:
@@ -55,12 +55,10 @@ scms:
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "GITHUB_ACTOR" }}'
 
-pullrequests:
+actions:
   default:
     kind: "github"
-    scmID: "helm-charts"
-    targets:
-      - "jenkins-wiki-exporter"
+    scmid: "helm-charts"
     spec:
       automerge: true
       labels:

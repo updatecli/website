@@ -1,7 +1,7 @@
 name: NPM.YAML
 pipelineid: d1a5a0d74124c1415dffe650ecd0079f00d19a5b1b7fc046ea4f02013612d7f2
 title: Bump npm version
-pullrequests:
+actions:
     default:
         title: '[updatecli] Bump npm to {{ source "npm" }}'
         kind: github
