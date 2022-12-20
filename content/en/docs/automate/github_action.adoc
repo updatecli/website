@@ -26,22 +26,23 @@ Updatecli is better when executed regularly so let see how to use this GitHub Ac
 
 === From V1 to v2
 
-The updatecli action v1 was a "Github Action" of type docker. While It was easier to start with, that type of Github Action runs in a docker container and so in a fully isolated environment.
-We noticed that in many situations, updatecli was used with other tools hence the need to switch to a javascript GitHub action. That second type of GitHub action can install updatecli directly on the Github Action runner.
+The updatecli action v1 was a "GitHub Action" of type docker. While It was easier to start with, that type of GitHub Action runs in a docker container and so in a fully isolated environment.
+In many situations, updatecli leverages other tools. So switching to a Javascript GitHub action, allows to install Updatecli directly on the GitHub Action runner next to those other tools.
 Now, the goal of this GitHub action evolved from running updatecli to installing updatecli.
 
 == Parameter
 
-=== version
-`version`: Specify the Updatecli version to install. Accepted values are any valid releases such as "v0.25.0". Default value is set to the latest updatecli version
+=== Version
+`version`: specifies the Updatecli version to install. Accepted values are any valid releases such as `v0.25.0`.
+The default value corresponds to the latest Updatecli version
 
 Required: false
 
 == Example
 
-The current example is inspired from the repository https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra].
+The current example takes its inspiration from the repository https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra].
 
-Once you have your update strategy configuration in the directory `./updatecli/updatecli.d`, then you need following files in order to run updatecli from Github Action.
+Once you have your update strategy configuration in the directory `./updatecli/updatecli.d`, you need following files in order to run updatecli from Github Action.
 
 **./updatecli/values.yaml**
 ```

@@ -121,7 +121,7 @@ What it says:
 Retrieve the latest version from the Github release of the project jenkis-infra/plugins-site-api
 => v1.11.1
 
-**Condtion**
+**Condition**
 Test that the tag `v1.11.1` exist for the image `jenkinsciinfra/plugin-site-api` on DockerHub
 => No, then abort
 
