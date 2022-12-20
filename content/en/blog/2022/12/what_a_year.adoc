@@ -1,0 +1,93 @@
+---
+title: "2022 is over and what a year!"
+date: 2022-12-19T16:13:42+01:00
+draft: false
+weight: 50
+images: [""]
+contributors: ["olblak"]
+---
+:hide-uri-scheme:
+
+== 2022 is over and what a year!
+
+2022 has been awesome for the Updatecli project.
+Updatecli went from a tool mainly used within the Jenkins project, to a project that others organizations could rely on to keep their git repositories up to date.
+
+Firstly, with link:https://news.ycombinator.com/item?id=30286047[HackerNews], then with link:https://youtu.be/157bsLD-0mM[CDcon], the project received many feedback and evolved. 2022, was rich in opportunities to understand how project maintainers benefited from Updatecli.
+
+With the user base growing, came many feature requests and new update scenarios.
+
+Over the year, the Updatecli was:
+
+- 45 releases
+- 15 new contributors
+- Many plugins addition, or improvement
+- A project Logo!
+- First (not expected) blog posts 
+
+image::/images/blog/2022/12/promaton.png["Promaton"]
+
+Several major ideas came to life
+
+**Manifest validation**
+
+For decades, software projects maintained scripts written in many different languages to automate their project updates. All Updatecli's contributors maintained scripts like those. They also saw them being copy-paste across repositories up to a point where most of the logic was just technical debts that nobody knew about.
+
+With Updatecli, the goal was to have a declarative way of describing those Updates, to reduce the complexity of maintaining those scripts.
+Unfortunately, with each new DSL comes to some learning curve.
+Using the Updatecli new DSL was error-prone, and maintaining the documentation, was time-consuming.
+
+The project started generating and publishing "Jsonschema" on the "Jonschemastore" so everybody could benefit from validation and documentation, right from their IDE without any additional configurations.
+All they had to do was to have their Updatecli manifest files live within `updatecli.d` directory. The Jsonschema also benefits the documentation website which means fewer things to maintain...
+
+image::/images/blog/2022/12/pr1000.png["PR1000"]
+
+**GitHub action**
+
+Updatecli works great from a local machine, but it works even better when executed from CI environment.
+
+CI tooling offers many different kinds of trigger mechanisms that benefit Updatecli.
+Here some example
+
+* GitOps - triggered by a scheduler, Updatecli keeps GitOps repository up to date
+* Release - triggered by a release event, Updatecli can propagate a new release version quickly to downstream git repositories.
+
+Thanks, Joseph Petersen, who made the Updatecli GitHub Action, what it's today.
+
+image::/images/blog/2022/12/twitter.png["twitter"]
+
+**Autodiscovery**
+
+Updatecli started as a way to describe advanced Update scenarios using manifests. Of course for standard Update scenarios, manifests can be redundant, and sometimes a project needs a mix of both.
+That's what Updatecli "Autodiscovery" is about.
+The purpose is to let Updatecli analyze files from a directory and then generate standard Update manifests before applying them. Autodiscovery is complementary to the manifest approach and is still an experiment.
+
+Over the year, Updatecli started supporting automatic update for Dockerfile, Docker Compose file, Helm, Helmfile, Rancher Fleet, and Maven.
+
+Users can run one of the following commands from whatever directory to see what would change.
+
+* `updatecli diff --experimental`
+* `updatecli manifest show --experimental`
+* `updatecli apply --experimental`
+
+
+**Updatemonitor**
+
+The Updatemonitor app was another well received-experiment.
+While still in an early stage, the Updatemonitor app is a long-running service that leverages Updatecli plugins to monitor all kinds of information.
+
+image::/images/blog/2022/12/updatemonitor.png["Updatemonitor"]
+
+
+
+== Thank you all
+
+
+This year wouldn't have been possible without the many people who contributed to Updatecli.
+Thanks to Damien Duportal and Hervé Le Meur, for those endless discussions.
+Thanks, Joseph Petersen for being an early adopter and contributor of Updatecli.
+Thanks to everybody who has been part of the journey.
+
+2022 is over, See you in 2023.
+
+Cheers
