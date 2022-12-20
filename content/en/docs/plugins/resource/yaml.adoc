@@ -47,7 +47,7 @@ The Yaml "target" test if an association of key/value match in the defined file 
 === File
 When used from a source or condition, `file` can accept different value
 If the value start with `https://` or `http://` then it will read the file from a http location
-If the value start with `file://` then it means that we explicitely want to read a file
+If the value start with `file://` then it means that we explicitly want to read a file
 Otherwise any other file name is accepted.
 
 === Key
