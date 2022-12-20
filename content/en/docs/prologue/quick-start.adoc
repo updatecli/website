@@ -64,7 +64,7 @@ In our manifest, we introduce the most three important concepts of an updatecli 
 image::/images/diagrams/pipeline.png["Updatecli Pipeline"]
 ---
 
-[soure,yaml]
+[source,yaml]
 ----
 # manifest.yaml
 {{<include "assets/code_example/docs/prologue/quickstart/updatecli.yaml">}}
@@ -105,7 +105,7 @@ Understand how the different core concepts work. link:/docs/core/[Core →]
 
 Understand how to combine the different plugins. link:/plugins/[Plugins →]
 
-=== Continously Update Everything
+=== Continuously Update Everything
 
 Learn how to continuously run updatecli to apply updates. link:/docs/automate/[CI →]
 
