@@ -38,7 +38,7 @@ Unfortunately, with each new DSL comes some learning curve.
 Using this Updatecli new DSL was error-prone and maintaining the documentation was time-consuming.
 
 The project started generating and publishing a link:https://json-schema.org/[JSON Schema] on the link:https://www.schemastore.org/json/[JSON Schema Store] so everybody could benefit from validation and documentation right from their IDE without any additional configuration.
-All they had to do was to have their Updatecli manifest files live within `updatecli.d` directory. The Jsonschema also benefits the documentation website which means fewer things to maintain!
+The only requirement for the IDE integration is to have Updatecli manifest(s) located in the `updatecli.d` directory. The documentation website also benefits from the JSON Schema, which means fewer things to maintain!
 
 image::/images/blog/2022/12/pr1000.png["PR1000"]
 
