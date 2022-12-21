@@ -23,7 +23,7 @@ Updatecli over this year:
 - 15 new contributors
 - Many plugins additions and improvements
 - A project Logo!
-- First (not expected) blog posts 
+- First (unexpected) blog posts 
 
 image::/images/blog/2022/12/promaton.png["Promaton"]
 
@@ -59,7 +59,7 @@ image::/images/blog/2022/12/twitter.png["twitter"]
 
 **Autodiscovery**
 
-Updatecli started as a way to describe advanced update scenarios using manifests. Of course for standard update scenarios, manifests can be redundant and sometimes a project needs a mix of both.
+Updatecli started as a way to describe advanced update scenarii using manifests. Of course for standard update scenario, a manifest can be redundant and sometimes a project needs a mix of both.
 That's what Updatecli "Autodiscovery" is about.
 The purpose is to let Updatecli analyzes files from a directory and then generate standard update manifests before applying them. Autodiscovery is complementary to the manifest approach and is still experimental.
 
@@ -79,10 +79,7 @@ While still in an early stage, the Updatemonitor app is a long-running service t
 
 image::/images/blog/2022/12/updatemonitor.png["Updatemonitor"]
 
-
-
 == Thank you all
-
 
 This year wouldn't have been possible without the many people who contributed to Updatecli.
 Thanks to link:https://github.com/dduportal[Damien Duportal] and link:https://github.com/lemeurherve[Hervé Le Meur] for those endless discussions.
