@@ -1,0 +1,92 @@
+---
+title: "2022 is over and what a year!"
+date: 2022-12-19T16:13:42+01:00
+draft: false
+weight: 50
+images: [""]
+contributors: ["olblak"]
+---
+:hide-uri-scheme:
+
+== 2022 is over and what a year!
+
+2022 has been awesome for the Updatecli project.
+Updatecli went from a tool mainly used within the Jenkins project to a project that others organizations could rely on to keep their git repositories up to date.
+
+Firstly, with link:https://news.ycombinator.com/item?id=30286047[HackerNews], then with link:https://youtu.be/157bsLD-0mM[CDcon], the project received many feedback and evolved a lot. 2022 was rich in opportunities to understand how project maintainers benefit from Updatecli.
+
+With the user base growing came many feature requests and new update scenarios.
+
+Updatecli over this year:
+
+- 45 releases
+- 15 new contributors
+- Many plugins additions and improvements
+- A project Logo!
+- First (unexpected) blog posts 
+
+image::/images/blog/2022/12/promaton.png["Promaton"]
+
+Several major ideas also came to life:
+
+**Manifest validation**
+
+For decades, software projects maintained scripts written in many different languages to automate their project updates. All Updatecli's contributors maintained scripts like those. They also saw them being copy-pasted across repositories up to a point where most of the logic was just technical debt that nobody knew about anymore.
+
+With Updatecli, the initial goal was to get a declarative way of describing those updates to reduce the complexity of maintaining these scripts by creating a specific link:https://en.wikipedia.org/wiki/Domain-specific_language[DSL].
+Unfortunately, with each new DSL comes some learning curve.
+Using this Updatecli new DSL was error-prone and maintaining the documentation was time-consuming.
+
+The project started generating and publishing a link:https://json-schema.org/[JSON Schema] on the link:https://www.schemastore.org/json/[JSON Schema Store] so everybody could benefit from validation and documentation right from their IDE without any additional configuration.
+The only requirement for the IDE integration is to have Updatecli manifest(s) located in the `updatecli.d` directory. The documentation website also benefits from the JSON Schema, which means fewer things to maintain!
+
+image::/images/blog/2022/12/pr1000.png["PR1000"]
+
+**GitHub action**
+
+Updatecli works great from a local machine, but it works even better when executed from a CI environment.
+
+CI tooling offers many kinds of trigger mechanisms that benefit Updatecli.
+
+Here are some examples:
+
+* GitOps - triggered by a scheduler: Updatecli keeps GitOps repository up to date.
+* Release - triggered by a release event: Updatecli can quickly propagate a new release version to downstream git repositories.
+
+Many thanks to link:https://github.com/jetersen[Joseph Petersen] who made link:https://github.com/updatecli/updatecli-action[the Updatecli GitHub Action] what it is today.
+
+image::/images/blog/2022/12/twitter.png["twitter"]
+
+**Autodiscovery**
+
+Updatecli started as a way to describe advanced update scenarii using manifests. Of course for standard update scenario, a manifest can be redundant and sometimes a project needs a mix of both.
+That's what Updatecli "Autodiscovery" is about.
+The purpose is to let Updatecli analyzes files from a directory and then generate standard update manifests before applying them. Autodiscovery is complementary to the manifest approach and is still experimental.
+
+Over the year, Updatecli started supporting automatic update for Dockerfile, Docker Compose file, Helm, Helmfile, Rancher Fleet, and Maven.
+
+Users can run one of the following commands from the directory of their choice to see what manifest(s) would be generated:
+
+* `updatecli diff --experimental`
+* `updatecli manifest show --experimental`
+* `updatecli apply --experimental`
+
+
+**Updatemonitor**
+
+The Updatemonitor app is another well received experiment.
+While still in an early stage, the Updatemonitor app is a long-running service that leverages Updatecli plugins to monitor all kinds of information.
+
+image::/images/blog/2022/12/updatemonitor.png["Updatemonitor"]
+
+== Thank you all
+
+This year wouldn't have been possible without the many people who contributed to Updatecli.
+Thanks to link:https://github.com/dduportal[Damien Duportal] and link:https://github.com/lemeurherve[Hervé Le Meur] for those endless discussions.
+Thanks to link:https://github.com/jetersen[Joseph Petersen] for being an early adopter and contributor of Updatecli.
+Thanks to everybody who has been part of the journey.
+
+2022 is over, see you in 2023!
+
+Cheers,
+link:https://github.com/olblak[Olblak]
