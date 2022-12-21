@@ -31,7 +31,7 @@ Several major ideas also came to life:
 
 **Manifest validation**
 
-For decades, software projects maintained scripts written in many different languages to automate their project updates. All Updatecli's contributors maintained scripts like those. They also saw them being copy-pasted across repositories up to a point where most of the logic was just technical debts that nobody knew about anymore.
+For decades, software projects maintained scripts written in many different languages to automate their project updates. All Updatecli's contributors maintained scripts like those. They also saw them being copy-pasted across repositories up to a point where most of the logic was just technical debt that nobody knew about anymore.
 
 With Updatecli, the initial goal was to get a declarative way of describing those updates to reduce the complexity of maintaining these scripts by creating a specific link:https://en.wikipedia.org/wiki/Domain-specific_language[DSL].
 Unfortunately, with each new DSL comes some learning curve.
@@ -83,7 +83,7 @@ image::/images/blog/2022/12/updatemonitor.png["Updatemonitor"]
 
 This year wouldn't have been possible without the many people who contributed to Updatecli.
 Thanks to link:https://github.com/dduportal[Damien Duportal] and link:https://github.com/lemeurherve[Hervé Le Meur] for those endless discussions.
-Thanks lin:https://github.com/jetersen[Joseph Petersen] for being an early adopter and contributor of Updatecli.
+Thanks to link:https://github.com/jetersen[Joseph Petersen] for being an early adopter and contributor of Updatecli.
 Thanks to everybody who has been part of the journey.
 
 2022 is over, see you in 2023!
