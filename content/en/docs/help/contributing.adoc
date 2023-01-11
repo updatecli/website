@@ -183,6 +183,12 @@ targets:
       key:  "..."
 ```
 
+===== 5. Testing
+
+Add a manifest to `e2e/updatecli.d/success.d/crate.yaml`
+
+The manifest cannot return any error or warning message as define on https://github.com/updatecli/updatecli/blob/main/e2e/venom.d/test_diff.yaml
+
 
 === DOCUMENTATION
 
