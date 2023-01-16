@@ -43,10 +43,10 @@ The TOML "target" ensures that a TOML file content a specific value at specific 
 
 {{< resourceparameters "sources" "toml" >}}
 
-=== Xpath
+=== Query
 
-Under construction, some help would be need to document common jsonpath query that work with Updatecli
-https://www.w3.org/TR/1999/REC-xpath-19991116/
+Under construction.
+The TOML resource relies on [Dasel](https://daseldocs.tomwright.me/) to query toml files 
 
 == Example
 
@@ -66,4 +66,3 @@ link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Until w
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/toml/updatecli.d/fallback.yaml">}}
 ----
-
