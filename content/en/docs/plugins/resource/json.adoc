@@ -43,10 +43,9 @@ The JSON "target" ensures that a JSON file content a specific value at specific 
 
 {{< resourceparameters "sources" "json" >}}
 
-=== Xpath
+=== Query
 
-Under construction, some help would be need to document common jsonpath query that work with Updatecli
-https://www.w3.org/TR/1999/REC-xpath-19991116/
+The JSON plugin relies on link:https://daseldocs.tomwright.me/[Dasel] to query json files
 
 == Example
 
