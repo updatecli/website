@@ -79,6 +79,12 @@ dnf install https://github.com/updatecli/updatecli/releases/download/v0.43.0/upd
 dnf install https://github.com/updatecli/updatecli/releases/download/v0.43.0/updatecli_armv6.rpm
 ```
 
+**Arch Linux (AUR)**
+[source,shell]
+```
+yay -S updatecli-bin
+```
+
 **Tgz**
 [source,shell]
 ```
