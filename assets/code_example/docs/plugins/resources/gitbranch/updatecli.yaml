@@ -1,0 +1,50 @@
+scms:
+  default:
+    kind: github
+    spec:
+      branch: master
+      email: me@olblak.com
+      owner: updatecli-test
+      repository: nocode
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      user: updatecli
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+    disabled: false
+
+sources:
+  default:
+    name: Get Latest branch using semantic versioning
+    kind: gitbranch
+    scmid: default
+    spec:
+      versionfilter:
+        kind: semver
+
+conditions:
+  default:
+    name: Test that branch returned from source exists
+    kind: gitbranch
+    scmid: default
+    sourceid: default
+  master:
+    name: Test that branch master exists
+    kind: gitbranch
+    scmid: default
+    disablesourceinput: true
+    spec:
+      branch: master
+
+targets:
+  default:
+    name: Ensure the branch return from source if it doesn't exist
+    kind: gitbranch
+    scmid: default
+    disablesourceinput: true
+    spec:
+      branch: v1
+  alreadyexist:
+    name: Ensure the branch "master" exists
+    kind: gitbranch
+    scmid: default
+    spec:
+      branch: master
