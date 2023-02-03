@@ -100,7 +100,7 @@ The dockerfile autodiscovery will handle the following scenarios
 * `1.0.0-alpine` will suggest a version such `2.1.0-alpine` otherwise stick to `1.0.0-alpine`
 
 Any other version pattern such as PEP 440 are ignored in the current state.
-We are planning to add new versionFitler kinds in the futur as the need raise.
+We are planning to add new versionFilter kinds in the futur as the need raise.
 
 Feel free to:
 
