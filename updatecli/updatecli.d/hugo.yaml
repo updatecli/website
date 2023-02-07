@@ -4,7 +4,7 @@ title: Bump Hugo version
 actions:
     default:
         title: '[updatecli] Bump HUGO to {{ source "hugo" }}'
-        kind: github
+        kind: github/pullrequest
         spec:
             automerge: true
             labels:
@@ -12,9 +12,6 @@ actions:
                 - dependencies
             mergemethod: squash
         scmid: default
-        targets:
-            - netlify
-            - githubaction
 scms:
     default:
         kind: github
@@ -57,4 +54,4 @@ targets:
             replacepattern: 'HUGO_VERSION = "{{ source "hugo" }}"'
         scmid: default
         sourceid: hugo
-version: 0.28.0
+version: 0.43.0

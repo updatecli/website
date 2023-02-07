@@ -4,7 +4,7 @@ title: Bump npm version
 actions:
     default:
         title: '[updatecli] Bump npm to {{ source "npm" }}'
-        kind: github
+        kind: github/pullrequest
         spec:
             automerge: true
             labels:
@@ -12,8 +12,6 @@ actions:
                 - dependencies
             mergemethod: squash
         scmid: default
-        targets:
-            - netlify
 scms:
     default:
         kind: github
@@ -49,4 +47,4 @@ targets:
             replacepattern: NPM_VERSION = "{{ source "npm" }}"
         scmid: default
         sourceid: npm
-version: 0.28.0
+version: 0.43.0
