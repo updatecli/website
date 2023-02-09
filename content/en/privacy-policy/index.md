@@ -33,4 +33,4 @@ We run [Plausible](https://plausible.io/) analytics on www.updatecli.io. The fol
 
 [Contact us]({{< ref "contact/index.md" >}}) if you have any questions.
 
-Effective Date: _25th Januart 2021_
+Effective Date: _25th January 2021_

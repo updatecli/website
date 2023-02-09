@@ -48,12 +48,16 @@ Manifest are provided to the updatecli command using the global flag `--config <
 Using go templates allows us to specify generic values in a different YAML file, using `--values`, then reference those values from each go template.
 Updatecli also provides a custom function called `requireEnv` to inject any environment variable in the template example, `{{ requiredEnv "PATH" }}`.
 
-More information on Go templates can be found https://golang.org/pkg/text/template/[here]
+More information on Go templates can be found https://golang.org/pkg/text/template/[here].
+
+An example values file can contains:
 
 [source,yaml]
 ----
 {{<include "assets/code_example/docs/core/configuration/values.yaml">}}
 ----
+
+That can used in a pipeline manifest as:
 
 [source,yaml]
 ----

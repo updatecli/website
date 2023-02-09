@@ -4,15 +4,13 @@ title: Update jsonschema
 actions:
     default:
         title: '[updatecli] Bump jsonschema'
-        kind: github
+        kind: github/pullrequest
         spec:
             automerge: true
             labels:
                 - chore
             mergemethod: squash
         scmid: default
-        targets:
-            - jsonschema
 scms:
     default:
         kind: github

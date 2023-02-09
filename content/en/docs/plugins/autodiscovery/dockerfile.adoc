@@ -15,8 +15,8 @@ plugins:
 
 == Description
 
-The Dockerfile crawler looks recursively for all dockerfile from a specific root directory.
-Then, for each of them, it tries to update each Docker image tag found in a FROM instruction.
+The Dockerfile crawler looks recursively for all Dockerfile from a specific root directory.
+Then, for each of them, it tries to update each Docker image tag found in a 'FROM' instruction.
 
 Updatecli looks for the following file patterns:
 

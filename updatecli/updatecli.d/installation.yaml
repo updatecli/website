@@ -4,15 +4,13 @@ title: Bump udpatecli version in installation documentation
 actions:
     default:
         title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
-        kind: github
+        kind: github/pullrequest
         spec:
             automerge: true
             labels:
                 - chore
             mergemethod: squash
         scmid: default
-        targets:
-            - download-url
 scms:
     default:
         kind: github
@@ -44,4 +42,4 @@ targets:
             replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
         scmid: default
         sourceid: updatecli
-version: 0.28.0
+version: 0.43.0

@@ -4,7 +4,7 @@
 
 ## Requirements
 
-Make sure all dependencies have been installed:
+Install all dependencies:
 
 - [Hugo](https://gohugo.io/getting-started/installing/) >= 0.75.0/extended (needed for SCSS processing support)
 - [Node.js](https://nodejs.org/) >= 14.15.0 (needed to install npm packages and run commands)
@@ -14,13 +14,13 @@ Make sure all dependencies have been installed:
 
 Have your local site in two steps:
 
-### 1. Install npm packages
+### Install npm packages
 
 ```bash
 npm install
 ```
 
-### 2. Start local development server
+### Start local development server
 
 ```bash
 npm run start
@@ -32,17 +32,17 @@ Point your browser to `http://localhost:1313`
 
 ### 4. Stopping the local development server
 
-`<ctrl><C>` in the session where the `npm run start` was executed.
+Execute `<ctrl><C>` from the session where `npm run start` is running.
 
 ## Other commands
 
 Doks comes with [commands](https://getdoks.org/docs/prologue/commands/) for common tasks.
 
-## Contibuting
+## Contributing
 
-### Asciinema Shortcode
+### Asciinema shortcode
 
-To add a asciinema video, we can use the shortcode  `{{<asciinema "asciinema_video_id">}}`
+To add a asciinema video, you can use the shortcode  `{{<asciinema "asciinema_video_id">}}`
 
 
 ## Documentation
