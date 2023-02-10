@@ -1,0 +1,79 @@
+---
+title: "Guide: Npm"
+description: "Automate based on a npm package"
+lead: "Automate based on a npm package"
+date: 2023-02-07T22:10:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "guide"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== npm
+
+The npm guide, shows how to monitor a specific npm dependency, and then execute different actions if that dependency change.
+
+=== Requirement
+
+During this guide, we're going to use the two following command line tool:
+
+. updatecli
+. IDE
+. npm
+. GitHub Personal Access Token
+
+==== updatecli
+
+{{< updatecli_description >}}
+
+==== IDE
+
+{{< ide_jsonschema >}}
+
+==== npm
+
+npm is a package manager for the Javascript programming language
+
+=== Pipeline
+
+==== Goal
+
+The purpose of this pipeline is to track a npm dependency update, and then update both the package.json and package-lock.json in case of a change.
+
+==== Description
+
+Updatecli relies on one or multiple pipeline manifest to describe the expected Update pipeline.
+In this guide, we use the two following components
+
+. A source of kind `npm` to monitor the npm dependency
+. A target of kind `shell` to run a command for updating both the 'package-lock.json' and 'package.json'
+
+==== Manifest
+
+[source,yaml]
+----
+#updatecli.d/manifest.yaml
+{{< include "assets/code_example/docs/guides/npm/updatecli.d/manifest.yaml" >}}
+----
+
+=== Going further
+
+In this guide we demonstrated a simple update pipeline. But in the real world, we would probably have to update additional resources such as documentation or the testing environment. You may be interest to extend the using additional resources such as:
+
+**Dockerfile**
+By adding a target of kind `dockerfile`, Updatecli could update the npm dependency used within a Dockerfile as part of the change.
+
+**Yaml**
+By adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the change
+
+==== Autodiscovery Pipeline
+
+Updatecli Autodiscovery feature, is an ongoing experiment to generate pipeline based on a context. For example, automatically updating all dependencies specified in a package.json. Feel free to reach out to share common update scenario that you would like to address.
+
