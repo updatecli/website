@@ -18,15 +18,17 @@ toc: true
 
 == npm
 
-The npm guide, shows how to monitor a specific npm dependency, and then execute different actions if that dependency change.
+==== Goal
+
+The purpose of this pipeline is to track one npm dependency update, and then update both the package.json and package-lock.json in case of a version change.
 
 === Requirement
 
-During this guide, we're going to use the two following command line tool:
+This guide requires:
 
 . updatecli
-. IDE
 . npm
+. IDE
 . GitHub Personal Access Token
 
 ==== updatecli
@@ -39,14 +41,14 @@ During this guide, we're going to use the two following command line tool:
 
 ==== npm
 
-npm is a package manager for the Javascript programming language
+npm is a package manager for the Javascript programming language.
+
+==== GitHub PAT
+
+The GitHub PAT, is the token used to authenticate with the GitHub api
+link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[Documentation]
 
 === Pipeline
-
-==== Goal
-
-The purpose of this pipeline is to track a npm dependency update, and then update both the package.json and package-lock.json in case of a change.
-
 ==== Description
 
 Updatecli relies on one or multiple pipeline manifest to describe the expected Update pipeline.
@@ -65,15 +67,16 @@ In this guide, we use the two following components
 
 === Going further
 
-In this guide we demonstrated a simple update pipeline. But in the real world, we would probably have to update additional resources such as documentation or the testing environment. You may be interest to extend the using additional resources such as:
+This guide demonstrated a simple update pipeline. But real world situation would probably require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, ci environment, etc.
+
+In the case of updating all dependencies from a package.json at once, the autodiscovery is our current experimentation for addressing the problem. Feel free to reach out to share common update scenario that you would like to address
+
+In the situation of a more tailor update scenario, you may need to extend the current pipeline using additional resources such as:
 
 **Dockerfile**
-By adding a target of kind `dockerfile`, Updatecli could update the npm dependency used within a Dockerfile as part of the change.
+By adding a target of kind `dockerfile`, Updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
 
 **Yaml**
-By adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the change
+By adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the same operation.
 
-==== Autodiscovery Pipeline
-
-Updatecli Autodiscovery feature, is an ongoing experiment to generate pipeline based on a context. For example, automatically updating all dependencies specified in a package.json. Feel free to reach out to share common update scenario that you would like to address.
-
+Feel free to reach out on our link:https://matrix.to/#/#Updatecli_community:gitter.im[Chat]
