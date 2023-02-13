@@ -71,8 +71,10 @@ scms:
     spec:
       owner: updatecli
       repository: website
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      # To handle secrets, Updatecli can either use environment variable or sops secrets.
+      # When executed from GitHub Action, using GITHUB_TOKEN and GITHUB_ACTOR is quite convenient.
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
       branch: master
 
 # actions, are actions to execute if the state of a binded target is changed.

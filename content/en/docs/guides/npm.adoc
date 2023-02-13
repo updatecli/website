@@ -71,7 +71,13 @@ In this guide, we use the two following components
 {{< include "assets/code_example/docs/guides/npm/updatecli.d/manifest.yaml" >}}
 ----
 
-Then you can run `updatecli diff --config updatecli.d/manifest.yaml`
+Then you can run:
+
+```
+export UPDATECLI_GITHUB_TOKEN=<your_PAT>
+export UPDATECLI_GITHUB_ACTOR=<your GH username>
+updatecli diff --config updatecli.d/manifest.yaml`
+```
 
 === Going further
 
