@@ -57,6 +57,12 @@ In this guide, we use the two following components
 . A source of kind `npm` to monitor the npm dependency
 . A target of kind `shell` to run a command for updating both the 'package-lock.json' and 'package.json'
 
+[source,yaml]
+----
+#package.json
+{{< include "assets/code_example/docs/guides/npm/package.json" >}}
+----
+
 ==== Manifest
 
 [source,yaml]
@@ -65,18 +71,23 @@ In this guide, we use the two following components
 {{< include "assets/code_example/docs/guides/npm/updatecli.d/manifest.yaml" >}}
 ----
 
+Then you can run `updatecli diff --config updatecli.d/manifest.yaml`
+
 === Going further
 
-This guide demonstrated a simple update pipeline. But real world situation would probably require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, ci environment, etc.
+Once happy with the Update pipeline, you can leverage CI environment to run it on a regular basis. You'll need Updatecli installed in your CI environment, and the right credentials. More information link:https://www.updatecli.io/docs/automate/github_action/[here]
 
-In the case of updating all dependencies from a package.json at once, the autodiscovery is our current experimentation for addressing the problem. Feel free to reach out to share common update scenario that you would like to address
+This guide demonstrated a simple update pipeline, but real world situation usually require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, CI environment, etc.
 
-In the situation of a more tailor update scenario, you may need to extend the current pipeline using additional resources such as:
+In case of updating all dependencies from a package.json at once, the Autodiscovery feature is our current experimentation for addressing the problem. Feel free to reach out as we are still shaping this feature. To see what it looks like you can run `updatecli --experimental` from a repository containing package.json
+
+In the situation of a more tailored update scenario, you may need to extend the current pipeline using additional resources such as:
 
 **Dockerfile**
-By adding a target of kind `dockerfile`, Updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
+Adding a target of kind `dockerfile`, Updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
 
 **Yaml**
-By adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the same operation.
+Adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the same operation.
 
-Feel free to reach out on our link:https://matrix.to/#/#Updatecli_community:gitter.im[Chat]
+Feel free to chat on Updatecli link:https://matrix.to/#/#Updatecli_community:gitter.im[Matrix] channel.
+
