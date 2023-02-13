@@ -75,11 +75,11 @@ Then you can run `updatecli diff --config updatecli.d/manifest.yaml`
 
 === Going further
 
-Once happy with the Update pipeline, you can leverage CI environment to run it on a regular basis. You'll need Updatecli installed in your CI environment, and the right credentials. More information link:https://www.updatecli.io/docs/automate/github_action/[here]
+Once happy with the Update pipeline, you can leverage CI environment to run it regularly. You'll need Updatecli installed in your CI environment, and the right credentials. More information link:https://www.updatecli.io/docs/automate/github_action/[here]
 
-This guide demonstrated a simple update pipeline, but real world situation usually require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, CI environment, etc.
+This guide demonstrated a simple update pipeline, but real-world situations usually require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, CI environment, etc.
 
-In case of updating all dependencies from a package.json at once, the Autodiscovery feature is our current experimentation for addressing the problem. Feel free to reach out as we are still shaping this feature. To see what it looks like you can run `updatecli --experimental` from a repository containing package.json
+In the case of updating all dependencies from a package.json at once, the Autodiscovery feature is our current experimentation for addressing the problem. Feel free to reach out as we are still shaping this feature. To see what it looks like you can run `updatecli --experimental` from a repository containing package.json
 
 In the situation of a more tailored update scenario, you may need to extend the current pipeline using additional resources such as:
 
@@ -89,5 +89,5 @@ Adding a target of kind `dockerfile`, Updatecli could update the npm dependency 
 **Yaml**
 Adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the same operation.
 
-Feel free to chat on Updatecli link:https://matrix.to/#/#Updatecli_community:gitter.im[Matrix] channel.
+Feel free to chat on the Updatecli link:https://matrix.to/#/#Updatecli_community:gitter.im[Matrix] channel.
 
