@@ -4,7 +4,7 @@ title: Bump Hugo version
 actions:
     default:
         title: '[updatecli] Bump nodejs to {{ source "node" }}'
-        kind: github
+        kind: github/pullrequest
         spec:
             automerge: true
             labels:
@@ -12,9 +12,6 @@ actions:
                 - dependencies
             mergemethod: squash
         scmid: default
-        targets:
-            - netlify
-            - githubaction
 scms:
     default:
         kind: github
@@ -35,7 +32,6 @@ sources:
             - trimprefix: v
             - findsubmatch:
                 pattern: ^(\d*)
-                captureIndex: 0
                 captureindex: 0
         spec:
             owner: nodejs
@@ -77,4 +73,4 @@ targets:
             replacepattern: NODE_VERSION = "{{ source "node" }}"
         scmid: default
         sourceid: node
-version: 0.28.0
+version: 0.43.0

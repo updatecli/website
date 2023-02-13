@@ -1,0 +1,54 @@
+---
+title: "Git Branch"
+description: "Manipulate Git Branch information"
+lead: "kind: gitbranch"
+date: 2023-02-03T15:36:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+**source**
+
+The Git Branch "source" retrieves the latest git branch matching a pattern.
+
+**condition**
+
+The Git branch "condition" tests if git branch matching a pattern exist.
+
+**target**
+
+The Git branch "target" ensures a git branch matching a pattern exist otherwise it creates it.
+
+== Parameter
+
+The git branch resource is a resource designed to be used with the scmID
+
+{{< resourceparameters "sources" "gitbranch" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/gitbranch/updatecli.yaml">}}
+----
+
+include::content/en/docs/plugins/_versionFilter.adoc[]
