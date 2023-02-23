@@ -1,0 +1,31 @@
+---
+title: "Cargo"
+description: "Discover Rust cargo dependencies update"
+lead: "kind: cargo"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130 
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Cargo rust crawler looks recursively for all Cargo dependencies updates from a specific root directory.
+Then for each of them, it tries to update them.
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "cargo" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+----

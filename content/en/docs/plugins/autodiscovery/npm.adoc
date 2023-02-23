@@ -1,0 +1,31 @@
+---
+title: "NPM"
+description: "Discover NPM dependencies update"
+lead: "kind: npm"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130 
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The npm crawler looks recursively for all npm dependencies updates from a specific root directory.
+Then for each of them, it tries to update them.
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "npm" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+----

@@ -42,10 +42,7 @@ Or by providing a manifest.
 === Manifests
 ==== Parameters
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-|===
+{{< autodiscoveryparameters "helm" >}}
 
 ==== Example
 
