@@ -56,29 +56,7 @@ If a manifest is provided, Updatecli will only execute crawlers specified in the
 
 === Parameters
 
-The crawler `docker-compose` supports the following parameters:
-
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| `rootdir` | | current dir| Define root directory to look for docker-compose files
-| `filematch` | | ["docker-compose.yaml","docker-compose.yml","docker-compose.*.yaml","docker-compose.*.yml"] | FileMatch allows to override default docker-compose.yaml file matching.
-| `only` | | | Define a list of rules to only update a subset of docker-compose files
-| `only.images` | | | Define a list of images to only update
-| `only.services` | | | Define a list of docker compose services only update
-| `only.path` | | |  Define a list of docker compose file path to only update
-| `only.archs` | | |  Define a list of docker image architecture to only update
-| `ignore` | | | Define a list of rules to ignore update a subset of docker-compose files
-| `ignore.images` | | | Define a list of images to only update
-| `ignore.services` | | | Define a list of docker compose services only update
-| `ignore.path` | | |  Define a list of docker compose file path to only update
-| `ignore.archs` | | |  Define a list of docker image architecture to only update
-| `auths` | | | Auths allows to specify a list of docker registry credentials
-| `auths.username` | | | Username defines a docker registry username
-| `auths.password` | | | Password defines a docker registry password
-| `auths.token` | | | Token defines a docker registry token
-|===
-
+{{< autodiscoveryparameters "dockercompose" >}}
 
 === Docker Image Tag
 

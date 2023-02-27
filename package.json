@@ -39,7 +39,7 @@
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "@babel/cli": "^7.20",
+    "@babel/cli": "^7.21",
     "@babel/core": "^7.20",
     "@babel/preset-env": "^7.20",
     "@fullhuman/postcss-purgecss": "^5.0",
@@ -49,7 +49,7 @@
     "autoprefixer": "^10.4",
     "bootstrap": "^5.2",
     "clipboard": "^2.0",
-    "eslint": "^8.33",
+    "eslint": "^8.34",
     "exec-bin": "^1.0.0",
     "flexsearch": "^0.7.31",
     "highlight.js": "^11.7",
