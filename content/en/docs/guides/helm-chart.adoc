@@ -1,9 +1,9 @@
 ---
-title: "Guide: Helm Chart"
+title: "Guide: helm chart"
 description: "Automate Helm Chart update"
 lead: "Automate Helm Chart update"
 date: 2022-02-27T22:10:01+02:00
-lastmod: 2022-02-27T22:10:01+02:00
+lastmod: 2022-02-10T08:00:00+02:00
 draft: false
 images: []
 menu:
@@ -15,37 +15,40 @@ toc: true
 
 :toc: right
 
-= Helm Chart
+== Helm Chart
 
 Helm is a very popular package manager for deploying applications on Kubernetes. But those packages can also get outdated pretty quickly. We'll see in this guide how we can automatically update our Helm charts based on third dependencies.
 
-== Requirement
+=== Requirement
 
 To use this guide, we need the following elements:
 
-1. The Updatecli binary
-2. A Helm chart to update
-3. A GitHub Personal Access Token
+. Updatecli
+. A Helm chart to update
+. A GitHub Personal Access Token
 
-**Updatecli Binary**
+==== Updatecli
 
-Updatecli is a command-line available for Linux/macOS/Windows.
+{< updatecli_description >}}
 
-Check out installation instructions on link:https://www.updatecli.io/docs/prologue/installation/[www.updatecli.io/docs/prologue/installation] to know how to install it on your machine.
+==== IDE
 
-**Helm chart to update**
+{{< ide_jsonschema >}}
+
+==== Helm chart to update
 
 Within this example, we'll use a Helm chart from the Jenkins infrastructure project located on link:https://github.com/jenkins-infra/helm-charts[github.com/jenkins-infra/helm-charts].
 We want to ensure that the Helm chart is always using the latest chart application which in this case is the jenkins-wiki-exporter.
 
-**GitHub Personal Access Token**
+==== GitHub Personal Access Token
 
 As we are going to interact with resources on Github such as github repository and GitHub packages, we need a personal access token. More information on the GitHub documentation link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[creating-a-personal-access-token]
 
 
-== Update Pipeline
+=== Pipeline
 
-=== Manifest
+==== Manifest
+
 Updatecli expects one or multiple pipeline manifests to know what to do.
 Then we can use the command `updatecli diff --config manifest.yaml`
 The `diff` allows us to run updatecli in dry-mode so we identify what updatecli would change. Then we need to execute `updatecli apply --config manifest.yaml` to run our updatecli pipeline
@@ -82,11 +85,11 @@ WARNING: Using environment variables to store credentials is convenient for runn
 {{<include "assets/code_example/docs/guides/helm-chart/updatecli.output">}}
 ----
 
-== Go Further
+=== Go Further
 
 I hope you liked this guide. Updatecli is used in more scenarios and many more to come. Feel free to reach out if you have questions. Meanwhile, here are additional resources that you can use to go further.
 
-=== Resource
+==== Resource
 
 To extend this pipeline, you can find more customization on Updatecli documentation website.
 
@@ -99,7 +102,7 @@ In this pipeline we used the following resources:
 * link:https://www.updatecli.io/docs/plugins/github_pullrequest/[GitHub Pullrequest]
 * link:https://www.updatecli.io/docs/plugins/docker_image/[Docker Image]
 
-=== Additional Workflows
+==== Additional Workflows
 
 Updatecli shines and saves us time in many other situations such as:
 
@@ -107,7 +110,7 @@ Updatecli shines and saves us time in many other situations such as:
 * Automatically updating Dockerfile
 * Automatically updating raw File
 
-=== Contributing
+==== Contributing
 
 As a community-oriented project, all contributions are greatly appreciated!
 
