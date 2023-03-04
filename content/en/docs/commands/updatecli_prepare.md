@@ -2,8 +2,8 @@
 title: updatecli prepare
 description: Documentation for the command `updatecli prepare`
 lead: Documentation for the command `updatecli prepare`
-date: 2022-09-20T18:24:41+02:00
-lastmod: 2022-09-20T18:24:41+02:00
+date: 2023-03-04T08:15:30+01:00
+lastmod: 2023-03-04T08:15:30+01:00
 draft: false
 images: []
 menu:
@@ -40,5 +40,5 @@ updatecli prepare [flags]
 
 ### SEE ALSO
 
-* [updatecli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
+* [updatecli](/docs/commands/updatecli)	 - Updatecli is a declarative dependency manager command line tool
 
