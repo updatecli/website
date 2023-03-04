@@ -2,8 +2,8 @@
 title: updatecli completion
 description: Documentation for the command `updatecli completion`
 lead: Documentation for the command `updatecli completion`
-date: 2022-09-20T18:24:41+02:00
-lastmod: 2022-09-20T18:24:41+02:00
+date: 2023-03-04T08:15:30+01:00
+lastmod: 2023-03-04T08:15:30+01:00
 draft: false
 images: []
 menu:
@@ -38,7 +38,7 @@ See each sub-command's help for details on how to use the generated script.
 
 ### SEE ALSO
 
-* [updatecli](/docs/commands/updatecli)	 - Updatecli is a tool used to define and apply file update strategies. 
+* [updatecli](/docs/commands/updatecli)	 - Updatecli is a declarative dependency manager command line tool
 * [updatecli completion bash](/docs/commands/updatecli_completion_bash)	 - Generate the autocompletion script for bash
 * [updatecli completion fish](/docs/commands/updatecli_completion_fish)	 - Generate the autocompletion script for fish
 * [updatecli completion powershell](/docs/commands/updatecli_completion_powershell)	 - Generate the autocompletion script for powershell
