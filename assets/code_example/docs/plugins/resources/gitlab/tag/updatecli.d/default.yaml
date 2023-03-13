@@ -1,0 +1,56 @@
+name: "Show Gitlab tag usage"
+
+sources:
+  default:
+    name: "Get tag using versionfilter from a Gitlab repository"
+    kind: "gitlab/tag"
+    spec:
+      # Default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli-test"
+      versionfilter:
+        kind: "semver"
+        pattern: "~0.0"
+
+  latest:
+    name: "Get latest tag tag from a Gitlab repository"
+    kind: "gitlab/tag"
+    spec:
+      # Default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli-test"
+
+conditions:
+  default:
+    name: "Test tag '0.0.2' exist on the Gitlab repository"
+    kind: "gitlab/tag"
+    disablesourceinput: true
+    spec:
+      # Default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli"
+      tag: "v0.2.0"
+
+  sourcedefault:
+    name: "Test that the tag retrieved from source 'default' exist on the Gitlab repository"
+    kind: "gitlab/tag"
+    sourceid: "default"
+    spec:
+      # Default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli"
+
+  latest:
+    name: "Test that the tag retrieved from source 'latest' exist on the Gitlab repository"
+    kind: "gitlab/tag"
+    sourceid: "latest"
+    spec:
+      # Default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli"
+
