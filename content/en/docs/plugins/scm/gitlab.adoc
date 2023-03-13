@@ -1,0 +1,85 @@
+---
+title: "Gitlab "
+description: "Interact with Gitlab repositories"
+lead: "Gitlab scm"
+date: 2022-07-25T18:31:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The Gitlab scm plugin is used to manage git repositories hosted on Gitlab, depending on the stage, it can be used for different purposes
+
+**source**: Retrieve data from a git repository, such as a file content
+**condition**: Ensure data exist on a git repository, such as a file content
+**target**: Ensure data is up to date on a git repository
+
+== Parameters
+
+{{< resourceparameters "scms" "gitlab" >}}
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+|type ||chore| Specify commit type
+|scope ||| Specify commit scope
+|footer ||| Specify commit footer message
+|title ||| Override default body message
+|hideCredit ||| Remove "Made with ❤️️  by updatecli" from commit message
+|body ||| Override default body message
+|===
+
+=== GPG
+
+Updatecli can sign commits using a private GPG key if configured accordingly.
+
+---
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| signingkey ||| Defines the armored private gpg key 
+| password ||| Defines the gpg key password
+|===
+
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/gitlab/updatecli.yaml">}}
+----
+

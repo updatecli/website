@@ -1,0 +1,21 @@
+---
+name: Show Gitlab scm
+
+scms:
+  gitlab:
+    kind: gitlab
+    spec:
+      # By default url is set to gitlab.com
+      # url: gitlab.com
+      owner: "olblak"
+      repository: "updatecli"
+      branch: main
+
+sources:
+  license:
+    name: Retrieve license file content
+    kind: file
+    scmid: gitlab
+    spec:
+      file: LICENSE
+
