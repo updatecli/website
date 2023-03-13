@@ -1,0 +1,55 @@
+---
+title: "Gitlab Release"
+description: "Manipulate Gitlab Release"
+lead: "kind: gitlab/release"
+date: 2022-07-28T11:42:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+The Gitlab "release" plugin allows to manipulate Gitlab releases.
+
+**source**
+
+When used as a "source", the Gitlab release plugin allows to get a Gitlab Release tag according the version filter rule provided.
+
+**condition**
+
+When used as a "condition". the Gitlab release plugin allows to test that specific Gitlab Release tag exist.
+
+**target** 
+
+When used a "target", the Gitlab release plugin Using the gitlab/release as a "target" ensures that a Gitlab release exists.
+
+== Parameters
+
+{{< resourceparameters "sources" "gitlab/release" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/gitlab/release/updatecli.d/default.yaml">}}
+----
+
