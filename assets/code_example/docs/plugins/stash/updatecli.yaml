@@ -1,0 +1,23 @@
+---
+name: Test Bitbucket Server (Stash) scm
+
+scms:
+  stash:
+    kind: stash
+    spec:
+      url: "https://bitbucket.exmaple.com"
+      owner: "olblak"
+      repository: "updatecli-mirror"
+      branch: "main"
+      username: "user" 
+      token: "123456789ABCDEFGHI"
+
+sources:
+  license:
+    name: Retrieve license file content
+    kind: file
+    scmid: stash
+    spec:
+      file: LICENSE
+
+
