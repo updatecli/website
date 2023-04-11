@@ -1,6 +1,6 @@
 ---
 title: "But why?"
-date: 2023-04-11T06:00:00+0:00
+date: 2023-04-11T06:00:00+01:00
 draft: false
 weight: 50
 images: [""]
@@ -21,7 +21,7 @@ Well, when I started working on Updatecli, I was already using Dependabot, Renov
 Both Dependabot and Renovatebot are dependency management tools.
 They took the chatbot approach. They integrate with Git services such as GitHub or Gitea.
 Their configuration is relatively easy as they run in the "cloud".
-They are capable of detecting common changes pattern in well-defined data structure files such as popular programming languages.
+They are capable of detecting **some** common changes pattern in well-defined data structure files used by popular programming languages.
 
 That makes their adoption relatively easy and cheap **but** they are dumb and noisy.
 
