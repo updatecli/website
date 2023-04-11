@@ -89,18 +89,18 @@ Updatecli is a declarative dependency management tool that relies on written man
 
 The flexibility offered by Updatecli has a cost: having to write a manifest.
 
-So far, we found that this cost is by far compensated by the time spent on scripting to automate complex or none standard scenarios. But for "standard" scenarios, it's usually easier to stick to Dependabot or Renovatebot.
+So far, I found that this cost is by far compensated by the time spent on scripting to automate complex or none standard scenarios. But for "standard" scenarios, it's usually easier to stick to Dependabot or Renovatebot.
 
 === __Why the "Autodiscovery" feature if you already use Renovatebot and Dependabot for simple workflows?__
 
 The "Autodiscovery" feature is an experiment to run Updatecli with a minimal set of configurations to detect standard update workflows similar to Dependabot.
 
-Considering that we already use Dependabot and Renovatebot, it's true that the "Autodiscovery" feature is not my most wanted Updatecli feature.
+Considering that I already use Dependabot and Renovatebot, it's true that the "Autodiscovery" feature is not my most wanted Updatecli feature.
 On the other side as the number of plugins increases, the question raised by itself:
 
 Couldn't I automate the process to generate manifests and apply them right away without having to write or maintain them manually?
 
-And the answer is yes we could and we did for some resources.
+And the answer is yes I could and I did for some resources.
 
 Being able to run `updatecli apply --experimental` on a git repository full of Helm chart, Helmfile, or Rancher Fleet manifest allows me to easily test locally all the changes proposed by Updatecli. Running that same command in a CI allow me to automate those update.
 
