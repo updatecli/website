@@ -1,0 +1,170 @@
+---
+title: "But why?"
+date: 2023-04-11T06:00:00+01:00
+draft: false
+weight: 50
+images: [""]
+contributors: ["olblak"]
+---
+:hide-uri-scheme:
+
+== But why Updatecli?
+
+Over and over I get asked the same questions.
+
+=== But why? 
+
+==== __Why did you start Updatecli? Wasn't it enough to rely on Renovatebot, Dependabot, or scripting languages such as Python or Ruby?__
+
+Well, when I started working on Updatecli, I was already using Dependabot, Renovate, and scripting languages like Python or Ruby. And still, I am today...
+
+Both Dependabot and Renovatebot are dependency management tools.
+They took the chatbot approach. They integrate with Git services such as GitHub or Gitea.
+Their configuration is relatively easy as they run in the "cloud".
+They are capable of detecting **some** common changes pattern in well-defined data structure files used by popular programming languages.
+
+That makes their adoption relatively easy and cheap **but** they are dumb and noisy.
+
+They often fail at understanding the big picture. It's nice to detect that one component needs to be updated, but it's better to update **all** related components in an atomic operation respecting a specific order. 
+
+For example, I rarely want to bump the Golang version one place at a time. Instead, I want to bump in an atomic operation, the CI environment, the go.mod file, Dockerfiles, and my documentation.
+
+Quite often, "update" scenarios are specific to the project I am working on, like a release pipeline, or need more advanced safeguards like in sensitive environments.
+
+**This is where scripting comes in handy.**
+
+It allows a project to automate more advanced update scenarios but with a higher cost of maintenance. Sooner than later, those scripts evolve into Frankenstein scripts that get copied over and over across Git repositories until someone decides to rewrite them in a new shiny programming language.
+
+So I decided to rewrite them in Golang. But this time, in a generic way so I could re-use them on different types of projects.
+
+We extracted the common operation and started building extensions around that "common" part. 
+
+A standard pipeline looks like this:
+
+. Retrieve information from X
+. Validate Y assumption
+. Update Z, knowing X but only if Y is passing
+. Publish Z to a git repository
+
+Where X/Y/Z are defined by extension aka plugins and specific to the type of project.
+Those "plugins" are designed to do only one thing:
+
+
+[cols="1a,1a,1a"]
+|===
+
+| X is the "source" 
+| Y is the "condition"
+| Z is the "target to update"
+
+|
+
+* Docker image tag
+* Git tag
+* Crate version
+* OCI artifact version
+* npm package version
+* etc.
+
+
+| 
+* Check that a version exists for a cargo package
+* Check the content of a yaml, json, toml, xml, csv file
+* Check that git branch exists
+* etc.
+
+| 
+* Update Dockerfile content
+* Update yaml file content
+* Update toml file content
+* etc.
+
+|===
+
+Because each project is slightly different, I wanted to be able to compose the source/condition/target in a Lego way.
+
+This is how Updatecli started.
+
+Updatecli is a declarative dependency management tool that relies on written manifest to know how to automate updates.
+
+The flexibility offered by Updatecli has a cost: having to write a manifest.
+
+So far, I found that this cost is by far compensated by the time spent on scripting to automate complex or none standard scenarios. But for "standard" scenarios, it's usually easier to stick to Dependabot or Renovatebot.
+
+=== __Why the "Autodiscovery" feature if you already use Renovatebot and Dependabot for simple workflows?__
+
+The "Autodiscovery" feature is an experiment to run Updatecli with a minimal set of configurations to detect standard update workflows similar to Dependabot.
+
+Considering that I already use Dependabot and Renovatebot, it's true that the "Autodiscovery" feature is not my most wanted Updatecli feature.
+On the other side as the number of plugins increases, the question raised by itself:
+
+Couldn't I automate the process to generate manifests and apply them right away without having to write or maintain them manually?
+
+And the answer is yes I could and I did for some resources.
+
+Being able to run `updatecli apply --experimental` on a git repository full of Helm chart, Helmfile, or Rancher Fleet manifest allows me to easily test locally all the changes proposed by Updatecli. Running that same command in a CI allow me to automate those update.
+
+Combining both "Declarative" and "Autodiscovery" allows me to achieve a high level of automation. I am building the Autodiscovery in the same approach as the declarative.
+I have the "core" that defines the standard pipeline and then the plugins.
+
+A plugin is responsible for identifying files that could be used to generate pipelines.
+
+Autodiscovery comes with its own set of challenges and I develop Updatecli on the side.
+
+My main focus remains the declarative approach, with some wandering in Autodiscovery when I identify low hanging-fruits or workflows that I need to automate such as Helm, Helmfile, or Rancher Fleet.
+
+=== __Why did you choose the command line tool instead of the chatbot approach?__
+
+They are different reasons:
+
+**Write once, run everywhere**
+
+Running Updatecli from a CI environment such as Jenkins or GitHub action, leverage all the different events type provided by the CI.
+While I usually run Updatecli periodically, like once per hour or once per day, sometimes I rely on specific triggers such as a release event to propagate release changes quickly to different Git repositories.
+Updatecli can be executed on Linux/MacOSX/Windows, arm/amd64. This means it works well with CI environments.
+
+**Works on my machine**
+
+When I switch my focus to a specific project, I usually start by running Updatecli locally so I can easily see what would need to be updated. It allows me to proceed with additional testing to get more confidence in the change that I will introduce. 
+
+The goals is to reduce the number of open pull requests that I see, and to not procrastinate the testing of them. 
+
+Otherwise, I just let the CI environment execute Updatecli periodically, depending on the situation I automate change or proceed to local testing.
+
+The feedback loop is just the best.
+
+**Own your data**
+
+Updatecli works the same way from my private homelab than in the cloud with a low footprint. 
+
+=== __How can I get this feature X that I need?__
+
+Before anything else, share it in our **link:https://matrix.to/#/#Updatecli_community:gitter.im[Chat]** or in a **link:https://github.com/updatecli/updatecli/issues/new/choose[GitHub issue]**. A lot of great ideas in Updatecli came out from those feedback.
+
+When you achieve something great with Updatecli, tell it too, this is a great learning experience for me.
+That's how I learned that small and large organization successfully adopted Updatecli.
+
+When it comes to timing, that's a different story.
+
+My rule of thumb to work on a feature is usually if:
+
+. I need a feature for my projects
+. A feature is a prerequisite for someone else to contribute
+. I have a crazy idea that I want to experiment with
+
+That's it, sometimes things move quickly, sometimes not. 
+
+The right spark does make the difference so feel free to reach out.
+
+=== __What's next?__
+
+It's hard to tell, I couldn't have told a year ago, how this project would evolve, and I can't today.
+
+Outside of the usual refactoring, bug fixes, and the documentation that always seems to lack behind.
+One of my current goals is to identify the missing steps to bring the Autodiscovery feature out of the experimental so I can start building more Autodiscovery plugins.
+
+The second objective is to increase the number of scm integration. At the moment Updatecli works with GitHub, Gitlab, Gitea, and Stash. And they are a few more like Azure DevOps that could be supported with a limited amount of effort.
+
+The current state of "declarative" plugins already covers almost all my needs but who knows what tomorrow is about, I can easily add more anyway if needed.
+
+Maybe it's time to think about what would be needed to have a 1.0 version of Updatecli.
