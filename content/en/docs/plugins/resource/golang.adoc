@@ -14,7 +14,7 @@ plugins:
   - condition
 ---
 
-  // <!-- Required for asciidoctor -->
+// <!-- Required for asciidoctor -->
 :toc:
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
