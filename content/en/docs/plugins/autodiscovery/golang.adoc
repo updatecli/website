@@ -1,0 +1,48 @@
+---
+title: "Golang go.mod"
+description: "Discover Golang go.mod update"
+lead: "kind: golang/gomod"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The `golang/gomod` Autodiscovery plugin allows to automatically search and update go.mod files.
+It handles golang version update and golang module version update.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "golang/gomod" >}}
+
+==== Example
+
+===== Golang update only
+
+In the following example, we want to automate minor version update of Golang, such as from "1.19" to "1.20"
+If Updatecli detects a change, then it opens a new pullrequest with the propose version update.
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/golang/updatecli.d/goonly.yaml">}}
+----
+
+===== Semantic version patch update only
+
+In this example, Updatecli is looking for all version that can have a patch version update.
+If at least one version needs to be updated, then it opens a single pullrequest with all the version bump.
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/golang/updatecli.d/patchonly.yaml">}}
+----

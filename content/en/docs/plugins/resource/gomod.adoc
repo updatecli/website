@@ -1,0 +1,53 @@
+---
+title: "Golang go.mod"
+description: "Manipulate Golang go.mod file"
+lead: "kind: golang/gomod"
+date: 2023-04-17T17::00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+**source**
+
+The Golang "gomod" "source" retrieves the Golang module version matching the versioning rule or the Golang version specified in the go.mod file.
+
+**condition**
+
+The Golang "gomod" "condition" checks if the Golang module version matching the versioning rule exist or the Golang version exists in the go.mod file.
+
+**target**
+
+The Golang "gomod" "target" ensures the Golang module version matching the versioning rule or the Golang version is correctly set in the go.mod file.
+
+IMPORTANT: The gomod target doesn't clean and update the file `go.sum`. It needs to be handled separately by running `go mod tidy` such as in the example below.
+
+== Parameter
+
+{{< resourceparameters "sources" "golang/gomod" >}} 
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/golang/gomod/updatecli.d/default.yaml">}}
+----
+
