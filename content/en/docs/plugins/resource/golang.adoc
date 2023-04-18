@@ -1,0 +1,51 @@
+---
+title: "Golang "
+description: "Manipulate Golang version"
+lead: "kind: golang"
+date: 2023-04-17T17::00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+**source**
+
+The Golang "source" retrieves the Golang version matching then versioning rule.
+
+**condition**
+
+The Golang "condition" checks if the Golang version matching then versioning rule exist.
+
+**target**
+
+the Golang "target" is not supported.
+
+== Parameter
+
+{{< resourceparameters "sources" "golang" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/golang/language/updatecli.d/default.yaml">}}
+----
+

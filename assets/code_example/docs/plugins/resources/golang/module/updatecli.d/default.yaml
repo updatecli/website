@@ -1,0 +1,35 @@
+name: "Golang module example"
+
+sources:
+  default:
+    kind: golang/module
+    name: Get the latest Golang module version for github.com/Masterminds/semver/v3
+    spec:
+      module: "github.com/Masterminds/semver/v3"
+      
+  semver:
+    kind: golang/module
+    name: Get Golang module version for github.com/Masterminds/semver/v3 matching version 3.2
+    spec:
+      module: "github.com/Masterminds/semver/v3"
+      versionfilter:
+        kind: semver
+        pattern: "3.2"
+
+conditions:
+  default:
+    # The version is set by the sourceid "default"
+    kind: golang/module
+    name: Checks if version v3.2.0 exists for Golang module github.com/Masterminds/semver/v3
+    sourceid: default
+    spec:
+      module: "github.com/Masterminds/semver/v3"
+
+  noSourceInput:
+    disablesourceinput: true
+    kind: golang/module
+    name: Checks if version v3.2.0 exists for Golang module github.com/Masterminds/semver/v3
+    spec:
+      module: "github.com/Masterminds/semver/v3"
+      version: "v3.2.0"
+
