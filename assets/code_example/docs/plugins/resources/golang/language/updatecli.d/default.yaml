@@ -10,7 +10,7 @@ sources:
         pattern: "1.15.x"
 
 conditions:
-  # The version to check is inherit from source "default"
+  # The version to check is inherited from source "default"
   default:
     name: Checks that golang version from source default exists
     kind: golang
