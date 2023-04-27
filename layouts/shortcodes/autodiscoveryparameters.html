@@ -14,7 +14,7 @@
     <tr>
         <td><b>{{ $key }}</b></td>
         <td>{{ $value.type }}</td>
-        <td>{{ $value.description }}</td>
+        <td>{{ $value.description | markdownify }}</td>
         <td>{{ $value.required }}</td>
     </tr>
                         {{ if eq $value.type "object" }}
@@ -22,7 +22,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $subkey }}</b></td>
         <td>{{ $subvalue.type }}</td>
-        <td>{{ $subvalue.description }}</td>
+        <td>{{ $subvalue.description | markdownify }}</td>
         <td>{{ $subvalue.required }}</td>
     </tr>
                           {{ end }}
@@ -32,7 +32,7 @@
     <tr>
       <td><b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
       <td>{{ $item.type }}</td>
-      <td>{{ $item.description }}</td>
+      <td>{{ $item.description | markdownify }}</td>
       <td>{{ $item.required }}</td>
     </tr>
                         {{ end }}
