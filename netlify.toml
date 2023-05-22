@@ -5,7 +5,7 @@
 [build.environment]
   HUGO_VERSION = "0.111.3"
   NODE_VERSION = "16.20.0"
-  NPM_VERSION = "9.6.5"
+  NPM_VERSION = "9.6.7"
 
 [context.production]
   command = "npm run build"

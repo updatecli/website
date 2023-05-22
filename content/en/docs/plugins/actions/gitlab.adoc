@@ -1,0 +1,33 @@
+---
+title: "Gitlab Merge Request"
+description: "Open a Gitlab Merge Request"
+lead: "kind: gitlab/mergerequest"
+images: []
+menu:
+  docs:
+    parent: "plugin-actions"
+toc: true
+plugins:
+  - actions
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The `action` section describes the link:https://docs.gitlab.com/ee/user/project/merge_requests/[Gitlab Merge Requests] that updatecli is expected to open (or update) when a target is modified.
+
+== Parameters
+
+{{< resourceparameters "actions" "gitlab/mergerequest" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/actions/gitlab_mergerequest/updatecli.yaml">}}
+----
