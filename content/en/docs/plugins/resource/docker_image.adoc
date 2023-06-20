@@ -126,4 +126,4 @@ Test that the tag `v1.11.1` exist for the image `jenkinsciinfra/plugin-site-api`
 => No, then abort
 
 **target**
-If the condition was passsing then it would have update the key `backend.image.tag` in the yaml file `charts/plugin-site/values.yaml` located on the Github repository `olblak/charts` on the branch `master` using the Github Pull request workflow
+If the condition was passing then it would have update the key `backend.image.tag` in the yaml file `charts/plugin-site/values.yaml` located on the Github repository `olblak/charts` on the branch `master` using the Github Pull request workflow
