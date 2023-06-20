@@ -21,7 +21,7 @@ jobs:
     - name: Install Hugo
       uses: peaceiris/actions-hugo@v2
       with:
-        hugo-version: 0.112.5
+        hugo-version: 0.114.0
         extended: true
 
     - name: Install Bundler
