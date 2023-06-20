@@ -6,7 +6,7 @@ sources:
     kind: toml
     spec:
       file: pkg/plugins/resources/toml/testdata/data.toml
-      key: owner.firstName
+      key: .owner.firstName
 
 conditions:
   local:
@@ -14,7 +14,7 @@ conditions:
     kind: toml
     spec:
       file: pkg/plugins/resources/toml/testdata/data.toml
-      key: owner.firstName
+      key: .owner.firstName
 
 targets:
   local:
@@ -22,5 +22,5 @@ targets:
     kind: toml
     spec:
       file: pkg/plugins/resources/toml/testdata/data.toml
-      key: owner.firstName
+      key: .owner.firstName
       value: John
