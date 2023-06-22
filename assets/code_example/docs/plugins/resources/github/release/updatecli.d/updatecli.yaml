@@ -1,0 +1,79 @@
+name: Github Release Example
+
+# Scms defines Git repository configuration to interact with.
+scms:
+  default:
+    kind: github
+    spec:
+      user: "updatecli"
+      email: "updatecli@olblak.com"
+      owner: "olblak"
+      repository: "charts"
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      username: "olblak"
+      branch: "master"
+
+# Sources are responsible for retrieving information from thirds location like GitHub releases.
+sources:
+  # Retrieve the "latest" Helm version using the Helm GitHub Release.
+  helm:
+    name: Get latest Helm release version
+    kind: githubrelease
+    spec:
+      owner: "helm"
+      repository: "helm"
+      token: '{{ requiredEnv .github.token }}'
+      username: olblak
+      versionfilter:
+        kind: latest
+
+# Conditions are simple checks that need to pass before updating a target.
+conditions:
+  # The yaml plugin doesn't support advanced yamlpath syntax so when we need
+  # to fetch information from an array, we want to be sure that the position is 
+  # still relevant to the target
+  keyExist:
+    name: Update GitHub Action workflow
+    kind: yaml
+    scmid: default
+    disablesourceinput: true
+    spec:
+      file: .github/workflows/helm.yaml
+      key: .$jobs.release.steps[0].name
+      value: Install Helm
+
+# Targets define the state of files based on source information.
+targets:
+  # Ensure the Dockerfile arg HELM_VERSION is set to the latest Helm version retrieved by the source.
+  dockerfile:
+    name: Update Dockerfile ARG HELM_VERSION
+    kind: dockerfile
+    scmid: default
+    sourceid: helm
+    spec:
+      file: docker/Dockerfile
+      instruction:
+        keyword: ARG
+        matcher: HELM_VERSION
+
+  # Ensure the GitHub workflow file is correctly set to the latest helm version retrieved from the source.
+  ghWorkflow:
+    name: Update GitHub Action workflow
+    kind: yaml
+    scmid: default
+    sourceid: helm
+    spec:
+      file: .github/workflows/helm.yaml
+      key: .$jobs.release.steps[0].with.version
+
+actions:
+  # If one of the two targets is modified, then we want to open a
+  # pullrequest with the auto merge flag set to true and the label "helm"
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: 'Bump Helm version to {{ source "helm" }}'
+    spec:
+      automerge: true
+      labels:
+        - "helm"
