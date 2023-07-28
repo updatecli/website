@@ -1,0 +1,52 @@
+name: Basic HCL Example
+
+scms:
+  default:
+    kind: git
+    spec:
+      url: https://github.com/updatecli/updatecli.git
+
+sources:
+  local:
+    name: Get value from hcl
+    kind: hcl
+    scmid: default
+    spec:
+      file: pkg/plugins/resources/hcl/testdata/data.hcl
+      path: resource.person.john.first_name
+  http:
+    name: Get value from hcl
+    kind: hcl
+    spec:
+      file: https://raw.githubusercontent.com/updatecli/updatecli/hcl/pkg/plugins/resources/hcl/testdata/data.hcl
+      path: resource.person.john.first_name
+
+conditions:
+  local:
+    name: Test value from hcl
+    kind: hcl
+    sourceid: local
+    scmid: default
+    spec:
+      file: pkg/plugins/resources/hcl/testdata/data.hcl
+      path: resource.person.john.first_name
+  http:
+    name: Test value from hcl
+    kind: hcl
+    disablesourceinput: true
+    spec:
+      file: https://raw.githubusercontent.com/updatecli/updatecli/hcl/pkg/plugins/resources/hcl/testdata/data.hcl
+      path: resource.person.john.first_name
+      value: John
+
+targets:
+  local:
+    name: Test value from hcl
+    kind: hcl
+    sourceid: local
+    scmid: default
+    spec:
+      file: pkg/plugins/resources/hcl/testdata/data.hcl
+      path: resource.person.john.first_name
+      value: John
+
