@@ -11,6 +11,8 @@ menu:
     parent: "prologue"
 weight: 100
 toc: true
+aliases:
+- /docs/
 ---
 
 Updatecli is a command-line tool used to define and apply update strategies.
