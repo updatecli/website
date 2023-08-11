@@ -1,0 +1,78 @@
+name: Retrieve the latest Cargo Package Version
+
+scms:
+  private-registry:
+    kind: git
+    spec:
+      url: "https://github.com/updatecli-test/fake-cargo-registry.git"
+      branch: "main"
+
+sources:
+  rand:
+    name: Get latest rand version from public cargo registry
+    kind: cargopackage
+    spec:
+      package: rand
+  test-crate-2:
+    name: Get latest test-crate-2 version from private cargo registry
+    kind: cargopackage
+    scmid: private-registry
+    spec:
+      package: test-crate-2
+      versionfilter:
+        kind: semver
+        pattern: ~0
+
+conditions:
+  existing-package-private-reg:
+    name: Test if test-crate-2 0.1.0 exists on private registry
+    kind: cargopackage
+    disablesourceinput: true
+    scmid: private-registry
+    spec:
+      package: test-crate-2
+      version: 0.1.0
+  existing-package-not-existing-version-private-reg:
+    name: Test if test-crate-2 0.6.0 does not exists on private registry
+    kind: cargopackage
+    disablesourceinput: true
+    scmid: private-registry
+    failwhen: true
+    spec:
+      package: test-crate-2
+      version: 0.6.0
+  non-existing-package-private-reg:
+    name: Test if non-existing-test-crate 0.1.0 does not exists on private registry
+    kind: cargopackage
+    disablesourceinput: true
+    scmid: private-registry
+    failwhen: true
+    spec:
+      package: non-existing-test-crate
+      version: 0.1.0
+  existing-package-public-reg:
+    name: Test if rand version exists on public reg
+    kind: cargopackage
+    disablesourceinput: true
+    spec:
+      package: rand
+      version: 0.7.2
+  existing-package-p-not-existing-version-public-reg:
+    name: Test if rand version 99.99.99 does not exists on public reg
+    kind: cargopackage
+    disablesourceinput: true
+    failwhen: true
+    spec:
+      package: rand
+      version: 99.99.99
+  non-existing-package-public-reg:
+    name: Test if non-existing-package-to-be-sure-123456 does exists on public reg
+    kind: cargopackage
+    disablesourceinput: true
+    failwhen: true
+    spec:
+      package: non-existing-package-to-be-sure-123456
+      version: 0.7.2
+
+targets:
+  # Targets are not supported
