@@ -51,7 +51,7 @@ link:https://docs.github.com/en/authentication/keeping-your-account-and-data-sec
 === Pipeline
 ==== Description
 
-Updatecli relies on one or multiple pipeline manifest to describe the expected Update pipeline.
+Updatecli relies on one or multiple pipeline manifests to describe the expected Update pipeline.
 In this guide, we use the two following components
 
 . A source of kind `npm` to monitor the npm dependency
