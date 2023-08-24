@@ -28,7 +28,7 @@ targets:
     disablesourceinput: true
 
     # scmid bind a target with a scm configuration.
-    # Updatecli clones the git repository in a temporary location, then update it
+    # Updatecli clones the git repository in a temporary location, then updates it
     # according the current declarative pipeline.
     scmid: default
 
