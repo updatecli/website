@@ -29,7 +29,7 @@ targets:
 
     # scmid binds a target with a scm configuration.
     # Updatecli clones the git repository in a temporary location, then updates it
-    # according the current declarative pipeline.
+    # according to the current declarative pipeline.
     scmid: default
 
     # Spec contains the specific parameter for a specific kind of resource which in this case, is the resource "shell"
