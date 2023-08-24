@@ -2,8 +2,8 @@
 title: updatecli
 description: Documentation for the command `updatecli`
 lead: Documentation for the command `updatecli`
-date: 2022-09-20T18:24:41+02:00
-lastmod: 2022-09-20T18:24:41+02:00
+date: 2023-03-04T08:15:30+01:00
+lastmod: 2023-03-04T08:15:30+01:00
 draft: false
 images: []
 menu:
@@ -15,17 +15,18 @@ toc: true
 
 ## updatecli
 
-Updatecli is a tool used to define and apply file update strategies. 
+Updatecli is a declarative dependency manager command line tool
 
 ### Synopsis
 
 
-updatecli is a tool uses to apply file update strategies.
-It reads a yaml or a go template configuration file, then works into three stages:
+Updatecli is a declarative dependency manager command line tool.
+Based on Updatecli manifest(s), It ensures that target files are up to date.
+Updatecli  works into three stages:
 
-1. Source: Based on a rule fetch a value that will be injected in later stages.
-2. Conditions: Ensure that conditions are met based on the value retrieved during the source stage.
-3. Target: Update and publish the target files based on a value retrieved from the source stage.
+1. Source: Retrieve a value from a third location like file, api, etc..
+2. Condition: Ensure conditions are met based on the value retrieved during the source stage.
+3. Target: Update the target based on the value retrieved from the source stage.
 
 
 ### Options

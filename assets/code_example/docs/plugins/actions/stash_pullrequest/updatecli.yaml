@@ -1,0 +1,43 @@
+# updatecli diff --config updatecli.yaml
+#
+name: Show Stash pipeline example
+
+# Sources are responsible to fetch information from third location such as npm registry.
+sources:
+  updatecli:
+    name: Get latest axios version
+    kind: npm
+    spec:
+      name: axios
+
+# Targets are responsible to update targeted files such as a yaml file.
+targets:
+  npm:
+    name: Update e2e test file
+    kind: yaml
+    sourceid: updatecli
+    scmid: stash
+    spec:
+      file: e2e/updatecli.d/success.d/npm.yaml
+      key: conditions.axios.spec.version
+
+### 
+
+# Actions such as stash/pullrequest is triggered if a target is updated.
+actions:
+  default:
+    title: Bump axios version
+    kind: stash/pullrequest
+    scmid: stash
+
+scms:
+  stash:
+    kind: stash
+    spec:
+      owner: "olblak"
+      repository: "updatecli"
+      branch: main
+      # For the change to be apply, we need to specify stash credentials
+      #username: stash_username
+      #token: stash_token
+

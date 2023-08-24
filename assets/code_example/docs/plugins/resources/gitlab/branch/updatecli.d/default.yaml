@@ -1,0 +1,34 @@
+name: "Demo Gitlab branch"
+
+sources:
+  default:
+    kind: "gitlab/branch"
+    spec:
+      # default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli"
+      branch: main
+
+conditions:
+  default:
+    name: Show condition usage without source input
+    kind: "gitlab/branch"
+    disablesourceinput: true
+    spec:
+      # default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli"
+      branch: "main"
+
+  sourcedefault:
+    name: Show condition using branch name fetch from source input
+    kind: "gitlab/branch"
+    sourceid: "default"
+    spec:
+      # default to gitlab.com
+      # url: "gitlab.com"
+      owner: "olblak"
+      repository: "updatecli-test"
+

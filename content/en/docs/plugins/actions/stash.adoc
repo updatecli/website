@@ -1,0 +1,33 @@
+---
+title: "Stash Pull Request"
+description: "Open a Stash Merge Request"
+lead: "kind: stash/pullrequest"
+images: []
+menu:
+  docs:
+    parent: "plugin-actions"
+toc: true
+plugins:
+  - actions
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The `action` section describes the link:https://confluence.atlassian.com/display/STASH0311/Using+pull+requests+in+Stash[Stash Pull Request] that updatecli is expected to open (or update) when a target is modified.
+
+== Parameters
+
+{{< resourceparameters "actions" "stash/pullrequest" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/actions/stash_pullrequest/updatecli.yaml">}}
+----

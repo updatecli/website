@@ -1,0 +1,59 @@
+name: Show Gitlab release usage
+
+sources:
+  default:
+    name: Retrieve latest release matching versionfilter rule
+    kind: gitlab/release
+    spec:
+      # url default to gitlab.com if unset
+      # url: "gitlab.com"
+      owner: olblak
+      repository: updatecli
+      versionfilter:
+        kind: semver
+        pattern: "~0"
+
+conditions:
+  default:
+    name: Test that release "0.0.2" exist
+    kind: gitlab/release
+    spec:
+      # url default to gitlab.com if unset
+      # url: "gitlab.com"
+      owner: olblak
+      repository: updatecli
+      tag: "0.2.0"
+  sourcedefault:
+    name: Test that release retrieved from source 'default' exist
+    kind: gitlab/release
+    sourceid: default
+    spec:
+      # url default to gitlab.com if unset
+      # url: "gitlab.com"
+      owner: olblak
+      repository: updatecli
+
+targets:
+  default:
+    name: "Ensure release 0.0.1 from branch main exist"
+    kind: gitlab/release
+    spec:
+      # url default to gitlab.com if unset
+      # url: "gitlab.com"
+      owner: olblak
+      repository: updatecli
+      commitish: main
+      token: xxx
+      tag: "0.0.1"
+  sourcedefault:
+    name: "Ensure release where tag is retrieved from source 'default' from branch main exist"
+    kind: gitlab/release
+    sourceid: default
+    spec:
+      # url default to gitlab.com if unset
+      # url: "gitlab.com"
+      owner: olblak
+      repository: updatecli-test
+      token: xxx
+      commitish: main
+

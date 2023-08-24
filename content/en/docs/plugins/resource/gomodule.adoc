@@ -1,0 +1,51 @@
+---
+title: "Golang module"
+description: "Manipulate Golang Module version"
+lead: "kind: golang/module"
+date: 2023-04-17T17::00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+**source**
+
+The Golang module "source" retrieves the Golang module version matching then versioning rule.
+
+**condition**
+
+The Golang module "condition" checks if the Golang module version matching then versioning rule exist.
+
+**target**
+
+the Golang module "target" is not supported.
+
+== Parameter
+
+{{< resourceparameters "sources" "golang/module" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/golang/module/updatecli.d/default.yaml">}}
+----
+

@@ -46,7 +46,8 @@ Manifest are provided to the updatecli command using the global flag `--config <
 === Content
 
 Using go templates allows us to specify generic values in a different YAML file, using `--values`, then reference those values from each go template.
-Updatecli also provides a custom function called `requireEnv` to inject any environment variable in the template example, `{{ requiredEnv "PATH" }}`.
+Updatecli also provides a custom function called `requiredEnv` to inject any environment variable in the template example, `{{ requiredEnv "PATH" }}`. +
+Additionally, all functions from the https://masterminds.github.io/sprig/[Sprig template library] are available.
 
 More information on Go templates can be found https://golang.org/pkg/text/template/[here].
 

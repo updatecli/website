@@ -1,0 +1,12 @@
+sources:
+  lastRelease:
+    kind: githubRelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "jenkins-wiki-exporter"
+      token: "{{ requiredEnv "ENV_VARIABLE" }}"
+      username: "john"
+      versionFilter:
+        kind: regexp
+        pattern: "v1.10\.(.*)"
+

@@ -1,0 +1,87 @@
+name: "Interact with go.mod"
+
+scms:
+  updatecli:
+    kind: github
+    spec:
+      owner: updatecli
+      repository: updatecli
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+
+sources:
+  default:
+    kind: golang/gomod
+    name: Get module version used in go.mod
+    scmid: updatecli
+    spec:
+      module: github.com/Masterminds/semver/v3
+
+  golang:
+    kind: golang/gomod
+    name: Get Golang version used in go.mod
+    scmid: updatecli
+    spec:
+      kind: golang
+
+conditions:
+  default:
+    disablesourceinput: true
+    kind: golang/gomod
+    name: Ensure github.com/Masterminds/semver/v3 module version is v3.2.0
+    scmid: updatecli
+    spec:
+      module: github.com/Masterminds/semver/v3
+      file: pkg/plugins/resources/go/gomod/testdata/go.mod
+      version: "v3.2.0"
+
+  goversion:
+    kind: golang/gomod
+    name: Ensure golang version is set to value retrieved from source golang
+    scmid: updatecli
+    sourceid: golang
+    spec:
+      kind: golang
+
+targets:
+  default:
+    disablesourceinput: true
+    kind: golang/gomod
+    name: Ensure github.com/Masterminds/semver/v3 module is set to v3.2.0
+    scmid: updatecli
+    spec:
+      module: github.com/Masterminds/semver/v3
+      file: pkg/plugins/resources/go/gomod/testdata/go.mod
+      version: "v3.2.0"
+
+  goversion:
+    kind: golang/gomod
+    name: Ensure Golang version is set based on source "default"
+    scmid: updatecli
+    sourceid: golang
+    spec:
+      file: pkg/plugins/resources/go/gomod/testdata/go.mod
+      kind: golang
+
+  # Its' important to notice that the gomod plugin do not run the command 
+  # `go mod tidy` which need to be handled in a different stage such as
+  goModTidy:
+    dependson:
+      - goversion
+      - default
+    disablesourceinput: true
+    kind: shell
+    name: Run `go mod tidy`
+    spec:
+      changedif:
+        kind: file/checksum
+        spec:
+          files:
+            - go.mod
+            - go.sum
+      command: go mod tidy
+      environments:
+        - name: HOME
+        - name: PATH
+    scmid: updatecli
+
