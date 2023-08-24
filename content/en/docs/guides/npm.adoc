@@ -81,7 +81,9 @@ updatecli diff --config updatecli.d/manifest.yaml`
 
 === Going further
 
-Once happy with the Update pipeline, you can leverage CI environment to run it regularly. You'll need Updatecli installed in your CI environment, and the right credentials. More information link:https://www.updatecli.io/docs/automate/github_action/[here]
+Once you're happy with the Update pipeline, you can leverage CI environment to run it regularly.
+You'll need Updatecli installed in your CI environment, and the right credentials.
+More information link:https://www.updatecli.io/docs/automate/github_action/[in the corresponding GitHub Action documentation]
 
 This guide demonstrated a simple update pipeline, but real-world situations usually require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, CI environment, etc.
 
