@@ -27,7 +27,7 @@ targets:
     # And then we use the Updatecli specific templating function {{ source "<sourceID>" }}
     disablesourceinput: true
 
-    # scmid bind a target with a scm configuration.
+    # scmid binds a target with a scm configuration.
     # Updatecli clones the git repository in a temporary location, then updates it
     # according the current declarative pipeline.
     scmid: default
