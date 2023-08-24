@@ -15,7 +15,7 @@ targets:
     name: Ensure package.json and package-lock.json is up to date
     kind: shell
 
-    # The default behavior for a target is to have one of its spec field default to the source resource output.
+    # The default behavior for a target is to have one of its spec fields defaulting to the source resource output.
     #
     # More specifically for a resource of kind "shell", updatecli would append the value after the command such as
     # `npm install --package-lock-only --dry-run=$DRY_RUN axios@ 1.0.0`
