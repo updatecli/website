@@ -18,7 +18,7 @@ toc: true
 
 == npm
 
-==== Goal
+=== Goal
 
 The purpose of this pipeline is to track one npm dependency update, and then update both the package.json and package-lock.json in case of a version change.
 
@@ -89,7 +89,7 @@ This guide demonstrated a simple update pipeline, but real-world situations usua
 
 In the case of updating all dependencies from a package.json at once, the Autodiscovery feature is our current experimentation for addressing the problem.
 Feel free to reach out as we are still shaping this feature.
-To see what it looks like, you can run `updatecli --experimental` from a repository containing package.json
+To see what it looks like, you can run `updatecli diff --experimental` from a repository containing package.json
 
 In the situation of a more tailored update scenario, you may need to extend the current pipeline using additional resources such as:
 
