@@ -7,32 +7,47 @@
       <th>Required</th>
     </tr>
 {{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
-    {{ range $k, $v := $dataJ.properties }}
-      {{ if eq $k $stage }}
-        {{ range $k, $oneOf := $v.patternProperties }}
-            {{ range $_, $one := index $oneOf }}
-              {{ $core := index $one 0 }}
-                {{ range $paramName, $paramValue := $core.properties }}
+  {{ range $k, $v := $dataJ.properties }}
+    {{ if eq $k $stage }}
+      {{ range $k, $oneOf := $v.patternProperties }}
+        {{ range $_, $one := index $oneOf }}
+          {{ $core := index $one 0 }}
+          {{ range $paramName, $paramValue := $core.properties }}
+            {{ if eq $paramName "kind" }}
+    <tr>
+        <td><b>kind</b></td>
+        <td>string</td>
+        <td>kind specifies the {{ $stage }} resource kind</td>
+        <td></td>
+    </tr>
+            {{ else if  eq $paramName "spec" }}
+    <tr>
+        <td><b>spec</b></td>
+        <td>object</td>
+        <td>spec specifies parameters for a specific {{ $stage }} kind</td>
+        <td></td>
+    </tr>
+            {{ else }}
     <tr>
         <td><b>{{ $paramName }}</b></td>
         <td>{{ $paramValue.type }}</td>
         <td>{{ $paramValue.description }}</td>
         <td>{{ $paramValue.required }}</td>
     </tr>
-            {{ if eq $paramValue.type "object" }}
-              {{ if ne $paramName "spec" }}
-                {{ range $objectKey, $objectValue := $paramValue.properties }}
+              {{ if eq $paramValue.type "object" }}
+                {{ if ne $paramName "spec" }}
+                  {{ range $objectKey, $objectValue := $paramValue.properties }}
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $objectKey }}</b></td>
         <td>{{ $objectValue.type }}</td>
         <td>{{ $objectValue.description }}</td>
         <td>{{ $objectValue.required }}</td>
     </tr>
+                  {{ end }}
                 {{ end }}
               {{ end }}
-            {{ end }}
-            {{ if eq $paramValue.type "array" }}
-              {{ range $itemKey, $item := $paramValue.items.properties }}
+              {{ if eq $paramValue.type "array" }}
+                {{ range $itemKey, $item := $paramValue.items.properties }}
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
         <td>{{ $item.type }}</td>
@@ -45,6 +60,7 @@
         {{ end }}
       {{ end }}
     {{ end }}
+  {{ end }}
 {{ end }}
 
 </table>
