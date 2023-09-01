@@ -55,7 +55,7 @@ The following parameters can be specified through the `spec` attributes map:
 | value | | | Environments variable value. If the value is empty, then we inherit the value from the updatecli process.
 |===
 
-By default the command doesn't herit any environment variables from the updatecli process. The motivation is to avoid environment variable leak into the command.
+By default the command doesn't inherit any environment variables from the updatecli process. The motivation is to avoid environment variable leak into the command.
 
 To specify an environment variable, you can use one of the following example:
 
