@@ -6,7 +6,7 @@ actions:
         title: '[updatecli] Bump nodejs to {{ source "node" }}'
         kind: github/pullrequest
         spec:
-            automerge: true
+            automerge: false
             labels:
                 - chore
                 - dependencies
