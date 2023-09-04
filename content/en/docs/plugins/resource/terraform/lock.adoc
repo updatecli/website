@@ -1,0 +1,45 @@
+---
+title: "Terraform Lock"
+description: "Manipulate HCL information"
+lead: "kind: terraform/lock"
+date: 2023-08-04T09:00:00+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10007; | &#10004; | &#10004;
+|===
+
+**condition**
+
+The terraform/lock "condition" tests that lock file version and hashes match the value for a given provider.
+
+**target**
+
+The terraform/lock "target" ensures that an the lock file version and hashes are update to date for given provider.
+
+== Parameter
+
+{{< resourceparameters "sources" "terraform/lock" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/terraform/lock/updatecli.d/default.yaml">}}
+----
