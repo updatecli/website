@@ -1,0 +1,45 @@
+---
+title: "Terraform Provider"
+description: "Manipulate HCL information"
+lead: "kind: terraform/provider"
+date: 2023-08-04T09:00:00+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10007; | &#10004; | &#10004;
+|===
+
+**condition**
+
+The terraform/provider "condition" tests that a version in the `required_provider` block matches the value for a given provider.
+
+**target**
+
+The terraform/provider "target" ensures that a version is the `required_provider` block is update to date for given provider.
+
+== Parameter
+
+{{< resourceparameters "sources" "terraform/provider" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/terraform/provider/updatecli.d/default.yaml">}}
+----
