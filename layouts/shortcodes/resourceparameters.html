@@ -10,40 +10,36 @@
 {{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
     {{ range $k, $v := $dataJ.properties }}
       {{ if eq $k $stage }}
-        {{ range $k, $oneOf := $v.patternProperties }}
-            {{ range $one := $oneOf }}
-                {{ range $plugin := $one }}
-                  {{ if eq ( index $plugin.properties.kind.enum 0) $pluginName }}
-                    {{ range $key, $value := $plugin.properties.spec.properties }}
+        {{ range $k, $oneOf := $v.additionalProperties.oneOf }}
+          {{ if eq ( index $oneOf.properties.kind.enum 0) $pluginName }}
+            {{ range $key, $value := $oneOf.properties.spec.properties }}
     <tr>
         <td><b>{{ $key }}</b></td>
         <td>{{ $value.type }}</td>
         <td>{{ $value.description | markdownify }}</td>
         <td>{{ $value.required }}</td>
     </tr>
-                        {{ if eq $value.type "object" }}
-                          {{ range $subkey, $subvalue := $value.properties }}
+              {{ if eq $value.type "object" }}
+                {{ range $subkey, $subvalue := $value.properties }}
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $subkey }}</b></td>
         <td>{{ $subvalue.type }}</td>
         <td>{{ $subvalue.description | markdownify }}</td>
         <td>{{ $subvalue.required }}</td>
     </tr>
-                          {{ end }}
-                        {{ end }}
-                        {{ if eq $value.type "array" }}
-                          {{ range $itemKey, $item := $value.items.properties }}
+                {{ end }}
+              {{ end }}
+              {{ if eq $value.type "array" }}
+                {{ range $itemKey, $item := $value.items.properties }}
     <tr>
       <td><b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
       <td>{{ $item.type }}</td>
       <td>{{ $item.description | markdownify }}</td>
       <td>{{ $item.required }}</td>
     </tr>
-                        {{ end }}
-                      {{ end }}
-                    {{ end }}
-                  {{ end }}
+              {{ end }}
             {{ end }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
