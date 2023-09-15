@@ -1,6 +1,6 @@
 ---
 title: "Terraform Lock"
-description: "Manipulate HCL information"
+description: "Manipulate Terraform lock files"
 lead: "kind: terraform/lock"
 date: 2023-08-04T09:00:00+01:00
 draft: false
@@ -24,6 +24,8 @@ plugins:
 | &#10007; | &#10004; | &#10004;
 |===
 
+== Description
+
 **condition**
 
 The terraform/lock "condition" tests that lock file version and hashes match the value for a given provider.
@@ -37,6 +39,8 @@ The terraform/lock "target" ensures that an the lock file version and hashes are
 {{< resourceparameters "sources" "terraform/lock" >}}
 
 == Example
+
+The example uses an additional resource plugin: link:{{< ref "registry" >}}[`terraform/registry`].
 
 [source,yaml]
 ----
