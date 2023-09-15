@@ -14,7 +14,7 @@ scms:
     kind: github
     spec:
       owner: updatecli
-      repository: updatecli-action
+      repository: website
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       branch: master
