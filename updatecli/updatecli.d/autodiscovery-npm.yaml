@@ -17,7 +17,7 @@ scms:
       repository: updatecli-action
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      branch: v2
+      branch: master
 
 autodiscovery:
   scmid: default
