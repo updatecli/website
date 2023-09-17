@@ -1,6 +1,6 @@
 ---
 title: "Terraform Provider"
-description: "Manipulate HCL information"
+description: "Manipulate Terraform provider files"
 lead: "kind: terraform/provider"
 date: 2023-08-04T09:00:00+01:00
 draft: false
@@ -24,6 +24,8 @@ plugins:
 | &#10007; | &#10004; | &#10004;
 |===
 
+== Description
+
 **condition**
 
 The terraform/provider "condition" tests that a version in the `required_provider` block matches the value for a given provider.
@@ -37,6 +39,8 @@ The terraform/provider "target" ensures that a version is the `required_provider
 {{< resourceparameters "sources" "terraform/provider" >}}
 
 == Example
+
+The example uses an additional resource plugin: link:{{< ref "registry" >}}[`terraform/registry`].
 
 [source,yaml]
 ----

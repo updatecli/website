@@ -1,0 +1,47 @@
+---
+title: "Terraform Registry"
+description: "Manipulate Terraform Registry information"
+lead: "kind: terraform/registry"
+date: 2023-08-04T09:00:00+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+**source**
+
+The terraform/registry "source" retrieves the Terraform registry provider or module version matching then versioning rule.
+
+**condition**
+
+The terraform/registry "condition" checks if the Terraform registry provider or module version matching then versioning rule exist.
+
+== Parameter
+
+{{< resourceparameters "sources" "terraform/registry" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/terraform/registry/updatecli.d/default.yaml">}}
+----

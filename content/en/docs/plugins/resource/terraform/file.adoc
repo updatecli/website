@@ -1,0 +1,56 @@
+---
+title: "Terraform File"
+description: "Manipulate Terraform files"
+lead: "kind: terraform/file"
+date: 2023-07-28T15:00:00+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+`terraform/file` is an alias for link:{{< ref "hcl" >}}[`hcl`].
+
+**source**
+
+The Terraform file "source" retrieves an attribute from a Terraform file at configured path.
+
+**condition**
+
+The Terraform file "condition" tests that attribute at configured path matches the value in a Terraform file.
+
+**target**
+
+The Terraform file "target" ensures that an attribute at configured path in a Terraform file is set to a specific value.
+
+== Parameter
+
+{{< resourceparameters "sources" "terraform/file" >}}
+
+== Example
+
+The example uses an additional resource plugin: link:{{< ref "registry" >}}[`terraform/registry`].
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/terraform/file/updatecli.d/default.yaml">}}
+----
