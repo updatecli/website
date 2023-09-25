@@ -27,6 +27,10 @@ plugins:
 
 == Description
 
+**source**
+
+The Docker Image "source" retrieves a docker image tag from a Docker Registry
+
 **condition**
 
 The Docker Image "condition" tests if a docker image tag exist on a Docker Registry
@@ -39,6 +43,23 @@ The Docker Image "condition" tests if a docker image tag exist on a Docker Regis
 
 It's considered a very bad practice to store credentials in an unencrypted file.
 Consider using an environment variable to store the token.
+
+== Architectures
+
+When the parameter `architecture` or `architectures` the registry will be checked to see if they are present.
+
+Remarks:
+
+* The default operating system is `linux`.
+* When query variant `v7` for `arm` the operating system must also be defined.
+* Checking architectures is not supported for v1 registries
+
+Here are some examples:
+
+* `amd64` - will check for `linux/amd64`
+* `linux/amd64`
+* `windows/amd64`
+* `linux/arm/v7`
 
 == Authentication
 
@@ -66,54 +87,17 @@ To retrieve the token, it's easier to run `docker login` and then retrieve the t
 Please note that in this example we are using a go template `updatecli.tpl` with values from `values.yaml`
 The main motivation is to use {{ requiredEnv ENV_VARIABLE }} to read the github token from a environment variable.
 
-.updatecli.tpl
-```
----
-sources:
-  lastGithubRelease:
-    kind: githubRelease
-    spec:
-      owner: "jenkins-infra"
-      repository: "plugin-site-api"
-      token: "{{ requiredEnv .github.token }}"
-      username: "olblak"
-      versionFilter:
-        kind: latest
-conditions:
-  docker:
-    name: "Docker Image Published on Registry"
-    kind: dockerimage
-    spec:
-      image: "jenkinsciinfra/plugin-site-api"
-targets:
-  imageTag:
-    name: "jenkinsciinfra/plugin-site-api docker image"
-    kind: yaml
-    spec:
-      file: "charts/plugin-site/values.yaml"
-      key: "backend.image.tag"
-    scm:
-      github:
-        user: "{{ .github.user }}"
-        email: "{{ .github.email }}"
-        owner: "jenkins-infra"
-        repository: "charts"
-        token: "{{ requiredEnv .github.token }}"
-        username: "olblak"
-        branch: "master"
-```
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/docker/image/updatecli.d/default.yaml">}}
+----
 
-.values.yaml
-```
-github:
-  user: "updatebot"
-  email: "updatebot@olblak.com"
-  username: "jenkins-infra-bot"
-  token: "UPDATECLI_GITHUB_TOKEN"
-  branch: "master"
-  owner: "olblak"
-  repository: "charts"
-```
+[source,yaml]
+----
+# values.yaml
+{{<include "assets/code_example/docs/plugins/resources/docker/image/values.yaml">}}
+----
 
 What it says:
 
@@ -122,7 +106,7 @@ Retrieve the latest version from the Github release of the project jenkis-infra/
 => v1.11.1
 
 **Condition**
-Test that the tag `v1.11.1` exist for the image `jenkinsciinfra/plugin-site-api` on DockerHub
+Test that the tag `v1.11.1` exist for the image `jenkinsciinfra/plugin-site-api` on DockerHub and architecture `linux/amd64` is present
 => No, then abort
 
 **target**
