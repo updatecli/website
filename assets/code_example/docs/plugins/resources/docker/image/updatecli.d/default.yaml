@@ -1,0 +1,43 @@
+name: Docker Image
+
+sources:
+  lastGithubRelease:
+    kind: githubrelease
+    spec:
+      owner: "jenkins-infra"
+      repository: "plugin-site-api"
+      token: "{{ requiredEnv .github.token }}"
+      username: "olblak"
+      versionfilter:
+        kind: latest
+
+conditions:
+  docker:
+    name: "Docker Image Published on Registry"
+    kind: dockerimage
+    spec:
+      image: "jenkinsciinfra/plugin-site-api"
+      architecture: "linux/amd64"
+
+targets:
+  imageTag:
+    name: "jenkinsciinfra/plugin-site-api docker image"
+    kind: yaml
+    spec:
+      file: "charts/plugin-site/values.yaml"
+      key: "$.backend.image.tag"
+    scmid: default
+
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+    disabled: false
