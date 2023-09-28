@@ -9,9 +9,7 @@
 {{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
   {{ range $k, $v := $dataJ.properties }}
     {{ if eq $k $stage }}
-      {{ range $k, $oneOf := $v.patternProperties }}
-        {{ range $_, $one := index $oneOf }}
-          {{ $core := index $one 0 }}
+      {{ $core := ( index $v.additionalProperties.oneOf 0 )}}
           {{ range $paramName, $paramValue := $core.properties }}
             {{ if eq $paramName "kind" }}
     <tr>
@@ -56,8 +54,6 @@
     </tr>
               {{ end }}
             {{ end }}
-          {{ end }}
-        {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
