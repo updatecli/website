@@ -1,0 +1,37 @@
+name: "Terraform autodiscovery using git scm"
+scms:
+  default:
+    kind: git
+    spec:
+      url: https://github.com/updatecli-test/jenkins-infra-aws.git
+      branch: main
+
+autodiscovery:
+  # scmid is applied to all crawlers
+  scmid: default
+  crawlers:
+    terraform:
+      # platforms to request package checksums for, defaults to:
+      platforms:
+        - linux_amd64
+        - linux_arm64
+        - darwin_amd64
+        - darwin_arm64
+      # To ignore specific path
+      #ignore:
+      #  - path: <filepath relative to scm repository>
+      #  - providers:
+      #      # Ignoring provider updates for this provider
+      #      registry.terraform.io/hashicorp/aws:
+      #      # Ignore provider updates for this version
+      #      registry.terraform.io/hashicorp/kubernetes: "1.x"
+
+      ignore:
+      #  - path: <filepath relative to scm repository>
+      #  - providers:
+      #      # Ignoring provider updates for this provider
+      #      registry.terraform.io/hashicorp/aws:
+      #      # Ignore provider updates for this version
+      #      registry.terraform.io/hashicorp/kubernetes: "1.x"
+
+
