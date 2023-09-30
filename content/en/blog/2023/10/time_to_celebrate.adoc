@@ -48,7 +48,7 @@ As always it's hard to tell, but I guess finding the right balance between imple
 
 With a more concrete example, the biggest recent addition to Updatecli is the Terraform support contributed by **link:https://warman.io/[Matthew Warman]** where using the declarative approach here combining the plugins **link:https://www.updatecli.io/docs/plugins/resource/terraform/file/[terraform/file]**, **link:https://www.updatecli.io/docs/plugins/resource/terraform/lock/[terraform/lock]**, **link:https://www.updatecli.io/docs/plugins/resource/terraform/provider/[terraform/provider]**, or **link:https://www.updatecli.io/docs/plugins/resource/terraform/registry/[terraform/registry]** (combined with any existing plugins), we can define tailored update pipeline for Terraform related project, or OpenTofu.
 
-In version 0.62.0, Matthew also contributed the Terraform Autodiscovery plugin allowing to automatically handle Terraform project updates.
+In version 0.62.0, Matthew also contributed the **link:https://www.updatecli.io/docs/plugins/autodiscovery/terraform/[Terraform Autodiscovery plugin]** allowing to automatically handle Terraform project updates.
 For example, we can run commands such as `updatecli diff --experimental` to see what would change in Terraform project containing a Terraform lock file.
 
 On my side, I am exploring the possibility of using OCI registries such as DockerHub or ghcr.io to share and reuse Updatecli policies.
