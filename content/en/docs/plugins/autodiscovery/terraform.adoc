@@ -1,0 +1,35 @@
+---
+title: "Terraform"
+description: "Discover Terraform provider update"
+lead: "kind: terraform"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Terraform crawler looks recursively for all Terraform provider updates from a specific root directory.
+Then for each of them, it tries to automate them.
+
+Automation is done by using two resources link:{{< ref "registry" >}}[`terraform/registry`] as the source and
+link:{{< ref "registry" >}}[`terraform/lock`] as the target.
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "terraform" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/terraform/updatecli.d/default.yaml">}}
+----
