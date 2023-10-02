@@ -1,0 +1,69 @@
+---
+title: "Time to celebrate!"
+date: 2023-10-02T12:00:00+01:00
+draft: false
+weight: 50
+images: [""]
+contributors: ["olblak"]
+---
+
+= Time to celebrate!
+
+Time flies when we work on things we love, which makes it easy to miss successful milestones.
+
+Working on Updatecli for my projects has been a time saver and ultimately a real joy.
+I can watch my git repositories getting updated automatically with a few tweaks here and there.
+
+It feels even better knowing that I also contribute indirectly to many small and large projects in the world.
+
+Through this journey, I received great feedbacks which kept motivating me to continue further.
+
+Those feedbacks take many different forms such as: getting direct messages, watching the project **link:https://github.com/updatecli/updatecli/blob/main/ADOPTERS.md[Adopters]** file growing, reviewing contribution, and also financial support.
+
+== Financial Support
+
+When it comes to companies financially sponsoring my work, my first ever sponsor came from **link:https://prefect.io/[Prefect]** who keeps sponsoring me month after month but also helped me make Updatecli more robust by providing invaluable feedback.
+
+Another major support comes from **link:https://github.com/ForesightMiningSoftwareCorporation[Foresight Mining]**, who not only sponsors financially but also contributes code like Rust support.
+
+I really love seeing those two company names sponsoring me as they are evolving in totally different domains, and not even from the continent where I live.
+
+Ok, I see you coming, they are both software companies, but nowadays what company is not a software company that needs to maintain Git repositories?
+
+=== Prefect
+
+Prefect is the company behind the successful OSS project of the same name **link:https://github.com/PrefectHQ/prefect[Prefect]**. Prefect is a workflow orchestration tool that empowers developers to build, observe, and react to data pipelines.
+
+image::/images/sponsors/prefect.png["Prefect",align="center"]
+
+=== Foresight Mining
+
+Foresight Mining is currently busy building the next generation of IOT collaborative CAD systems.
+
+image::/images/sponsors/foresightmining.jpeg["Foresight Mining",align="center"]
+
+== So what's coming next?
+
+As always it's hard to tell, but I guess finding the right balance between implementing crazy ideas, having fun, and fixing bugs we encounter as Updatecli usage grows.
+
+With a more concrete example, the biggest recent addition to Updatecli is the Terraform support contributed by **link:https://warman.io/[Matthew Warman]** where using the declarative approach combining plugins **link:https://www.updatecli.io/docs/plugins/resource/terraform/file/[terraform/file]**, **link:https://www.updatecli.io/docs/plugins/resource/terraform/lock/[terraform/lock]**, **link:https://www.updatecli.io/docs/plugins/resource/terraform/provider/[terraform/provider]**, or **link:https://www.updatecli.io/docs/plugins/resource/terraform/registry/[terraform/registry]** (or any others existing plugins), we can define tailored update pipeline for Terraform related project, or OpenTofu.
+
+In version 0.62.0, Matthew also contributed the **link:https://www.updatecli.io/docs/plugins/autodiscovery/terraform/[Terraform Autodiscovery plugin]** allowing to automatically handle Terraform project updates.
+For example, we can run commands such as `updatecli diff --experimental` to see what would change in Terraform project containing a Terraform lock file.
+
+On my side, I am exploring the possibility of using OCI registries such as DockerHub or ghcr.io to share and reuse Updatecli policies.
+As the project evolves, we face more and more the need to run Updatecli at scale. And being able to easily share and reuse existing Update policies would be another milestone.
+
+== Let's Connect
+
+As usual, if you have any questions feel free to reach out via our **link:https://matrix.to/#/#Updatecli_community:gitter.im[chat]**
+
+And do not forget to star our project on GitHub repository **link:https://github.com/updatecli/updatecli/stargazers[updatecli/updatecli]** as it's probably one of the easiest ways to show your appreciation.
+
+== The People ❤️
+
+The Updatecli wouldn't stand here today without all the people who contributed to it.
+Thank you very much for being around.
+
+image::/images/blog/2023/10/contributors.svg["Contributors",align="center"]
+
