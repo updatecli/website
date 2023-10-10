@@ -30,13 +30,17 @@ sources:
     scmid: default
     spec:
       file: https://updates.jenkins.io/tiers.json
+      # `key` targets only one value, the first one of the list in this case
       key: "stableCores.[0]"
   JenkinsNewestWeeklyVersion:
     name: Get the newest supported Jenkins weekly version
     kind: json
     spec:
       file: https://updates.jenkins.io/tiers.json
+      # Here we use `query` to target all the values in the list
       query: "weeklyCores.[*]"
+      # We use `versionfilter` to filter the list of versions
+      # Combined with `semver`, we can target the latest version that follows the semver pattern
       versionfilter:
         kind: semver
   JenkinsNewestStableVersion:
