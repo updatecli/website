@@ -47,7 +47,9 @@ The JSON "target" ensures that a JSON file content a specific value at specific 
 
 The JSON plugin relies on link:https://daseldocs.tomwright.me/[Dasel] to query json files
 
-== Example
+== Examples
+
+=== Retrieves a value from a JSON file
 
 [source,yaml]
 ----
@@ -55,4 +57,10 @@ The JSON plugin relies on link:https://daseldocs.tomwright.me/[Dasel] to query j
 {{<include "assets/code_example/docs/plugins/resources/json/updatecli.d/default.yaml">}}
 ----
 
+=== Uses a path to find a value in a JSON file
 
+[source,yaml]
+----
+# jenkins-old-versions.yaml
+{{<include "assets/code_example/docs/plugins/resources/json/updatecli.d/jenkins-old-versions.yaml">}}
+----
