@@ -1,0 +1,108 @@
+# We're working with https://updates.jenkins.io/tiers.json
+# {"stableCores":["2.346.3","2.361.1", ...,"2.414.2"],"weeklyCores":["2.364","2.371",...,"2.425"]}
+# This example finds the oldest weekly and stable supported Jenkins versions (first in the list)
+# It also finds the latest weekly and stable Jenkins versions (last in the list)
+name: Find oldest supported Jenkins versions
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  JenkinsOldestSupportedWeekly:
+    name: Get the oldest supported Jenkins weekly version
+    kind: json
+    scmid: default
+    spec:
+      file: https://updates.jenkins.io/tiers.json
+      key: "weeklyCores.[0]"
+  JenkinsOldestSupportedStable:
+    name: Get the oldest supported Jenkins stable version
+    kind: json
+    scmid: default
+    spec:
+      file: https://updates.jenkins.io/tiers.json
+      # `key` targets only one value, the first one of the list in this case
+      key: "stableCores.[0]"
+  JenkinsNewestWeeklyVersion:
+    name: Get the newest supported Jenkins weekly version
+    kind: json
+    spec:
+      file: https://updates.jenkins.io/tiers.json
+      # Here we use `query` to target all the values in the list
+      query: "weeklyCores.[*]"
+      # We use `versionfilter` to filter the list of versions
+      # Combined with `semver`, we can target the latest version that follows the semver pattern
+      versionfilter:
+        kind: semver
+  JenkinsNewestStableVersion:
+    name: Get the newest supported Jenkins stable version
+    kind: json
+    spec:
+      file: https://updates.jenkins.io/tiers.json
+      query: "stableCores.[*]"
+      versionfilter:
+        kind: semver
+
+conditions:
+  # Test that the oldest Jenkins supported weekly version exists
+  jenkinsOldestSupportedWeeklyVersion:
+    kind: jenkins
+    spec:
+      release: weekly
+    sourceid: JenkinsOldestSupportedWeekly
+  # Test that the oldest Jenkins supported stable version exists
+  jenkinsOldestSupportedStableVersion:
+    kind: jenkins
+    sourceid: JenkinsOldestSupportedStable
+  # Test that the newest Jenkins supported weekly version exists
+  jenkinsNewestSupportedWeeklyVersion:
+    kind: jenkins
+    spec:
+      release: weekly
+    sourceid: JenkinsNewestWeeklyVersion
+  # Test that the newest Jenkins supported stable version exists
+  jenkinsNewestSupportedStableVersion:
+    kind: jenkins
+    sourceid: JenkinsNewestStableVersion
+targets:
+  setJenkinsOldestSupportedWeekly:
+    kind: file
+    name: "Bump Jenkins oldest weekly supported version in the \"Choosing a version\" page"
+    sourceid: JenkinsOldestSupportedWeekly
+    spec:
+      file: content/doc/developer/plugin-development/choosing-jenkins-baseline.adoc
+      matchpattern: >-
+        (.*Do not use versions no longer supported by the update center.*older than )(.*)( for weekly releases.*for LTS releases.*)
+      replacepattern: >-
+        ${1}{{ source "JenkinsOldestSupportedWeekly" }}${3}
+    scmid: default
+  setJenkinsOldestSupportedStable:
+    kind: file
+    name: "Bump Jenkins oldest stable supported version in the \"Choosing a version\" page"
+    sourceid: JenkinsOldestSupportedStable
+    spec:
+      file: content/doc/developer/plugin-development/choosing-jenkins-baseline.adoc
+      matchpattern: >-
+        (.*Do not use versions no longer supported by the update center.* weekly releases, and )(.*)( for LTS releases.*)
+      replacepattern: >-
+        ${1}{{ source "JenkinsOldestSupportedStable" }}${3}
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump Jenkins LTS and weekly versions in various parts of the documentation
+    spec:
+      labels:
+        - dependencies
+        - chore
