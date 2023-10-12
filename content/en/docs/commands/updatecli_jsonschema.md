@@ -2,8 +2,8 @@
 title: updatecli jsonschema
 description: Documentation for the command `updatecli jsonschema`
 lead: Documentation for the command `updatecli jsonschema`
-date: 2023-03-04T08:15:30+01:00
-lastmod: 2023-03-04T08:15:30+01:00
+date: 2023-10-12T14:48:08+02:00
+lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -24,7 +24,7 @@ updatecli jsonschema [flags]
 ### Options
 
 ```
-  -b, --baseid string      Define schema baseid (default "https://www.updatecli.io/latest/schema")
+  -b, --baseid string      Define schema baseid (default "https://www.updatecli.io/schema/latest")
   -d, --directory string   Export schema to directory (default "./")
   -h, --help               help for jsonschema
 ```

@@ -2,8 +2,8 @@
 title: updatecli apply
 description: Documentation for the command `updatecli apply`
 lead: Documentation for the command `updatecli apply`
-date: 2023-03-04T08:15:30+01:00
-lastmod: 2023-03-04T08:15:30+01:00
+date: 2023-10-12T14:48:08+02:00
+lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -18,17 +18,19 @@ toc: true
 apply checks if an update is needed then apply the changes
 
 ```
-updatecli apply [flags]
+updatecli apply NAME[:TAG|@DIGEST] [flags]
 ```
 
 ### Options
 
 ```
       --clean                 Remove updatecli working directory like '--clean=true'
-      --commit                Record changes to the repository, '--commit=false' (default: true) (default true)
-  -c, --config string         Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
+      --commit                Record changes to the repository, '--commit=false' (default true)
+  -c, --config stringArray    Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
+      --disable-tls           Disable TLS verification like '--disable-tls=true'
   -h, --help                  help for apply
-      --push                  Update remote refs '--push=false' (default: true) (default true)
+      --push                  Update remote refs '--push=false' (default true)
+      --reportAPI string      Set the report API URL where to publish pipeline reports
       --secrets stringArray   Sets Sops secrets file uses for templating
   -v, --values stringArray    Sets values file uses for templating
 ```

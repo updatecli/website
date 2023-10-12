@@ -2,8 +2,8 @@
 title: updatecli prepare
 description: Documentation for the command `updatecli prepare`
 lead: Documentation for the command `updatecli prepare`
-date: 2023-03-04T08:15:30+01:00
-lastmod: 2023-03-04T08:15:30+01:00
+date: 2023-10-12T14:48:08+02:00
+lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -18,14 +18,15 @@ toc: true
 prepare run tasks needed for a run like `git clone`
 
 ```
-updatecli prepare [flags]
+updatecli prepare NAME[:TAG|@DIGEST] [flags]
 ```
 
 ### Options
 
 ```
       --clean                 Remove updatecli working directory like '--clean=true
-  -c, --config string         Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
+  -c, --config stringArray    Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
+      --disable-tls           Disable TLS verification like '--disable-tls=true'
   -h, --help                  help for prepare
       --secrets stringArray   Sets Sops secrets file uses for templating
   -v, --values stringArray    Sets values file uses for templating
