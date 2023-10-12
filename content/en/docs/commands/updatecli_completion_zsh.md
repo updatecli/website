@@ -2,8 +2,8 @@
 title: updatecli completion zsh
 description: Documentation for the command `updatecli completion zsh`
 lead: Documentation for the command `updatecli completion zsh`
-date: 2023-03-04T08:15:30+01:00
-lastmod: 2023-03-04T08:15:30+01:00
+date: 2023-10-12T14:48:08+02:00
+lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -28,7 +28,7 @@ to enable it.  You can execute the following once:
 
 To load completions in your current shell session:
 
-	source <(updatecli completion zsh); compdef _updatecli updatecli
+	source <(updatecli completion zsh)
 
 To load completions for every new session, execute once:
 

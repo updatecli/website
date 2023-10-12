@@ -2,8 +2,8 @@
 title: updatecli manifest
 description: Documentation for the command `updatecli manifest`
 lead: Documentation for the command `updatecli manifest`
-date: 2023-03-04T08:15:30+01:00
-lastmod: 2023-03-04T08:15:30+01:00
+date: 2023-10-12T14:48:08+02:00
+lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -33,6 +33,8 @@ manifest executes specific manifest task such as upgrade
 ### SEE ALSO
 
 * [updatecli](/docs/commands/updatecli)	 - Updatecli is a declarative dependency manager command line tool
+* [updatecli manifest pull](/docs/commands/updatecli_manifest_pull)	 - pull manifest(s) from an OCI registry
+* [updatecli manifest push](/docs/commands/updatecli_manifest_push)	 - push manifest(s) to an OCI registry
 * [updatecli manifest show](/docs/commands/updatecli_manifest_show)	 - show manifest(s) which will be executed
 * [updatecli manifest upgrade](/docs/commands/updatecli_manifest_upgrade)	 - upgrade executes manifest upgrade task
 

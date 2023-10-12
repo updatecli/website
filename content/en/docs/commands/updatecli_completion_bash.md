@@ -2,8 +2,8 @@
 title: updatecli completion bash
 description: Documentation for the command `updatecli completion bash`
 lead: Documentation for the command `updatecli completion bash`
-date: 2023-03-04T08:15:30+01:00
-lastmod: 2023-03-04T08:15:30+01:00
+date: 2023-10-12T14:48:08+02:00
+lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
