@@ -1,0 +1,69 @@
+---
+title: "Share & Reuse"
+description: "Sharing and reusing Updatecli policies"
+date: 2023-10-01T12:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130 
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+WARNING: This feature is still in a early stage and all feedback are welcome.
+
+== Description
+
+As the number of Updatecli policies increases, more and more we realize that we need to scale Updatecli to another level. Somewhere between what we have now, duplicated manifest(s) for each Git repository, and the Autodiscovery feature.
+
+We want to reuse Updatecli policies across many projects. We want to write them once and reuse them everywhere.
+
+___
+
+For example:
+
+. Enforcing the same Golang version everywhere.
+. Having the ability to update project custom tooling.
+. Reusing the same policy but with different schedules such as for major/minor/patch version update
+
+___
+
+Updatecli allows publishing any update policy to any OCI registries such as ghcr.io, dockerhub, quay.io, etc..
+
+What we mean by an Update policy is a bundle of Updatecli manifest, values, secrets files. That bundle is identified by reference such as `ghcr.io/updatecli/policies/golang:latest`.
+
+== Share & Reuse
+
+IMPORTANT: Updatecli doesn't handle OCI registry authentication but it relies on the local docker configuration. Therefore you must first run `docker login` before any registry operation.
+
+**Share**
+
+To share Updatecli configuration files we run the following command:
+
+```
+  updatecli manifest push --config updatecli/updatecli.d/updatecli.yaml -t ghcr.io/updatecli/policies/golang:latest .
+```
+
+As you can notice `ghcr.io/olblak/policies/golang:latest` looks like a container but it is not a container it's an OCI artifact where each layer represents one of the manifest/config/values/secrets files
+
+**Reuse**
+
+To reuse this policy, you can run:
+
+```
+updatecli apply ghcr.io/updatecli/policies/golang:latest
+```
+
+== Remarks
+
+Depending on how we write the policy we can override the default value using env variable with the Go template function `env` or just provide a new values.yaml or secrets.yaml
+
+Using OCI registries for other things than docker/container is not a new concept, a lot of projects like **link:https://www.kubewarden.io/[Kubewarden]**, link:https://www.conftest.dev/sharing/[Conftest], or link:https://helm.sh/[Helm] already use OCI registry to store artifacts such as WASM binary, files, etc.
+
+This approach scales better, allows policy versioning, allows to retrieve the right set of files, allows signing using cosign, etc.
+
