@@ -1,5 +1,6 @@
-pipelineid: jsonschema
-name: 'docs: update Updatecli jsonschema'
+name: 'docs: update Updatecli cli documentation'
+
+pipelineid: cli_docs
 
 actions:
     default:
@@ -10,6 +11,7 @@ actions:
                 - chore
             mergemethod: squash
         scmid: default
+
 scms:
     default:
         kind: github
@@ -25,21 +27,12 @@ scms:
 
 targets:
     jsonschema:
-        name: 'chore: update Updatecli jsonschema'
+        name: 'docs: update updatecli cli documentation'
         kind: shell
         spec:
-            command: updatecli jsonschema --baseid https://www.updatecli.io/latest/schema --directory content/en/schema/latest
+            command: updatecli docs -d ./content/en/docs/commands
             environments:
                 - name: PATH
-            changedif:
-                kind: file/checksum
-                spec:
-                  files:
-                    - "content/en/schema/latest/compose/config.json"
-                    - "content/en/schema/latest/config.json"
-                    - "content/en/schema/latest/policy/manifest/config.json"
-                    - "content/en/schema/latest/policy/metadata/config.json"
-
         scmid: default
 
-version: 0.64.1
+version: "0.64.1"

@@ -1,4 +1,4 @@
-name: "Bump All NPM package version"
+name: "deps: bump All NPM package version"
 pipelineid: npm
 
 actions:
@@ -26,3 +26,4 @@ autodiscovery:
   crawlers:
     npm:
 
+version: 0.64.0

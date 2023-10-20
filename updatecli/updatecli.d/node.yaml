@@ -1,9 +1,9 @@
-name: NODE.YAML
-pipelineid: fea1ab6e846c666b2b2246d19864e5545eb9f4371c9c1c7f520a4a1ece51b57b
-title: Bump Hugo version
+name : 'deps: Bump Node version'
+pipelineid: nodejs
+
 actions:
     default:
-        title: '[updatecli] Bump nodejs to {{ source "node" }}'
+        title: 'deps: bump nodejs to {{ source "node" }}'
         kind: github/pullrequest
         spec:
             automerge: false
@@ -12,6 +12,7 @@ actions:
                 - dependencies
             mergemethod: squash
         scmid: default
+
 scms:
     default:
         kind: github
@@ -24,6 +25,7 @@ scms:
             user: updatecli
             username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
         disabled: false
+
 sources:
     majornodeversion:
         name: Get latest NodeJS version
@@ -56,21 +58,21 @@ sources:
             - trimprefix: v
 targets:
     githubaction:
-        name: Update Node version used in Github Action
+        name: 'deps: update Node used by Github Action to {{ source "node" }}'
         kind: file
+        disablesourceinput: true
         spec:
             file: .github/workflows/build.yaml
             matchpattern: 'node-version: (.*)'
             replacepattern: 'node-version: {{ source "majornodeversion" }}'
         scmid: default
-        sourceid: majornodeversion
     netlify:
-        name: Update Node version used on Netlify
+        name: 'deps: update Node used by Netlify to {{ source "node" }}'
         kind: file
+        disablesourceinput: true
         spec:
             file: netlify.toml
             matchpattern: NODE_VERSION = "(.*)"
             replacepattern: NODE_VERSION = "{{ source "node" }}"
         scmid: default
-        sourceid: node
 

@@ -1,9 +1,8 @@
-name: INSTALLATION.YAML
-pipelineid: c7b98e864610b0801ea8671b64e964af8494cc71b0ddcc68bc2cf4c5a3584dad
-title: Bump udpatecli version in installation documentation
+name: 'docs: update Updatecli version throughout the documentation'
+pipelineid: updatecli/version
+
 actions:
     default:
-        title: '[updatecli] Bump updatecli version used within installation documentation to {{ source "updatecli" }}'
         kind: github/pullrequest
         spec:
             automerge: true
@@ -11,6 +10,7 @@ actions:
                 - chore
             mergemethod: squash
         scmid: default
+
 scms:
     default:
         kind: github
@@ -23,6 +23,7 @@ scms:
             user: updatecli
             username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
         disabled: false
+
 sources:
     updatecli:
         name: Get latest updatecli release
@@ -32,9 +33,10 @@ sources:
             repository: updatecli
             token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
             username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+
 targets:
     download-url:
-        name: Update Installation URL
+        name: 'docs: update updatecli version to {{ source "updatecli" }}'
         kind: file
         spec:
             file: content/en/docs/prologue/installation.adoc
@@ -42,4 +44,5 @@ targets:
             replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
         scmid: default
         sourceid: updatecli
-version: 0.43.0
+
+version: 0.64.1
