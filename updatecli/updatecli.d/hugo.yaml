@@ -1,9 +1,9 @@
-name: HUGO.YAML
-pipelineid: 0bfa782c851649c0be48e2b3d3bcfe3df8b95e411baae829b741991006661bc4
-title: Bump Hugo version
+name: 'deps: update Hugo version'
+pipelineid: hugo
+
 actions:
     default:
-        title: '[updatecli] Bump HUGO to {{ source "hugo" }}'
+        title: 'deps: update HUGO version to {{ source "hugo" }}'
         kind: github/pullrequest
         spec:
             automerge: true
@@ -37,7 +37,7 @@ sources:
             username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
 targets:
     githubaction:
-        name: Update Hugo version used in Github Action
+        name: 'ci: update Hugo version used in Github Action to {{ source "hugo" }}'
         kind: file
         spec:
             file: .github/workflows/build.yaml
@@ -46,7 +46,7 @@ targets:
         scmid: default
         sourceid: hugo
     netlify:
-        name: Update Hugo version used on Netlify
+        name: 'chore: update Hugo version used by Netlify to {{ source "hugo" }}'
         kind: file
         spec:
             file: netlify.toml
@@ -54,4 +54,5 @@ targets:
             replacepattern: 'HUGO_VERSION = "{{ source "hugo" }}"'
         scmid: default
         sourceid: hugo
-version: 0.43.0
+
+version: 0.64.1
