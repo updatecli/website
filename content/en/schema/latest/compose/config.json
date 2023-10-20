@@ -5,12 +5,9 @@
         "policies": {
             "items": {
                 "properties": {
-                    "configs": {
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array",
-                        "description": "Config contains a list of config ids to be used for the policy"
+                    "name": {
+                        "type": "string",
+                        "description": "Name contains the policy name"
                     },
                     "policy": {
                         "type": "string",
