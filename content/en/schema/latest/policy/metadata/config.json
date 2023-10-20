@@ -23,7 +23,7 @@
         },
         "version": {
             "type": "string",
-            "description": "Version is the policy version"
+            "description": "Version is the policy version, it must be semantic versioning compliant without the leading v"
         },
         "vendor": {
             "type": "string",
