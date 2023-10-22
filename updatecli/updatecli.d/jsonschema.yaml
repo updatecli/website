@@ -23,23 +23,23 @@ scms:
             username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
         disabled: false
 
-targets:
-    jsonschema:
-        name: 'chore: update Updatecli jsonschema'
-        kind: shell
-        spec:
-            command: updatecli jsonschema --baseid https://www.updatecli.io/latest/schema --directory content/en/schema/latest
-            environments:
-                - name: PATH
-            changedif:
-                kind: file/checksum
-                spec:
-                  files:
-                    - "content/en/schema/latest/compose/config.json"
-                    - "content/en/schema/latest/config.json"
-                    - "content/en/schema/latest/policy/manifest/config.json"
-                    - "content/en/schema/latest/policy/metadata/config.json"
-
-        scmid: default
+# targets:
+#    jsonschema:
+#        name: 'chore: update Updatecli jsonschema'
+#        kind: shell
+#        spec:
+#            command: updatecli jsonschema --baseid https://www.updatecli.io/latest/schema --directory content/en/schema/latest
+#            environments:
+#                - name: PATH
+#            changedif:
+#                kind: file/checksum
+#                spec:
+#                  files:
+#                    - "content/en/schema/latest/compose/config.json"
+#                    - "content/en/schema/latest/config.json"
+#                    - "content/en/schema/latest/policy/manifest/config.json"
+#                    - "content/en/schema/latest/policy/metadata/config.json"
+#
+#        scmid: default
 
 version: 0.64.1
