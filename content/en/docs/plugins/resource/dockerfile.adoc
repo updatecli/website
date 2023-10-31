@@ -358,8 +358,8 @@ conditions:
     kind: dockerfile
     spec:
       file: docker/Dockerfile
-      Instruction: ENV[1][0]
-      Value: "HELM_VERSION"
+      instruction: ENV[1][0]
+      value: "HELM_VERSION"
     scm:
       github:
         user: "updatecli"
@@ -375,7 +375,7 @@ targets:
     kind: dockerfile
     spec:
       file: docker/Dockerfile
-      Instruction: ENV[1][1]
+      instruction: ENV[1][1]
     scm:
       github:
         user: "updatecli"
