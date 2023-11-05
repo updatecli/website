@@ -142,7 +142,8 @@ Please look at <<Supported Keywords>> to see more specific examples.
 [cols="2,1,1,3",options=header]
 |===
 | Name | Required | Default |Description
-| file  | &#10004; | - | Set the Dockerfile file name.
+| file  | &#10004; (if `files` is not set)  | - | Specifies the dockerimage file path to use and is incompatible with `files`
+| files  | &#10004; (if `file` is not set) | - | Specifies the dockerimage file path to use and is incompatible with `files`
 | instruction.keyword | &#10004; | - | Set the <<Supported Keywords>> to be matched.
 | instruction.matcher | &#10004; | - | Set the text to be matched.
 |===
@@ -291,7 +292,6 @@ ENV FOO=BAR UPDATECLI_VERSION=0.1.0
 === Parameters
 
 {{< resourceparameters "sources" "dockerfile" >}}
-
 
 === Syntax
 
