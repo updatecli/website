@@ -98,7 +98,9 @@ targets:
     sourceID: getLatestUbuntuLTSVersion
     kind: dockerfile
     spec:
-      file: Dockerfile.webapp
+      files:
+        - Dockerfile.webapp
+        - Dockerfile.api
       instruction:
         keyword: "FROM"
         matcher: "ubuntu"
