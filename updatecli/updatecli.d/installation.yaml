@@ -19,9 +19,9 @@ scms:
             email: updatecli@olblak.com
             owner: updatecli
             repository: website
-            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
             user: updatecli
-            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+            username: '{{ requiredEnv "GITHUB_ACTOR" }}'
         disabled: false
 
 sources:
@@ -31,8 +31,8 @@ sources:
         spec:
             owner: updatecli
             repository: updatecli
-            token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-            username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "GITHUB_ACTOR" }}'
 
 targets:
     download-url:
