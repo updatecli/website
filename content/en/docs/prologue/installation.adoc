@@ -113,3 +113,36 @@ Remark: Because of the limits on DockerHub free account, it's better to use the 
 
  docker run -i -t ghcr.io/updatecli/updatecli:latest help
 ```
+
+== asdf
+
+link:https://asdf-vm.com/[asdf] is a multi-platform tool version manager.
+Review the link:https://asdf-vm.com/guide/getting-started.html[Getting Started documentation] for installation and usage explanations.
+
+First add the updatecli asdf plugin:
+
+[source,shell]
+----
+asdf plugin add updatecli
+----
+
+Then, install updatecli latest version with:
+
+[source,shell]
+----
+asdf install updatecli latest
+----
+
+or an specific version with:
+
+[source,shell]
+----
+asdf install updatecli $version
+----
+
+You can list all available versions with:
+
+[source,shell]
+----
+asdf list-all updatecli
+----
