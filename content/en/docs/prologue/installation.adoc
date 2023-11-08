@@ -146,3 +146,17 @@ You can list all available versions with:
 ----
 asdf list-all updatecli
 ----
+
+Once `updatecli` is installed, do not forget to set the version you want to use with:
+
+[source,shell]
+----
+asdf global updatecli latest
+----
+
+or
+
+[source,shell]
+----
+asdf global updatecli $version
+----
