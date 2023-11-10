@@ -15,22 +15,27 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-WARNING: This feature is still in an early stage, Feedback welcome.
+WARNING: This feature is still experimental, feedback are welcome.
 
 == Description
 
 Updatecli compose feature allows to specify a list of Updatecli policies to enforce.
+This becomes handy when we want to apply the same policies on multiple repositories.
 
 By default, it relies on a file named "update-compose.yaml" such as in the follow example:
 
 .update-compose.yaml
 ```
 policies:
-  - policy: ghcr.io/updatecli/policies/golang:v0.0.1
-  - policy: ghcr.io/updatecli/policies/dapper:v0.0.2
+  - name: Local Updatecli Website Policies
+    config:
+      - updatecli/updatecli.d/
+
+  - name: Handle Nodejs version in githubaction
+    policy: ghcr.io/updatecli/policies/policies/nodejs/githubaction:latest
     values:
-     - values.yaml
-  - policy: ghcr.io/updatecli/policies/golangci-lint:v0.0.3
+      - updatecli/values.d/scm.yaml
+      - updatecli/values.d/nodejs.yaml
 ```
 
 * Running `updatecli compose apply` would enforce the state defined in each of the policies
@@ -39,7 +44,12 @@ policies:
 
 == Parameters
 
-WIP: Once the Updatecli compose jsonschema is published, we should generate a table with all the available settings
+{{< composeparameters >}}
 
 IMPORTANT: Any value files or secrets file specified in the docker-compose.yaml overrides the default values specified by the policy. It's also worth mentioning that deep merge is not supported.
 
+== Examples
+
+=== Updatecli
+
+The repository **link:https://github.com/updatecli/policies[updatecli/policies]** contains a list of common Updatecli policies published on **link:https://github.com/orgs/updatecli/packages?tab=packages&q=policies[GitHub Registry]**.
