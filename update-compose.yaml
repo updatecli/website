@@ -13,7 +13,7 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
   - name: Update Updatecli policies
-    policy: ghcr.io/updatecli/policies/policies/updatecli/autodiscovery:latest
+    policy: ghcr.io/updatecli/policies/policies/updatecli/autodiscovery:0.1.0@sha256:8ac8112c3a140c2b24b2565bcd87fa32b7df899d3216743cb0735fd3d8d99462
     values:
       - updatecli/values.d/scm.yaml
   - name: Handle HUGO version in netlify
