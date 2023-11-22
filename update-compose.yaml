@@ -2,38 +2,36 @@ policies:
   - name: Local Updatecli Website Policies
     config:
       - updatecli/updatecli.d/
-
   - name: Handle Nodejs version in githubaction
-    policy: ghcr.io/updatecli/policies/policies/nodejs/githubaction:latest
+    policy: ghcr.io/updatecli/policies/nodejs/githubaction:0.4.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
-
   - name: Handle Nodejs version in Netlify
-    policy: ghcr.io/updatecli/policies/policies/nodejs/netlify:latest
+    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.3.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
-
+  - name: Update Updatecli policies
+    policy: ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0
+    values:
+      - updatecli/values.d/scm.yaml
   - name: Handle HUGO version in netlify
-    policy: ghcr.io/updatecli/policies/policies/hugo/netlify:latest
+    policy: ghcr.io/updatecli/policies/hugo/netlify:0.3.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
-
   - name: Handle HUGO version in GitHub action
-    policy: ghcr.io/updatecli/policies/policies/hugo/githubaction:latest
+    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.4.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
-
   - name: Handle NPM version in netlify
-    policy: ghcr.io/updatecli/policies/policies/npm/netlify:latest
+    policy: ghcr.io/updatecli/policies/npm/netlify:0.4.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/npm.yaml
-
   - name: NPM autodiscovery
-    policy: ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
+    policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.6.0
     values:
       - updatecli/values.d/scm.yaml
