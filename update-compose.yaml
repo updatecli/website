@@ -17,7 +17,7 @@ policies:
     values:
       - updatecli/values.d/scm.yaml
   - name: Handle HUGO version in netlify
-    policy: ghcr.io/updatecli/policies/policies/hugo/netlify:0.3.0@sha256:4268c69c07d42bf6a921cb50bed941d1f8d218755a10eb42d1922a2962fb99d7
+    policy: ghcr.io/updatecli/policies/hugo/netlify:0.3.0@sha256:eff30ebc0dc129ef3b82cfbca1e5c3d9ea1014f360f4c51b04ea4b0f951bae91
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
