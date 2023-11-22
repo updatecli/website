@@ -3,35 +3,35 @@ policies:
     config:
       - updatecli/updatecli.d/
   - name: Handle Nodejs version in githubaction
-    policy: ghcr.io/updatecli/policies/policies/nodejs/githubaction:0.4.0@sha256:06e1c62bc74539a92c96252d389e62d9d407c44611910fbd366370af1b2365a9
+    policy: ghcr.io/updatecli/policies/nodejs/githubaction:0.4.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
   - name: Handle Nodejs version in Netlify
-    policy: ghcr.io/updatecli/policies/policies/nodejs/netlify:0.3.0@sha256:196b8f59ed29b27d08946f22a4d2c709b4628a078d94dbb439d0b93669670614
+    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.3.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
   - name: Update Updatecli policies
-    policy: ghcr.io/updatecli/policies/policies/updatecli/autodiscovery:0.2.0@sha256:b06bde48e2681d649d59ccad61adba8e36d60616390998b372ba0647b5b4b9b9
+    policy: ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0
     values:
       - updatecli/values.d/scm.yaml
   - name: Handle HUGO version in netlify
-    policy: ghcr.io/updatecli/policies/policies/hugo/netlify:0.3.0@sha256:4268c69c07d42bf6a921cb50bed941d1f8d218755a10eb42d1922a2962fb99d7
+    policy: ghcr.io/updatecli/policies/hugo/netlify:0.3.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
   - name: Handle HUGO version in GitHub action
-    policy: ghcr.io/updatecli/policies/policies/hugo/githubaction:0.4.0@sha256:b2c21c338bd3352bd4a4d1e3ed125a360b0c1f6e3f76295aef2bbab263b83d06
+    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.4.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
   - name: Handle NPM version in netlify
-    policy: ghcr.io/updatecli/policies/policies/npm/netlify:0.4.0@sha256:0b798865389e784f532ba4145f67a360b04499d65afac50c9f77e09b0a0c999f
+    policy: ghcr.io/updatecli/policies/npm/netlify:0.4.0
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/npm.yaml
   - name: NPM autodiscovery
-    policy: ghcr.io/updatecli/policies/policies/npm/autodiscovery:0.6.0@sha256:2465b031a8b1cd238e1b61008e30b93cd176aeb9fb00d6ea063471013128f780
+    policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.6.0
     values:
       - updatecli/values.d/scm.yaml
