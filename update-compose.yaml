@@ -35,3 +35,7 @@ policies:
     policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.6.0@sha256:a6f94de3fd9aba371ad285114f4444ea64a64524956560481f9dbbd55b157739
     values:
       - updatecli/values.d/scm.yaml
+  - name: Handle Updatecli version in GitHub action
+    policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.1.0
+    values:
+      - updatecli/values.d/scm.yaml
