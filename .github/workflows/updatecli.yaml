@@ -1,6 +1,5 @@
 ---
 name: updatecli
-
 on:
   workflow_dispatch:
   push:
@@ -9,36 +8,30 @@ on:
     # * is a special character in YAML so you have to quote this string
     # Run every hour
     - cron: '0 * * * *'
-
 jobs:
   updatecli:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
-
       - name: "Setup updatecli"
         uses: "updatecli/updatecli-action@v2"
         with:
           version: "v0.68.0"
-
       - name: "Run updatecli in dryrun"
         run: "updatecli compose diff --experimental --clean=true"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: tibdex/github-app-token@v2.1
         id: generate_token
         if: github.ref == 'refs/heads/master'
         with:
           app_id: ${{ secrets.UPDATECLIBOT_APP_ID }}
           private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
-
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
         run: "updatecli compose apply --experimental --clean=true"
         env:
           GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-
