@@ -9,8 +9,6 @@ contributors: ["olblak"]
 
 = One less experimentation: Autodiscovery feature
 
-Some Autodiscovery Update
-
 When we started working on the "Autodiscovery" feature, our objective was to stop writing and maintaining Updatecli manifests for environments, where we could automate that process.
 
 Automate, automate, automate...
@@ -21,13 +19,13 @@ And that's what we did...
 
 We decided to build a small set of plugins that would cover most of our needs:
 
-*Cargo - Docker Compose - Dockerfile - Golang - Helm - Helmfile -  Maven - npm - Rancher/Fleet - Terraform*
+*link:/docs/plugins/autodiscovery/cargo[Cargo] - link:/docs/plugins/autodiscovery/dockercompose[Docker Compose] - link:/docs/plugins/autodiscovery/dockerfile[Dockerfile] - link:/docs/plugins/autodiscovery/golang[Golang] - link:/docs/plugins/autodiscovery/helm[Helm] - link:/docs/plugins/autodiscovery/helmfile[Helmfile] -  link:/docs/plugins/autodiscovery/maven[Maven] - link:/docs/plugins/autodiscovery/npm[npm] - link:/docs/plugins/autodiscovery/fleet[Rancher/Fleet] - link:/docs/plugins/autodiscovery/terraform[Terraform]*
 
 And it turned out to be a great learning experience. Combining both the Autodiscovery and the declarative approach allowed us to achieve a high level of automation across different types of git repositories like dev, gitops, or simply documentation.
 
 == Autodiscovery
 
-The Audiscovery also comes with its own level of configuration.
+Early, we realized the Autodiscovery feature had to come with some level of configuration.
 
 === Default
 
@@ -37,25 +35,32 @@ Assuming that no files named `updatecli.yaml` or `updatecli.d` are in the curren
 
 * Show available pipeline that Updatecli detects by running:
 
-	updatecli manifest show
+```
+updatecli manifest show
+```
+
 
 * Show a diff of what Updatecli can update by running:
 
+```
 	updatecli diff
+```
 
 * Apply changes locally by running:
 
-	updatecli apply
+```
+  updatecli apply
+```
 
 Unfortunately, the default behavior has many limitations such as not being able to detect pull request configuration, dependencies to ignore, dependencies update to group, etc. So sooner than later we need to provide additional configuration.
 
 === Configuration
 
-Default behavior is nice but we pretty much always need some level of configuration like in the following example
+Default behavior is nice but we pretty much always need some level of configuration like in the following example:
 
 ```
-name: "deps: bump major version for Golang package defined in go.mod"
-pipelineid: "golang/gomod/major"
+name: "deps: bump patch version for Golang package defined in go.mod"
+pipelineid: "golang/gomod/patch"
 
 scms:
   default:
@@ -63,8 +68,8 @@ scms:
     spec:
       owner: updatecli
       repository: updatecli
-      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
       branch: main
 
 actions:
@@ -72,30 +77,74 @@ actions:
         kind: github/pullrequest
         scmid: default
         spec:
+          # Opening one pull request per patch version update can generate
+          # a lot of noise, so considering how low-risk patch updates are,
+          # we want to automatically merge them as long as tests are passing.
+          automerge: true
+          # Pullrequest labels can have a lot of meanings.
+          # For example the tool "Release Drafter" relies on them to automatically
+          # generate release changelog.
           labels:
             - "dependencies"
-            - "enhancement"
+            - "golang"
 
 autodiscovery:
   scmid: default
   actionid:  default
-  groupby: all 
+  # Projects with a lot of dependencies can have a lot of patch version update
+  # so considering how low-risk they are, we want to group them together into
+  # one pull request.
+  groupby: all
   crawlers:
     golang/gomod:
       versionfilter:
         kind: semver
-        pattern: majoronly
+        # We only want to update patch version updates and handle minor and major updates with a different update pipeline.
+        pattern: patch
       ignore:
         - modules:
             # Ignoring the following modules as they do not publish release
             github.com/ProtonMail/go-crypto: ""
             # Ignoring the following modules as they do not publish release
             github.com/shurcooL/githubv4: ""
+            # A lot of activity happens on github.com/aws/aws-sdk-go which resulting into
+            # multiple releases per day. Considering we have good testing in place
+            # we prefer to use the Updatecli declarative approach to specificaly handle this library
+            # update.
+            github.com/aws/aws-sdk-go: ""
       only:
         # This repository contains other go.sum file used for testing.
         # So we want to be sure that we only update the one at the root of the repository
         - path: "go.mod"
 ```
+
+**Automerge pull request**
+
+Opening one pull request per patch version update can generate
+a burden on teams, so considering how low-risk patch updates are,
+we want to automatically merge them as long as tests are passing.
+
+**Pull request labels**
+
+Pull request labels can have a lot of meanings.
+For example the great tool link:https://github.com/release-drafter/release-drafter[Release Drafter] relies on them to automatically generate release changelog.
+
+**Grouping changes**
+
+Projects with a lot of dependencies can have a lot of patch version update
+so considering how low-risk they are, we want to group them together into
+one pull request.
+
+**Different version update type**
+
+We only want to update patch version updates and handle minor and major updates with a different update pipeline.
+
+**Specific dependency pipeline**
+
+A lot of activity happens on `github.com/aws/aws-sdk-go` which resulting into
+multiple releases per day. Considering we have good testing in place
+we prefer to use the Updatecli declarative approach to specificaly handle this library
+update.
 
 Each plugin comes with its parameters and they each allow to opt in/out of behaviors.
 
@@ -105,7 +154,7 @@ Obviously, the Autodiscovery feature created its own set of challenges and highl
 
 We had to find some workaround around rules we put on ourselves like "Updatecli should be able to work alone without additional tool", well sometimes it is just better to delegate to ecosystem-specific tools.
 
-We learned a lot in the process, and we are now comfortable enough to consider this feature stable enough for our usage. Or at least stable enough that we won't introduce voluntary breaking changes. 
+We learned a lot in the process, and we are now comfortable enough to consider this feature stable enough for our usage. Or at least stable enough that we won't introduce voluntary breaking changes.
 
 == Is the work over?
 
@@ -114,24 +163,26 @@ No, we still have a lot of pipelines we want to improve but at least what we con
 We refrained from introducing more Autodiscovery plugins until we considered the feature mature enough. We are now planning to add more based on our needs.
 
 To go further with the Autodiscovery feature:
-* link:https://www.updatecli.io/docs/core/autodiscovery/[Read the documentation]
-* link:https://github.com/updatecli/charts/blob/main/updatecli/updatecli.d/default.yaml[Helm Example]
+
+* **link:https://www.updatecli.io/docs/core/autodiscovery/[Documentation]**
+* **link:https://github.com/updatecli/charts/blob/main/updatecli/updatecli.d/default.yaml[Helm Example]**
 
 
 == What's coming next?
 
-As we worked on the Autodiscovery, we discovered we needed something between, the declarative approach that provides us a lot of customization but requires us to write and maintain update pipelines manually. And the Autodiscovery, which requires writing and maintaining Golang code. 
+As we worked on the Autodiscovery, we discovered we needed something between, the declarative approach that provides us a lot of customization but requires us to write and maintain update pipelines manually. And the Autodiscovery, which requires writing and maintaining Golang code.
 
 We started experimenting with the idea of "shared" update policies that could be stored on a registry like the GitHub registry or Dockerhub. This would allow us to leverage Golang templates to write more "advanced" Updatecli policies generically and reuse them across Git repositories.
 
-It's still an early experimentation that I would like to cover in a different blog post. But meanwhile, you can still have a look to
+It's still an early experimentation that I would like to cover in a different blog post. But meanwhile, you can still have a look to:
 
-1. How to write and publish an Update policy link:https://www.updatecli.io/docs/core/shareandreuse/[link]
-2. How to use policy with the new `update-compose.yaml` file link:https://www.updatecli.io/docs/core/compose/[link]
-3. A repository of Update policies we use link:https://github.com/updatecli/policies[link]
+1. **link:https://www.updatecli.io/docs/core/shareandreuse/[How to write and publish an Update policy]**
+2. **link:https://www.updatecli.io/docs/core/compose/[How to use policy with the new `update-compose.yaml` file]**
+3. **link:https://github.com/updatecli/policies[Example of a repository of Update policies]**
 
 As usual, feel free to reach out.
 
 Stay tuned
 
 Cheers,
+
