@@ -109,7 +109,7 @@ autodiscovery:
             github.com/shurcooL/githubv4: ""
             # A lot of activity happens on github.com/aws/aws-sdk-go which resulting into
             # multiple releases per day. Considering we have good testing in place
-            # we prefer to use the Updatecli declarative approach to specificaly handle this library
+            # we prefer to use the Updatecli declarative approach to specifically handle this library
             # update.
             github.com/aws/aws-sdk-go: ""
       only:
@@ -143,7 +143,7 @@ We only want to update patch version updates and handle minor and major updates 
 
 A lot of activity happens on `github.com/aws/aws-sdk-go` which resulting into
 multiple releases per day. Considering we have good testing in place
-we prefer to use the Updatecli declarative approach to specificaly handle this library
+we prefer to use the Updatecli declarative approach to specifically handle this library
 update.
 
 Each plugin comes with its parameters and they each allow to opt in/out of behaviors.
