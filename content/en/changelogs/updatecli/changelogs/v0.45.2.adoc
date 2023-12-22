@@ -1,0 +1,107 @@
+---
+title: "v0.45.2"
+date: 2023-03-01 19:49:57 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-03-01 19:49:57 +0000 UTC - v0.45.2__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>clean value filepath <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1605537364" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1196" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1196/hovercard" href="https://github.com/updatecli/updatecli/pull/1196">#1196</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump updatecli/updatecli-action from 2.22.0 to 2.23.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1604834324" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1195" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1195/hovercard" href="https://github.com/updatecli/updatecli/pull/1195">#1195</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot] and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/checksums.txt.pem[checksums.txt.pem] | 2023-03-01 20:14:30 +0000 UTC | 2023-03-01T20:14:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/checksums.txt.sig[checksums.txt.sig] | 2023-03-01 20:14:30 +0000 UTC | 2023-03-01T20:14:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/checksums.txt[checksums.txt] | 2023-03-01 20:14:29 +0000 UTC | 2023-03-01T20:14:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Linux_armv6.tar.gz.sbom[updatecli_Linux_armv6.tar.gz.sbom] | 2023-03-01 20:14:29 +0000 UTC | 2023-03-01T20:14:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-03-01 20:14:29 +0000 UTC | 2023-03-01T20:14:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-03-01 20:14:28 +0000 UTC | 2023-03-01T20:14:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Windows_armv6.zip.sbom[updatecli_Windows_armv6.zip.sbom] | 2023-03-01 20:14:28 +0000 UTC | 2023-03-01T20:14:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-03-01 20:14:28 +0000 UTC | 2023-03-01T20:14:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-03-01 20:14:27 +0000 UTC | 2023-03-01T20:14:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-03-01 20:14:27 +0000 UTC | 2023-03-01T20:14:27Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-03-01 20:14:26 +0000 UTC | 2023-03-01T20:14:27Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-03-01 20:14:25 +0000 UTC | 2023-03-01T20:14:27Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-03-01 20:14:24 +0000 UTC | 2023-03-01T20:14:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-03-01 20:14:23 +0000 UTC | 2023-03-01T20:14:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-03-01 20:14:21 +0000 UTC | 2023-03-01T20:14:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-03-01 20:14:20 +0000 UTC | 2023-03-01T20:14:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-03-01 20:14:20 +0000 UTC | 2023-03-01T20:14:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-03-01 20:14:19 +0000 UTC | 2023-03-01T20:14:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-03-01 20:14:17 +0000 UTC | 2023-03-01T20:14:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-03-01 20:14:16 +0000 UTC | 2023-03-01T20:14:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2023-03-01 20:14:15 +0000 UTC | 2023-03-01T20:14:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-03-01 20:14:14 +0000 UTC | 2023-03-01T20:14:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-03-01 20:14:12 +0000 UTC | 2023-03-01T20:14:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2023-03-01 20:14:12 +0000 UTC | 2023-03-01T20:14:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-03-01 20:14:10 +0000 UTC | 2023-03-01T20:14:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-03-01 20:14:10 +0000 UTC | 2023-03-01T20:14:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-03-01 20:14:08 +0000 UTC | 2023-03-01T20:14:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.45.2/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-03-01 20:14:08 +0000 UTC | 2023-03-01T20:14:10Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.45.2[here]__
+

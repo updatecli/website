@@ -1,0 +1,117 @@
+---
+title: "v0.64.0"
+date: 2023-10-16 16:59:55 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-10-16 16:59:55 +0000 UTC - v0.64.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>WARNING</h2>
+<p><code>pipelineid</code> is now a required field.<br>
+It doesn't break existing pipeline execution but it now triggers an error message in IDE using schema validation.<br>
+More information on <a href="https://github.com/orgs/updatecli/discussions/1692">https://github.com/orgs/updatecli/discussions/1692</a> for the motivation</p>
+<h2>Changes</h2>
+<ul>
+<li>tag pipelineid as required in jsonschema <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1943997477" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1696" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1696/hovercard" href="https://github.com/updatecli/updatecli/pull/1696">#1696</a>)</li>
+<li>update readme for the verify checksum signatures <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/cpanato/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/cpanato">@cpanato</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1939970765" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1686" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1686/hovercard" href="https://github.com/updatecli/updatecli/pull/1686">#1686</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>chore: By default autodiscovery actionid should use the pipeline name <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1942029315" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1693" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1693/hovercard" href="https://github.com/updatecli/updatecli/pull/1693">#1693</a>)</li>
+<li>chore: remove time from generated markdown man pages <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1940575101" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1688" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1688/hovercard" href="https://github.com/updatecli/updatecli/pull/1688">#1688</a>)</li>
+<li>chore: clean up Updatecli manifest <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1940553637" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1687" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1687/hovercard" href="https://github.com/updatecli/updatecli/pull/1687">#1687</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix: fallback to updatecli.yaml or updatecli.d if no manifest specified <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1942512311" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1695" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1695/hovercard" href="https://github.com/updatecli/updatecli/pull/1695">#1695</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/cpanato/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/cpanato">@cpanato</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot, @updateclibot[bot] and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/v1v/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/v1v">@v1v</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/checksums.txt.pem[checksums.txt.pem] | 2023-10-16 17:38:01 +0000 UTC | 2023-10-16T17:38:02Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/checksums.txt.sig[checksums.txt.sig] | 2023-10-16 17:38:01 +0000 UTC | 2023-10-16T17:38:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/checksums.txt[checksums.txt] | 2023-10-16 17:38:01 +0000 UTC | 2023-10-16T17:38:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-10-16 17:38:00 +0000 UTC | 2023-10-16T17:38:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-10-16 17:38:00 +0000 UTC | 2023-10-16T17:38:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-10-16 17:37:59 +0000 UTC | 2023-10-16T17:38:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Linux_arm.tar.gz.sbom[updatecli_Linux_arm.tar.gz.sbom] | 2023-10-16 17:37:59 +0000 UTC | 2023-10-16T17:38:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-10-16 17:37:59 +0000 UTC | 2023-10-16T17:37:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Windows_arm.zip.sbom[updatecli_Windows_arm.zip.sbom] | 2023-10-16 17:37:58 +0000 UTC | 2023-10-16T17:37:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-10-16 17:37:58 +0000 UTC | 2023-10-16T17:37:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-10-16 17:37:57 +0000 UTC | 2023-10-16T17:37:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-10-16 17:37:57 +0000 UTC | 2023-10-16T17:37:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-10-16 17:37:55 +0000 UTC | 2023-10-16T17:37:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-10-16 17:37:55 +0000 UTC | 2023-10-16T17:37:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-10-16 17:37:53 +0000 UTC | 2023-10-16T17:37:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-10-16 17:37:52 +0000 UTC | 2023-10-16T17:37:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-10-16 17:37:50 +0000 UTC | 2023-10-16T17:37:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-10-16 17:37:50 +0000 UTC | 2023-10-16T17:37:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-10-16 17:21:53 +0000 UTC | 2023-10-16T17:21:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-10-16 17:21:53 +0000 UTC | 2023-10-16T17:21:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-10-16 17:21:51 +0000 UTC | 2023-10-16T17:21:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-10-16 17:21:51 +0000 UTC | 2023-10-16T17:21:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-10-16 17:21:49 +0000 UTC | 2023-10-16T17:21:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2023-10-16 17:21:49 +0000 UTC | 2023-10-16T17:21:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-10-16 17:21:47 +0000 UTC | 2023-10-16T17:21:48Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2023-10-16 17:21:47 +0000 UTC | 2023-10-16T17:21:48Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-10-16 17:21:44 +0000 UTC | 2023-10-16T17:21:46Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-10-16 17:21:44 +0000 UTC | 2023-10-16T17:21:46Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.64.0[here]__
+

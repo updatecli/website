@@ -1,0 +1,108 @@
+---
+title: "v0.47.2"
+date: 2023-03-20 09:40:19 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-03-20 09:40:19 +0000 UTC - v0.47.2__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix: gitlab url with https prefix <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/vbehar/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/vbehar">@vbehar</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1630928967" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1234" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1234/hovercard" href="https://github.com/updatecli/updatecli/pull/1234">#1234</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump actions/setup-go from 3 to 4 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1627323711" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1231" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1231/hovercard" href="https://github.com/updatecli/updatecli/pull/1231">#1231</a>)</li>
+<li>chore(deps): Bump updatecli/updatecli-action from 2.24.0 to 2.25.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1623326238" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1229" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1229/hovercard" href="https://github.com/updatecli/updatecli/pull/1229">#1229</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], @updateclibot, @updateclibot[bot] and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/vbehar/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/vbehar">@vbehar</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/checksums.txt.pem[checksums.txt.pem] | 2023-03-20 09:59:10 +0000 UTC | 2023-03-20T09:59:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/checksums.txt.sig[checksums.txt.sig] | 2023-03-20 09:59:10 +0000 UTC | 2023-03-20T09:59:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/checksums.txt[checksums.txt] | 2023-03-20 09:59:10 +0000 UTC | 2023-03-20T09:59:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Linux_armv6.tar.gz.sbom[updatecli_Linux_armv6.tar.gz.sbom] | 2023-03-20 09:59:09 +0000 UTC | 2023-03-20T09:59:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-03-20 09:59:09 +0000 UTC | 2023-03-20T09:59:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-03-20 09:59:09 +0000 UTC | 2023-03-20T09:59:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Windows_armv6.zip.sbom[updatecli_Windows_armv6.zip.sbom] | 2023-03-20 09:59:09 +0000 UTC | 2023-03-20T09:59:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-03-20 09:59:08 +0000 UTC | 2023-03-20T09:59:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-03-20 09:59:08 +0000 UTC | 2023-03-20T09:59:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-03-20 09:59:08 +0000 UTC | 2023-03-20T09:59:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-03-20 09:59:07 +0000 UTC | 2023-03-20T09:59:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-03-20 09:59:06 +0000 UTC | 2023-03-20T09:59:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-03-20 09:59:06 +0000 UTC | 2023-03-20T09:59:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-03-20 09:59:04 +0000 UTC | 2023-03-20T09:59:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-03-20 09:59:04 +0000 UTC | 2023-03-20T09:59:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-03-20 09:59:03 +0000 UTC | 2023-03-20T09:59:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-03-20 09:59:02 +0000 UTC | 2023-03-20T09:59:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-03-20 09:59:01 +0000 UTC | 2023-03-20T09:59:03Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-03-20 09:59:00 +0000 UTC | 2023-03-20T09:59:02Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-03-20 09:59:00 +0000 UTC | 2023-03-20T09:59:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2023-03-20 09:58:59 +0000 UTC | 2023-03-20T09:59:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-03-20 09:58:58 +0000 UTC | 2023-03-20T09:58:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-03-20 09:58:57 +0000 UTC | 2023-03-20T09:58:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2023-03-20 09:58:57 +0000 UTC | 2023-03-20T09:58:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-03-20 09:58:56 +0000 UTC | 2023-03-20T09:58:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-03-20 09:58:56 +0000 UTC | 2023-03-20T09:58:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-03-20 09:58:55 +0000 UTC | 2023-03-20T09:58:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.47.2/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-03-20 09:58:54 +0000 UTC | 2023-03-20T09:58:56Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.47.2[here]__
+

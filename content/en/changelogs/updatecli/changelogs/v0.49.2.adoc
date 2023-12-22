@@ -1,0 +1,111 @@
+---
+title: "v0.49.2"
+date: 2023-04-21 05:00:02 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-04-21 05:00:02 +0000 UTC - v0.49.2__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Automate Golang module update <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1673750070" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1285" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1285/hovercard" href="https://github.com/updatecli/updatecli/pull/1285">#1285</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Fix pipelineId generated for autodiscovery based on groupby <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1674415083" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1289" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1289/hovercard" href="https://github.com/updatecli/updatecli/pull/1289">#1289</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>Bump Patch version for Golang module @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1675554268" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1291" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1291/hovercard" href="https://github.com/updatecli/updatecli/pull/1291">#1291</a>)</li>
+<li>Bump Patch version for Golang module @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1674482494" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1290" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1290/hovercard" href="https://github.com/updatecli/updatecli/pull/1290">#1290</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/checksums.txt.pem[checksums.txt.pem] | 2023-04-21 05:20:00 +0000 UTC | 2023-04-21T05:20:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/checksums.txt.sig[checksums.txt.sig] | 2023-04-21 05:19:59 +0000 UTC | 2023-04-21T05:20:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/checksums.txt[checksums.txt] | 2023-04-21 05:19:59 +0000 UTC | 2023-04-21T05:19:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-04-21 05:19:59 +0000 UTC | 2023-04-21T05:19:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-04-21 05:19:58 +0000 UTC | 2023-04-21T05:19:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-04-21 05:19:58 +0000 UTC | 2023-04-21T05:19:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Linux_armv6.tar.gz.sbom[updatecli_Linux_armv6.tar.gz.sbom] | 2023-04-21 05:19:58 +0000 UTC | 2023-04-21T05:19:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-04-21 05:19:58 +0000 UTC | 2023-04-21T05:19:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-04-21 05:19:57 +0000 UTC | 2023-04-21T05:19:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-04-21 05:19:57 +0000 UTC | 2023-04-21T05:19:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Windows_armv6.zip.sbom[updatecli_Windows_armv6.zip.sbom] | 2023-04-21 05:19:57 +0000 UTC | 2023-04-21T05:19:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-04-21 05:19:56 +0000 UTC | 2023-04-21T05:19:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-04-21 05:19:55 +0000 UTC | 2023-04-21T05:19:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-04-21 05:19:55 +0000 UTC | 2023-04-21T05:19:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-04-21 05:19:54 +0000 UTC | 2023-04-21T05:19:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-04-21 05:19:54 +0000 UTC | 2023-04-21T05:19:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-04-21 05:19:53 +0000 UTC | 2023-04-21T05:19:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-04-21 05:19:53 +0000 UTC | 2023-04-21T05:19:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-04-21 05:19:52 +0000 UTC | 2023-04-21T05:19:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-04-21 05:19:51 +0000 UTC | 2023-04-21T05:19:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-04-21 05:19:50 +0000 UTC | 2023-04-21T05:19:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-04-21 05:19:50 +0000 UTC | 2023-04-21T05:19:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-04-21 05:19:49 +0000 UTC | 2023-04-21T05:19:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2023-04-21 05:19:49 +0000 UTC | 2023-04-21T05:19:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-04-21 05:19:48 +0000 UTC | 2023-04-21T05:19:49Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-04-21 05:19:48 +0000 UTC | 2023-04-21T05:19:49Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2023-04-21 05:19:47 +0000 UTC | 2023-04-21T05:19:48Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.49.2/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-04-21 05:19:47 +0000 UTC | 2023-04-21T05:19:47Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.49.2[here]__
+

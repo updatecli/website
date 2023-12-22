@@ -1,0 +1,99 @@
+---
+title: "v0.11.0"
+date: 2021-10-25 07:41:01 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-10-25 07:41:01 +0000 UTC - v0.11.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Bump github.com/aws/aws-sdk-go from 1.40.59 to 1.41.8 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1032862900" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/333" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/333/hovercard" href="https://github.com/updatecli/updatecli/pull/333">#333</a>)</li>
+<li>[updatecli] Bump GoReleaser <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/updatecli-bot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/updatecli-bot">@updatecli-bot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1033102772" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/334" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/334/hovercard" href="https://github.com/updatecli/updatecli/pull/334">#334</a>)</li>
+<li>Bump github.com/aws/aws-sdk-go from 1.40.55 to 1.40.59 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1022592271" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/310" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/310/hovercard" href="https://github.com/updatecli/updatecli/pull/310">#310</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>feat [conditions] use lower case for new attribute disablesourceinput <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1032592544" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/330" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/330/hovercard" href="https://github.com/updatecli/updatecli/pull/330">#330</a>)</li>
+<li>feat [Docker Image] add common tools to the Docker image <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1032606816" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/331" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/331/hovercard" href="https://github.com/updatecli/updatecli/pull/331">#331</a>)</li>
+<li>Don't exit on error when condition is not met <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1032282697" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/327" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/327/hovercard" href="https://github.com/updatecli/updatecli/pull/327">#327</a>)</li>
+<li>Feat(condition) allow to not specify a sourceID for conditions (resulting in no source used by the condition) <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1030260355" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/321" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/321/hovercard" href="https://github.com/updatecli/updatecli/pull/321">#321</a>)</li>
+<li>Move git output to debug output <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1032189992" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/326" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/326/hovercard" href="https://github.com/updatecli/updatecli/pull/326">#326</a>)</li>
+<li>Refactor result visualisation <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1031089686" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/323" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/323/hovercard" href="https://github.com/updatecli/updatecli/pull/323">#323</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix [file,yaml] correct path resolution when using scm for file and yaml resources <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1031530574" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/324" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/324/hovercard" href="https://github.com/updatecli/updatecli/pull/324">#324</a>)</li>
+<li>fix [shell] correct error reporting when a condition execution fails <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1030021328" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/320" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/320/hovercard" href="https://github.com/updatecli/updatecli/pull/320">#320</a>)</li>
+<li>fix: Allow filename starting with "http(s)://" while keeping an URL checking <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1029888825" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/318" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/318/hovercard" href="https://github.com/updatecli/updatecli/pull/318">#318</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/updatecli-bot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/updatecli-bot">@updatecli-bot</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2021-10-25 07:55:57 +0000 UTC | 2021-10-25T07:55:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2021-10-25 07:55:56 +0000 UTC | 2021-10-25T07:55:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2021-10-25 07:55:55 +0000 UTC | 2021-10-25T07:55:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2021-10-25 07:55:55 +0000 UTC | 2021-10-25T07:55:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2021-10-25 07:55:54 +0000 UTC | 2021-10-25T07:55:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2021-10-25 07:55:54 +0000 UTC | 2021-10-25T07:55:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2021-10-25 07:55:53 +0000 UTC | 2021-10-25T07:55:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2021-10-25 07:55:53 +0000 UTC | 2021-10-25T07:55:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2021-10-25 07:55:52 +0000 UTC | 2021-10-25T07:55:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2021-10-25 07:55:52 +0000 UTC | 2021-10-25T07:55:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2021-10-25 07:55:51 +0000 UTC | 2021-10-25T07:55:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2021-10-25 07:55:50 +0000 UTC | 2021-10-25T07:55:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2021-10-25 07:55:50 +0000 UTC | 2021-10-25T07:55:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2021-10-25 07:55:49 +0000 UTC | 2021-10-25T07:55:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2021-10-25 07:55:48 +0000 UTC | 2021-10-25T07:55:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2021-10-25 07:55:48 +0000 UTC | 2021-10-25T07:55:49Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2021-10-25 07:55:47 +0000 UTC | 2021-10-25T07:55:48Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.11.0/updatecli_0.11.0_checksums.txt[updatecli_0.11.0_checksums.txt] | 2021-10-25 07:55:47 +0000 UTC | 2021-10-25T07:55:48Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.11.0[here]__
+

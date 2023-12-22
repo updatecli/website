@@ -1,0 +1,77 @@
+---
+title: "v0.0.31 🌈"
+date: 2021-01-27 09:04:55 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-01-27 09:04:55 +0000 UTC - v0.0.31__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Breaking change</h2>
+<ul>
+<li>Parameter "path" for YAML resource is removed</li>
+</ul>
+<h2>Changes</h2>
+<ul>
+<li>Add hidden command to generate markdown documentation <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="792067512" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/140" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/140/hovercard" href="https://github.com/updatecli/updatecli/pull/140">#140</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>Push docker image to ghcr.io/updatecli/updatecli <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="792659842" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/145" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/145/hovercard" href="https://github.com/updatecli/updatecli/pull/145">#145</a>)</li>
+<li>Yaml resource can read file from http url <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="792286121" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/141" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/141/hovercard" href="https://github.com/updatecli/updatecli/pull/141">#141</a>)</li>
+<li>Add resource file [source,condition,target] <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="791489807" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/139" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/139/hovercard" href="https://github.com/updatecli/updatecli/pull/139">#139</a>)</li>
+<li>Add source YAML <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="787768144" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/138" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/138/hovercard" href="https://github.com/updatecli/updatecli/pull/138">#138</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Fix various regression <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="793491876" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/148" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/148/hovercard" href="https://github.com/updatecli/updatecli/pull/148">#148</a>)</li>
+<li>chore: add error handling around reported areas from golangci-lint <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/garethjevans/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/garethjevans">@garethjevans</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="793348757" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/147" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/147/hovercard" href="https://github.com/updatecli/updatecli/pull/147">#147</a>)</li>
+<li>chore: handle the error after creating the file in the yaml target <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/garethjevans/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/garethjevans">@garethjevans</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="793283391" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/146" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/146/hovercard" href="https://github.com/updatecli/updatecli/pull/146">#146</a>)</li>
+<li>Don't systematically run the prepare stage <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="792290766" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/142" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/142/hovercard" href="https://github.com/updatecli/updatecli/pull/142">#142</a>)</li>
+<li>Add docker.io as an alias for dockerhub registry <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="792299351" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/143" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/143/hovercard" href="https://github.com/updatecli/updatecli/pull/143">#143</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/garethjevans/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/garethjevans">@garethjevans</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.31/updatecli.linux.amd64[updatecli.linux.amd64] | 2021-01-27 09:10:18 +0000 UTC | 2021-01-27T09:10:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.31/updatecli.linux.386[updatecli.linux.386] | 2021-01-27 09:10:17 +0000 UTC | 2021-01-27T09:10:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.31/updatecli.darwin.amd64[updatecli.darwin.amd64] | 2021-01-27 09:10:11 +0000 UTC | 2021-01-27T09:10:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.31/updatecli.darwin.386[updatecli.darwin.386] | 2021-01-27 09:10:02 +0000 UTC | 2021-01-27T09:10:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.31/updatecli.amd64.exe[updatecli.amd64.exe] | 2021-01-27 09:10:00 +0000 UTC | 2021-01-27T09:10:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.31/updatecli.386.exe[updatecli.386.exe] | 2021-01-27 09:09:59 +0000 UTC | 2021-01-27T09:10:00Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.31[here]__
+

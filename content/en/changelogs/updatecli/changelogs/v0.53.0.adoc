@@ -1,0 +1,128 @@
+---
+title: "v0.53.0"
+date: 2023-06-17 16:12:50 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-06-17 16:12:50 +0000 UTC - v0.53.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Allow Maven autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1754091056" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1376" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1376/hovercard" href="https://github.com/updatecli/updatecli/pull/1376">#1376</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>Add versionfilter to maven resource <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1753022672" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1375" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1375/hovercard" href="https://github.com/updatecli/updatecli/pull/1375">#1375</a>)</li>
+<li>Allow Docker Compose autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1746475603" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1366" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1366/hovercard" href="https://github.com/updatecli/updatecli/pull/1366">#1366</a>)</li>
+<li>reset tagfilter when helm autodiscovery rely on versionfilter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1747850666" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1369" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1369/hovercard" href="https://github.com/updatecli/updatecli/pull/1369">#1369</a>)</li>
+<li>Allow to override dockerfile autodiscovery versionfilter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1746507549" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1367" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1367/hovercard" href="https://github.com/updatecli/updatecli/pull/1367">#1367</a>)</li>
+<li>Allow Rust Cargo autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1746432077" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1365" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1365/hovercard" href="https://github.com/updatecli/updatecli/pull/1365">#1365</a>)</li>
+<li>Allow NPM autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1742346105" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1360" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1360/hovercard" href="https://github.com/updatecli/updatecli/pull/1360">#1360</a>)</li>
+<li>Allow Fleet autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1742353663" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1361" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1361/hovercard" href="https://github.com/updatecli/updatecli/pull/1361">#1361</a>)</li>
+<li>Allow Helm autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1742330794" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1358" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1358/hovercard" href="https://github.com/updatecli/updatecli/pull/1358">#1358</a>)</li>
+<li>Add Autodiscovery versionFilter for "minoronly" and "majoronly" semver update <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1742324163" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1357" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1357/hovercard" href="https://github.com/updatecli/updatecli/pull/1357">#1357</a>)</li>
+<li>Allow Helmfile autodiscovery to override default version filter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1742335613" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1359" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1359/hovercard" href="https://github.com/updatecli/updatecli/pull/1359">#1359</a>)</li>
+<li>Add SCM information to pipeline report <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1740316661" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1356" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1356/hovercard" href="https://github.com/updatecli/updatecli/pull/1356">#1356</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>reset tagfilter when helm autodiscovery rely on versionfilter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1747850666" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1369" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1369/hovercard" href="https://github.com/updatecli/updatecli/pull/1369">#1369</a>)</li>
+<li>Fix dockerfile target result in case of success <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1747204028" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1368" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1368/hovercard" href="https://github.com/updatecli/updatecli/pull/1368">#1368</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>[updatecli] Bump Golang version to 1.20.5 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1744349298" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1362" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1362/hovercard" href="https://github.com/updatecli/updatecli/pull/1362">#1362</a>)</li>
+<li>Bump Minor version for Golang module @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1726446645" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1343" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1343/hovercard" href="https://github.com/updatecli/updatecli/pull/1343">#1343</a>)</li>
+<li>Bump Patch version for Golang module @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1728110126" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1348" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1348/hovercard" href="https://github.com/updatecli/updatecli/pull/1348">#1348</a>)</li>
+<li>chore(deps): Bump updatecli/updatecli-action from 2.29.0 to 2.30.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1730632718" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1349" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1349/hovercard" href="https://github.com/updatecli/updatecli/pull/1349">#1349</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/checksums.txt.pem[checksums.txt.pem] | 2023-06-17 16:33:59 +0000 UTC | 2023-06-17T16:34:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/checksums.txt.sig[checksums.txt.sig] | 2023-06-17 16:33:59 +0000 UTC | 2023-06-17T16:34:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/checksums.txt[checksums.txt] | 2023-06-17 16:33:59 +0000 UTC | 2023-06-17T16:33:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-06-17 16:33:59 +0000 UTC | 2023-06-17T16:33:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Windows_armv6.zip.sbom[updatecli_Windows_armv6.zip.sbom] | 2023-06-17 16:33:58 +0000 UTC | 2023-06-17T16:33:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-06-17 16:33:58 +0000 UTC | 2023-06-17T16:33:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-06-17 16:33:58 +0000 UTC | 2023-06-17T16:33:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-06-17 16:33:58 +0000 UTC | 2023-06-17T16:33:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-06-17 16:33:58 +0000 UTC | 2023-06-17T16:33:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-06-17 16:33:57 +0000 UTC | 2023-06-17T16:33:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Linux_armv6.tar.gz.sbom[updatecli_Linux_armv6.tar.gz.sbom] | 2023-06-17 16:33:56 +0000 UTC | 2023-06-17T16:33:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-06-17 16:33:56 +0000 UTC | 2023-06-17T16:33:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-06-17 16:33:55 +0000 UTC | 2023-06-17T16:33:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-06-17 16:33:55 +0000 UTC | 2023-06-17T16:33:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-06-17 16:33:53 +0000 UTC | 2023-06-17T16:33:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-06-17 16:33:53 +0000 UTC | 2023-06-17T16:33:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-06-17 16:33:52 +0000 UTC | 2023-06-17T16:33:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-06-17 16:33:51 +0000 UTC | 2023-06-17T16:33:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-06-17 16:33:50 +0000 UTC | 2023-06-17T16:33:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-06-17 16:33:50 +0000 UTC | 2023-06-17T16:33:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-06-17 16:33:48 +0000 UTC | 2023-06-17T16:33:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2023-06-17 16:33:48 +0000 UTC | 2023-06-17T16:33:49Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-06-17 16:33:47 +0000 UTC | 2023-06-17T16:33:48Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-06-17 16:33:46 +0000 UTC | 2023-06-17T16:33:48Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-06-17 16:33:45 +0000 UTC | 2023-06-17T16:33:46Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-06-17 16:33:45 +0000 UTC | 2023-06-17T16:33:46Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-06-17 16:33:43 +0000 UTC | 2023-06-17T16:33:44Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.53.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2023-06-17 16:33:43 +0000 UTC | 2023-06-17T16:33:44Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.53.0[here]__
+
