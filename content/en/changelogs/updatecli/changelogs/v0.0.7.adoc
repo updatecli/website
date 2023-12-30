@@ -27,8 +27,8 @@ IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the
 </ul>
 <h2>🚀 Features</h2>
 <ul>
-<li>Add a diff subcommand and more parameter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="611427968" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/43" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/43/hovercard" href="https://github.com/updatecli/updatecli/pull/43">#43</a>)</li>
-<li>Split default behavior into multiple subcommands <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="610743021" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/42" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/42/hovercard" href="https://github.com/updatecli/updatecli/pull/42">#42</a>)</li>
+<li>Add a diff sub command and more parameter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="611427968" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/43" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/43/hovercard" href="https://github.com/updatecli/updatecli/pull/43">#43</a>)</li>
+<li>Split default behavior into multiple sub commands <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="610743021" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/42" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/42/hovercard" href="https://github.com/updatecli/updatecli/pull/42">#42</a>)</li>
 </ul>
 <h2>🐛 Bug Fixes</h2>
 <ul>
@@ -38,7 +38,7 @@ IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the
 <p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
 <h2>Breaking Changes</h2>
 <p>This version is not anymore compatible with the previous way of using the cli.<br>
-updatecli now use subcommands to define different behaviors, you can call <code>updatecli --help</code> to have more infrormation.</p>
+updatecli now use sub commands to define different behaviors, you can call <code>updatecli --help</code> to have more information.</p>
 
 ++++
 
