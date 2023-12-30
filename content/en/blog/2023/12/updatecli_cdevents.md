@@ -68,7 +68,7 @@ on:
 
 `workflow_dispatch` is probably the easiest event to use.
 
-It allows users to manually trigger a pipeline on demand via the GitHub user interface. We usually rely on this if either a pipeline failed or if we are just impatient to wait for another event to trigger. 
+It allows users to manually trigger a pipeline on demand via the GitHub user interface. We usually rely on this if either a pipeline failed or if we are just impatient to wait for another event to trigger.
 
 This is the equivalent of running Updatecli on a developer machine except that the CI has more credentials configured, or at least it should.
 
@@ -113,7 +113,7 @@ on:
   repository_dispatch:
 	types: [project-release]
 ```
- 
+
 The `repository_dispatch` is an interesting event which turns out to be amazing when combined with Updatecli to orchestrate a release across different repositories.
 
 For example, we use this approach on the Epinio project, where the main repository [epinio/epinio](https://github.com/epinio/epinio) relies on [peter-evans/repository-dispatch](https://github.com/peter-evans/repository-dispatch) to trigger right after [Goreleaser](https://goreleaser.com/), a release event,  to send to other Git repositories. When those targeted repositories receive the "release" event, they trigger an Updatecli execution to retrieve the latest Epinio version that just got released  and then:
@@ -123,7 +123,6 @@ For example, we use this approach on the Epinio project, where the main reposito
 	* Generate the new version website used by Docusaurus
  * [epinio/helm-charts](https://github.com/epinio/helm-charts)t
 	 * Update Epinio helm chart docker images to reference the latest Epinio version.
-
 
 This greatly speed up the release process as we went from "please don't forget to do X on each repository" to "please review all pull requests associated with the release".
 
@@ -150,7 +149,7 @@ This means that no matter how often it is executed, the result will always be th
 .2 Each pull request opened by Updatecli will more than likely trigger a CI job which may exhaust API limit version quickly (cfr1)
 .3 Each pull request opened by Updatecli will more than likely trigger a notification which may increase the level of noise for the team.
 
-To decide whether we want a small/long time frame usually depends if we monitor internal or external dependencies. 
+To decide whether we want a small/long time frame usually depends if we monitor internal or external dependencies.
 
 **Internal Dependencies**
 
@@ -188,17 +187,18 @@ If yes, it's probably better to move the complexity from the Makefile to a shell
 Well that is the final evolution where I build a tool using a programming language like Golang.
 That's where Updatecli stand today:
 
-* There are so many edge cases to consider. 
+* There are so many edge cases to consider.
 * Updatecli interacts with a lot of API which require proper testing.
 
 ## Conclusion
 
 No matter the event type we rely on, the longer we wait to merge a pull request created by Updatecli, the bigger is the chance to be affected by merge conflict. But even long running pull requests have benefits. They remind us that we'll need to schedule time to properly maintain our projects because the longer we wait to update dependencies, the bigger is the risk to do it at the worst time which ultimately leads to costly consequences.
 
-## Links 
+## Links
 
 * [triggering a workflow](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow)
-* [manually trigger a workflow](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) 
+* [manually trigger a workflow](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow)
 * [events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 * [cncf/velocity](https://github.com/cncf/velocity)
 * [cdevents](https://cdevents.dev)
+
