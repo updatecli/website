@@ -29,11 +29,11 @@ Ultimately, It was easier to test locally and I could leverage CI events.
 
 The core idea behind an Updatecli manifest can be resumed as this.
 
-.1 Define the **source** aka where the information is coming from
-.2 Define the **target**  aka what file should be updated based on the source information
-.3 Define the **condition** aka what are the condition to pass before updating my target
-.4 Define the **scm** aka the Git repository to interact with
-.5 Define the **action** aka what to do when a target is modified for example pushing the change to a temporary branch on a git repository and then opening a pull request.
+1. Define the **source** aka where the information is coming from
+2. Define the **target**  aka what file should be updated based on the source information
+3. Define the **condition** aka what are the condition to pass before updating my target
+4. Define the **scm** aka the Git repository to interact with
+5. Define the **action** aka what to do when a target is modified for example pushing the change to a temporary branch on a git repository and then opening a pull request.
 
 Updatecli was meant to be executed from Jenkins and leveraging the various event type that a classical CI solution offers. I also wanted to make it easier to define update policies locally without additional constraints.
 
@@ -47,8 +47,9 @@ This blog post is not about how we use Updatecli within Jenkins but how we built
 
 Overall, GitHub action is easy to pick, it works well within GitHub but again, unless of a good reason, it's usually a good rule of thumb to avoid being tightly couple to a specific solution.
 
-*When an open source project evolves the wrong way, often the best solution is either to quit or to fork*
-*When a company evolves the wrong way, often the best solutions are either to quit or to pay*
+*When an open source project evolves the wrong way, often the best solution is either to quit or to fork*  
+*When a company evolves the wrong way, often the best solutions are either to quit or to pay*  
+*Often quitting is not an option*
 
 ## CD Events
 
@@ -117,11 +118,11 @@ The `repository_dispatch` is an interesting event which turns out to be amazing 
 
 For example, we use this approach on the Epinio project, where the main repository [epinio/epinio](https://github.com/epinio/epinio) relies on [peter-evans/repository-dispatch](https://github.com/peter-evans/repository-dispatch) to trigger right after [Goreleaser](https://goreleaser.com/), a release event,  to send to other Git repositories. When those targeted repositories receive the "release" event, they trigger an Updatecli execution to retrieve the latest Epinio version that just got released  and then:
 
-. [epinio/docs](https://github.com/epinio/docs)
-.. Update installation URL links
-.. Generate the new version website used by Docusaurus
-. [epinio/helm-charts](https://github.com/epinio/helm-charts)t
-.. Update Epinio helm chart docker images to reference the latest Epinio version.
+* [epinio/docs](https://github.com/epinio/docs)
+  * Update installation URL links
+  * Generate the new version website used by Docusaurus
+* [epinio/helm-charts](https://github.com/epinio/helm-charts)t
+  * Update Epinio helm chart docker images to reference the latest Epinio version.
 
 This greatly speed up the release process as we went from "please don't forget to do X on each repository" to "please review all pull requests associated with the release".
 
@@ -143,9 +144,9 @@ The schedule is probably the easiest one to use and the most difficult one to ma
 
 This means that no matter how often it is executed, the result will always be the same. So it's tempting to execute Updatecli often **but** running it too many times has some side effects too.
 
-.1 We may exhaust third API limit quickly like on GitHub
-.2 Each pull request opened by Updatecli will more than likely trigger a CI job which may exhaust API limit version quickly (cfr1)
-.3 Each pull request opened by Updatecli will more than likely trigger a notification which may increase the level of noise for the team.
+1. We may exhaust third API limit quickly like on GitHub
+2. Each pull request opened by Updatecli will more than likely trigger a CI job which may exhaust API limit version quickly (cfr1)
+3. Each pull request opened by Updatecli will more than likely trigger a notification which may increase the level of noise for the team.
 
 To decide whether we want a small/long time frame usually depends if we monitor internal or external dependencies.
 
@@ -173,9 +174,9 @@ Each time I have a problem which can be solve with CI solution, before jumping i
 
 If yes, then I hide the commands behind a **simple** Makefile so I can run them such as  `make build`, `make test`, `make release`
 
-. It allows me to run the same command on my machine than I would do from the CI.
-. No matter the project, I always end-up running the same command.
-. If I need to change the command, I only do it once.
+* It allows me to run the same command on my machine than I would do from the CI.
+* No matter the project, I always end-up running the same command.
+* If I need to change the command, I only do it once.
 
 *Do I need to execute complex instructions?*
 
