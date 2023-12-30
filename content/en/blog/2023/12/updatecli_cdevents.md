@@ -1,11 +1,11 @@
-  ---
-  title: "CD Events and Updatecli"
-  date: 2023-12-29T12:00:00+01:00
-  draft: false
-  weight: 50
-  images: [""]
-  contributors: ["olblak"]
-  ---
+---
+title: "CD Events and Updatecli"
+date: 2023-12-29T12:00:00+01:00
+draft: false
+weight: 50
+images: [""]
+contributors: ["olblak"]
+---
 
 ## Introduction
 
@@ -83,7 +83,6 @@ on:
       - main
 ```
 
-
 We often use this trigger as a fallback. If someone or something changes the git repository then we trigger Updatecli to ensure that repository complies with the state defined by Updatecli manifest.
 
 For example just before an important release, we identify a major regression with one of the dependencies. It's unfortunate because we executed all the automated tests but they didn't catch the regression. So we decide to rollback to the previously known "stable" version to unblock the release.
@@ -111,18 +110,18 @@ When we execute Updatecli from a GitHub action workflow, we rely on the `GITHUB_
 ```yaml
 on:
   repository_dispatch:
-	types: [project-release]
+    types: [project-release]
 ```
 
 The `repository_dispatch` is an interesting event which turns out to be amazing when combined with Updatecli to orchestrate a release across different repositories.
 
 For example, we use this approach on the Epinio project, where the main repository [epinio/epinio](https://github.com/epinio/epinio) relies on [peter-evans/repository-dispatch](https://github.com/peter-evans/repository-dispatch) to trigger right after [Goreleaser](https://goreleaser.com/), a release event,  to send to other Git repositories. When those targeted repositories receive the "release" event, they trigger an Updatecli execution to retrieve the latest Epinio version that just got released  and then:
 
-* [epinio/docs](https://github.com/epinio/docs)*
-	* Update installation URL links
-	* Generate the new version website used by Docusaurus
- * [epinio/helm-charts](https://github.com/epinio/helm-charts)t
-	 * Update Epinio helm chart docker images to reference the latest Epinio version.
+. [epinio/docs](https://github.com/epinio/docs)
+.. Update installation URL links
+.. Generate the new version website used by Docusaurus
+. [epinio/helm-charts](https://github.com/epinio/helm-charts)t
+.. Update Epinio helm chart docker images to reference the latest Epinio version.
 
 This greatly speed up the release process as we went from "please don't forget to do X on each repository" to "please review all pull requests associated with the release".
 
@@ -135,9 +134,8 @@ Obviously this chain of pipeline requires a bit of configuration but once in pla
 ```yaml
 on:
   schedule:
-	  - cron: '0 * * * *'
+    - cron: '0 * * * *'
 ```
-``
 
 The schedule is probably the easiest one to use and the most difficult one to master as It can be used for different scenarios.
 
@@ -151,12 +149,12 @@ This means that no matter how often it is executed, the result will always be th
 
 To decide whether we want a small/long time frame usually depends if we monitor internal or external dependencies.
 
-**Internal Dependencies**
+### Internal Dependencies**
 
 By internal dependencies, we mean all dependencies own by the team.
 Usually we want to go fast so we prefer the `repository_dispatch` event but we can use the schedule as a fallback mechanism in case another event failed.
 
-**External Dependencies**
+### External Dependencies**
 
 By external dependencies, we mean all dependencies the team has no control over.
 Usually they are a bit more complex and depends on the dependency and the project where the dependency is used.
@@ -174,9 +172,10 @@ Each time I have a problem which can be solve with CI solution, before jumping i
 *Do I need to execute a few simple commands?*
 
 If yes, then I hide the commands behind a **simple** Makefile so I can run them such as  `make build`, `make test`, `make release`
-* It allows me to run the same command on my machine than I would do from the CI.
-* No matter the project, I always end-up running the same command.
-* If I need to change the command, I only do it once.
+
+. It allows me to run the same command on my machine than I would do from the CI.
+. No matter the project, I always end-up running the same command.
+. If I need to change the command, I only do it once.
 
 *Do I need to execute complex instructions?*
 
@@ -201,4 +200,3 @@ No matter the event type we rely on, the longer we wait to merge a pull request 
 * [events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 * [cncf/velocity](https://github.com/cncf/velocity)
 * [cdevents](https://cdevents.dev)
-
