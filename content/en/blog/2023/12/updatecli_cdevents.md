@@ -7,8 +7,6 @@
   contributors: ["olblak"]
   ---
 
-# Updatecli and common CD Events
-
 ## Introduction
 
 If there is one thing I learned working with various CI tools, is, not everything should be handled by those CI solutions.
@@ -57,6 +55,7 @@ Overall, GitHub action is easy to pick, it works well within GitHub but again, u
 GitHub Action provides many different types of events, some are quite common for CI tools, like cronjob scheduler and others are specific to GitHub like someone starring the GitHub repository.
 
 I'll focus on common CI events which makes my usage of Updatecli, CI agnostic.
+
 ### On Manual
 
 *Trigger your workflow manually. [doc](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch)
