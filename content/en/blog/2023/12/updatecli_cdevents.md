@@ -149,12 +149,12 @@ This means that no matter how often it is executed, the result will always be th
 
 To decide whether we want a small/long time frame usually depends if we monitor internal or external dependencies.
 
-### Internal Dependencies**
+### Internal Dependencies
 
 By internal dependencies, we mean all dependencies own by the team.
 Usually we want to go fast so we prefer the `repository_dispatch` event but we can use the schedule as a fallback mechanism in case another event failed.
 
-### External Dependencies**
+### External Dependencies
 
 By external dependencies, we mean all dependencies the team has no control over.
 Usually they are a bit more complex and depends on the dependency and the project where the dependency is used.
