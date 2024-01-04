@@ -3,7 +3,16 @@ changelogs:
     dir: content/en/changelogs/updatecli
     formats:
       - extension: asciidoc
+        frontmatters: |
+          ---
+          title: "{{ .Changelog.Name }}"
+          date: {{ .Changelog.PublishedAt }}
+          ---
         indexfilename: _index
+        indexfrontmatters: |
+          ---
+          title: "Changelogs"
+          ---
       - extension: json
         indexfilename: _index
     spec:
