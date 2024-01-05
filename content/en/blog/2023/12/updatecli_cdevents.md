@@ -121,7 +121,7 @@ For example, we use this approach on the Epinio project, where the main reposito
 * [epinio/docs](https://github.com/epinio/docs)
   * Update installation URL links
   * Generate the new version website used by Docusaurus
-* [epinio/helm-charts](https://github.com/epinio/helm-charts)t
+* [epinio/helm-charts](https://github.com/epinio/helm-charts)
   * Update Epinio helm chart docker images to reference the latest Epinio version.
 
 This greatly speed up the release process as we went from "please don't forget to do X on each repository" to "please review all pull requests associated with the release".
