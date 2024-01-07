@@ -40,3 +40,8 @@ policies:
     policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.1.0@sha256:a5b8933ebfc65ba6ea9e60927900135062a3293f18a68292431cec1e53208e3d
     values:
       - updatecli/values.d/scm.yaml
+
+  - name: Trigger releasepost
+    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0
+    values:
+      - updatecli/values.d/scm.yaml
