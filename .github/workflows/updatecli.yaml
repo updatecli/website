@@ -32,6 +32,7 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASEPOST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: tibdex/github-app-token@v2.1
         id: generate_token
@@ -45,3 +46,4 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
