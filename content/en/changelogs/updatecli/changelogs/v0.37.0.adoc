@@ -1,0 +1,141 @@
+---
+title: "v0.37.0"
+date: 2022-11-07 09:09:57 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-11-07 09:09:57 +0000 UTC - v0.37.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<p><strong>Deprecation Warning</strong><br>
+The parameter <code>multiple</code> for resource json/csv/toml is now deprecated.</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="conditions:
+  semverVersion:
+    kind: json
+    name: Get latest version
+    spec:
+      file: https://api.github.com/repos/updatecli/updatecli/releases
+      key: &quot;.[*].tag_name&quot;
+      value: &quot;v0.35.1&quot;
+      multiple: true"><pre class="notranslate"><code>conditions:
+  semverVersion:
+    kind: json
+    name: Get latest version
+    spec:
+      file: https://api.github.com/repos/updatecli/updatecli/releases
+      key: ".[*].tag_name"
+      value: "v0.35.1"
+      multiple: true
+</code></pre></div>
+<p>becomes</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="conditions:
+  semverVersion:
+    kind: json
+    name: Get latest version
+    spec:
+      file: https://api.github.com/repos/updatecli/updatecli/releases
+      query: &quot;.[*].tag_name&quot;
+      value: &quot;v0.35.1&quot;"><pre class="notranslate"><code>conditions:
+  semverVersion:
+    kind: json
+    name: Get latest version
+    spec:
+      file: https://api.github.com/repos/updatecli/updatecli/releases
+      query: ".[*].tag_name"
+      value: "v0.35.1"
+</code></pre></div>
+<h2>🚀 Features</h2>
+<ul>
+<li>Allow multiple query combined with versionfilter to toml source <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1437165822" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/963" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/963/hovercard" href="https://github.com/updatecli/updatecli/pull/963">#963</a>)</li>
+<li>Allow multiple query combined with versionfilter to csv source <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1437173889" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/964" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/964/hovercard" href="https://github.com/updatecli/updatecli/pull/964">#964</a>)</li>
+<li>Allow multiple query combined with versionfilter to json source <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1415601032" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/944" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/944/hovercard" href="https://github.com/updatecli/updatecli/pull/944">#944</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(pullrequest): default title with the source output instead of its result '✔' <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1425945492" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/955" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/955/hovercard" href="https://github.com/updatecli/updatecli/pull/955">#955</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.44.123 to 1.44.129 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1433698764" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/960" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/960/hovercard" href="https://github.com/updatecli/updatecli/pull/960">#960</a>)</li>
+<li>[updatecli] Bump Golang version to 1.19.3 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1432028393" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/959" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/959/hovercard" href="https://github.com/updatecli/updatecli/pull/959">#959</a>)</li>
+<li>chore(deps): Bump github.com/spf13/cobra from 1.6.0 to 1.6.1 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1429662148" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/956" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/956/hovercard" href="https://github.com/updatecli/updatecli/pull/956">#956</a>)</li>
+<li>chore(deps): Bump github.com/moby/buildkit from 0.10.4 to 0.10.5 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1429662466" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/957" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/957/hovercard" href="https://github.com/updatecli/updatecli/pull/957">#957</a>)</li>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.44.107 to 1.44.123 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1423521781" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/953" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/953/hovercard" href="https://github.com/updatecli/updatecli/pull/953">#953</a>)</li>
+<li>chore(deps): Bump github.com/stretchr/testify from 1.8.0 to 1.8.1 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1420651692" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/948" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/948/hovercard" href="https://github.com/updatecli/updatecli/pull/948">#948</a>)</li>
+<li>chore(deps): Bump github.com/google/go-containerregistry from 0.11.0 to 0.12.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1420652104" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/949" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/949/hovercard" href="https://github.com/updatecli/updatecli/pull/949">#949</a>)</li>
+<li>chore(deps): Bump github.com/tomwright/dasel from 1.27.1 to 1.27.3 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1420652384" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/950" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/950/hovercard" href="https://github.com/updatecli/updatecli/pull/950">#950</a>)</li>
+<li>chore(deps): Bump github.com/BurntSushi/toml from 1.2.0 to 1.2.1 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1420652483" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/951" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/951/hovercard" href="https://github.com/updatecli/updatecli/pull/951">#951</a>)</li>
+<li>chore(deps): Bump helm.sh/helm/v3 from 3.10.0 to 3.10.1 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1411387792" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/932" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/932/hovercard" href="https://github.com/updatecli/updatecli/pull/932">#932</a>)</li>
+<li>chore(deps): Bump golang.org/x/text from 0.3.7 to 0.4.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1413007009" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/938" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/938/hovercard" href="https://github.com/updatecli/updatecli/pull/938">#938</a>)</li>
+<li>chore(deps): Bump github.com/spf13/cobra from 1.5.0 to 1.6.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1411388428" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/935" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/935/hovercard" href="https://github.com/updatecli/updatecli/pull/935">#935</a>)</li>
+<li>chore(deps): Bump tibdex/github-app-token from 1.6 to 1.7 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1411398556" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/936" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/936/hovercard" href="https://github.com/updatecli/updatecli/pull/936">#936</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_0.37.0_checksums.txt[updatecli_0.37.0_checksums.txt] | 2022-11-07 09:37:12 +0000 UTC | 2022-11-07T09:37:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-11-07 09:37:11 +0000 UTC | 2022-11-07T09:37:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-11-07 09:37:10 +0000 UTC | 2022-11-07T09:37:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-11-07 09:37:09 +0000 UTC | 2022-11-07T09:37:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-11-07 09:37:09 +0000 UTC | 2022-11-07T09:37:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-11-07 09:37:08 +0000 UTC | 2022-11-07T09:37:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-11-07 09:37:07 +0000 UTC | 2022-11-07T09:37:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-11-07 09:37:06 +0000 UTC | 2022-11-07T09:37:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-11-07 09:37:05 +0000 UTC | 2022-11-07T09:37:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-11-07 09:37:04 +0000 UTC | 2022-11-07T09:37:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-11-07 09:37:03 +0000 UTC | 2022-11-07T09:37:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-11-07 09:37:03 +0000 UTC | 2022-11-07T09:37:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-11-07 09:37:01 +0000 UTC | 2022-11-07T09:37:03Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-11-07 09:37:01 +0000 UTC | 2022-11-07T09:37:02Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-11-07 09:36:59 +0000 UTC | 2022-11-07T09:37:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-11-07 09:36:59 +0000 UTC | 2022-11-07T09:37:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-11-07 09:36:57 +0000 UTC | 2022-11-07T09:36:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.37.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-11-07 09:36:56 +0000 UTC | 2022-11-07T09:36:58Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.37.0[here]__
+

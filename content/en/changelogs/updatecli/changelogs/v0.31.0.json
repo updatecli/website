@@ -1,0 +1,395 @@
+{
+  "Latest": {
+    "Assets": [
+      {
+        "CreatedAt": "2023-12-20T16:50:43Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2023-12-20T16:50:43Z",
+        "Size": 3232
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:43Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2023-12-20T16:50:43Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:43Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2023-12-20T16:50:43Z",
+        "Size": 2330
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:42Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Linux_x86_64.tar.gz.sbom",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom",
+        "UpdatedAt": "2023-12-20T16:50:43Z",
+        "Size": 344231
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:42Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Windows_x86_64.zip.sbom",
+        "Name": "updatecli_Windows_x86_64.zip.sbom",
+        "UpdatedAt": "2023-12-20T16:50:43Z",
+        "Size": 350250
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:42Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Windows_arm64.zip.sbom",
+        "Name": "updatecli_Windows_arm64.zip.sbom",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 349989
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:42Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Windows_arm.zip.sbom",
+        "Name": "updatecli_Windows_arm.zip.sbom",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 349465
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:42Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Darwin_x86_64.tar.gz.sbom",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 344487
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:41Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Darwin_arm64.tar.gz.sbom",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 344231
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:41Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Linux_arm64.tar.gz.sbom",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 343973
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:41Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Linux_arm.tar.gz.sbom",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 343457
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:41Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2023-12-20T16:50:42Z",
+        "Size": 24246104
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:40Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2023-12-20T16:50:41Z",
+        "Size": 25557010
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:40Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2023-12-20T16:50:41Z",
+        "Size": 23372038
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:40Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2023-12-20T16:50:41Z",
+        "Size": 24325752
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:40Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2023-12-20T16:50:41Z",
+        "Size": 25174133
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:38Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2023-12-20T16:50:40Z",
+        "Size": 26757069
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:38Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2023-12-20T16:50:39Z",
+        "Size": 26780868
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:38Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2023-12-20T16:50:39Z",
+        "Size": 24315385
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:38Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2023-12-20T16:50:39Z",
+        "Size": 25197515
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:37Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2023-12-20T16:50:38Z",
+        "Size": 25449468
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:36Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2023-12-20T16:50:38Z",
+        "Size": 23449955
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:36Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2023-12-20T16:50:38Z",
+        "Size": 26157752
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:36Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2023-12-20T16:50:38Z",
+        "Size": 24601308
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:35Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2023-12-20T16:50:36Z",
+        "Size": 26688767
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:35Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2023-12-20T16:50:36Z",
+        "Size": 23284707
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:35Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2023-12-20T16:50:36Z",
+        "Size": 25761650
+      },
+      {
+        "CreatedAt": "2023-12-20T16:50:35Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.70.0/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2023-12-20T16:50:36Z",
+        "Size": 24173590
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n- fix: maven autodiscovery e2e test @olblak (#1844)\r\n\r\n## 🚀 Features\r\n\r\n- feat(scm): add BasicAuth to stash @pismute (#1841)\r\n\r\n## 🧰 Maintenance\r\n\r\n- deps: bump patch version for Golang package defined in go.mod @updateclibot (#1842)\r\n- Update Golang module github.com/aws/aws-sdk-go @updateclibot (#1847)\r\n- chore(deps): Bump golang.org/x/crypto from 0.16.0 to 0.17.0 @dependabot (#1845)\r\n- chore(deps): Bump github.com/containerd/containerd from 1.7.7 to 1.7.11 @dependabot (#1846)\r\n- chore(deps): Bump github/codeql-action from 2 to 3 @dependabot (#1843)\r\n- chore(deps): Bump sigstore/cosign-installer from 3.2.0 to 3.3.0 @dependabot (#1839)\r\n\r\n## Contributors\r\n\r\n@dependabot, @dependabot[bot], @olblak, @pismute, @updateclibot and @updateclibot[bot]\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: maven autodiscovery e2e test \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2043793649\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1844\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1844/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1844\"\u003e#1844\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🚀 Features\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efeat(scm): add BasicAuth to stash \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/pismute/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/pismute\"\u003e@pismute\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2038333316\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1841\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1841/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1841\"\u003e#1841\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🧰 Maintenance\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003edeps: bump patch version for Golang package defined in go.mod @updateclibot (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2041429066\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1842\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1842/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1842\"\u003e#1842\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003eUpdate Golang module github.com/aws/aws-sdk-go @updateclibot (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2050271397\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1847\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1847/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1847\"\u003e#1847\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003echore(deps): Bump golang.org/x/crypto from 0.16.0 to 0.17.0 \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2047684995\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1845\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1845/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1845\"\u003e#1845\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003echore(deps): Bump github.com/containerd/containerd from 1.7.7 to 1.7.11 \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2049457100\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1846\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1846/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1846\"\u003e#1846\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003echore(deps): Bump github/codeql-action from 2 to 3 \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2041482835\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1843\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1843/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1843\"\u003e#1843\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003echore(deps): Bump sigstore/cosign-installer from 3.2.0 to 3.3.0 \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2037576267\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1839\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1839/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1839\"\u003e#1839\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e[bot], \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/pismute/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/pismute\"\u003e@pismute\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.70.0",
+    "PublishedAt": "2023-12-20 16:34:08 +0000 UTC",
+    "UpdatedAt": "2023-12-20 16:50:43 +0000 UTC",
+    "Tag": "v0.70.0",
+    "Name": "v0.70.0"
+  },
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2022-08-27T08:19:36Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_0.31.0_checksums.txt",
+        "Name": "updatecli_0.31.0_checksums.txt",
+        "UpdatedAt": "2022-08-27T08:19:36Z",
+        "Size": 1536
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:36Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2022-08-27T08:19:37Z",
+        "Size": 17025764
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:35Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2022-08-27T08:19:36Z",
+        "Size": 18728829
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:35Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2022-08-27T08:19:36Z",
+        "Size": 17746910
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:34Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2022-08-27T08:19:35Z",
+        "Size": 17707248
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:34Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2022-08-27T08:19:35Z",
+        "Size": 17005262
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:33Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2022-08-27T08:19:34Z",
+        "Size": 18717524
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:33Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2022-08-27T08:19:34Z",
+        "Size": 16973929
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:32Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2022-08-27T08:19:32Z",
+        "Size": 18706714
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:32Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2022-08-27T08:19:33Z",
+        "Size": 17695507
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:31Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Linux_armv6.tar.gz",
+        "Name": "updatecli_Linux_armv6.tar.gz",
+        "UpdatedAt": "2022-08-27T08:19:32Z",
+        "Size": 16975814
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:31Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2022-08-27T08:19:31Z",
+        "Size": 16255498
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:30Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2022-08-27T08:19:30Z",
+        "Size": 17859010
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:30Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Windows_armv6.zip",
+        "Name": "updatecli_Windows_armv6.zip",
+        "UpdatedAt": "2022-08-27T08:19:30Z",
+        "Size": 17284061
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:29Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2022-08-27T08:19:29Z",
+        "Size": 16360204
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:29Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2022-08-27T08:19:29Z",
+        "Size": 17974557
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:27Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2022-08-27T08:19:28Z",
+        "Size": 18779858
+      },
+      {
+        "CreatedAt": "2022-08-27T08:19:27Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2022-08-27T08:19:28Z",
+        "Size": 18106660
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\nINFO: This release can be enabled by using the flag `--experimental`. We decided to use the experimental to highlight that we are currently in a very early stage, and this feature will be modified based on user input.  \r\n\r\n## 🚀 Features\r\n\r\n- Introduce Autodiscovery with Helm Chart \u0026 Rancher Fleet support @olblak (#763)\r\n\r\n## Contributors\r\n\r\n@olblak, @updateclibot and @updateclibot[bot]\r\n\r\n---\r\n\r\nThe autodiscovery feature is a major feature that land the paving for a new way of using Updatecli\r\n\r\nIt introduces the following changes:\r\n\r\n**Fix Jsonschema Data**\r\nDue to a regression, the jsonschema expected Updatecli to start with a spec root key. This is fix now\r\n\r\n**Default config**\r\n\r\nBy default, updatecli will look for pipeline manifest in `updatecli.yaml` or `updatecli.d`.\r\nIt doesn't return an error if no valid manifest could be found. This behavior change is important for the autodiscovery\r\nas the autodiscovery can be used without providing manifest such as `updatecli manifest show --local-autodiscovery`\r\n\r\n**Manifest show**\r\n\r\nIn version 0.27.0, we introduce sub-commands for manifest such as `updatecli manifest upgrade`\r\nNow we are adding a new one `updatecli manifest show` which deprecates `updatecli show`\r\nThis subcommand is convenient to display and generate manifest based on the autodiscovery such as `updatecli manifest show --local-autodiscovery`\r\n\r\n**No manifest allowed**\r\n\r\nAs mentioned in the previous section, Updatecli can analyze local files to generate and apply manifest.\r\nThis means that providing a valid manifest is no anymore mandatory for Updatecli\r\nThe following commands work\r\n\r\n* `updatecli diff --local-autodiscovery`\r\n* `updatecli apply --local-autodiscovery`\r\n* `updatecli show --local-autodiscovery`\r\n* `updatecli manifest show --local-autodiscovery`\r\n\r\n**Drop target in pullrequest spec**\r\n\r\nIn the past, the pullrequest spec would rely on the field \"targets\" to know which target was bound to the pullrequest\r\nThis information could easily be generated from the context.\r\n\r\nbefore\r\n```\r\npullrequests:\r\n  default:\r\n    title: '[updatecli] Bump updatecli version to {{ source \"latestVersion\" }}'\r\n    kind: github\r\n    scmid: default\r\n    targets:\r\n      - bugReport\r\n    spec:\r\n      labels:\r\n        - chore\r\n        - skip-changelog\r\n```\r\n\r\nAfter\r\n```\r\npullrequests:\r\n  default:\r\n    title: '[updatecli] Bump updatecli version to {{ source \"latestVersion\" }}'\r\n    kind: github\r\n    scmid: default\r\n    spec:\r\n      labels:\r\n        - chore\r\n        - skip-changelog\r\n```\r\n\r\nYou can easily fix your manifest by running `updatecli manifest upgrade --config ./updatecli.d` to validate the changes and then\r\n`updatecli manifest upgrade --config \u003cmanifest name\u003e.yaml --in-place`\r\n\r\n**autodiscovery**\r\n\r\nINFO: Autodiscovery can be enabled by using the flag `--experimental`. We decided to use the experimental to highlight that we are currently in a very early stage, and this feature can easily be modified based on user input.  \r\n\r\nThe goal of this feature is to parse common files to try to generate and apply manifest. The goal is to reduce the need of writing and maintaining manifest that could easily be generated based on context.\r\nwhile it works out of the box without manifest, It can also be configured from the same manifest by using the top-level key `autodiscovery`\r\n\r\nMore information is available on www.updatecli.io/docs/core/autodiscovery\r\n\r\n\r\n### Helm crawler\r\n\r\nThe first autodiscovery crawler named \"helm\", allows parsing common Helm chart configuration to update the following information.\r\n\r\n* Helm dependencies defined in Chart.yaml\r\n* Container images defined in values.yaml using the following format\r\n\r\nDocker image identified from Helm Charts values, are looking for following structure:\r\n```\r\nimage:\r\n  repository: \u003cimage_name\u003e\r\n  tag: \u003ctag\u003e\r\nimages:\r\n  \u003cid\u003e:\r\n    repository: \u003cimage_name\u003e\r\n    tag: \u003cimage_tag\u003e\r\n```\r\n\r\n```\r\ntitle: Manifest title\r\nscms\r\n  # As before, it specifies scm configuration\r\npullrequests:\r\n  # As before, it specifies pullrequest configuration\r\nautodiscovery:\r\n  # Optional\r\n  # If one is specified, the updatecli analyzes the scm directory, instead of the local one\r\n  scmid: \u003cit references a scm configuration \u003e\r\n\r\n  # Optional\r\n  pullrequest: \u003cspecifis a pullrequest id\u003e\r\n\r\n  # Override default crawlers configuration\r\n  crawlers:\r\n    helm:\r\n      # Default true\r\n      enabled: true\r\n\r\n      # Optional\r\n      ignore:\r\n        - path: \u003cspecifies path to ignore\u003e\r\n\r\n      # Optional\r\n      only:\r\n        - path: \u003conly explore this path\u003e\r\n\r\n      # OptionDefault scm directory or local if nothing specified\r\n      rootdir: \u003coverride directory to analyze\u003e\r\n\r\n      # Auths specifies docker registry credentials\r\n      auths:\r\n          docker.io:\r\n              username: \u003cusername\u003e\r\n              token: \u003ctoken\u003e\r\n          ghcr.io:\r\n              username: \u003cusername\u003e\r\n              token: \u003ctoken\u003e\r\n```\r\n### Fleet Crawler\r\n\r\nA second crawler has been added to help to put things in perspective, it updates helm version from fleet.yaml files\r\n\r\nAn example of autodiscovery manifest would be\r\n\r\n```\r\ntitle: Manifest title\r\nscms\r\n  # As before, it specifies scm configuration\r\npullrequests:\r\n  # As before, it specifies pullrequest configuration\r\nautodiscovery:\r\n  # Optional\r\n  # If one is specified, the updatecli analyzes the scm directory, instead of the local one\r\n  scmid: \u003cit references a scm configuration \u003e\r\n\r\n  # Optional\r\n  pullrequest: \u003cspecifis a pullrequest id\u003e\r\n\r\n  # Override default crawlers configuration\r\n  crawlers:\r\n    rancher/fleet:\r\n      # default true\r\n      enabled: true\r\n\r\n      # Optional\r\n      ignore:\r\n        - path: \u003cspecifies path to ignore\u003e\r\n\r\n      # Optional\r\n      only:\r\n        - path: \u003conly explore this path\u003e\r\n\r\n      # OptionDefault scm directory or local if nothing specified\r\n      rootdir: \u003coverride directory to analyze\u003e\r\n```\r\n\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003cp\u003eINFO: This release can be enabled by using the flag \u003ccode\u003e--experimental\u003c/code\u003e. We decided to use the experimental to highlight that we are currently in a very early stage, and this feature will be modified based on user input.\u003c/p\u003e\n\u003ch2\u003e🚀 Features\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003eIntroduce Autodiscovery with Helm Chart \u0026amp; Rancher Fleet support \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"1304300024\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/763\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/763/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/763\"\u003e#763\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e\n\u003chr\u003e\n\u003cp\u003eThe autodiscovery feature is a major feature that land the paving for a new way of using Updatecli\u003c/p\u003e\n\u003cp\u003eIt introduces the following changes:\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eFix Jsonschema Data\u003c/strong\u003e\u003cbr\u003e\nDue to a regression, the jsonschema expected Updatecli to start with a spec root key. This is fix now\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eDefault config\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eBy default, updatecli will look for pipeline manifest in \u003ccode\u003eupdatecli.yaml\u003c/code\u003e or \u003ccode\u003eupdatecli.d\u003c/code\u003e.\u003cbr\u003e\nIt doesn't return an error if no valid manifest could be found. This behavior change is important for the autodiscovery\u003cbr\u003e\nas the autodiscovery can be used without providing manifest such as \u003ccode\u003eupdatecli manifest show --local-autodiscovery\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eManifest show\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eIn version 0.27.0, we introduce sub-commands for manifest such as \u003ccode\u003eupdatecli manifest upgrade\u003c/code\u003e\u003cbr\u003e\nNow we are adding a new one \u003ccode\u003eupdatecli manifest show\u003c/code\u003e which deprecates \u003ccode\u003eupdatecli show\u003c/code\u003e\u003cbr\u003e\nThis subcommand is convenient to display and generate manifest based on the autodiscovery such as \u003ccode\u003eupdatecli manifest show --local-autodiscovery\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eNo manifest allowed\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eAs mentioned in the previous section, Updatecli can analyze local files to generate and apply manifest.\u003cbr\u003e\nThis means that providing a valid manifest is no anymore mandatory for Updatecli\u003cbr\u003e\nThe following commands work\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ccode\u003eupdatecli diff --local-autodiscovery\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003eupdatecli apply --local-autodiscovery\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003eupdatecli show --local-autodiscovery\u003c/code\u003e\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003eupdatecli manifest show --local-autodiscovery\u003c/code\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e\u003cstrong\u003eDrop target in pullrequest spec\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eIn the past, the pullrequest spec would rely on the field \"targets\" to know which target was bound to the pullrequest\u003cbr\u003e\nThis information could easily be generated from the context.\u003c/p\u003e\n\u003cp\u003ebefore\u003c/p\u003e\n\u003cdiv class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"pullrequests:\n  default:\n    title: '[updatecli] Bump updatecli version to {{ source \u0026quot;latestVersion\u0026quot; }}'\n    kind: github\n    scmid: default\n    targets:\n      - bugReport\n    spec:\n      labels:\n        - chore\n        - skip-changelog\"\u003e\u003cpre class=\"notranslate\"\u003e\u003ccode\u003epullrequests:\n  default:\n    title: '[updatecli] Bump updatecli version to {{ source \"latestVersion\" }}'\n    kind: github\n    scmid: default\n    targets:\n      - bugReport\n    spec:\n      labels:\n        - chore\n        - skip-changelog\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003eAfter\u003c/p\u003e\n\u003cdiv class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"pullrequests:\n  default:\n    title: '[updatecli] Bump updatecli version to {{ source \u0026quot;latestVersion\u0026quot; }}'\n    kind: github\n    scmid: default\n    spec:\n      labels:\n        - chore\n        - skip-changelog\"\u003e\u003cpre class=\"notranslate\"\u003e\u003ccode\u003epullrequests:\n  default:\n    title: '[updatecli] Bump updatecli version to {{ source \"latestVersion\" }}'\n    kind: github\n    scmid: default\n    spec:\n      labels:\n        - chore\n        - skip-changelog\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003cp\u003eYou can easily fix your manifest by running \u003ccode\u003eupdatecli manifest upgrade --config ./updatecli.d\u003c/code\u003e to validate the changes and then\u003cbr\u003e\n\u003ccode\u003eupdatecli manifest upgrade --config \u0026lt;manifest name\u0026gt;.yaml --in-place\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eautodiscovery\u003c/strong\u003e\u003c/p\u003e\n\u003cp\u003eINFO: Autodiscovery can be enabled by using the flag \u003ccode\u003e--experimental\u003c/code\u003e. We decided to use the experimental to highlight that we are currently in a very early stage, and this feature can easily be modified based on user input.\u003c/p\u003e\n\u003cp\u003eThe goal of this feature is to parse common files to try to generate and apply manifest. The goal is to reduce the need of writing and maintaining manifest that could easily be generated based on context.\u003cbr\u003e\nwhile it works out of the box without manifest, It can also be configured from the same manifest by using the top-level key \u003ccode\u003eautodiscovery\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003eMore information is available on \u003ca href=\"http://www.updatecli.io/docs/core/autodiscovery\" rel=\"nofollow\"\u003ewww.updatecli.io/docs/core/autodiscovery\u003c/a\u003e\u003c/p\u003e\n\u003ch3\u003eHelm crawler\u003c/h3\u003e\n\u003cp\u003eThe first autodiscovery crawler named \"helm\", allows parsing common Helm chart configuration to update the following information.\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eHelm dependencies defined in Chart.yaml\u003c/li\u003e\n\u003cli\u003eContainer images defined in values.yaml using the following format\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eDocker image identified from Helm Charts values, are looking for following structure:\u003c/p\u003e\n\u003cdiv class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"image:\n  repository: \u0026lt;image_name\u0026gt;\n  tag: \u0026lt;tag\u0026gt;\nimages:\n  \u0026lt;id\u0026gt;:\n    repository: \u0026lt;image_name\u0026gt;\n    tag: \u0026lt;image_tag\u0026gt;\"\u003e\u003cpre class=\"notranslate\"\u003e\u003ccode\u003eimage:\n  repository: \u0026lt;image_name\u0026gt;\n  tag: \u0026lt;tag\u0026gt;\nimages:\n  \u0026lt;id\u0026gt;:\n    repository: \u0026lt;image_name\u0026gt;\n    tag: \u0026lt;image_tag\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003cdiv class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"title: Manifest title\nscms\n  # As before, it specifies scm configuration\npullrequests:\n  # As before, it specifies pullrequest configuration\nautodiscovery:\n  # Optional\n  # If one is specified, the updatecli analyzes the scm directory, instead of the local one\n  scmid: \u0026lt;it references a scm configuration \u0026gt;\n\n  # Optional\n  pullrequest: \u0026lt;specifis a pullrequest id\u0026gt;\n\n  # Override default crawlers configuration\n  crawlers:\n    helm:\n      # Default true\n      enabled: true\n\n      # Optional\n      ignore:\n        - path: \u0026lt;specifies path to ignore\u0026gt;\n\n      # Optional\n      only:\n        - path: \u0026lt;only explore this path\u0026gt;\n\n      # OptionDefault scm directory or local if nothing specified\n      rootdir: \u0026lt;override directory to analyze\u0026gt;\n\n      # Auths specifies docker registry credentials\n      auths:\n          docker.io:\n              username: \u0026lt;username\u0026gt;\n              token: \u0026lt;token\u0026gt;\n          ghcr.io:\n              username: \u0026lt;username\u0026gt;\n              token: \u0026lt;token\u0026gt;\"\u003e\u003cpre class=\"notranslate\"\u003e\u003ccode\u003etitle: Manifest title\nscms\n  # As before, it specifies scm configuration\npullrequests:\n  # As before, it specifies pullrequest configuration\nautodiscovery:\n  # Optional\n  # If one is specified, the updatecli analyzes the scm directory, instead of the local one\n  scmid: \u0026lt;it references a scm configuration \u0026gt;\n\n  # Optional\n  pullrequest: \u0026lt;specifis a pullrequest id\u0026gt;\n\n  # Override default crawlers configuration\n  crawlers:\n    helm:\n      # Default true\n      enabled: true\n\n      # Optional\n      ignore:\n        - path: \u0026lt;specifies path to ignore\u0026gt;\n\n      # Optional\n      only:\n        - path: \u0026lt;only explore this path\u0026gt;\n\n      # OptionDefault scm directory or local if nothing specified\n      rootdir: \u0026lt;override directory to analyze\u0026gt;\n\n      # Auths specifies docker registry credentials\n      auths:\n          docker.io:\n              username: \u0026lt;username\u0026gt;\n              token: \u0026lt;token\u0026gt;\n          ghcr.io:\n              username: \u0026lt;username\u0026gt;\n              token: \u0026lt;token\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003ch3\u003eFleet Crawler\u003c/h3\u003e\n\u003cp\u003eA second crawler has been added to help to put things in perspective, it updates helm version from fleet.yaml files\u003c/p\u003e\n\u003cp\u003eAn example of autodiscovery manifest would be\u003c/p\u003e\n\u003cdiv class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"title: Manifest title\nscms\n  # As before, it specifies scm configuration\npullrequests:\n  # As before, it specifies pullrequest configuration\nautodiscovery:\n  # Optional\n  # If one is specified, the updatecli analyzes the scm directory, instead of the local one\n  scmid: \u0026lt;it references a scm configuration \u0026gt;\n\n  # Optional\n  pullrequest: \u0026lt;specifis a pullrequest id\u0026gt;\n\n  # Override default crawlers configuration\n  crawlers:\n    rancher/fleet:\n      # default true\n      enabled: true\n\n      # Optional\n      ignore:\n        - path: \u0026lt;specifies path to ignore\u0026gt;\n\n      # Optional\n      only:\n        - path: \u0026lt;only explore this path\u0026gt;\n\n      # OptionDefault scm directory or local if nothing specified\n      rootdir: \u0026lt;override directory to analyze\u0026gt;\"\u003e\u003cpre class=\"notranslate\"\u003e\u003ccode\u003etitle: Manifest title\nscms\n  # As before, it specifies scm configuration\npullrequests:\n  # As before, it specifies pullrequest configuration\nautodiscovery:\n  # Optional\n  # If one is specified, the updatecli analyzes the scm directory, instead of the local one\n  scmid: \u0026lt;it references a scm configuration \u0026gt;\n\n  # Optional\n  pullrequest: \u0026lt;specifis a pullrequest id\u0026gt;\n\n  # Override default crawlers configuration\n  crawlers:\n    rancher/fleet:\n      # default true\n      enabled: true\n\n      # Optional\n      ignore:\n        - path: \u0026lt;specifies path to ignore\u0026gt;\n\n      # Optional\n      only:\n        - path: \u0026lt;only explore this path\u0026gt;\n\n      # OptionDefault scm directory or local if nothing specified\n      rootdir: \u0026lt;override directory to analyze\u0026gt;\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.31.0",
+    "PublishedAt": "2022-08-27 07:57:20 +0000 UTC",
+    "UpdatedAt": "2022-08-27 19:34:12 +0000 UTC",
+    "Tag": "v0.31.0",
+    "Name": "v0.31.0"
+  },
+  "FrontMatters": "---\ntitle: \"v0.31.0\"\ndate: 2022-08-27 07:57:20 +0000 UTC\n---"
+}

@@ -1,0 +1,67 @@
+---
+title: "v0.0.22 🌈"
+date: 2020-11-04 16:03:03 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2020-11-04 16:03:03 +0000 UTC - v0.0.22__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<p>This release is mainly about performance improvement which required code refactoring and core reorganization and fixing regression issues introduced by it.</p>
+<p>According to my test case, I was able to reduce by 4 the time need for a single run.<br>
+BACK OR I CALL THE POLICE SPAM</p>
+<h2>Changes</h2>
+<ul>
+<li>Update shield links in README.adoc <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="736151925" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/113" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/113/hovercard" href="https://github.com/updatecli/updatecli/pull/113">#113</a>)</li>
+<li>Add Maven,HelmRelease,GithubRelease example with explanation <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="735110200" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/111" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/111/hovercard" href="https://github.com/updatecli/updatecli/pull/111">#111</a>)</li>
+<li>Fix regressions <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="735085671" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/110" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/110/hovercard" href="https://github.com/updatecli/updatecli/pull/110">#110</a>)</li>
+<li>Only clone git repository once at the beginning on the run <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="732661398" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/109" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/109/hovercard" href="https://github.com/updatecli/updatecli/pull/109">#109</a>)</li>
+<li>Don't clean git repository when not needed <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="728792055" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/106" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/106/hovercard" href="https://github.com/updatecli/updatecli/pull/106">#106</a>)</li>
+<li>use latest download link in github action <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="729397943" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/107" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/107/hovercard" href="https://github.com/updatecli/updatecli/pull/107">#107</a>)</li>
+<li>Add yaml condition doc <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="727517410" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/104" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/104/hovercard" href="https://github.com/updatecli/updatecli/pull/104">#104</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.22/updatecli.linux.amd64[updatecli.linux.amd64] | 2020-11-04 16:15:34 +0000 UTC | 2020-11-04T16:15:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.22/updatecli.linux.386[updatecli.linux.386] | 2020-11-04 16:15:13 +0000 UTC | 2020-11-04T16:15:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.22/updatecli.darwin.amd64[updatecli.darwin.amd64] | 2020-11-04 16:14:47 +0000 UTC | 2020-11-04T16:15:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.22/updatecli.darwin.386[updatecli.darwin.386] | 2020-11-04 16:14:14 +0000 UTC | 2020-11-04T16:14:47Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.22/updatecli.amd64.exe[updatecli.amd64.exe] | 2020-11-04 16:13:51 +0000 UTC | 2020-11-04T16:14:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.22/updatecli.386.exe[updatecli.386.exe] | 2020-11-04 16:13:23 +0000 UTC | 2020-11-04T16:13:51Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.22[here]__
+

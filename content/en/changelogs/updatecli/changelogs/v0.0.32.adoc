@@ -1,0 +1,49 @@
+---
+title: "v0.0.32 🌈"
+date: 2021-01-29 11:02:42 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-01-29 11:02:42 +0000 UTC - v0.0.32__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<p>This release catches more aggressively errors and introduces the "--debug" flag</p>
+<h2>Changes</h2>
+<ul>
+<li>chore: convert fmt.Print* to logrus <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/garethjevans/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/garethjevans">@garethjevans</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="795945176" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/162" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/162/hovercard" href="https://github.com/updatecli/updatecli/pull/162">#162</a>)</li>
+<li>Remove occurrences of 'master' <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="795805718" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/161" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/161/hovercard" href="https://github.com/updatecli/updatecli/pull/161">#161</a>)</li>
+<li>core: fail command when job fails <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/garethjevans/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/garethjevans">@garethjevans</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="795435354" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/153" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/153/hovercard" href="https://github.com/updatecli/updatecli/pull/153">#153</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>[source][condition] Add Jenkins resource [source,condition] <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="795070128" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/149" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/149/hovercard" href="https://github.com/updatecli/updatecli/pull/149">#149</a>)</li>
+<li>Add prefix/postfix to condition stage  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="795076903" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/150" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/150/hovercard" href="https://github.com/updatecli/updatecli/pull/150">#150</a>)</li>
+<li>Display a specific message when no changelog available from a Github Release <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="795090004" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/151" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/151/hovercard" href="https://github.com/updatecli/updatecli/pull/151">#151</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Better Handle errors <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="796072463" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/163" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/163/hovercard" href="https://github.com/updatecli/updatecli/pull/163">#163</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/garethjevans/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/garethjevans">@garethjevans</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.32[here]__
+

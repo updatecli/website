@@ -1,0 +1,93 @@
+---
+title: "v0.20.1"
+date: 2022-03-02 10:14:00 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-03-02 10:14:00 +0000 UTC - v0.20.1__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>📝 Documentation</h2>
+<ul>
+<li>Fix deprecated example in README <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1140554037" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/530" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/530/hovercard" href="https://github.com/updatecli/updatecli/pull/530">#530</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Test at runtime if a yaml file exists <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1155422482" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/543" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/543/hovercard" href="https://github.com/updatecli/updatecli/pull/543">#543</a>)</li>
+<li>fix: log the config name at validation <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1148484918" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/537" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/537/hovercard" href="https://github.com/updatecli/updatecli/pull/537">#537</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.42.52 to 1.43.7 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1153954250" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/541" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/541/hovercard" href="https://github.com/updatecli/updatecli/pull/541">#541</a>)</li>
+<li>Bump github.com/docker/distribution to 2.8.0 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1141766483" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/532" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/532/hovercard" href="https://github.com/updatecli/updatecli/pull/532">#532</a>)</li>
+<li>chore(deps): Bump updatecli/updatecli-action from 1.22.0 to 1.23.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1141198236" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/531" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/531/hovercard" href="https://github.com/updatecli/updatecli/pull/531">#531</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-03-02 10:28:24 +0000 UTC | 2022-03-02T10:28:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-03-02 10:28:23 +0000 UTC | 2022-03-02T10:28:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-03-02 10:28:23 +0000 UTC | 2022-03-02T10:28:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-03-02 10:28:21 +0000 UTC | 2022-03-02T10:28:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-03-02 10:28:17 +0000 UTC | 2022-03-02T10:28:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-03-02 10:28:16 +0000 UTC | 2022-03-02T10:28:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-03-02 10:28:15 +0000 UTC | 2022-03-02T10:28:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-03-02 10:28:14 +0000 UTC | 2022-03-02T10:28:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-03-02 10:28:13 +0000 UTC | 2022-03-02T10:28:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-03-02 10:28:12 +0000 UTC | 2022-03-02T10:28:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-03-02 10:28:11 +0000 UTC | 2022-03-02T10:28:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-03-02 10:28:10 +0000 UTC | 2022-03-02T10:28:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-03-02 10:28:09 +0000 UTC | 2022-03-02T10:28:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-03-02 10:28:08 +0000 UTC | 2022-03-02T10:28:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-03-02 10:28:07 +0000 UTC | 2022-03-02T10:28:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-03-02 10:28:02 +0000 UTC | 2022-03-02T10:28:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-03-02 10:28:02 +0000 UTC | 2022-03-02T10:28:03Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.20.1/updatecli_0.20.1_checksums.txt[updatecli_0.20.1_checksums.txt] | 2022-03-02 10:28:02 +0000 UTC | 2022-03-02T10:28:02Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.20.1[here]__
+

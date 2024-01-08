@@ -1,0 +1,97 @@
+---
+title: "v0.34.0"
+date: 2022-09-28 06:54:18 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-09-28 06:54:18 +0000 UTC - v0.34.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>chore: don't make <code>sources.name</code> mandatory in JSON Schema <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1384261133" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/887" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/887/hovercard" href="https://github.com/updatecli/updatecli/pull/887">#887</a>)</li>
+<li>Deprecate depends_on in favor of dependson <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1384197837" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/886" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/886/hovercard" href="https://github.com/updatecli/updatecli/pull/886">#886</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>Add csv resource <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1385120553" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/890" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/890/hovercard" href="https://github.com/updatecli/updatecli/pull/890">#890</a>)</li>
+<li>Add Toml support <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1384649665" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/889" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/889/hovercard" href="https://github.com/updatecli/updatecli/pull/889">#889</a>)</li>
+<li>Add Json support <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1384156866" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/885" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/885/hovercard" href="https://github.com/updatecli/updatecli/pull/885">#885</a>)</li>
+<li>fix: truncate pull request body <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MusabShakeel576/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MusabShakeel576">@MusabShakeel576</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1382760049" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/882" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/882/hovercard" href="https://github.com/updatecli/updatecli/pull/882">#882</a>)</li>
+<li>No default crawler when autodiscovery is used with manifest <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1378373506" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/877" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/877/hovercard" href="https://github.com/updatecli/updatecli/pull/877">#877</a>)</li>
+<li>Add Helmfile autodiscovery crawler <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1378483197" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/878" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/878/hovercard" href="https://github.com/updatecli/updatecli/pull/878">#878</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.44.94 to 1.44.107 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1388453063" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/895" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/895/hovercard" href="https://github.com/updatecli/updatecli/pull/895">#895</a>)</li>
+<li>chore(deps): Bump helm.sh/helm/v3 from 3.9.4 to 3.10.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1385874697" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/892" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/892/hovercard" href="https://github.com/updatecli/updatecli/pull/892">#892</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MusabShakeel576/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MusabShakeel576">@MusabShakeel576</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_0.34.0_checksums.txt[updatecli_0.34.0_checksums.txt] | 2022-09-28 07:16:28 +0000 UTC | 2022-09-28T07:16:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-09-28 07:16:28 +0000 UTC | 2022-09-28T07:16:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-09-28 07:16:27 +0000 UTC | 2022-09-28T07:16:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-09-28 07:16:26 +0000 UTC | 2022-09-28T07:16:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-09-28 07:16:25 +0000 UTC | 2022-09-28T07:16:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-09-28 07:16:25 +0000 UTC | 2022-09-28T07:16:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-09-28 07:16:24 +0000 UTC | 2022-09-28T07:16:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-09-28 07:16:23 +0000 UTC | 2022-09-28T07:16:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-09-28 07:16:22 +0000 UTC | 2022-09-28T07:16:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-09-28 07:16:22 +0000 UTC | 2022-09-28T07:16:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-09-28 07:16:21 +0000 UTC | 2022-09-28T07:16:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-09-28 07:16:20 +0000 UTC | 2022-09-28T07:16:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-09-28 07:16:19 +0000 UTC | 2022-09-28T07:16:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-09-28 07:16:19 +0000 UTC | 2022-09-28T07:16:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-09-28 07:16:18 +0000 UTC | 2022-09-28T07:16:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-09-28 07:16:17 +0000 UTC | 2022-09-28T07:16:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-09-28 07:16:16 +0000 UTC | 2022-09-28T07:16:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.34.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-09-28 07:16:16 +0000 UTC | 2022-09-28T07:16:17Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.34.0[here]__
+

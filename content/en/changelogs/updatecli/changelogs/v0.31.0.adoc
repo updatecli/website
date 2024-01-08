@@ -1,0 +1,317 @@
+---
+title: "v0.31.0"
+date: 2022-08-27 07:57:20 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-08-27 07:57:20 +0000 UTC - v0.31.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<p>INFO: This release can be enabled by using the flag <code>--experimental</code>. We decided to use the experimental to highlight that we are currently in a very early stage, and this feature will be modified based on user input.</p>
+<h2>🚀 Features</h2>
+<ul>
+<li>Introduce Autodiscovery with Helm Chart &amp; Rancher Fleet support <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1304300024" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/763" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/763/hovercard" href="https://github.com/updatecli/updatecli/pull/763">#763</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+<hr>
+<p>The autodiscovery feature is a major feature that land the paving for a new way of using Updatecli</p>
+<p>It introduces the following changes:</p>
+<p><strong>Fix Jsonschema Data</strong><br>
+Due to a regression, the jsonschema expected Updatecli to start with a spec root key. This is fix now</p>
+<p><strong>Default config</strong></p>
+<p>By default, updatecli will look for pipeline manifest in <code>updatecli.yaml</code> or <code>updatecli.d</code>.<br>
+It doesn't return an error if no valid manifest could be found. This behavior change is important for the autodiscovery<br>
+as the autodiscovery can be used without providing manifest such as <code>updatecli manifest show --local-autodiscovery</code></p>
+<p><strong>Manifest show</strong></p>
+<p>In version 0.27.0, we introduce sub-commands for manifest such as <code>updatecli manifest upgrade</code><br>
+Now we are adding a new one <code>updatecli manifest show</code> which deprecates <code>updatecli show</code><br>
+This subcommand is convenient to display and generate manifest based on the autodiscovery such as <code>updatecli manifest show --local-autodiscovery</code></p>
+<p><strong>No manifest allowed</strong></p>
+<p>As mentioned in the previous section, Updatecli can analyze local files to generate and apply manifest.<br>
+This means that providing a valid manifest is no anymore mandatory for Updatecli<br>
+The following commands work</p>
+<ul>
+<li><code>updatecli diff --local-autodiscovery</code></li>
+<li><code>updatecli apply --local-autodiscovery</code></li>
+<li><code>updatecli show --local-autodiscovery</code></li>
+<li><code>updatecli manifest show --local-autodiscovery</code></li>
+</ul>
+<p><strong>Drop target in pullrequest spec</strong></p>
+<p>In the past, the pullrequest spec would rely on the field "targets" to know which target was bound to the pullrequest<br>
+This information could easily be generated from the context.</p>
+<p>before</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="pullrequests:
+  default:
+    title: '[updatecli] Bump updatecli version to {{ source &quot;latestVersion&quot; }}'
+    kind: github
+    scmid: default
+    targets:
+      - bugReport
+    spec:
+      labels:
+        - chore
+        - skip-changelog"><pre class="notranslate"><code>pullrequests:
+  default:
+    title: '[updatecli] Bump updatecli version to {{ source "latestVersion" }}'
+    kind: github
+    scmid: default
+    targets:
+      - bugReport
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+</code></pre></div>
+<p>After</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="pullrequests:
+  default:
+    title: '[updatecli] Bump updatecli version to {{ source &quot;latestVersion&quot; }}'
+    kind: github
+    scmid: default
+    spec:
+      labels:
+        - chore
+        - skip-changelog"><pre class="notranslate"><code>pullrequests:
+  default:
+    title: '[updatecli] Bump updatecli version to {{ source "latestVersion" }}'
+    kind: github
+    scmid: default
+    spec:
+      labels:
+        - chore
+        - skip-changelog
+</code></pre></div>
+<p>You can easily fix your manifest by running <code>updatecli manifest upgrade --config ./updatecli.d</code> to validate the changes and then<br>
+<code>updatecli manifest upgrade --config &lt;manifest name&gt;.yaml --in-place</code></p>
+<p><strong>autodiscovery</strong></p>
+<p>INFO: Autodiscovery can be enabled by using the flag <code>--experimental</code>. We decided to use the experimental to highlight that we are currently in a very early stage, and this feature can easily be modified based on user input.</p>
+<p>The goal of this feature is to parse common files to try to generate and apply manifest. The goal is to reduce the need of writing and maintaining manifest that could easily be generated based on context.<br>
+while it works out of the box without manifest, It can also be configured from the same manifest by using the top-level key <code>autodiscovery</code></p>
+<p>More information is available on <a href="http://www.updatecli.io/docs/core/autodiscovery" rel="nofollow">www.updatecli.io/docs/core/autodiscovery</a></p>
+<h3>Helm crawler</h3>
+<p>The first autodiscovery crawler named "helm", allows parsing common Helm chart configuration to update the following information.</p>
+<ul>
+<li>Helm dependencies defined in Chart.yaml</li>
+<li>Container images defined in values.yaml using the following format</li>
+</ul>
+<p>Docker image identified from Helm Charts values, are looking for following structure:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="image:
+  repository: &lt;image_name&gt;
+  tag: &lt;tag&gt;
+images:
+  &lt;id&gt;:
+    repository: &lt;image_name&gt;
+    tag: &lt;image_tag&gt;"><pre class="notranslate"><code>image:
+  repository: &lt;image_name&gt;
+  tag: &lt;tag&gt;
+images:
+  &lt;id&gt;:
+    repository: &lt;image_name&gt;
+    tag: &lt;image_tag&gt;
+</code></pre></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="title: Manifest title
+scms
+  # As before, it specifies scm configuration
+pullrequests:
+  # As before, it specifies pullrequest configuration
+autodiscovery:
+  # Optional
+  # If one is specified, the updatecli analyzes the scm directory, instead of the local one
+  scmid: &lt;it references a scm configuration &gt;
+
+  # Optional
+  pullrequest: &lt;specifis a pullrequest id&gt;
+
+  # Override default crawlers configuration
+  crawlers:
+    helm:
+      # Default true
+      enabled: true
+
+      # Optional
+      ignore:
+        - path: &lt;specifies path to ignore&gt;
+
+      # Optional
+      only:
+        - path: &lt;only explore this path&gt;
+
+      # OptionDefault scm directory or local if nothing specified
+      rootdir: &lt;override directory to analyze&gt;
+
+      # Auths specifies docker registry credentials
+      auths:
+          docker.io:
+              username: &lt;username&gt;
+              token: &lt;token&gt;
+          ghcr.io:
+              username: &lt;username&gt;
+              token: &lt;token&gt;"><pre class="notranslate"><code>title: Manifest title
+scms
+  # As before, it specifies scm configuration
+pullrequests:
+  # As before, it specifies pullrequest configuration
+autodiscovery:
+  # Optional
+  # If one is specified, the updatecli analyzes the scm directory, instead of the local one
+  scmid: &lt;it references a scm configuration &gt;
+
+  # Optional
+  pullrequest: &lt;specifis a pullrequest id&gt;
+
+  # Override default crawlers configuration
+  crawlers:
+    helm:
+      # Default true
+      enabled: true
+
+      # Optional
+      ignore:
+        - path: &lt;specifies path to ignore&gt;
+
+      # Optional
+      only:
+        - path: &lt;only explore this path&gt;
+
+      # OptionDefault scm directory or local if nothing specified
+      rootdir: &lt;override directory to analyze&gt;
+
+      # Auths specifies docker registry credentials
+      auths:
+          docker.io:
+              username: &lt;username&gt;
+              token: &lt;token&gt;
+          ghcr.io:
+              username: &lt;username&gt;
+              token: &lt;token&gt;
+</code></pre></div>
+<h3>Fleet Crawler</h3>
+<p>A second crawler has been added to help to put things in perspective, it updates helm version from fleet.yaml files</p>
+<p>An example of autodiscovery manifest would be</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="title: Manifest title
+scms
+  # As before, it specifies scm configuration
+pullrequests:
+  # As before, it specifies pullrequest configuration
+autodiscovery:
+  # Optional
+  # If one is specified, the updatecli analyzes the scm directory, instead of the local one
+  scmid: &lt;it references a scm configuration &gt;
+
+  # Optional
+  pullrequest: &lt;specifis a pullrequest id&gt;
+
+  # Override default crawlers configuration
+  crawlers:
+    rancher/fleet:
+      # default true
+      enabled: true
+
+      # Optional
+      ignore:
+        - path: &lt;specifies path to ignore&gt;
+
+      # Optional
+      only:
+        - path: &lt;only explore this path&gt;
+
+      # OptionDefault scm directory or local if nothing specified
+      rootdir: &lt;override directory to analyze&gt;"><pre class="notranslate"><code>title: Manifest title
+scms
+  # As before, it specifies scm configuration
+pullrequests:
+  # As before, it specifies pullrequest configuration
+autodiscovery:
+  # Optional
+  # If one is specified, the updatecli analyzes the scm directory, instead of the local one
+  scmid: &lt;it references a scm configuration &gt;
+
+  # Optional
+  pullrequest: &lt;specifis a pullrequest id&gt;
+
+  # Override default crawlers configuration
+  crawlers:
+    rancher/fleet:
+      # default true
+      enabled: true
+
+      # Optional
+      ignore:
+        - path: &lt;specifies path to ignore&gt;
+
+      # Optional
+      only:
+        - path: &lt;only explore this path&gt;
+
+      # OptionDefault scm directory or local if nothing specified
+      rootdir: &lt;override directory to analyze&gt;
+</code></pre></div>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_0.31.0_checksums.txt[updatecli_0.31.0_checksums.txt] | 2022-08-27 08:19:36 +0000 UTC | 2022-08-27T08:19:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-08-27 08:19:36 +0000 UTC | 2022-08-27T08:19:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-08-27 08:19:35 +0000 UTC | 2022-08-27T08:19:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-08-27 08:19:35 +0000 UTC | 2022-08-27T08:19:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-08-27 08:19:34 +0000 UTC | 2022-08-27T08:19:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-08-27 08:19:34 +0000 UTC | 2022-08-27T08:19:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-08-27 08:19:33 +0000 UTC | 2022-08-27T08:19:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-08-27 08:19:33 +0000 UTC | 2022-08-27T08:19:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-08-27 08:19:32 +0000 UTC | 2022-08-27T08:19:32Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-08-27 08:19:32 +0000 UTC | 2022-08-27T08:19:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-08-27 08:19:31 +0000 UTC | 2022-08-27T08:19:32Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-08-27 08:19:31 +0000 UTC | 2022-08-27T08:19:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-08-27 08:19:30 +0000 UTC | 2022-08-27T08:19:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-08-27 08:19:30 +0000 UTC | 2022-08-27T08:19:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-08-27 08:19:29 +0000 UTC | 2022-08-27T08:19:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-08-27 08:19:29 +0000 UTC | 2022-08-27T08:19:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-08-27 08:19:27 +0000 UTC | 2022-08-27T08:19:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.31.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-08-27 08:19:27 +0000 UTC | 2022-08-27T08:19:28Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.31.0[here]__
+

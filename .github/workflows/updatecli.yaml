@@ -16,15 +16,24 @@ jobs:
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
-      - name: "Setup updatecli"
+
+      - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.52.0"
         with:
           version: "v0.70.0"
+
+      # releasepost is required by the Updatecli
+      #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
+      - name: "Install Releasepost"
+        uses: "updatecli/releasepost-action@v0.1.0"
+
       - name: "Run updatecli in dryrun"
         run: "updatecli compose diff --experimental --clean=true"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASEPOST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: tibdex/github-app-token@v2.1
         id: generate_token
         if: github.ref == 'refs/heads/master'
@@ -37,3 +46,4 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}

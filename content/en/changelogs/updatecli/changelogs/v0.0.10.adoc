@@ -1,0 +1,59 @@
+---
+title: "v0.0.10 🌈"
+date: 2020-07-01 12:00:11 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2020-07-01 12:00:11 +0000 UTC - v0.0.10__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>Add support for array in Target yaml key <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="648831539" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/56" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/56/hovercard" href="https://github.com/updatecli/updatecli/pull/56">#56</a>)</li>
+<li>make title and message pretty <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="647706615" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/54" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/54/hovercard" href="https://github.com/updatecli/updatecli/pull/54">#54</a>)</li>
+<li>trigger on pull requests as well <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="648664380" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/55" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/55/hovercard" href="https://github.com/updatecli/updatecli/pull/55">#55</a>)</li>
+<li>Migrate from src-d v4 to go-git v5 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="625817766" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/48" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/48/hovercard" href="https://github.com/updatecli/updatecli/pull/48">#48</a>)</li>
+<li>Bump go to 1.14 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="625829194" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/50" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/50/hovercard" href="https://github.com/updatecli/updatecli/pull/50">#50</a>)</li>
+<li>Add helmchart source&amp;condition <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="625803829" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/47" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/47/hovercard" href="https://github.com/updatecli/updatecli/pull/47">#47</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Fix apply parameters <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="648921969" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/58" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/58/hovercard" href="https://github.com/updatecli/updatecli/pull/58">#58</a>)</li>
+<li>Checkout locally to remoteBranch value <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="648915499" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/57" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/57/hovercard" href="https://github.com/updatecli/updatecli/pull/57">#57</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.10/updatecli[updatecli] | 2020-07-01 12:01:55 +0000 UTC | 2020-07-01T12:02:11Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.10[here]__
+
