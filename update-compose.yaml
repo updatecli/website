@@ -35,13 +35,11 @@ policies:
     policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.6.0@sha256:a6f94de3fd9aba371ad285114f4444ea64a64524956560481f9dbbd55b157739
     values:
       - updatecli/values.d/scm.yaml
- 
   - name: Handle Updatecli version in GitHub action
     policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.1.0@sha256:a5b8933ebfc65ba6ea9e60927900135062a3293f18a68292431cec1e53208e3d
     values:
       - updatecli/values.d/scm.yaml
-
   - name: Trigger releasepost
-    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0
+    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0@sha256:6a8e68ae473a5dafa270650cd74fd296e61abaf4820daf4b50e0e21c8649b710
     values:
       - updatecli/values.d/scm.yaml
