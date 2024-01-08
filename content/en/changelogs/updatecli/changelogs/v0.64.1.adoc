@@ -1,0 +1,114 @@
+---
+title: "v0.64.1"
+date: 2023-10-19 16:32:18 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-10-19 16:32:18 +0000 UTC - v0.64.1__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>chore: cleanup updatecli configuration <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1946670215" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1698" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1698/hovercard" href="https://github.com/updatecli/updatecli/pull/1698">#1698</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>compose file should work without oci policies <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1950365676" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1705" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1705/hovercard" href="https://github.com/updatecli/updatecli/pull/1705">#1705</a>)</li>
+<li>latest tag shouldn't return the oldest tag <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1950365676" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1705" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1705/hovercard" href="https://github.com/updatecli/updatecli/pull/1705">#1705</a> )</li>
+<li>used sanitize policy version for before push to ensure that v prefix are removed <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1950365676" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1705" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1705/hovercard" href="https://github.com/updatecli/updatecli/pull/1705">#1705</a> )</li>
+<li>various path scenarios when publishing policies <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1950365676" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1705" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1705/hovercard" href="https://github.com/updatecli/updatecli/pull/1705">#1705</a> )</li>
+<li>fix: do not exit on empty arguments <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/kuisathaverat/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/kuisathaverat">@kuisathaverat</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1951809789" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1707" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1707/hovercard" href="https://github.com/updatecli/updatecli/pull/1707">#1707</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>Deprecate pipeline title setting in favor of pipeline name <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1947995848" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1704" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1704/hovercard" href="https://github.com/updatecli/updatecli/pull/1704">#1704</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/kuisathaverat/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/kuisathaverat">@kuisathaverat</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/checksums.txt.pem[checksums.txt.pem] | 2023-10-19 16:58:22 +0000 UTC | 2023-10-19T16:58:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/checksums.txt.sig[checksums.txt.sig] | 2023-10-19 16:58:21 +0000 UTC | 2023-10-19T16:58:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/checksums.txt[checksums.txt] | 2023-10-19 16:58:21 +0000 UTC | 2023-10-19T16:58:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Windows_arm.zip.sbom[updatecli_Windows_arm.zip.sbom] | 2023-10-19 16:58:20 +0000 UTC | 2023-10-19T16:58:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-10-19 16:58:20 +0000 UTC | 2023-10-19T16:58:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-10-19 16:58:19 +0000 UTC | 2023-10-19T16:58:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-10-19 16:58:19 +0000 UTC | 2023-10-19T16:58:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-10-19 16:58:19 +0000 UTC | 2023-10-19T16:58:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Linux_arm.tar.gz.sbom[updatecli_Linux_arm.tar.gz.sbom] | 2023-10-19 16:58:18 +0000 UTC | 2023-10-19T16:58:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-10-19 16:58:18 +0000 UTC | 2023-10-19T16:58:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-10-19 16:58:17 +0000 UTC | 2023-10-19T16:58:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-10-19 16:58:16 +0000 UTC | 2023-10-19T16:58:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-10-19 16:58:15 +0000 UTC | 2023-10-19T16:58:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-10-19 16:58:14 +0000 UTC | 2023-10-19T16:58:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-10-19 16:58:13 +0000 UTC | 2023-10-19T16:58:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-10-19 16:58:12 +0000 UTC | 2023-10-19T16:58:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-10-19 16:58:11 +0000 UTC | 2023-10-19T16:58:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-10-19 16:58:10 +0000 UTC | 2023-10-19T16:58:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-10-19 16:58:09 +0000 UTC | 2023-10-19T16:58:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-10-19 16:58:08 +0000 UTC | 2023-10-19T16:58:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2023-10-19 16:58:07 +0000 UTC | 2023-10-19T16:58:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-10-19 16:58:06 +0000 UTC | 2023-10-19T16:58:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-10-19 16:58:05 +0000 UTC | 2023-10-19T16:58:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-10-19 16:58:04 +0000 UTC | 2023-10-19T16:58:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-10-19 16:58:03 +0000 UTC | 2023-10-19T16:58:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2023-10-19 16:58:02 +0000 UTC | 2023-10-19T16:58:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-10-19 16:58:00 +0000 UTC | 2023-10-19T16:58:02Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.64.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-10-19 16:58:00 +0000 UTC | 2023-10-19T16:58:02Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.64.1[here]__
+

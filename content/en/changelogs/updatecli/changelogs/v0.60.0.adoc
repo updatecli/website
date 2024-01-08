@@ -1,0 +1,159 @@
+---
+title: "v0.60.0"
+date: 2023-09-17 13:04:24 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-09-17 13:04:24 +0000 UTC - v0.60.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>WARNING</h2>
+<p>This release contains a fix for the docker image plugin which correctly handles multi-architecture now.<br>
+The side effect of this is that older docker images using the old manifest v1 which do not contain multi-architecture information<br>
+will now fail if the setting <code>architecture</code> or <code>architectures</code> is explicitly set to amd64.</p>
+<p>If this happens you can just remove that Updatecli setting as it will be amd64 anyway</p>
+<details><summary>from</summary>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      architecture: amd64"><pre class="notranslate"><code>conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      architecture: amd64
+</code></pre></div>
+</details>
+<details><summary>to</summary>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      # comment until ghcr.io/updatecli/example:0.60.0 support the schema v2
+      # architecture: amd64"><pre class="notranslate"><code>conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      # comment until ghcr.io/updatecli/example:0.60.0 support the schema v2
+      # architecture: amd64
+</code></pre></div>
+<p><a href="https://docs.docker.com/registry/spec/deprecated-schema-v1/" rel="nofollow">https://docs.docker.com/registry/spec/deprecated-schema-v1/</a></p>
+</details>
+<h2>Changes</h2>
+<ul>
+<li>Revert "Disable Helm autodiscovery version increment by default" <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1887415954" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1572" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1572/hovercard" href="https://github.com/updatecli/updatecli/pull/1572">#1572</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>feat(ci): add terraform registry source <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/mcwarman/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/mcwarman">@mcwarman</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1890103180" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1576" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1576/hovercard" href="https://github.com/updatecli/updatecli/pull/1576">#1576</a>)</li>
+<li>Show version in Golang autodiscovery target name <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1888065128" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1574" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1574/hovercard" href="https://github.com/updatecli/updatecli/pull/1574">#1574</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Correctly set json resource result <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1894229944" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1592" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1592/hovercard" href="https://github.com/updatecli/updatecli/pull/1592">#1592</a>)</li>
+<li>fix: ensure docker image checks architecture <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/mcwarman/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/mcwarman">@mcwarman</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1892500631" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1589" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1589/hovercard" href="https://github.com/updatecli/updatecli/pull/1589">#1589</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>Update Golang module github.com/goccy/go-yaml @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1898728392" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1597" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1597/hovercard" href="https://github.com/updatecli/updatecli/pull/1597">#1597</a>)</li>
+<li>chore(deps): Bump goreleaser/goreleaser-action from 4 to 5 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1892273747" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1585" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1585/hovercard" href="https://github.com/updatecli/updatecli/pull/1585">#1585</a>)</li>
+<li>Update Golang module github.com/goccy/go-yaml @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1895622839" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1595" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1595/hovercard" href="https://github.com/updatecli/updatecli/pull/1595">#1595</a>)</li>
+<li>chore(deps): Bump docker/login-action from 2 to 3 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1892273909" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1586" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1586/hovercard" href="https://github.com/updatecli/updatecli/pull/1586">#1586</a>)</li>
+<li>chore(deps): Bump docker/setup-buildx-action from 2 to 3 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1892274097" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1587" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1587/hovercard" href="https://github.com/updatecli/updatecli/pull/1587">#1587</a>)</li>
+<li>chore(deps): Bump docker/setup-qemu-action from 2 to 3 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1892273611" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1584" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1584/hovercard" href="https://github.com/updatecli/updatecli/pull/1584">#1584</a>)</li>
+<li>Update Golang module github.com/go-git/go-git/v5 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1893102246" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1591" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1591/hovercard" href="https://github.com/updatecli/updatecli/pull/1591">#1591</a>)</li>
+<li>chore(deps): Bump sigstore/cosign-installer from 2.8.1 to 3.1.2 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1880121490" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1563" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1563/hovercard" href="https://github.com/updatecli/updatecli/pull/1563">#1563</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/mcwarman/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/mcwarman">@mcwarman</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/checksums.txt.pem[checksums.txt.pem] | 2023-09-17 13:26:10 +0000 UTC | 2023-09-17T13:26:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/checksums.txt.sig[checksums.txt.sig] | 2023-09-17 13:26:10 +0000 UTC | 2023-09-17T13:26:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/checksums.txt[checksums.txt] | 2023-09-17 13:26:09 +0000 UTC | 2023-09-17T13:26:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-09-17 13:26:09 +0000 UTC | 2023-09-17T13:26:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-09-17 13:26:09 +0000 UTC | 2023-09-17T13:26:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-09-17 13:26:09 +0000 UTC | 2023-09-17T13:26:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Linux_arm.tar.gz.sbom[updatecli_Linux_arm.tar.gz.sbom] | 2023-09-17 13:26:08 +0000 UTC | 2023-09-17T13:26:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-09-17 13:26:08 +0000 UTC | 2023-09-17T13:26:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-09-17 13:26:07 +0000 UTC | 2023-09-17T13:26:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-09-17 13:26:07 +0000 UTC | 2023-09-17T13:26:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Windows_arm.zip.sbom[updatecli_Windows_arm.zip.sbom] | 2023-09-17 13:26:07 +0000 UTC | 2023-09-17T13:26:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-09-17 13:26:06 +0000 UTC | 2023-09-17T13:26:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-09-17 13:26:05 +0000 UTC | 2023-09-17T13:26:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-09-17 13:26:05 +0000 UTC | 2023-09-17T13:26:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-09-17 13:26:04 +0000 UTC | 2023-09-17T13:26:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-09-17 13:26:04 +0000 UTC | 2023-09-17T13:26:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-09-17 13:26:03 +0000 UTC | 2023-09-17T13:26:04Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-09-17 13:26:02 +0000 UTC | 2023-09-17T13:26:03Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-09-17 13:26:01 +0000 UTC | 2023-09-17T13:26:02Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-09-17 13:26:01 +0000 UTC | 2023-09-17T13:26:02Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-09-17 13:26:00 +0000 UTC | 2023-09-17T13:26:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-09-17 13:26:00 +0000 UTC | 2023-09-17T13:26:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-09-17 13:25:59 +0000 UTC | 2023-09-17T13:26:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2023-09-17 13:25:59 +0000 UTC | 2023-09-17T13:26:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-09-17 13:25:58 +0000 UTC | 2023-09-17T13:25:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-09-17 13:25:57 +0000 UTC | 2023-09-17T13:25:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-09-17 13:25:56 +0000 UTC | 2023-09-17T13:25:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.60.0/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2023-09-17 13:25:56 +0000 UTC | 2023-09-17T13:25:57Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.60.0[here]__
+

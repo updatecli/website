@@ -1,0 +1,68 @@
+---
+title: "v0.1.0 🌈"
+date: 2021-03-02 14:48:29 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-03-02 14:48:29 +0000 UTC - v0.1.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Update Dockerfile with correct updatecli path <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="820079240" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/188" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/188/hovercard" href="https://github.com/updatecli/updatecli/pull/188">#188</a>)</li>
+<li><strong>Deprecation</strong>  Don't build artifact for darwin-i386 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="820065476" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/187" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/187/hovercard" href="https://github.com/updatecli/updatecli/pull/187">#187</a>)</li>
+<li>Start using Sementatic Versioning <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="819920432" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/186" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/186/hovercard" href="https://github.com/updatecli/updatecli/pull/186">#186</a>)</li>
+<li>Update README shield links <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="808794372" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/179" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/179/hovercard" href="https://github.com/updatecli/updatecli/pull/179">#179</a>)</li>
+<li>🔨 Improve build process: unifies go build commands, improve reliability of Make and Docker assets <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="799421590" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/174" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/174/hovercard" href="https://github.com/updatecli/updatecli/pull/174">#174</a>)</li>
+<li>fix go version to 1.15 during publish assets <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="799058549" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/173" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/173/hovercard" href="https://github.com/updatecli/updatecli/pull/173">#173</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>Update GitHub Pull Request Format <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="819751166" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/185" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/185/hovercard" href="https://github.com/updatecli/updatecli/pull/185">#185</a>)</li>
+<li>Switch build process to goreleaser <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="811056554" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/180" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/180/hovercard" href="https://github.com/updatecli/updatecli/pull/180">#180</a>)</li>
+<li>Reusable GitHub Pull  Request <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="807771820" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/177" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/177/hovercard" href="https://github.com/updatecli/updatecli/pull/177">#177</a>)</li>
+<li>Introduces a new (alternative) behavior for <code>dockerfile</code> with a Simple Text Matcher/Replacer <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="806729184" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/176" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/176/hovercard" href="https://github.com/updatecli/updatecli/pull/176">#176</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.1.0/updatecli.linux.amd64[updatecli.linux.amd64] | 2021-03-02 14:54:25 +0000 UTC | 2021-03-02T14:54:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.1.0/updatecli.linux.386[updatecli.linux.386] | 2021-03-02 14:54:23 +0000 UTC | 2021-03-02T14:54:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.1.0/updatecli.darwin.amd64[updatecli.darwin.amd64] | 2021-03-02 14:54:21 +0000 UTC | 2021-03-02T14:54:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.1.0/updatecli.amd64.exe[updatecli.amd64.exe] | 2021-03-02 14:54:20 +0000 UTC | 2021-03-02T14:54:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.1.0/updatecli.386.exe[updatecli.386.exe] | 2021-03-02 14:54:18 +0000 UTC | 2021-03-02T14:54:19Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.1.0[here]__
+

@@ -1,0 +1,93 @@
+---
+title: "v0.14.1"
+date: 2021-11-14 20:07:13 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-11-14 20:07:13 +0000 UTC - v0.14.1__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>enh(file) improve Diff output when a file is changed <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1052651930" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/370" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/370/hovercard" href="https://github.com/updatecli/updatecli/pull/370">#370</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(git-generic) Ensure that git add works with absolute file paths <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1052640771" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/368" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/368/hovercard" href="https://github.com/updatecli/updatecli/pull/368">#368</a>)</li>
+<li>fix(yaml) specifying a value takes precedence over the source input <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1051375222" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/363" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/363/hovercard" href="https://github.com/updatecli/updatecli/pull/363">#363</a>)</li>
+<li>fix(yaml) allow condition without a source input value  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1051265105" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/362" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/362/hovercard" href="https://github.com/updatecli/updatecli/pull/362">#362</a>)</li>
+<li>fix(yaml) Allow specifying file path as an URL <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1051239906" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/360" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/360/hovercard" href="https://github.com/updatecli/updatecli/pull/360">#360</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(github pull requests) typo + markdownlint on GitHub templates for issues and PRs <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1051243362" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/361" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/361/hovercard" href="https://github.com/updatecli/updatecli/pull/361">#361</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2021-11-14 20:23:45 +0000 UTC | 2021-11-14T20:23:46Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2021-11-14 20:23:44 +0000 UTC | 2021-11-14T20:23:45Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2021-11-14 20:23:44 +0000 UTC | 2021-11-14T20:23:45Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2021-11-14 20:23:44 +0000 UTC | 2021-11-14T20:23:44Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2021-11-14 20:23:43 +0000 UTC | 2021-11-14T20:23:44Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2021-11-14 20:23:42 +0000 UTC | 2021-11-14T20:23:43Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2021-11-14 20:23:42 +0000 UTC | 2021-11-14T20:23:43Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2021-11-14 20:23:41 +0000 UTC | 2021-11-14T20:23:42Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2021-11-14 20:23:41 +0000 UTC | 2021-11-14T20:23:42Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2021-11-14 20:23:40 +0000 UTC | 2021-11-14T20:23:41Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2021-11-14 20:23:40 +0000 UTC | 2021-11-14T20:23:41Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2021-11-14 20:23:39 +0000 UTC | 2021-11-14T20:23:40Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2021-11-14 20:23:39 +0000 UTC | 2021-11-14T20:23:40Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2021-11-14 20:23:38 +0000 UTC | 2021-11-14T20:23:39Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2021-11-14 20:23:38 +0000 UTC | 2021-11-14T20:23:39Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2021-11-14 20:23:37 +0000 UTC | 2021-11-14T20:23:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2021-11-14 20:23:37 +0000 UTC | 2021-11-14T20:23:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.14.1/updatecli_0.14.1_checksums.txt[updatecli_0.14.1_checksums.txt] | 2021-11-14 20:23:37 +0000 UTC | 2021-11-14T20:23:37Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.14.1[here]__
+

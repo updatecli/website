@@ -1,0 +1,96 @@
+---
+title: "v0.24.0"
+date: 2022-04-25 13:17:36 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-04-25 13:17:36 +0000 UTC - v0.24.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>Adds support for new OCI registries <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/nmasse-itix/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/nmasse-itix">@nmasse-itix</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1208070677" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/658" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/658/hovercard" href="https://github.com/updatecli/updatecli/pull/658">#658</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix: report failure when at least one of the target is failing <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1201958497" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/638" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/638/hovercard" href="https://github.com/updatecli/updatecli/pull/638">#638</a>)</li>
+<li>fix: no logs when there is no source <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1203627276" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/643" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/643/hovercard" href="https://github.com/updatecli/updatecli/pull/643">#643</a>)</li>
+<li>fix: use the URL instead of the token to initialize GitHub Enterprise client <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1203775335" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/645" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/645/hovercard" href="https://github.com/updatecli/updatecli/pull/645">#645</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump helm.sh/helm/v3 from 3.8.1 to 3.8.2 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1206937537" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/656" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/656/hovercard" href="https://github.com/updatecli/updatecli/pull/656">#656</a>)</li>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.43.37 to 1.43.41 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1206937788" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/657" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/657/hovercard" href="https://github.com/updatecli/updatecli/pull/657">#657</a>)</li>
+<li>[updatecli] Bump Golang version to 1.18.1 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1202706043" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/642" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/642/hovercard" href="https://github.com/updatecli/updatecli/pull/642">#642</a>)</li>
+<li>chore(deps): Bump github.com/invopop/jsonschema from 0.3.0 to 0.4.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1199809728" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/627" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/627/hovercard" href="https://github.com/updatecli/updatecli/pull/627">#627</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/nmasse-itix/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/nmasse-itix">@nmasse-itix</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-04-25 13:31:38 +0000 UTC | 2022-04-25T13:31:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-04-25 13:31:37 +0000 UTC | 2022-04-25T13:31:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-04-25 13:31:37 +0000 UTC | 2022-04-25T13:31:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-04-25 13:31:36 +0000 UTC | 2022-04-25T13:31:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-04-25 13:31:36 +0000 UTC | 2022-04-25T13:31:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-04-25 13:31:35 +0000 UTC | 2022-04-25T13:31:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-04-25 13:31:35 +0000 UTC | 2022-04-25T13:31:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-04-25 13:31:34 +0000 UTC | 2022-04-25T13:31:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-04-25 13:31:34 +0000 UTC | 2022-04-25T13:31:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-04-25 13:31:33 +0000 UTC | 2022-04-25T13:31:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-04-25 13:31:33 +0000 UTC | 2022-04-25T13:31:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-04-25 13:31:32 +0000 UTC | 2022-04-25T13:31:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-04-25 13:31:32 +0000 UTC | 2022-04-25T13:31:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-04-25 13:31:32 +0000 UTC | 2022-04-25T13:31:32Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-04-25 13:31:31 +0000 UTC | 2022-04-25T13:31:32Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-04-25 13:31:31 +0000 UTC | 2022-04-25T13:31:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_0.24.0_checksums.txt[updatecli_0.24.0_checksums.txt] | 2022-04-25 13:31:30 +0000 UTC | 2022-04-25T13:31:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.24.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-04-25 13:31:30 +0000 UTC | 2022-04-25T13:31:31Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.24.0[here]__
+

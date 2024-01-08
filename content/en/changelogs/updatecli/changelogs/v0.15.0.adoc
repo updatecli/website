@@ -1,0 +1,95 @@
+---
+title: "v0.15.0"
+date: 2021-11-18 06:44:39 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-11-18 06:44:39 +0000 UTC - v0.15.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>Adding ENV keyword <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/pilere/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/pilere">@pilere</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1051789032" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/364" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/364/hovercard" href="https://github.com/updatecli/updatecli/pull/364">#364</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(yaml) report target as failed when the key is not found instead of a false positive <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1056434302" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/380" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/380/hovercard" href="https://github.com/updatecli/updatecli/pull/380">#380</a>)</li>
+<li>fix(target) do not open a PR when a target does not change a file <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1056369504" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/377" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/377/hovercard" href="https://github.com/updatecli/updatecli/pull/377">#377</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore: rename all occurrences of updatecli to lowercase <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1056499430" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/381" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/381/hovercard" href="https://github.com/updatecli/updatecli/pull/381">#381</a>)</li>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.41.14 to 1.42.6 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1056414483" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/378" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/378/hovercard" href="https://github.com/updatecli/updatecli/pull/378">#378</a>)</li>
+<li>chore(deps): Bump github.com/moby/buildkit from 0.9.1 to 0.9.2 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1052661922" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/372" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/372/hovercard" href="https://github.com/updatecli/updatecli/pull/372">#372</a>)</li>
+<li>chore(go.mod) define hexops/gotextdiff as an explicit required dependencies <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1056152724" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/376" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/376/hovercard" href="https://github.com/updatecli/updatecli/pull/376">#376</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot] and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/pilere/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/pilere">@pilere</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2021-11-18 07:00:41 +0000 UTC | 2021-11-18T07:00:43Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2021-11-18 07:00:41 +0000 UTC | 2021-11-18T07:00:42Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2021-11-18 07:00:40 +0000 UTC | 2021-11-18T07:00:41Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2021-11-18 07:00:40 +0000 UTC | 2021-11-18T07:00:41Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2021-11-18 07:00:38 +0000 UTC | 2021-11-18T07:00:40Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2021-11-18 07:00:38 +0000 UTC | 2021-11-18T07:00:40Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2021-11-18 07:00:37 +0000 UTC | 2021-11-18T07:00:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2021-11-18 07:00:37 +0000 UTC | 2021-11-18T07:00:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2021-11-18 07:00:36 +0000 UTC | 2021-11-18T07:00:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2021-11-18 07:00:35 +0000 UTC | 2021-11-18T07:00:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2021-11-18 07:00:34 +0000 UTC | 2021-11-18T07:00:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2021-11-18 07:00:34 +0000 UTC | 2021-11-18T07:00:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2021-11-18 07:00:33 +0000 UTC | 2021-11-18T07:00:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2021-11-18 07:00:33 +0000 UTC | 2021-11-18T07:00:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2021-11-18 07:00:31 +0000 UTC | 2021-11-18T07:00:32Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2021-11-18 07:00:31 +0000 UTC | 2021-11-18T07:00:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_0.15.0_checksums.txt[updatecli_0.15.0_checksums.txt] | 2021-11-18 07:00:31 +0000 UTC | 2021-11-18T07:00:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.15.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2021-11-18 07:00:30 +0000 UTC | 2021-11-18T07:00:31Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.15.0[here]__
+

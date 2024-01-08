@@ -1,0 +1,70 @@
+---
+title: "v0.0.21 🌈"
+date: 2020-10-20 13:54:30 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2020-10-20 13:54:30 +0000 UTC - v0.0.21__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Add missing values.yaml to github action documentation <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="725598290" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/102" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/102/hovercard" href="https://github.com/updatecli/updatecli/pull/102">#102</a>)</li>
+<li>Switch doc to asciidoctor and add examples <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="725526262" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/101" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/101/hovercard" href="https://github.com/updatecli/updatecli/pull/101">#101</a>)</li>
+<li>Add basic unit test to detect yaml indentation changes <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="718277750" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/94" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/94/hovercard" href="https://github.com/updatecli/updatecli/pull/94">#94</a>)</li>
+<li>Move documentation into a different file <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="716366316" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/90" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/90/hovercard" href="https://github.com/updatecli/updatecli/pull/90">#90</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>Accept special character in yaml key <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="724583664" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/97" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/97/hovercard" href="https://github.com/updatecli/updatecli/pull/97">#97</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Fix commit message with appropriated value <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="725470969" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/100" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/100/hovercard" href="https://github.com/updatecli/updatecli/pull/100">#100</a>)</li>
+<li>Correctly set version when updating yaml array list <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="725431831" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/99" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/99/hovercard" href="https://github.com/updatecli/updatecli/pull/99">#99</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.21/updatecli.linux.amd64[updatecli.linux.amd64] | 2020-10-22 16:04:08 +0000 UTC | 2020-10-22T16:04:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.21/updatecli.linux.386[updatecli.linux.386] | 2020-10-22 16:03:55 +0000 UTC | 2020-10-22T16:04:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.21/updatecli.darwin.amd64[updatecli.darwin.amd64] | 2020-10-22 16:03:33 +0000 UTC | 2020-10-22T16:03:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.21/updatecli.darwin.386[updatecli.darwin.386] | 2020-10-22 16:03:13 +0000 UTC | 2020-10-22T16:03:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.21/updatecli.amd64.exe[updatecli.amd64.exe] | 2020-10-22 16:02:56 +0000 UTC | 2020-10-22T16:03:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.21/updatecli.386.exe[updatecli.386.exe] | 2020-10-22 16:02:42 +0000 UTC | 2020-10-22T16:02:56Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.21[here]__
+

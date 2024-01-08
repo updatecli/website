@@ -1,0 +1,63 @@
+---
+title: "v0.0.7 🌈"
+date: 2020-05-03 14:48:49 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2020-05-03 14:48:49 +0000 UTC - v0.0.7__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Add default CODEOWNERS <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="608598119" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/41" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/41/hovercard" href="https://github.com/updatecli/updatecli/pull/41">#41</a>)</li>
+<li>Add configuration option using go templates <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="607570190" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/38" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/38/hovercard" href="https://github.com/updatecli/updatecli/pull/38">#38</a>)</li>
+<li>Add example link to README <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="606137520" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/37" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/37/hovercard" href="https://github.com/updatecli/updatecli/pull/37">#37</a>)</li>
+<li>Rework YAML package output <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="587654820" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/36" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/36/hovercard" href="https://github.com/updatecli/updatecli/pull/36">#36</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>Add a diff sub command and more parameter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="611427968" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/43" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/43/hovercard" href="https://github.com/updatecli/updatecli/pull/43">#43</a>)</li>
+<li>Split default behavior into multiple sub commands <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="610743021" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/42" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/42/hovercard" href="https://github.com/updatecli/updatecli/pull/42">#42</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Add missing template commits <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="608405489" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/39" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/39/hovercard" href="https://github.com/updatecli/updatecli/pull/39">#39</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+<h2>Breaking Changes</h2>
+<p>This version is not anymore compatible with the previous way of using the cli.<br>
+updatecli now use sub commands to define different behaviors, you can call <code>updatecli --help</code> to have more information.</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.7/updatecli[updatecli] | 2020-05-03 14:51:12 +0000 UTC | 2020-05-03T14:51:21Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.7[here]__
+

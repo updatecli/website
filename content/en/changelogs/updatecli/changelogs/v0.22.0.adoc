@@ -1,0 +1,93 @@
+---
+title: "v0.22.0"
+date: 2022-03-12 12:02:20 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-03-12 12:02:20 +0000 UTC - v0.22.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>Improve reporting of pipeline with wrong configuration <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1165840362" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/565" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/565/hovercard" href="https://github.com/updatecli/updatecli/pull/565">#565</a>)</li>
+<li>Add Signing To Commit Function <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/hi-artem/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/hi-artem">@hi-artem</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1165712559" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/563" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/563/hovercard" href="https://github.com/updatecli/updatecli/pull/563">#563</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Resource "File" correctly uses scmID <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1165818306" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/564" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/564/hovercard" href="https://github.com/updatecli/updatecli/pull/564">#564</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.43.7 to 1.43.16 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1166583992" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/570" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/570/hovercard" href="https://github.com/updatecli/updatecli/pull/570">#570</a>)</li>
+<li>chore(deps): Bump updatecli/updatecli-action from 1.24.0 to 1.25.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1166289481" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/568" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/568/hovercard" href="https://github.com/updatecli/updatecli/pull/568">#568</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/hi-artem/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/hi-artem">@hi-artem</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-03-12 12:16:59 +0000 UTC | 2022-03-12T12:17:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-03-12 12:16:59 +0000 UTC | 2022-03-12T12:17:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-03-12 12:16:58 +0000 UTC | 2022-03-12T12:16:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-03-12 12:16:57 +0000 UTC | 2022-03-12T12:16:58Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-03-12 12:16:57 +0000 UTC | 2022-03-12T12:16:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-03-12 12:16:56 +0000 UTC | 2022-03-12T12:16:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-03-12 12:16:56 +0000 UTC | 2022-03-12T12:16:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-03-12 12:16:55 +0000 UTC | 2022-03-12T12:16:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-03-12 12:16:55 +0000 UTC | 2022-03-12T12:16:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-03-12 12:16:54 +0000 UTC | 2022-03-12T12:16:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-03-12 12:16:54 +0000 UTC | 2022-03-12T12:16:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-03-12 12:16:53 +0000 UTC | 2022-03-12T12:16:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-03-12 12:16:53 +0000 UTC | 2022-03-12T12:16:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-03-12 12:16:52 +0000 UTC | 2022-03-12T12:16:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-03-12 12:16:52 +0000 UTC | 2022-03-12T12:16:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-03-12 12:16:51 +0000 UTC | 2022-03-12T12:16:52Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_0.22.0_checksums.txt[updatecli_0.22.0_checksums.txt] | 2022-03-12 12:16:51 +0000 UTC | 2022-03-12T12:16:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.22.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-03-12 12:16:51 +0000 UTC | 2022-03-12T12:16:52Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.22.0[here]__
+

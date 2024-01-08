@@ -1,0 +1,143 @@
+---
+title: "v0.61.0"
+date: 2023-09-18 20:45:04 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2023-09-18 20:45:04 +0000 UTC - v0.61.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>WARNING</h2>
+<p>This release contains a fix for the docker image plugin which correctly handles multi-architecture now.<br>
+The side effect of this is that older docker images using the old manifest v1 which do not contain multi-architecture information<br>
+will now fail if the setting <code>architecture</code> or <code>architectures</code> is explicitly set to amd64.</p>
+<p>If this happens you can just remove that Updatecli setting as it will be amd64 anyway</p>
+<details><summary>from</summary>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      architecture: amd64"><pre class="notranslate"><code>conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      architecture: amd64
+</code></pre></div>
+</details>
+<details><summary>to</summary>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      # comment until ghcr.io/updatecli/example:0.60.0 support the schema v2
+      # architecture: amd64"><pre class="notranslate"><code>conditions:
+  default:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/example:0.60.0
+      # comment until ghcr.io/updatecli/example:0.60.0 support the schema v2
+      # architecture: amd64
+</code></pre></div>
+<p><a href="https://docs.docker.com/registry/spec/deprecated-schema-v1/" rel="nofollow">https://docs.docker.com/registry/spec/deprecated-schema-v1/</a></p>
+</details>
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>feat: dockerimage support for setting os and variant <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/mcwarman/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/mcwarman">@mcwarman</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1901553886" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1604" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1604/hovercard" href="https://github.com/updatecli/updatecli/pull/1604">#1604</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump updatecli/updatecli-action from 2.39.0 to 2.40.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1900735660" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1601" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1601/hovercard" href="https://github.com/updatecli/updatecli/pull/1601">#1601</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/mcwarman/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/mcwarman">@mcwarman</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/checksums.txt.pem[checksums.txt.pem] | 2023-09-18 21:11:23 +0000 UTC | 2023-09-18T21:11:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/checksums.txt.sig[checksums.txt.sig] | 2023-09-18 21:11:23 +0000 UTC | 2023-09-18T21:11:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/checksums.txt[checksums.txt] | 2023-09-18 21:11:22 +0000 UTC | 2023-09-18T21:11:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Linux_arm64.tar.gz.sbom[updatecli_Linux_arm64.tar.gz.sbom] | 2023-09-18 21:11:22 +0000 UTC | 2023-09-18T21:11:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Linux_arm.tar.gz.sbom[updatecli_Linux_arm.tar.gz.sbom] | 2023-09-18 21:11:21 +0000 UTC | 2023-09-18T21:11:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Linux_x86_64.tar.gz.sbom[updatecli_Linux_x86_64.tar.gz.sbom] | 2023-09-18 21:11:21 +0000 UTC | 2023-09-18T21:11:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Windows_arm.zip.sbom[updatecli_Windows_arm.zip.sbom] | 2023-09-18 21:11:20 +0000 UTC | 2023-09-18T21:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Windows_x86_64.zip.sbom[updatecli_Windows_x86_64.zip.sbom] | 2023-09-18 21:11:20 +0000 UTC | 2023-09-18T21:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Darwin_x86_64.tar.gz.sbom[updatecli_Darwin_x86_64.tar.gz.sbom] | 2023-09-18 21:11:19 +0000 UTC | 2023-09-18T21:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Windows_arm64.zip.sbom[updatecli_Windows_arm64.zip.sbom] | 2023-09-18 21:11:19 +0000 UTC | 2023-09-18T21:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Darwin_arm64.tar.gz.sbom[updatecli_Darwin_arm64.tar.gz.sbom] | 2023-09-18 21:11:18 +0000 UTC | 2023-09-18T21:11:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2023-09-18 21:11:17 +0000 UTC | 2023-09-18T21:11:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2023-09-18 21:11:16 +0000 UTC | 2023-09-18T21:11:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2023-09-18 21:11:16 +0000 UTC | 2023-09-18T21:11:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2023-09-18 21:11:15 +0000 UTC | 2023-09-18T21:11:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2023-09-18 21:11:14 +0000 UTC | 2023-09-18T21:11:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2023-09-18 21:11:12 +0000 UTC | 2023-09-18T21:11:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2023-09-18 21:11:12 +0000 UTC | 2023-09-18T21:11:13Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2023-09-18 21:11:10 +0000 UTC | 2023-09-18T21:11:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2023-09-18 21:11:10 +0000 UTC | 2023-09-18T21:11:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2023-09-18 21:11:08 +0000 UTC | 2023-09-18T21:11:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2023-09-18 21:11:08 +0000 UTC | 2023-09-18T21:11:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2023-09-18 21:11:06 +0000 UTC | 2023-09-18T21:11:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2023-09-18 21:11:06 +0000 UTC | 2023-09-18T21:11:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2023-09-18 21:11:04 +0000 UTC | 2023-09-18T21:11:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2023-09-18 21:11:04 +0000 UTC | 2023-09-18T21:11:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2023-09-18 21:11:02 +0000 UTC | 2023-09-18T21:11:03Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.61.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2023-09-18 21:11:02 +0000 UTC | 2023-09-18T21:11:03Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.61.0[here]__
+

@@ -1,0 +1,94 @@
+---
+title: "v0.17.1"
+date: 2021-12-21 10:50:41 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-12-21 10:50:41 +0000 UTC - v0.17.1__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(pullrequest) show the correct report for the pull request section <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1085182747" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/427" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/427/hovercard" href="https://github.com/updatecli/updatecli/pull/427">#427</a>)</li>
+<li>fix(pullrequests) retrieve changelog from both 'successful' and 'attention' targets <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1085096848" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/425" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/425/hovercard" href="https://github.com/updatecli/updatecli/pull/425">#425</a>)</li>
+<li>fix(github) open a new pullrequest if the previous were closed  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1085153077" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/426" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/426/hovercard" href="https://github.com/updatecli/updatecli/pull/426">#426</a>)</li>
+<li>fix: correctly escape changelog <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1084981234" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/422" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/422/hovercard" href="https://github.com/updatecli/updatecli/pull/422">#422</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(dependencies): bump and pin runc to 1.0.3 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1085568440" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/428" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/428/hovercard" href="https://github.com/updatecli/updatecli/pull/428">#428</a>)</li>
+<li>chore(deps): Bump updatecli/updatecli-action from 1.16.0 to 1.17.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1084655179" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/420" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/420/hovercard" href="https://github.com/updatecli/updatecli/pull/420">#420</a>)</li>
+<li>Refactor plugin "AWS AMI" <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1079387677" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/414" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/414/hovercard" href="https://github.com/updatecli/updatecli/pull/414">#414</a>)</li>
+<li>Chore: bump golangcilint to 1.43 and apply updated code suggestions to resources file and yaml <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1080090884" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/415" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/415/hovercard" href="https://github.com/updatecli/updatecli/pull/415">#415</a>)</li>
+<li>hotfix-chore: disable temporary golang upgrade  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1080961294" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/417" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/417/hovercard" href="https://github.com/updatecli/updatecli/pull/417">#417</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot] and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2021-12-21 11:04:26 +0000 UTC | 2021-12-21T11:04:27Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2021-12-21 11:04:24 +0000 UTC | 2021-12-21T11:04:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2021-12-21 11:04:24 +0000 UTC | 2021-12-21T11:04:26Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2021-12-21 11:04:23 +0000 UTC | 2021-12-21T11:04:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2021-12-21 11:04:23 +0000 UTC | 2021-12-21T11:04:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2021-12-21 11:04:22 +0000 UTC | 2021-12-21T11:04:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2021-12-21 11:04:21 +0000 UTC | 2021-12-21T11:04:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2021-12-21 11:04:21 +0000 UTC | 2021-12-21T11:04:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2021-12-21 11:04:20 +0000 UTC | 2021-12-21T11:04:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2021-12-21 11:04:19 +0000 UTC | 2021-12-21T11:04:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2021-12-21 11:04:19 +0000 UTC | 2021-12-21T11:04:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2021-12-21 11:04:18 +0000 UTC | 2021-12-21T11:04:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2021-12-21 11:04:18 +0000 UTC | 2021-12-21T11:04:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2021-12-21 11:04:17 +0000 UTC | 2021-12-21T11:04:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2021-12-21 11:04:17 +0000 UTC | 2021-12-21T11:04:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2021-12-21 11:04:16 +0000 UTC | 2021-12-21T11:04:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_0.17.1_checksums.txt[updatecli_0.17.1_checksums.txt] | 2021-12-21 11:04:15 +0000 UTC | 2021-12-21T11:04:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.17.1/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2021-12-21 11:04:15 +0000 UTC | 2021-12-21T11:04:16Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.17.1[here]__
+

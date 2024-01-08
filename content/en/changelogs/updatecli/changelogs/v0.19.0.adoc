@@ -1,0 +1,93 @@
+---
+title: "v0.19.0"
+date: 2022-01-30 17:48:19 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-01-30 17:48:19 +0000 UTC - v0.19.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>Support automerge for Github PullRequest <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1115421128" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/491" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/491/hovercard" href="https://github.com/updatecli/updatecli/pull/491">#491</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(jenkins) refactor (apply code conventions) plugin to fix changelog output <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1112296371" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/482" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/482/hovercard" href="https://github.com/updatecli/updatecli/pull/482">#482</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.42.35 to 1.42.39 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1112496253" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/483" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/483/hovercard" href="https://github.com/updatecli/updatecli/pull/483">#483</a>)</li>
+<li>chore(maven) factorize metadata into a <code>mavenmetadata</code> package + apply code conventions for plugin <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1111992682" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/481" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/481/hovercard" href="https://github.com/updatecli/updatecli/pull/481">#481</a>)</li>
+<li>chore(githubrelease) factorize githubrelease plugin out of the github package + apply code convention for plugin <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1111568131" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/479" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/479/hovercard" href="https://github.com/updatecli/updatecli/pull/479">#479</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> and @updateclibot</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-01-30 18:01:24 +0000 UTC | 2022-01-30T18:01:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-01-30 18:01:23 +0000 UTC | 2022-01-30T18:01:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_0.19.0_checksums.txt[updatecli_0.19.0_checksums.txt] | 2022-01-30 18:01:22 +0000 UTC | 2022-01-30T18:01:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-01-30 18:01:22 +0000 UTC | 2022-01-30T18:01:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-01-30 18:01:21 +0000 UTC | 2022-01-30T18:01:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-01-30 18:01:21 +0000 UTC | 2022-01-30T18:01:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-01-30 18:01:20 +0000 UTC | 2022-01-30T18:01:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-01-30 18:01:19 +0000 UTC | 2022-01-30T18:01:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-01-30 18:01:18 +0000 UTC | 2022-01-30T18:01:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-01-30 18:01:18 +0000 UTC | 2022-01-30T18:01:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-01-30 18:01:17 +0000 UTC | 2022-01-30T18:01:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-01-30 18:01:16 +0000 UTC | 2022-01-30T18:01:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-01-30 18:01:15 +0000 UTC | 2022-01-30T18:01:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-01-30 18:01:14 +0000 UTC | 2022-01-30T18:01:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-01-30 18:01:13 +0000 UTC | 2022-01-30T18:01:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-01-30 18:01:12 +0000 UTC | 2022-01-30T18:01:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-01-30 18:01:10 +0000 UTC | 2022-01-30T18:01:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.19.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-01-30 18:01:10 +0000 UTC | 2022-01-30T18:01:12Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.19.0[here]__
+

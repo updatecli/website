@@ -1,0 +1,64 @@
+---
+title: "v0.0.26 🌈"
+date: 2020-11-22 14:29:29 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2020-11-22 14:29:29 +0000 UTC - v0.0.26__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>Correctly build updatecli from Dockerfile <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="748249209" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/126" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/126/hovercard" href="https://github.com/updatecli/updatecli/pull/126">#126</a>)</li>
+<li>tidy up publish-assets <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="745775646" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/123" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/123/hovercard" href="https://github.com/updatecli/updatecli/pull/123">#123</a>)</li>
+<li>Use different DOCKERHUB_TOKEN for github action <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="745726792" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/122" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/122/hovercard" href="https://github.com/updatecli/updatecli/pull/122">#122</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>Correctly retrieve docker image digest from ghcr.io. <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="748032751" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/125" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/125/hovercard" href="https://github.com/updatecli/updatecli/pull/125">#125</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/jetersen/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/jetersen">@jetersen</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.26/updatecli.linux.amd64[updatecli.linux.amd64] | 2020-11-22 14:35:07 +0000 UTC | 2020-11-22T14:35:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.26/updatecli.linux.386[updatecli.linux.386] | 2020-11-22 14:35:06 +0000 UTC | 2020-11-22T14:35:07Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.26/updatecli.darwin.amd64[updatecli.darwin.amd64] | 2020-11-22 14:35:05 +0000 UTC | 2020-11-22T14:35:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.26/updatecli.darwin.386[updatecli.darwin.386] | 2020-11-22 14:35:04 +0000 UTC | 2020-11-22T14:35:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.26/updatecli.amd64.exe[updatecli.amd64.exe] | 2020-11-22 14:35:03 +0000 UTC | 2020-11-22T14:35:03Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.0.26/updatecli.386.exe[updatecli.386.exe] | 2020-11-22 14:35:01 +0000 UTC | 2020-11-22T14:35:02Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.0.26[here]__
+

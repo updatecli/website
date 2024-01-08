@@ -1,0 +1,89 @@
+---
+title: "v0.36.0"
+date: 2022-10-13 07:19:41 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-10-13 07:19:41 +0000 UTC - v0.36.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>Allow strict semantic versioning <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1407235749" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/927" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/927/hovercard" href="https://github.com/updatecli/updatecli/pull/927">#927</a>)</li>
+<li>Add docker digest support for Updatecli condition <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1406158732" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/924" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/924/hovercard" href="https://github.com/updatecli/updatecli/pull/924">#924</a>)</li>
+<li>Add support for Docker default config file <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/samj1912/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/samj1912">@samj1912</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1393626492" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/900" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/900/hovercard" href="https://github.com/updatecli/updatecli/pull/900">#900</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/BurntSushi/toml from 1.1.0 to 1.2.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1402992064" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/918" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/918/hovercard" href="https://github.com/updatecli/updatecli/pull/918">#918</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/samj1912/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/samj1912">@samj1912</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_0.36.0_checksums.txt[updatecli_0.36.0_checksums.txt] | 2022-10-13 07:39:24 +0000 UTC | 2022-10-13T07:39:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-10-13 07:39:24 +0000 UTC | 2022-10-13T07:39:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-10-13 07:39:23 +0000 UTC | 2022-10-13T07:39:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-10-13 07:39:22 +0000 UTC | 2022-10-13T07:39:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-10-13 07:39:21 +0000 UTC | 2022-10-13T07:39:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-10-13 07:39:21 +0000 UTC | 2022-10-13T07:39:22Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-10-13 07:39:20 +0000 UTC | 2022-10-13T07:39:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-10-13 07:39:20 +0000 UTC | 2022-10-13T07:39:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-10-13 07:39:19 +0000 UTC | 2022-10-13T07:39:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-10-13 07:39:19 +0000 UTC | 2022-10-13T07:39:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-10-13 07:39:18 +0000 UTC | 2022-10-13T07:39:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-10-13 07:39:17 +0000 UTC | 2022-10-13T07:39:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-10-13 07:39:17 +0000 UTC | 2022-10-13T07:39:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-10-13 07:39:16 +0000 UTC | 2022-10-13T07:39:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-10-13 07:39:16 +0000 UTC | 2022-10-13T07:39:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-10-13 07:39:15 +0000 UTC | 2022-10-13T07:39:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-10-13 07:39:14 +0000 UTC | 2022-10-13T07:39:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.36.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-10-13 07:39:14 +0000 UTC | 2022-10-13T07:39:15Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.36.0[here]__
+

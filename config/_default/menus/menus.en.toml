@@ -82,7 +82,12 @@
 [[main]]
   name = "Support"
   url = "/support/"
-  weight = 20
+  weight = 40
+
+[[main]]
+  name = "Changelogs"
+  url = "/changelogs/updatecli"
+  weight = 50
 
 [[social]]
   name = "Twitter"

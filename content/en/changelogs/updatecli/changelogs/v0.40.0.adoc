@@ -1,0 +1,118 @@
+---
+title: "v0.40.0"
+date: 2022-12-12 10:36:05 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2022-12-12 10:36:05 +0000 UTC - v0.40.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2><g-emoji class="g-emoji" alias="warning">⚠️</g-emoji>  Important</h2>
+<p>This release deprecates the top level configuration key "pullrequests" in favor of "actions"<br>
+It's part of a major SCM refactoring started by <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>.<br>
+More information on <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1103185529" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/465" data-hovercard-type="issue" data-hovercard-url="/updatecli/updatecli/issues/465/hovercard" href="https://github.com/updatecli/updatecli/issues/465">#465</a>, and feedbacks are deeply appreciated.</p>
+<p>Like all deprecated syntax in Updatecli, we usually have no ETA, it stays there until it becomes a blocker for a new feature or when we have enough time for code cleaning.<br>
+But we already invite you to update to "actions" as soon as possible.</p>
+<p>The change is only for the pullrequests</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="- pullrequests:
++ actions:
+    prID1:
+      scmid: default
+-     kind: github
++     kind: github/pullrequest
+      spec:
+        ... "><pre class="notranslate"><code>- pullrequests:
++ actions:
+    prID1:
+      scmid: default
+-     kind: github
++     kind: github/pullrequest
+      spec:
+        ... 
+</code></pre></div>
+<p>While we take care to not introduce breaking changes, this kind of refactoring are more risky.</p>
+<hr>
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>[source] Add versionfilter support for the helm resource <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1485286047" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1025" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1025/hovercard" href="https://github.com/updatecli/updatecli/pull/1025">#1025</a>)</li>
+<li>[condition] Support multiple files with in conditions of kind <code>file</code> <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/macedogm/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/macedogm">@macedogm</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1485901071" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1027" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1027/hovercard" href="https://github.com/updatecli/updatecli/pull/1027">#1027</a>)</li>
+<li>[source][condition] Add file URI support for Helm resource <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1484955433" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1023" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1023/hovercard" href="https://github.com/updatecli/updatecli/pull/1023">#1023</a>)</li>
+<li>Add Dockerfile Autodiscovery <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1465232493" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1003" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1003/hovercard" href="https://github.com/updatecli/updatecli/pull/1003">#1003</a>)</li>
+<li>feat: rename 'pullrequests' to 'actions' <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1456360440" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/990" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/990/hovercard" href="https://github.com/updatecli/updatecli/pull/990">#990</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump github.com/aws/aws-sdk-go from 1.44.146 to 1.44.156 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1485275576" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1024" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1024/hovercard" href="https://github.com/updatecli/updatecli/pull/1024">#1024</a>)</li>
+<li>[updatecli] Bump Golang version to 1.19.4 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1480187469" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1019" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1019/hovercard" href="https://github.com/updatecli/updatecli/pull/1019">#1019</a>)</li>
+<li>chore(deps): Bump golang.org/x/text from 0.4.0 to 0.5.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1476285038" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1015" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1015/hovercard" href="https://github.com/updatecli/updatecli/pull/1015">#1015</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/macedogm/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/macedogm">@macedogm</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_0.40.0_checksums.txt[updatecli_0.40.0_checksums.txt] | 2022-12-12 10:56:00 +0000 UTC | 2022-12-12T10:56:00Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2022-12-12 10:56:00 +0000 UTC | 2022-12-12T10:56:01Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2022-12-12 10:55:58 +0000 UTC | 2022-12-12T10:55:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2022-12-12 10:55:57 +0000 UTC | 2022-12-12T10:55:59Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2022-12-12 10:55:56 +0000 UTC | 2022-12-12T10:55:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2022-12-12 10:55:56 +0000 UTC | 2022-12-12T10:55:57Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2022-12-12 10:55:54 +0000 UTC | 2022-12-12T10:55:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2022-12-12 10:55:53 +0000 UTC | 2022-12-12T10:55:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2022-12-12 10:55:52 +0000 UTC | 2022-12-12T10:55:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2022-12-12 10:55:51 +0000 UTC | 2022-12-12T10:55:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2022-12-12 10:55:49 +0000 UTC | 2022-12-12T10:55:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2022-12-12 10:55:49 +0000 UTC | 2022-12-12T10:55:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2022-12-12 10:55:47 +0000 UTC | 2022-12-12T10:55:49Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2022-12-12 10:55:47 +0000 UTC | 2022-12-12T10:55:49Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2022-12-12 10:55:45 +0000 UTC | 2022-12-12T10:55:47Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2022-12-12 10:55:45 +0000 UTC | 2022-12-12T10:55:47Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2022-12-12 10:55:43 +0000 UTC | 2022-12-12T10:55:45Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.40.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2022-12-12 10:55:43 +0000 UTC | 2022-12-12T10:55:45Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.40.0[here]__
+

@@ -1,0 +1,98 @@
+---
+title: "v0.16.0"
+date: 2021-11-24 15:35:20 +0000 UTC
+---
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2021-11-24 15:35:20 +0000 UTC - v0.16.0__
+
+
+
+IMPORTANT: This changelog is not the latest one, please refer to v0.70.0 for the latest changelog.
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>chore: put github issue template instructions in comments <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1062265944" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/389" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/389/hovercard" href="https://github.com/updatecli/updatecli/pull/389">#389</a>)</li>
+<li>chore: put github feature template instructions in comments <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1062292108" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/392" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/392/hovercard" href="https://github.com/updatecli/updatecli/pull/392">#392</a>)</li>
+</ul>
+<h2>🚀 Features</h2>
+<ul>
+<li>feat(file) allow condition to only check for file existence <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1056635415" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/382" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/382/hovercard" href="https://github.com/updatecli/updatecli/pull/382">#382</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(log messages) homogenize the emojis used for user output messages <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1059182154" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/386" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/386/hovercard" href="https://github.com/updatecli/updatecli/pull/386">#386</a>)</li>
+<li>fix(githubRelease) retrieve changelog based on the original release/tag instead of the transformed one <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1059367263" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/387" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/387/hovercard" href="https://github.com/updatecli/updatecli/pull/387">#387</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(yaml) improve condition validation error message to help end users <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1059175371" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/385" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/385/hovercard" href="https://github.com/updatecli/updatecli/pull/385">#385</a>)</li>
+<li>fix(dependencies) bump image-spec to 1.0.2 to fix <a title="GHSA-77vh-xpmg-72qh" data-hovercard-type="advisory" data-hovercard-url="/advisories/GHSA-77vh-xpmg-72qh/hovercard" href="https://github.com/advisories/GHSA-77vh-xpmg-72qh">GHSA-77vh-xpmg-72qh</a> security bulletin <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1059174885" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/384" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/384/hovercard" href="https://github.com/updatecli/updatecli/pull/384">#384</a>)</li>
+<li>fix(dependencies) bump containerd to 1.5.8 and protobuf to 1.27.1 to fix <a title="GHSA-5j5w-g665-5m35" data-hovercard-type="advisory" data-hovercard-url="/advisories/GHSA-5j5w-g665-5m35/hovercard" href="https://github.com/advisories/GHSA-5j5w-g665-5m35">GHSA-5j5w-g665-5m35</a> security bulletin <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1059174476" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/383" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/383/hovercard" href="https://github.com/updatecli/updatecli/pull/383">#383</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> and <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lemeurherve/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lemeurherve">@lemeurherve</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2021-11-24 15:52:37 +0000 UTC | 2021-11-24T15:52:39Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2021-11-24 15:52:37 +0000 UTC | 2021-11-24T15:52:38Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2021-11-24 15:52:36 +0000 UTC | 2021-11-24T15:52:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2021-11-24 15:52:35 +0000 UTC | 2021-11-24T15:52:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2021-11-24 15:52:34 +0000 UTC | 2021-11-24T15:52:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2021-11-24 15:52:33 +0000 UTC | 2021-11-24T15:52:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2021-11-24 15:52:28 +0000 UTC | 2021-11-24T15:52:34Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2021-11-24 15:52:26 +0000 UTC | 2021-11-24T15:52:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2021-11-24 15:52:25 +0000 UTC | 2021-11-24T15:52:28Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2021-11-24 15:52:24 +0000 UTC | 2021-11-24T15:52:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2021-11-24 15:52:23 +0000 UTC | 2021-11-24T15:52:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Linux_armv6.tar.gz[updatecli_Linux_armv6.tar.gz] | 2021-11-24 15:52:22 +0000 UTC | 2021-11-24T15:52:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2021-11-24 15:52:16 +0000 UTC | 2021-11-24T15:52:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2021-11-24 15:52:15 +0000 UTC | 2021-11-24T15:52:17Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2021-11-24 15:52:14 +0000 UTC | 2021-11-24T15:52:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_Windows_armv6.zip[updatecli_Windows_armv6.zip] | 2021-11-24 15:52:09 +0000 UTC | 2021-11-24T15:52:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_0.16.0_checksums.txt[updatecli_0.16.0_checksums.txt] | 2021-11-24 15:52:05 +0000 UTC | 2021-11-24T15:52:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.16.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2021-11-24 15:52:05 +0000 UTC | 2021-11-24T15:52:13Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.16.0[here]__
+
