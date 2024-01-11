@@ -37,7 +37,7 @@ The core idea behind an Updatecli manifest can be resumed as this.
 
 Updatecli was meant to be executed from Jenkins and leveraging the various event type that a classical CI solution offers. I also wanted to make it easier to define update policies locally without additional constraints.
 
-We learned a few things about Updatecli and CD events, and how it helped us build many different types of Update pipeline.
+We learned a few things about Updatecli and CD events, and how it helped us build different types of Update pipeline.
 
 This blog post is not about how we use Updatecli within Jenkins but how we built it to be CI agnostic. For the remaining part of this blog post, I am going to use another popular CI solution nowadays: GitHub Action, the GitHub CI service.
 
