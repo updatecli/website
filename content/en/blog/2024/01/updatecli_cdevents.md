@@ -13,7 +13,7 @@ If there is one thing I learned working with various CI tools, is, not everythin
 
 I am sorry but I had to say it.
 
-Don't get me wrong,  CI tools like Jenkins, disrupted the way we build software. Jenkins has a tremendous plugin ecosystem. Even 20 years after its creation, Jenkins remains in the top 10 of the Linux Foundation project with the biggest development velocity as per Linux Foundation [**link**](https://docs.google.com/spreadsheets/d/1aiHuku3_DZZCjcdm9FLftIVjSWsSdcoBrhOp37Jwi5g/edit#gid=1169691230)
+Don't get me wrong,  CI tools like Jenkins, disrupted the way we build software. Jenkins has a tremendous plugin ecosystem. Even almost 20 years after its creation, Jenkins remains in the top 10 of the Linux Foundation project with the biggest development velocity as per Linux Foundation [**link**](https://docs.google.com/spreadsheets/d/1aiHuku3_DZZCjcdm9FLftIVjSWsSdcoBrhOp37Jwi5g/edit#gid=1169691230)
 
 And yet I truly believe a CI should focus on orchestrating pipelines by leveraging various [**CD events**](https://cdevents.dev/) while being agnostic of what those pipelines are doing.
 
