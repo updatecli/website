@@ -164,7 +164,7 @@ For projects in "maintenance" mode, differently said, that doesn't change much. 
 
 ## What's next?
 
-In this post, I covered the CD events we mainly use with Updatecli but they are many more. There is an incubated project at the Continuous Delivery Foundation that maintain a common specification for continuous delivery events, available at https://cdevents.dev/
+In this post, I covered the CD events I mainly use with Updatecli but they are many more. There is an incubated project at the Continuous Delivery Foundation that maintain a common specification for continuous delivery events, available at https://cdevents.dev/
 
 ## Design Pipeline
 
