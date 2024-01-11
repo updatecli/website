@@ -59,7 +59,7 @@ I'll focus on common CI events which makes **my** usage of Updatecli, CI agnosti
 
 ### On Manual
 
-*Trigger your workflow manually. [doc](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch)
+*Trigger your workflow manually. [**doc**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch)*
 
 ```yaml
 name: updatecli
@@ -75,7 +75,7 @@ This is the equivalent of running Updatecli on a developer machine except that t
 
 ### On Push
 
-*Run your workflow when you push a commit or tag, or when you create a repository from a template.  [doc](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push)*
+*Run your workflow when you push a commit or tag, or when you create a repository from a template.  [**doc**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push)*
 
 ```yaml
 on:
@@ -91,7 +91,7 @@ Now, right after the rollback, Updatecli reopened a pull request with the latest
 
 ### On pullrequest
 
-*Runs your workflow when activity on a pull request in the workflow's repository occurs. [doc](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request)*
+*Runs your workflow when activity on a pull request in the workflow's repository occurs. [**doc**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request)*
 
 ```yaml
 on:
@@ -106,7 +106,7 @@ When we execute Updatecli from a GitHub action workflow, we rely on the `GITHUB_
 
 ## External
 
-*Trigger a webhook event called [`repository_dispatch`](https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#repository_dispatch) when you want to trigger a workflow for activity that happens outside of GitHub. [doc](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)*
+*Trigger a webhook event called [`repository_dispatch`](https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#repository_dispatch) when you want to trigger a workflow for activity that happens outside of GitHub. [**doc**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)*
 
 ```yaml
 on:
@@ -130,7 +130,7 @@ Obviously this chain of pipeline requires a bit of configuration but once in pla
 
 ## Schedule
 
-*The `schedule` event allows you to trigger a workflow at a scheduled time. [doc](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request)*
+*The `schedule` event allows you to trigger a workflow at a scheduled time. [**doc**](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request)*
 
 ```yaml
 on:
