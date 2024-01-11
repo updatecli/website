@@ -55,7 +55,7 @@ Overall, GitHub action is easy to pick, it works well within GitHub but, unless 
 
 GitHub Action provides many different types of events, some are quite common for CI tools, like cronjob scheduler and others are specific to GitHub like someone starring the GitHub repository.
 
-I'll focus on common CI events which makes my usage of Updatecli, CI agnostic.
+I'll focus on common CI events which makes **my** usage of Updatecli, CI agnostic.
 
 ### On Manual
 
