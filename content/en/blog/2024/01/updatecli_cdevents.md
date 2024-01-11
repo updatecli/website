@@ -13,7 +13,7 @@ If there is one thing I learned working with various CI tools, is, not everythin
 
 I am sorry but I had to say it.
 
-Don't get me wrong,  CI tools like Jenkins, disrupted the way we build software. Jenkins has a tremendous plugin ecosystem. Even 20 years after its creation, Jenkins remains in the top 10 of the Linux Foundation project with the biggest development velocity as per Linux Foundation [link](https://docs.google.com/spreadsheets/d/1aiHuku3_DZZCjcdm9FLftIVjSWsSdcoBrhOp37Jwi5g/edit#gid=1169691230)
+Don't get me wrong,  CI tools like Jenkins, disrupted the way we build software. Jenkins has a tremendous plugin ecosystem. Even 20 years after its creation, Jenkins remains in the top 10 of the Linux Foundation project with the biggest development velocity as per Linux Foundation [**link**](https://docs.google.com/spreadsheets/d/1aiHuku3_DZZCjcdm9FLftIVjSWsSdcoBrhOp37Jwi5g/edit#gid=1169691230)
 
 And yet I truly believe a CI should focus on orchestrating pipelines by leveraging various [**CD events**](https://cdevents.dev/) while being agnostic of what those pipelines are doing.
 
@@ -45,11 +45,11 @@ This blog post is not about how we use Updatecli within Jenkins but how we built
 * GitHub Action doesn't have a large plugin ecosystem but preferred to talk about a marketplace.
 * GitHub Action is not super fast but it's free and you can still pay for faster runner if need
 
-Overall, GitHub action is easy to pick, it works well within GitHub but again, unless of a good reason, it's usually a good rule of thumb to avoid being tightly couple to a specific solution.
+Overall, GitHub action is easy to pick, it works well within GitHub but, unless of a good reason, it's usually a good rule of thumb to avoid being too much tightly couple to a specific solution.
 
-*When an open source project evolves the wrong way, often the best solution is either to quit or to fork*  
-*When a company evolves the wrong way, often the best solutions are either to quit or to pay*  
-*Often quitting is not an option*
+*When an open source project evolves the wrong way, often the only solution is either to quit or to fork.*  
+*When a company evolves the wrong way, often the only solution is either to quit or to pay.*  
+*In the end it's all about risk management but quitting should always remain a viable alternative.*  
 
 ## CD Events
 
