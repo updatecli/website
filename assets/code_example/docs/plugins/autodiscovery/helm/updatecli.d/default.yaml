@@ -11,11 +11,16 @@ autodiscovery:
   scmid: epinio
   crawlers:
     helm:
-      # To ignore specific path
-      #ignore:
-      #  # - path: <filepath relative to scm repository>
-      #  # - path: chart/*
+      ignore:
+        # Ignore a specific path:
+        - path: charts/acme/*
+        # Ignore a specific chart dependency:
+        - dependencies:
+            my-chart-dependency: ">0.0.1"
+        # Ignore a specific image reference in chart values:
+        - containers:
+            "longhornio/upgrade-responder": ""
+      
+      # To include only a specific path:
       #only:
-      #  # - path: <filepath relative to scm repository>
-      #  # - path: chart/*
-#
+      #  - path: charts/*
