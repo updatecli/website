@@ -17,7 +17,7 @@ autodiscovery:
         # Ignore a specific chart dependency:
         - dependencies:
             my-chart-dependency: ">0.0.1"
-        # Ignore a specific image references in chart values:
+        # Ignore a specific image reference in chart values:
         - containers:
             "longhornio/upgrade-responder": ""
       
