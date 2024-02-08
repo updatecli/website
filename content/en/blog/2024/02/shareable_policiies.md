@@ -9,14 +9,15 @@ contributors: ["olblak"]
 
 Time flies, and It's time for another successful experiment to go out.
 
-*Shareable Update Policies*
+> Shareable Update Policies
 
 A recurring problem over time has been, how to reuse the same Updatecli manifests for different projects.
 
 From the beginning of the Updatecli project, it was possible to parameterize Updatecli manifests using values or secrets files, but still, we had to copy the same Updatecli manifest over and over. This led to duplication, maintenance burden, and ultimately, It didn't scale well.
 
 So what if we could:
-1. Write a generic Update policy,
+
+1. Write a generic Update policy
 2. Publish it to a registry like "[GitHub packages](http://ghcr.io/)" or "[Dockerhub](https://hub.docker.com)"
 3. Reuse the same policy over and over
 4. Bonus point, having versioned Update policy
@@ -28,8 +29,9 @@ Well, it turned out to be amazing
 To test the various commands mentioned in this blog post, you'll need:
 
 1. The latest Updatecli version, installed locally. *[Cfr](https://www.updatecli.io/docs/prologue/installation/)*
-2.  A GitHub Personal Access Token to query the GitHub API. *[Cfr](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)*
-```
+2. A GitHub Personal Access Token to query the GitHub API. *[Cfr](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)*
+
+```bash
 export UPDATECLI_GITHUB_TOKEN=<INSERT YOUR PAT>
 ```
 
@@ -38,13 +40,13 @@ export UPDATECLI_GITHUB_TOKEN=<INSERT YOUR PAT>
 The first step is to write a policy.
 To make this step a bit easier, we added a new sub-command :
 
-```
+```bash
 updatecli manifest init my_policy
 ```
 
 This command scaffolds a new Updatecli policy in the directory `my_policy` that includes the following files "CHANGELOG.md",  "Policy.yaml", "README.md", "updatecli.d", and  "values.yaml"
 
-where: 
+where:
 
 1. **Policy.yaml** contains the policy metadata, such as the policy version or a short description.
 2. **updatecli.d** is the directory containing Updatecli manifest(s).
@@ -57,16 +59,20 @@ where:
 We can add as many files as we need in the directory `updatecli.d`. All of them define different update pipelines specific to this policy.
 
 ---
+
 This post is not about how to write Updatecli manifests, instead feel free to look, first, into:
+
 * [**Quick Start**](https://www.updatecli.io/docs/prologue/quick-start/)
 * [**Guide: Update YAML files like docker-compose.yaml**](https://www.updatecli.io/docs/guides/docker-compose/)
 * [**Guide: Update Helm chart**](https://www.updatecli.io/docs/guides/helm-chart/)
+
 ---
 
 To simplify this section, We can update the file `values.yaml` and `updatecli.d/default.yaml` with the following contents:
 
-**values.yaml**
-```
+<details><summary>values.yaml</summary>
+
+```yaml
 ---
 # Values.yaml contains settings used from Updatecli manifest.
 scm:
@@ -79,8 +85,11 @@ scm:
     branch: main
 ```
 
-**updatecli.d/default.yaml**
-```
+</details>
+
+<details><summary>updatecli.d/default.yaml</summary>
+
+```yaml
 ---
 name: Update Rancher Fleet projects dependencies
 
@@ -111,7 +120,7 @@ actions:
 ## autodiscovery specifies that we want to update whatever we find
 ## in the context of helm or rancher/fleet dependencies.
 autodiscovery:
-  groupby: all 
+  groupby: all
   scmid: default
   actionid: default
   crawlers:
@@ -119,12 +128,13 @@ autodiscovery:
       enabled: true
     rancher/fleet:
       enabled: true
-
 ```
+
+</details>
 
 We can now test our policy running:
 
-```
+```bash
 updatecli diff --config updatecli.d/default.yaml --values values.yaml
 ```
 
@@ -137,22 +147,24 @@ Updatecli relies on the same technology used to distribute [Docker images](https
 
 As of today, we need to authenticate with a registry such as [**ghcr.io**](https://github.com/features/packages) by running:
 
-```
+```bash
 docker login ghcr.io
 ```
 
 Then, we can publish our new policy to [ghcr.io](https://github.com/features/packages) by running:
-```
+
+```bash
 updatecli manifest push \
-	--experimental \
-	--values values.yaml \
-	--config updatecli.d \
-	--policy Policy.yaml \
-	--tag ghcr.io/updatecli-test/policies/autodiscovery/fleet \
-	.
+    --experimental \
+    --values values.yaml \
+    --config updatecli.d \
+    --policy Policy.yaml \
+    --tag ghcr.io/updatecli-test/policies/autodiscovery/fleet \
+    .
 ```
 
 A few important pieces of information to consider
+
 * The policy version is retrieved from the file `Policy.yaml` and **must** be semantic versioning compliant.
 * The version `latest` has a specific meaning and represents the latest version from a semantic versioning point of view.
 * A policy version is mutable information, to ensure we always use the right policy, we can use the policy digest such as `0.3.0@sha256:eff30ebc0dc129ef3b82cfbca1e5c3d9ea1014f360f4c51b04ea4b0f951bae91`
@@ -161,9 +173,9 @@ Voila, it's as simple as that. Now we can start using our new policy.
 
 ## Reuse
 
-Using Updatecli policies can be done through two approaches. One policy at a time or composing them using the file `update-compose.yaml`. 
+Using Updatecli policies can be done through two approaches. One policy at a time or composing them using the file `update-compose.yaml`.
 
-**One at time**
+### One at a time
 
 To manipulate a single policy, we can reuse familiar commands like:
 
@@ -171,11 +183,13 @@ To manipulate a single policy, we can reuse familiar commands like:
 * `updatecli manifest show --experimental ghcr.io/updatecli/policies/updatecli/autodiscovery`
 * `updatecli apply --experimental ghcr.io/updatecli/policies/updatecli/autodiscovery:latest`
 
-**Compose**
+### Compose
 
 Quickly, we end up with different policies. This is why we introduced a new file named `update-compose.yaml` with its syntax that allows us to compose our policies.
 
-```
+<details><summary>update-compose.yaml</summary>
+
+```yaml
 policies:
   - name: Local Updatecli Website Policies
     config:
@@ -192,26 +206,27 @@ policies:
       - updatecli/values.d/nodejs.yaml
 ```
 
+</details>
+
 Now we can use the following commands to achieve the same results as the standalone approach
 
 * `updatecli compose diff --experimental`
 * `updatecli compose show  --experimental`
 * `updatecli compose apply --experimental`
 
-
 ### Important
 
-**Override Default Values**
+#### Override Default Values
 
 Additional values can be specified at command execution to override those defined by the policy. It doesn't use deep merge copy.
 
-**Syntax validation && Auto completion**
+#### Syntax validation && Auto completion
 
 Similarly to Updatecli manifests, any IDE supporting Jsonschema store like VScode, IntelliJ, etc., automatically validate and provide auto-completion for files named `update-compose.yaml`
 
 ![update-compose.yaml auto completion](/images/blog/2024/02/update-compose-autocompletion.png)
 
-**Updatecli policies updated by Updatecli**
+#### Updatecli policies updated by Updatecli
 
 The benefits of having versioned Update policies, means we can update the various projects at different speed. We managed the policy in one location and then use a policy like `ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0` to automate policy update on all `update-compose.yaml` file.
 
@@ -224,7 +239,7 @@ We created the label [**updatecli-policies**](https://github.com/updatecli/updat
 
 Our goal is to move that feature out of experimental as soon as we are confident enough that this feature is stable.
 
-We are still collecting feedback, so feel free to provide yours on:  
+We are still collecting feedback, so feel free to provide yours on:
 
 * [**github.com/updatecli/updatecli/discussion/1878**](https://github.com/orgs/updatecli/discussions/1878)
 
@@ -240,8 +255,9 @@ All those policies are available on [**ghcr.io/updatecli/policies**](https://git
 
 Another great approach, suggested by [**Mathew Warman**](https://github.com/mcwarman), is to use the following GitHub Action workflow, which offer a similar result:
 
-**.github/workflows/policies-release.yaml**
-```
+<details><summary>.github/workflows/policies-release.yaml</summary>
+
+```yaml
 name: Policy Release
 
 on:
@@ -350,7 +366,8 @@ jobs:
             .
 ```
 
+</details>
+
 ## Conclusion
 
 We hope you are as excited as we are about this new feature and that it will simplify the maintenance of your project through time, as it does for us.
-
