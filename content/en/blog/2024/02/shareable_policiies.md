@@ -25,7 +25,7 @@ Well, it turned out to be amazing
 
 ### Requirement
 
-If you want to test the various commands mentioned in this blog post, you'll need:
+To test the various commands mentioned in this blog post, you'll need:
 
 1. The latest Updatecli version, installed locally. *[Cfr](https://www.updatecli.io/docs/prologue/installation/)*
 2.  A GitHub Personal Access Token to query the GitHub API. *[Cfr](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)*
@@ -36,13 +36,13 @@ export UPDATECLI_GITHUB_TOKEN=<INSERT YOUR PAT>
 ## Write
 
 The first step is to write a policy.
-To make this step a bit easier, we add a new sub-command :
+To make this step a bit easier, we added a new sub-command :
 
 ```
 updatecli manifest init my_policy
 ```
 
-This command scaffolds a new Updatecli policy in the directory `my_policy` which includes the following files "CHANGELOG.md",  "Policy.yaml", "README.md", "updatecli.d", and  "values.yaml"
+This command scaffolds a new Updatecli policy in the directory `my_policy` that includes the following files "CHANGELOG.md",  "Policy.yaml", "README.md", "updatecli.d", and  "values.yaml"
 
 where: 
 
@@ -58,12 +58,12 @@ We can add as many files as we need in the directory `updatecli.d`. All of them 
 
 ---
 This post is not about how to write Updatecli manifests, instead feel free to look, first, into:
-* [**Update YAML files like docker-compose.yaml**](https://www.updatecli.io/docs/guides/docker-compose/)
-* [**Update Helm chart**](https://www.updatecli.io/docs/guides/helm-chart/)
 * [**Quick Start**](https://www.updatecli.io/docs/prologue/quick-start/)
+* [**Guide: Update YAML files like docker-compose.yaml**](https://www.updatecli.io/docs/guides/docker-compose/)
+* [**Guide: Update Helm chart**](https://www.updatecli.io/docs/guides/helm-chart/)
 ---
 
-To simplify this section, I am updating the file `values.yaml` and `updatecli.d/default.yaml` with the following contents:
+To simplify this section, We can update the file `values.yaml` and `updatecli.d/default.yaml` with the following contents:
 
 **values.yaml**
 ```
@@ -133,7 +133,7 @@ This works, but remember, we want to publish this policy to a registry so that w
 ## Publish
 
 Updatecli policies can be published to any OCI-compliant registries like Dockerhub, ghcr.io, etc.
-Updatecli relies on the same technology used to distribute Docker images, Helm charts, Kubewarden policies, etc.
+Updatecli relies on the same technology used to distribute [Docker images](https://docs.docker.com/engine/reference/commandline/image_push/), [Helm charts](https://helm.sh/docs/topics/registries/), [Kubewarden policies](https://docs.kubewarden.io/distributing-policies), etc.
 
 As of today, we need to authenticate with a registry such as [**ghcr.io**](https://github.com/features/packages) by running:
 
@@ -141,7 +141,7 @@ As of today, we need to authenticate with a registry such as [**ghcr.io**](https
 docker login ghcr.io
 ```
 
-And now we can publish our new policy by running 
+Then, we can publish our new policy to [ghcr.io](https://github.com/features/packages) by running:
 ```
 updatecli manifest push \
 	--experimental \
@@ -152,9 +152,8 @@ updatecli manifest push \
 	.
 ```
 
-
 A few important pieces of information to consider
-* The policy version is fetched from the file `Policy.yaml` and **must** be semantic versioning compliant.
+* The policy version is retrieved from the file `Policy.yaml` and **must** be semantic versioning compliant.
 * The version `latest` has a specific meaning and represents the latest version from a semantic versioning point of view.
 * A policy version is mutable information, to ensure we always use the right policy, we can use the policy digest such as `0.3.0@sha256:eff30ebc0dc129ef3b82cfbca1e5c3d9ea1014f360f4c51b04ea4b0f951bae91`
 
@@ -174,7 +173,7 @@ To manipulate a single policy, we can reuse familiar commands like:
 
 **Compose**
 
-Quickly, we end up with different policies. This is why we introduce a new file named `update-compose.yaml` with its syntax that allows us to compose our policies.
+Quickly, we end up with different policies. This is why we introduced a new file named `update-compose.yaml` with its syntax that allows us to compose our policies.
 
 ```
 policies:
@@ -208,7 +207,7 @@ Additional values can be specified at command execution to override those define
 
 **Syntax validation && Auto completion**
 
-Similarly to Updatecli manifests, any IDE supporting Jsonschema store like VScode, IntelliJ, etc., will automatically validate and provide auto-completion for files named `update-compose.yaml`
+Similarly to Updatecli manifests, any IDE supporting Jsonschema store like VScode, IntelliJ, etc., automatically validate and provide auto-completion for files named `update-compose.yaml`
 
 ![update-compose.yaml auto completion](/images/blog/2024/02/update-compose-autocompletion.png)
 
@@ -223,7 +222,7 @@ The benefits of having versioned Update policies, means we can update the variou
 While we've been using this feature for a few months now on various projects, shareable policies are still in experimental mode.
 We created the label [**updatecli-policies**](https://github.com/updatecli/updatecli/issues?q=is%3Aopen+is%3Aissue+label%3Aupdatecli-policies) to track related issues, but so far nothing major appear.
 
-My goal is to move that feature out of experimental as soon as I am confident enough that this feature is stable enough.
+Our goal is to move that feature out of experimental as soon as we are confident enough that this feature is stable.
 
 We are still collecting feedback, so feel free to provide yours on:  
 
@@ -231,11 +230,11 @@ We are still collecting feedback, so feel free to provide yours on:
 
 ### Policies repository
 
-On the projects that I maintain, I shifted from maintaining manifest(s) per project/repository to one central repository with all Updatecli policies defined there.
+On the projects that we maintain, we shifted from maintaining manifest(s) per project/repository to one central repository with all Updatecli policies defined there.
 
 Updatecli policies used on the Updatecli project are now defined on [**github.com/updatecli/policies**](https://github.com/updatecli/policies).
 Adding new policies is as simple as adding a new policy to the directory `updatecli/policies`
-Then I have a GitHub workflow that publishes the new policy automatically to ghcr.io/updatecli/policies/<the policy path>.
+Then we have a GitHub workflow that publishes new policies automatically to ghcr.io/updatecli/policies/<the policy path>.
 
 All those policies are available on [**ghcr.io/updatecli/policies**](https://github.com/orgs/updatecli/packages?tab=packages&q=policies)
 
@@ -353,5 +352,5 @@ jobs:
 
 ## Conclusion
 
-I hope you are as excited as I am about this new feature and that it will simplify the maintenance of your project through time, as it does for me.
+We hope you are as excited as we are about this new feature and that it will simplify the maintenance of your project through time, as it does for us.
 
