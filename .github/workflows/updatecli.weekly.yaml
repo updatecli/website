@@ -1,31 +1,28 @@
 ---
-name: Updatecli
+name: Updatecli Weekly
 on:
   workflow_dispatch:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
   schedule:
     # * is a special character in YAML so you have to quote this string
-    # Run every hour
-    - cron: '0 * * * *'
+    # Run at 12:00 every Thursday
+    - cron: '0 12 * * 4'
 jobs:
   updatecli:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
+
       - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.54.0"
         with:
           version: "v0.72.0"
 
-      - name: "Run updatecli in dryrun"
-        run: "updatecli compose diff --experimental --clean=true"
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # releasepost is required by the Updatecli
+      #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
+      - name: "Install Releasepost"
+        uses: "updatecli/releasepost-action@v0.1.0"
 
       - uses: tibdex/github-app-token@v2.1
         id: generate_token
@@ -36,7 +33,8 @@ jobs:
 
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
-        run: "updatecli compose apply --experimental --clean=true"
+        run: "updatecli compose apply --file update-compose.weekly.yaml --experimental --clean=true"
         env:
           GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
