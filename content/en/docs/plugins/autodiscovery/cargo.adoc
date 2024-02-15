@@ -25,22 +25,7 @@ Or by providing a manifest.
 
 The crawler `cargo` supports the following parameters:
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| `rootdir` | | current dir| Define root directory to look for `Cargo.toml` files
-| `only` | | | Define a list of rules to only update a subset of Dockerfile files
-| `only.path` | | |  Define a list of `Cargo.toml` file path to only update
-| `ignore` | | | Define a list of rules to ignore update a subset of dockerfile files
-| `ignore.path` | | |  Define a list of `Cargo.toml` file path to only update
-| `registries` | | | Registgries allows to specify a map of cargo registries credentials
-| `registries.<registry>.auth` | | | Cargo registry auth to use for authentication
-| `registries.<registry>.auth.token` | | | Cargo registry token to use for authentication
-| `registries.<registry>.auth.headerformat` | | `Bearer` | Cargo registry header format to use for authentication
-| `registries.<registry>.url` | | | Cargo registry URL to use for authentication
-| `registries.<registry>.rootdir` | | | Cargo registry root directory to use as FS index
-| `registries.<registry>.scmid` | | | Cargo registry scmId to use as FS index
-|===
+{{< autodiscoveryparameters "cargo" >}}
 
 ==== Example
 
