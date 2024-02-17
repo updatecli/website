@@ -1,0 +1,31 @@
+---
+title: "Updatecli"
+description: "Discover Updatecli container update"
+lead: "kind: updatecli"
+draft: false
+images: [] 
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `updatecli` Autodiscovery plugin allows to automatically search and update container tags defined in Updatecli.yaml files.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "updatecli" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/updatecli/updatecli.d/updatecli.yaml">}}
+----
