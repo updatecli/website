@@ -1,0 +1,31 @@
+---
+title: "Kubernetes"
+description: "Discover Kubernetes container update"
+lead: "kind: kubernetes"
+draft: false
+images: [] 
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `kubernetes` Autodiscovery plugin allows to automatically search and update container tags defined in Kubernetes.yaml files.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "kubernetes" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/kubernetes/updatecli.d/updatecli.yaml">}}
+----
