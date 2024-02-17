@@ -13,24 +13,20 @@ jobs:
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
-
       - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.54.0"
         with:
-          version: "v0.72.0"
-
+          version: "v0.73.0"
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
         uses: "updatecli/releasepost-action@v0.1.0"
-
       - uses: tibdex/github-app-token@v2.1
         id: generate_token
         if: github.ref == 'refs/heads/master'
         with:
           app_id: ${{ secrets.UPDATECLIBOT_APP_ID }}
           private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
-
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
         run: "updatecli compose apply --file update-compose.weekly.yaml --experimental --clean=true"
