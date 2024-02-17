@@ -1,0 +1,31 @@
+---
+title: "Ko"
+description: "Discover Ko container update"
+lead: "kind: ko"
+draft: false
+images: [] 
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `ko` Autodiscovery plugin allows to automatically search and update container tags defined in ko.yaml files.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "ko" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/ko/updatecli.d/updatecli.yaml">}}
+----
