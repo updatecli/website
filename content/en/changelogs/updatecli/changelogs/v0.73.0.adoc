@@ -17,7 +17,7 @@ __ (github-actions[bot]) released this 2024-02-17 18:29:58 +0000 UTC - v0.73.0__
 
 ++++
 
-<h2>WARNING</h2>
+<h2>Info</h2>
 <p>This release introduces a few important changes.</p>
 <p><strong>Ephemeral branch</strong></p>
 <p>The ephemeral branch created by Updatecli before opening a pullrequest or merge request changes its format to include the base branch, more information <a href="https://github.com/updatecli/updatecli/issues/1897" data-hovercard-type="issue" data-hovercard-url="/updatecli/updatecli/issues/1897/hovercard">here</a> about why this change is needed.<br>
