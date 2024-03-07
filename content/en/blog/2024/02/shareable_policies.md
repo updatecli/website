@@ -155,7 +155,6 @@ Then, we can publish our new policy to [ghcr.io](https://github.com/features/pac
 
 ```bash
 updatecli manifest push \
-    --experimental \
     --values values.yaml \
     --config updatecli.d \
     --policy Policy.yaml \
@@ -179,9 +178,9 @@ Using Updatecli policies can be done through two approaches. One policy at a tim
 
 To manipulate a single policy, we can reuse familiar commands like:
 
-* `updatecli diff --experimental ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0`
-* `updatecli manifest show --experimental ghcr.io/updatecli/policies/updatecli/autodiscovery`
-* `updatecli apply --experimental ghcr.io/updatecli/policies/updatecli/autodiscovery:latest`
+* `updatecli diff ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0`
+* `updatecli manifest show ghcr.io/updatecli/policies/updatecli/autodiscovery`
+* `updatecli apply ghcr.io/updatecli/policies/updatecli/autodiscovery:latest`
 
 ### Compose
 
@@ -210,9 +209,9 @@ policies:
 
 Now we can use the following commands to achieve the same results as the standalone approach
 
-* `updatecli compose diff --experimental`
-* `updatecli compose show  --experimental`
-* `updatecli compose apply --experimental`
+* `updatecli compose diff`
+* `updatecli compose show`
+* `updatecli compose apply`
 
 ### Important
 
@@ -234,10 +233,10 @@ The benefits of having versioned Update policies, means we can update the variou
 
 ### Feedback
 
-While we've been using this feature for a few months now on various projects, shareable policies are still in experimental mode.
+While we've been using this feature for a few months now on various projects, ~~shareable policies are still in experimental mode~~.
 We created the label [**updatecli-policies**](https://github.com/updatecli/updatecli/issues?q=is%3Aopen+is%3Aissue+label%3Aupdatecli-policies) to track related issues, but so far nothing major appear.
 
-Our goal is to move that feature out of experimental as soon as we are confident enough that this feature is stable.
+~~Our goal is to move that feature out of experimental as soon as we are confident enough that this feature is stable.~~
 
 We are still collecting feedback, so feel free to provide yours on:
 
