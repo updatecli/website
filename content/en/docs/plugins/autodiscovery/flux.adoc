@@ -1,0 +1,37 @@
+---
+title: "Flux"
+description: "Discover Flux update"
+lead: "kind: flux"
+draft: false
+images: []
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `flux` Autodiscovery plugin allows to automatically search and update content in Flux configuration file.
+
+Updatecli proposes Helm Chart update when it identifies both a `helmrelease` and a `helmrepository` in the same namespace.
+Updatecli proposes version update when it detects OCIRepository
+
+Please note that Updatecli doesn't support yet GitRepository update, feel free to open an issue.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "flux" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/flux/updatecli.d/updatecli.yaml">}}
+----
+
