@@ -61,7 +61,7 @@ image::/images/blog/2022/12/twitter.png["twitter"]
 
 Updatecli started as a way to describe advanced update scenarii using manifests. Of course for standard update scenario, a manifest can be redundant and sometimes a project needs a mix of both.
 That's what Updatecli "Autodiscovery" is about.
-The purpose is to let Updatecli analyzes files from a directory and then generate standard update manifests before applying them. Autodiscovery is complementary to the manifest approach ~~and is still experimental~~.
+The purpose is to let Updatecli analyzes files from a directory and then generate standard update manifests before applying them. Autodiscovery is complementary to the manifest approach.
 
 Over the year, Updatecli started supporting automatic update for Dockerfile, Docker Compose file, Helm, Helmfile, Rancher Fleet, and Maven.
 
