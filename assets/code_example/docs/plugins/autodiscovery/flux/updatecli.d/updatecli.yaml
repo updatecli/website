@@ -1,0 +1,16 @@
+name: "Flux Autodiscovery"
+scms:
+  default:
+    kind: git
+    spec:
+      url: "https://github.com/updatecli-test/flux2-multi-tenancy.git"
+      branch: main
+autodiscovery:
+  scmid: default
+  crawlers:
+    flux:
+      digest: true
+      versionfilter:
+        kind: semver
+        pattern: minoronly
+
