@@ -17,6 +17,21 @@ __ (github-actions[bot]) released this 2024-03-07 13:04:07 +0000 UTC - v0.74.0__
 
 ++++
 
+<p>On top of bug-fixes and dependency updates, this release introduces the following main features:</p>
+<p><strong>Shareable Policy out of experimental</strong></p>
+<p>We don't need the flag <code>--experimental</code> to use that feature anymore.<br>
+More information on <a href="https://www.updatecli.io/blog/shareable-policies/" rel="nofollow">https://www.updatecli.io/blog/shareable-policies/</a></p>
+<p><strong>Allow to enable/disable working branch for any scm using the parameter <code>workingbranch</code>.</strong></p>
+<p>Previously, only the "git" scm could be used to push changes to existing git branches while other scm (GitHub,Gitlab,Stash,Gitea) would only push changes to a working branch like <code>updatecli_main_xxxxx</code>.<br>
+It was handy for pullrequest based workflow, but also a frequent source of confusion for new users.<br>
+Now if <code>workingbranch</code> is set true/false then we enable/disable working branch otherwise by default, we fall back to the previous situation depending on the scm kind.</p>
+<p><strong>Allow condition target</strong></p>
+<p>Previously for a target to be executed, all conditions defined in the pipeline needed to pass.<br>
+While it remains the default behavior, now it's possible to only trigger a target based on a subset of conditions</p>
+<p><strong>Add flux autodiscovery plugin</strong></p>
+<p>Updatecli autodiscovery can now identify updates in Flux helmrelease and ociregistry.<br>
+gitrepository support will come in a future version.</p>
+<p>Once again, we paid attention to not introducing any breaking changes so all existing manifests should keep working.</p>
 <h2>Changes</h2>
 <h2>🚀 Features</h2>
 <ul>
