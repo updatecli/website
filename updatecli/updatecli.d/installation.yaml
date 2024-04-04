@@ -22,6 +22,7 @@ scms:
             token: '{{ requiredEnv "GITHUB_TOKEN" }}'
             user: updatecli
             username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+            force: true
         disabled: false
 
 sources:
