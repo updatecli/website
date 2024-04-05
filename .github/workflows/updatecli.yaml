@@ -1,6 +1,8 @@
 ---
 name: Updatecli
 on:
+  merge_group:
+    branch: master
   workflow_dispatch:
   push:
     branches: [master]
