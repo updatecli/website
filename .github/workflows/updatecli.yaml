@@ -31,7 +31,7 @@ jobs:
         with:
           version: "v0.75.0-rc.2"
       - name: "Run updatecli in dryrun"
-        run: "updatecli compose diff --experimental --clean=true"
+        run: "updatecli compose diff"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
           private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
-        run: "updatecli compose apply --experimental --clean=true"
+        run: "updatecli compose apply"
         env:
           GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
