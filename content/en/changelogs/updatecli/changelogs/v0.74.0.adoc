@@ -22,7 +22,12 @@ More information on <a href="https://www.updatecli.io/blog/shareable-policies/" 
 <p><strong>Allow to enable/disable working branch for any scm using the parameter <code>workingbranch</code>.</strong></p>
 <p>Previously, only the "git" scm could be used to push changes to existing git branches while other scm (GitHub,Gitlab,Stash,Gitea) would only push changes to a working branch like <code>updatecli_main_xxxxx</code>.<br>
 It was handy for pullrequest based workflow, but also a frequent source of confusion for new users.<br>
-Now if <code>workingbranch</code> is set true/false then we enable/disable working branch otherwise by default, we fall back to the previous situation depending on the scm kind.</p>
+Now if <code>workingbranch</code> is set true/false then we enable/disable working branch otherwise by default.</p>
+<p>We preserve the previous situation depending on the scm kind:</p>
+<ul>
+<li>Scm "GitHub", "GitLab", "Stash", "Gitea" uses by default <code>workingbranch</code> set to true to create working branch.</li>
+<li>Scm "Git" uses by default <code>workingbranch</code> set to false to not create working branch</li>
+</ul>
 <p><strong>Allow condition target</strong></p>
 <p>Previously for a target to be executed, all conditions defined in the pipeline needed to pass.<br>
 While it remains the default behavior, now it's possible to only trigger a target based on a subset of conditions</p>
