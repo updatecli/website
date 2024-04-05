@@ -10,6 +10,12 @@ on:
     # * is a special character in YAML so you have to quote this string
     # Run every hour
     - cron: '0 * * * *'
+
+concurrency:
+  # Restrict to one workflow per branch
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   updatecli:
     runs-on: ubuntu-latest
