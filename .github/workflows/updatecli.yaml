@@ -11,10 +11,12 @@ on:
     # Run every hour
     - cron: '0 * * * *'
 
-concurrency:
-  # Restrict to one workflow per branch
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
+# Commenting until https://github.com/orgs/community/discussions/41518
+# is fixed
+#concurrency:
+#  # Restrict to one workflow per branch
+#  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+#  cancel-in-progress: true
 
 jobs:
   updatecli:
