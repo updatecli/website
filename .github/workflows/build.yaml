@@ -20,9 +20,9 @@ jobs:
         node-version: 20
 
     - name: Install Hugo
-      uses: peaceiris/actions-hugo@v2
+      uses: peaceiris/actions-hugo@v3
       with:
-        hugo-version: 0.124.1
+        hugo-version: 0.125.4
         extended: true
 
     - name: Install Bundler
