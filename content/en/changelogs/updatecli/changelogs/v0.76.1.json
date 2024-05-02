@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2024-04-30T16:54:38Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2024-04-30T16:54:38Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:38Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2024-04-30T16:54:38Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:38Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2024-04-30T16:54:38Z",
+        "Size": 2330
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:38Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Darwin_x86_64.tar.gz.sbom",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom",
+        "UpdatedAt": "2024-04-30T16:54:38Z",
+        "Size": 359496
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:38Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Linux_arm64.tar.gz.sbom",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom",
+        "UpdatedAt": "2024-04-30T16:54:38Z",
+        "Size": 358954
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:37Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Linux_x86_64.tar.gz.sbom",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 359225
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:37Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Linux_arm.tar.gz.sbom",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 358412
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:37Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Windows_x86_64.zip.sbom",
+        "Name": "updatecli_Windows_x86_64.zip.sbom",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 365335
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:37Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Darwin_arm64.tar.gz.sbom",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 359225
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:37Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Windows_arm64.zip.sbom",
+        "Name": "updatecli_Windows_arm64.zip.sbom",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 365061
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:37Z",
+        "ContentType": "application/octet-stream",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Windows_arm.zip.sbom",
+        "Name": "updatecli_Windows_arm.zip.sbom",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 364513
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:36Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 26134624
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:36Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 24680664
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:36Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2024-04-30T16:54:37Z",
+        "Size": 23959006
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:36Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2024-04-30T16:54:36Z",
+        "Size": 25669528
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:35Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2024-04-30T16:54:36Z",
+        "Size": 24898532
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:35Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2024-04-30T16:54:35Z",
+        "Size": 27340750
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:34Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2024-04-30T16:54:35Z",
+        "Size": 25666094
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:34Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2024-04-30T16:54:35Z",
+        "Size": 27417617
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:34Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2024-04-30T16:54:35Z",
+        "Size": 24872517
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:33Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2024-04-30T16:54:34Z",
+        "Size": 26598418
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:33Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2024-04-30T16:54:34Z",
+        "Size": 23866081
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:33Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2024-04-30T16:54:34Z",
+        "Size": 26026459
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:33Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2024-04-30T16:54:34Z",
+        "Size": 24604429
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:32Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2024-04-30T16:54:33Z",
+        "Size": 25044676
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:32Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2024-04-30T16:54:33Z",
+        "Size": 24035978
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:32Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2024-04-30T16:54:33Z",
+        "Size": 26742740
+      },
+      {
+        "CreatedAt": "2024-04-30T16:54:32Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.76.1/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2024-04-30T16:54:33Z",
+        "Size": 25108419
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n## 🐛 Bug Fixes\r\n\r\n- fix: GitHub pullrequest description updated to a wrong content  @olblak (#2074)\r\n- fix: use API for creating branch and fetching hashes when committing using Github API @MattiasAng (#2070)\r\n\r\n## 🧰 Maintenance\r\n\r\n- chore(deps): Bump sigstore/cosign-installer from 3.4.0 to 3.5.0 @dependabot (#2035)\r\n- chore(deps): Bump golangci/golangci-lint-action from 4 to 5 @dependabot (#2051)\r\n\r\n## Contributors\r\n\r\n@MattiasAng, @dependabot, @dependabot[bot], @olblak, @updateclibot and @updateclibot[bot]\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003ch2\u003e🐛 Bug Fixes\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: GitHub pullrequest description updated to a wrong content  \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2270577997\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2074\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2074/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2074\"\u003e#2074\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efix: use API for creating branch and fetching hashes when committing using Github API \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/MattiasAng/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/MattiasAng\"\u003e@MattiasAng\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2268395850\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2070\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2070/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2070\"\u003e#2070\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🧰 Maintenance\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003echore(deps): Bump sigstore/cosign-installer from 3.4.0 to 3.5.0 \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2237560911\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2035\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2035/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2035\"\u003e#2035\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003echore(deps): Bump golangci/golangci-lint-action from 4 to 5 \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2263318935\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2051\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2051/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2051\"\u003e#2051\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/MattiasAng/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/MattiasAng\"\u003e@MattiasAng\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"organization\" data-hovercard-url=\"/orgs/dependabot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dependabot\"\u003e@dependabot\u003c/a\u003e[bot], \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.76.1",
+    "PublishedAt": "2024-04-30 16:41:24 +0000 UTC",
+    "UpdatedAt": "2024-04-30 16:54:38 +0000 UTC",
+    "Tag": "v0.76.1",
+    "Name": "v0.76.1"
+  },
+  "FrontMatters": "---\ntitle: \"v0.76.1\"\ndate: 2024-04-30 16:41:24 +0000 UTC\n---\n"
+}
