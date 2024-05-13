@@ -1,0 +1,48 @@
+name: Argocd Autodiscovery Example
+
+autodiscovery:
+  # scmid is applied to all crawlers
+  scmid: default
+  crawlers:
+    argocd:
+      # To ignore specific path
+      ignore:
+        # Ignore manifest match path "dev/*.yaml"
+        - path: dev/*.yaml
+        # Ignore any Helm chart named "kubewarden-crds"
+        - charts:
+            "kubewarden-crds": ""
+        # Ignore any helm chart repository named "https://charts.jetstack.io"
+        - repositories:
+            - "https://charts.jetstack.io"
+
+        # Ignore any Helm chart named "kubewarden-crds" in manifest path "dev/*.yaml"
+        - path: dev/*.yaml
+          charts:
+            "kubewarden-crds": ""
+      # Only accepts the same rule than ignore
+      #only:
+      #  - path: helmfile.d/*
+      #  - charts:
+      #      "kubewarden-crds": ""
+      #  - repositories:
+      #      - "https://charts.jetstack.io"
+      #
+scms:
+  default:
+    kind: github
+    spec:
+      owner: updatecli
+      repository: updatecli
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      branch: "main"
+    
+actions:
+    default:
+        kind: "github/pullrequest"
+        spec:
+            labels:
+                - "dependencies"
+            mergemethod: "squash"
+        scmid: "default"
+

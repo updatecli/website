@@ -1,0 +1,34 @@
+---
+title: "ArgoCD"
+description: "Discover ArgoCD update"
+lead: "kind: argocd"
+draft: false
+images: []
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `argocd` Autodiscovery plugin allows to automatically search and update content in ArgoCD configuration file.
+
+Updatecli proposes Helm Chart update when it identifies both a Helm chart with a targetRevision.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "argocd" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/argocd/updatecli.d/updatecli.yaml">}}
+----
+
