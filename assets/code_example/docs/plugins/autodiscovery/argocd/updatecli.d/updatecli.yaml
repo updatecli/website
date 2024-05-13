@@ -3,6 +3,8 @@ name: Argocd Autodiscovery Example
 autodiscovery:
   # scmid is applied to all crawlers
   scmid: default
+  # actionid is applied to all crawlers
+  actionid: default
   crawlers:
     argocd:
       # To ignore specific path
