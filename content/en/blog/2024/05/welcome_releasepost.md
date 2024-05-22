@@ -412,7 +412,7 @@ I wish more project consider release notes as a critical component of their rele
 
 This project was built with flexibility in mind, so we could definitely envisioned building plugins for NPM, Gitlab releases, etc.
 
-In the near by futur, I am considering documenting how we automate release note publishing on Docusaurus website leveraging the versioning feature.
+In the near by future, I am considering documenting how we automate release note publishing on Docusaurus website leveraging the versioning feature.
 In that scenario, we only need release notes associated to the versioned website.
 
 Example on [fleet.rancher.io/0.9/changelogs](https://fleet.rancher.io/0.9/changelogs/)
