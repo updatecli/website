@@ -33,11 +33,11 @@ Considering [updatecli.io](https://www.updatecli.io) is powered by [HUGO](https:
 
 Updatecli already works great to automatically push file updates to git repositories.
 
-Welcome Releasepost
+Welcome Releasepost.
 
 ## Releasepost
 
-Releasepost can be downloaded from [github.com/updatecli/releasepost](https://github.com/updatecli/releasepost/releases)
+Releasepost can be downloaded from [github.com/updatecli/releasepost](https://github.com/updatecli/releasepost/releases).
 
 It is an experimental command line tool that fetches information from a remote location like GitHub releases and then generates files locally such as:
 
@@ -56,7 +56,7 @@ Where the directory `changelogs` contains one file per changelog, and `index.md`
 
 In theory, it's as simple as that...
 
-Let's see the Releasepost configuration used to generate [www.updatecli.io./changelogs](https://www.updatecli.io/changelogs/updatecli)
+Let's see the Releasepost configuration used to generate [www.updatecli.io./changelogs](https://www.updatecli.io/changelogs/updatecli):
 
 <details><summary>releasepost.yaml</summary>
 
@@ -89,14 +89,14 @@ sourced from <a href="https://github.com/updatecli/website/blame/master/.release
 The most important settings are:
 
 * `spec.owner` and `spec.repository` specify the GitHub repository to monitor for release notes.
-* `dir` specifies where to generate the files
+* `dir` specifies where to generate the files.
 * `formats` specifies the kind of files we want to generate so in this case json and Asciidoctor.
 
 This configuration relies on the environment variable `RELEASEPOST_GITHUB_TOKEN` to set the GitHub credentials used to interact with the API.
 
 [HUGO](https://gohugo.io) relies on specific behaviors like frontmatters to provide page metadata or an index file that differ from other tools like [Docusaurus](https://docusaurus.io/).
 
-I must admit, I was envisioning a simpler configuration that would only contains the GitHub repository to monitor, but as always, the Devil hides in the details.
+I must admit, I envisioned a simpler configuration that would only contain the GitHub repository to monitor, but as always, the Devil hides in the details.
 
 NOTE: More customization is available such as version filtering or the credentials to use but let's keep that for later.
 
@@ -113,7 +113,7 @@ Running `releasepost --config` creates the files locally but it's only halfway.
 
 We want to automatically publish them to our git repository.
 
-The next step was to write a Updatecli policy that would run `releasepost` and take care of opening pull requests when needed, such as this [one](https://github.com/updatecli/website/pull/1428).
+The next step was to write an Updatecli policy that would run `releasepost` and take care of opening pull requests when needed, such as this [one](https://github.com/updatecli/website/pull/1428).
 
 ### Updatecli Policy
 
@@ -388,14 +388,14 @@ We need three files:
 
 1. A releasepost configuration that specifies the GitHub repository to monitor.
 2. An update-compose.yaml file listing Updatecli policies to enforce.
-3. A values file listing the GitHub repository to monitor for release notes and the GitHub repository to copy those release notes
+3. A values file listing the GitHub repository to monitor for release notes and the GitHub repository to copy those release notes.
 4. A GitHub action workflow to execute Updatecli periodically.
 
 To answer my initial questions.
 
 _What if I could visualize Updatecli changelogs from [www.updatecli.io](https://www.updatecli.io/changelogs/updatecli)?_
 
-It's working great for a few months now, and I am not looking back.
+It's been working great for a few months now, and I am not looking back.
 
 _How many people read release notes?_
 
@@ -405,18 +405,18 @@ _Does it even make sense to spend effort maintaining those release notes?_
 
 I do think so, manually crafted release notes are by far the best ones but they are also the most time-consuming. It's difficult to maintain them over time for every project so automatically generated release notes are a good alternative.
 
-I wish more project consider release notes as a critical component of their releases.
+I wish more projects consider release notes as a critical component of their releases.
 
 ## Next steps
 
-This project was built with flexibility in mind, so we could definitely envisioned building plugins for NPM, Gitlab releases, etc.
+This project was built with flexibility in mind, so we could definitely envision building plugins for NPM, Gitlab releases, etc.
 
-In the near by future, I am considering documenting how we automate release note publishing on Docusaurus website leveraging the versioning feature.
+In the near future, I am considering documenting how we automate release notes publishing on Docusaurus website by leveraging the versioning feature.
 In that scenario, we only need release notes associated to the versioned website.
 
 Example on [fleet.rancher.io/0.9/changelogs](https://fleet.rancher.io/0.9/changelogs/)
 
-All of this don't replace the need to write good release notes, we just try to make them more visible.
+All of this doesn't replace the need to write good release notes, we just try to make them more visible.
 
 ## Links
 
