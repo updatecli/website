@@ -9,7 +9,7 @@ contributors: ["olblak"]
 
 No matter the project I am working on, I am constantly looking for project release notes.
 
-The good news is we now have access to great tools to automatically generate those release notes such as [Release Drafter](https://github.com/release-drafter/release-drafter), [Changie](https://github.com/miniscruff/changie), [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog), etc, 
+The good news is we now have access to great tools to automatically generate those release notes such as [Release Drafter](https://github.com/release-drafter/release-drafter), [Changie](https://github.com/miniscruff/changie), [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog), etc.
 
 In 2024, there is no excuse to skip that critical piece of information.
 
@@ -33,16 +33,15 @@ Considering [updatecli.io](https://www.updatecli.io) is powered by [HUGO](https:
 
 Updatecli already works great to automatically push file updates to git repositories.
 
-**Welcome Releasepost**
+Welcome Releasepost
 
 ## Releasepost
 
 Releasepost can be downloaded from [github.com/updatecli/releasepost](https://github.com/updatecli/releasepost/releases)
 
-
 It is an experimental command line tool that fetches information from a remote location like GitHub releases and then generates files locally such as:
 
-```
+```bash
 .
 ├── changelogs
 │   ├── v0.9.0.md
@@ -61,7 +60,7 @@ Let's see the Releasepost configuration used to generate [www.updatecli.io./chan
 
 <details><summary>releasepost.yaml</summary>
 
-```
+```yaml
 changelogs:
   - kind: github
     dir: content/en/changelogs/updatecli
@@ -88,7 +87,8 @@ sourced from <a href="https://github.com/updatecli/website/blame/master/.release
 </details>
 
 The most important settings are:
-* `spec.owner` and `spec.repository` specify the GitHub repository to monitor for release notes. 
+
+* `spec.owner` and `spec.repository` specify the GitHub repository to monitor for release notes.
 * `dir` specifies where to generate the files
 * `formats` specifies the kind of files we want to generate so in this case json and Asciidoctor.
 
@@ -98,11 +98,11 @@ This configuration relies on the environment variable `RELEASEPOST_GITHUB_TOKEN`
 
 I must admit, I was envisioning a simpler configuration that would only contains the GitHub repository to monitor, but as always, the Devil hides in the details.
 
-NOTE: More customization is available such as version filtering or the credentials to use but let's keep that for later. 
+NOTE: More customization is available such as version filtering or the credentials to use but let's keep that for later.
 
 You can try releasepost by running:
 
-```
+```bash
 export RELEASEPOST_GITHUB_TOKEN=ghp_xxx
 releasepost --config releasepost.yaml
 ```
@@ -115,19 +115,17 @@ We want to automatically publish them to our git repository.
 
 The next step was to write a Updatecli policy that would run `releasepost` and take care of opening pull requests when needed, such as this [one](https://github.com/updatecli/website/pull/1428).
 
-
 ### Updatecli Policy
 
 On the Updatecli project, we are using this policy:
 
 ->  [ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0](https://github.com/updatecli/policies/pkgs/container/policies%2Freleasepost%2Freleasepost)
 
-
 #### To visualize the pipeline of this policy:
 
 <details><summary><code>updatecli manifest show ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0</code></summary>
 
-```
+```bash
 +++++++++++
 + PREPARE +
 +++++++++++
@@ -174,7 +172,7 @@ version: 0.77.0
 
 <details><summary><code>updatecli diff ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0</code></summary>
 
-```
+```bash
 +++++++++++
 + PREPARE +
 +++++++++++
@@ -291,6 +289,7 @@ Pipeline(s) run:
   * Total:  1
 
 ```
+
 </details>
 
 ---
@@ -303,17 +302,50 @@ Well, we are almost there, I have an Updatecli policy working locally but I am n
 
 Let's run Updatecli from the cloud.
 
-## The Cloud
+## Automation
 
 Here we are in the final stage where we see how we leverage a CI tool to periodically run `updatecli` which then runs `releasepost`.
 
-In the following example we'll use GitHub action.
+First we need to specify the list of Updatecli policies to execute periodically.
+In this example, we only have one policy for running releasepost.
 
-<details><summary>GitHub workflow</summary>
+<details><summary>update-compose.yaml</summary>
 
+```yaml
+policies:
+  - name: Trigger releasepost
+    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0
+    values:
+      - updatecli/values.d/scm.yaml
 ```
+
+</details>
+
+It's worth highlighting that Updatecli policies can be customized using values files.
+In this case we want to update the branch "master" on the GitHub repository "updatecli/website"
+
+<details><summary>updatecli/values.d/scm.yaml</summary>
+
+```yaml
+scm:
+  enabled: true
+  user: updatecli-bot
+  email: updatecli-bot@updatecli.io
+  owner: updatecli
+  repository: website
+  username: "updatecli-bot"
+  branch: master
+```
+
+</details>
+
+Finally we configure our GitHub Action workflow.
+
+<details><summary>.github/workflows/updatecli.yaml</summary>
+
+```yaml
 ---
-name: Updatecli Weekly
+name: Updatecli
 on:
   workflow_dispatch:
   schedule:
@@ -348,37 +380,6 @@ jobs:
 
 </details>
 
-Now we need to specify the list of Updatecli policies to execute periodically.
-In this example, we only have one policy for running releasepost.
-
-<details><summary>update-compose.yaml</summary>
-
-```
-policies:
-  - name: Trigger releasepost
-    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0
-    values:
-      - updatecli/values.d/scm.yaml
-```
-
-</details>
-
-It's worth highlighting that Updatecli policies can be customized using values files.
-
-<details><summary>updatecli/values.d/scm.yaml</summary>
-
-```
-scm:
-  enabled: true
-  user: updatecli-bot
-  email: updatecli-bot@updatecli.io
-  owner: updatecli
-  repository: website
-  username: "updatecli-bot"
-  branch: master
-```
-</details>
-
 ## Conclusion
 
 Here we are, to automate release note publishing to a documentation website.
@@ -386,7 +387,7 @@ Here we are, to automate release note publishing to a documentation website.
 We need three files:
 
 1. A releasepost configuration that specifies the GitHub repository to monitor.
-2. An update-compose.yaml file listing Updatecli policies to apply.
+2. An update-compose.yaml file listing Updatecli policies to enforce.
 3. A values file listing the GitHub repository to monitor for release notes and the GitHub repository to copy those release notes
 4. A GitHub action workflow to execute Updatecli periodically.
 
@@ -396,17 +397,15 @@ _What if I could visualize Updatecli changelogs from [www.updatecli.io](https://
 
 It's working great for a few months now, and I am not looking back.
 
-
 _How many people read release notes?_
 
-Traffic show me that people/crawler do care. 
+Traffic show me that people/crawler do care.
 
 _Does it even make sense to spend effort maintaining those release notes?_
 
-I do think so, manually crafted release notes are by far the best ones but they are also the most time-consuming. It's difficult to maintain them for every project so automatically generated release notes are a good alternative.
+I do think so, manually crafted release notes are by far the best ones but they are also the most time-consuming. It's difficult to maintain them over time for every project so automatically generated release notes are a good alternative.
 
 I wish more project consider release notes as a critical component of their releases.
-
 
 ## Next steps
 
@@ -417,8 +416,7 @@ In that scenario, we only need release notes associated to the versioned website
 
 Example on [fleet.rancher.io/0.9/changelogs](https://fleet.rancher.io/0.9/changelogs/)
 
-All of this don't replace the need to write useful release notes, we just try to make them more visible.
-
+All of this don't replace the need to write good release notes, we just try to make them more visible.
 
 ## Links
 
