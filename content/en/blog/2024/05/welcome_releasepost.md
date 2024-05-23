@@ -113,7 +113,7 @@ Running `releasepost --config` creates the files locally but it's only halfway.
 
 We want to automatically publish them to our git repository.
 
-The next step was to write an Updatecli policy that would run `releasepost` and take care of opening pull requests when needed, such as this [one](https://github.com/updatecli/website/pull/1428).
+The next step was to write an Updatecli policy that would run `releasepost` and take care of opening pull requests when needed, such as [**updatecli/website#1428**](https://github.com/updatecli/website/pull/1428).
 
 ### Updatecli Policy
 
@@ -123,9 +123,11 @@ On the Updatecli project, we are using this Update policy:
 
 #### To visualize the pipeline of this policy:
 
-<details><summary><code>updatecli manifest show ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0</code></summary>
+<details><summary>Without SCM configured</summary>
 
 ```bash
+$ updatecli manifest show ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0
+
 +++++++++++
 + PREPARE +
 +++++++++++
@@ -163,6 +165,90 @@ targets:
                 - name: GITHUB_TOKEN
                 - name: RELEASEPOST_GITHUB_TOKEN
                 - name: PATH
+version: 0.77.0
+```
+
+</details>
+
+<details><summary>With SCM configured</summary>
+
+<details><summary>updatecli/values.d/scm.yaml</summary>
+
+```yaml
+scm:
+  enabled: true
+  user: updatecli-bot
+  email: updatecli-bot@updatecli.io
+  owner: updatecli
+  repository: website
+  username: "updatecli-bot"
+  branch: master
+```
+
+</details>
+
+```bash
+updatecli manifest show --values updatecli/values.d/scm.yaml ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0
+
+
++++++++++++
++ PREPARE +
++++++++++++
+
+Loading Pipeline "/tmp/updatecli/store/6a8e68ae473a5dafa270650cd74fd296e61abaf4820daf4b50e0e21c8649b710/updatecli.d/default.tpl"
+
+SCM repository retrieved: 1
+
+
+++++++++++++++++++
++ AUTO DISCOVERY +
+++++++++++++++++++
+
+
+
+++++++++++++++++++++++++++++++++++
++ DOCS: SYNCHRONIZE RELEASE NOTE +
+++++++++++++++++++++++++++++++++++
+
+name: 'docs: synchronize release note'
+pipelineid: releasepost
+actions:
+    default:
+        kind: github/pullrequest
+        spec:
+            automerge: false
+            labels:
+                - documentation
+        scmid: default
+scms:
+    default:
+        kind: github
+        spec:
+            branch: master
+            email: updatecli-bot@updatecli.io
+            owner: updatecli
+            repository: website
+            token: ghp_xxx
+            user: updatecli-bot
+            username: updatecli-bot
+        disabled: false
+targets:
+    default:
+        name: synchronize release notes
+        kind: shell
+        spec:
+            changedif:
+                kind: exitcode
+                spec:
+                    failure: 2
+                    success: 1
+                    warning: 0
+            command: releasepost --dry-run="$DRY_RUN" --config .releasepost.yaml
+            environments:
+                - name: GITHUB_TOKEN
+                - name: RELEASEPOST_GITHUB_TOKEN
+                - name: PATH
+        scmid: default
 version: 0.77.0
 ```
 
