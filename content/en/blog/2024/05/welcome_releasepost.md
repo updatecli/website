@@ -72,8 +72,8 @@ changelogs:
           date: {{ .Changelog.PublishedAt }}
           ---
         indexfilename: _index
-         indexfrontmatters: |
-           ---
+        indexfrontmatters: |
+          ---
           title: "Changelogs"
           ---
       - extension: json
