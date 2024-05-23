@@ -514,7 +514,12 @@ Example on [**fleet.rancher.io/0.9/changelogs**](https://fleet.rancher.io/0.9/ch
 
 All of this doesn't replace the need to write good release notes, we just try to make them more visible.
 
-## Links
+## Feedback
 
-* [Releasepost](https://github.com/updatecli/releasepost)
-* [Updatecli](https://github.com/updatecli/updatecli)
+Feel free to reach out on our [**chat**](https://gitter.im/Updatecli/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link) to share feedback.
+
+As a sign of appreciation, you can star one of our GitHub repositories.
+
+* [**Updatecli**](https://github.com/updatecli/updatecli)
+* [**Releasepost**](https://github.com/updatecli/releasepost)
+* [**Updatecli Policies**](https://github.com/updatecli/policies)
