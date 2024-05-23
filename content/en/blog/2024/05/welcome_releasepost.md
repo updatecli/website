@@ -83,7 +83,7 @@ changelogs:
       repository: updatecli
 ```
 
-sourced from <a href="https://github.com/updatecli/website/blame/master/.releasepost.yaml">releasepost.yaml</a>
+sourced from <a href="https://github.com/updatecli/website/tree/master/.releasepost.yaml">releasepost.yaml</a>
 </details>
 
 The most important settings are:
@@ -184,6 +184,8 @@ scm:
   username: "updatecli-bot"
   branch: master
 ```
+
+sourced from <a href="https://github.com/updatecli/website/tree/master/updatecli/values.d/scm.yaml">github.com/updatecli/website/updatecli/values.d/scm.yaml</a>
 
 </details>
 
@@ -407,6 +409,8 @@ policies:
       - updatecli/values.d/scm.yaml
 ```
 
+sourced from <a href="https://github.com/updatecli/website/tree/master/update-compose.weekly.yaml">github.com/updatecli/website/update-compose.weekly.yaml</a>
+
 </details>
 
 It's worth highlighting that Updatecli policies can be customized using values files.
@@ -424,6 +428,8 @@ scm:
   username: "updatecli-bot"
   branch: master
 ```
+
+sourced from <a href="https://github.com/updatecli/website/tree/master/updatecli/values.d/scm.yaml">updatecli/values.d/scm.yaml</a>
 
 </details>
 
@@ -466,6 +472,8 @@ jobs:
           RELEASEPOST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+sourced from <a href="https://github.com/updatecli/website/tree/master/.github/workflows/updatecli.weekly.yaml">github.com/updatecli/website/.github/workflows/updatecli.weekly.yaml</a>
+
 </details>
 
 ## Conclusion
@@ -502,7 +510,7 @@ This project was built with flexibility in mind, so we could definitely envision
 In the near future, I am considering documenting how we automate release notes publishing on Docusaurus website by leveraging the versioning feature.
 In that scenario, we only need release notes associated to the versioned website.
 
-Example on [fleet.rancher.io/0.9/changelogs](https://fleet.rancher.io/0.9/changelogs/)
+Example on [**fleet.rancher.io/0.9/changelogs**](https://fleet.rancher.io/0.9/changelogs/)
 
 All of this doesn't replace the need to write good release notes, we just try to make them more visible.
 
