@@ -80,7 +80,7 @@ changelogs:
         indexfilename: _index
     spec:
       owner: updatecli
-      repository: udash
+      repository: updatecli
 ```
 
 sourced from <a href="https://github.com/updatecli/website/blame/master/.releasepost.yaml">releasepost.yaml</a>
@@ -94,7 +94,7 @@ The most important settings are:
 
 This configuration relies on the environment variable `RELEASEPOST_GITHUB_TOKEN` to set the GitHub credentials used to interact with the API.
 
-[HUGO](https://gohugo.io) relies on specific behaviors like frontmatters to provide page metadata or an index file that differ from other tools like [Docusaurus](https://docusaurus.io/).
+[HUGO](https://gohugo.io) relies on specific behaviors like front-matters to provide page metadata or an index file name that differs from other tools like [Docusaurus](https://docusaurus.io/).
 
 I must admit, I envisioned a simpler configuration that would only contain the GitHub repository to monitor, but as always, the Devil hides in the details.
 
@@ -103,7 +103,7 @@ NOTE: More customization is available such as version filtering or the credentia
 You can try releasepost by running:
 
 ```bash
-export RELEASEPOST_GITHUB_TOKEN=ghp_xxx
+export RELEASEPOST_GITHUB_TOKEN=<insert here a GitHub personnal token>
 releasepost --config releasepost.yaml
 ```
 
@@ -117,7 +117,7 @@ The next step was to write an Updatecli policy that would run `releasepost` and 
 
 ### Updatecli Policy
 
-On the Updatecli project, we are using this policy:
+On the Updatecli project, we are using this Update policy:
 
 ->  [ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0](https://github.com/updatecli/policies/pkgs/container/policies%2Freleasepost%2Freleasepost)
 
@@ -171,6 +171,8 @@ version: 0.77.0
 #### To visualize what this pipeline would change
 
 <details><summary><code>updatecli diff ghcr.io/updatecli/policies/releasepost/releasepost:0.1.0</code></summary>
+
+Please note that to make the following output smaller, the Releasepost configuration was modified to monitor the GitHub repository `updatecli/udash` which contains far less releases than `updatecli/updatecli`
 
 ```bash
 +++++++++++
