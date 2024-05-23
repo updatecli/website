@@ -103,7 +103,7 @@ NOTE: More customization is available such as version filtering or the credentia
 You can try releasepost by running:
 
 ```bash
-export RELEASEPOST_GITHUB_TOKEN=<insert here a GitHub personnal token>
+export RELEASEPOST_GITHUB_TOKEN=<insert here a GitHub personal token>
 releasepost --config releasepost.yaml
 ```
 
