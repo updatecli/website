@@ -38,7 +38,7 @@ The Shell "condition" validates the condition by checking the exit code of a she
 
 **target**
 
-The Shell "targets" delegates the update of your files to a shell command with a source as argument.
+The Shell "targets" delegates the update of your file(s) to a shell command with a source as argument.
 
 == Parameters
 
@@ -57,7 +57,7 @@ The following parameters can be specified through the `spec` attributes map:
 
 By default the command doesn't inherit any environment variables from the updatecli process. The motivation is to avoid environment variable leak into the command.
 
-To specify an environment variable, you can use one of the following example:
+To specify an environment variable, you can use one of the following examples:
 
 ```
   scenario1:
@@ -78,7 +78,7 @@ To specify an environment variable, you can use one of the following example:
           value: setmyvalue
 ```
 
-Please note the environment variable "DRY_RUN" is always defined by Updatecli to either true or false depending if we run `updatecli diff` or `updatecli apply`
+Please note the environment variable "DRY_RUN" is always defined by Updatecli to either true or false depending if we run `updatecli diff` or `updatecli apply`.
 
 
 == Shell Source
@@ -227,8 +227,8 @@ CONDITIONS:
 The command provided by your `spec` section is executed by `updatecli` to change your files:
 
 * When the commands runs successfully (e.g. with an exit code of zero), the behavior depends on the content of the standard output:
-** If it is empty, then `updatecli` report a success with no changes applied.
-** Otherwise `updatecli` report a success with the content of the standard output as the resulting value of the change.
+** If it is empty, then `updatecli` reports a success with no changes applied.
+** Otherwise `updatecli` reports a success with the content of the standard output as the resulting value of the change.
 
 * Otherwise (an exit code different than zero) the condition is marked as not valid, and both the standard error and outputs are logged.
 
@@ -236,7 +236,7 @@ Please note that:
 
 * 💡 The source associated to this target (the default source or through the key `sourceID`) is appended as the last argument to the command line.
 
-* 💡 The environment variable `DRY_RUN` is set to the value `true` when using `updatecli diff` to report that any change should only be reported and not applied.
+* 💡 The `DRY_RUN` environment variable is set to the value `true` when using `updatecli diff` to report that any change should only be reported and not applied.
 
 === Target Examples
 
@@ -365,8 +365,7 @@ targets:
 
 Updatecli behaves differently if it uses a SCM configuration or not. If no SCM configuration is provided, then it sets the working directory to where updatecli is executed.
 But if a SCM configuration is provided, then it clones the git repository in a temporary directory such as `/tmp/updatecli` and then set the working directory to that temporary such as `/tmp/updatecli/<git repository>`.
-While it allows updatecli to work from a "clean" directory, it makes the testing of the local updatecli manifest a bit more complicated. We are investigating the best solution to address this but until now, the best way to test
-is to comment ou `scmid` such as
+While it allows updatecli to work from a "clean" directory, it makes the testing of the local updatecli manifest a bit more complicated. We are investigating the best solution to address this but for now the best way to test is to comment out `scmid` such as
 
 ```
 targets:
