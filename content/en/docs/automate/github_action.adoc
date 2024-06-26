@@ -27,7 +27,7 @@ Updatecli is most effective when executed regularly and automatically. So, lets 
 === From V1 to v2
 
 The updatecli action v1 was a "GitHub Action" of type docker. While it was easier to start with, that type of GitHub Action runs in a docker container and so in a fully isolated environment.
-In many situations, updatecli leverages other tools. So switching to a Javascript GitHub action, allows installing updatecli directly on the GitHub Action runner next to those other tools.
+Updatecli uses many other tools. So switching to a Javascript GitHub action, allows installing updatecli directly on the GitHub Action runner next to those other tools.
 Now, the goal of this GitHub action evolved from running updatecli to installing updatecli.
 
 == Parameter
