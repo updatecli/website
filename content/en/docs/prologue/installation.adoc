@@ -6,7 +6,7 @@ date: 2020-10-13T15:21:01+02:00
 lastmod: 2022-01-22T08:16:01+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "prologue"
 weight: 119
@@ -20,14 +20,14 @@ toc: true
 
 == Packages
 
-Updatecli is a standalone binary available on https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
+Updatecli is a standalone binary available at https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
 
 == macOS via Homebrew
 
-link:https://brew.sh/[Homebrew] is the easiest way to install `updatecli` on macOS. 
+link:https://brew.sh/[Homebrew] is the easiest way to install `updatecli` on macOS.
 See the link:https://brew.sh/[Homebrew documentation] for installation and usage explanations.
 
-First configure the `updatecli` third-party repository (called a link:https://docs.brew.sh/Taps["tap"]) with: 
+First configure the `updatecli` third-party repository (called a link:https://docs.brew.sh/Taps["tap"]) with:
 
 [source,shell]
 ----
@@ -41,8 +41,8 @@ Then proceed with the actual installation with:
 brew install updatecli
 ----
 
-To check, later, if a newer version is available, use `brew outdated updatecli`. 
-Should you then want to upgrade to the latest version, use `brew upgrade updatecli`.
+To check for newer versions, use `brew outdated updatecli`.
+To upgrade to the latest version, use `brew upgrade updatecli`.
 
 == Linux
 
@@ -97,12 +97,12 @@ curl -sL -o/tmp/updatecli_armv6.tgz https://github.com/updatecli/updatecli/relea
 ```
 
 == Docker
-A docker image is also available on:
+A docker image is also available at:
 
 * https://github.com/users/updatecli/packages/container/package/updatecli[ghcr.io/updatecli/updatecli]
-* https://hub.docker.com/r/updatecli/updatecli[updatecli/updatecli] 
+* https://hub.docker.com/r/updatecli/updatecli[updatecli/updatecli]
 
-Remark: Because of the limits on DockerHub free account, it's better to use the ghcr.io image.
+Remark: Because of limitations on a DockerHub free account, it's better to use the ghcr.io image.
 
 === Usage
 

@@ -15,18 +15,17 @@ toc: true
 :toc:
 :toclevels: 4
 
-Instead of rewritng the "almost" same script over and over, this project has been created to easily implement update pipeline. The project is open to contribution as long as they remain generic enough or with a shared interest.
+Instead of rewriting the "almost" same script over and over, this project has been created to easily implement update pipelines. The project is open to contributions.
 
 Thanks for your interest in this project, feel free to ask any questions you may have.
 
 == CONTRIBUTE
 
-They are multiple ways to contribute which don't necessarily involve coding like providing feedback, improving documentation, processes.
-Here I'll just highlight some of them
+There are many ways to contribute which don't necessarily involve coding. Providing feedback, improving documentation, processes.
 
 === FEEDBACK
 
-It significantly harder to build a solution that could be used by different people. It involves many different skills that are hard to master and it's easy to get stuck in the local optimum. So we welcome any feedbacks you may have.
+It's significantly harder to build a solution that could be used by different people. It involves many different skills that are hard to master and it's easy to get stuck working on a local optimum. So we welcome any feedback you may have.
 
 === CODE
 
@@ -51,12 +50,13 @@ or using docker
 docker run --rm -v "$PWD":/usr/src/updatecli -w /usr/src/updatecli -e GOOS=windows -e GOARCH=386 golang:1.15 go build -v
 ```
 
-
-The code is divided into two categories, core, and plugins. It says what it says. Core is designed to be independent and to provide the skeleton for the updatecli while plugins define specific third party behaviors.. The easiest part is probably plugins as it allows you to contribute independently to the process you are looking to automate.
+The code is divided into two categories, core, and plugins.
+Core is designed to be independent and to provide the skeleton for the updatecli, while plugins define specific third party behaviors.
+Working on plugins is a little easier as it allows contributions independently of core development.
 
 ==== CORE
 
-This section is still evolving as they are many areas that need attention.
+This section is still evolving. There are many areas that need attention.
 
 ==== PLUGINS
 
@@ -84,7 +84,7 @@ pkg
 
 ===== 2. Define configuration
 
-In the `main.go`, you need to define the `struct` that you'll use to configure your workflow where the capitalized fields will be set when unmarshalling from your future configuration.yaml
+In the `main.go`, you need to define the `struct` that you'll use to configure your workflow where the capitalized fields are set when unmarshalling from your configuration.yaml
 
 ```
 type Capitalized_package_name struct {
@@ -97,7 +97,7 @@ type Capitalized_package_name struct {
 
 ===== 3. Respect the contract
 
-Your 'packageName' must respect at least one of the following interface contract by defining appropriated functions.
+Your 'packageName' must respect at least one of the following interface contracts by defining appropriate functions.
 
 [cols="1,2a,2", options="header"]
 .Rules
@@ -112,7 +112,7 @@ type Spec interface {
     Source() (string, error)
 }
 ```
-| Defines how a version will be retrieved then passed the following stages
+| Defines how a version is retrieved then in the following stages
 
 | Changelog
 | ```
@@ -129,7 +129,7 @@ type Spec interface {
     ConditionFromSCM(version string, scm scm.Scm) (bool, error)
 }
 ```
-| Define a condition which has to pass in order to proceed
+| Define a condition which has to pass to proceed
 
 | Target
 | ```
@@ -144,7 +144,7 @@ type Spec interface {
 
 ===== 4. Claim your name
 
-Each stage which can be configured using a yaml/go template has to bind a plugin name and a package name, this is done in the "Unmarshal" function
+Each stage to be configured using a yaml/go template has to bind a plugin name and a package name, this is done in the "Unmarshal" function
 
 ```
   import "github.com/olblak/updateCli/pkg/plugins/packageName"
@@ -161,7 +161,7 @@ Each stage which can be configured using a yaml/go template has to bind a plugin
 		spec = &p
 ```
 
-Now something like this, should be working:
+Now, something like this, should work:
 
 config.value
 ```
@@ -187,7 +187,7 @@ targets:
 
 Add a manifest to `e2e/updatecli.d/success.d/crate.yaml`
 
-The manifest cannot return any error or warning message as define on https://github.com/updatecli/updatecli/blob/main/e2e/venom.d/test_diff.yaml
+The manifest can't return any error or warning message as define on https://github.com/updatecli/updatecli/blob/main/e2e/venom.d/test_diff.yaml
 
 
 === DOCUMENTATION

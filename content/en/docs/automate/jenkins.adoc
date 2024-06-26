@@ -18,17 +18,18 @@ toc: true
 
 == Description
 
-Updatecli is better when executed regularly so let see how Jenkins becomes handy.
+Updatecli is most effective when executed regularly and automatically.
 
 == Example
-The current example is inspired from the repository https://github.com/jenkins-infra/charts[jenkins-infra/charts].
+The current example is inspired by the repository https://github.com/jenkins-infra/charts[jenkins-infra/charts].
 
 === Requirement
 
 * We assume using Jenkins with agent running from kubernetes using the https://plugins.jenkins.io/kubernetes/[kubernetes-plugin].
 * We assume having access to credentials needed by your updatecli configurations which is "updatecli-github-token" in this case.
 
-The Jenkins agent uses the updatecli docker image to execute every 30min updatecli. It applies every configurations found under the directory "./updateCli/updateCli.d" using parameters provided by "./updateCli/values.yaml".
+The Jenkins agent uses the updatecli docker image to execute updatecli every 30 minutes.
+It applies the configurations found under the directory "./updateCli/updateCli.d" using the parameters in "./updateCli/values.yaml".
 
 **Jenkinsfile**
 ```

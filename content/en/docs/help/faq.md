@@ -14,8 +14,8 @@ toc: true
 ---
 ## Updatecli?
 
-Updatecli is a tool to enforce file update strategy
+Updatecli is a tool to enforce file update strategies.
 
 ## Is "updatecli" pull or push based?
 
-Well, it's kind of both. Updatecli pull information from a third location, run some test and the push the result to another location
+Both. Updatecli pulls information from a defined location and runs some condition tests. If those conditions are satisfied then push the result to another location.

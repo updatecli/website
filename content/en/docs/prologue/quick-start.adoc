@@ -18,29 +18,29 @@ toc: true
 :toclevels: 4
 
 
-Updatecli is a command-line tool used to update your file. You specify in manifest how you expect your files to be updated and then you run updatecli to enforce the result.
+Updatecli is a command-line tool to update your files.
+You specify in a manifest how you expect your files to be updated and then you run updatecli to apply the update.
 
-For this quickstart we are going to need three components:
+This quickstart requires three components:
 
 . Updatecli binary installed.
-. The data file to update is provided in this guide.
-. The updatecli manifest is also provided in this guide.
+. The test data file to update is in this guide.
+. The updatecli manifest is also in this guide.
 
 == Installation
 
 Updatecli is a standalone binary available on link:https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux, and OSX.
 
-If you don't have it yet locally, please make sure you downloaded the latest updatecli as explained on link:{{< ref "installation/#_packages" >}}[Installation →]
+If you don't have a local installation, please follow the installation guide at link:{{< ref "installation/#_packages" >}}[Installation →]
 
 == Scenario
 
-Let's see what a simple updatecli pipeline can look like.
+We will update a data file, if an update is needed according to our specified condition.
 
 === Data file
 
-Firstly, we need a sample data file that we want to update (if needed).
-It could be your puppet hieradata file, your helm value file, or whatever data file you need.
-For us, it's a YAML file defining the "latest" Jenkins Docker image tag running in our infrastructure.
+We need a sample data file that we want to update (if needed).
+We are using a YAML file defining the "latest" Jenkins Docker image tag running in our infrastructure.
 
 [source,yaml]
 ----
@@ -52,11 +52,11 @@ For us, it's a YAML file defining the "latest" Jenkins Docker image tag running 
 
 Updatecli needs at least one manifest to know what update pipeline to apply.
 
-In our manifest, we introduce the most three important concepts of an updatecli manifest.
+In this manifest, we introduce three important concepts of an updatecli manifest.
 
-. A **Source** definition describes where a piece of information is coming from. In the current example, we are looking for the latest Jenkins weekly version.
-. A **Target** definition describes what we want to update based on a *source* output. In our example, we want to update the key "container.tag" in the file "data.yaml" to the version retrieved from the source so the latest Jenkins weekly version.
-. A **Condition** definition defined conditions required to update the target. In our example, we want to test that the docker image "jenkinsci/jenkins:<latest Jenkins weekly version>" exists on DockerHub.
+. A **Source** definition describes where a piece of information is coming from. In the current example, we're looking for the latest Jenkins weekly version.
+. A **Target** definition describes what we want to update based on a *source* output. In our example, we want to update the key "container.tag" in the file "data.yaml" to the version retrieved from the source, the latest Jenkins weekly version.
+. A **Condition** definition defined conditions required to update the target. In this example, we want to test that the docker image "jenkinsci/jenkins:<latest Jenkins weekly version>" exists on DockerHub.
 
 {{< btn-copy text="touch ./updatecli/updatecli.d/jenkins.yaml" >}}
 
@@ -70,7 +70,7 @@ image::/images/diagrams/pipeline.png["Updatecli Pipeline"]
 {{<include "assets/code_example/docs/prologue/quickstart/updatecli.yaml">}}
 ----
 
-Source, Condition, Target will behave differently based on the plugin used which is defined by the key "kind".
+Source, Condition, and Target behave differently based on the plugin used, which is defined by the key "kind".
 
 === Updatecli Execution
 
@@ -91,7 +91,7 @@ INFO: You can improve this video by contributing to link:https://github.com/upda
 
 == Conclusion
 
-Through this example, we saw how updatecli works with a very simple pipeline. They are many improvements possible for this pipeline, such as automatically publishing updated files to a git repository, using the GitHub pull-request workflow, transforming the source value, not retrieving the latest version, etc.
+Using this example, we saw how updatecli works with a simple pipeline. There are many improvements possible for this pipeline, such as automatically publishing updated files to a git repository, using the GitHub pull-request workflow, transforming the source value, not retrieving the latest version, and others.
 
 The real power of updatecli is to combine different plugins to easily implement a customized update pipeline.
 

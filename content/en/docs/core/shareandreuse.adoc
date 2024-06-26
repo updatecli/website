@@ -15,13 +15,15 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-WARNING: This feature is experimental. All feedback are welcome.
+WARNING: This feature is experimental. All feedback is welcome.
 
 == Description
 
-As the number of Updatecli policies increases, more and more, we realize that we need to scale Updatecli to another level. Somewhere between what we have now, duplicated manifest(s) for each Git repository, and the Autodiscovery feature.
+As the number of updatecli policies increases, more and more, we realize that we need the ability to scale updatecli.
+Somewhere between what we have now, duplicated manifest(s) for each Git repository, and the Autodiscovery feature.
 
-We want to reuse Updatecli policies across many projects. We want to write Updatecli policies once and reuse them everywhere.
+We want to reuse updatecli policies across many projects.
+We want to write updatecli policies once and reuse them everywhere.
 
 ___
 
@@ -29,16 +31,16 @@ For example:
 
 . Enforcing the same Golang version used at the GitHub organization.
 . Automate custom tooling updates for a GitLab organization.
-. Reusing the same Updatecli manifest but with different parameters based on schedules such as for minor and patch updates every week and major updates every month.
+. Reusing the same updatecli manifest but with different parameters based on schedules such as for minor and patch updates every week and major updates every month.
 ___
 
-Updatecli allows publishing any Updatecli policy to any OCI registries such as **link:https://ghcr.io[ghcr.io]**, **link://https://hub.docker.com/[dockerhub]**, **link:https://quay.io/[quay.io]**, etc..
+Updatecli allows publishing any updatecli policy to any OCI registry such as **link:https://ghcr.io[ghcr.io]**, **link://https://hub.docker.com/[dockerhub]**, **link:https://quay.io/[quay.io]**, etc..
 
 == Policy
 
-An Updatecli policy is described by a `Policy.yaml` file.
+An updatecli policy is described by a `Policy.yaml` file.
 
-What we mean by an Updatecli policy, is a "bundle" composed of "Updatecli manifest", "values file", "secrets files". This bundle is identified by a reference such as: 
+An updatecli policy, is a "bundle" composed of "updatecli manifest", "values file", "secrets files". This bundle is identified by a reference such as:
 
 => `ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest`.
 
@@ -58,7 +60,7 @@ When using a policy, it's possible to use the version "latest" to always use the
 
 **digest**
 
-An Updatecli policy version is mutable, we can override it.
+An updatecli policy version is mutable, we can override it.
 So we can use a digest to pin a specific version of the policy.
 
 `ghcr.io/olblak/policies/rancher/docusaurus/kubewarden:0.0.5@sha256:81488900553174be2348b859f88f35c6ff0a6cab7342d8d4142bfec372fddb95`
@@ -72,23 +74,24 @@ The repository **link:https://github.com/updatecli/policies[updatecli/policies]*
 
 == Share & Reuse
 
-IMPORTANT: At this time, Updatecli doesn't handle OCI registry authentication but instead relies on the local docker configuration. Therefore you must first run `docker login` before any registry operation.
+IMPORTANT: Currently, updatecli doesn't handle OCI registry authentication but instead relies on the local docker configuration. Therefore you must first run `docker login` before any registry operation.
 
 **Share**
 
-To share Updatecli configuration files we run the following command:
+To share updatecli configuration files we run the following command:
 
 ```
   updatecli manifest push --config updatecli/updatecli.d/updatecli.yaml -t ghcr.io/updatecli/policies/golang --policy Policy.yaml .
 ```
 
-As you can notice `ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest` looks like a container but it is not a container it's an OCI artifact where each layer represents one of the manifest/config/values/secrets files
+As you can notice `ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest` looks like a container but isn't.
+It's an OCI artifact where each layer represents one of the manifest/config/values/secrets files
 
-Using OCI registries for other things than docker/container is not a new concept, a lot of projects like **link:https://www.kubewarden.io/[Kubewarden]**, link:https://www.conftest.dev/sharing/[Conftest], or link:https://helm.sh/[Helm] already use OCI registry to store artifacts such as WASM binary, files, etc.
+Using OCI registries for other things than docker/container isn't a new concept, a lot of projects like **link:https://www.kubewarden.io/[Kubewarden]**, link:https://www.conftest.dev/sharing/[Conftest], or link:https://helm.sh/[Helm] already use OCI registry to store artifacts such as WASM binaries, files, etc.
 
 **Reuse**
 
-To reuse this policy, you can run:
+To reuse this policy, run:
 
 ```
 updatecli diff ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
@@ -96,7 +99,7 @@ updatecli diff ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
 
 **Show**
 
-To show the content of this policy, you can run:
+To show the content of this policy, run:
 
 ```
 updatecli manifest show ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
@@ -104,7 +107,6 @@ updatecli manifest show ghcr.io/updatecli/policies/policies/npm/autodiscovery:la
 
 == Remarks
 
-Depending on how we write the policy we can override the default value using env variable with the Go template function `env` or just provide a new values.yaml or secrets.yaml
+Depending on how we write the policy we can override the default value using environment variables with the Go template function `env` or just provide a new values.yaml or secrets.yaml
 
-
-This approach scales better, allows policy versioning, allows to retrieve the right set of files, allows signing using cosign, etc.
+This approach scales better, allows policy versioning, allows retrieving the right set of files, allows signing using cosign, etc.

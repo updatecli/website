@@ -21,31 +21,39 @@ toc: true
 
 In the lifecycle of a software project, dependencies are everywhere.
 From that third application used to lint our code, the tool used to build our documentation website, or the container image used to distribute our application.
-As the project grows, the number of dependencies grows as long. Some dependencies are context-dependent, and others are expressed using a standard data structure.
+As the project grows, the number of dependencies grows as long.
+Some dependencies are context-dependent, and others are expressed using a standard data structure.
 
-Updatecli is a great tool to handle both situations. It can either manage tailored update scenarios by using a manifest provided by a maintainer or automatically identify available update scenarios.
+Updatecli is a great tool to handle both situations.
+It can either manage tailored update scenarios by using a manifest provided by a maintainer or automatically identify available update scenarios.
 
-The latter approach removes the need to write manifest.
-This behavior is referred as "autodiscovery". When autodiscovery is enabled, Updatecli generates manifests in-memory before applying them (instead of reading manifests and applying).
+The latter approach removes the need to write a manifest.
+This behavior is referred as "autodiscovery".
+When autodiscovery is enabled, updatecli generates manifests in-memory before applying them (instead of reading manifests and applying).
 
 A use case: a repository with a collection of `Dockerfile`s.
 To keep the Dockerfiles' `FROM` instructions up to date, writing one manifest file per `Dockerfile` is not practical. With autodiscovery enabled, Updatecli scans the repository for all `Dockerfile` and automatically tracks the `FROM` instruction to propose updates if needed.
-This would help us maintain our Dockerfile images without having to write any manifests.
-Each autodiscovery scenario is handled by a crawler. The goal of the crawler is to parse recursively all files from a directory looking for the pattern and then try to generate as many updatecli manifests as it can. Once all manifests have been generated, we run them as we would do with custom manifest, by running updatecli diff or updatecli apply
-The autodiscovery is enabled by default and should work out of the box just by running one of the following commands.
+This helps us maintain our Dockerfile images without having to write manifests.
+Each autodiscovery scenario is handled by a crawler.
+The goal of the crawler is to recursively parse all files in a directory, looking for the pattern and then try to generate as many updatecli manifests as possible.
+Once all manifests have been generated, we run them as we would do with custom manifests, by running updatecli diff or updatecli apply.
+This autodiscovery is enabled by default and should work out of the box just by running one of the following commands.
 
 * `updatecli diff`
 * `updatecli show`
 * `updatecli apply`
 
-As in any opinionated way of working, a bit of adaptability is required. The next part of this document covers the different kinds of customization that can be used with autodiscovery.
+As with any opinionated way of working, a bit of adaptability is required.
+The next part of this document covers the different kinds of customization that can be used with autodiscovery.
 
 
 == Parameters
 
-Autodiscovery could benefit from some customization, such as providing SCM configuration or defining pull request information. Some parameters are crawlers specific and others apply to all crawlers.
+Autodiscovery could benefit from some customization, such as providing SCM configuration or defining pull request information.
+Some parameters are crawler specific and others apply to all crawlers.
 
-If a Updatecli manifest specifies the root key "autodiscovery" such as in the following example, then on top of the default autodiscovery, it enables an additional autodiscovery feature where we clone the epinio/helm-chart repository in a temporary location and then we look in that location for all Helm chart that specifies dependencies and we try to update them.
+If a updatecli manifest specifies the root key "autodiscovery", such as in the following example, then on top of the default autodiscovery, it enables an additional autodiscovery feature.
+Here we clone the epinio/helm-chart repository in a temporary location and then look in that location for all Helm charts that specify dependencies and we try to update them.
 
 ```
 scms:
@@ -59,15 +67,16 @@ autodiscovery:
     helm:
 ```
 
-By default the autodiscovery looks for pattern from the local directory but we can also specify manifest from remote git repositories.
+By default, autodiscovery looks for patterns from the local directory.
+We can also specify manifests from remote git repositories.
 
-=== Scm
+=== SCM
 
-We assume that each crawler relies on the same scm configuration and if we can add more autodiscovery manifest to handle more repository
+We assume that each crawler relies on the same SCM configuration and we can add more autodiscovery manifests to handle more repositories.
 
 === Pull Request
 
-work in progress
+Work in progress.
 
 Scenario to describe:
 
@@ -81,13 +90,14 @@ Crawlers implement common update scenarios.
 
 ==== Type
 
-The purpose of a crawler is to generate manifest that updatecli can used.
-We identify two kinds of crawler, "standard", and "custom"
+The purpose of a crawler is to generate manifest that updatecli can use.
+We identify two kinds of crawler, "standard", and "custom".
 
 **standard**
 
-A "standard" crawler is enabled by default but can be disabled on per case.
+A "standard" crawler is enabled by default but can be disabled on a case by case basis.
 
 **custom**
 
-A "custom" crawler is context specific, such as tailored to a company or a OSS project. By default it won't be enabled by default.
+A "custom" crawler is context specific, such as tailored to a company or a OSS project.
+By default it won't be enabled by default.

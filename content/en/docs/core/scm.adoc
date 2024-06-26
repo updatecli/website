@@ -18,9 +18,9 @@ toc: true
 
 == Description
 
-A scm configuration, provides git repository information used by a source/condition/target
+A SCM configuration, provides git repository information used by a source/condition/target
 
-When a Updatecli pipeline is triggered, the first thing Updatecli does, is cloning all referenced git repositories in a temporary directory.
+When an updatecli pipeline is triggered, the first thing updatecli does, is clone all referenced git repositories in a temporary directory.
 
 == Parameters
 
