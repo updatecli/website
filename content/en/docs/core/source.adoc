@@ -47,4 +47,4 @@ sources:
 ```
 
 In this example we're looking for the latest release tag from https://github.com/jenkinsci/jenkins which is 'jenkins-2.75'.
-Unfortunately, it contains the prefix "jenkins" which is useless for later stages, so we remove 'jenkins-' so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image name This can now be used in the later stages.
+Unfortunately, it contains the prefix "jenkins" which is not required for later stages, so we remove 'jenkins-' so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image name This can now be used in the later stages.

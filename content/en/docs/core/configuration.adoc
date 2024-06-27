@@ -41,7 +41,7 @@ Updatecli expects one file per manifest, or pipeline.
 The manifest is split into different stages, "source", "conditions", "targets",
 where every stage relies on a plugin to adapt the behavior.
 
-A file can be of type "yaml" or "Go Template" using the file extension ".yaml",".yml", or ".tpl").
+A file can be of type "yaml" or "Go Template" using file extensions ".yaml",".yml", or ".tpl").
 
 Manifests are given to the updatecli command using the global flag `--config <go_template_file>` and `--values <yaml_file>`.
 It accepts either a single file or a directory.
