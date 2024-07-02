@@ -19,15 +19,15 @@ toc: true
 
 == Description
 
-Updatecli is better when executed regularly so let see how to use this GitHub Action install Updatecli in your GitHub runner so you can use it.
+Updatecli is most effective when executed regularly and automatically. So, lets see how to use updatecli in a GitHub Action.
 
 
 == Migration
 
 === From V1 to v2
 
-The updatecli action v1 was a "GitHub Action" of type docker. While It was easier to start with, that type of GitHub Action runs in a docker container and so in a fully isolated environment.
-In many situations, updatecli leverages other tools. So switching to a Javascript GitHub action, allows to install Updatecli directly on the GitHub Action runner next to those other tools.
+The updatecli action v1 was a "GitHub Action" of type docker. While it was easier to start with, that type of GitHub Action runs in a docker container and so in a fully isolated environment.
+Updatecli uses many other tools. So switching to a Javascript GitHub action, allows installing updatecli directly on the GitHub Action runner next to those other tools.
 Now, the goal of this GitHub action evolved from running updatecli to installing updatecli.
 
 == Parameter
@@ -40,7 +40,7 @@ Required: false
 
 == Example
 
-The current example takes its inspiration from the repository https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra].
+The current example takes uses the repository https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra].
 
 Once you have your update strategy configuration in the directory `./updatecli/updatecli.d`, you need following files in order to run updatecli from Github Action.
 
@@ -54,4 +54,4 @@ Once you have your update strategy configuration in the directory `./updatecli/u
 {{< include "assets/code_example/docs/automate/github_action/updatecli.yaml" >}}
 ```
 
-IMPORTANT:Environment variables starting with `GITHUB_` are reserved by GitHub Action
+IMPORTANT: Environment variables starting with `GITHUB_` are reserved by GitHub Actions.

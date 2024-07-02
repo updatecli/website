@@ -7,8 +7,9 @@ draft: false
 images: []
 ---
 
-The people behind Updatecli are Open-Source veterans working on many different projects such as Jenkins.
+The people behind Updatecli are Open-Source veterans working on many different projects.
 
-We build Updatecli to make our work easier by automating processes that could be daunting to do manually. This allows us to focus on what matters in our day-to-day work.
+We build Updatecli to make our work easier by automating processes that would be daunting and error prone to do manually.
+This allows us to better focus on the important parts of our day-to-day work.
 
-Rather you are looking for consulting services or need us to implement a specific feature, feel free to reach out via email at [contact@updatecli.io](mailto:contact@updatecli.io)
+If you are looking for consulting services or need us to implement a specific feature, feel free to reach out via email at [contact@updatecli.io](mailto:contact@updatecli.io)

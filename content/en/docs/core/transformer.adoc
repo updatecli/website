@@ -20,13 +20,12 @@ toc: true
 
 == Description
 
-The parameter "transformers" can be used by any stage definitions as "source", "condition", or "target".
-A "transformers" contains a list of transformer. Each kind transformer rule apply a string manipulation like adding or removing characters.
-Depending on the stage, a "transformers" block achieves different objectives.
+The "transformers" parameter can be used by any stage definition as a "source", "condition", or "target".
+A "transformers" object contains a list of transformers. Each kind of transformer rules applies a string manipulation like adding or removing characters.
 
 **source**
 
-Source returns information modified by a list of transformers
+Source returns information modified by a list of transformers.
 
 **condition**
 
@@ -47,7 +46,7 @@ A target receives information from the source then modifies that value with the 
 | trimprefix |-| Remove prefix to the value
 | trimsuffix |-| Remove suffix to the value
 | find |-| Search for a string value using regular expression and then return its value exist
-| findsubmatch |-| Search for a substring using regular expression and then return its content, more link:#_FindSubMatch[here]
+| findsubmatch |-| Search for a substring using a regular expression and return its content, more link:#_FindSubMatch[here]
 | semverinc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
 |===
 
@@ -78,7 +77,7 @@ A `findsubmatch` rule captures the desired information by applying `pattern` as 
 
 == Example
 
-The `findsubmatch` below will return the submatch captured with `(.*?)`:
+The `findsubmatch` below returns the submatch captured with `(.*?)`:
 
 .updatecli.yaml
 ```

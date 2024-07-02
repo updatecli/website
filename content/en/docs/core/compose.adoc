@@ -17,8 +17,8 @@ toc: true
 
 == Description
 
-Updatecli compose feature allows to specify a list of Updatecli policies to enforce.
-This becomes handy when we want to apply the same policies on multiple repositories.
+The updatecli compose feature allows specifying a list of updatecli policies to enforce.
+This is useful when applying the same policies on multiple repositories.
 
 By default, it relies on a file named "update-compose.yaml" such as in the follow example:
 
@@ -44,10 +44,10 @@ policies:
 
 {{< composeparameters >}}
 
-IMPORTANT: Any value files or secrets file specified in the docker-compose.yaml overrides the default values specified by the policy. It's also worth mentioning that deep merge is not supported.
+IMPORTANT: Any value files or secrets file specified in the `docker-compose.yaml` overrides default values specified by the policy. It's also worth mentioning that deep merge isn't supported.
 
 == Examples
 
 === Updatecli
 
-The repository **link:https://github.com/updatecli/policies[updatecli/policies]** contains a list of common Updatecli policies published on **link:https://github.com/orgs/updatecli/packages?tab=packages&q=policies[GitHub Registry]**.
+The repository **link:https://github.com/updatecli/policies[updatecli/policies]** contains a list of common updatecli policies published on **link:https://github.com/orgs/updatecli/packages?tab=packages&q=policies[GitHub Registry]**.

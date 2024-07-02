@@ -17,41 +17,47 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-Updatecli requires a configuration file, aka "manifest", which describes the update pipeline. A manifest can be seen as the "what", the "when", and the "where" of our update pipeline.
+Updatecli requires a configuration file, or "manifest", which describes the update pipeline.
+A manifest describes the "what", the "when", and the "where" of the update pipeline.
 
 **What**
 
-The "what" is named "source" and defines what piece of information we are looking for such as the latest application release version, a docker image tag, etc.
+The "what" is the "source" and defines what piece of information we're looking for, such as the latest application release version, a docker image tag, etc.
 
 **When**
 
-The "when" is named "condition", the condition is that which must succeed to update the target.
+The "when" is a "condition", if the condition is satisfied then the target is updated.
 
 **Where**
 
-The "where" is named "target" and defines where we want to update a piece of information like a value from Dockerfile or a YAML. 
+The "where" is the "target" and defines where we want to update a piece of information like a value from a Dockerfile or YAML file.
 
 
 == Manifest
 
 === File
 
-Updatecli expects one file per manifest, aka pipeline. The manifest is split into different stages, "source", "conditions", "targets", where every stage relies on a plugin to adapt the behavior.
+Updatecli expects one file per manifest, or pipeline.
+The manifest is split into different stages, "source", "conditions", "targets",
+where every stage relies on a plugin to adapt the behavior.
 
-A file can be of type yaml or "Go Template" using file extension ".yaml",".yml",".tpl").
+A file can be of type "yaml" or "Go Template" using file extensions ".yaml",".yml", or ".tpl").
 
-Manifest are provided to the updatecli command using the global flag `--config <go_template_file>` and `--values <yaml_file>`. It accepts either a single file or a directory. If a directory is specified, then it runs recursively on every go templates (or yaml file) inside the directory.
+Manifests are given to the updatecli command using the global flag `--config <go_template_file>` and `--values <yaml_file>`.
+It accepts either a single file or a directory.
+If a directory is specified, then it runs recursively on all the go templates (or yaml files) in the directory.
 
 
 === Content
 
-Using go templates allows us to specify generic values in a different YAML file, using `--values`, then reference those values from each go template.
-Updatecli also provides a custom function called `requiredEnv` to inject any environment variable in the template example, `{{ requiredEnv "PATH" }}`. +
+Using go templates allows us to specify generic values in a different YAML file, using `--values`.
+We then reference those values from each go template.
+Updatecli also provides a custom function called `requiredEnv` to inject an environment variable into the template example, `{{ requiredEnv "PATH" }}`. +
 Additionally, all functions from the https://masterminds.github.io/sprig/[Sprig template library] are available.
 
-More information on Go templates can be found https://golang.org/pkg/text/template/[here].
+More information on Go templates is https://golang.org/pkg/text/template/[here].
 
-An example values file can contains:
+An example values file can contain:
 
 [source,yaml]
 ----

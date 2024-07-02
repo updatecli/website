@@ -51,7 +51,7 @@ link:https://docs.github.com/en/authentication/keeping-your-account-and-data-sec
 === Pipeline
 ==== Description
 
-Updatecli relies on one or multiple pipeline manifests to describe the expected Update pipeline.
+Updatecli relies on one or more pipeline manifests to describe the expected update pipeline.
 In this guide, we use the two following components
 
 . A source of kind `npm` to monitor the npm dependency
@@ -81,23 +81,24 @@ updatecli diff --config updatecli.d/manifest.yaml`
 
 === Going further
 
-Once you're happy with the Update pipeline, you can leverage CI environment to run it regularly.
-You'll need Updatecli installed in your CI environment, and the right credentials.
+Once you're happy with the Update pipeline, you can use your CI environment to run it regularly.
+You'll need updatecli installed in your CI environment, and the right credentials.
 More information link:https://www.updatecli.io/docs/automate/github_action/[in the corresponding GitHub Action documentation]
 
 This guide demonstrated a simple update pipeline, but real-world situations usually require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, CI environment, etc.
 
-In the case of updating all dependencies from a package.json at once, the Autodiscovery feature is our current experimentation for addressing the problem.
-Feel free to reach out as we are still shaping this feature.
+For updating all dependencies from a package.json at once, the Autodiscovery feature is currently being experimented with.
+
+Feel free to provide input for this feature, it's still active development.
 To see what it looks like, you can run `updatecli diff --experimental` from a repository containing package.json
 
 In the situation of a more tailored update scenario, you may need to extend the current pipeline using additional resources such as:
 
 **Dockerfile**
-Adding a target of kind `dockerfile`, Updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
+Adding a target of kind `dockerfile`, updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
 
 **Yaml**
-Adding a target of kind `yaml`, Updatecli could also update the npm dependency used in any yaml as part of the same operation.
+Adding a target of kind `yaml`, updatecli could also update the npm dependency used in any yaml as part of the same operation.
 
 Feel free to chat on the Updatecli link:https://matrix.to/#/#Updatecli_community:gitter.im[Matrix] channel.
 

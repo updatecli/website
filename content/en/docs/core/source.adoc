@@ -19,7 +19,7 @@ toc: true
 
 == Description
 
-The "source" stage retrieve an information from a third "resource" like a file, an api and then inject that information in later stages.
+The "source" stage retrieves information from a third "resource" like a file, or an API and then uses that information in later stages.
 
 == Parameters
 
@@ -46,4 +46,5 @@ sources:
       - addPrefix: "v"
 ```
 
-In this example we are looking for the latest release tag from https://github.com/jenkinsci/jenkins which is 'jenkins-2.75'. Unfortunately it contains the prefix "jenkins" which is useless for later stages, so we replace 'jenkins-' by nothing so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image that can now be used in the later stages.
+In this example we're looking for the latest release tag from https://github.com/jenkinsci/jenkins which is 'jenkins-2.75'.
+Unfortunately, it contains the prefix "jenkins" which is not required for later stages, so we remove 'jenkins-' so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image name This can now be used in the later stages.

@@ -17,7 +17,7 @@ toc: true
 
 == Docker Compose
 
-In this scenario, we have to maintain a docker-compose file and we want to be sure that we always use the newest docker images available.
+In this scenario, we have to maintain a docker-compose file and we want to be sure that we always use the latest available docker.
 
 === Requirement
 
@@ -39,30 +39,35 @@ As we are going to interact with resources on Github such as github repository a
 
 === Description
 
-Docker image versions can be identified using two methods, either we use the docker image tag or the docker image digest.
+Docker image versions are identified using two methods, either the docker image tag or the docker image digest.
 
 *Tag*
 
-A docker image tag is useful when we want to have an easy to identify human-readable version like in `nginx:1.17` where `1.17` is the tag, unfortunately, a docker image tag can be easily overridden, on purpose or not. Like when using the tag `latest`.
+A docker image tag is useful when we want to have an easy to identify human-readable version like in `nginx:1.17` where `1.17` is the tag. Unfortunately, a docker image tag can be easily overridden, whether on purpose or not. As when using the tag `latest`.
 This means that a docker image tag can't be considered as a source of truth.
 
 *Digest*
 
-The second method to identify a docker image version is by using its digest like in `nginx@sha256:8269a7352a7dad1f8b3dc83284f195bac72027dd50279422d363d49311ab7d9b` where `8269a7352a7dad1f8b3dc83284f195bac72027dd50279422d363d49311ab7d9b` is the digest. A digest is a hash referencing a specific version of a docker image tag like in this case `nginx:1.17`. A digest is immutable, we can always rollblack to a specific digest if need. But we must admit that it's not convenient to identify which version we are referencing to without having to dig into it.
+The second method to identify a docker image version is by using its digest like in `nginx@sha256:8269a7352a7dad1f8b3dc83284f195bac72027dd50279422d363d49311ab7d9b` where the string following `nginx@sha256:` is the digest. A digest is a hash referencing a specific version of a docker image tag, in this case, `nginx:1.17`.
+A digest is immutable, we can always rollback to a specific digest if needed. However, it's not convenient to identify which version we're referencing without a little further investigation.
 
+The problem could be summarized as, "do we want to only use a well-defined docker image by using digests but with the cost of losing readability?" or, "are we accepting the risk of running an unwanted version by using image tags?"
 
-The problem here could be resumed by "Do we want to only use well-defined docker image by using digests but with the cost of losing readability?" or "Are we ok to take the risk of running an unwanted version by using image tags?".
+It depends on how important we value readability versus uniqueness, but a useful rule of thumb is to consider the docker image build strategy.
+What's the risk of running an unwanted version and how big is the chance of having to rollback.
+If we only build one image by version and that version is regularly updated then preferring readability by using docker image tag seems reasonable otherwise in any other scenarios it's usually safer to use docker image digest.
 
-It depends on how important we value readability versus uniqueness, but a rule of thumb is to consider the docker image build strategy, what's the risk of running an unwanted version and how big is the chance of having to rollback. If we only build one image by version and that version is regularly updated then preferring readability by using docker image tag seems ok-ish otherwise in any other scenarios It's usually safer to use docker image digest.
-
-Now that we know what we need to update and why, let see how we can do it using updatecli.
+Now that we know what to update and why, let see how to do it using updatecli.
 
 === Docker Image Tag
 
-When we want to automate image tag updates, we have to identify the process used to define those tags, and if that process is automated, then you can more than likely also automate version update that were updatecli can play a role.
+When we want to automate image tag updates, we have to identify the process used to define those tags, and if that process is automated.
+Then you can more than likely also automate the version update and this is where updatecli can play a role.
 
-In `updatecli`, you specify this process in the source stage, then if needed you apply some condition and finally if everything goes well then you update the version in your target file.
-So let take this example where we want to regularly update the Jenkins version, we know that a weekly release is published every week on a maven repository, then a docker image build and published on DockerHub. Considering the build strategy, it seems fine to use docker image tag.
+Using `updatecli`, you specify this process in the source stage, then if needed you check a condition and if the condition is satisfied then you update the version in your target file.
+Considering again, the example of regularly updating the Jenkins version.
+We know that a release is published every week on a maven repository, then a docker image build is published on DockerHub.
+Considering the build strategy, it would seem to be fine to use a docker image tag.
 
 Let's consider this docker compose file:
 
@@ -71,7 +76,7 @@ Let's consider this docker compose file:
 {{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
 ```
 
-Now we write an updatecli configuration that contains a source, a conditions, and one target
+Now we write an updatecli configuration with a source, conditions, and one target
 
 **updatecli.1.yaml**
 ```
@@ -80,15 +85,17 @@ Now we write an updatecli configuration that contains a source, a conditions, an
 
 `updatecli diff --config updatecli.1.yaml`
 
-Updatecli will query the maven repository 'releases' located on `repo.jenkins-ci.org`, to have the latest version. If it finds one, then we add to the value retrieved, the prefix `jenkins/jenkins:` and the suffix `-jdk11` as we are looking specifically for the java 11 version. We validate that docker image effectively exist on DockerHub and then we test if the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct otherwise we bump it.
+Updatecli queries the maven repository 'releases' located on `repo.jenkins-ci.org`, to determine the latest version. If it finds one, then we add to the value retrieved, the prefix `jenkins/jenkins:` and the suffix `-jdk11` as we are looking specifically for the java 11 version.
+We validate that the docker image exists on DockerHub and then we test that the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct. If not then we bump it.
 
-If we are good with the changes then we apply them by using `apply` instead of `diff`.
+If happy with the changes then we apply them by using `apply` instead of `diff`.
 
 `updatecli apply --config ./updatecli.1.yaml`
 
 === Docker Image Digest
 
-As explained earlier, sometimes we prefer to use docker image digest, if we need to rely on a specific version or if we want to easily rollback. While most of the configuration remains the same as in the previous example, this time the source will be `dockerhub` and we won't test if an image already exists on DockerHub as we already ask DockerHub for the latest image available.
+As explained earlier, sometimes it's preferable to use the docker image digest, if we need to rely on a specific version, or if we want to easily rollback.
+Most of the configuration remains the same as the previous example. This time the source is `dockerhub` and we don't test if an image exists on DockerHub as we're already asking DockerHub for the latest image.
 
 **docker-compose.yaml**
 ```
@@ -100,26 +107,27 @@ As explained earlier, sometimes we prefer to use docker image digest, if we need
 {{< include "assets/code_example/docs/guides/docker-compose/updatecli.2.yaml" >}}
 ```
 
-This time updatecli queries DockerHub to retrieve the digest for the docker image `jenkins/jenkins:lts-jdk11`. If it finds one, then we test if the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct otherwise we change it.
+This time updatecli queries DockerHub to retrieve the digest for the docker image `jenkins/jenkins:lts-jdk11`. If it finds one, then we test that the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct, otherwise we change it.
 
-Again if we are ok with the changes then we apply them by using `apply` instead of `diff`.
+Again, if the changes are acceptable then we apply them by using `apply` instead of `diff`.
 
 * `updatecli diff --config updatecli.2.yaml`
 * `updatecli apply --config updatecli.2.yaml`
 
 === Git/GitHub
 
-Now that we have an easy way to update docker image version, we are missing a way to save, review, rollback those changes, and git for this is a tremendous tool.
-Either we directly commit and push to a git repository or we use the GitHub workflow by pushing to a temporary branch. If we are using GitHub we can also we submit our changes via a pull request which can then be approved.
+Now that we have an easy way to update docker image version, we are missing a way to save, review, rollback those changes. For this, git is a excellent tool.
+Either, we directly commit and push to a git repository, or we use the GitHub workflow by pushing to a temporary branch.
+If using GitHub we can also submit our changes via a pull request.
 
 **docker-compose.yaml**
 ```
 {{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
 ```
 
-While the configuration remains quite similar to our previous example, this time we introduce a new element.
-We can define generic values in file or read values from an environment variable like `{{ requiredEnv  "GITHUB_TOKEN" }}`.
-The second major change is the 'scms' block which should be quiet obvious and defines the github repository configuration.
+While the configuration remains similar to the earlier example, this time, a new element is introduced.
+We can define generic values in the file or read values from an environment variable like `{{ requiredEnv  "GITHUB_TOKEN" }}`.
+The second major change is the 'scms' block which defines the github repository configuration.
 
 **updatecli.3.yaml**
 ```
@@ -134,6 +142,5 @@ And now you can use the same command than before
 
 === Conclusion
 
-During this scenario, we saw how to automatically update docker-compose file using custom strategies with Updatecli. Updatecli is a small tool that can be used from your favorite CI environment.
-
-Now we can replace our docker-compose file by any other YAML file to automate YAML update.
+With this scenario, we saw how to automatically update a docker-compose file using custom strategies with updatecli.
+Updatecli is a small single binary that is suitable for use in your favorite CI environment.

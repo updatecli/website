@@ -19,8 +19,8 @@ toc: true
 
 == Description
 
-A "condition" stage defines if the link:../target["Target" stage] stage of a pipeline should be executed or not.
-It runs a check (depending on the resource kind) that return a boolean indicating its success (`true`) or failure (`true`).
+A "condition" stage defines whether to run the link:../target["Target" stage] stage of a pipeline.
+It runs a check (depending on the resource kind) that returns a boolean indicating its success (`true`) or failure (`true`).
 
 Please look at each kind of resource (shell, file, etc.) for details about "how is the success/failure determined?".
 
@@ -66,9 +66,9 @@ conditions:
 ----
 
 
-* Example checking if a Docker Image is published on the registry.
-It verifies that the docker image `jenkinsciinfra/plugin-site-api` with the tag returned from the source exists on the DockerHub.
-The targets of this pipeline are not executed if this condition fails.
+* This example checks if a Docker Image is published in the registry.
+It verifies that the docker image `jenkinsciinfra/plugin-site-api` with the tag returned from the source, exists on the DockerHub.
+The targets of this pipeline aren't executed if this condition fails.
 
 [source,yaml]
 ----
