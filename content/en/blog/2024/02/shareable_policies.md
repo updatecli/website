@@ -172,7 +172,7 @@ Voila, it's as simple as that. Now we can start using our new policy.
 
 ## Reuse
 
-Using Updatecli policies can be done through two approaches. One policy at a time or composing them using the file `update-compose.yaml`.
+Using Updatecli policies can be done through two approaches. One policy at a time or composing them using the file `updatecli-compose.yaml`.
 
 ### One at a time
 
@@ -184,9 +184,9 @@ To manipulate a single policy, we can reuse familiar commands like:
 
 ### Compose
 
-Quickly, we end up with different policies. This is why we introduced a new file named `update-compose.yaml` with its syntax that allows us to compose our policies.
+Quickly, we end up with different policies. This is why we introduced a new file named `updatecli-compose.yaml` with its syntax that allows us to compose our policies.
 
-<details><summary>update-compose.yaml</summary>
+<details><summary>updatecli-compose.yaml</summary>
 
 ```yaml
 policies:
@@ -221,13 +221,13 @@ Additional values can be specified at command execution to override those define
 
 #### Syntax validation && Auto completion
 
-Similarly to Updatecli manifests, any IDE supporting Jsonschema store like VScode, IntelliJ, etc., automatically validate and provide auto-completion for files named `update-compose.yaml`
+Similarly to Updatecli manifests, any IDE supporting Jsonschema store like VScode, IntelliJ, etc., automatically validate and provide auto-completion for files named `updatecli-compose.yaml`
 
-![update-compose.yaml auto completion](/images/blog/2024/02/update-compose-autocompletion.png)
+![updatecli-compose.yaml auto completion](/images/blog/2024/02/update-compose-autocompletion.png)
 
 #### Updatecli policies updated by Updatecli
 
-The benefits of having versioned Update policies, means we can update the various projects at different speed. We managed the policy in one location and then use a policy like `ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0` to automate policy update on all `update-compose.yaml` file.
+The benefits of having versioned Update policies, means we can update the various projects at different speed. We managed the policy in one location and then use a policy like `ghcr.io/updatecli/policies/updatecli/autodiscovery:0.2.0` to automate policy update on all `updatecli-compose.yaml` file.
 
 ## Going Further
 
