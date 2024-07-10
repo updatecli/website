@@ -399,7 +399,7 @@ Here we are in the final stage where we see how we leverage a CI tool to periodi
 First we need to specify the list of Updatecli policies to execute periodically.
 In this example, we only have one policy for running releasepost.
 
-<details><summary>update-compose.yaml</summary>
+<details><summary>updatecli-compose.yaml</summary>
 
 ```yaml
 policies:
@@ -483,7 +483,7 @@ Here we are, to automate release note publishing to a documentation website.
 We need three files:
 
 1. A releasepost configuration that specifies the GitHub repository to monitor.
-2. An update-compose.yaml file listing Updatecli policies to enforce.
+2. An updatecli-compose.yaml file listing Updatecli policies to enforce.
 3. A values file listing the GitHub repository to monitor for release notes and the GitHub repository to copy those release notes.
 4. A GitHub action workflow to execute Updatecli periodically.
 

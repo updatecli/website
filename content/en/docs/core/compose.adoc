@@ -20,9 +20,9 @@ toc: true
 The updatecli compose feature allows specifying a list of updatecli policies to enforce.
 This is useful when applying the same policies on multiple repositories.
 
-By default, it relies on a file named "update-compose.yaml" such as in the follow example:
+By default, it relies on a file named "updatecli-compose.yaml" such as in the follow example:
 
-.update-compose.yaml
+.updatecli-compose.yaml
 ```
 policies:
   - name: Local Updatecli Website Policies
