@@ -1,0 +1,52 @@
+---
+title: ".tool-versions"
+description: "Manipulate .tool-versions information"
+lead: "kind: toolversions"
+date: 2024-07-05T19:19:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The ToolVersions "source" retrieves an information from a .tool-versions file.
+
+**condition**
+
+The ToolVersions "condition" tests that an information exist in a .tool-versions file.
+
+**target**
+
+The ToolVersions "target" ensures that a .tool-versions file content a specific value at specific location.
+
+== Parameters
+
+{{< resourceparameters "sources" "toolversions" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/toolversions/updatecli.d/default.yaml">}}
+----

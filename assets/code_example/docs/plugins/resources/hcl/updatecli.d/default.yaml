@@ -18,7 +18,7 @@ sources:
     name: Get value from hcl
     kind: hcl
     spec:
-      file: https://raw.githubusercontent.com/updatecli/updatecli/hcl/pkg/plugins/resources/hcl/testdata/data.hcl
+      file: https://raw.githubusercontent.com/updatecli/updatecli/master/pkg/plugins/resources/hcl/testdata/data.hcl
       path: resource.person.john.first_name
 
 conditions:
@@ -35,7 +35,7 @@ conditions:
     kind: hcl
     disablesourceinput: true
     spec:
-      file: https://raw.githubusercontent.com/updatecli/updatecli/hcl/pkg/plugins/resources/hcl/testdata/data.hcl
+      file: https://raw.githubusercontent.com/updatecli/updatecli/master/pkg/plugins/resources/hcl/testdata/data.hcl
       path: resource.person.john.first_name
       value: John
 

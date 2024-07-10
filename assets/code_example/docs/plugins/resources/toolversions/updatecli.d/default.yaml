@@ -1,0 +1,51 @@
+name: Basic .tool-versions Example
+
+scms:
+  default:
+    kind: git
+    spec:
+      url: https://github.com/asdf-vm/asdf.git
+
+sources:
+  local:
+    name: Get value from .tool-versions
+    kind: toolversions
+    scmid: default
+    spec:
+      file: .tool-versions
+      key: bats
+  http:
+    name: Get value from .tool-versions
+    kind: toolversions
+      file: https://raw.githubusercontent.com/updatecli/updatecli/master/pkg/plugins/resources/toolversions/testdata/.tool-versions
+      key: bats
+
+conditions:
+  local:
+    name: Test value from .tool-versions
+    kind: toolversions
+    sourceid: local
+    scmid: default
+    spec:
+      file: .tool-versions
+      path: bats
+  http:
+    name: Test value from .tool-versions
+    kind: toolversions
+    disablesourceinput: true
+    spec:
+      file: https://raw.githubusercontent.com/updatecli/updatecli/master/pkg/plugins/resources/toolversions/testdata/.tool-versions
+      path: bats
+      value: "1.0.0"
+
+targets:
+  local:
+    name: Ensure bats is set to "1.8.2" in the .tool-versions file
+    kind: toolversions
+    sourceid: local
+    scmid: default
+    spec:
+      file: .tool-versions
+      key: bats
+      value: "1.8.2"
+
