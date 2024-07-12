@@ -20,3 +20,9 @@ Thanks in advance for your help.
 **[Click here for the survey](https://forms.gle/dV6LmSh2XGDF5Zzg7)**
 
 ---
+
+<p align="center">
+  <img src="/images/blog/2024/07/cat.jpg" />
+</p>
+
+
