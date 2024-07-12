@@ -7,9 +7,9 @@ images: [""]
 contributors: ["olblak"]
 ---
 
-Getting feedback on OSS project is hard. Most of the time we can rely only on people reporting issues that tell us little about the things we do right or things we should focus on.
+Getting feedback on an OSS project is hard. Most of the time, we can only rely on people reporting issues, which tell us little about what we are doing right or what we should focus on.
 
-To better understand your experience with the  Updatecli project, we'd love you to participate in our Updatecli [survey](https://forms.gle/dV6LmSh2XGDF5Zzg7):
+To better understand your experience with the Updatecli project, we'd love for you to participate in our Updatecli [survey](https://forms.gle/dV6LmSh2XGDF5Zzg7):
 
 The survey is anonymous and all questions are optional.
 
@@ -17,7 +17,7 @@ Thanks in advance for your help.
 
 ---
 
-**[Click here for the survey](https://forms.gle/dV6LmSh2XGDF5Zzg7)**
+**[Click here for the survey on Google Forms (anonymous)](https://forms.gle/dV6LmSh2XGDF5Zzg7)**
 
 ---
 
