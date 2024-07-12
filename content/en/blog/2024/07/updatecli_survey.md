@@ -24,5 +24,3 @@ Thanks in advance for your help.
 <p align="center">
   <img src="/images/blog/2024/07/cat.jpg" />
 </p>
-
-
