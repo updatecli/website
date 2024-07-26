@@ -1,0 +1,103 @@
+---
+title: "v0.81.1"
+date: 2024-07-26 08:06:09 +0000 UTC
+---
+
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2024-07-26 08:06:09 +0000 UTC - v0.81.1__
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>fix: committing with <code>commitusingapi</code> should use github username <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2431604426" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2363" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2363/hovercard" href="https://github.com/updatecli/updatecli/pull/2363">#2363</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>deps(updatecli/policies): bump all policies @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2430164315" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2353" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2353/hovercard" href="https://github.com/updatecli/updatecli/pull/2353">#2353</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/checksums.txt.pem[checksums.txt.pem] | 2024-07-26 08:20:11 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/checksums.txt.sig[checksums.txt.sig] | 2024-07-26 08:20:11 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/checksums.txt[checksums.txt] | 2024-07-26 08:20:11 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Darwin_x86_64.tar.gz.sbom.json[updatecli_Darwin_x86_64.tar.gz.sbom.json] | 2024-07-26 08:20:11 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Darwin_arm64.tar.gz.sbom.json[updatecli_Darwin_arm64.tar.gz.sbom.json] | 2024-07-26 08:20:11 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Linux_arm64.tar.gz.sbom.json[updatecli_Linux_arm64.tar.gz.sbom.json] | 2024-07-26 08:20:11 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Linux_arm.tar.gz.sbom.json[updatecli_Linux_arm.tar.gz.sbom.json] | 2024-07-26 08:20:10 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Linux_x86_64.tar.gz.sbom.json[updatecli_Linux_x86_64.tar.gz.sbom.json] | 2024-07-26 08:20:10 +0000 UTC | 2024-07-26T08:20:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Windows_arm64.zip.sbom.json[updatecli_Windows_arm64.zip.sbom.json] | 2024-07-26 08:20:10 +0000 UTC | 2024-07-26T08:20:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Windows_x86_64.zip.sbom.json[updatecli_Windows_x86_64.zip.sbom.json] | 2024-07-26 08:20:10 +0000 UTC | 2024-07-26T08:20:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2024-07-26 08:20:10 +0000 UTC | 2024-07-26T08:20:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Windows_arm.zip.sbom.json[updatecli_Windows_arm.zip.sbom.json] | 2024-07-26 08:20:10 +0000 UTC | 2024-07-26T08:20:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2024-07-26 08:20:08 +0000 UTC | 2024-07-26T08:20:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2024-07-26 08:20:08 +0000 UTC | 2024-07-26T08:20:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2024-07-26 08:20:08 +0000 UTC | 2024-07-26T08:20:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2024-07-26 08:20:08 +0000 UTC | 2024-07-26T08:20:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2024-07-26 08:20:07 +0000 UTC | 2024-07-26T08:20:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2024-07-26 08:20:07 +0000 UTC | 2024-07-26T08:20:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2024-07-26 08:20:07 +0000 UTC | 2024-07-26T08:20:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2024-07-26 08:20:06 +0000 UTC | 2024-07-26T08:20:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2024-07-26 08:20:05 +0000 UTC | 2024-07-26T08:20:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2024-07-26 08:20:05 +0000 UTC | 2024-07-26T08:20:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2024-07-26 08:20:05 +0000 UTC | 2024-07-26T08:20:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2024-07-26 08:20:05 +0000 UTC | 2024-07-26T08:20:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2024-07-26 08:20:04 +0000 UTC | 2024-07-26T08:20:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2024-07-26 08:20:04 +0000 UTC | 2024-07-26T08:20:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2024-07-26 08:20:04 +0000 UTC | 2024-07-26T08:20:05Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.81.1/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2024-07-26 08:20:03 +0000 UTC | 2024-07-26T08:20:05Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.81.1[here]__
+
