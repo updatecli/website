@@ -16,7 +16,7 @@ What a great way to start the week by not discovering one but two blog posts abo
 The first one I discovered, was written by Sean Rigby on **[blog.devgenius.io](https://blog.devgenius.io/automating-updates-of-third-party-kubernetes-services-with-updatecli-c1eab9c56948)**
 
 It highlights the **[Autodiscovery](https://www.updatecli.io/docs/core/autodiscovery/)** feature of Updatecli, and how flexible it can be to discover updates in GitOps repositories automatically.
-In the blogpost Sean covers **[ArgoCD](https://argo-cd.readthedocs.io/en/stable/)**, but Updatecli also takes care of **[FluxCD](https://fluxcd.io/)** or **[Rancher Fleet](https://fleet.rancher.io/)** GitOps repositories.
+In the blogpost Sean covers **[ArgoCD](https://www.updatecli.io/docs/plugins/autodiscovery/argocd/)**, but Updatecli also takes care of **[FluxCD](https://www.updatecli.io/docs/plugins/autodiscovery/flux/)** or **[Rancher Fleet](https://www.updatecli.io/docs/plugins/autodiscovery/fleet/)** GitOps repositories.
 
 
 The second one on **[write.in0rdr.ch](https://write.in0rdr.ch/bump-npm-dependencies-with-updatecli)**
