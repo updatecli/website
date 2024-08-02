@@ -15,7 +15,7 @@ plugins:
 
 == Description
 
-The Terragrunt crawler looks recursively for all Terragrunt files (*.hcl) containing a module defintion from a specific root directory.
+The Terragrunt crawler looks recursively for all Terragrunt files (*.hcl) containing a module definition from a specific root directory.
 Then for each of them, it tries to automate its update.
 
 It currently support two types of sources:
