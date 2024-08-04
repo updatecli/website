@@ -1,0 +1,60 @@
+---
+title: "Terragrunt"
+description: "Discover Terragrunt modules update"
+lead: "kind: terragrunt"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Terragrunt crawler looks recursively for all Terragrunt files (*.hcl) containing a module definition from a specific root directory.
+Then for each of them, it tries to automate its update.
+
+It currently support two types of sources:
+- link:{{< ref "registry" >}}[`terraform/registry`]
+- link:{{< ref "gittag" >}}[`gittag`]
+
+It will parsed the module source and infer the source type.
+
+It will update the file using the link:{{< ref "hcl" >}}[`hcl`] target.
+
+It supports the following module source definition and will update with prefixing accordingly
+[,hcl]
+---
+terraform {
+  source = "tfr://someModule?version=1.2.3
+}
+terraform {
+  source = local.base_url
+}
+terraform {
+  source = "tfr://${local.module}?version=${local.module_version}"
+}
+terraform {
+  source = "tfr://someModule?version=${local.module_version}"
+}
+terraform {
+  source = "tfr://${local.module}?version=1.2.3"
+}
+---
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "terragrunt" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/terragrunt/updatecli.d/default.yaml">}}
+----
