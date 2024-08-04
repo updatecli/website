@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2024-07-27T06:25:44Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2024-07-27T06:25:44Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 423465
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 430267
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 429430
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 422637
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:43Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 423741
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:42Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 423189
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:42Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 423465
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:42Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2024-07-27T06:25:43Z",
+        "Size": 28381880
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:42Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2024-07-27T06:25:42Z",
+        "Size": 429988
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:41Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2024-07-27T06:25:42Z",
+        "Size": 26747984
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:41Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2024-07-27T06:25:42Z",
+        "Size": 25995772
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:41Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2024-07-27T06:25:42Z",
+        "Size": 27037422
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:41Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2024-07-27T06:25:42Z",
+        "Size": 27734108
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:40Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2024-07-27T06:25:41Z",
+        "Size": 29661305
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:39Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2024-07-27T06:25:41Z",
+        "Size": 27788215
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:39Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2024-07-27T06:25:41Z",
+        "Size": 29659238
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:39Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2024-07-27T06:25:40Z",
+        "Size": 27015805
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:38Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2024-07-27T06:25:39Z",
+        "Size": 27120198
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:38Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2024-07-27T06:25:39Z",
+        "Size": 26665486
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:38Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2024-07-27T06:25:39Z",
+        "Size": 28267343
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:38Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2024-07-27T06:25:39Z",
+        "Size": 29017253
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:36Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2024-07-27T06:25:37Z",
+        "Size": 27212259
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:36Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2024-07-27T06:25:37Z",
+        "Size": 26066428
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:36Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2024-07-27T06:25:37Z",
+        "Size": 25888394
+      },
+      {
+        "CreatedAt": "2024-07-27T06:25:36Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.81.2/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2024-07-27T06:25:37Z",
+        "Size": 28870668
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n- fix: use correct endpoint endpoints for terraform registry @loispostula (#2372)\r\n\r\n## Contributors\r\n\r\n@loispostula, @updateclibot and @updateclibot[bot]\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: use correct endpoint endpoints for terraform registry \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2431997123\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2372\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2372/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2372\"\u003e#2372\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.81.2",
+    "PublishedAt": "2024-07-27 06:11:44 +0000 UTC",
+    "UpdatedAt": "2024-07-27 06:25:44 +0000 UTC",
+    "Tag": "v0.81.2",
+    "Name": "v0.81.2"
+  },
+  "FrontMatters": "---\ntitle: \"v0.81.2\"\ndate: 2024-07-27 06:11:44 +0000 UTC\n---\n"
+}
