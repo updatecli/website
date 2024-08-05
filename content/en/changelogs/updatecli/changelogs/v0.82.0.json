@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2024-08-04T10:44:19Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2024-08-04T10:44:19Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2024-08-04T10:44:19Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2024-08-04T10:44:19Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 430267
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 423741
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 423465
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 423189
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 423465
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:18Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 429988
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:17Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 422637
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:17Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2024-08-04T10:44:17Z",
+        "Size": 429430
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:17Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 28409900
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:17Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2024-08-04T10:44:17Z",
+        "Size": 26012354
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:16Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2024-08-04T10:44:18Z",
+        "Size": 26759344
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:16Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2024-08-04T10:44:17Z",
+        "Size": 27038734
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:16Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2024-08-04T10:44:17Z",
+        "Size": 27754061
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:15Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2024-08-04T10:44:16Z",
+        "Size": 29731379
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:15Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2024-08-04T10:44:16Z",
+        "Size": 27813858
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:15Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2024-08-04T10:44:16Z",
+        "Size": 27059765
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:15Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2024-08-04T10:44:15Z",
+        "Size": 29689164
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:14Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2024-08-04T10:44:15Z",
+        "Size": 29042331
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:13Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2024-08-04T10:44:14Z",
+        "Size": 28896779
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:13Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2024-08-04T10:44:15Z",
+        "Size": 27229742
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:13Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2024-08-04T10:44:14Z",
+        "Size": 25910372
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:12Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2024-08-04T10:44:13Z",
+        "Size": 26089062
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:12Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2024-08-04T10:44:13Z",
+        "Size": 27148947
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:12Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2024-08-04T10:44:13Z",
+        "Size": 28294855
+      },
+      {
+        "CreatedAt": "2024-08-04T10:44:12Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.0/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2024-08-04T10:44:13Z",
+        "Size": 26680925
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n## 🚀 Features\r\n\r\n- feat: allow to use boolean operator in target dependson value @olblak (#2415)\r\n- feat: add terragrunt autodiscovery @loispostula (#2400)\r\n- feat(transformers) show transformation as info messages @dduportal (#2393)\r\n\r\n## 🐛 Bug Fixes\r\n\r\n- fix: golang autodiscovery with module only @olblak (#2438)\r\n- fix: rootdir param with relative path for all autodiscovery plugins @olblak (#2432)\r\n- fix: misleading transformer error message @olblak (#2414)\r\n- fix: use GitHub username to commit via GitHub instead of git user @loispostula (#2388)\r\n\r\n## 🧰 Maintenance\r\n\r\n- deps(go): bump module github.com/heimdalr/dag @updateclibot (#2406)\r\n\r\n## Contributors\r\n\r\n@dduportal, @loispostula, @olblak, @updateclibot and @updateclibot[bot]\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003ch2\u003e🚀 Features\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efeat: allow to use boolean operator in target dependson value \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2440357201\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2415\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2415/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2415\"\u003e#2415\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efeat: add terragrunt autodiscovery \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2433633078\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2400\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2400/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2400\"\u003e#2400\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efeat(transformers) show transformation as info messages \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dduportal/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dduportal\"\u003e@dduportal\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2433514801\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2393\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2393/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2393\"\u003e#2393\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🐛 Bug Fixes\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: golang autodiscovery with module only \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2444962719\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2438\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2438/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2438\"\u003e#2438\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efix: rootdir param with relative path for all autodiscovery plugins \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2444398356\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2432\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2432/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2432\"\u003e#2432\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efix: misleading transformer error message \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2438131017\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2414\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2414/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2414\"\u003e#2414\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efix: use GitHub username to commit via GitHub instead of git user \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2433374960\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2388\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2388/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2388\"\u003e#2388\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🧰 Maintenance\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003edeps(go): bump module github.com/heimdalr/dag @updateclibot (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2434766212\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2406\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2406/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2406\"\u003e#2406\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dduportal/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dduportal\"\u003e@dduportal\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.82.0",
+    "PublishedAt": "2024-08-04 10:30:34 +0000 UTC",
+    "UpdatedAt": "2024-08-04 10:44:19 +0000 UTC",
+    "Tag": "v0.82.0",
+    "Name": "v0.82.0"
+  },
+  "FrontMatters": "---\ntitle: \"v0.82.0\"\ndate: 2024-08-04 10:30:34 +0000 UTC\n---\n"
+}
