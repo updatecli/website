@@ -1,0 +1,111 @@
+---
+title: "v0.82.1"
+date: 2024-08-13 07:15:58 +0000 UTC
+---
+
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2024-08-13 07:15:58 +0000 UTC - v0.82.1__
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<ul>
+<li>fix: terragrunt locals might be sthg else than string <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2461109623" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2492" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2492/hovercard" href="https://github.com/updatecli/updatecli/pull/2492">#2492</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>chore(deps): Bump sigstore/cosign-installer from 3.5.0 to 3.6.0 <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2455511224" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2479" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2479/hovercard" href="https://github.com/updatecli/updatecli/pull/2479">#2479</a>)</li>
+<li>deps: Bump Golang version to 1.22.6 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2451431841" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2461" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2461/hovercard" href="https://github.com/updatecli/updatecli/pull/2461">#2461</a>)</li>
+<li>deps(go): bump module golang.org/x/text @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2451254991" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2460" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2460/hovercard" href="https://github.com/updatecli/updatecli/pull/2460">#2460</a>)</li>
+<li>deps(go): bump module golang.org/x/oauth2 @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2447915109" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2451" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2451/hovercard" href="https://github.com/updatecli/updatecli/pull/2451">#2451</a>)</li>
+<li>deps(go): bump module golang.org/x/mod @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2447176863" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2446" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2446/hovercard" href="https://github.com/updatecli/updatecli/pull/2446">#2446</a>)</li>
+</ul>
+<h2>📝 Documentation</h2>
+<ul>
+<li>Update: Add additional semver patterns to comments <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/cloudoutloud/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/cloudoutloud">@cloudoutloud</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2454044694" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/2473" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/2473/hovercard" href="https://github.com/updatecli/updatecli/pull/2473">#2473</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/cloudoutloud/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/cloudoutloud">@cloudoutloud</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>, <a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/dependabot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dependabot">@dependabot</a>[bot], <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/checksums.txt.pem[checksums.txt.pem] | 2024-08-13 07:29:56 +0000 UTC | 2024-08-13T07:29:56Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/checksums.txt.sig[checksums.txt.sig] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/checksums.txt[checksums.txt] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Linux_arm64.tar.gz.sbom.json[updatecli_Linux_arm64.tar.gz.sbom.json] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Darwin_x86_64.tar.gz.sbom.json[updatecli_Darwin_x86_64.tar.gz.sbom.json] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Linux_x86_64.tar.gz.sbom.json[updatecli_Linux_x86_64.tar.gz.sbom.json] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Linux_arm.tar.gz.sbom.json[updatecli_Linux_arm.tar.gz.sbom.json] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Windows_x86_64.zip.sbom.json[updatecli_Windows_x86_64.zip.sbom.json] | 2024-08-13 07:29:55 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Windows_arm64.zip.sbom.json[updatecli_Windows_arm64.zip.sbom.json] | 2024-08-13 07:29:54 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Darwin_arm64.tar.gz.sbom.json[updatecli_Darwin_arm64.tar.gz.sbom.json] | 2024-08-13 07:29:54 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2024-08-13 07:29:54 +0000 UTC | 2024-08-13T07:29:55Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Windows_arm.zip.sbom.json[updatecli_Windows_arm.zip.sbom.json] | 2024-08-13 07:29:54 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2024-08-13 07:29:53 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2024-08-13 07:29:53 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2024-08-13 07:29:53 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2024-08-13 07:29:53 +0000 UTC | 2024-08-13T07:29:54Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2024-08-13 07:29:52 +0000 UTC | 2024-08-13T07:29:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2024-08-13 07:29:52 +0000 UTC | 2024-08-13T07:29:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2024-08-13 07:29:52 +0000 UTC | 2024-08-13T07:29:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2024-08-13 07:29:52 +0000 UTC | 2024-08-13T07:29:53Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2024-08-13 07:29:51 +0000 UTC | 2024-08-13T07:29:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2024-08-13 07:29:50 +0000 UTC | 2024-08-13T07:29:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2024-08-13 07:29:50 +0000 UTC | 2024-08-13T07:29:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2024-08-13 07:29:50 +0000 UTC | 2024-08-13T07:29:51Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2024-08-13 07:29:49 +0000 UTC | 2024-08-13T07:29:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2024-08-13 07:29:49 +0000 UTC | 2024-08-13T07:29:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2024-08-13 07:29:49 +0000 UTC | 2024-08-13T07:29:50Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.82.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2024-08-13 07:29:49 +0000 UTC | 2024-08-13T07:29:50Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.82.1[here]__
+
