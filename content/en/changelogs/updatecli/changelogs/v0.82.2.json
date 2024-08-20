@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2024-08-13T15:05:55Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 423465
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 429988
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 430267
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:54Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 429430
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:53Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 423741
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:53Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:53Z",
+        "Size": 423465
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:53Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:53Z",
+        "Size": 423189
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:53Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-13T15:05:53Z",
+        "Size": 422637
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:52Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2024-08-13T15:05:54Z",
+        "Size": 28407998
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:51Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2024-08-13T15:05:53Z",
+        "Size": 26015334
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:51Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2024-08-13T15:05:53Z",
+        "Size": 26759380
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:50Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2024-08-13T15:05:53Z",
+        "Size": 26988556
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:50Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2024-08-13T15:05:52Z",
+        "Size": 27840554
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:48Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2024-08-13T15:05:50Z",
+        "Size": 29731109
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:48Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2024-08-13T15:05:50Z",
+        "Size": 29702372
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:48Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2024-08-13T15:05:50Z",
+        "Size": 27044843
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:48Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2024-08-13T15:05:50Z",
+        "Size": 27794584
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:46Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2024-08-13T15:05:48Z",
+        "Size": 28293654
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:46Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2024-08-13T15:05:48Z",
+        "Size": 26090648
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:45Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2024-08-13T15:05:48Z",
+        "Size": 29046341
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:45Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2024-08-13T15:05:47Z",
+        "Size": 27152756
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:43Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2024-08-13T15:05:45Z",
+        "Size": 28899597
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:43Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2024-08-13T15:05:45Z",
+        "Size": 26681823
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:43Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2024-08-13T15:05:45Z",
+        "Size": 25913393
+      },
+      {
+        "CreatedAt": "2024-08-13T15:05:43Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.82.2/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2024-08-13T15:05:45Z",
+        "Size": 27234717
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n- fix: ignore functions and variable set in terragrunt @loispostula (#2499)\r\n\r\n## Contributors\r\n\r\n@loispostula\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: ignore functions and variable set in terragrunt \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2463417007\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2499\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2499/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2499\"\u003e#2499\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.82.2",
+    "PublishedAt": "2024-08-13 14:51:15 +0000 UTC",
+    "UpdatedAt": "2024-08-13 15:05:55 +0000 UTC",
+    "Tag": "v0.82.2",
+    "Name": "v0.82.2"
+  },
+  "FrontMatters": "---\ntitle: \"v0.82.2\"\ndate: 2024-08-13 14:51:15 +0000 UTC\n---\n"
+}
