@@ -1,0 +1,50 @@
+---
+title: "Temurin/Adoptium"
+description: "Retrieve Adoptium Temurin release name or installer"
+lead: "kind: temurin"
+date: 2024-08-26T15:00:00+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10007; | &#10007;
+|===
+
+== Description
+
+**source**
+
+The Temurin (Adoptium) "source" retrieves a release name, Installer URL, Checskum URL or signature URL from Adoptium (link:https://adoptium.net/[]) using their API (link:https://api.adoptium.net/[]).
+
+**condition**
+
+Unsupported
+
+**target**
+
+Unsupported
+
+== Parameter
+
+{{< resourceparameters "sources" "temurin" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/temurin/updatecli.d/default.yaml">}}
+----
