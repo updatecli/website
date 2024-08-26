@@ -29,3 +29,9 @@ The `kubernetes` Autodiscovery plugin allows to automatically search and update 
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/kubernetes/updatecli.d/updatecli.yaml">}}
 ----
+
+==== Supported Kubernetes Resources
+- Standard Kubernetes Pod Spec (`Pod`, `Deployment`, `DaemonSet`, ...)
+- [Kustomize](https://kustomize.io/)
+- Templated files
+- ProwJob
