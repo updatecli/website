@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2024-08-26T14:04:58Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2024-08-26T14:04:58Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:58Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2024-08-26T14:04:58Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:58Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2024-08-26T14:04:58Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:58Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:58Z",
+        "Size": 424412
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:58Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:58Z",
+        "Size": 423587
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:58Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:58Z",
+        "Size": 430953
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:57Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 430397
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:57Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 424687
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:57Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 431231
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:57Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 424412
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:56Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 424137
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:55Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 26760896
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:55Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2024-08-26T14:04:57Z",
+        "Size": 28415602
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:54Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2024-08-26T14:04:56Z",
+        "Size": 25963344
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:54Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2024-08-26T14:04:56Z",
+        "Size": 26964163
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:53Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2024-08-26T14:04:54Z",
+        "Size": 27754893
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:52Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2024-08-26T14:04:54Z",
+        "Size": 29655056
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:51Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2024-08-26T14:04:54Z",
+        "Size": 26991159
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:51Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2024-08-26T14:04:54Z",
+        "Size": 29681844
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:51Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2024-08-26T14:04:53Z",
+        "Size": 27762948
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:49Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2024-08-26T14:04:51Z",
+        "Size": 28300927
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:49Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2024-08-26T14:04:51Z",
+        "Size": 26685331
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:49Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2024-08-26T14:04:51Z",
+        "Size": 26046254
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:49Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2024-08-26T14:04:51Z",
+        "Size": 27149411
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:46Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2024-08-26T14:04:48Z",
+        "Size": 29069638
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:46Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2024-08-26T14:04:48Z",
+        "Size": 25862551
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:46Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2024-08-26T14:04:48Z",
+        "Size": 27165065
+      },
+      {
+        "CreatedAt": "2024-08-26T14:04:46Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.83.0/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2024-08-26T14:04:48Z",
+        "Size": 28908042
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n## 🚀 Features\r\n\r\n- feat(temurin) introduces a new source of type \"Temurin\" @dduportal (#2556)\r\n\r\n## 🧰 Maintenance\r\n\r\n- deps: Bump Golang version to 1.23.0 @updateclibot (#2514)\r\n- deps: bump golangci-lint to v1.60.1 @updateclibot (#2515)\r\n\r\n## Contributors\r\n\r\n@dduportal, @updateclibot and @updateclibot[bot]\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003ch2\u003e🚀 Features\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efeat(temurin) introduces a new source of type \"Temurin\" \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dduportal/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dduportal\"\u003e@dduportal\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2485293769\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2556\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2556/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2556\"\u003e#2556\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🧰 Maintenance\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003edeps: Bump Golang version to 1.23.0 @updateclibot (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2463836054\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2514\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2514/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2514\"\u003e#2514\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003edeps: bump golangci-lint to v1.60.1 @updateclibot (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2464742249\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/2515\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/2515/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/2515\"\u003e#2515\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dduportal/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dduportal\"\u003e@dduportal\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.83.0",
+    "PublishedAt": "2024-08-26 13:49:27 +0000 UTC",
+    "UpdatedAt": "2024-08-26 14:04:58 +0000 UTC",
+    "Tag": "v0.83.0",
+    "Name": "v0.83.0"
+  },
+  "FrontMatters": "---\ntitle: \"v0.83.0\"\ndate: 2024-08-26 13:49:27 +0000 UTC\n---\n"
+}
