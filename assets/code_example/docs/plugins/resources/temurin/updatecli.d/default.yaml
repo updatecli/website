@@ -1,0 +1,48 @@
+sources:
+  ## Returns the latest LTS version
+  getLatestLtsVersion:
+    kind: temurin
+
+  ## Returns the latest feature release
+  getLatestFeatureVersion:
+    kind: temurin
+    spec:
+      releaseline: feature
+
+  ## Returns the latest LTS "nightly build" (Early Availability) version
+  getLatestLtsEarlyAvailabilityVersion:
+    kind: temurin
+    spec:
+      releaseline: lts
+      releasetype: ea
+
+  ## Returns the latest "Valhalla" Project JDK 17 version available for Windows
+  getLatestWindowsValhalla17Version:
+    kind: temurin
+    spec:
+      featureversion: 17
+      project: valhalla
+      operatingsystem: windows
+
+  # Returns the latest installer URL for Linux x64
+  getLatestLTSLinuxAMD64InstallerURL:
+    kind: temurin
+    spec:
+      result: installer_url
+
+  ## Returns the latest LTS Installer's checksum URL for s390x Alpine Linux JRE
+  getLatestJRE17LinuxS390xChecksumUrl:
+    kind: temurin
+    spec:
+      operatingsystem: alpine-linux
+      architecture: s390x
+      imagetype: jre
+      result: checksum_url
+
+  ## Returns latest Installer's Signature URL of the Windows JDK version "17.0.2*"
+  getLatestCustomVersionWindowsSignatureUrl:
+    kind: temurin
+    spec:
+      version: "17.0.2"
+      operatingsystem: windows
+      result: signature_url
