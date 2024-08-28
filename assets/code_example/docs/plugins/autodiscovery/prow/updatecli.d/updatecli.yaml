@@ -1,0 +1,23 @@
+name: "Prow autodiscovery"
+scms:
+  default:
+    kind: git
+    spec:
+      url: "https://github.com/knative/infra.git"
+      branch: main
+autodiscovery:
+  scmid: default
+  crawlers:
+    prow:
+      digest: true
+      rootdir: prow/jobs/custom
+      files:
+        - infra.yaml
+      ## To ignore specific images
+      #ignore:
+      #  - images:
+      #      - "mcr.microsoft.com/dotnet/framework/sdk"
+      ## To consider only specific images
+      #only:
+      #  - images:
+      #      - "mcr.microsoft.com/dotnet/framework/sdk"

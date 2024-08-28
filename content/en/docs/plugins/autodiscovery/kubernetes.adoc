@@ -3,7 +3,7 @@ title: "Kubernetes"
 description: "Discover Kubernetes container update"
 lead: "kind: kubernetes"
 draft: false
-images: [] 
+images: []
 menu:
     docs:
         parent: "plugin-autodiscovery"
@@ -34,4 +34,3 @@ The `kubernetes` Autodiscovery plugin allows to automatically search and update 
 - Standard Kubernetes Pod Spec (`Pod`, `Deployment`, `DaemonSet`, ...)
 - [Kustomize](https://kustomize.io/)
 - Templated files
-- ProwJob
