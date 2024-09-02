@@ -1,0 +1,31 @@
+---
+title: "Prow"
+description: "Discover Prow container update"
+lead: "kind: prow"
+draft: false
+images: []
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `prow` Autodiscovery plugin allows to automatically search and update container tags defined in Prow.yaml test files.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "prow" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/prow/updatecli.d/updatecli.yaml">}}
+----

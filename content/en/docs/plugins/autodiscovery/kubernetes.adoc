@@ -3,7 +3,7 @@ title: "Kubernetes"
 description: "Discover Kubernetes container update"
 lead: "kind: kubernetes"
 draft: false
-images: [] 
+images: []
 menu:
     docs:
         parent: "plugin-autodiscovery"
@@ -29,3 +29,8 @@ The `kubernetes` Autodiscovery plugin allows to automatically search and update 
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/kubernetes/updatecli.d/updatecli.yaml">}}
 ----
+
+==== Supported Kubernetes Resources
+- Standard Kubernetes Pod Spec (`Pod`, `Deployment`, `DaemonSet`, ...)
+- [Kustomize](https://kustomize.io/)
+- Templated files
