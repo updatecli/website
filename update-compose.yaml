@@ -3,12 +3,12 @@ policies:
     config:
       - updatecli/updatecli.d/
   - name: Handle Nodejs version in githubaction
-    policy: ghcr.io/updatecli/policies/nodejs/githubaction:0.7.0@sha256:5d88f7b90c3de3f3f73245918bdeaf78ff27365b8333c960788fdacfefbdc493
+    policy: ghcr.io/updatecli/policies/nodejs/githubaction:0.8.0@sha256:e0784741fa1628f498336c5154ad406df587fe7fa4c163f23deeed3ffc8809d2
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
   - name: Handle Nodejs version in Netlify
-    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.6.0@sha256:39b27410fe549742b4932b7e5f057617c59d204d1a1ae4064238ba4c016fe9a6
+    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.7.0@sha256:6b5e04d8dad16e2b8c2a452a4399696b0c8a6fdfaa91e2dea4ba325fba28dcdd
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
@@ -18,17 +18,17 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/compose.yaml
   - name: Handle HUGO version in netlify
-    policy: ghcr.io/updatecli/policies/hugo/netlify:0.6.0@sha256:6a2e848a5f968d4547eb6c02be487bb027886b1699fbde49b7b0dcd32cc6aa33
+    policy: ghcr.io/updatecli/policies/hugo/netlify:0.7.0@sha256:8a955a8a1b35d117f4be5fda1760524f1cc55e9d700e91d7b7a5f298ba0b0c23
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
   - name: Handle HUGO version in GitHub action
-    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.7.0@sha256:c7fda38c9b2117b49b8781061323083b1716fc68e5599ca699b1d3c6cc9fee5e
+    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.8.0@sha256:4af031df59a94c5dd64385619959fba109e70e2ffdb0441bc88f9e6915c56ade
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
   - name: Handle NPM version in netlify
-    policy: ghcr.io/updatecli/policies/npm/netlify:0.7.0@sha256:9d12af7c711aebb9c83e4d2959e3e56810f1a8f28d976bb28eb5c3800025533f
+    policy: ghcr.io/updatecli/policies/npm/netlify:0.8.0@sha256:5c5a88a720b93e863ecd92472d1d15dd38b369663272c0aabe643da0b10b4523
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/npm.yaml
@@ -38,6 +38,6 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/npm.yaml
   - name: Handle Updatecli version in GitHub action
-    policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.3.0@sha256:909dc9990c6f87b75e74e0de066cad2b192c7a24303dbe81874f5404dbc20da4
+    policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.4.0@sha256:2879297d2f973081e67b560066f1640304a173167d5b1e8e1452c02920cdbf4d
     values:
       - updatecli/values.d/scm.yaml
