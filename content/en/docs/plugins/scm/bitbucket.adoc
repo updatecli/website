@@ -1,0 +1,62 @@
+---
+title: "Bitbucket Cloud"
+description: "Interact with Bitbucket Cloud repositories"
+lead: "kind: bitbucket"
+date: 2024-10-22T16:43:01+01:00
+lastmod: 2024-10-22T16:43:01+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The Bitbucket Cloud scm plugin is used to manage git repositories hosted on Bitbucket Cloud, depending on the stage, it can be used for different purposes
+
+**source**: Retrieve data from a git repository, such as a file content
+
+**condition**: Ensure data exist on a git repository, such as a file content
+
+**target**: Ensure data is up to date on a git repository
+
+== Parameters
+
+{{< resourceparameters "scms" "bitbucket" >}}
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/bitbucket/updatecli.d/default.yaml">}}
+----
+
