@@ -1,0 +1,45 @@
+# updatecli diff --config updatecli.yaml
+#
+name: Show Bitbucket Cloud pipeline example
+
+# Sources are responsible to fetch information from third location such as npm registry.
+sources:
+  updatecli:
+    name: Get latest axios version
+    kind: npm
+    spec:
+      name: axios
+
+# Targets are responsible to update targeted files such as a yaml file.
+targets:
+  npm:
+    name: Update e2e test file
+    kind: yaml
+    sourceid: updatecli
+    scmid: bitbucket
+    spec:
+      file: e2e/updatecli.d/success.d/npm.yaml
+      key: conditions.axios.spec.version
+
+###
+
+# Actions such as gitlab/mergerequest is triggered if a target is updated.
+actions:
+  default:
+    title: Bump axios version
+    kind: bitbucket/pullrequest
+    scmid: bitbucket
+
+scms:
+  bitbucket:
+    kind: bitbucket
+    spec:
+      owner: "olblak"
+      repository: "updatecli"
+      branch: main
+      # {{ if (env "BITBUCKET_TOKEN") }}
+      token: '{{ env "BITBUCKET_TOKEN" }}'
+      # {{ else if (and (env "BITBUCKET_USER") (env "BITBUCKET_APP_PASSWORD")) }}
+      username: '{{ env "BITBUCKET_USER" }}'
+      password: '{{ env "BITBUCKET_APP_PASSWORD" }}'
+      # {{ end }}
