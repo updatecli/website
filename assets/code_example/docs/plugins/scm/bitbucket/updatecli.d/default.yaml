@@ -1,0 +1,40 @@
+name: "Example with Bitbucket Cloud SCM"
+pipelineid: bitbucket/scm
+
+scms:
+  bitbucket:
+    kind: bitbucket
+    spec:
+      owner: "updatecli"
+      repository: "updatecli"
+      branch: main
+      # {{ if (env "BITBUCKET_TOKEN") }}
+      token: '{{ env "BITBUCKET_TOKEN" }}'
+      # {{ else if (and (env "BITBUCKET_USER") (env "BITBUCKET_APP_PASSWORD")) }}
+      username: '{{ env "BITBUCKET_USER" }}'
+      password: '{{ env "BITBUCKET_APP_PASSWORD" }}'
+      # {{ end }}
+
+sources:
+  source-1:
+    name: "Source 1"
+    kind: file
+    scmid: bitbucket
+    spec:
+      file: README.md
+
+conditions:
+  condition-1:
+    name: "Condition 1"
+    kind: file
+    scmid: bitbucket
+    spec:
+      file: README.md
+
+targets:
+  target-1:
+    name: "Target 1"
+    kind: file
+    scmid: bitbucket
+    spec:
+      file: README.md
