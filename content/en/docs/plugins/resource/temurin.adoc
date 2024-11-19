@@ -20,18 +20,18 @@ plugins:
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10007; | &#10007;
+| &#10004; | &#10004; | &#10007;
 |===
 
 == Description
 
 **source**
 
-The Temurin (Adoptium) "source" retrieves a release name, Installer URL, Checskum URL or signature URL from Adoptium (link:https://adoptium.net/[]) using their API (link:https://api.adoptium.net/[]).
+The Temurin (Adoptium) "source" retrieves a release name, Installer URL, Checksum URL or signature URL from Adoptium (link:https://adoptium.net/[]) using their API (link:https://api.adoptium.net/[]).
 
 **condition**
 
-Unsupported
+The Temurin (Adoptium) "condition" verifies if a given Temurin Adoptium (link:https://adoptium.net/[]) release exists using their API (link:https://api.adoptium.net/[]). It can perform verification for a collection of platforms (Operating System + CPU Architecture).
 
 **target**
 
