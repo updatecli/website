@@ -46,3 +46,45 @@ sources:
       version: "17.0.2"
       operatingsystem: windows
       result: signature_url
+
+conditions:
+  checkLatestTemurin:
+    name: Temurin Check
+    kind: temurin
+    disablesourceinput: true
+  checkLatestTemurinGA17LinuxArm64:
+    name: Temurin Check
+    kind: temurin
+    disablesourceinput: true
+    spec:
+      releaseline: feature
+      releasetype: ga
+      featureversion: 17
+      architecture: aarch64
+      operatingsystem: linux
+  checkFromSpecifiedVersion:
+    name: Temurin Check
+    kind: temurin
+    disablesourceinput: true
+    spec:
+      specificversion: '{{ source "getLastGA17Version" }}'
+  checkListOfPlatforms:
+    name: Temurin Check
+    kind: temurin
+    disablesourceinput: true
+    spec:
+      specificversion: 17.0.13+11 # Known to provide all existing platform specified below
+      platforms:
+        - linux/x64
+        - linux/aarch64
+        - linux/s390x
+        - alpine-linux/x64
+        - windows/x64
+  checkPlatformForSourceInput:
+    name: Temurin Check
+    kind: temurin
+    sourceid: getLatestLtsVersion
+    spec:
+      platforms:
+        - linux/x64
+        - linux/aarch64
