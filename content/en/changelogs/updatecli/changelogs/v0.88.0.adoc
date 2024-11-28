@@ -1,0 +1,109 @@
+---
+title: "v0.88.0"
+date: 2024-11-26 14:55:05 +0000 UTC
+---
+
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2024-11-26 14:55:05 +0000 UTC - v0.88.0__
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>feat: add mermaid graph flavour <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2693877871" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/3167" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/3167/hovercard" href="https://github.com/updatecli/updatecli/pull/3167">#3167</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix: only look at target when target has dependsonchange: true <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2692490889" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/3160" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/3160/hovercard" href="https://github.com/updatecli/updatecli/pull/3160">#3160</a>)</li>
+</ul>
+<h2>📝 Documentation</h2>
+<ul>
+<li>doc: add mermaid to manifest show command output <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2694779257" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/3173" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/3173/hovercard" href="https://github.com/updatecli/updatecli/pull/3173">#3173</a>)</li>
+<li>doc(e2e tests) add a minimalistic documentation <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1561374491" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/1120" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/1120/hovercard" href="https://github.com/updatecli/updatecli/pull/1120">#1120</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dduportal/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dduportal">@dduportal</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/checksums.txt.pem[checksums.txt.pem] | 2024-11-26 15:11:25 +0000 UTC | 2024-11-26T15:11:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/checksums.txt.sig[checksums.txt.sig] | 2024-11-26 15:11:25 +0000 UTC | 2024-11-26T15:11:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/checksums.txt[checksums.txt] | 2024-11-26 15:11:25 +0000 UTC | 2024-11-26T15:11:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_x86_64.zip.sbom.json[updatecli_Windows_x86_64.zip.sbom.json] | 2024-11-26 15:11:25 +0000 UTC | 2024-11-26T15:11:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm.zip.sbom.json[updatecli_Windows_arm.zip.sbom.json] | 2024-11-26 15:11:24 +0000 UTC | 2024-11-26T15:11:25Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm64.zip.sbom.json[updatecli_Windows_arm64.zip.sbom.json] | 2024-11-26 15:11:24 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_arm64.tar.gz.sbom.json[updatecli_Darwin_arm64.tar.gz.sbom.json] | 2024-11-26 15:11:24 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_x86_64.tar.gz.sbom.json[updatecli_Darwin_x86_64.tar.gz.sbom.json] | 2024-11-26 15:11:24 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_x86_64.tar.gz.sbom.json[updatecli_Linux_x86_64.tar.gz.sbom.json] | 2024-11-26 15:11:24 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm64.tar.gz.sbom.json[updatecli_Linux_arm64.tar.gz.sbom.json] | 2024-11-26 15:11:24 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm.tar.gz.sbom.json[updatecli_Linux_arm.tar.gz.sbom.json] | 2024-11-26 15:11:23 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2024-11-26 15:11:23 +0000 UTC | 2024-11-26T15:11:24Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2024-11-26 15:11:22 +0000 UTC | 2024-11-26T15:11:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2024-11-26 15:11:22 +0000 UTC | 2024-11-26T15:11:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2024-11-26 15:11:22 +0000 UTC | 2024-11-26T15:11:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2024-11-26 15:11:21 +0000 UTC | 2024-11-26T15:11:23Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2024-11-26 15:11:20 +0000 UTC | 2024-11-26T15:11:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2024-11-26 15:11:20 +0000 UTC | 2024-11-26T15:11:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2024-11-26 15:11:20 +0000 UTC | 2024-11-26T15:11:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2024-11-26 15:11:20 +0000 UTC | 2024-11-26T15:11:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2024-11-26 15:11:18 +0000 UTC | 2024-11-26T15:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2024-11-26 15:11:18 +0000 UTC | 2024-11-26T15:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2024-11-26 15:11:18 +0000 UTC | 2024-11-26T15:11:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2024-11-26 15:11:18 +0000 UTC | 2024-11-26T15:11:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2024-11-26 15:11:17 +0000 UTC | 2024-11-26T15:11:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2024-11-26 15:11:17 +0000 UTC | 2024-11-26T15:11:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2024-11-26 15:11:17 +0000 UTC | 2024-11-26T15:11:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2024-11-26 15:11:17 +0000 UTC | 2024-11-26T15:11:18Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.88.0[here]__
+
