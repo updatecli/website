@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2024-11-26T15:11:25Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2024-11-26T15:11:25Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:25Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2024-11-26T15:11:25Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:25Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2024-11-26T15:11:25Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:25Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:25Z",
+        "Size": 450775
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:24Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:25Z",
+        "Size": 449905
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:24Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 450485
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:24Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 445364
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:24Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 445652
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:24Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 445364
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:24Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 445076
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:23Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 444500
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:23Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2024-11-26T15:11:24Z",
+        "Size": 27580502
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:22Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2024-11-26T15:11:23Z",
+        "Size": 26771528
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:22Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2024-11-26T15:11:23Z",
+        "Size": 29281846
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:22Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2024-11-26T15:11:23Z",
+        "Size": 27788520
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:21Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2024-11-26T15:11:23Z",
+        "Size": 28638343
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:20Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2024-11-26T15:11:21Z",
+        "Size": 30574929
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:20Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2024-11-26T15:11:21Z",
+        "Size": 27854686
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:20Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2024-11-26T15:11:21Z",
+        "Size": 30570446
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:20Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2024-11-26T15:11:21Z",
+        "Size": 28636987
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:18Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2024-11-26T15:11:20Z",
+        "Size": 29936074
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:18Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2024-11-26T15:11:20Z",
+        "Size": 27963716
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:18Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2024-11-26T15:11:20Z",
+        "Size": 26837295
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:18Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2024-11-26T15:11:19Z",
+        "Size": 28000153
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:17Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2024-11-26T15:11:18Z",
+        "Size": 27501671
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:17Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2024-11-26T15:11:18Z",
+        "Size": 29161100
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:17Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2024-11-26T15:11:18Z",
+        "Size": 26671577
+      },
+      {
+        "CreatedAt": "2024-11-26T15:11:17Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.88.0/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2024-11-26T15:11:18Z",
+        "Size": 29771947
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n## 🚀 Features\r\n\r\n- feat: add mermaid graph flavour @loispostula (#3167)\r\n\r\n## 🐛 Bug Fixes\r\n\r\n- fix: only look at target when target has dependsonchange: true @loispostula (#3160)\r\n\r\n## 📝 Documentation\r\n\r\n- doc: add mermaid to manifest show command output @olblak (#3173)\r\n- doc(e2e tests) add a minimalistic documentation @dduportal (#1120)\r\n\r\n## Contributors\r\n\r\n@dduportal, @loispostula, @olblak, @updateclibot and @updateclibot[bot]\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003ch2\u003e🚀 Features\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efeat: add mermaid graph flavour \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2693877871\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/3167\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/3167/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/3167\"\u003e#3167\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🐛 Bug Fixes\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: only look at target when target has dependsonchange: true \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2692490889\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/3160\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/3160/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/3160\"\u003e#3160\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e📝 Documentation\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003edoc: add mermaid to manifest show command output \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2694779257\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/3173\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/3173/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/3173\"\u003e#3173\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003edoc(e2e tests) add a minimalistic documentation \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dduportal/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dduportal\"\u003e@dduportal\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"1561374491\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/1120\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/1120/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/1120\"\u003e#1120\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dduportal/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dduportal\"\u003e@dduportal\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/loispostula/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/loispostula\"\u003e@loispostula\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, @updateclibot and @updateclibot[bot]\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.88.0",
+    "PublishedAt": "2024-11-26 14:55:05 +0000 UTC",
+    "UpdatedAt": "2024-11-26 15:11:25 +0000 UTC",
+    "Tag": "v0.88.0",
+    "Name": "v0.88.0"
+  },
+  "FrontMatters": "---\ntitle: \"v0.88.0\"\ndate: 2024-11-26 14:55:05 +0000 UTC\n---\n"
+}
