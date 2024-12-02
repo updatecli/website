@@ -1,0 +1,105 @@
+---
+title: "v0.88.1"
+date: 2024-12-02 12:05:12 +0000 UTC
+---
+
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2024-12-02 12:05:12 +0000 UTC - v0.88.1__
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>feat(udash): allow to login on Udash without auth enabled <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2710967520" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/3203" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/3203/hovercard" href="https://github.com/updatecli/updatecli/pull/3203">#3203</a>)</li>
+<li>fix(udash): display target console output in Updatecli report <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2704181148" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/3190" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/3190/hovercard" href="https://github.com/updatecli/updatecli/pull/3190">#3190</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>deps(go): bump module github.com/zclconf/go-cty @updateclibot (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2696603939" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/3182" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/3182/hovercard" href="https://github.com/updatecli/updatecli/pull/3182">#3182</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, @updateclibot and @updateclibot[bot]</p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/checksums.txt.pem[checksums.txt.pem] | 2024-12-02 12:21:12 +0000 UTC | 2024-12-02T12:21:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/checksums.txt.sig[checksums.txt.sig] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Darwin_x86_64.tar.gz.sbom.json[updatecli_Darwin_x86_64.tar.gz.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Linux_arm64.tar.gz.sbom.json[updatecli_Linux_arm64.tar.gz.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/checksums.txt[checksums.txt] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:12Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Linux_x86_64.tar.gz.sbom.json[updatecli_Linux_x86_64.tar.gz.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Linux_arm.tar.gz.sbom.json[updatecli_Linux_arm.tar.gz.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Windows_x86_64.zip.sbom.json[updatecli_Windows_x86_64.zip.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Darwin_arm64.tar.gz.sbom.json[updatecli_Darwin_arm64.tar.gz.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Windows_arm.zip.sbom.json[updatecli_Windows_arm.zip.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Windows_arm64.zip.sbom.json[updatecli_Windows_arm64.zip.sbom.json] | 2024-12-02 12:21:11 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_amd64.deb[updatecli_amd64.deb] | 2024-12-02 12:21:10 +0000 UTC | 2024-12-02T12:21:11Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_arm64.deb[updatecli_arm64.deb] | 2024-12-02 12:21:09 +0000 UTC | 2024-12-02T12:21:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_armv6.deb[updatecli_armv6.deb] | 2024-12-02 12:21:09 +0000 UTC | 2024-12-02T12:21:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2024-12-02 12:21:09 +0000 UTC | 2024-12-02T12:21:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2024-12-02 12:21:09 +0000 UTC | 2024-12-02T12:21:10Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2024-12-02 12:21:08 +0000 UTC | 2024-12-02T12:21:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_amd64.apk[updatecli_amd64.apk] | 2024-12-02 12:21:08 +0000 UTC | 2024-12-02T12:21:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_arm64.apk[updatecli_arm64.apk] | 2024-12-02 12:21:08 +0000 UTC | 2024-12-02T12:21:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_armv6.apk[updatecli_armv6.apk] | 2024-12-02 12:21:08 +0000 UTC | 2024-12-02T12:21:09Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2024-12-02 12:21:07 +0000 UTC | 2024-12-02T12:21:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2024-12-02 12:21:07 +0000 UTC | 2024-12-02T12:21:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2024-12-02 12:21:07 +0000 UTC | 2024-12-02T12:21:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2024-12-02 12:21:06 +0000 UTC | 2024-12-02T12:21:08Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2024-12-02 12:21:06 +0000 UTC | 2024-12-02T12:21:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2024-12-02 12:21:06 +0000 UTC | 2024-12-02T12:21:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2024-12-02 12:21:06 +0000 UTC | 2024-12-02T12:21:06Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.88.1/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2024-12-02 12:21:06 +0000 UTC | 2024-12-02T12:21:06Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.88.1[here]__
+
