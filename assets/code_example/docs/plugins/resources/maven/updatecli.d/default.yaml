@@ -14,8 +14,9 @@ sources:
   default:
     kind: maven
     spec:
-      url: "repo.jenkins-ci.org"
-      repository: "releases"
+      # optionally provide credentials as user:pass@hostname
+      # using requiredEnv custom function
+      repository: "repo.jenkins-ci.org/releases"
       groupid: "org.jenkins-ci.main"
       artifactid: "jenkins-war"
     transformers:
