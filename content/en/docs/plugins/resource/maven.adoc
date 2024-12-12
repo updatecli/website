@@ -39,7 +39,7 @@ The maven "condition" tests if a version exist on a maven repository.
 
 {{< resourceparameters "sources" "maven" >}}
 
-NOTE: Url can contain Basic Auth credentials following the standard notation: `username:password@url`
+NOTE: `repository` can contain Basic Auth credentials following the standard notation: `username:password@hostname`
 
 == Example
 
