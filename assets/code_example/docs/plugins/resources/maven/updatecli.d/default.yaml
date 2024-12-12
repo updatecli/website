@@ -14,7 +14,7 @@ sources:
   default:
     kind: maven
     spec:
-      # optionally provide credentials as user:pass@hostname,
+      # optionally provide credentials as user:pass@hostname
       # using requiredEnv custom function
       repository: "repo.jenkins-ci.org/releases"
       groupid: "org.jenkins-ci.main"
