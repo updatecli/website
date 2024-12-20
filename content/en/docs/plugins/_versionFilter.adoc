@@ -41,11 +41,11 @@ sources:
       username: "john"
       versionFilter:
         kind: regex
-        pattern: "kubernetes-1.(\d*).(\d*)$"
+        pattern: "kubernetes-1.(\\d*).(\\d*)$"
     transformers:
       - trimPrefix: "kubernetes-"
 ```
-=> Return the newest kubectl version matching pattern "kubernetes-1.(\d*).(\d*)$" and remove "kubernetes-" from it
+=> Return the newest kubectl version matching pattern "kubernetes-1.(\\d*).(\\d*)$" and remove "kubernetes-" from it
 
 ==== semver
 
