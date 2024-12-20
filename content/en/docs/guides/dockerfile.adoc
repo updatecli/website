@@ -24,7 +24,7 @@ toc: true
 
 This guide analyzes how the Jenkins project automates its Dockerfile file updates.
 
-It's one thing to publish a Docker image, but it's another one to maintain it over time, like the Jenkins project does.
+It's one thing to publish a Docker image, but it's another one to maintain it over time.
 
 To scope this guide, we focus on monitoring Java version, and more precisely Java 17.
 
@@ -64,31 +64,9 @@ The pipeline we are analyzing could be schematized as follows:
 
 image::/images/diagrams/guide-dockerfile.svg[]
 
-// https://gohugo.io/content-management/diagrams/#mermaid-diagrams
-//```mermaid
-//graph TD
-//    condition#checkTemurinAllReleases{"Check if the #quot;lastVersion#quot; is available for all platforms (temurin)"}
-//    condition#checkTemurinAllReleases --> target#setJDK17VersionAlpine
-//    target#setJDK17VersionAlpine("Bump JDK17 version for Linux images in the Alpine Linux Dockerfile (dockerfile)")
-//    condition#checkTemurinAllReleases --> target#setJDK17VersionDebian
-//    target#setJDK17VersionDebian("Bump JDK17 version for Linux images in the Debian Dockerfiles (dockerfile)")
-//    condition#checkTemurinAllReleases --> target#setJDK17VersionRhel
-//    target#setJDK17VersionRhel("Bump JDK17 version for Linux images in the Rhel Dockerfile (dockerfile)")
-//    condition#checkTemurinAllReleases --> target#setJDK17VersionWindowsDockerImage
-//    target#setJDK17VersionWindowsDockerImage("Bump default JDK17 version for Linux images in the Windows Dockerfile (dockerfile)")
-//    condition#checkTemurinAllReleases --> target#setJDK17VersionDockerBake
-//    target#setJDK17VersionDockerBake("Bump JDK17 version for Linux images in the docker-bake.hcl file (hcl)")
-//    condition#checkTemurinAllReleases --> target#setJDK17VersionWindowsDockerCompose
-//    target#setJDK17VersionWindowsDockerCompose("Bump JDK17 version in build-windows.yaml (yaml)")
-//    source#lastVersion(["Get the latest Adoptium JDK17 version (temurin)"])
-//    source#lastVersion --> target#setJDK17VersionDebian
-//    source#lastVersion --> condition#checkTemurinAllReleases
-//    source#lastVersion --> target#setJDK17VersionRhel
-//    source#lastVersion --> target#setJDK17VersionWindowsDockerImage
-//    source#lastVersion --> target#setJDK17VersionDockerBake
-//    source#lastVersion --> target#setJDK17VersionWindowsDockerCompose
-//    source#lastVersion --> target#setJDK17VersionAlpine
-//```
+The schema was generated using the following command:
+
+* `updatecli manifest show --config updatecli.d/manifest.yaml --values updatecli/values.yaml --experimental --graph --graph-flavor=mermaid`
 
 ==== Manifest
 
@@ -137,9 +115,9 @@ This manifest named `Bump JDK17 version` can be split into five sections:
 ====
 [source,yaml]
 ----
-scms:
-  default:
-    kind: github
+
+  It’s one thing to publish a Docker image, but it’s another one to maintain it over time, like the Jenkins project does.
+  
     spec:
       user: "{{ .github.user }}"
       email: "{{ .github.email }}"
