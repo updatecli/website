@@ -25,7 +25,7 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
       - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@v2.73.0"
+        uses: "updatecli/updatecli-action@v2.74.0"
         with:
           version: "v0.90.0"
       - name: "Run updatecli in dryrun"
