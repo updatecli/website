@@ -44,6 +44,11 @@ The gittag resource is a resource designed to be used with the scmID
 
 {{< resourceparameters "sources" "gittag" >}}
 
+
+=== Version Filter
+
+include::content/en/docs/plugins/_versionFilter.adoc[]
+
 == Example
 
 [source,yaml]
@@ -52,4 +57,3 @@ The gittag resource is a resource designed to be used with the scmID
 {{<include "assets/code_example/docs/plugins/resources/gittag/updatecli.yaml">}}
 ----
 
-include::content/en/docs/plugins/_versionFilter.adoc[]
