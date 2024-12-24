@@ -111,6 +111,7 @@ Source:
   {{ $len := (len $list) -}}
 
   {{ range $index, $element := $list -}}
+    {{ if not (eq .Title "") -}}
     index.add(
       {
         id: {{ $index }},
@@ -124,6 +125,7 @@ Source:
         content: {{ .Plain | jsonify }}
       }
     );
+    {{ end -}}
   {{ end -}}
 
   search.addEventListener('input', show_results, true);

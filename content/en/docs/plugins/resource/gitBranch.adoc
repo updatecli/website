@@ -43,6 +43,10 @@ The git branch resource is a resource designed to be used with the scmID
 
 {{< resourceparameters "sources" "gitbranch" >}}
 
+=== Version Filter
+
+include::content/en/docs/plugins/_versionFilter.adoc[]
+
 == Example
 
 [source,yaml]
@@ -50,5 +54,3 @@ The git branch resource is a resource designed to be used with the scmID
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/gitbranch/updatecli.yaml">}}
 ----
-
-include::content/en/docs/plugins/_versionFilter.adoc[]

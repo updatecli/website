@@ -1,0 +1,11 @@
+---
+title: "Version Filter"
+description: "Allows to specify the kind of version retrieved from a resource and its version pattern"
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+
+include::content/en/docs/plugins/_versionFilter.adoc[]
