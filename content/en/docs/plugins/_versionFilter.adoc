@@ -96,3 +96,97 @@ sources:
         regex: "@yarnpkg/cli/(\\d*\\.\\d*\\.\\d*)"
 ```
 => Return the version "4.5.3"
+
+==== regex/time
+
+If `versionFilter.kind` is set to `regex/time` then we can use `versionFilter.regex` to specify a regular expression to extract dates.
+The regular expression should return the date in the first capturing group.
+We can then use `versionFilter.pattern` to specify date pattern as explained link:https://golang.org/pkg/time/#Time.Format[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '2006-01-02' which return the newest version using date format YYYY-MM-DD.
+If a extracted date doesn't match the date pattern, then it's not the value is just ignored.
+
+To define your own format/pattern, write down what the reference time would look like formatted your way; The model is to demonstrate what the reference time looks like so that the Format and Parse methods can apply the same transformation to a general time value.
+
+Here is a summary of the components of a layout string. Each element shows by example the formatting of an element of the reference time. Only these values are recognized. Text in the layout string that is not recognized as part of the reference time is echoed verbatim during Format and expected to appear verbatim in the input to Parse. 
+
+```
+Year: "2006" "06"
+Month: "Jan" "January" "01" "1"
+Day of the week: "Mon" "Monday"
+Day of the month: "2" "_2" "02"
+Day of the year: "__2" "002"
+Hour: "15" "3" "03" (PM or AM)
+Minute: "4" "04"
+Second: "5" "05"
+AM/PM mark: "PM"
+```
+
+You can get inspiration from the following examples
+
+|===
+| Pattern | Example
+| 2006-01-02 | 2021-01-02 (YYYY-MM-DD)
+| 20060102 | 20210102 (YYYYMMDD)
+| 20060201 | 20260201 (YYYYDDMM)
+|===
+
+===== Example
+
+```yaml
+sources:
+  ubuntu-focal:
+    name: Get latest ubuntu focal docker image tag using regex/time versionfilter
+    kind: dockerimage
+    spec:
+      image: ubuntu
+      versionfilter:
+        kind: 'regex/time'
+        regex: '^focal-(\d*)$'
+        pattern: "20060102"
+```
+
+==== time
+
+If `versionFilter.kind` is set to `time` then we can use `versionFilter.pattern` to specify date pattern as explained link:https://golang.org/pkg/time/#Time.Format[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '2006-01-02' which return the newest version using date format YYYY-MM-DD.
+Please note date time not matching the pattern will be ignored.
+
+To define your own format/pattern, write down what the reference time would look like formatted your way; The model is to demonstrate what the reference time looks like so that the Format and Parse methods can apply the same transformation to a general time value.
+
+Here is a summary of the components of a layout string. Each element shows by example the formatting of an element of the reference time. Only these values are recognized. Text in the layout string that is not recognized as part of the reference time is echoed verbatim during Format and expected to appear verbatim in the input to Parse. 
+
+```
+Year: "2006" "06"
+Month: "Jan" "January" "01" "1"
+Day of the week: "Mon" "Monday"
+Day of the month: "2" "_2" "02"
+Day of the year: "__2" "002"
+Hour: "15" "3" "03" (PM or AM)
+Minute: "4" "04"
+Second: "5" "05"
+AM/PM mark: "PM"
+```
+
+You can get inspiration from the following examples
+
+|===
+| Pattern | Example
+| 2006-01-02 | 2021-01-02 (YYYY-MM-DD)
+| 20060102 | 20210102 (YYYYMMDD)
+| 20060201 | 20260201 (YYYYDDMM)
+|===
+
+
+===== Example
+
+```yaml
+sources:
+  ubuntu:
+    name: Get latest ubuntu docker image tag using time versionfilter
+    kind: dockerimage
+    spec:
+      image: ubuntu
+      versionfilter:
+        kind: 'time'
+        pattern: "06.01"
+```
