@@ -23,6 +23,34 @@ sources:
 ```
 Return the latest Github release and remove "kubernetes-" from it.
 
+==== Lex
+
+If the kind is set to `lex` then Updatecli returns the latest version sorted lexicographically.
+
+Sorting versions lexicographically means arranging them based on their lexicographic order, which is essentially alphabetical order as used in dictionaries, but applied to version strings.
+
+For example, in lexicographic order:
+
+    "1.10" comes before "1.2", because it compares character by character:
+        Compare "1" vs. "1" → equal.
+        Compare "." vs "." → equal.
+        Compare "1" vs. "2" → "1" is smaller, so "1.10" < "1.2".
+
+This ordering does not account for numerical values of version components. For meaningful version comparisons, semantic versioning is typically preferred, where "1.2" < "1.10" because "2" is numerically smaller than "10".
+
+===== Example
+
+```yaml
+sources:
+  ubuntu-focal:
+    name: Get latest ubuntu focal docker image tag using regex/time versionfilter
+    kind: dockerimage
+    spec:
+      image: ubuntu
+      versionfilter:
+        kind: lex
+```
+
 ==== regex
 
 If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern` to specify a regular expression to
