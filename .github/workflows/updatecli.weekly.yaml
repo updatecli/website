@@ -16,7 +16,7 @@ jobs:
       - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.75.0"
         with:
-          version: "v0.91.0"
+          version: "v0.92.0"
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
