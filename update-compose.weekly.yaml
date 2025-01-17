@@ -1,5 +1,5 @@
 policies:
   - name: Trigger releasepost
-    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.6.0@sha256:5f917ff357803ca0cd5dabfbe6536ec809f089f1116f9ad0ab3ff14e1b2eeb09
+    policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.7.0@sha256:31568670890092f05765684364e517476134280a6785237efd513527b06cd513
     values:
       - updatecli/values.d/scm.yaml
