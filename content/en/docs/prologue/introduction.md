@@ -15,10 +15,11 @@ toc: true
 
 Updatecli is a command-line tool used to define and apply update strategies.
 It reads a manifest then works into three stages:
-
 1. **Source**, which describes where a piece of information, to be used, is retrieved from.
 2. **Target**, which describes what to update using information defined by the _source_.
 3. **Condition**, which defines a condition, required to be satisfied, to update the target.
+
+*Manifest* - A manifest is a configuration file that provides metadata about other files or the configuration of a system. In the context of Updatecli, a manifest specifies the rules and parameters for automating updates to dependencies, versions, and other configuration files within a repository.
 
 ## Why?
 
