@@ -1,5 +1,3 @@
-=== VersionFilter
-
 `versionFilter` allows to specify the kind of version retrieved from a resource and its version pattern.
 Default value is "latest" as we want to retrieve the newest version from a resource.
 
@@ -7,7 +5,8 @@ Default value is "latest" as we want to retrieve the newest version from a resou
 
 If kind is set to `latest` then no need to specify the patter as we gonna retrieve the newest version from the resource.
 
-.Example
+===== Example
+
 ```
 sources:
   kubectl:
@@ -23,6 +22,34 @@ sources:
       - trimPrefix: "kubernetes-"
 ```
 Return the latest Github release and remove "kubernetes-" from it.
+
+==== Lex
+
+If the kind is set to `lex` then Updatecli returns the latest version sorted lexicographically.
+
+Sorting versions lexicographically means arranging them based on their lexicographic order, which is essentially alphabetical order as used in dictionaries, but applied to version strings.
+
+For example, in lexicographic order:
+
+    "1.10" comes before "1.2", because it compares character by character:
+        Compare "1" vs. "1" → equal.
+        Compare "." vs "." → equal.
+        Compare "1" vs. "2" → "1" is smaller, so "1.10" < "1.2".
+
+This ordering does not account for numerical values of version components. For meaningful version comparisons, semantic versioning is typically preferred, where "1.2" < "1.10" because "2" is numerically smaller than "10".
+
+===== Example
+
+```yaml
+sources:
+  ubuntu-focal:
+    name: Get latest ubuntu focal docker image tag using regex/time versionfilter
+    kind: dockerimage
+    spec:
+      image: ubuntu
+      versionfilter:
+        kind: lex
+```
 
 ==== regex
 
@@ -57,7 +84,8 @@ If a version doesn't respect semantic versioning, then it's not the value is jus
 
 In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can added it back using `transformers`.
 
-.example
+===== Example
+
 ```
   jenkins-wiki-exporter:
     kind: githubRelease
@@ -71,3 +99,122 @@ In the process we drop any characters not respecting semantic version like in th
         pattern: "~1.10"
 ```
 => Return the version "v1.10.3"
+
+==== regex/semver
+
+If `versionFilter.kind` is set to `regex/semver` then we can use `versionFilter.regex` to specify a regular expression to extract version numbers.
+The regular expression should return the semantic version in the first capturing group.
+We can then use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
+If a extracted version doesn't respect semantic versioning, then it's not the value is just ignored.
+
+===== Example
+
+```
+sources:
+  default:
+    name: Get latest version
+    kind: githubrelease
+    spec:
+      owner: yarnpkg
+      repository: berry
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      versionfilter:
+        kind: regex/semver
+        regex: "@yarnpkg/cli/(\\d*\\.\\d*\\.\\d*)"
+```
+=> Return the version "4.5.3"
+
+==== regex/time
+
+If `versionFilter.kind` is set to `regex/time` then we can use `versionFilter.regex` to specify a regular expression to extract dates.
+The regular expression should return the date in the first capturing group.
+We can then use `versionFilter.pattern` to specify date pattern as explained link:https://golang.org/pkg/time/#Time.Format[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '2006-01-02' which return the newest version using date format YYYY-MM-DD.
+If a extracted date doesn't match the date pattern, then it's not the value is just ignored.
+
+To define your own format/pattern, write down what the reference time would look like formatted your way; The model is to demonstrate what the reference time looks like so that the Format and Parse methods can apply the same transformation to a general time value.
+
+Here is a summary of the components of a layout string. Each element shows by example the formatting of an element of the reference time. Only these values are recognized. Text in the layout string that is not recognized as part of the reference time is echoed verbatim during Format and expected to appear verbatim in the input to Parse. 
+
+```
+Year: "2006" "06"
+Month: "Jan" "January" "01" "1"
+Day of the week: "Mon" "Monday"
+Day of the month: "2" "_2" "02"
+Day of the year: "__2" "002"
+Hour: "15" "3" "03" (PM or AM)
+Minute: "4" "04"
+Second: "5" "05"
+AM/PM mark: "PM"
+```
+
+You can get inspiration from the following examples
+
+|===
+| Pattern | Example
+| 2006-01-02 | 2021-01-02 (YYYY-MM-DD)
+| 20060102 | 20210102 (YYYYMMDD)
+| 20060201 | 20260201 (YYYYDDMM)
+|===
+
+===== Example
+
+```yaml
+sources:
+  ubuntu-focal:
+    name: Get latest ubuntu focal docker image tag using regex/time versionfilter
+    kind: dockerimage
+    spec:
+      image: ubuntu
+      versionfilter:
+        kind: 'regex/time'
+        regex: '^focal-(\d*)$'
+        pattern: "20060102"
+```
+
+==== time
+
+If `versionFilter.kind` is set to `time` then we can use `versionFilter.pattern` to specify date pattern as explained link:https://golang.org/pkg/time/#Time.Format[here]. In the process we also sort.
+If no `versionFilter.pattern` is provided then it fallback to '2006-01-02' which return the newest version using date format YYYY-MM-DD.
+Please note date time not matching the pattern will be ignored.
+
+To define your own format/pattern, write down what the reference time would look like formatted your way; The model is to demonstrate what the reference time looks like so that the Format and Parse methods can apply the same transformation to a general time value.
+
+Here is a summary of the components of a layout string. Each element shows by example the formatting of an element of the reference time. Only these values are recognized. Text in the layout string that is not recognized as part of the reference time is echoed verbatim during Format and expected to appear verbatim in the input to Parse. 
+
+```
+Year: "2006" "06"
+Month: "Jan" "January" "01" "1"
+Day of the week: "Mon" "Monday"
+Day of the month: "2" "_2" "02"
+Day of the year: "__2" "002"
+Hour: "15" "3" "03" (PM or AM)
+Minute: "4" "04"
+Second: "5" "05"
+AM/PM mark: "PM"
+```
+
+You can get inspiration from the following examples
+
+|===
+| Pattern | Example
+| 2006-01-02 | 2021-01-02 (YYYY-MM-DD)
+| 20060102 | 20210102 (YYYYMMDD)
+| 20060201 | 20260201 (YYYYDDMM)
+|===
+
+
+===== Example
+
+```yaml
+sources:
+  ubuntu:
+    name: Get latest ubuntu docker image tag using time versionfilter
+    kind: dockerimage
+    spec:
+      image: ubuntu
+      versionfilter:
+        kind: 'time'
+        pattern: "06.01"
+```

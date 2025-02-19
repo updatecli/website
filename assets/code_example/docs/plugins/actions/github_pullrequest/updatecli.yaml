@@ -15,7 +15,7 @@ scms:
 # Define action configurations if one needs to be created
 actions:
   helm-charts:
-    kind: "github"
+    kind: "github/pullrequest"
     scmid: "website"
     spec:
       automerge: true
