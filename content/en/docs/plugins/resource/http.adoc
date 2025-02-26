@@ -53,7 +53,7 @@ The HTML "target" updates a HTTP response.
 
 == Important
 
-Most of the Updatecli plugins that manipulate files can usually specify the http scheme in the file path to retrieve the file from a remote location to be used in a source or a condition. But the HTTP plugin is designed to provide more flexibility when working with HTTP requests via additionnal settings like custom headers, or custom http verbs. Also worth mentioning the http  plugin also works for targets.
+Most of the Updatecli plugins that manipulate files can usually specify the http scheme in the file path to retrieve the file from a remote location to be used in a source or a condition. But the HTTP plugin is designed to provide more flexibility when working with HTTP requests via additional settings like custom headers, or custom http verbs. Also worth mentioning the http  plugin also works for targets.
 
 [source,yaml]
 ----
