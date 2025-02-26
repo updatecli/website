@@ -1,0 +1,62 @@
+---
+title: "HTTP"
+description: "Run HTML request"
+lead: "kind: http"
+date: 2024-02-26T09:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The HTML "source" retrieves an information from a HTTP request.
+
+**condition**
+
+The HTML "condition" tests that an information exist in a HTTP response.
+
+**target**
+
+The HTML "target" updates a HTTP response.
+
+== Parameters
+
+{{< resourceparameters "sources" "http" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/http/updatecli.d/default.yaml">}}
+----
+
+== Important
+
+Most of the Updatecli plugins that manipulate files can usually specify the http scheme in the file path to retrieve the file from a remote location to be used in a source or a condition. But the HTTP plugin is designed to provide more flexibility when working with HTTP requests via additional settings like custom headers, or custom http verbs. Also worth mentioning the http  plugin also works for targets.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/http/updatecli.d/json.yaml">}}
+----
