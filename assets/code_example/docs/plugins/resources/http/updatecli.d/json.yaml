@@ -1,0 +1,38 @@
+name: Basic Json Example
+
+sources:
+  http:
+    name: Get value from json
+    kind: json
+    spec:
+      file: https://www.updatecli.io/schema/latest/config.json
+      key: $id 
+  semverVersion:
+    kind: json
+    name: Get latest version
+    spec:
+      file: https://www.updatecli.io/changelogs/updatecli/_index.json
+      query: ".Changelogs.[*].Tag"
+      versionfilter:
+        kind: semver
+        pattern: "v0.92.0"
+
+conditions:
+  http:
+    name: Test value from json
+    kind: json
+    disablesourceinput: true
+    spec:
+      file: https://www.updatecli.io/schema/latest/config.json
+      key: $schema
+      value: http://json-schema.org/draft-04/schema
+ 
+  http-query:
+    kind: json
+    name: Get latest version
+    disablesourceinput: true
+    spec:
+      file: https://www.updatecli.io/changelogs/updatecli/_index.json
+      key: ".Changelogs.(Tag=v0.92.0).PublishedAt"
+      value: "2025-01-12 08:14:30 +0000 UTC"
+
