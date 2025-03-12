@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2025-03-12T12:46:14Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2025-03-12T12:46:14Z",
+        "Size": 3236
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:14Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2025-03-12T12:46:14Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:14Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2025-03-12T12:46:14Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:14Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:14Z",
+        "Size": 475202
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:14Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:14Z",
+        "Size": 469693
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:13Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:13Z",
+        "Size": 474898
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:13Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:13Z",
+        "Size": 474290
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:13Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:13Z",
+        "Size": 469995
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:13Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:13Z",
+        "Size": 469391
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:13Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:13Z",
+        "Size": 469693
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:12Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2025-03-12T12:46:13Z",
+        "Size": 468787
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:12Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2025-03-12T12:46:14Z",
+        "Size": 31010488
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:10Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2025-03-12T12:46:12Z",
+        "Size": 33017278
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:10Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2025-03-12T12:46:12Z",
+        "Size": 30149702
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:10Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2025-03-12T12:46:12Z",
+        "Size": 34449328
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:10Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2025-03-12T12:46:12Z",
+        "Size": 31327996
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:08Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2025-03-12T12:46:10Z",
+        "Size": 32265281
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:08Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2025-03-12T12:46:10Z",
+        "Size": 31317272
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:08Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2025-03-12T12:46:10Z",
+        "Size": 34470365
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:08Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2025-03-12T12:46:10Z",
+        "Size": 32229101
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:06Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2025-03-12T12:46:08Z",
+        "Size": 31449543
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:06Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2025-03-12T12:46:07Z",
+        "Size": 32877383
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:06Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2025-03-12T12:46:08Z",
+        "Size": 33737280
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:06Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2025-03-12T12:46:08Z",
+        "Size": 30214758
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:03Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2025-03-12T12:46:06Z",
+        "Size": 31570835
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:03Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2025-03-12T12:46:05Z",
+        "Size": 33610335
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:03Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2025-03-12T12:46:05Z",
+        "Size": 30028108
+      },
+      {
+        "CreatedAt": "2025-03-12T12:46:03Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.95.1/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2025-03-12T12:46:05Z",
+        "Size": 30907951
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\nThis release doesn't contain any user facing changes.\r\nIts only purpose is to validate the release process is working again by publishing new versions to HomeBrew\r\n[cfr #4367 ](https://github.com/updatecli/updatecli/pull/4367)\r\n\r\n## 🧰 Maintenance\r\n\r\n- deps: bump golangci-lint to v1.64.7 @[updateclibot[bot]](https://github.com/apps/updateclibot) (#4383)\r\n\r\n## Contributors\r\n\r\n@olblak, @updateclibot[bot] and [updateclibot[bot]](https://github.com/apps/updateclibot)\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003cp\u003eThis release doesn't contain any user facing changes.\u003cbr\u003e\nIts only purpose is to validate the release process is working again by publishing new versions to HomeBrew\u003cbr\u003e\n\u003ca href=\"https://github.com/updatecli/updatecli/pull/4367\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/4367/hovercard\"\u003ecfr #4367 \u003c/a\u003e\u003c/p\u003e\n\u003ch2\u003e🧰 Maintenance\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003edeps: bump golangci-lint to v1.64.7 @\u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"2913480401\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/4383\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/4383/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/4383\"\u003e#4383\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, @updateclibot[bot] and \u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.95.1",
+    "PublishedAt": "2025-03-12 12:25:53 +0000 UTC",
+    "UpdatedAt": "2025-03-12 12:46:14 +0000 UTC",
+    "Tag": "v0.95.1",
+    "Name": "v0.95.1"
+  },
+  "FrontMatters": "---\ntitle: \"v0.95.1\"\ndate: 2025-03-12 12:25:53 +0000 UTC\n---\n"
+}
