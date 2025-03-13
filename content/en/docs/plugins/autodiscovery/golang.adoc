@@ -1,7 +1,7 @@
 ---
-title: "Golang go.mod"
+title: "Golang "
 description: "Discover Golang go.mod update"
-lead: "kind: golang/gomod"
+lead: "kind: golang"
 draft: false
 images: []
 menu:
@@ -15,7 +15,7 @@ plugins:
 
 == Description
 
-The `golang/gomod` Autodiscovery plugin allows to automatically search and update go.mod files.
+The `golang` autodiscovery plugin allows to automatically search and update go.mod files.
 It handles golang version update and golang module version update.
 
 === Manifests

@@ -26,7 +26,7 @@ autodiscovery:
   actionid:  default
   groupby: all 
   crawlers:
-    golang/gomod:
+    golang:
       versionfilter:
         kind: semver
         pattern: patch

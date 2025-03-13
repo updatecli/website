@@ -21,7 +21,7 @@ autodiscovery:
   scmid: default
   actionid:  default
   crawlers:
-    golang/gomod:
+    golang:
       versionfilter:
         kind: semver
         pattern: minor
