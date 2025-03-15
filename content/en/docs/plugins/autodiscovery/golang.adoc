@@ -1,7 +1,7 @@
 ---
-title: "Golang go.mod"
+title: "Golang"
 description: "Discover Golang go.mod update"
-lead: "kind: golang/gomod"
+lead: "kind: golang"
 draft: false
 images: []
 menu:
@@ -15,20 +15,20 @@ plugins:
 
 == Description
 
-The `golang/gomod` Autodiscovery plugin allows to automatically search and update go.mod files.
+The `golang` autodiscovery plugin allows to automatically search and update go.mod files.
 It handles golang version update and golang module version update.
 
 === Manifests
 ==== Parameters
 
-{{< autodiscoveryparameters "golang/gomod" >}}
+{{< autodiscoveryparameters "golang" >}}
 
 ==== Example
 
 ===== Golang update only
 
 In the following example, we want to automate minor version update of Golang, such as from "1.19" to "1.20"
-If Updatecli detects a change, then it opens a new pullrequest with the propose version update.
+If Updatecli detects a change, then it opens a new pull request with the propose version update.
 
 [source,yaml]
 ----
@@ -39,7 +39,7 @@ If Updatecli detects a change, then it opens a new pullrequest with the propose 
 ===== Semantic version patch update only
 
 In this example, Updatecli is looking for all version that can have a patch version update.
-If at least one version needs to be updated, then it opens a single pullrequest with all the version bump.
+If at least one version needs to be updated, then it opens a single pull request with all the version bump.
 
 [source,yaml]
 ----
