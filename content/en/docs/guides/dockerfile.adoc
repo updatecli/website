@@ -1,0 +1,349 @@
+---
+title: "Guide: dockerfile"
+description: "Maintain Dockerfile project update"
+lead: "Maintain Dockerfile project update"
+date: 2024-09-20T22:10:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "guide"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Dockerfile
+
+// https://github.com/jenkinsci/docker/blob/master/updatecli/updatecli.d/jdk17.yaml
+
+=== Goal
+
+This guide analyzes how the Jenkins project automates its Dockerfile file updates.
+
+It's one thing to publish a Docker image, but it's another one to maintain it over time.
+
+To scope this guide, we focus on monitoring Java version, and more precisely Java 17.
+
+This guide is heavily inspired by this Jenkins Dockerfile: **link:https://github.com/jenkinsci/docker/blob/master/updatecli/updatecli.d/jdk17.yaml[github.com/jenkinssci/docker]**
+
+The ultimate goal is to automatically open a pull request such as link:https://github.com/jenkinsci/docker/pull/1944[PR#1944] containing all Java 17 updates.
+
+=== Requirement
+
+This guide requires:
+
+. updatecli
+. IDE
+. GitHub Personal Access Token
+
+==== updatecli
+
+{{< updatecli_description >}}
+
+==== IDE
+
+{{< ide_jsonschema >}}
+
+==== GitHub PAT
+
+The GitHub Personal Access Token is the token used to interact with the GitHub API. 
+
+In this guide, we use it to clone the repository, create a branch, and open a pull request.
+
+More information on **link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token[docs.github.com]**
+
+=== Pipeline
+
+==== Description
+
+The pipeline we are analyzing could be schematized as follows:
+
+image::/images/diagrams/guide-dockerfile.svg[]
+
+The schema was generated using the following command:
+
+* `updatecli manifest show --config updatecli.d/manifest.yaml --values updatecli/values.yaml --experimental --graph --graph-flavor=mermaid`
+
+==== Manifest
+
+The Updatecli manifest used to generate this pipeline is:
+
+.updatecli.d/manifest.yaml
+[%collapsible]
+====
+
+[source,yaml]
+----
+{{< include "assets/code_example/docs/guides/dockerfile/updatecli.d/updatecli.yaml" >}}
+----
+
+====
+
+.values.yaml
+[%collapsible]
+====
+[source,yaml]
+----
+{{< include "assets/code_example/docs/guides/dockerfile/values.yaml" >}}
+----
+====
+
+Then you can run:
+
+```
+export UPDATECLI_GITHUB_TOKEN=<your_PAT>
+export UPDATECLI_GITHUB_ACTOR=<your GH username>
+updatecli diff --config updatecli.d/manifest.yaml --values values.yaml`
+```
+
+This manifest named `Bump JDK17 version` can be split into five sections:
+
+. scms
+. sources
+. conditions
+. targets
+. actions
+
+===== SCMS
+
+.updatecli.d/manifest.yaml
+[%collapsible]
+====
+[source,yaml]
+----
+
+  It’s one thing to publish a Docker image, but it’s another one to maintain it over time, like the Jenkins project does.
+  
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+----
+====
+
+The `scm` section defines the git repositories to interact with, either to retrieve information or to update them.
+
+The `scm` section accepts different kind of configuration such as `git`, `gitea`, `gitlab`, etc.
+
+In the current scenario, we need to update files on a GitHub repository so we use the scm of kind `github`.
+We could also have used the kind `git`, but as you'll discover later in this guide, we need to leverage specific GitHub behavior such as GitHub pull request.
+
+
+Worth to mention, most of the time we keep the scm settings parametrized so we can easily override all pipelines values. For example, to test the workflow toward a different Git repository.
+
+For that we use a file named `values.yaml` with different settings.
+
+.updatecli/values.yaml
+[%collapsible]
+====
+[source,yaml]
+----
+#updatecli.d/manifest.yaml
+{{< include "assets/code_example/docs/guides/dockerfile/values.yaml" >}}
+----
+====
+
+You could easily replace in the file `values.yaml` the `owner` and `repository` values to point to your fork.
+
+Then you can run:
+
+* Dry run mode: `updatecli diff --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml`
+* Apply mode: `updatecli apply --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml`
+
+
+===== Sources
+
+.updatecli/manifest.yaml
+[%collapsible]
+====
+[source,yaml]
+----
+sources:
+  lastVersion:
+    kind: temurin
+    name: Get the latest Adoptium JDK17 version
+    spec:
+      featureversion: 17
+    transformers:
+      - trimprefix: "jdk-"
+----
+====
+
+The `sources` section defines how to retrieve `source` information. There are many different kind of `source` like `dockerimage`, `dockerdigest`, etc, where each plugin relies on different parameters specified within  the `spec` section.
+In this case we decide to use a source of kind `temurin` which allow use to retrieve specific Temurin version.
+
+The first step here is to identify the "latest" version for Java 1.17.
+
+Then to get the information we are looking for, we have to "transform" the retrieved version, using a set of `transformers` rules, in this example we don't need the prefix "jdk-" as all we need is the version number.
+
+
+===== Conditions
+
+[%collapsible]
+====
+[source,yaml]
+----
+conditions:
+  checkTemurinAllReleases:
+    name: Check if the "<lastVersion>" is available for all platforms
+    kind: temurin
+    sourceid: lastVersion
+    spec:
+      platforms:
+        - alpine-linux/x64
+        - linux/x64
+        - linux/aarch64
+        - linux/ppc64le
+        - linux/s390x
+        - windows/x64
+----
+====
+
+Quite often, before updating a file, we want to run early checks to ensure that the updates are relevant.  
+Dockerfile is no exception. We want to be sure that we'll still be able to build our Docker image after the updates, otherwise it makes no sense to update our Dockerfile...
+
+Once again, there are many things we would like to test, in this case we want to be sure that the Temurin version is available for all the architecture we need to build a Docker image for.
+
+
+This example relies on the parameter `sourceid` to define what source output will be used to fetch the default Temurin version we need to check. 
+
+===== Targets
+
+The `targets` section defines the files to monitor for update.
+
+We can have as many target as we want. Our manifest contains five targets, but only three of them are shown here
+
+Each target with the same scmid will create one Git commit, and then targeting the same pull request as defined later by our action.
+
+====== Dockerfile
+
+[%collapsible]
+====
+[source,yaml]
+----
+targets:
+  setJDK17VersionWindowsDockerImage:
+    name: "Bump default JDK17 version for Linux images in the Windows Dockerfile"
+    kind: dockerfile
+    transformers:
+      - replacer:
+          from: "+"
+          to: "_"
+    spec:
+      file: windows/windowsservercore/hotspot/Dockerfile
+      instruction:
+        keyword: ARG
+        matcher: JAVA_VERSION
+    scmid: default
+----
+====
+
+The first target is to update the Dockerfile ARG JAVA_VERSION for the Windows Server Core image.
+Since we only defined one source in the manifest, Updatecli uses that source output as the default entry for this target.
+
+The only subtlety here is that our source output contains "+" in the version number, and we need to replace it by "_", so we use a transformer of kind `replacer` to do so.
+Please note that a transformer defined in a target is only applied to this target, while a transformer defined in a source is applied to all targets using this source.
+
+The scmid is set to `default` so we know that this target will monitor the file "windows/windowsservercore/hotspot/Dockerfile" in the GitHub repository defined by the scm configuration.
+
+
+====== YAML
+
+[%collapsible]
+====
+[source,yaml]
+----
+targets:
+  setJDK17VersionWindowsDockerCompose:
+    name: "Bump JDK17 version in build-windows.yaml"
+    kind: yaml
+    transformers:
+      - replacer:
+          from: "+"
+          to: "_"
+    spec:
+      files:
+        - build-windows.yaml
+      key: $.services.jdk17.build.args.JAVA_VERSION
+    scmid: default
+----
+====
+
+The second target is to update the JDK17 version in the `build-windows.yaml` file. Instead of using the plugin `dockerfile`, we use the plugin `yaml` to update the version number in the `build-windows.yaml` file.
+Once again, we need to replace the "+" character by "_" in the version number.
+
+====== HCL
+
+[%collapsible]
+====
+[source,yaml]
+----
+targets:
+  ## Global config files
+  setJDK17VersionDockerBake:
+    name: "Bump JDK17 version for Linux images in the docker-bake.hcl file"
+    kind: hcl
+    transformers:
+      - replacer:
+          from: "+"
+          to: "_"
+    spec:
+      file: docker-bake.hcl
+      path: variable.JAVA17_VERSION.default
+    scmid: default
+----
+====
+
+The third target is to update the JDK17 version in the `docker-bake.hcl` file used by Packer. Instead of using the plugin `dockerfile`, we use the plugin `hcl` to update the version number in the `docker-bake.hcl` file.
+
+===== Actions
+
+[%collapsible]
+====
+[source,yaml]
+----
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: Bump JDK17 version to {{ source "lastVersion" }}
+    spec:
+      labels:
+        - dependencies
+        - jdk17
+----
+====
+
+An action is executed when at least one target is modified.
+Once again there are many different kind of actions but in this case we are leveraging the action of kind `github/pullrequest` that must be bound to a scm using the parameter `scmid`.
+So we are telling Updatecli to open a pullrequest on the GitHub repository  https://https://github.com/jenkinsci/docker and to assign labels `dependencies` and `jdk17`
+
+
+It worth mentioning that by default, the GitHub scm will do all its operation from a temporary  Git branch named `updatecli_main_xxx` so the pullrequest will be opened from this branch.
+
+=== Going further
+
+Once you're happy with the Update pipeline, you can use your CI environment to run it regularly.
+That's what we do on the Jenkins project where we run this pipeline every Monday link:https://github.com/jenkinsci/docker/blob/master/.github/workflows/updatecli.yaml[github.com/jenkinsci/docker]
+
+You'll need updatecli installed in your CI environment, and the right credentials.
+More information:
+
+* link:https://www.updatecli.io/docs/automate/jenkins/[in the corresponding Jenkins documentation]
+* link:https://www.updatecli.io/docs/automate/github_action/[in the corresponding GitHub Action documentation]
+
+This guide demonstrated a more advanced update pipeline. You can find similar Updatecli pipelines on the Jenkins project 
+link:https://github.com/jenkinsci/docker/tree/master/updatecli/updatecli.d[github.com/jenkinsci/docker]
+
+We are curious about your advanced pipelines, so feel free to share them with us.
+
+Feel free to chat with us on the Updatecli link:https://matrix.to/#/#Updatecli_community:gitter.im[Matrix] channel.
+
