@@ -7906,8 +7906,7 @@
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
                                     "command": {
-                                        "type": "string",
-                                        "description": "command specifies the shell command to execute by Updatecli"
+                                        "type": "string"
                                     },
                                     "environments": {
                                         "items": {
@@ -7929,7 +7928,7 @@
                                             "description": "Environment is a struct containing information for an environment variable such as its name and its value"
                                         },
                                         "type": "array",
-                                        "description": "environments allows to pass environment variable(s) to the shell script. By default no environment variable are shared."
+                                        "description": "environments allows to pass environment variable(s) to the shell script.\n\n default:\n    If environments is unset then it depends on the operating system.\n      - Windows: [\"PATH\",\"\", \"PSModulePath\", \"PSModuleAnalysisCachePath\", \"\", \"PATHEXT\", \"\", \"TEMP\", \"\", \"HOME\", \"\", \"USERPROFILE\", \"\", \"PROFILE\"]\n      - Darwin/Linux: [\"PATH\", \"\", \"HOME\", \"\", \"USER\", \"\", \"LOGNAME\", \"\", \"SHELL\", \"\", \"LANG\", \"\", \"LC_ALL\"]\n\nremark:\n  For security reason, Updatecli doesn't pass the entire environment to the shell command but instead works\n  with an allow list of environment variables."
                                     },
                                     "changedif": {
                                         "oneOf": [
@@ -8012,15 +8011,15 @@
                                                 "type": "object"
                                             }
                                         ],
-                                        "description": "ChangedIf defines how to interpreted shell command success criteria. What a success means, what an error means, and what a warning would mean"
+                                        "description": "ChangedIf defines how to interpret shell command execution.\nWhat a success means, what an error means, and what a warning would mean in the context of Updatecli.\n\nPlease note that in the context of Updatecli,\n - a success means nothing changed\n - a warning means something changed\n - an error means something went wrong\n\nChangedif can be of kind \"exitcode\", \"console/output\", or \"file/checksum\"\n\n  \"console/output\" (default)\n    Check the output of the command to identify if Updatecli should report a success, a warning, or an error.\n    If a target returns anything to stdout, Updatecli interprets it as a something changed, otherwise it's a success.\n\n    example:\n\n    ---\n    targets:\n      default:\n        name: 'doc: synchronize release note'\n        kind: 'shell'\n        disablesourceinput: true\n        spec:\n          command: 'releasepost --dry-run=\"$DRY_RUN\" --config {{ .config }} --clean'\n    ---\n\n  \"exitcode\":\n    Check the exit code of the command to identify if Updatecli should report a success, a warning, or an error.\n\n    example:\n\n    ---\n    targets:\n      default:\n        name: 'doc: synchronize release note'\n        kind: 'shell'\n        disablesourceinput: true\n        spec:\n          command: 'releasepost --dry-run=\"$DRY_RUN\" --config {{ .config }} --clean'\n          environments:\n            - name: 'GITHUB_TOKEN'\n            - name: 'PATH'\n          changedif:\n            kind: 'exitcode'\n            spec:\n              warning: 0\n              success: 1\n              failure: 2\n    ---\n\n  \"file/checksum\":\n    Check the checksum of file(s) to identify if Updatecli should report a success, a warning, or an error.\n\n    example:\n\n    ---\n    targets:\n      default:\n        disablesourceinput: true\n        name: Example of a shell command with a checksum success criteria\n        kind: shell\n        spec:\n          command: |\n    \t  \t   yq -i '.a.b[0].c = \"cool\"' file.yaml\n          changedif:\n            kind: file/checksum\n            spec:\n              files:\n                - file.yaml\n    ---"
                                     },
                                     "shell": {
                                         "type": "string",
-                                        "description": "Shell specifies which shell interpreter to use. Default to powershell(Windows) and \"/bin/sh\" (Darwin/Linux)"
+                                        "description": "Shell specifies which shell interpreter to use.\n\ndefault:\n  Depends on the operating system:\n    - Windows: \"powershell\"\n    - Darwin/Linux: \"/bin/sh\""
                                     },
                                     "workdir": {
                                         "type": "string",
-                                        "description": "workdir specifies the working directory path from where to execute the command. It defaults to the current context path (scm or current shell). Updatecli join the current path and the one specified in parameter if the parameter one contains a relative path."
+                                        "description": "workdir specifies the working directory path from where to execute the command. It defaults to the current context path (scm or current shell). Updatecli join the current path and the one specified in parameter if the parameter one contains a relative path.\n\ndefault: If a scmid is specified then the default"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -14929,8 +14928,7 @@
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
                                     "command": {
-                                        "type": "string",
-                                        "description": "command specifies the shell command to execute by Updatecli"
+                                        "type": "string"
                                     },
                                     "environments": {
                                         "items": {
@@ -14952,7 +14950,7 @@
                                             "description": "Environment is a struct containing information for an environment variable such as its name and its value"
                                         },
                                         "type": "array",
-                                        "description": "environments allows to pass environment variable(s) to the shell script. By default no environment variable are shared."
+                                        "description": "environments allows to pass environment variable(s) to the shell script.\n\n default:\n    If environments is unset then it depends on the operating system.\n      - Windows: [\"PATH\",\"\", \"PSModulePath\", \"PSModuleAnalysisCachePath\", \"\", \"PATHEXT\", \"\", \"TEMP\", \"\", \"HOME\", \"\", \"USERPROFILE\", \"\", \"PROFILE\"]\n      - Darwin/Linux: [\"PATH\", \"\", \"HOME\", \"\", \"USER\", \"\", \"LOGNAME\", \"\", \"SHELL\", \"\", \"LANG\", \"\", \"LC_ALL\"]\n\nremark:\n  For security reason, Updatecli doesn't pass the entire environment to the shell command but instead works\n  with an allow list of environment variables."
                                     },
                                     "changedif": {
                                         "oneOf": [
@@ -15035,15 +15033,15 @@
                                                 "type": "object"
                                             }
                                         ],
-                                        "description": "ChangedIf defines how to interpreted shell command success criteria. What a success means, what an error means, and what a warning would mean"
+                                        "description": "ChangedIf defines how to interpret shell command execution.\nWhat a success means, what an error means, and what a warning would mean in the context of Updatecli.\n\nPlease note that in the context of Updatecli,\n - a success means nothing changed\n - a warning means something changed\n - an error means something went wrong\n\nChangedif can be of kind \"exitcode\", \"console/output\", or \"file/checksum\"\n\n  \"console/output\" (default)\n    Check the output of the command to identify if Updatecli should report a success, a warning, or an error.\n    If a target returns anything to stdout, Updatecli interprets it as a something changed, otherwise it's a success.\n\n    example:\n\n    ---\n    targets:\n      default:\n        name: 'doc: synchronize release note'\n        kind: 'shell'\n        disablesourceinput: true\n        spec:\n          command: 'releasepost --dry-run=\"$DRY_RUN\" --config {{ .config }} --clean'\n    ---\n\n  \"exitcode\":\n    Check the exit code of the command to identify if Updatecli should report a success, a warning, or an error.\n\n    example:\n\n    ---\n    targets:\n      default:\n        name: 'doc: synchronize release note'\n        kind: 'shell'\n        disablesourceinput: true\n        spec:\n          command: 'releasepost --dry-run=\"$DRY_RUN\" --config {{ .config }} --clean'\n          environments:\n            - name: 'GITHUB_TOKEN'\n            - name: 'PATH'\n          changedif:\n            kind: 'exitcode'\n            spec:\n              warning: 0\n              success: 1\n              failure: 2\n    ---\n\n  \"file/checksum\":\n    Check the checksum of file(s) to identify if Updatecli should report a success, a warning, or an error.\n\n    example:\n\n    ---\n    targets:\n      default:\n        disablesourceinput: true\n        name: Example of a shell command with a checksum success criteria\n        kind: shell\n        spec:\n          command: |\n    \t  \t   yq -i '.a.b[0].c = \"cool\"' file.yaml\n          changedif:\n            kind: file/checksum\n            spec:\n              files:\n                - file.yaml\n    ---"
                                     },
                                     "shell": {
                                         "type": "string",
-                                        "description": "Shell specifies which shell interpreter to use. Default to powershell(Windows) and \"/bin/sh\" (Darwin/Linux)"
+                                        "description": "Shell specifies which shell interpreter to use.\n\ndefault:\n  Depends on the operating system:\n    - Windows: \"powershell\"\n    - Darwin/Linux: \"/bin/sh\""
                                     },
                                     "workdir": {
                                         "type": "string",
-                                        "description": "workdir specifies the working directory path from where to execute the command. It defaults to the current context path (scm or current shell). Updatecli join the current path and the one specified in parameter if the parameter one contains a relative path."
+                                        "description": "workdir specifies the working directory path from where to execute the command. It defaults to the current context path (scm or current shell). Updatecli join the current path and the one specified in parameter if the parameter one contains a relative path.\n\ndefault: If a scmid is specified then the default"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22294,8 +22292,7 @@
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
                                     "command": {
-                                        "type": "string",
-                                        "description": "command specifies the shell command to execute by Updatecli"
+                                        "type": "string"
                                     },
                                     "environments": {
                                         "items": {
@@ -22317,7 +22314,7 @@
                                             "description": "Environment is a struct containing information for an environment variable such as its name and its value"
                                         },
                                         "type": "array",
-                                        "description": "environments allows to pass environment variable(s) to the shell script. By default no environment variable are shared."
+                                        "description": "environments allows to pass environment variable(s) to the shell script.\n\n default:\n    If environments is unset then it depends on the operating system.\n      - Windows: [\"PATH\",\"\", \"PSModulePath\", \"PSModuleAnalysisCachePath\", \"\", \"PATHEXT\", \"\", \"TEMP\", \"\", \"HOME\", \"\", \"USERPROFILE\", \"\", \"PROFILE\"]\n      - Darwin/Linux: [\"PATH\", \"\", \"HOME\", \"\", \"USER\", \"\", \"LOGNAME\", \"\", \"SHELL\", \"\", \"LANG\", \"\", \"LC_ALL\"]\n\nremark:\n  For security reason, Updatecli doesn't pass the entire environment to the shell command but instead works\n  with an allow list of environment variables."
                                     },
                                     "changedif": {
                                         "oneOf": [
@@ -22400,15 +22397,15 @@
                                                 "type": "object"
                                             }
                                         ],
-                                        "description": "ChangedIf defines how to interpreted shell command success criteria. What a success means, what an error means, and what a warning would mean"
+                                        "description": "ChangedIf defines how to interpret shell command execution.\nWhat a success means, what an error means, and what a warning would mean in the context of Updatecli.\n\nPlease note that in the context of Updatecli,\n - a success means nothing changed\n - a warning means something changed\n - an error means something went wrong\n\nChangedif can be of kind \"exitcode\", \"console/output\", or \"file/checksum\"\n\n  \"console/output\" (default)\n    Check the output of the command to identify if Updatecli should report a success, a warning, or an error.\n    If a target returns anything to stdout, Updatecli interprets it as a something changed, otherwise it's a success.\n\n    example:\n\n    ---\n    targets:\n      default:\n        name: 'doc: synchronize release note'\n        kind: 'shell'\n        disablesourceinput: true\n        spec:\n          command: 'releasepost --dry-run=\"$DRY_RUN\" --config {{ .config }} --clean'\n    ---\n\n  \"exitcode\":\n    Check the exit code of the command to identify if Updatecli should report a success, a warning, or an error.\n\n    example:\n\n    ---\n    targets:\n      default:\n        name: 'doc: synchronize release note'\n        kind: 'shell'\n        disablesourceinput: true\n        spec:\n          command: 'releasepost --dry-run=\"$DRY_RUN\" --config {{ .config }} --clean'\n          environments:\n            - name: 'GITHUB_TOKEN'\n            - name: 'PATH'\n          changedif:\n            kind: 'exitcode'\n            spec:\n              warning: 0\n              success: 1\n              failure: 2\n    ---\n\n  \"file/checksum\":\n    Check the checksum of file(s) to identify if Updatecli should report a success, a warning, or an error.\n\n    example:\n\n    ---\n    targets:\n      default:\n        disablesourceinput: true\n        name: Example of a shell command with a checksum success criteria\n        kind: shell\n        spec:\n          command: |\n    \t  \t   yq -i '.a.b[0].c = \"cool\"' file.yaml\n          changedif:\n            kind: file/checksum\n            spec:\n              files:\n                - file.yaml\n    ---"
                                     },
                                     "shell": {
                                         "type": "string",
-                                        "description": "Shell specifies which shell interpreter to use. Default to powershell(Windows) and \"/bin/sh\" (Darwin/Linux)"
+                                        "description": "Shell specifies which shell interpreter to use.\n\ndefault:\n  Depends on the operating system:\n    - Windows: \"powershell\"\n    - Darwin/Linux: \"/bin/sh\""
                                     },
                                     "workdir": {
                                         "type": "string",
-                                        "description": "workdir specifies the working directory path from where to execute the command. It defaults to the current context path (scm or current shell). Updatecli join the current path and the one specified in parameter if the parameter one contains a relative path."
+                                        "description": "workdir specifies the working directory path from where to execute the command. It defaults to the current context path (scm or current shell). Updatecli join the current path and the one specified in parameter if the parameter one contains a relative path.\n\ndefault: If a scmid is specified then the default"
                                     }
                                 },
                                 "additionalProperties": false,
