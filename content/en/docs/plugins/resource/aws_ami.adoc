@@ -45,11 +45,11 @@ The `aws/ami` "condition" test that an AWS AMI exist based on specific filters.
 
 Considering that the AMI resource is designed to manipulate the latest AMI found based on filters, the parameter `SortBy` can be used to specify how the list of results is sorted which affects the latest element returned.
 
-`sortBy` accept one of the following `creationDateAsc` and `creationDateDesc` where they will respectively return the newest or the oldest AMI ID based on creation time.
+`sortBy` accepts one of the following `creationDateAsc` and `creationDateDesc` where they will respectively return the newest or the oldest AMI ID based on creation time.
 
 === Filter
 
-AMI are identified based on different filter such platform, name,etc.
+AMI are identified based on different filters such as platform, name, etc.
 
 |===
 | Name | Required | Default |Description
@@ -161,7 +161,7 @@ Environment variables used:
 
 === Shared Credentials File
 
-updatecli can retrieves credentials from the AWS cli credential file.
+updatecli can retrieve credentials from the AWS cli credential file.
 By default, it looks for the file location into `AWS_SHARED_CREDENTIALS_FILE` env variable, otherwise it fall back to the current user's home directory.
 
 * Linux/OSX: "$HOME/.aws/credentials"
@@ -278,7 +278,7 @@ targets:
     spec:
       command: echo ubuntu-arm
   setWindowsAgentAMIAmd64:
-    name: "Bump AMI ID for Windows ARM64 agents"
+    name: "Bump AMI ID for Windows AMD64 agents"
     kind: shell
     sourceID: getLatestWindowsAgentAMIAmd64
     spec:
