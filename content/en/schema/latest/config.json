@@ -9844,38 +9844,38 @@
                                 "properties": {
                                     "engine": {
                                         "type": "string",
-                                        "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\n\t\tThere is no one good Golang library to manipulate yaml files.\n\t\tAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\n\t\tremark:\n\t\t\t* Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n\t\t\t* go-yaml, \"default\" and \"\" are equivalent"
+                                        "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\nThere is no one good Golang library to manipulate yaml files.\nAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\nremark:\n * Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n * go-yaml, \"default\" and \"\" are equivalent"
                                     },
                                     "file": {
                                         "type": "string",
-                                        "description": "\"file\" defines the yaml file path to interact with.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "\"file\" defines the yaml file path to interact with.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * \"file\" and \"files\" are mutually exclusive\n * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"files\" defines the list of yaml files path to interact with.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* file and files are mutually exclusive\n\t\t\t* protocols \"https://\", \"http://\", and \"file://\" are supported in file path for source and condition"
+                                        "description": "\"files\" defines the list of yaml files path to interact with.\n\ncompatible:\n * condition\n * target\n\nremark:\n * file and files are mutually exclusive\n * protocols \"https://\", \"http://\", and \"file://\" are supported in file path for source and condition"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" defines the yaml keypath.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys.\n\n\t\texample using default engine:\n\t\t\t* key: $.name\n\t\t\t* key: $.agent.name\n\t\t\t* key: $.agents[0].name\n\t\t\t* key: $.agents[*].name\n\t\t\t* key: $.'agents.name'\n\t\t\t* key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\n\t\tremark:\n\t\t\tfield path with key/value is not supported at the moment.\n\t\t\tsome help would be useful on https://github.com/goccy/go-yaml/issues/290"
+                                        "description": "\"key\" defines the yaml keypath.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * key is a simpler version of yamlpath accepts keys.\n\nexample using default engine:\n * key: $.name\n * key: $.agent.name\n * key: $.agents[0].name\n * key: $.agents[*].name\n * key: $.'agents.name'\n * key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\nremark:\n field path with key/value is not supported at the moment.\n some help would be useful on https://github.com/goccy/go-yaml/issues/290"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "\"value\" is the value associated with a yaml key.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tWhen used from a condition or a target, the default value is set to linked source output."
+                                        "description": "value is the value associated with a yaml key.\n\ncompatible:\n * source\n * condition\n * target\n\ndefault:\n\tWhen used from a condition or a target, the default value is set to the associated source output."
                                     },
                                     "keyonly": {
                                         "type": "boolean",
-                                        "description": "\"keyonly\" allows to only check if a key exist and do not return an error otherwise\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "keyonly allows to check only if a key exist and do not return an error otherwise\n\ncompatible:\n\t* condition\n\ndefault:\n\tfalse"
                                     },
                                     "searchpattern": {
                                         "type": "boolean",
-                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n\t   If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n\t   When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n\t   The pattern syntax is:\n\n\t   ```\n\t       pattern:\n\t           { term }\n\t       term:\n\t           '*'         matches any sequence of non-Separator characters\n\t           '?'         matches any single non-Separator character\n\t           '[' [ '^' ] { character-range } ']'\n\t                       character class (must be non-empty)\n\t           c           matches character c (c != '*', '?', '\\\\', '[')\n\t           '\\\\' c      matches character c\n\n\t       character-range:\n\t           c           matches character c (c != '\\\\', '-', ']')\n\t           '\\\\' c      matches character c\n\t           lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\t   ```"
+                                        "description": "searchpattern defines if the MatchPattern should be applied on the file(s) path\n\nIf set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\nWhen looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\nThe pattern syntax is:\n\n```\n   pattern:\n       { term }\n   term:\n       '*'         matches any sequence of non-Separator characters\n       '?'         matches any single non-Separator character\n       '[' [ '^' ] { character-range } ']'\n                   character class (must be non-empty)\n       c           matches character c (c != '*', '?', '\\\\', '[')\n       '\\\\' c      matches character c\n\n   character-range:\n       c           matches character c (c != '\\\\', '-', ']')\n       '\\\\' c      matches character c\n       lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n```"
                                     },
                                     "comment": {
                                         "type": "string",
-                                        "description": "\"comment\" defines a comment to add after the value.\n\n\t\t\t\tcompatible:\n\t\t\t\t\t* target\n\n\t\t   remarks:\n\t\t            * require engine set to yamlpath"
+                                        "description": "comment defines a comment to add after the value.\n\ndefault: empty\n\ncompatible:\n * target\n\nremarks:\n * Please note that the comment is added if the value is modified by Updatecli"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -16965,38 +16965,38 @@
                                 "properties": {
                                     "engine": {
                                         "type": "string",
-                                        "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\n\t\tThere is no one good Golang library to manipulate yaml files.\n\t\tAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\n\t\tremark:\n\t\t\t* Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n\t\t\t* go-yaml, \"default\" and \"\" are equivalent"
+                                        "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\nThere is no one good Golang library to manipulate yaml files.\nAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\nremark:\n * Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n * go-yaml, \"default\" and \"\" are equivalent"
                                     },
                                     "file": {
                                         "type": "string",
-                                        "description": "\"file\" defines the yaml file path to interact with.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "\"file\" defines the yaml file path to interact with.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * \"file\" and \"files\" are mutually exclusive\n * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"files\" defines the list of yaml files path to interact with.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* file and files are mutually exclusive\n\t\t\t* protocols \"https://\", \"http://\", and \"file://\" are supported in file path for source and condition"
+                                        "description": "\"files\" defines the list of yaml files path to interact with.\n\ncompatible:\n * condition\n * target\n\nremark:\n * file and files are mutually exclusive\n * protocols \"https://\", \"http://\", and \"file://\" are supported in file path for source and condition"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" defines the yaml keypath.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys.\n\n\t\texample using default engine:\n\t\t\t* key: $.name\n\t\t\t* key: $.agent.name\n\t\t\t* key: $.agents[0].name\n\t\t\t* key: $.agents[*].name\n\t\t\t* key: $.'agents.name'\n\t\t\t* key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\n\t\tremark:\n\t\t\tfield path with key/value is not supported at the moment.\n\t\t\tsome help would be useful on https://github.com/goccy/go-yaml/issues/290"
+                                        "description": "\"key\" defines the yaml keypath.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * key is a simpler version of yamlpath accepts keys.\n\nexample using default engine:\n * key: $.name\n * key: $.agent.name\n * key: $.agents[0].name\n * key: $.agents[*].name\n * key: $.'agents.name'\n * key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\nremark:\n field path with key/value is not supported at the moment.\n some help would be useful on https://github.com/goccy/go-yaml/issues/290"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "\"value\" is the value associated with a yaml key.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tWhen used from a condition or a target, the default value is set to linked source output."
+                                        "description": "value is the value associated with a yaml key.\n\ncompatible:\n * source\n * condition\n * target\n\ndefault:\n\tWhen used from a condition or a target, the default value is set to the associated source output."
                                     },
                                     "keyonly": {
                                         "type": "boolean",
-                                        "description": "\"keyonly\" allows to only check if a key exist and do not return an error otherwise\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "keyonly allows to check only if a key exist and do not return an error otherwise\n\ncompatible:\n\t* condition\n\ndefault:\n\tfalse"
                                     },
                                     "searchpattern": {
                                         "type": "boolean",
-                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n\t   If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n\t   When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n\t   The pattern syntax is:\n\n\t   ```\n\t       pattern:\n\t           { term }\n\t       term:\n\t           '*'         matches any sequence of non-Separator characters\n\t           '?'         matches any single non-Separator character\n\t           '[' [ '^' ] { character-range } ']'\n\t                       character class (must be non-empty)\n\t           c           matches character c (c != '*', '?', '\\\\', '[')\n\t           '\\\\' c      matches character c\n\n\t       character-range:\n\t           c           matches character c (c != '\\\\', '-', ']')\n\t           '\\\\' c      matches character c\n\t           lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\t   ```"
+                                        "description": "searchpattern defines if the MatchPattern should be applied on the file(s) path\n\nIf set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\nWhen looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\nThe pattern syntax is:\n\n```\n   pattern:\n       { term }\n   term:\n       '*'         matches any sequence of non-Separator characters\n       '?'         matches any single non-Separator character\n       '[' [ '^' ] { character-range } ']'\n                   character class (must be non-empty)\n       c           matches character c (c != '*', '?', '\\\\', '[')\n       '\\\\' c      matches character c\n\n   character-range:\n       c           matches character c (c != '\\\\', '-', ']')\n       '\\\\' c      matches character c\n       lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n```"
                                     },
                                     "comment": {
                                         "type": "string",
-                                        "description": "\"comment\" defines a comment to add after the value.\n\n\t\t\t\tcompatible:\n\t\t\t\t\t* target\n\n\t\t   remarks:\n\t\t            * require engine set to yamlpath"
+                                        "description": "comment defines a comment to add after the value.\n\ndefault: empty\n\ncompatible:\n * target\n\nremarks:\n * Please note that the comment is added if the value is modified by Updatecli"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -24428,38 +24428,38 @@
                                 "properties": {
                                     "engine": {
                                         "type": "string",
-                                        "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\n\t\tThere is no one good Golang library to manipulate yaml files.\n\t\tAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\n\t\tremark:\n\t\t\t* Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n\t\t\t* go-yaml, \"default\" and \"\" are equivalent"
+                                        "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\nThere is no one good Golang library to manipulate yaml files.\nAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\nremark:\n * Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n * go-yaml, \"default\" and \"\" are equivalent"
                                     },
                                     "file": {
                                         "type": "string",
-                                        "description": "\"file\" defines the yaml file path to interact with.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "\"file\" defines the yaml file path to interact with.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * \"file\" and \"files\" are mutually exclusive\n * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"files\" defines the list of yaml files path to interact with.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* file and files are mutually exclusive\n\t\t\t* protocols \"https://\", \"http://\", and \"file://\" are supported in file path for source and condition"
+                                        "description": "\"files\" defines the list of yaml files path to interact with.\n\ncompatible:\n * condition\n * target\n\nremark:\n * file and files are mutually exclusive\n * protocols \"https://\", \"http://\", and \"file://\" are supported in file path for source and condition"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" defines the yaml keypath.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys.\n\n\t\texample using default engine:\n\t\t\t* key: $.name\n\t\t\t* key: $.agent.name\n\t\t\t* key: $.agents[0].name\n\t\t\t* key: $.agents[*].name\n\t\t\t* key: $.'agents.name'\n\t\t\t* key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\n\t\tremark:\n\t\t\tfield path with key/value is not supported at the moment.\n\t\t\tsome help would be useful on https://github.com/goccy/go-yaml/issues/290"
+                                        "description": "\"key\" defines the yaml keypath.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * key is a simpler version of yamlpath accepts keys.\n\nexample using default engine:\n * key: $.name\n * key: $.agent.name\n * key: $.agents[0].name\n * key: $.agents[*].name\n * key: $.'agents.name'\n * key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\nremark:\n field path with key/value is not supported at the moment.\n some help would be useful on https://github.com/goccy/go-yaml/issues/290"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "\"value\" is the value associated with a yaml key.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tWhen used from a condition or a target, the default value is set to linked source output."
+                                        "description": "value is the value associated with a yaml key.\n\ncompatible:\n * source\n * condition\n * target\n\ndefault:\n\tWhen used from a condition or a target, the default value is set to the associated source output."
                                     },
                                     "keyonly": {
                                         "type": "boolean",
-                                        "description": "\"keyonly\" allows to only check if a key exist and do not return an error otherwise\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "keyonly allows to check only if a key exist and do not return an error otherwise\n\ncompatible:\n\t* condition\n\ndefault:\n\tfalse"
                                     },
                                     "searchpattern": {
                                         "type": "boolean",
-                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n\t   If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n\t   When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n\t   The pattern syntax is:\n\n\t   ```\n\t       pattern:\n\t           { term }\n\t       term:\n\t           '*'         matches any sequence of non-Separator characters\n\t           '?'         matches any single non-Separator character\n\t           '[' [ '^' ] { character-range } ']'\n\t                       character class (must be non-empty)\n\t           c           matches character c (c != '*', '?', '\\\\', '[')\n\t           '\\\\' c      matches character c\n\n\t       character-range:\n\t           c           matches character c (c != '\\\\', '-', ']')\n\t           '\\\\' c      matches character c\n\t           lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\t   ```"
+                                        "description": "searchpattern defines if the MatchPattern should be applied on the file(s) path\n\nIf set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\nWhen looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\nThe pattern syntax is:\n\n```\n   pattern:\n       { term }\n   term:\n       '*'         matches any sequence of non-Separator characters\n       '?'         matches any single non-Separator character\n       '[' [ '^' ] { character-range } ']'\n                   character class (must be non-empty)\n       c           matches character c (c != '*', '?', '\\\\', '[')\n       '\\\\' c      matches character c\n\n   character-range:\n       c           matches character c (c != '\\\\', '-', ']')\n       '\\\\' c      matches character c\n       lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n```"
                                     },
                                     "comment": {
                                         "type": "string",
-                                        "description": "\"comment\" defines a comment to add after the value.\n\n\t\t\t\tcompatible:\n\t\t\t\t\t* target\n\n\t\t   remarks:\n\t\t            * require engine set to yamlpath"
+                                        "description": "comment defines a comment to add after the value.\n\ndefault: empty\n\ncompatible:\n * target\n\nremarks:\n * Please note that the comment is added if the value is modified by Updatecli"
                                     }
                                 },
                                 "additionalProperties": false,
