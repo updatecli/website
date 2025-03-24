@@ -906,6 +906,14 @@
                                     "type": "string",
                                     "description": "rootDir defines the root directory used to recursively search for golang go.mod"
                                 },
+                                "onlygoversion": {
+                                    "type": "boolean",
+                                    "description": "OnlyGoVersion allows to specify if the autodiscovery should only handle Go version specified in go.mod"
+                                },
+                                "onlygomodule": {
+                                    "type": "boolean",
+                                    "description": "OnlyGoModule allows to specify if the autodiscovery should only handle Go module specified in go.mod"
+                                },
                                 "ignore": {
                                     "items": {
                                         "properties": {
@@ -2335,6 +2343,20 @@
                                     "parent": {
                                         "type": "boolean",
                                         "description": "parent allows to specifies if a pull request should be sent to the parent of the current fork.\n\ncompatible:\n  * action\n\ndefault:\n  false"
+                                    },
+                                    "reviewers": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "Reviewers contains the list of assignee to add to the pull request\ncompatible:\n  * action\n\ndefault: empty\n\nremark:\n  * if reviewer is a team, the format is \"organization/team\" and the token must have organization read permission."
+                                    },
+                                    "assignees": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "Assignees contains the list of assignee to add to the pull request\n\ndefault: empty\n\nremark:\n  * Please note that contrary to reviewers, assignees only accept GitHub usernames"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -2376,6 +2398,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "sourcebranch": {
                                         "type": "string",
@@ -2880,6 +2906,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "commitmessage": {
                                         "properties": {
@@ -5458,6 +5488,10 @@
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
                                     },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
+                                    },
                                     "owner": {
                                         "type": "string",
                                         "description": "[S][C] Owner specifies repository owner"
@@ -5641,6 +5675,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "owner": {
                                         "type": "string",
@@ -5845,6 +5883,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "owner": {
                                         "type": "string",
@@ -12354,6 +12396,10 @@
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
                                     },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
+                                    },
                                     "owner": {
                                         "type": "string",
                                         "description": "[S][C] Owner specifies repository owner"
@@ -12546,6 +12592,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "owner": {
                                         "type": "string",
@@ -12759,6 +12809,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "owner": {
                                         "type": "string",
@@ -19592,6 +19646,10 @@
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
                                     },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
+                                    },
                                     "owner": {
                                         "type": "string",
                                         "description": "[S][C] Owner specifies repository owner"
@@ -19793,6 +19851,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "owner": {
                                         "type": "string",
@@ -20015,6 +20077,10 @@
                                     "token": {
                                         "type": "string",
                                         "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "tokentype": {
+                                        "type": "string",
+                                        "description": "\"tokentype\" defines type of provided token. Valid values are \"private\" and \"bearer\"\n\n default:\n\t\t\"private\""
                                     },
                                     "owner": {
                                         "type": "string",
