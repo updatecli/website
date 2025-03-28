@@ -5266,23 +5266,23 @@
                                 "properties": {
                                     "owner": {
                                         "type": "string",
-                                        "description": "[s][c] Owner specifies repository owner"
+                                        "description": "owner defines repository owner to interact with.\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "repository": {
                                         "type": "string",
-                                        "description": "[s][c] Repository specifies the name of a repository for a specific owner"
+                                        "description": "repository defines the repository name to interact with.\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "[s][c] Token specifies the credential used to authenticate with"
+                                        "description": "token defines the GitHub personal access token used to authenticate with.\n\nmore information on https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "[s][c] URL specifies the default github url in case of GitHub enterprise"
+                                        "description": "URL defines the default github url in case of GitHub enterprise.\n\ndefault: https://github.com\n\ncompatible:\n * source\n * condition"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "[s][c] Username specifies the username used to authenticate with GitHub API"
+                                        "description": "username defines the username used to authenticate with GitHub API.\n\ncompatible:\n * source\n * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -5305,7 +5305,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[s] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "versionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ndefault: latest\n\ncompatible:\n * source"
                                     },
                                     "typefilter": {
                                         "properties": {
@@ -5328,15 +5328,15 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[s][c] TypeFilter specifies the GitHub Release type to retrieve before applying the versionfilter rule"
+                                        "description": "typeFilter specifies the GitHub Release type to retrieve before applying the versionfilter rule\n\ndefault:\n * draft: false\n * prerelease: false\n * release: true\n * latest: false\n\ncompatible:\n * source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "[c] Tag allows to check for a specific release tag, default to source output"
+                                        "description": "tag allows to check for a specific release tag, release tag hash, or release title depending on a the parameter key.\n\ncompatible:\n  * condition\n\ndefault: source input"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source\n   * condition"
+                                        "description": "\"key\" defines the GitHub release information we are looking for.\nIt accepts one of the following inputs:\n   * \"name\": returns the \"latest\" tag name\n   * \"hash\": returns the commit associated with the latest tag name\n   * \"title\": returns the latest release title\n\naccepted values:\n * taghash\n * tagname\n * title\n * hash (deprecated)\n * name (deprecated)\n\ndefault: 'tagname'\n\ncompatible:\n  * source\n  * condition"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -12165,23 +12165,23 @@
                                 "properties": {
                                     "owner": {
                                         "type": "string",
-                                        "description": "[s][c] Owner specifies repository owner"
+                                        "description": "owner defines repository owner to interact with.\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "repository": {
                                         "type": "string",
-                                        "description": "[s][c] Repository specifies the name of a repository for a specific owner"
+                                        "description": "repository defines the repository name to interact with.\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "[s][c] Token specifies the credential used to authenticate with"
+                                        "description": "token defines the GitHub personal access token used to authenticate with.\n\nmore information on https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "[s][c] URL specifies the default github url in case of GitHub enterprise"
+                                        "description": "URL defines the default github url in case of GitHub enterprise.\n\ndefault: https://github.com\n\ncompatible:\n * source\n * condition"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "[s][c] Username specifies the username used to authenticate with GitHub API"
+                                        "description": "username defines the username used to authenticate with GitHub API.\n\ncompatible:\n * source\n * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -12204,7 +12204,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[s] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "versionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ndefault: latest\n\ncompatible:\n * source"
                                     },
                                     "typefilter": {
                                         "properties": {
@@ -12227,15 +12227,15 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[s][c] TypeFilter specifies the GitHub Release type to retrieve before applying the versionfilter rule"
+                                        "description": "typeFilter specifies the GitHub Release type to retrieve before applying the versionfilter rule\n\ndefault:\n * draft: false\n * prerelease: false\n * release: true\n * latest: false\n\ncompatible:\n * source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "[c] Tag allows to check for a specific release tag, default to source output"
+                                        "description": "tag allows to check for a specific release tag, release tag hash, or release title depending on a the parameter key.\n\ncompatible:\n  * condition\n\ndefault: source input"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source\n   * condition"
+                                        "description": "\"key\" defines the GitHub release information we are looking for.\nIt accepts one of the following inputs:\n   * \"name\": returns the \"latest\" tag name\n   * \"hash\": returns the commit associated with the latest tag name\n   * \"title\": returns the latest release title\n\naccepted values:\n * taghash\n * tagname\n * title\n * hash (deprecated)\n * name (deprecated)\n\ndefault: 'tagname'\n\ncompatible:\n  * source\n  * condition"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -19406,23 +19406,23 @@
                                 "properties": {
                                     "owner": {
                                         "type": "string",
-                                        "description": "[s][c] Owner specifies repository owner"
+                                        "description": "owner defines repository owner to interact with.\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "repository": {
                                         "type": "string",
-                                        "description": "[s][c] Repository specifies the name of a repository for a specific owner"
+                                        "description": "repository defines the repository name to interact with.\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "[s][c] Token specifies the credential used to authenticate with"
+                                        "description": "token defines the GitHub personal access token used to authenticate with.\n\nmore information on https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens\n\nrequired: true\n\ncompatible:\n * source\n * condition"
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "[s][c] URL specifies the default github url in case of GitHub enterprise"
+                                        "description": "URL defines the default github url in case of GitHub enterprise.\n\ndefault: https://github.com\n\ncompatible:\n * source\n * condition"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "[s][c] Username specifies the username used to authenticate with GitHub API"
+                                        "description": "username defines the username used to authenticate with GitHub API.\n\ncompatible:\n * source\n * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -19445,7 +19445,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[s] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "versionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ndefault: latest\n\ncompatible:\n * source"
                                     },
                                     "typefilter": {
                                         "properties": {
@@ -19468,15 +19468,15 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[s][c] TypeFilter specifies the GitHub Release type to retrieve before applying the versionfilter rule"
+                                        "description": "typeFilter specifies the GitHub Release type to retrieve before applying the versionfilter rule\n\ndefault:\n * draft: false\n * prerelease: false\n * release: true\n * latest: false\n\ncompatible:\n * source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "[c] Tag allows to check for a specific release tag, default to source output"
+                                        "description": "tag allows to check for a specific release tag, release tag hash, or release title depending on a the parameter key.\n\ncompatible:\n  * condition\n\ndefault: source input"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source\n   * condition"
+                                        "description": "\"key\" defines the GitHub release information we are looking for.\nIt accepts one of the following inputs:\n   * \"name\": returns the \"latest\" tag name\n   * \"hash\": returns the commit associated with the latest tag name\n   * \"title\": returns the latest release title\n\naccepted values:\n * taghash\n * tagname\n * title\n * hash (deprecated)\n * name (deprecated)\n\ndefault: 'tagname'\n\ncompatible:\n  * source\n  * condition"
                                     }
                                 },
                                 "additionalProperties": false,
