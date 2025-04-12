@@ -1,0 +1,58 @@
+name: 'deps: Updatecli version used by GitHub action'
+pipelineid: golangci-lint
+actions:
+    default:
+        # The syntax {{ source "golangci-lint" }} is used to get the value of the source
+        # where golangci-lint represent source id
+        title: 'deps: bump golangci-lint to {{ source "golangci-lint" }}'
+        kind: github/pullrequest
+        spec:
+            automerge: true
+            labels:
+                - chore
+                - dependencies
+            mergemethod: squash
+        scmid: default
+scms:
+    default:
+        kind: github
+        spec:
+            branch: main
+            # commitusingapi is used to commit using the GitHub API
+            # when updatecli is running in a GitHub action with the token provided by
+            # the GITHUB_TOKEN secret, then the commit are signed.
+            commitusingapi: true
+            email: bot@updatecli.io
+            owner: updatecli
+            repository: updatecli
+            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "GITHUB_ACTOR"}}'
+            user: updatecli
+        disabled: false
+sources:
+    golangci-lint:
+        name: Get latest Updatecli version
+        kind: githubrelease
+        spec:
+            owner: golangci
+            repository: golangci-lint
+            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+            username: '{{ requiredEnv "GITHUB_ACTOR"}}'
+            versionfilter:
+                kind: semver
+                pattern: '*'
+targets:
+    githubaction:
+        # Please note that the commit title is generated from the target name
+        name: 'deps: bump golangci-lint in GitHub Action to {{ source "golangci-lint" }}'
+        kind: yaml
+        spec:
+            engine: yamlpath
+            files:
+                - .github/workflows/*
+            key: $.jobs.*.steps[?(@.uses =~ /^golangci\/golangci-lint-action/)].with.version
+            searchpattern: true
+        scmid: default
+        sourceid: golangci-lint
+version: v0.68.0
+

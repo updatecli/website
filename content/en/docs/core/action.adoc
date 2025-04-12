@@ -1,0 +1,34 @@
+---
+title: "Action"
+description: "Action is a follow up action after a target is changed"
+date: 2025-04-11T15:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+An Updatecli action defines what happens after a change is detected and validated. While Updatecli's sources find changes (like a new version), and targets define where to apply them (like a file), actions describe what to do next—such as creating a pull request.
+
+== Parameters
+
+{{< coreparameters "actions" >}}
+
+== Examples
+
+In the follow example, we define an action that creates a pull request on GitHub when Updatecli detected outdated version of golangci-lint in GitHub action workflow files. The action uses the `github/pullrequest` plugin to create a pull request with a specific labels, merge method, automerge set to true.
+
+[source,yaml]
+----
+{{<include "assets/code_example/docs/core/action/updatecli.yaml">}}
+----
+
