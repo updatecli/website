@@ -27,6 +27,8 @@ The "source" stage retrieves information from a third "resource" like a file, or
 
 == Example
 
+=== Transform source output
+
 .updatecli.yaml
 ```
 sources:
@@ -48,3 +50,58 @@ sources:
 
 In this example we're looking for the latest release tag from https://github.com/jenkinsci/jenkins which is 'jenkins-2.75'.
 Unfortunately, it contains the prefix "jenkins" which is not required for later stages, so we remove 'jenkins-' so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image name This can now be used in the later stages.
+
+=== Combine multiple sources
+
+In Updatecli, sources define values (like version numbers) to use in your update logic.
+
+You can combine outputs from multiple sources in a target, a condition, or even another source by using Go templating, like this:
+
+```
+sources:
+  appVersion:
+    kind: githubrelease
+    spec:
+      owner: myorg
+      repository: myapp
+
+  chartVersion:
+    kind: helmchart
+    spec:
+      name: mychart
+
+targets:
+  updateChart:
+    name: "Update Helm chart with app and chart versions"
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: charts/myapp/Chart.yaml
+      matchpattern: "version: .*"
+      replacepattern: 'version: {{ source "chartVersion" }}'
+```
+
+Now, if you wanted to use both versions in one target, for example in a file or title, you can do something like this:
+
+```
+replacepattern: 'appVersion: {{ source "appVersion" }}, chartVersion: {{ source "chartVersion" }}'
+```
+
+Here are a few important concepts to understand:
+By default any condition or target inherites a source output, so we want to disable that behavior by setting `disablesourceinput: true`.
+
+Combining multiple sources output is useful when:
+
+Another resource needs information from more than one source, like updating multiple versions in the same file or message.
+
+You want to compose a more informative or specific change, like:
+
+```
+image: 'myapp:{{ source "appVersion" }}-{{ source "buildNumber" }}'
+```
+
+PR titles like:
+
+```
+"chore: 'bump app to {{ source "appVersion" }} and chart to {{ source "chartVersion" }}"'
+```
