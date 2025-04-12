@@ -90,7 +90,7 @@ replacepattern: 'appVersion: {{ source "appVersion" }}, chartVersion: {{ source 
 Here are a few important concepts to understand:
 By default any condition or target inherites a source output, so we want to disable that behavior by setting `disablesourceinput: true`.
 
-Combining multiple sources output is usefull when:
+Combining multiple sources output is useful when:
 
 Another resource needs information from more than one source, like updating multiple versions in the same file or message.
 
