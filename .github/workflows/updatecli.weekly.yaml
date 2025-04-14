@@ -29,7 +29,7 @@ jobs:
           private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
-        run: "updatecli compose apply --file update-compose.weekly.yaml"
+        run: "updatecli compose apply --file updatecli-compose.weekly.yaml"
         env:
           GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
