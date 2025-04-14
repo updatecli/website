@@ -7,6 +7,8 @@ actions:
         kind: github/pullrequest
         spec:
             automerge: true
+            reviewers:
+              - updatecli/core
             labels:
                 - chore
             mergemethod: squash
@@ -24,6 +26,7 @@ scms:
             user: updatecli
             username: '{{ requiredEnv "GITHUB_ACTOR" }}'
             force: true
+            commitusingapi: true
         disabled: false
 
 targets:
