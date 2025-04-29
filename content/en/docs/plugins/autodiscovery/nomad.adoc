@@ -1,7 +1,7 @@
 ---
 title: "Nomad"
 description: "Discover Docker image tag update from Nomad job files"
-lead: "kind: dockercompose"
+lead: "kind: nomad"
 draft: false
 images: []
 menu:
@@ -15,25 +15,23 @@ plugins:
 
 == Description
 
-The Docker compose crawler looks recursively for all docker compose manifests from a specific root directory.
+The Nomad crawler looks recursively for all Nomad manifests from a specific root directory.
 Then, for each of them, it tries to update each Docker image tag found.
 
 Updatecli looks for the following file patterns:
 
-* `docker-compose.yaml`
-* `docker-compose.yml`
-* `docker-compose.*.yaml`
-* `docker-compose.*.yml`
+* `*.nomad`
+* `*.hcl`
 
-The automatic discovery behavior can be tuned by providing a YAML manifest with a `docker-compose` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `nomad` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
 
 === Usage
 
-The docker-compose autodiscovery can use with or without manifest.
+The nomad autodiscovery can use with or without manifest.
 
 **Without manifest**
 
-Without manifest available, Updatecli will enable all default crawlers, including docker-compose.
+Without manifest available, Updatecli will enable all default crawlers, including nomad.
 
 `updatecli diff` to run updatecli in dryrun
 `updatecli apply` to apply the changes locally
@@ -49,14 +47,14 @@ If a manifest is provided, Updatecli will only execute crawlers specified in the
 [source,yaml]
 ----
 # updatecli.d/default.yaml
-{{<include "assets/code_example/docs/plugins/autodiscovery/dockercompose/updatecli.d/default.yaml">}}
+{{<include "assets/code_example/docs/plugins/autodiscovery/nomad/updatecli.d/default.yaml">}}
 ----
 
 == Manifest
 
 === Parameters
 
-{{< autodiscoveryparameters "dockercompose" >}}
+{{< autodiscoveryparameters "nomad" >}}
 
 === Docker Image Tag
 
