@@ -1565,6 +1565,133 @@
                             "type": "object",
                             "description": "Spec defines the parameters which can be provided to the Helm builder."
                         },
+                        "nomad": {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "digest": {
+                                    "type": "boolean",
+                                    "description": "digest provides parameters to specify if the generated manifest should use a digest on top of the tag."
+                                },
+                                "rootdir": {
+                                    "type": "string",
+                                    "description": "rootDir defines the root directory used to recursively search for Nomad files\nIf rootDir is not provided, the current working directory will be used.\nIf rootDir is provided as an absolute path, scmID will be ignored.\nIf rootDir is not provided but a scmid is, then rootDir will be set to the git repository root directory."
+                                },
+                                "ignore": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "Path specifies a Nomad path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "jobs": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "Jobs specifies a list of Nomad job"
+                                            },
+                                            "images": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "Image specifies a list of docker image"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows to specifies rules to identify manifest"
+                                    },
+                                    "type": "array",
+                                    "description": "ignore allows to specify rule to ignore autodiscovery a specific Helm based on a rule"
+                                },
+                                "only": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "Path specifies a Nomad path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "jobs": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "Jobs specifies a list of Nomad job"
+                                            },
+                                            "images": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "Image specifies a list of docker image"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows to specifies rules to identify manifest"
+                                    },
+                                    "type": "array",
+                                    "description": "only allows to specify rule to only autodiscover manifest for a specific Helm based on a rule"
+                                },
+                                "auths": {
+                                    "additionalProperties": {
+                                        "properties": {
+                                            "username": {
+                                                "type": "string",
+                                                "description": "username specifies the container registry username to use for authentication.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tby default credentials are fetch from the local environment such as `~/.docker/config.json`.\n\n\t\tremark:\n\t\t\tNot compatible with token"
+                                            },
+                                            "password": {
+                                                "type": "string",
+                                                "description": "password specifies the container registry password to use for authentication. Not compatible with token\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tby default credentials are fetch from the local environment such as `~/.docker/config.json`.\n\n\t\tremark:\n\t\t\tNot compatible with token"
+                                            },
+                                            "token": {
+                                                "type": "string",
+                                                "description": "token specifies the container registry token to use for authentication.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tby default credentials are fetch from the local environment such as `~/.docker/config.json`.\n\n\t\tremark:\n\t\t\tNot compatible with username/password"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "InlineKeyChain defines a keychain with OCI registry credentials"
+                                    },
+                                    "type": "object",
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme"
+                                },
+                                "filematch": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "FileMatch allows to override default docker-compose.yaml file matching. Default [\"docker-compose.yaml\",\"docker-compose.yml\",\"docker-compose.*.yaml\",\"docker-compose.*.yml\"]"
+                                },
+                                "versionfilter": {
+                                    "properties": {
+                                        "kind": {
+                                            "type": "string",
+                                            "description": "specifies the version kind such as semver, regex, or latest"
+                                        },
+                                        "pattern": {
+                                            "type": "string",
+                                            "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                        },
+                                        "strict": {
+                                            "type": "boolean",
+                                            "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                        },
+                                        "regex": {
+                                            "type": "string",
+                                            "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\nand its type like regex, semver, or just latest."
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object",
+                            "description": "Spec is a struct fill from Updatecli manifest data and shouldn't be modified at runtime unless For Fields that requires it, we can use the struct DockerCompose Spec defines the parameters which can be provided to the Helm builder."
+                        },
                         "npm": {
                             "$schema": "http://json-schema.org/draft-04/schema",
                             "properties": {
@@ -1717,6 +1844,10 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                },
+                                "digest": {
+                                    "type": "boolean",
+                                    "description": "Digest provides parameters to specify if the generated manifest should use a digest instead of the branch or tag.\nThis is equivalent to using the [`--freeze`](https://pre-commit.com/#pre-commit-autoupdate) option of precommit"
                                 }
                             },
                             "additionalProperties": false,
@@ -3248,6 +3379,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -3424,6 +3563,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -3625,6 +3772,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -3811,6 +3966,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -3976,6 +4139,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -4131,6 +4302,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -4322,6 +4501,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -4490,6 +4677,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -4677,6 +4872,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -4862,6 +5065,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -5067,6 +5278,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -5252,6 +5471,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -5464,6 +5691,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -5652,6 +5887,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -5860,6 +6103,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -6048,6 +6299,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -6235,6 +6494,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -6395,6 +6662,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -6544,6 +6819,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -6715,6 +6998,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -6867,6 +7158,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -7071,6 +7370,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -7256,6 +7563,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -7397,6 +7712,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -7576,6 +7899,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -7759,6 +8090,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -7935,6 +8274,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -8187,6 +8534,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -8376,6 +8731,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -8565,6 +8928,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -8740,6 +9111,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -8892,6 +9271,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -9055,6 +9442,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -9207,6 +9602,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -9390,6 +9793,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -9572,6 +9983,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -9727,6 +10146,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -9872,6 +10299,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -10048,6 +10483,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -10233,6 +10676,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -10443,6 +10894,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -10638,6 +11097,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -10812,6 +11279,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -10976,6 +11451,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -11176,6 +11659,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -11353,6 +11844,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -11549,6 +12048,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -11743,6 +12250,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -11957,6 +12472,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -12151,6 +12674,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -12372,6 +12903,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -12569,6 +13108,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -12786,6 +13333,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -12983,6 +13538,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -13179,6 +13742,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -13348,6 +13919,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -13506,6 +14085,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -13686,6 +14273,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -13847,6 +14442,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -14060,6 +14663,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -14254,6 +14865,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -14404,6 +15023,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -14592,6 +15219,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -14784,6 +15419,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -14969,6 +15612,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -15230,6 +15881,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -15428,6 +16087,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -15626,6 +16293,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -15810,6 +16485,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -15971,6 +16654,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -16143,6 +16834,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -16304,6 +17003,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -16496,6 +17203,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -16687,6 +17402,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -16851,6 +17574,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -17005,6 +17736,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -17190,6 +17929,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -17384,6 +18131,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -17603,6 +18358,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -17807,6 +18570,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -17990,6 +18761,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -18163,6 +18942,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -18372,6 +19159,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -18558,6 +19353,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -18763,6 +19566,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -18966,6 +19777,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -19189,6 +20008,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -19392,6 +20219,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -19622,6 +20457,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -19828,6 +20671,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -20054,6 +20905,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -20260,6 +21119,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -20465,6 +21332,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -20643,6 +21518,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -20810,6 +21693,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -20999,6 +21890,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -21169,6 +22068,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -21391,6 +22298,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -21594,6 +22509,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -21753,6 +22676,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -21950,6 +22881,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -22151,6 +23090,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -22345,6 +23292,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -22615,6 +23570,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -22822,6 +23785,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -23029,6 +24000,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -23222,6 +24201,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -23392,6 +24379,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -23573,6 +24568,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -23743,6 +24746,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -23944,6 +24955,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -24144,6 +25163,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -24317,6 +25344,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
@@ -24480,6 +25515,14 @@
                                         "semverinc": {
                                             "type": "string",
                                             "description": "SemvVerInc specifies a  comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
                                         }
                                     },
                                     "additionalProperties": false,
