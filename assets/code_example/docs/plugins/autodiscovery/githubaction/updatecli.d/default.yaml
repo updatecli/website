@@ -1,0 +1,15 @@
+name: "githubaction autodiscovery"
+scms:
+  default:
+    kind: git
+    spec:
+      url: https://github.com/updatecli/updatecli.git
+      branch: "main"
+
+autodiscovery:
+  scmid: default
+  crawlers:
+    githubaction:
+      spec:
+        digest: true
+        rootdir: ".github"

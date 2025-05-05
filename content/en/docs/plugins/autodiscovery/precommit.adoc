@@ -1,0 +1,36 @@
+---
+title: "Precommit"
+description: "Discover precommit update"
+lead: "kind: precommit"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Precommit crawler looks recursively for all precommit repository updates.
+
+It currently support the following sources:
+
+- link:{{< ref "gittag" >}}[`gittag`]
+
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "precommit" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/precommit/updatecli.d/default.yaml">}}
+----
