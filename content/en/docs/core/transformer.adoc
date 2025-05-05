@@ -48,6 +48,8 @@ A target receives information from the source then modifies that value with the 
 | find |-| Search for a string value using regular expression and then return its value exist
 | findsubmatch |-| Search for a substring using a regular expression and return its content, more link:#_FindSubMatch[here]
 | semverinc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
+| quote | false | Add quotes around the value |
+| unquote | false | Remove quotes around the value |
 |===
 
 
