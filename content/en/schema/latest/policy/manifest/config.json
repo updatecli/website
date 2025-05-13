@@ -2536,27 +2536,27 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the GitLab mergerequest.\n\n\t\tdefault:\n\t\t\t\"sourcebranch\" inherits the value from the scm branch if a scm of kind \"gitlab\" is specified by the action.\n\n\t\tremark:\n\t\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default."
+                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the GitLab mergerequest.\n\ndefault:\n\t\t\"sourcebranch\" inherits the value from the scm branch if a scm of kind \"gitlab\" is specified by the action.\n\nremark:\n\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default."
                                     },
                                     "targetbranch": {
                                         "type": "string",
-                                        "description": "\"targetbranch\" defines the branch name used as a target to create the GitLab mergerequest.\n\n\t\tdefault:\n\t\t\t\"targetbranch\" inherits the value from the scm working branch if a scm of kind \"gitlab\" is specified by the action.\n\n\t\tremark:\n\t\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default.\n\t\t\tthe GitLab scm will create and use a working branch such as updatecli_xxxx"
+                                        "description": "\"targetbranch\" defines the branch name used as a target to create the GitLab mergerequest.\n\ndefault:\n\t\t\"targetbranch\" inherits the value from the scm working branch if a scm of kind \"gitlab\" is specified by the action.\n\nremark:\n\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default.\n\t\tthe GitLab scm will create and use a working branch such as updatecli_xxxx"
                                     },
                                     "owner": {
                                         "type": "string",
-                                        "description": "\"owner\" defines the GitLab repository owner.\n\n\t\tremark:\n\t\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default."
+                                        "description": "\"owner\" defines the GitLab repository owner.\n\nremark:\n\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default."
                                     },
                                     "repository": {
                                         "type": "string",
-                                        "description": "\"repository\" defines the GitLab repository for a specific owner\n\n\t\tremark:\n\t\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default."
+                                        "description": "\"repository\" defines the GitLab repository for a specific owner\n\nremark:\n\t\tunless you know what you are doing, you shouldn't set this value and rely on the scmid to provide the sane default."
                                     },
                                     "title": {
                                         "type": "string",
-                                        "description": "\"title\" defines the GitLab mergerequest title\n\n\t\tdefault:\n\t\t\tA GitLab mergerequest title is defined by one of the following location (first match)\n\t\t\t\t1. title is defined by the spec such as:\n\n\t\t\t\t\tactions:\n\t\t\t\t\t\tdefault:\n\t\t\t\t\t\t\tkind: gitlab/mergerequest\n\t\t\t\t\t\t\tscmid: default\n\t\t\t\t\t\t\tspec:\n\t\t\t\t\t\t\t\ttitle: This is my awesome title\n\n\t\t\t\t2. title is defined by the action such as:\n\n\t\t\t\t\tactions:\n\t\t\t\t\t\tdefault:\n\t\t\t\t\t\t\tkind: gitlab/mergerequest\n\t\t\t\t\t\t\tscmid default\n\t\t\t\t\t\t\ttitle: This is my awesome title\n\n\t\t\t\t3. title is defined by the first associated target title\n\n\t\t\t\t4. title is defined by the pipeline title\n\n\t\tremark:\n\t\t\tusually we prefer to go with option 2"
+                                        "description": "\"title\" defines the GitLab mergerequest title\n\ndefault:\n\t \tA GitLab mergerequest title is defined by one of the following location (first match)\n\t \t\t1. title is defined by the spec such as:\n\n\t \t\t\tactions:\n\t \t\t\t\tdefault:\n\t \t\t\t\t\tkind: gitlab/mergerequest\n\t \t\t\t\t\tscmid: default\n\t \t\t\t\t\tspec:\n\t \t\t\t\t\t\ttitle: This is my awesome title\n\n\t \t\t2. title is defined by the action such as:\n\n\t \t\t\tactions:\n\t \t\t\t\tdefault:\n\t \t\t\t\t\tkind: gitlab/mergerequest\n\t \t\t\t\t\tscmid default\n\t \t\t\t\t\ttitle: This is my awesome title\n\n\t \t\t3. title is defined by the first associated target title\n\n\t \t\t4. title is defined by the pipeline title\n\nremark:\n\t\tusually we prefer to go with option 2"
                                     },
                                     "body": {
                                         "type": "string",
-                                        "description": "\"body\" defines a custom mergerequest body\n\n\t\tdefault:\n\t\t\tBy default a mergerequest body is generated out of a pipeline execution.\n\n\t\tremark:\n\t\t\tUnless you know what you are doing, you shouldn't set this value and rely on the sane default.\n\t\t\t\"body\" is useful to provide additional information when reviewing mergerequest, such as changelog url."
+                                        "description": "\"body\" defines a custom mergerequest body\n\ndefault:\n\tBy default a mergerequest body is generated out of a pipeline execution.\n\nremark:\n\tUnless you know what you are doing, you shouldn't set this value and rely on the sane default.\n\t\"body\" is useful to provide additional information when reviewing mergerequest, such as changelog url."
                                     }
                                 },
                                 "additionalProperties": false,
