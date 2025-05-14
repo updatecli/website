@@ -1,0 +1,14 @@
+name: "precommit autodiscovery"
+scms:
+  default:
+    kind: git
+    spec:
+      url: https://github.com/updatecli/updatecli.git
+      branch: "main"
+
+autodiscovery:
+  scmid: default
+  crawlers:
+    precommit:
+      spec:
+        digest: true

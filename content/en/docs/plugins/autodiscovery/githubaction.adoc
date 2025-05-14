@@ -1,0 +1,43 @@
+---
+title: "Github Action"
+description: "Discover github action update"
+lead: "kind: githubaction"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The Github Action crawler looks recursively for all Github Action workflows.
+Then for each of them, it tries to automate its update.
+
+It currently support the following sources:
+
+- link:{{< ref "docker_image" >}}[`dockerimage`]
+
+- link:{{< ref "github_release" >}}[`githubrelease`]
+
+- link:{{< ref "gittag" >}}[`gittag`]
+
+- link:{{< ref "gitbranch" >}}[`gitbranch`]
+
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "githubaction" >}}
+
+==== Example
+
+[source,yaml]
+----
+# updatecli.d/default.yaml
+{{<include "assets/code_example/docs/plugins/autodiscovery/githubaction/updatecli.d/default.yaml">}}
+----

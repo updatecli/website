@@ -14,9 +14,9 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
       - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@v2.82.0"
+        uses: "updatecli/updatecli-action@v2.83.0"
         with:
-          version: "v0.98.0"
+          version: "v0.99.0"
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
