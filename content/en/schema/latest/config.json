@@ -2557,6 +2557,35 @@
                                     "body": {
                                         "type": "string",
                                         "description": "\"body\" defines a custom mergerequest body\n\ndefault:\n\tBy default a mergerequest body is generated out of a pipeline execution.\n\nremark:\n\tUnless you know what you are doing, you shouldn't set this value and rely on the sane default.\n\t\"body\" is useful to provide additional information when reviewing mergerequest, such as changelog url."
+                                    },
+                                    "assignees": {
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "type": "array",
+                                        "description": "\"assignees\" contains the list of assignee to add to the merge request\n\ndefault: empty\n\nremark:\n\t\tassignees only accept GitLab User IDs.\n\t\tTo find the user ID:\n\t\t\t1. Go to the users’ profile page.\n\t\t\t2. On the profile page, in the upper-right corner, select Actions (or ⋮).\n\t\t\t3. Select Copy user ID."
+                                    },
+                                    "reviewers": {
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "type": "array",
+                                        "description": "\"reviewers\" contains the list of reviewers to add to the merge request\n\ndefault: empty\n\nremark:\n\t\tassignees only accept GitLab User IDs.\n\t\tTo find the user ID:\n\t\t\t1. Go to the users’ profile page.\n\t\t\t2. On the profile page, in the upper-right corner, select Actions (or ⋮).\n\t\t\t3. Select Copy user ID."
+                                    },
+                                    "squash": {
+                                        "type": "boolean",
+                                        "description": "\"squash\" defines if all commits should be squashed into a single commit on merge\n\ndefault: false\n\nremark:\n\t\tproject settings might override this value"
+                                    },
+                                    "removesourcebranch": {
+                                        "type": "boolean",
+                                        "description": "\"removesourcebranch\" is a flag indicating if a merge request should remove the source branch when merging\n\ndefault: false"
+                                    },
+                                    "labels": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"labels\" defines labels for the merge request.\n\n\tdefault: empty\n\n\tremark:\n\t\tif a label does not already exist, this creates a new project label and assigns it to the merge request"
                                     }
                                 },
                                 "additionalProperties": false,
