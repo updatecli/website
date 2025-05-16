@@ -78,10 +78,10 @@ We assume that each crawler relies on the same SCM configuration and we can add 
 
 You can configure Updatecli to create a single pull request that includes all
 autodiscovered changes by adding the `actionid` key to the `autodiscovery`
-section of your manifest. This key should reference a GitHub pull request action
+section of your manifest. This key should reference a pull request action
 defined in your manifest's `actions` section.
 
-Here's an example configuration:
+Here's an example configuration for a GitHub pull request action:
 
 ```
 autodiscovery:
