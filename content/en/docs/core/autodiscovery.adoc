@@ -76,17 +76,44 @@ We assume that each crawler relies on the same SCM configuration and we can add 
 
 === Pull Request
 
-Work in progress.
+You can configure Updatecli to create a single pull request that includes all
+autodiscovered changes by adding the `actionid` key to the `autodiscovery`
+section of your manifest. This key should reference a pull request action
+defined in your manifest's `actions` section.
 
-Scenario to describe:
+Here's an example configuration for a GitHub pull request action:
 
-* One pull request for everything
-* One pull request per crawler
-* One pull request per manifest from each crawlers
+```
+autodiscovery:
+  scmid: github
+  actionid: pr
+
+actions:
+  pr:
+    kind: github/pullrequest
+    scmid: github
+    spec:
+      title: Pull request title
+
+scms:
+  github:
+    kind: "github"
+    spec:
+      user: "user"
+      email: "updatecli@example.org"
+      owner: "my-org"
+      repository: "my-repo"
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
+      branch: "main"
+```
 
 === Crawlers
 
 Crawlers implement common update scenarios.
+
+You can read more about the different crawlers by browsing the Plugins ->
+Autodiscovery section of the documentation.
 
 ==== Type
 
