@@ -2689,6 +2689,127 @@
                         "properties": {
                             "kind": {
                                 "enum": [
+                                    "bitbucket"
+                                ]
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "description": "\"username\" specifies the username used to authenticate with Bitbucket Cloud API"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "description": "\"token\" specifies the credential used to authenticate with Bitbucket Cloud API\n\n The \"token\" is a repository or project access token with \"pullrequest:write\" scope.\n\n \"token\" and \"password\" are mutually exclusive\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"BITBUCKET_TOKEN\"}}` to retrieve the token from the environment variable `BITBUCKET_TOKEN`\n\t  or `{{ .bitbucket.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "\"password\" specifies the credential used to authenticate with Bitbucket Cloud API, it must be combined with \"username\"\n\n The \"password\" should be app password with \"pullrequest:write\" scope.\n\n \"token\" and \"password\" are mutually exclusive\n\n remark:\n   A password is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"BITBUCKET_PASSWORD\"}}` to retrieve the token from the environment variable `BITBUCKET_PASSWORD`\n\t  or `{{ .bitbucket.password }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "owner": {
+                                        "type": "string",
+                                        "description": "\"owner\" defines the owner of a repository.\n\n\tcompatible:\n\t\t* scm"
+                                    },
+                                    "repository": {
+                                        "type": "string",
+                                        "description": "repository specifies the name of a repository for a specific owner.\n\n\tcompatible:\n\t\t* scm"
+                                    },
+                                    "commitmessage": {
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                            },
+                                            "scope": {
+                                                "type": "string",
+                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                            },
+                                            "footers": {
+                                                "type": "string",
+                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                            },
+                                            "body": {
+                                                "type": "string",
+                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                            },
+                                            "hidecredit": {
+                                                "type": "boolean",
+                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"commitMessage\" is used to generate the final commit message.\n\n compatible:\n   * scm\n\n remark:\n   it's worth mentioning that the commit message settings is applied to all targets linked to the same scm."
+                                    },
+                                    "directory": {
+                                        "type": "string",
+                                        "description": "\"directory\" defines the local path where the git repository is cloned.\n\n compatible:\n   * scm\n\n remark:\n   Unless you know what you are doing, it is recommended to use the default value.\n   The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n default:\n   The default value is based on your local temporary directory like: (on Linux)\n   /tmp/updatecli/bitbucket/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "\"email\" defines the email used to commit changes.\n\n compatible:\n   * scm\n\n default:\n   default set to your global git configuration"
+                                    },
+                                    "force": {
+                                        "type": "boolean",
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   false\n\n remark:\n   When force is set to true, Updatecli also recreate the working branches that\n   diverged from their base branch."
+                                    },
+                                    "gpg": {
+                                        "properties": {
+                                            "signingkey": {
+                                                "type": "string",
+                                                "description": "signingKey defines the gpg key used to sign the commit message\n\n\t\tdefault:\n\t\t\tnone"
+                                            },
+                                            "passphrase": {
+                                                "type": "string",
+                                                "description": "passphrase defines the gpg passphrase used to sign the commit message"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"gpg\" specifies the GPG key and passphrased used for commit signing\n\n\tcompatible:\n\t\t* scm"
+                                    },
+                                    "user": {
+                                        "type": "string",
+                                        "description": "\"user\" specifies the user associated with new git commit messages created by Updatecli\n\n\tcompatible:\n\t\t* scm"
+                                    },
+                                    "branch": {
+                                        "type": "string",
+                                        "description": "\"branch\" defines the git branch to work on.\n\n compatible:\n   * scm\n\n default:\n   main\n\n remark:\n   depending on which resource references the Bitbucket Cloud scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n   The working branch can be disabled using the \"workingBranch\" parameter set to false."
+                                    },
+                                    "submodules": {
+                                        "type": "boolean",
+                                        "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\n compatible:\n\t  * scm\n\n default: true"
+                                    },
+                                    "workingbranch": {
+                                        "type": "boolean",
+                                        "description": "\"workingBranch\" defines if Updatecli should use a temporary branch to work on.\n If set to `true`, Updatecli create a temporary branch to work on, based on the branch value.\n\n compatible:\n\t  * scm\n\n default: true"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "owner",
+                                    "repository"
+                                ],
+                                "description": "Spec defines settings used to interact with Bitbucket Cloud release"
+                            },
+                            "disabled": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object"
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "kind": {
+                                "enum": [
                                     "git"
                                 ]
                             },
