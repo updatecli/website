@@ -29,7 +29,7 @@
     <tr>
         <td><b>{{ $paramName }}</b></td>
         <td>{{ $paramValue.type }}</td>
-        <td>{{ $paramValue.description }}</td>
+        <td>{{ $paramValue.description | markdownify }}</td>
         <td>{{ $paramValue.required }}</td>
     </tr>
               {{ if eq $paramValue.type "object" }}
@@ -38,7 +38,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $objectKey }}</b></td>
         <td>{{ $objectValue.type }}</td>
-        <td>{{ $objectValue.description }}</td>
+        <td>{{ $objectValue.description | markdownify }}</td>
         <td>{{ $objectValue.required }}</td>
     </tr>
                   {{ end }}
@@ -49,7 +49,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
         <td>{{ $item.type }}</td>
-        <td>{{ $item.description }}</td>
+        <td>{{ $item.description | markdownify }}</td>
         <td>{{ $item.required }}</td>
     </tr>
               {{ end }}
