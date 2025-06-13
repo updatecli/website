@@ -25,9 +25,9 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
       - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@v2.83.0"
+        uses: "updatecli/updatecli-action@v2.86.0"
         with:
-          version: "v0.99.0"
+          version: "v0.101.0"
       - name: "Run updatecli in dryrun"
         run: "updatecli compose diff"
         env:
