@@ -62,7 +62,7 @@ These fragments are automatically available to pipelines within the same directo
 
 A partial file must have a filename that starts with an underscore (`_`). Updatecli never loads these as standalone manifest files.
 
-IMPORTANT: Partial files are **concatenated** to the main manifest file during execution, and any `---` YAML document separator is **ignored**.
+IMPORTANT: Partial files are concatenated into the main manifest during execution. If a `---` YAML document separator is present, the partial feature will be disabled, as the resulting content would be treated as multiple separate YAML documents.
 
 <details><summary>updatecli.yaml</summary>
 
