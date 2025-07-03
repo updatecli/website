@@ -44,7 +44,7 @@ Well-written reports help us fix issues more efficiently.
 
 To suggest a new feature:
 
-- Open a [Feature Request](https://github.com/your-org/your-project/issues/new?template=feature_request.md)
+- Open a [Feature Request](https://github.com/updatecli/updatecli/issues/new?template=2-feature-request.yml)
 - Describe the feature, its purpose, and why it is useful
 - Optionally, suggest implementation ideas
 
