@@ -64,7 +64,7 @@ See the [Contributing Guide](/docs/help/contributing/) for how to get started.
 If you'd like to support ongoing development, consider:
 
 - [Sponsoring us on GitHub](https://github.com/sponsors/updatecli)
-- [Making a donation](https://yourproject.org/donate)
+- [Sponsoring us on OpenCollective](https://opencollective.com/updatecli)
 
 ## Consulting and Commercial Support
 
