@@ -37,7 +37,7 @@ The "where" is the "target" and defines where we want to update a piece of infor
 
 === File
 
-Updatecli expects one file per manifest, or pipeline.
+Each Updatecli pipeline is defined in its own manifest file.
 The manifest is split into different stages, "source", "conditions", "targets",
 where every stage relies on a plugin to adapt the behavior.
 
@@ -46,6 +46,69 @@ A file can be of type "yaml" or "Go Template" using file extensions ".yaml",".ym
 Manifests are given to the updatecli command using the global flag `--config <go_template_file>` and `--values <yaml_file>`.
 It accepts either a single file or a directory.
 If a directory is specified, then it runs recursively on all the go templates (or yaml files) in the directory.
+
+IMPORTANT: Manifest files starting with an underscore `_` are considered as partial files and are not executed. More information on the partial section below.
+
+=== Partial
+
+Partials are named, reusable fragments of an Updatecli manifest, typically used to define repeatable logic for:
+
+* Scms (e.g., Git repository details)
+* Sources (e.g., version checks)
+* Conditions
+* Targets
+
+These fragments are automatically available to pipelines within the same directory, helping keep your main manifests DRY (Don't Repeat Yourself) and maintainable.
+
+A partial file must have a filename that starts with an underscore (`_`). Updatecli never loads these as standalone manifest files.
+
+IMPORTANT: Partial files are **concatenated** to the main manifest file during execution, and any `---` YAML document separator is **ignored**.
+
+<details><summary>updatecli.yaml</summary>
+
+```
+autodiscovery:
+  groupby: {{ .groupby }}
+#{{ if or (.scm.enabled) }}
+  scmid: default
+  actionid: default
+# {{ end }}
+
+  crawlers:
+    golang/gomod:
+
+```
+</details>
+
+<details><summary>_scm.yaml</summary>
+
+```
+# {{ if and (.scm.enabled) ( eq .scm.kind "gitea")) }}
+actions:
+    default:
+        title: 'deps: bump HUGO to {{ source "hugo" }}'
+        kind: "gitea/pullrequest"
+        scmid: "default"
+
+scms:
+    default:
+        kind: "gitea"
+        spec:
+            user: '{{ .scm.user }}'
+            # {{ if .scm.email }}
+            email: '{{ .scm.email }}'
+            # {{ end }}
+            owner: '{{ .scm.owner }}'
+            repository: '{{ .scm.repository }}'
+            token: '{{ .scm.token }}'
+            username: '{{ .scm.username }}'
+            branch: '{{ .scm.branch }}'
+            # {{ if .scm.url }}
+            url: '{{ .scm.url }}'
+            # {{ end }}
+# {{ end }}
+```
+</details>
 
 
 === Content
