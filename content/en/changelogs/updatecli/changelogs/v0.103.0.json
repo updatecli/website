@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2025-07-04T18:51:51Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2025-07-04T18:51:52Z",
+        "Size": 3248
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:51Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:51Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 454974
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:51Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:51Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 461617
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:51Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 461912
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:50Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 461027
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:50Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:50Z",
+        "Size": 455266
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:50Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:50Z",
+        "Size": 454974
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:50Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:50Z",
+        "Size": 454682
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:49Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2025-07-04T18:51:50Z",
+        "Size": 454098
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:49Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2025-07-04T18:51:51Z",
+        "Size": 31427938
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:48Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2025-07-04T18:51:49Z",
+        "Size": 33443810
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:48Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2025-07-04T18:51:49Z",
+        "Size": 30572942
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:48Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2025-07-04T18:51:49Z",
+        "Size": 31764488
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:47Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2025-07-04T18:51:50Z",
+        "Size": 32683095
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:45Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2025-07-04T18:51:47Z",
+        "Size": 34899401
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:45Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2025-07-04T18:51:47Z",
+        "Size": 32684920
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:45Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2025-07-04T18:51:47Z",
+        "Size": 31722145
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:45Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2025-07-04T18:51:47Z",
+        "Size": 34922851
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:43Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2025-07-04T18:51:44Z",
+        "Size": 30658952
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:43Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2025-07-04T18:51:45Z",
+        "Size": 33305297
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:43Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2025-07-04T18:51:45Z",
+        "Size": 34205523
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:42Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2025-07-04T18:51:45Z",
+        "Size": 31890978
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:40Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2025-07-04T18:51:42Z",
+        "Size": 34088125
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:40Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2025-07-04T18:51:42Z",
+        "Size": 31326991
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:40Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2025-07-04T18:51:42Z",
+        "Size": 30462130
+      },
+      {
+        "CreatedAt": "2025-07-04T18:51:40Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.103.0/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2025-07-04T18:51:42Z",
+        "Size": 32068539
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n### Partial manifest:\r\n\r\nPartials manifests are named, reusable fragments of an Updatecli manifest, typically used to define repeatable logic for:\r\n\r\n* Scms (e.g., Git repository details)\r\n* Sources (e.g., version checks)\r\n* Conditions\r\n* Targets\r\n\r\nThese fragments are automatically available to pipelines within the same directory, helping keep your main manifests DRY (Don't Repeat Yourself) and maintainable.\r\n\r\nA partial file must have a filename that starts with an underscore (`_`). Updatecli never loads these as standalone manifest files.\r\n\r\nIMPORTANT: Partial files are concatenated into the main manifest during execution. If a `---` YAML document separator is present, the partial feature will be disabled, as the resulting content would be treated as multiple separate YAML documents.\r\n\r\n\r\n### Semver Version Filter\r\n\r\nWhen an AND group has one constraint with a prerelease but more than one constraint then prereleases will be included. For  example, `\u003e1.0.0-beta.1 \u003c 2`. In the past this would not have included prereleases because each constraint needed to have a prerelease. Now, only one constraint needs to have a prerelease. Note, this does not carry across OR groups. For example, `\u003e1.0.0-beta.1 \u003c 2 || \u003e 3`. In this case, prereleases will not be included when evaluating against `\u003e3`\r\n\r\n## 🚀 Features\r\n\r\n- feat: add partial manifest @olblak (#5508)\r\n\r\n## 🐛 Bug Fixes\r\n\r\n- fix: Branch reset causes initial Github API commit to be lost  @MattiasAng (#5486)\r\n- fix(bitbucket): use body parameter on pull request updates @mcwarman (#5457)\r\n\r\n## 🧰 Maintenance\r\n\r\n- refactor(autodiscovery): unify discovery spec \u0026 reduce boilerplate code \u0026 fix `terragrunt` missing in jsonschema @qianlongzt \r\n- deps(go): bump module github.com/Masterminds/semver/v3 to v3.4.0 @[updateclibot[bot]](https://github.com/apps/updateclibot) (#5507)\r\n- deps(go): bump module sigs.k8s.io/yaml to v1.5.0 @[updateclibot[bot]](https://github.com/apps/updateclibot) (#5485)\r\n- deps(go): bump module helm.sh/helm/v3 to v3.18.3 @[updateclibot[bot]](https://github.com/apps/updateclibot) (#5460)\r\n- deps(go): bump module cuelang.org/go to v0.13.2 @[updateclibot[bot]](https://github.com/apps/updateclibot) (#5464)\r\n\r\n## 📝 Documentation\r\n\r\n- doc: reformat code comment to improve website visualization @olblak (#5436)\r\n\r\n## Contributors\r\n\r\n@MattiasAng, @mcwarman, @olblak, @qianlongzt, @updateclibot[bot] and [updateclibot[bot]](https://github.com/apps/updateclibot)\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003ch3\u003ePartial manifest:\u003c/h3\u003e\n\u003cp\u003ePartials manifests are named, reusable fragments of an Updatecli manifest, typically used to define repeatable logic for:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eScms (e.g., Git repository details)\u003c/li\u003e\n\u003cli\u003eSources (e.g., version checks)\u003c/li\u003e\n\u003cli\u003eConditions\u003c/li\u003e\n\u003cli\u003eTargets\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eThese fragments are automatically available to pipelines within the same directory, helping keep your main manifests DRY (Don't Repeat Yourself) and maintainable.\u003c/p\u003e\n\u003cp\u003eA partial file must have a filename that starts with an underscore (\u003ccode\u003e_\u003c/code\u003e). Updatecli never loads these as standalone manifest files.\u003c/p\u003e\n\u003cp\u003eIMPORTANT: Partial files are concatenated into the main manifest during execution. If a \u003ccode\u003e---\u003c/code\u003e YAML document separator is present, the partial feature will be disabled, as the resulting content would be treated as multiple separate YAML documents.\u003c/p\u003e\n\u003ch3\u003eSemver Version Filter\u003c/h3\u003e\n\u003cp\u003eWhen an AND group has one constraint with a prerelease but more than one constraint then prereleases will be included. For  example, \u003ccode\u003e\u0026gt;1.0.0-beta.1 \u0026lt; 2\u003c/code\u003e. In the past this would not have included prereleases because each constraint needed to have a prerelease. Now, only one constraint needs to have a prerelease. Note, this does not carry across OR groups. For example, \u003ccode\u003e\u0026gt;1.0.0-beta.1 \u0026lt; 2 || \u0026gt; 3\u003c/code\u003e. In this case, prereleases will not be included when evaluating against \u003ccode\u003e\u0026gt;3\u003c/code\u003e\u003c/p\u003e\n\u003ch2\u003e🚀 Features\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efeat: add partial manifest \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3184664504\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5508\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5508/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5508\"\u003e#5508\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🐛 Bug Fixes\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: Branch reset causes initial Github API commit to be lost  \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/MattiasAng/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/MattiasAng\"\u003e@MattiasAng\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3175984059\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5486\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5486/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5486\"\u003e#5486\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003efix(bitbucket): use body parameter on pull request updates \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/mcwarman/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/mcwarman\"\u003e@mcwarman\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3146509934\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5457\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5457/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5457\"\u003e#5457\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e🧰 Maintenance\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003erefactor(autodiscovery): unify discovery spec \u0026amp; reduce boilerplate code \u0026amp; fix \u003ccode\u003eterragrunt\u003c/code\u003e missing in jsonschema \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/qianlongzt/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/qianlongzt\"\u003e@qianlongzt\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003edeps(go): bump module github.com/Masterminds/semver/v3 to v3.4.0 @\u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3183226259\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5507\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5507/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5507\"\u003e#5507\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003edeps(go): bump module sigs.k8s.io/yaml to v1.5.0 @\u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3175886440\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5485\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5485/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5485\"\u003e#5485\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003edeps(go): bump module helm.sh/helm/v3 to v3.18.3 @\u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3151242559\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5460\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5460/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5460\"\u003e#5460\u003c/a\u003e)\u003c/li\u003e\n\u003cli\u003edeps(go): bump module cuelang.org/go to v0.13.2 @\u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3172608324\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5464\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5464/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5464\"\u003e#5464\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e📝 Documentation\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003edoc: reformat code comment to improve website visualization \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3142644840\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/5436\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/5436/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/5436\"\u003e#5436\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/MattiasAng/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/MattiasAng\"\u003e@MattiasAng\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/mcwarman/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/mcwarman\"\u003e@mcwarman\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/qianlongzt/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/qianlongzt\"\u003e@qianlongzt\u003c/a\u003e, \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/updateclibot/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/updateclibot\"\u003e@updateclibot\u003c/a\u003e[bot] and \u003ca href=\"https://github.com/apps/updateclibot\"\u003eupdateclibot[bot]\u003c/a\u003e\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.103.0",
+    "PublishedAt": "2025-07-04 18:31:01 +0000 UTC",
+    "UpdatedAt": "2025-07-04 18:51:52 +0000 UTC",
+    "Tag": "v0.103.0",
+    "Name": "v0.103.0"
+  },
+  "FrontMatters": "---\ntitle: \"v0.103.0\"\ndate: 2025-07-04 18:31:01 +0000 UTC\n---\n"
+}
