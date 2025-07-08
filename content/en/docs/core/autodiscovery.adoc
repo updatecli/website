@@ -85,6 +85,7 @@ Here's an example configuration for a GitHub pull request action:
 
 ```
 autodiscovery:
+  groupby: all
   scmid: github
   actionid: pr
 
@@ -107,6 +108,13 @@ scms:
       username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
       branch: "main"
 ```
+
+==== One Pull request or many
+
+The attribute `autodiscovery.groupby` can have the values:
+- `all` (default) to create one pull request with all changes
+- `individual` to create one pull request per change
+
 
 === Crawlers
 
