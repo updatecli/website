@@ -2146,6 +2146,85 @@
                             "type": "object",
                             "description": "Spec defines the Terraform parameters."
                         },
+                        "terragrunt": {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "rootdir": {
+                                    "type": "string",
+                                    "description": "`rootdir` defines the root directory from where looking for terragrunt configuration"
+                                },
+                                "ignore": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "`path` specifies a terragrunt manifest path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "modules": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object",
+                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr://terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows to specifies rules to identify manifest"
+                                    },
+                                    "type": "array",
+                                    "description": "`ignore` specifies rule to ignore `.terraform.lock.hcl` update."
+                                },
+                                "only": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "`path` specifies a terragrunt manifest path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "modules": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object",
+                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr://terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows to specifies rules to identify manifest"
+                                    },
+                                    "type": "array",
+                                    "description": "`only` specify required rule to restrict `.terraform.lock.hcl` update."
+                                },
+                                "versionfilter": {
+                                    "properties": {
+                                        "kind": {
+                                            "type": "string",
+                                            "description": "specifies the version kind such as semver, regex, or latest"
+                                        },
+                                        "pattern": {
+                                            "type": "string",
+                                            "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                        },
+                                        "strict": {
+                                            "type": "boolean",
+                                            "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                        },
+                                        "regex": {
+                                            "type": "string",
+                                            "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "`versionfilter` provides parameters to specify the version pattern to use when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object",
+                            "description": "Spec defines the Terraform parameters."
+                        },
                         "updatecli": {
                             "$schema": "http://json-schema.org/draft-04/schema",
                             "properties": {
