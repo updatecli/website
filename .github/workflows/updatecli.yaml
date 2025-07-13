@@ -27,7 +27,7 @@ jobs:
       - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.87.1"
         with:
-          version: "v0.103.1"
+          version: "v0.104.0"
       - name: "Run updatecli in dryrun"
         run: "updatecli compose diff"
         env:
