@@ -8,7 +8,7 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
   - name: Handle Nodejs version in Netlify
-    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.7.0@sha256:6b5e04d8dad16e2b8c2a452a4399696b0c8a6fdfaa91e2dea4ba325fba28dcdd
+    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.8.0@sha256:d7b417acf34f32c99b9063b98cc227e0b8f8b3500a40bf5d6620a03152179bcc
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/nodejs.yaml
