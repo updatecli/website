@@ -64,9 +64,10 @@ A partial file must have a filename that starts with an underscore (`_`). Update
 
 IMPORTANT: Partial files are concatenated into the main manifest during execution. If a `---` YAML document separator is present, the partial feature will be disabled, as the resulting content would be treated as multiple separate YAML documents.
 
+++++
 <details><summary>updatecli.yaml</summary>
 
-```
+<pre>
 autodiscovery:
   groupby: {{ .groupby }}
 #{{ if or (.scm.enabled) }}
@@ -77,12 +78,15 @@ autodiscovery:
   crawlers:
     golang/gomod:
 
-```
+</pre>
 </details>
 
+++++
+
+++++
 <details><summary>_scm.yaml</summary>
 
-```
+<pre>
 # {{ if and (.scm.enabled) ( eq .scm.kind "gitea")) }}
 actions:
     default:
@@ -107,8 +111,10 @@ scms:
             url: '{{ .scm.url }}'
             # {{ end }}
 # {{ end }}
-```
+</pre>
 </details>
+
+++++
 
 
 === Content
@@ -122,25 +128,32 @@ More information on Go templates is https://golang.org/pkg/text/template/[here].
 
 An example values file can contain:
 
-[source,yaml]
-----
+++++
+<details><summary>values.yaml</summary>
+<pre>
 {{<include "assets/code_example/docs/core/configuration/values.yaml">}}
-----
+</pre>
+</details>
+++++
 
 That can used in a pipeline manifest as:
 
-[source,yaml]
-----
+++++
+<details><summary>updatecli.yaml</summary>
+<pre>
 {{<include "assets/code_example/docs/core/configuration/updatecli.yaml">}}
-----
+</pre>
+
+</details>
+++++
 
 == Go Further
 
-* To know more about Condition syntax link:/docs/core/condition[condition]
-* To know more about Source syntax link:/docs/core/source[source]
-* To know more about Target syntax link:/docs/core/target[target]
-* To know more about link:/plugins/[Plugins]
-** More specifically about the link:/plugins/source[source]
-** More specifically about the link:/plugins/condition[condition]
-** More specifically about the link:/plugins/target[target]
-** More specifically about the link:/plugins/scm[SCM]
+* To know more about Condition syntax **link:/docs/core/condition[condition]**
+* To know more about Source syntax **link:/docs/core/source[source]**
+* To know more about Target syntax **link:/docs/core/target[target]**
+* To know more about **link:/plugins/[Plugins]**
+** More specifically about the **link:/plugins/source[source]**
+** More specifically about the **link:/plugins/condition[condition]**
+** More specifically about the **link:/plugins/target[target]**
+** More specifically about the **link:/plugins/scm[SCM]**
