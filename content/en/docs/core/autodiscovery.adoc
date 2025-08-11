@@ -49,6 +49,8 @@ The next part of this document covers the different kinds of customization that 
 
 == Parameters
 
+{{< coreparameters "autodiscovery" >}}
+
 Autodiscovery could benefit from some customization, such as providing SCM configuration or defining pull request information.
 Some parameters are crawler specific and others apply to all crawlers.
 
