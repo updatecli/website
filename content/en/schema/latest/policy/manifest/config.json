@@ -2860,6 +2860,14 @@
                                         "type": "string",
                                         "description": "\"branch\" defines the git branch to work on.\n\n compatible:\n   * scm\n\n default:\n   main\n\n remark:\n   depending on which resource references the Bitbucket Cloud scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n   The working branch can be disabled using the \"workingBranch\" parameter set to false."
                                     },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
+                                    },
                                     "submodules": {
                                         "type": "boolean",
                                         "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\n compatible:\n\t  * scm\n\n default: true"
@@ -2910,6 +2918,14 @@
                                     "branch": {
                                         "type": "string",
                                         "description": "\"branch\" defines the git branch to work on.\n\n\tcompatible:\n\t  * scm\n\n\tdefault:\n\t\tmain\n\n\tremark:\n\t\tdepending on which resource references the GitHub scm, the behavior will be different.\n\n\t\tIf the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n\t\tfile(s) from that branch.\n\n\t\tIf the scm is linked to target then Updatecli will push any changes to that branch\n\n\t\tFor more information, please refer to the following issue:\n\t\thttps://github.com/updatecli/updatecli/issues/1139"
+                                    },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
                                     },
                                     "user": {
                                         "type": "string",
@@ -3093,6 +3109,14 @@
                                         "type": "string",
                                         "description": "\"branch\" defines the git branch to work on.\n\n\tcompatible:\n\t  * scm\n\n\tdefault:\n\t  main\n\n\tremark:\n\t  depending on which resource references the Gitea scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n\t  The working branch can be disabled using the \"workingBranch\" parameter set to false."
                                     },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
+                                    },
                                     "submodules": {
                                         "type": "boolean",
                                         "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\n compatible:\n\t  * scm\n\n default: true"
@@ -3132,6 +3156,14 @@
                                     "branch": {
                                         "type": "string",
                                         "description": "\"branch\" defines the git branch to work on.\n\n compatible:\n   * scm\n\n default:\n   main\n\n remark:\n   depending on which resource references the GitHub scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n   The working branch can be disabled using the \"workingBranch\" parameter set to false."
+                                    },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
                                     },
                                     "directory": {
                                         "type": "string",
@@ -3345,6 +3377,14 @@
                                         "type": "string",
                                         "description": "\"branch\" defines the git branch to work on.\n\n compatible:\n   * scm\n\n default:\n   main\n\n remark:\n   depending on which resource references the GitLab scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n\t  The working branch can be disabled using the \"workingBranch\" parameter set to false."
                                     },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
+                                    },
                                     "submodules": {
                                         "type": "boolean",
                                         "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\n compatible:\n\t  * scm\n\n default: true"
@@ -3469,6 +3509,14 @@
                                     "branch": {
                                         "type": "string",
                                         "description": "\"branch\" defines the git branch to work on.\n\n compatible:\n   * scm\n\n default:\n   main\n\n remark:\n   depending on which resource references the Stash scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n   The working branch can be disabled using the \"workingBranch\" parameter set to false."
+                                    },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
                                     },
                                     "submodules": {
                                         "type": "boolean",
@@ -7963,26 +8011,26 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "\"file\" defines the Json file path to interact with.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "remark:\n   * \"file\" and \"files\" are mutually exclusive\n   * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"files\" defines the list of Json files path to interact with.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "remark:\n  * \"file\" and \"files\" are mutually exclusive\n  * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" defines the Jsonpath key to manipulate.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* key is a simpler version of Jsonpath accepts keys.\n\t\t\t* key accepts Dasel query, more information on https://github.com/tomwright/dasel\n\n\t\texample:\n\t\t\t* key: $.name\n\t\t\t* key: name\n\t\t\t* file: https://nodejs.org/dist/index.json\n\t\t\t  key: .(lts!=false).version"
+                                        "description": "key defines the Jsonpath key to manipulate.\n\ncompatible:\n * source\n\t* condition\n\t* target\n\nremark:\n\t* key is a simpler version of Jsonpath accepts keys.\n\t* key accepts Dasel query, more information on https://github.com/tomwright/dasel\n * key accepts values based on the engine used\n\nexample:\n\t* key: $.name\n\t* key: name\n\t* file: https://nodejs.org/dist/index.json\n\t  key: .(lts!=false).version"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "\"value\" defines the Jsonpath key value to manipulate. Default to source output.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\twhen used for a condition or a target, the default value is the output of the source."
+                                        "description": "value defines the Jsonpath key value to manipulate. Default to source output.\n\ncompatible:\n * condition\n\t* target\n\ndefault:\n\twhen used for a condition or a target, the default value is the output of the source."
                                     },
                                     "query": {
                                         "type": "string",
-                                        "description": "[s][c][t] Query allows to used advanced query. Override the parameter key\n\n\t\t\"query\" defines the Jsonpath query to manipulate. It accepts advanced Dasel query\n\t\tthe goal is to retrieve a list of values and then filter them with versionfilter.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\texample:\n\t\t\t* query: .name\n\t\t\t* query: \".[*].tag_name\"\n\n\t\tremark:\n\t\t\t* query accepts Dasel query, more information on https://github.com/tomwright/dasel"
+                                        "description": "query defines the Jsonpath query to manipulate. It accepts advanced Dasel v1 query\nthis parameter is now deprecated in Dasel v2 and replaced by the parameter \"key\".\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\nexample:\n\t* query: .name\n\t* query: \".[*].tag_name\"\n\nremark:\n\t* query accepts Dasel query, more information on https://github.com/tomwright/dasel"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -8004,8 +8052,7 @@
                                             }
                                         },
                                         "additionalProperties": false,
-                                        "type": "object",
-                                        "description": "\"versionfilter\" provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n\t\tcompatible:\n\t\t\t* source"
+                                        "type": "object"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -15274,26 +15321,26 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "\"file\" defines the Json file path to interact with.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "remark:\n   * \"file\" and \"files\" are mutually exclusive\n   * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"files\" defines the list of Json files path to interact with.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "remark:\n  * \"file\" and \"files\" are mutually exclusive\n  * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" defines the Jsonpath key to manipulate.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* key is a simpler version of Jsonpath accepts keys.\n\t\t\t* key accepts Dasel query, more information on https://github.com/tomwright/dasel\n\n\t\texample:\n\t\t\t* key: $.name\n\t\t\t* key: name\n\t\t\t* file: https://nodejs.org/dist/index.json\n\t\t\t  key: .(lts!=false).version"
+                                        "description": "key defines the Jsonpath key to manipulate.\n\ncompatible:\n * source\n\t* condition\n\t* target\n\nremark:\n\t* key is a simpler version of Jsonpath accepts keys.\n\t* key accepts Dasel query, more information on https://github.com/tomwright/dasel\n * key accepts values based on the engine used\n\nexample:\n\t* key: $.name\n\t* key: name\n\t* file: https://nodejs.org/dist/index.json\n\t  key: .(lts!=false).version"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "\"value\" defines the Jsonpath key value to manipulate. Default to source output.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\twhen used for a condition or a target, the default value is the output of the source."
+                                        "description": "value defines the Jsonpath key value to manipulate. Default to source output.\n\ncompatible:\n * condition\n\t* target\n\ndefault:\n\twhen used for a condition or a target, the default value is the output of the source."
                                     },
                                     "query": {
                                         "type": "string",
-                                        "description": "[s][c][t] Query allows to used advanced query. Override the parameter key\n\n\t\t\"query\" defines the Jsonpath query to manipulate. It accepts advanced Dasel query\n\t\tthe goal is to retrieve a list of values and then filter them with versionfilter.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\texample:\n\t\t\t* query: .name\n\t\t\t* query: \".[*].tag_name\"\n\n\t\tremark:\n\t\t\t* query accepts Dasel query, more information on https://github.com/tomwright/dasel"
+                                        "description": "query defines the Jsonpath query to manipulate. It accepts advanced Dasel v1 query\nthis parameter is now deprecated in Dasel v2 and replaced by the parameter \"key\".\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\nexample:\n\t* query: .name\n\t* query: \".[*].tag_name\"\n\nremark:\n\t* query accepts Dasel query, more information on https://github.com/tomwright/dasel"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -15315,8 +15362,7 @@
                                             }
                                         },
                                         "additionalProperties": false,
-                                        "type": "object",
-                                        "description": "\"versionfilter\" provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n\t\tcompatible:\n\t\t\t* source"
+                                        "type": "object"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22927,26 +22973,26 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "\"file\" defines the Json file path to interact with.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "remark:\n   * \"file\" and \"files\" are mutually exclusive\n   * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"files\" defines the list of Json files path to interact with.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* \"file\" and \"files\" are mutually exclusive\n\t\t\t* scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
+                                        "description": "remark:\n  * \"file\" and \"files\" are mutually exclusive\n  * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" defines the Jsonpath key to manipulate.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tremark:\n\t\t\t* key is a simpler version of Jsonpath accepts keys.\n\t\t\t* key accepts Dasel query, more information on https://github.com/tomwright/dasel\n\n\t\texample:\n\t\t\t* key: $.name\n\t\t\t* key: name\n\t\t\t* file: https://nodejs.org/dist/index.json\n\t\t\t  key: .(lts!=false).version"
+                                        "description": "key defines the Jsonpath key to manipulate.\n\ncompatible:\n * source\n\t* condition\n\t* target\n\nremark:\n\t* key is a simpler version of Jsonpath accepts keys.\n\t* key accepts Dasel query, more information on https://github.com/tomwright/dasel\n * key accepts values based on the engine used\n\nexample:\n\t* key: $.name\n\t* key: name\n\t* file: https://nodejs.org/dist/index.json\n\t  key: .(lts!=false).version"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "\"value\" defines the Jsonpath key value to manipulate. Default to source output.\n\n\t\tcompatible:\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\twhen used for a condition or a target, the default value is the output of the source."
+                                        "description": "value defines the Jsonpath key value to manipulate. Default to source output.\n\ncompatible:\n * condition\n\t* target\n\ndefault:\n\twhen used for a condition or a target, the default value is the output of the source."
                                     },
                                     "query": {
                                         "type": "string",
-                                        "description": "[s][c][t] Query allows to used advanced query. Override the parameter key\n\n\t\t\"query\" defines the Jsonpath query to manipulate. It accepts advanced Dasel query\n\t\tthe goal is to retrieve a list of values and then filter them with versionfilter.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\texample:\n\t\t\t* query: .name\n\t\t\t* query: \".[*].tag_name\"\n\n\t\tremark:\n\t\t\t* query accepts Dasel query, more information on https://github.com/tomwright/dasel"
+                                        "description": "query defines the Jsonpath query to manipulate. It accepts advanced Dasel v1 query\nthis parameter is now deprecated in Dasel v2 and replaced by the parameter \"key\".\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\nexample:\n\t* query: .name\n\t* query: \".[*].tag_name\"\n\nremark:\n\t* query accepts Dasel query, more information on https://github.com/tomwright/dasel"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -22968,8 +23014,7 @@
                                             }
                                         },
                                         "additionalProperties": false,
-                                        "type": "object",
-                                        "description": "\"versionfilter\" provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n\t\tcompatible:\n\t\t\t* source"
+                                        "type": "object"
                                     }
                                 },
                                 "additionalProperties": false,
