@@ -49,13 +49,20 @@ The next part of this document covers the different kinds of customization that 
 
 == Parameters
 
+
+{{< autodiscoverycoreparameters >}}
+
+
 Autodiscovery could benefit from some customization, such as providing SCM configuration or defining pull request information.
 Some parameters are crawler specific and others apply to all crawlers.
 
 If a updatecli manifest specifies the root key "autodiscovery", such as in the following example, then on top of the default autodiscovery, it enables an additional autodiscovery feature.
 Here we clone the epinio/helm-chart repository in a temporary location and then look in that location for all Helm charts that specify dependencies and we try to update them.
 
-```
+++++
+<details><summary>Example</summary>
+
+<pre>
 scms:
   default:
     kind: git
@@ -65,7 +72,10 @@ autodiscovery:
   scmid: default
   crawlers:
     helm:
-```
+</pre>
+
+</details>
+++++
 
 By default, autodiscovery looks for patterns from the local directory.
 We can also specify manifests from remote git repositories.
@@ -83,7 +93,10 @@ defined in your manifest's `actions` section.
 
 Here's an example configuration for a GitHub pull request action:
 
-```
+++++
+<details><summary>Example</summary>
+
+  <pre>
 autodiscovery:
   groupby: all
   scmid: github
@@ -106,8 +119,10 @@ scms:
       repository: "my-repo"
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
-      branch: "main"
-```
+
+  </pre>
+</details>
+++++
 
 ==== One Pull request or many
 
