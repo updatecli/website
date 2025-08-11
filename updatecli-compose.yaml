@@ -39,4 +39,5 @@ policies:
       - updatecli/values.d/npm.yaml
   - name: Handle Updatecli version in GitHub action
     policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.6.0
+    values:
       - updatecli/values.d/scm.yaml
