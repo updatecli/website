@@ -8009,6 +8009,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "engine": {
+                                        "type": "string",
+                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v2"
+                                    },
                                     "file": {
                                         "type": "string",
                                         "description": "remark:\n   * \"file\" and \"files\" are mutually exclusive\n   * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
@@ -10613,6 +10617,13 @@
                                     "key": {
                                         "type": "string",
                                         "description": "\"key\" defines the yaml keypath.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * key is a simpler version of yamlpath accepts keys.\n\nexample using default engine:\n * key: $.name\n * key: $.agent.name\n * key: $.agents[0].name\n * key: $.agents[*].name\n * key: $.'agents.name'\n * key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\nremark:\n field path with key/value is not supported at the moment.\n some help would be useful on https://github.com/goccy/go-yaml/issues/290"
+                                    },
+                                    "keys": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"keys\" defines multiple yaml keypaths to update with the same value.\n\ncompatible:\n * target\n\nremark:\n * keys is mutually exclusive with key.\n * keys accepts the same syntax as key for each element.\n * all keys will be updated with the same value.\n * only available for target operations, not for source or condition.\n\nexample using default engine:\n * keys:\n   - $.image.tag\n   - $.sidecar.tag\n * keys:\n   - $.agents[0].version\n   - $.agents[1].version"
                                     },
                                     "value": {
                                         "type": "string",
@@ -15319,6 +15330,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "engine": {
+                                        "type": "string",
+                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v2"
+                                    },
                                     "file": {
                                         "type": "string",
                                         "description": "remark:\n   * \"file\" and \"files\" are mutually exclusive\n   * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
@@ -18049,6 +18064,13 @@
                                     "key": {
                                         "type": "string",
                                         "description": "\"key\" defines the yaml keypath.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * key is a simpler version of yamlpath accepts keys.\n\nexample using default engine:\n * key: $.name\n * key: $.agent.name\n * key: $.agents[0].name\n * key: $.agents[*].name\n * key: $.'agents.name'\n * key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\nremark:\n field path with key/value is not supported at the moment.\n some help would be useful on https://github.com/goccy/go-yaml/issues/290"
+                                    },
+                                    "keys": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"keys\" defines multiple yaml keypaths to update with the same value.\n\ncompatible:\n * target\n\nremark:\n * keys is mutually exclusive with key.\n * keys accepts the same syntax as key for each element.\n * all keys will be updated with the same value.\n * only available for target operations, not for source or condition.\n\nexample using default engine:\n * keys:\n   - $.image.tag\n   - $.sidecar.tag\n * keys:\n   - $.agents[0].version\n   - $.agents[1].version"
                                     },
                                     "value": {
                                         "type": "string",
@@ -22971,6 +22993,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "engine": {
+                                        "type": "string",
+                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v2"
+                                    },
                                     "file": {
                                         "type": "string",
                                         "description": "remark:\n   * \"file\" and \"files\" are mutually exclusive\n   * scheme \"https://\", \"http://\", and \"file://\" are supported in path for source and condition"
@@ -25827,6 +25853,13 @@
                                     "key": {
                                         "type": "string",
                                         "description": "\"key\" defines the yaml keypath.\n\ncompatible:\n * source\n * condition\n * target\n\nremark:\n * key is a simpler version of yamlpath accepts keys.\n\nexample using default engine:\n * key: $.name\n * key: $.agent.name\n * key: $.agents[0].name\n * key: $.agents[*].name\n * key: $.'agents.name'\n * key: $.repos[?(@.repository == 'website')].owner\" (require engine set to yamlpath)\n\nremark:\n field path with key/value is not supported at the moment.\n some help would be useful on https://github.com/goccy/go-yaml/issues/290"
+                                    },
+                                    "keys": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"keys\" defines multiple yaml keypaths to update with the same value.\n\ncompatible:\n * target\n\nremark:\n * keys is mutually exclusive with key.\n * keys accepts the same syntax as key for each element.\n * all keys will be updated with the same value.\n * only available for target operations, not for source or condition.\n\nexample using default engine:\n * keys:\n   - $.image.tag\n   - $.sidecar.tag\n * keys:\n   - $.agents[0].version\n   - $.agents[1].version"
                                     },
                                     "value": {
                                         "type": "string",
