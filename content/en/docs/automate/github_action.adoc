@@ -33,7 +33,7 @@ The easiest one is the GITHUB_TOKEN which comes with two major limitations:
 
 **Personal Access Token**
 
-The second approach is to configure a GitHub action secret with a personnal access token that allow 5000 request per hour https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users[src].
+The second approach is to configure a GitHub action secret with a personal access token that allow 5000 request per hour https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users[src].
 
 **GitHub App**
 
