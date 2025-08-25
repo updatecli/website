@@ -76,7 +76,7 @@ Updatecli can sign commits using a private GPG key if configured accordingly.
 
 === Personal vs Group/Repo Access Tokens
 
-When using personal access token in Gitlab the user for the commits will be automatically set to the one whon the PAT belongs to.
+When using personal access token in Gitlab the user for the commits will be automatically set to the one whom the PAT belongs to.
 If you use the group or repo access token the user has to be specified in the user parameter otherwise the commit will show no user next to it 
 and the merge request updatecli creates will be stuck in the "Your merge request is almost ready!" state.
 
