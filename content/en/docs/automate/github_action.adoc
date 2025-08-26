@@ -28,20 +28,22 @@ Updatecli requires a token to interact with the GitHub API. It can be done using
 
 The easiest one is the GITHUB_TOKEN which comes with two major limitations:
 
-1. For security reason, GitHub prevents to trigger GitHub action workflow from pullrequest created with a GITHUB_TOKEN, more information https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow[here]. This means that a pullrequest recreated this way won't trigger any test.
-2. GITHUB_TOKEN has the lower API request limit 1000 requests per hour https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-github_token-in-github-actions[src]
+1. For security reason, GitHub prevents to trigger GitHub action workflow from pullrequest created with a GITHUB_TOKEN, more information https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow[**here**]. This means that a pullrequest recreated this way won't trigger any test.
+2. GITHUB_TOKEN has the lower API request limit 1000 requests per hour as explained https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-github_token-in-github-actions[**here**]
+
+IMPORTANT: By default the GITHUB_TOKEN is not allowed to open pullrequest. You first need to configure the default GITHUB_TOKEN permission for your repository. More information https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#configuring-the-default-github_token-permissions[**here**]
 
 **Personal Access Token**
 
-The second approach is to configure a GitHub action secret with a personal access token that allow 5000 request per hour https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users[src].
+The second approach is to configure a GitHub action secret with a personal access token that allow 5000 request per hour https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users[**src**].
 
 **GitHub App**
 
-The third approach is to use a GitHub App that provides the highest api limit, 15000 request per hour https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow[here].
+The third approach is to use a GitHub App that provides the highest api limit, 15000 request per hour https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow[**here**].
 
 **Conclusion**
 
-The third option is the best one but not yet supported natively by Updatecli. An issue is open at https://github.com/updatecli/updatecli/issues/2262[issue#2262]. A workaround is available by using the GitHub action https://github.com/actions/create-github-app-token[actions/create-github-app-token].
+The third option is the best one but not yet supported natively by Updatecli. An issue is open at https://github.com/updatecli/updatecli/issues/2262[**issue#2262**]. A workaround is available by using the GitHub action https://github.com/actions/create-github-app-token[**actions/create-github-app-token**].
 
 == Migration
 
