@@ -28,6 +28,15 @@ Please look at each kind of resource (shell, file, etc.) for details about "how 
 
 {{< coreparameters "conditions" >}}
 
+=== Using `failwhen`
+
+The `failwhen` parameter allows you to **invert the result of a condition**:
+
+* `failwhen: false` → Normal behavior: success is success, failure is failure. (Default behavior)
+* `failwhen: true` → Inverted behavior: success is treated as failure, failure is treated as success.
+
+This is particularly useful for testing or enforcing negative checks.
+
 == Examples
 
 * Example with only 1 source:
