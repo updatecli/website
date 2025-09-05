@@ -919,23 +919,23 @@
                                         "properties": {
                                             "path": {
                                                 "type": "string",
-                                                "description": "Path specifies a go.mod path pattern, the pattern requires to match all of name, not just a substring."
+                                                "description": "Path specifies a go.mod path pattern\nThe pattern syntax is:\npattern:\n    { term }\nterm:\n    '*'         matches any sequence of non-Separator characters\n    '?'         matches any single non-Separator character\n    '[' [ '^' ] { character-range } ']'\n                character class (must be non-empty)\n    c           matches character c (c != '*', '?', '\\\\', '[')\n    '\\\\' c      matches character c\nexample:\n  * 'go.mod' matches 'go.mod' in the current directory\n  * '*/go.mod' matches 'go.mod' in any first level subdirectory"
                                             },
                                             "modules": {
                                                 "additionalProperties": {
                                                     "type": "string"
                                                 },
                                                 "type": "object",
-                                                "description": "Modules specifies a list of module pattern."
+                                                "description": "Modules specifies a list of module pattern.\nThe module accepts regular expression for module name and semantic versioning constraint for module version.\nIf module version is empty then any version is matching.\nExample:\n  * 'github.com/updatecli/updatecli': '' matches any version of the module github.com/updatecli/updatecli\n  * 'github.com/updatecli/updatecli': '1.0.0' matches only version 1.0.0 of the module github.com/updatecli/updatecli\n  * 'github.com/updatecli/updatecli': '\u003e=1.0.0' matches any version greater than or equal to 1.0.0 of the module github.com/updatecli/updatecli\n  * 'github.com/.*': '\u003e=1.0.0' matches any version greater than or equal to 1.0.0 of any module hosted under github.com\n  * 'github\\.com\\/updatecli\\/updatecli': '\u003e=1.0.0' matches any version greater than or equal to 1."
                                             },
                                             "goversion": {
                                                 "type": "string",
-                                                "description": "GoVersions specifies a list of version pattern."
+                                                "description": "GoVersions specifies a list of version pattern.\nThe version constraint must be a valid semantic version constraint.\nIf GoVersion is empty then any version is matching.\nExample:\n  * '1.19.*' matches any 1.19.x version\n * '\u003e=1.20.0' matches any version greater than or equal to 1.20.0\n  * '\u003c1.20.0' matches any version strictly less than 1.20.0\n  * '*' matches any version"
                                             }
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "MatchingRule allows to specifies rules to identify manifest"
+                                        "description": "MatchingRule allows to specifies rules to identify manifest to update based on file path, module name, module version, go version and replace directive."
                                     },
                                     "type": "array",
                                     "description": "ignore allows to specify \"rule\" to ignore autodiscovery a specific go.mod rule"
@@ -945,23 +945,23 @@
                                         "properties": {
                                             "path": {
                                                 "type": "string",
-                                                "description": "Path specifies a go.mod path pattern, the pattern requires to match all of name, not just a substring."
+                                                "description": "Path specifies a go.mod path pattern\nThe pattern syntax is:\npattern:\n    { term }\nterm:\n    '*'         matches any sequence of non-Separator characters\n    '?'         matches any single non-Separator character\n    '[' [ '^' ] { character-range } ']'\n                character class (must be non-empty)\n    c           matches character c (c != '*', '?', '\\\\', '[')\n    '\\\\' c      matches character c\nexample:\n  * 'go.mod' matches 'go.mod' in the current directory\n  * '*/go.mod' matches 'go.mod' in any first level subdirectory"
                                             },
                                             "modules": {
                                                 "additionalProperties": {
                                                     "type": "string"
                                                 },
                                                 "type": "object",
-                                                "description": "Modules specifies a list of module pattern."
+                                                "description": "Modules specifies a list of module pattern.\nThe module accepts regular expression for module name and semantic versioning constraint for module version.\nIf module version is empty then any version is matching.\nExample:\n  * 'github.com/updatecli/updatecli': '' matches any version of the module github.com/updatecli/updatecli\n  * 'github.com/updatecli/updatecli': '1.0.0' matches only version 1.0.0 of the module github.com/updatecli/updatecli\n  * 'github.com/updatecli/updatecli': '\u003e=1.0.0' matches any version greater than or equal to 1.0.0 of the module github.com/updatecli/updatecli\n  * 'github.com/.*': '\u003e=1.0.0' matches any version greater than or equal to 1.0.0 of any module hosted under github.com\n  * 'github\\.com\\/updatecli\\/updatecli': '\u003e=1.0.0' matches any version greater than or equal to 1."
                                             },
                                             "goversion": {
                                                 "type": "string",
-                                                "description": "GoVersions specifies a list of version pattern."
+                                                "description": "GoVersions specifies a list of version pattern.\nThe version constraint must be a valid semantic version constraint.\nIf GoVersion is empty then any version is matching.\nExample:\n  * '1.19.*' matches any 1.19.x version\n * '\u003e=1.20.0' matches any version greater than or equal to 1.20.0\n  * '\u003c1.20.0' matches any version strictly less than 1.20.0\n  * '*' matches any version"
                                             }
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "MatchingRule allows to specifies rules to identify manifest"
+                                        "description": "MatchingRule allows to specifies rules to identify manifest to update based on file path, module name, module version, go version and replace directive."
                                     },
                                     "type": "array",
                                     "description": "`only` allows to specify rule to \"only\" autodiscover manifest for a specific golang rule"
