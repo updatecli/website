@@ -4823,7 +4823,7 @@
                                     },
                                     "matchpattern": {
                                         "type": "string",
-                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * For targets: Capture groups (parentheses) in the pattern automatically extract\n\t         the current value for changelog generation\n\t       * Without capture groups, changelogs show generic \"unknown\" version changes\n\t       * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n\t       * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n\t       * Supports full Go regexp syntax"
                                     },
                                     "replacepattern": {
                                         "type": "string",
@@ -11991,7 +11991,7 @@
                                     },
                                     "matchpattern": {
                                         "type": "string",
-                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * For targets: Capture groups (parentheses) in the pattern automatically extract\n\t         the current value for changelog generation\n\t       * Without capture groups, changelogs show generic \"unknown\" version changes\n\t       * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n\t       * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n\t       * Supports full Go regexp syntax"
                                     },
                                     "replacepattern": {
                                         "type": "string",
@@ -19501,7 +19501,7 @@
                                     },
                                     "matchpattern": {
                                         "type": "string",
-                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * For targets: Capture groups (parentheses) in the pattern automatically extract\n\t         the current value for changelog generation\n\t       * Without capture groups, changelogs show generic \"unknown\" version changes\n\t       * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n\t       * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n\t       * Supports full Go regexp syntax"
                                     },
                                     "replacepattern": {
                                         "type": "string",
