@@ -35,6 +35,45 @@ The "where" is the "target" and defines where we want to update a piece of infor
 
 == Manifest
 
+=== Pipeline ID
+
+By default, Updatecli treats each manifest file as an independent update pipeline.
+For reproducibility, it automatically generates a deterministic pipeline ID based on the manifest’s content.
+This ensures that the same manifest always gets the same pipeline ID across multiple runs.
+
+Updatecli uses this ID in several places, such as the name of the temporary branch it creates when preparing pull requests.
+
+If multiple manifest files share the same pipeline ID (either because they have identical content or because you explicitly set the same pipelineid), they will share the same temporary branch.
+
+++++
+<details><summary>updatecli.d/docker.yaml</summary>
+
+<pre>
+name: Update Golang Version in Dockerfile
+pipelineid: go/version
+...
+</pre>
+</details>
+++++
+
+++++
+<details><summary>updatecli.d/gomod.yaml</summary>
+
+<pre>
+name: Update Golang Version in Go Mod
+pipelineid: go/version
+...
+</pre>
+</details>
+++++
+
+[IMPORTANT]
+====
+* By default, The generated pipelineID is a hash based on the content of the manifest file so this ID may change if the content of the manifest is changed.
+* Since the pipelineid is used in the name of the temporary Git branch, avoid using / in the ID.
+In Git, / is treated as a directory separator in branch names, which can make branch management confusing.
+====
+
 === File
 
 Each Updatecli pipeline is defined in its own manifest file.
