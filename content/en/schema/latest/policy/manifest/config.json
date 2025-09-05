@@ -931,6 +931,10 @@
                                             "goversion": {
                                                 "type": "string",
                                                 "description": "GoVersions specifies a list of version pattern.\nThe version constraint must be a valid semantic version constraint.\nIf GoVersion is empty then any version is matching.\nExample:\n  * '1.19.*' matches any 1.19.x version\n * '\u003e=1.20.0' matches any version greater than or equal to 1.20.0\n  * '\u003c1.20.0' matches any version strictly less than 1.20.0\n  * '*' matches any version"
+                                            },
+                                            "replace": {
+                                                "type": "boolean",
+                                                "description": "Replace indicates if the module is a replace directive.\nIf Replace is nil then any module is matching.\nIf Replace is true then only module with a replace directive is matching.\nIf Replace is false then only module without a replace directive is matching."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -957,6 +961,10 @@
                                             "goversion": {
                                                 "type": "string",
                                                 "description": "GoVersions specifies a list of version pattern.\nThe version constraint must be a valid semantic version constraint.\nIf GoVersion is empty then any version is matching.\nExample:\n  * '1.19.*' matches any 1.19.x version\n * '\u003e=1.20.0' matches any version greater than or equal to 1.20.0\n  * '\u003c1.20.0' matches any version strictly less than 1.20.0\n  * '*' matches any version"
+                                            },
+                                            "replace": {
+                                                "type": "boolean",
+                                                "description": "Replace indicates if the module is a replace directive.\nIf Replace is nil then any module is matching.\nIf Replace is true then only module with a replace directive is matching.\nIf Replace is false then only module without a replace directive is matching."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -6974,6 +6982,14 @@
                                     "version": {
                                         "type": "string",
                                         "description": "Version Defines a specific golang version\n\ncompatible:\n  * source\n  * condition"
+                                    },
+                                    "replace": {
+                                        "type": "boolean",
+                                        "description": "Replace specifies if we manipulate a replaced dependency\n\ncompatible:\n  * source\n  * condition\n  * target"
+                                    },
+                                    "replaceversion": {
+                                        "type": "string",
+                                        "description": "ReplaceVersion specifies the specific Go module version to replace\n\ncompatible:\n  * source\n  * condition\n  * target\n\ndefault: unset, which will match any version of the module being replaced.\n\nExample:\n For the following Go replace instruction:\n   moduleA v1.2.3 =\u003e moduleB v1.0.0\n - The 'module' field should be set to 'moduleA' (the module being replaced, left-hand side).\n - The value of ReplaceVersion should be 'v1.2.3', corresponding to the version of moduleA\n   (the module being replaced, left-hand side)."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -14241,6 +14257,14 @@
                                     "version": {
                                         "type": "string",
                                         "description": "Version Defines a specific golang version\n\ncompatible:\n  * source\n  * condition"
+                                    },
+                                    "replace": {
+                                        "type": "boolean",
+                                        "description": "Replace specifies if we manipulate a replaced dependency\n\ncompatible:\n  * source\n  * condition\n  * target"
+                                    },
+                                    "replaceversion": {
+                                        "type": "string",
+                                        "description": "ReplaceVersion specifies the specific Go module version to replace\n\ncompatible:\n  * source\n  * condition\n  * target\n\ndefault: unset, which will match any version of the module being replaced.\n\nExample:\n For the following Go replace instruction:\n   moduleA v1.2.3 =\u003e moduleB v1.0.0\n - The 'module' field should be set to 'moduleA' (the module being replaced, left-hand side).\n - The value of ReplaceVersion should be 'v1.2.3', corresponding to the version of moduleA\n   (the module being replaced, left-hand side)."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -21850,6 +21874,14 @@
                                     "version": {
                                         "type": "string",
                                         "description": "Version Defines a specific golang version\n\ncompatible:\n  * source\n  * condition"
+                                    },
+                                    "replace": {
+                                        "type": "boolean",
+                                        "description": "Replace specifies if we manipulate a replaced dependency\n\ncompatible:\n  * source\n  * condition\n  * target"
+                                    },
+                                    "replaceversion": {
+                                        "type": "string",
+                                        "description": "ReplaceVersion specifies the specific Go module version to replace\n\ncompatible:\n  * source\n  * condition\n  * target\n\ndefault: unset, which will match any version of the module being replaced.\n\nExample:\n For the following Go replace instruction:\n   moduleA v1.2.3 =\u003e moduleB v1.0.0\n - The 'module' field should be set to 'moduleA' (the module being replaced, left-hand side).\n - The value of ReplaceVersion should be 'v1.2.3', corresponding to the version of moduleA\n   (the module being replaced, left-hand side)."
                                     }
                                 },
                                 "additionalProperties": false,
