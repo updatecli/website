@@ -6,7 +6,7 @@
       <th>Description</th>
       <th>Required</th>
     </tr>
-{{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
+{{ $dataJ := getJSON "/content/en/schema/latest/policy/manifest/config.json" }}
   {{ range $k, $v := $dataJ.properties }}
     {{ if eq $k $stage }}
       {{ $core := ( index $v.additionalProperties.oneOf 0 )}}
