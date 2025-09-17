@@ -5,7 +5,7 @@
       <th>Description</th>
       <th>Required</th>
     </tr>
-{{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
+    {{ $dataJ := getJSON "/content/en/schema/latest/policy/manifest/config.json" }}
     {{ range $key, $value := $dataJ.properties.autodiscovery.properties }}
     <tr>
         <td><b>{{ $key }}</b></td>
@@ -13,27 +13,37 @@
         <td>{{ $value.description | markdownify }}</td>
         <td>{{ $value.required }}</td>
     </tr>
-                        {{ if eq $value.type "object" }}
-                          {{ range $subkey, $subvalue := $value.properties }}
+        {{ if and (eq $value.type "object") (eq $key "crawlers") }}
+            {{ range $subkey, $subvalue := $value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $subkey }}</b></td>
+        <td>{{ $subvalue.type }}</td>
+        <td>{{ $subvalue.description | markdownify }}<p>More information on the <a href="/docs/plugins/autodiscovery/{{ $subkey }}/"><strong>{{ $subkey }}</strong></a> documentation page</p></td>
+        <td>{{ $subvalue.required }}</td>
+    </tr>
+            {{ end }}
+        {{ end }}
+        {{ if and (eq $value.type "object") (ne $key "crawlers") }}
+            {{ range $subkey, $subvalue := $value.properties }}
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $subkey }}</b></td>
         <td>{{ $subvalue.type }}</td>
         <td>{{ $subvalue.description | markdownify }}</td>
         <td>{{ $subvalue.required }}</td>
     </tr>
-                          {{ end }}
-                        {{ end }}
-                        {{ if eq $value.type "array" }}
-                          {{ range $itemKey, $item := $value.items.properties }}
+            {{ end }}
+        {{ end }}
+        {{ if eq $value.type "array" }}
+          {{ range $itemKey, $item := $value.items.properties }}
     <tr>
       <td><b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
       <td>{{ $item.type }}</td>
       <td>{{ $item.description | markdownify }}</td>
       <td>{{ $item.required }}</td>
     </tr>
-                        {{ end }}
-                      {{ end }}
-                    {{ end }}
+          {{ end }}
+        {{ end }}
+    {{ end }}
 </table>
 
 <small>&#9888; This table is generated from the Updatecli codebase and may contain inaccurate data. Feel free to report them on <a href="https://github.com/updatecli/updatecli/issues">github.com/updatecli/updatecli</a></small>
