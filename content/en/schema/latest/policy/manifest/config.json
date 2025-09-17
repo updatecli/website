@@ -2806,27 +2806,27 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
                                             },
                                             "scope": {
                                                 "type": "string",
-                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "footers": {
                                                 "type": "string",
-                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "hidecredit": {
                                                 "type": "boolean",
-                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -2955,27 +2955,27 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
                                             },
                                             "scope": {
                                                 "type": "string",
-                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "footers": {
                                                 "type": "string",
-                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "hidecredit": {
                                                 "type": "boolean",
-                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3047,27 +3047,27 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
                                             },
                                             "scope": {
                                                 "type": "string",
-                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "footers": {
                                                 "type": "string",
-                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "hidecredit": {
                                                 "type": "boolean",
-                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3228,27 +3228,27 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
                                             },
                                             "scope": {
                                                 "type": "string",
-                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "footers": {
                                                 "type": "string",
-                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "hidecredit": {
                                                 "type": "boolean",
-                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3315,27 +3315,27 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
                                             },
                                             "scope": {
                                                 "type": "string",
-                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "footers": {
                                                 "type": "string",
-                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "hidecredit": {
                                                 "type": "boolean",
-                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3456,27 +3456,27 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n\t\tdefined by the conventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\t* chore"
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
                                             },
                                             "scope": {
                                                 "type": "string",
-                                                "description": "\"scope\" defines the scope of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "footers": {
                                                 "type": "string",
-                                                "description": "footers defines the footer of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "\"title\" defines the title of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tdefault is set to the target name or the target short description\n\t\t\tif the name is not defined."
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "\"body\" defines the commit body of the commit message as defined by the\n\t\tconventional commit specification. More information on\n\t\t-\u003e https://www.conventionalcommits.org/en/\n\n\t\tdefault:\n\t\t\tnone"
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
                                             },
                                             "hidecredit": {
                                                 "type": "boolean",
-                                                "description": "\"hideCredit\" defines if updatecli credits should be displayed inside commit message body\n\n\t\tplease consider sponsoring the Updatecli project if you want to disable credits.\n\t\t-\u003e https://github.com/updatecli/updatecli\n\n\t\tdefault:\n\t\t\tfalse"
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
                                             }
                                         },
                                         "additionalProperties": false,
