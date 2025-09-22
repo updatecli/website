@@ -1,31 +1,39 @@
-name: Test Gitea scm
+# updatecli.yaml
+# updatecli diff --config updatecli.yaml
+#
+name: Show Gitea pipeline example
 
 scms:
   gitea:
     kind: gitea
     spec:
-      url: "try.gitea.io"
+      url: "demo.gitea.com"
       owner: "olblak"
       repository: "updatecli-mirror"
       branch: main
 
+# Sources are responsible to fetch information from third location such as npm registry.
 sources:
-  license:
-    name: Retrieve license file content
-    kind: file
-    scmid: gitea
+  updatecli:
+    name: Get latest axios version
+    kind: npm
     spec:
-      file: LICENSE
+      name: axios
 
+# Targets are responsible to update targeted files such as a yaml file.
 targets:
-  license:
-    name: Retrieve license file content
-    kind: file
+  npm:
+    name: Update e2e test file
+    kind: yaml
+    sourceid: updatecli
     scmid: gitea
-    sourceid: license
     spec:
-      file: LICENSE
+      file: e2e/updatecli.d/success.d/npm.yaml
+      key: $.conditions.axios.spec.version
 
+# Actions such as gitlab/mergerequest is triggered if a target is updated.
 actions:
-  gitea:
-    kind: gitea
+  default:
+    kind: gitea/pullrequest
+    scmid: gitea
+    title: Bump axios version
