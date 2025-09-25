@@ -2488,6 +2488,13 @@
                                     "body": {
                                         "type": "string",
                                         "description": "\"body\" defines a custom body pullrequest.\n\n\t\tdefault:\n\t\t\tBy default a pullrequest body is generated out of a pipeline execution.\n\n\t\tremark:\n\t\t\tUnless you know what you are doing, you shouldn't set this value and rely on the sane default.\n\t\t\t\"body\" is useful to provide additional information when reviewing pullrequest, such as changelog url."
+                                    },
+                                    "assignees": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"assignees\" defines a list of assignees for the pull request.\n\n\t\tdefault:\n\t\t\tNo assignees are set on the pull request.\n\n\t\tremark:\n\t\t\tYou can use this to assign specific users to review the pull request.\n\t\t\tMake sure the users you specify have access to the repository."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -2827,6 +2834,10 @@
                                             "hidecredit": {
                                                 "type": "boolean",
                                                 "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -2976,6 +2987,10 @@
                                             "hidecredit": {
                                                 "type": "boolean",
                                                 "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3068,6 +3083,10 @@
                                             "hidecredit": {
                                                 "type": "boolean",
                                                 "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3249,6 +3268,10 @@
                                             "hidecredit": {
                                                 "type": "boolean",
                                                 "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3336,6 +3359,10 @@
                                             "hidecredit": {
                                                 "type": "boolean",
                                                 "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3477,6 +3504,10 @@
                                             "hidecredit": {
                                                 "type": "boolean",
                                                 "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
