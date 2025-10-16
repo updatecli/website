@@ -6,6 +6,9 @@ on:
     # * is a special character in YAML so you have to quote this string
     # Run at 12:00 every Thursday
     - cron: '0 12 * * 4'
+  repository_dispatch:
+    types:
+      - "updatecli-release"
 jobs:
   updatecli:
     if: github.ref == 'refs/heads/master'
