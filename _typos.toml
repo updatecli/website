@@ -1,3 +1,5 @@
 [files]
-extend-exclude = ["static/*","assets/*","vendor","content/en/schema","vale"]
+extend-exclude = ["static/*", "assets/*", "vendor", "content/en/schema", "vale"]
 
+[default]
+extend-ignore-identifiers-re = ["equirements"]
