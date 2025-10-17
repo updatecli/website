@@ -154,7 +154,7 @@ This configuration can be tested locally with:
 
 ```sh
 export UPDATECLI_GITHUB_TOKEN="your_github_token"
-updatecli diff --config ../updatecli.d/autodiscovery.yaml
+updatecli diff --config updatecli.d/autodiscovery.yaml
 ```
 
 You can see generated pipelines with:
