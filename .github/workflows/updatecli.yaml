@@ -33,15 +33,10 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: tibdex/github-app-token@v2.1
-        id: generate_token
-        if: github.ref == 'refs/heads/master'
-        with:
-          app_id: ${{ secrets.UPDATECLIBOT_APP_ID }}
-          private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
         run: "updatecli compose apply"
         env:
-          GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
+          UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
+          UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
