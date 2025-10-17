@@ -3182,7 +3182,7 @@
                                 "properties": {
                                     "branch": {
                                         "type": "string",
-                                        "description": "\"branch\" defines the git branch to work on.\n\n compatible:\n   * scm\n\n default:\n   main\n\n remark:\n   depending on which resource references the GitHub scm, the behavior will be different.\n\n   If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n   file(s) from that branch.\n\n   If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n   The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n   The working branch can be disabled using the \"workingBranch\" parameter set to false."
+                                        "description": "\"branch\" defines the git branch to work on.\n\ncompatible:\n  * scm\n\ndefault:\n  main\n\nremark:\n  depending on which resource references the GitHub scm, the behavior will be different.\n\n  If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n  file(s) from that branch.\n\n  If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n  The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n  The working branch can be disabled using the \"workingBranch\" parameter set to false."
                                     },
                                     "workingbranchprefix": {
                                         "type": "string",
@@ -3194,35 +3194,35 @@
                                     },
                                     "directory": {
                                         "type": "string",
-                                        "description": "\"directory\" defines the local path where the git repository is cloned.\n\n compatible:\n   * scm\n\n remark:\n   Unless you know what you are doing, it is recommended to use the default value.\n   The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n default:\n   The default value is based on your local temporary directory like: (on Linux)\n   /tmp/updatecli/github/\u003cowner\u003e/\u003crepository\u003e"
+                                        "description": "\"directory\" defines the local path where the git repository is cloned.\n\ncompatible:\n  * scm\n\nremark:\n  Unless you know what you are doing, it is recommended to use the default value.\n  The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\ndefault:\n  The default value is based on your local temporary directory like: (on Linux)\n  /tmp/updatecli/github/\u003cowner\u003e/\u003crepository\u003e"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "description": "\"email\" defines the email used to commit changes.\n\n compatible:\n   * scm\n\n default:\n   default set to your global git configuration"
+                                        "description": "\"email\" defines the email used to commit changes.\n\ncompatible:\n  * scm\n\ndefault:\n  default set to your global git configuration"
                                     },
                                     "owner": {
                                         "type": "string",
-                                        "description": "\"owner\" defines the owner of a repository.\n\n compatible:\n   * scm"
+                                        "description": "\"owner\" defines the owner of a repository.\n\ncompatible:\n  * scm"
                                     },
                                     "repository": {
                                         "type": "string",
-                                        "description": "\"repository\" specifies the name of a repository for a specific owner.\n\n compatible:\n   * scm"
+                                        "description": "\"repository\" specifies the name of a repository for a specific owner.\n\ncompatible:\n * scm"
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" specifies the credential used to authenticate with GitHub API.\n\n\tcompatible:\n\t\t* scm"
+                                        "description": "\"token\" specifies the credential used to authenticate with GitHub API.\n\ncompatible:\n * scm\n\nremark:\n A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n but to use an environment variable or a SOPS file.\n\n The value can be set to `{{ requiredEnv \"GITHUB_TOKEN\"}}` to retrieve the token from the environment variable `GITHUB_TOKEN`\n\n or `{{ .github.token }}` to retrieve the token from a SOPS file.\n For more information, about a SOPS file, please refer to the following documentation:\n https://github.com/getsops/sops"
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the default github url in case of GitHub enterprise\n\n compatible:\n   * scm\n\n default:\n   github.com\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITHUB_TOKEN\"}}` to retrieve the token from the environment variable `GITHUB_TOKEN`\n\t  or `{{ .github.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                        "description": "\"url\" specifies the default github url in case of GitHub enterprise\n\ncompatible:\n  * scm\n\ndefault:\n  github.com"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username used to authenticate with GitHub API.\n\n compatible:\n   * scm\n\n remark:\n   the token is usually enough to authenticate with GitHub API. Needed when working with GitHub private repositories."
+                                        "description": "\"username\" specifies the username used to authenticate with GitHub API.\n\ncompatible:\n  * scm\n\nremark:\n the token is usually enough to authenticate with GitHub API. Needed when working with GitHub private repositories."
                                     },
                                     "user": {
                                         "type": "string",
-                                        "description": "\"user\" specifies the user associated with new git commit messages created by Updatecli\n\n compatible:\n   * scm"
+                                        "description": "\"user\" specifies the user associated with new git commit messages created by Updatecli\n\ncompatible:\n * scm"
                                     },
                                     "gpg": {
                                         "properties": {
@@ -3237,11 +3237,11 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "\"gpg\" specifies the GPG key and passphrased used for commit signing\n\n compatible:\n   * scm"
+                                        "description": "\"gpg\" specifies the GPG key and passphrased used for commit signing\n\ncompatible:\n  * scm"
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n\tcompatible:\n   * scm\n\n\tdefault:\n   false\n\n remark:\n   When force is set to true, Updatecli also recreates the working branches that\n   diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  false\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
                                     },
                                     "commitmessage": {
                                         "properties": {
@@ -3276,19 +3276,19 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "\"commitMessage\" is used to generate the final commit message.\n\n\tcompatible:\n\t\t* scm\n\n\tremark:\n\t\tit's worth mentioning that the commit message settings is applied to all targets linked to the same scm."
+                                        "description": "\"commitMessage\" is used to generate the final commit message.\n\ncompatible:\n  * scm\n\nremark:\n  it's worth mentioning that the commit message settings is applied to all targets linked to the same scm."
                                     },
                                     "submodules": {
                                         "type": "boolean",
-                                        "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\n compatible:\n\t  * scm\n\n default: true"
+                                        "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\ncompatible:\n  * scm\n\ndefault: true"
                                     },
                                     "workingbranch": {
                                         "type": "boolean",
-                                        "description": "\"workingBranch\" defines if Updatecli should use a temporary branch to work on.\n If set to `true`, Updatecli create a temporary branch to work on, based on the branch value.\n\n compatible:\n\t  * scm\n\n default: true"
+                                        "description": "\"workingBranch\" defines if Updatecli should use a temporary branch to work on.\nIf set to `true`, Updatecli create a temporary branch to work on, based on the branch value.\n\ncompatible:\n * scm\n\ndefault: true"
                                     },
                                     "commitusingapi": {
                                         "type": "boolean",
-                                        "description": "\"commitUsingApi\" defines if Updatecli should use GitHub GraphQL API to create the commit.\n When set to `true`, a commit created from a GitHub action using the GITHUB_TOKEN will automatically be signed by GitHub.\n More info on https://github.com/updatecli/updatecli/issues/1914\n\n compatible:\n\t  * scm\n\n default: false"
+                                        "description": "\"commitUsingApi\" defines if Updatecli should use GitHub GraphQL API to create the commit.\nWhen set to `true`, a commit created from a GitHub action using the GITHUB_TOKEN will automatically be signed by GitHub.\nMore info on https://github.com/updatecli/updatecli/issues/1914\n\ncompatible:\n * scm\n\ndefault: false"
                                     }
                                 },
                                 "additionalProperties": false,
