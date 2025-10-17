@@ -172,7 +172,7 @@ Please note you need to update the owner and repository fields in the `scms` sec
 
 Each time Updatecli runs with this config, it will check for updates to your Go modules (except the ignored one) and propose changes via a PR.
 
-Wether your run Updatecli in CI or locally, the result is the same. You can preview changes with `updatecli diff` and apply them with `updatecli apply`.
+Whether your run Updatecli in CI or locally, the result is the same. You can preview changes with `updatecli diff` and apply them with `updatecli apply`.
 
 #### More ignore/only examples
 
@@ -317,7 +317,7 @@ We could now combine this manifest with the previous autodiscovery manifest to h
 One manifest, one purpose. You can create multiple manifests for different dependencies or update strategies. Reusing the same `pipelineid` across manifests helps group related updates into one update pipeline.
 The declarative approach is ideal when you need to combine different kind of update. For example based on a single information, we can update Dockerfile, CI config, in one atomic operation. Or we can groups information from multiple sources (GitHub releases, DockerHub tags, etc.) to drive a single update. The possibilities are endless!
 
-TIP: To make the writting of manifests easier, you can use an IDE that supports json schema store, such as nvim, intellij or vscode. All you need to do is using file name `updatecli.yaml` or any yaml file in a folder named `updatecli.d` and the IDE will automatically fetch the json schema and provide auto-completion, documentation and validation.
+TIP: To make the writing of manifests easier, you can use an IDE that supports json schema store, such as nvim, intellij or vscode. All you need to do is using file name `updatecli.yaml` or any yaml file in a folder named `updatecli.d` and the IDE will automatically fetch the json schema and provide auto-completion, documentation and validation.
 
 ---
 
@@ -413,7 +413,7 @@ updatecli compose show --file ./updatecli-compose.yaml
 
 This setup uses the official Updatecli Golang autodiscovery policy to manage Go module updates. By referencing the policy from GitHub Container Registry, you leverage a tested and maintained update strategy without reinventing the wheel.
 
-TIP: To make the writting of policies manifests easier, you can use an IDE that supports json schema store, such as nvim, intellij or vscode. All you need to do is using file name `updatecli-compose.yaml` and the IDE will automatically fetch the json schema and provide auto-completion and validation.
+TIP: To make the writing of policies manifests easier, you can use an IDE that supports json schema store, such as nvim, intellij or vscode. All you need to do is using file name `updatecli-compose.yaml` and the IDE will automatically fetch the json schema and provide auto-completion and validation.
 
 ---
 
