@@ -36,6 +36,10 @@ It's important to notice that both information are mutually exclusive.
 
 {{< resourceparameters "sources" "githubrelease" >}}
 
+=== Authentication
+
+include::content/en/docs/plugins/_githubAuth.adoc[]
+
 === Version Filter
 
 include::content/en/docs/plugins/_versionFilter.adoc[]
