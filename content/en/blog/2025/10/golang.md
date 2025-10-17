@@ -31,7 +31,7 @@ Let’s use the following `go.mod` as our running example:
 
 <details open><summary>go.mod</summary>
 
-```
+```golang
 module example.com/updatecli-replace-test
 
 go 1.25.0
@@ -220,6 +220,8 @@ autodiscovery:
 
 The combination of `ignore` and `only` rules allows you to precisely control what autodiscovery proposes, making it a powerful tool for automating Go project maintenance with minimal configuration.
 
+An Updatecli autodiscovery plugin is essentially a generator for declarative manifests, but you don’t need to maintain these files yourself. They’re created at runtime. You can always use the generated manifests as inspiration when writing your own, giving you more control when needed.
+
 ### 2. Declarative Manifests: Full Control, Custom Logic
 
 **Declarative manifests** give you fine-grained control over update behaviors, guardrails, and multi-step flows. They’re YAML files committed to the repo that define sources (where to read versions), conditions (should we update?), targets (what to change), SCM, and actions.
@@ -375,7 +377,7 @@ scm:
 
 <details open><summary>updatecli/values.d/golang_patch.yaml</summary>
 
-```
+```yaml
 name: "deps: bump patch version for Golang module"
 pipelineid: "golang/gomod/patch"
 groupby: individual
