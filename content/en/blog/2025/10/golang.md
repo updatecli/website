@@ -12,6 +12,7 @@ contributors: ["olblak"]
 Please note that this post is not an introduction to Updatecli but rather an overview of specific Updatecli uses cases for Golang related projects. If you are new to Updatecli, please start with [**Getting Started with Updatecli**](https://www.updatecli.io/docs/prologue/quick-start/).
 
 With that being said, let's dive in.
+
 ---
 
 <p align="center">
