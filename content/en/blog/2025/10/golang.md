@@ -150,6 +150,8 @@ actions:
 
 This configuration can be tested locally with:
 
+> Before running the commands below, make sure to update the owner and repository fields in the scms section to match your GitHub repository.
+
 ```sh
 export UPDATECLI_GITHUB_TOKEN="your_github_token"
 updatecli diff --config ../updatecli.d/autodiscovery.yaml
@@ -161,8 +163,6 @@ You can see generated pipelines with:
 export UPDATECLI_GITHUB_TOKEN="your_github_token"
 updatecli manifest show --config ../updatecli.d/autodiscovery.yaml
 ```
-
-Please note you need to update the owner and repository fields in the `scms` section to match your GitHub repository.
 
 **How this works:**
 
@@ -299,7 +299,7 @@ scms:
     kind: github
     spec:
       user: "myGitHubHandle"
-      email: "email to sign commit"
+      email: "email to linked to commit"
       owner: "repoowner"
       repository: "myrepo"
       branch: "main"
@@ -366,9 +366,9 @@ scm:
   commitusingapi: true
   enabled: true
   user: updatecli
-  email: bot@updatecli.io
-  owner: updatecli
-  repository: updatecli
+  email: "email to linked to commit"
+  owner: "repoowner"
+  repository: "myrepo"
   username: "updatecli-bot"
   branch: main
 ```
@@ -452,6 +452,10 @@ A pragmatic path:
     ```
 
 ## Going Further
+
+This post covered the essentials of managing Go module updates with Updatecli and GitHub, but Updatecli supports a wide range of features and integrations for even more advanced workflows.
+
+Updatecli can integrate with GitHub, Gitlab, Bitbucket, Gitea, and Stash. Each SCM has its own set of features and capabilities that can be leveraged to enhance your update workflows.
 
 You can go deeper within the Updatecli integration with Golang project by looking specifically at:
 
