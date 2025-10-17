@@ -11,6 +11,9 @@ I am excited to announce the release of **Updatecli v0.109.0**, packed with new 
 
 ---
 
+You can find the full release notes on [**updatecli.io**](https://www.updatecli.io/changelogs/updatecli/changelogs/v0.109.0/)
+Otherwise, read on for the highlights of this release!
+
 ## 🚀 Highlights
 
 ### 1. GitHub App Support for GitHub Authentication
