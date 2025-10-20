@@ -93,7 +93,7 @@ Autodiscovery is flexible! You can focus on or skip specific modules or patterns
 
 - **`ignore`**: Exclude certain modules or replace directives from updates.
 
-  _Example_: Ignore modules for example that do not publish release.
+  _Example_: Ignore modules that do not publish release.
 
 - **`only`**: Restrict updates to a defined set of modules.
 
