@@ -1,0 +1,135 @@
+Updatecli supports multiple authentication methods for interacting with GitHub. You can authenticate using either a *Personal Access Token (PAT)* or a *GitHub App*. Below are the supported methods, in order of precedence.
+
+'''
+
+**1. GitHub App Authentication via Environment Variables**
+
+Set the following environment variables to enable GitHub App authentication:
+
+- `UPDATECLI_GITHUB_APP_CLIENT_ID`: Your GitHub App's Client ID
+- `UPDATECLI_GITHUB_APP_PRIVATE_KEY`: The private key for your GitHub App (PEM format, as a string)
+- `UPDATECLI_GITHUB_APP_PRIVATE_KEY_PATH`: The path to your GitHub App's private key file (PEM format)
+- `UPDATECLI_GITHUB_APP_INSTALLATION_ID`: The installation ID for your GitHub App
+
+You can use either `UPDATECLI_GITHUB_APP_PRIVATE_KEY` **or** `UPDATECLI_GITHUB_APP_PRIVATE_KEY_PATH` to provide the private key.
+
+Example using the private key content:
+
+[source,shell]
+----
+export UPDATECLI_GITHUB_APP_CLIENT_ID="123456"
+export UPDATECLI_GITHUB_APP_PRIVATE_KEY="$(cat /path/to/private-key.pem)"
+export UPDATECLI_GITHUB_APP_INSTALLATION_ID="789012"
+----
+
+Example using the private key path:
+
+[source,shell]
+----
+export UPDATECLI_GITHUB_APP_CLIENT_ID="123456"
+export UPDATECLI_GITHUB_APP_PRIVATE_KEY_PATH="/path/to/private-key.pem"
+export UPDATECLI_GITHUB_APP_INSTALLATION_ID="789012"
+----
+
+[NOTE]
+====
+When these variables are set, Updatecli will use GitHub App authentication for all GitHub operations.
+====
+
+'''
+
+*2. Personal Access Token via Environment Variable*
+
+Set the following environment variable to use a Personal Access Token:
+
+- `UPDATECLI_GITHUB_TOKEN`: Your GitHub Personal Access Token
+
+Example:
+
+[source,shell]
+----
+export UPDATECLI_GITHUB_TOKEN="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+----
+
+'''
+
+*3. Personal Access Token via Manifest*
+
+You can specify your Personal Access Token directly in your Updatecli manifest under the `spec.token` field:
+
+[source,yaml]
+----
+scms:
+  default:
+    kind: github
+    spec:
+      owner: myorg
+      repository: myrepo
+      token: "{{ requiredEnv `GITHUB_TOKEN` }}"
+----
+
+[WARNING]
+====
+For security reasons, it is recommended to use environment variables or secret management tools (like SOPS) instead of hardcoding tokens in your manifest.
+====
+
+'''
+
+*4. GitHub App Authentication via Manifest*
+
+You can configure GitHub App authentication directly in your manifest using the `spec.app` field:
+
+[source,yaml]
+----
+scms:
+  default:
+    kind: github
+    spec:
+      owner: myorg
+      repository: myrepo
+      app:
+        clientID: "123456"
+        privateKey: "{{ requiredEnv `GITHUB_APP_PRIVATE_KEY` }}"
+        installationID: "789012"
+----
+
+Or, if you prefer to reference a private key file:
+
+[source,yaml]
+----
+scms:
+  default:
+    kind: github
+    spec:
+      owner: myorg
+      repository: myrepo
+      app:
+        clientID: "123456"
+        privateKeyPath: "/path/to/private-key.pem"
+        installationID: "789012"
+----
+
+'''
+
+*Precedence and Fallback*
+
+Updatecli will use the first valid authentication method it finds, in the following order:
+
+. Personal Access Token via environment variable
+. GitHub App via environment variables
+. Personal Access Token via manifest
+. GitHub App via manifest
+
+If no valid authentication is found, Updatecli will fail with an error.
+
+'''
+
+*Further Reading*
+
+- https://docs.github.com/en/developers/apps[GitHub App Documentation]
+- https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token[Creating a Personal Access Token]
+- https://www.updatecli.io/docs/plugins/scm/github/#authentication[Updatecli GitHub SCM Plugin Documentation]
+
+'''
+
+*Tip:* For best security and maintainability, prefer using a GitHub App or environment variables for authentication, and avoid hardcoding secrets in your manifests.

@@ -36,6 +36,10 @@ It's important to notice that the Github SCM implements the Github workflow and 
 
 {{< resourceparameters "scms" "github" >}}
 
+=== Authentication
+
+include::content/en/docs/plugins/_githubAuth.adoc[]
+
 === CommitMessage
 
 Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
