@@ -1,0 +1,74 @@
+---
+title: "Github Search"
+description: "Use GitHub search to interact with multiple github repositories"
+lead: "kind: githubsearch"
+date: 2025-10-23T20:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The GitHub Search SCM block allows you to interact with multiple GitHub repositories — either by fetching files or by pushing updates to them.
+
+**condition**
+
+When used in a condition, the SCM block typically fetches files or metadata from the specified repository
+
+**target**
+
+When used in a target, the SCM block usually pushes changes to that repository.
+
+By default, the GitHub Search SCM uses the standard GitHub workflow: it creates a temporary branch, commits the changes, and opens a pull request targeting the branch defined in the configuration.
+
+== Parameters
+
+{{< resourceparameters "scms" "githubsearch" >}}
+
+=== Authentication
+
+include::content/en/docs/plugins/_githubAuth.adoc[]
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+
+== Example
+
+This pipeline automatically updates the Golang version across multiple GitHub repositories within the MyOrg organization.
+Using the githubsearch SCM, it discovers repositories that match specific branch patterns (e.g., main or v2) and identifies where Golang versions are defined — such as in Go modules, Dockerfiles, or GitHub Actions workflows.
+
+Updatecli then retrieves the latest matching Golang version (for example, any 1.24.x release) and opens pull requests that update these files accordingly. It will create one pull request on a temporary branch, following the GitHub workflow, and includes a consistent commit message and label for easy tracking and automated merging.
+It will squash all the changes into one commit.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/githubsearch/updatecli.d/commitmessage.yaml">}}
+----

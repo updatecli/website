@@ -1,0 +1,68 @@
+name: "Updatecli Golang"
+pipelineid: "golang/version"
+
+scms:
+  default:
+    kind: githubsearch
+    spec:
+      search: "org:MyOrg"
+      limit: 3
+      branch: "^main$|^v2$"
+      commitusingapi: true
+      commitmessage:
+        squash: true
+        type: chore
+        scope: deps
+        title: "update Golang version"
+      user: myGitCommitUsername
+      email: myGitCommitEmail
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      labels:
+        - dependencies
+      title: "update Golang version"
+      usetitleforautomerge: true
+
+autodiscovery:
+  scmid: default
+  actionid: default
+  groupby: all
+  crawlers:
+    golang:
+      onlygoversion: true
+      versionfilter:
+        kind: "semver"
+        pattern: "1.24.x"
+    dockerfile:
+      digest: true
+      only:
+        - images:
+            - "registry.suse.com/bci/golang"
+      versionfilter:
+        kind: semver
+        pattern: "1.24.x"
+
+sources:
+  golang:
+    name: Get the latest Golang version
+    kind: golang
+    spec:
+      versionfilter:
+        kind: semver
+        pattern: "1.24.x"
+
+targets:
+  github-action:
+    name: 'deps(github-action): Bump Golang version to {{ source "golang" }}'
+    kind: yaml
+    scmid: default
+    spec:
+      engine: yamlpath
+      files:
+        - ".github/workflows/*"
+      key: '$.jobs.build.steps[?(@.uses =~ /^actions\/setup-go/)].with.go-version'
+      searchpattern: true
