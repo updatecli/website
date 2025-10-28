@@ -1,4 +1,3 @@
----
 name: Updatecli
 
 on:
@@ -14,12 +13,16 @@ on:
   # Trigger Updatecli once day by a cronjob
   schedule:
     # * is a special character in YAML so you have to quote this string
-    # Run once a day 
-    - cron: '0 0 * * *'
+    # Run once a day
+    - cron: "0 0 * * *"
 
 permissions:
+  # Required by Updatecli to create Git Commit(s)
   contents: "write"
+  # Required by Updatecli to open GitHub pull request
   pull-requests: "write"
+  # Required by Updatecli to update GitHub action workflows
+  actions: "write"
 
 jobs:
   updatecli:
@@ -34,9 +37,11 @@ jobs:
       - name: Run Updatecli in Dry Run mode
         run: "updatecli diff --config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
+          UPDATECLI_GITHUB_USERNAME: "${{ github.actor }}"
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Run Updatecli in apply mode
         run: "updatecli apply --config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
+          UPDATECLI_GITHUB_USERNAME: "${{ github.actor }}"
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
