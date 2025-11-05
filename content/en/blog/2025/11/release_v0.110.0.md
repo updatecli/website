@@ -35,7 +35,7 @@ We changed when Updatecli pushes commits and added optional branch cleanup:
   - When enabled, Updatecli will remove working branches that did not diverge from the target change (useful to keep repositories tidy).
   - Example:
 
-    ```
+    ```bash
     updatecli apply --clean-git-branches=true
     ```
 
