@@ -1,51 +1,47 @@
-name: 'docs: update Updatecli version throughout the documentation'
+name: "docs: update Updatecli version throughout the documentation"
 pipelineid: updatecli/version
 
 actions:
-    default:
-        kind: github/pullrequest
-        spec:
-            automerge: true
-            reviewers:
-              - updatecli/core
-            labels:
-                - chore
-            mergemethod: squash
-        scmid: default
+  default:
+    kind: github/pullrequest
+    spec:
+      automerge: true
+      reviewers:
+        - updatecli/core
+      labels:
+        - chore
+      mergemethod: squash
+    scmid: default
 
 scms:
-    default:
-        kind: github
-        spec:
-            branch: master
-            email: updatecli@olblak.com
-            owner: updatecli
-            repository: website
-            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-            user: updatecli
-            username: '{{ requiredEnv "GITHUB_ACTOR" }}'
-            commitusingapi: true
-        disabled: false
+  default:
+    kind: github
+    spec:
+      branch: master
+      email: updatecli@olblak.com
+      owner: updatecli
+      repository: website
+      user: updatecli
+      commitusingapi: true
+    disabled: false
 
 sources:
-    updatecli:
-        name: Get latest updatecli release
-        kind: githubrelease
-        spec:
-            owner: updatecli
-            repository: updatecli
-            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-            username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+  updatecli:
+    name: Get latest updatecli release
+    kind: githubrelease
+    spec:
+      owner: updatecli
+      repository: updatecli
 
 targets:
-    download-url:
-        name: 'docs: update updatecli version to {{ source "updatecli" }}'
-        kind: file
-        spec:
-            file: content/en/docs/prologue/installation.adoc
-            matchpattern: https://github.com/updatecli/updatecli/releases/download/(.*)/
-            replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
-        scmid: default
-        sourceid: updatecli
+  download-url:
+    name: 'docs: update updatecli version to {{ source "updatecli" }}'
+    kind: file
+    spec:
+      file: content/en/docs/prologue/installation.adoc
+      matchpattern: https://github.com/updatecli/updatecli/releases/download/(.*)/
+      replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
+    scmid: default
+    sourceid: updatecli
 
-version: 0.64.1
+version: 0.109.0

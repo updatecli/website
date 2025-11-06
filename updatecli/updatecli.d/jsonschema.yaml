@@ -1,51 +1,49 @@
 pipelineid: jsonschema
-name: 'docs: update Updatecli jsonschema'
+name: "docs: update Updatecli jsonschema"
 
 actions:
-    default:
-        kind: github/pullrequest
-        spec:
-            automerge: true
-            reviewers:
-              - updatecli/core
-            labels:
-                - chore
-                - documentation
-            mergemethod: squash
-        scmid: default
+  default:
+    kind: github/pullrequest
+    spec:
+      automerge: true
+      reviewers:
+        - updatecli/core
+      labels:
+        - chore
+        - documentation
+      mergemethod: squash
+    scmid: default
 
 scms:
-    default:
-        kind: github
-        spec:
-            branch: master
-            email: updatecli@olblak.com
-            owner: updatecli
-            repository: website
-            token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-            user: updatecli
-            username: '{{ requiredEnv "GITHUB_ACTOR" }}'
-            commitusingapi: true
-        disabled: false
+  default:
+    kind: github
+    spec:
+      branch: master
+      email: updatecli@olblak.com
+      owner: updatecli
+      repository: website
+      user: updatecli
+      commitusingapi: true
+    disabled: false
 
 targets:
-    jsonschema:
-        name: 'chore: update Updatecli jsonschema'
-        kind: shell
+  jsonschema:
+    name: "chore: update Updatecli jsonschema"
+    kind: shell
+    spec:
+      changedif:
+        kind: file/checksum
         spec:
-            changedif:
-                kind: file/checksum
-                spec:
-                  files:
-                    - content/en/schema/latest/config.json
-                    - content/en/schema/latest/compose/config.json
-                    - content/en/schema/latest/policy/manifest/config.json
-                    - content/en/schema/latest/policy/metadata/config.json
-            command: |
-                updatecli jsonschema --baseid https://www.updatecli.io/latest/schema --directory content/en/schema/latest
+          files:
+            - content/en/schema/latest/config.json
+            - content/en/schema/latest/compose/config.json
+            - content/en/schema/latest/policy/manifest/config.json
+            - content/en/schema/latest/policy/metadata/config.json
+      command: |
+        updatecli jsonschema --baseid https://www.updatecli.io/latest/schema --directory content/en/schema/latest
 
-            environments:
-               - name: PATH
-        scmid: default
+      environments:
+        - name: PATH
+    scmid: default
 
-version: 0.64.1
+version: 0.109.0
