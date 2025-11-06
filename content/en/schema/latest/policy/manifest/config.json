@@ -649,7 +649,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "files allows to specify the accepted GitHub Action workflow file name\n\ndefault:\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\","
+                                    "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\","
                                 },
                                 "ignore": {
                                     "items": {
@@ -794,7 +794,7 @@
                             },
                             "additionalProperties": false,
                             "type": "object",
-                            "description": "Spec defines the parameters which can be provided to the Github Action crawler."
+                            "description": "Spec defines the parameters which can be provided to the Action crawler."
                         },
                         "github/action": {
                             "$schema": "http://json-schema.org/draft-04/schema",
@@ -804,7 +804,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "files allows to specify the accepted GitHub Action workflow file name\n\ndefault:\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\","
+                                    "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\","
                                 },
                                 "ignore": {
                                     "items": {
@@ -949,7 +949,7 @@
                             },
                             "additionalProperties": false,
                             "type": "object",
-                            "description": "Spec defines the parameters which can be provided to the Github Action crawler."
+                            "description": "Spec defines the parameters which can be provided to the Action crawler."
                         },
                         "golang": {
                             "$schema": "http://json-schema.org/draft-04/schema",
@@ -7625,7 +7625,7 @@
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "key defines the yamlpath query used for retrieving value from a YAML document\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\texample:\n\t\t\t* key: $.image.tag\n\t\t\t* key: $.images[0].tag\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys."
+                                        "description": "key defines the yamlpath query used for retrieving value from a YAML document\n\n\t\tcompatible:\n\t\t\t* target\n\n\t\texample:\n\t\t\t* key: $.image.tag\n\t\t\t* key: $.images[0].tag\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys."
                                     },
                                     "name": {
                                         "type": "string",
@@ -14954,7 +14954,7 @@
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "key defines the yamlpath query used for retrieving value from a YAML document\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\texample:\n\t\t\t* key: $.image.tag\n\t\t\t* key: $.images[0].tag\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys."
+                                        "description": "key defines the yamlpath query used for retrieving value from a YAML document\n\n\t\tcompatible:\n\t\t\t* target\n\n\t\texample:\n\t\t\t* key: $.image.tag\n\t\t\t* key: $.images[0].tag\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys."
                                     },
                                     "name": {
                                         "type": "string",
@@ -22625,7 +22625,7 @@
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "key defines the yamlpath query used for retrieving value from a YAML document\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\texample:\n\t\t\t* key: $.image.tag\n\t\t\t* key: $.images[0].tag\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys."
+                                        "description": "key defines the yamlpath query used for retrieving value from a YAML document\n\n\t\tcompatible:\n\t\t\t* target\n\n\t\texample:\n\t\t\t* key: $.image.tag\n\t\t\t* key: $.images[0].tag\n\n\t\tremark:\n\t\t\t* key is a simpler version of yamlpath accepts keys."
                                     },
                                     "name": {
                                         "type": "string",
