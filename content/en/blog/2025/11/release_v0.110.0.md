@@ -49,6 +49,7 @@ We added an SCM kind `githubsearch` that generates SCM configurations from a Git
 
 Example updatecli.yaml using `githubsearch`:
 
+.updatecli.yaml
 ```yaml
 name: Update all Golang versions
 scms:
@@ -84,6 +85,13 @@ targets:
         - ".github/workflows/*"
       key: '$.jobs.build.steps[?(@.uses =~ /^actions\/setup-go/)].with.go-version'
       searchpattern: true
+```
+
+You can try this pipeline running 
+
+```bash
+export UPDATECLI_GITHUB_TOKEN=<your GitHub access token>
+updatecli diff --config updatecli.yaml
 ```
 
 Notes:
