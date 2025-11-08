@@ -651,6 +651,13 @@
                                     "type": "array",
                                     "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\","
                                 },
+                                "actions": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "actions allows to specify the accepted Composite Action names\n\ndefault:\n  - \"*\","
+                                },
                                 "ignore": {
                                     "items": {
                                         "properties": {
@@ -805,6 +812,13 @@
                                     },
                                     "type": "array",
                                     "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\","
+                                },
+                                "actions": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "actions allows to specify the accepted Composite Action names\n\ndefault:\n  - \"*\","
                                 },
                                 "ignore": {
                                     "items": {
@@ -3387,6 +3401,169 @@
                                 "required": [
                                     "owner",
                                     "repository"
+                                ],
+                                "description": "Spec represents the configuration input"
+                            },
+                            "disabled": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object"
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "kind": {
+                                "enum": [
+                                    "githubsearch"
+                                ]
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "limit": {
+                                        "type": "integer",
+                                        "description": "Limit defines the maximum number of repositories to return from the search query.\n\ncompatible:\n  * scm\n\ndefault:\n  10\n\nremark:\n  If limit is set to 0, all repositories matching the search query will be returned."
+                                    },
+                                    "search": {
+                                        "type": "string",
+                                        "description": "Search defines the GitHub repository search query.\n\ncompatible:\n  * scm\n\nremark:\n  For more information about the search query syntax, please refer to the following documentation:\n  https://docs.githubz.com/en/search-github/searching-on-github/searching-for-repositories"
+                                    },
+                                    "branch": {
+                                        "type": "string",
+                                        "description": "\"branch\" defines the git branch to work on.\n\ncompatible:\n  * scm\n\ndefault:\n  ^main$\n\nremark:\n  depending on which resource references the GitHub scm, the behavior will be different.\n\n  If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n  file(s) from that branch.\n\n  If the scm is linked to target then Updatecli creates a new \"working branch\" based on the branch value.\n  The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n  The working branch can be disabled using the \"workingBranch\" parameter set to false."
+                                    },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
+                                    },
+                                    "directory": {
+                                        "type": "string",
+                                        "description": "\"directory\" defines the local path where the git repository is cloned.\n\ncompatible:\n  * scm\n\nremark:\n  Unless you know what you are doing, it is recommended to use the default value.\n  The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\ndefault:\n  The default value is based on your local temporary directory like: (on Linux)\n  /tmp/updatecli/github/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "\"email\" defines the email used to commit changes.\n\ncompatible:\n  * scm\n\ndefault:\n  default set to your global git configuration"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "description": "\"token\" specifies the credential used to authenticate with GitHub API.\n\ncompatible:\n * scm\n\nremark:\n A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n but to use an environment variable or a SOPS file.\n\n The value can be set to `{{ requiredEnv \"GITHUB_TOKEN\"}}` to retrieve the token from the environment variable `GITHUB_TOKEN`\n\n or `{{ .github.token }}` to retrieve the token from a SOPS file.\n For more information, about a SOPS file, please refer to the following documentation:\n https://github.com/getsops/sops"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "\"url\" specifies the default github url in case of GitHub enterprise\n\ncompatible:\n  * scm\n\ndefault:\n  github.com"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "description": "\"username\" specifies the username used to authenticate with GitHub API.\n\ncompatible:\n  * scm\n\nremark:\n the token is usually enough to authenticate with GitHub API. Needed when working with GitHub private repositories."
+                                    },
+                                    "user": {
+                                        "type": "string",
+                                        "description": "\"user\" specifies the user associated with new git commit messages created by Updatecli\n\ncompatible:\n * scm"
+                                    },
+                                    "gpg": {
+                                        "properties": {
+                                            "signingkey": {
+                                                "type": "string",
+                                                "description": "signingKey defines the gpg key used to sign the commit message\n\n\t\tdefault:\n\t\t\tnone"
+                                            },
+                                            "passphrase": {
+                                                "type": "string",
+                                                "description": "passphrase defines the gpg passphrase used to sign the commit message"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"gpg\" specifies the GPG key and passphrased used for commit signing\n\ncompatible:\n  * scm"
+                                    },
+                                    "force": {
+                                        "type": "boolean",
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  false\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
+                                    },
+                                    "commitmessage": {
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
+                                            },
+                                            "scope": {
+                                                "type": "string",
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
+                                            },
+                                            "footers": {
+                                                "type": "string",
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                            },
+                                            "body": {
+                                                "type": "string",
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
+                                            },
+                                            "hidecredit": {
+                                                "type": "boolean",
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"commitMessage\" is used to generate the final commit message.\n\ncompatible:\n  * scm\n\nremark:\n  it's worth mentioning that the commit message settings is applied to all targets linked to the same scm."
+                                    },
+                                    "submodules": {
+                                        "type": "boolean",
+                                        "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\ncompatible:\n  * scm\n\ndefault: true"
+                                    },
+                                    "workingbranch": {
+                                        "type": "boolean",
+                                        "description": "\"workingBranch\" defines if Updatecli should use a temporary branch to work on.\nIf set to `true`, Updatecli create a temporary branch to work on, based on the branch value.\n\ncompatible:\n * scm\n\ndefault: true"
+                                    },
+                                    "commitusingapi": {
+                                        "type": "boolean",
+                                        "description": "\"commitUsingApi\" defines if Updatecli should use GitHub GraphQL API to create the commit.\nWhen set to `true`, a commit created from a GitHub action using the GITHUB_TOKEN will automatically be signed by GitHub.\nMore info on https://github.com/updatecli/updatecli/issues/1914\n\ncompatible:\n * scm\n\ndefault: false"
+                                    },
+                                    "app": {
+                                        "properties": {
+                                            "clientid": {
+                                                "type": "string",
+                                                "description": "ClientID represents the GitHub App client ID"
+                                            },
+                                            "privatekey": {
+                                                "type": "string",
+                                                "description": "PrivateKey represents a PEM encoded private key\nIt is recommended to use PrivateKeyPath instead of PrivateKey\nto avoid putting sensitive information in the configuration file\nIf both PrivateKey and PrivateKeyPath are set, PrivateKey takes precedence"
+                                            },
+                                            "privatekeypath": {
+                                                "type": "string",
+                                                "description": "PrivateKeyPath represents the path to a PEM encoded private key\nIf both PrivateKey and PrivateKeyPath are set, PrivateKey takes precedence\nIt is recommended to use an environment variable to set the PrivateKeyPath value\ne.g. PrivateKeyPath: {{ requiredEnv \"GITHUB_APP_PRIVATE_KEY_PATH\" }}\nto avoid putting sensitive information in the configuration file"
+                                            },
+                                            "installationid": {
+                                                "type": "string",
+                                                "description": "InstallationID represents the GitHub App installation ID\nIt is the same ID that you can find in the GitHub endpoint:\nhttps://github.com/settings/installation/\u003cID\u003e"
+                                            },
+                                            "expirationtime": {
+                                                "type": "string",
+                                                "description": "Expiration represents the token expiration time in seconds\nThe token is used during the entire execution of updatecli\nand should be valid for the entire duration of the run\nThe minimum value is 600 seconds (10 minutes)\n\nDefault: 3600 (1 hour)"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"app\" specifies the GitHub App credentials used to authenticate with GitHub API.\nIt is not compatible with the \"token\" and \"username\" fields.\nIt is recommended to use the GitHub App authentication method for better security and granular permissions.\nFor more information, please refer to the following documentation:\nhttps://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "search"
                                 ],
                                 "description": "Spec represents the configuration input"
                             },
@@ -6003,8 +6180,7 @@
                                 "type": "object",
                                 "required": [
                                     "owner",
-                                    "repository",
-                                    "token"
+                                    "repository"
                                 ],
                                 "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                             },
@@ -13251,8 +13427,7 @@
                                 "type": "object",
                                 "required": [
                                     "owner",
-                                    "repository",
-                                    "token"
+                                    "repository"
                                 ],
                                 "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                             },
@@ -20841,8 +21016,7 @@
                                 "type": "object",
                                 "required": [
                                     "owner",
-                                    "repository",
-                                    "token"
+                                    "repository"
                                 ],
                                 "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                             },
