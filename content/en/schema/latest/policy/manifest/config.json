@@ -6180,7 +6180,8 @@
                                 "type": "object",
                                 "required": [
                                     "owner",
-                                    "repository"
+                                    "repository",
+                                    "token"
                                 ],
                                 "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                             },
@@ -13427,7 +13428,8 @@
                                 "type": "object",
                                 "required": [
                                     "owner",
-                                    "repository"
+                                    "repository",
+                                    "token"
                                 ],
                                 "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                             },
@@ -21016,7 +21018,8 @@
                                 "type": "object",
                                 "required": [
                                     "owner",
-                                    "repository"
+                                    "repository",
+                                    "token"
                                 ],
                                 "description": "Spec defines a specification for a \"gittag\" resource parsed from an updatecli manifest file"
                             },
