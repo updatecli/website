@@ -1,0 +1,239 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2025-11-10T08:38:42Z",
+        "ContentType": "application/x-x509-ca-cert",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/checksums.txt.pem",
+        "Name": "checksums.txt.pem",
+        "UpdatedAt": "2025-11-10T08:38:43Z",
+        "Size": 3248
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:42Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2025-11-10T08:38:42Z",
+        "Size": 96
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:42Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2025-11-10T08:38:42Z",
+        "Size": 2370
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:42Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:42Z",
+        "Size": 467692
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:42Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:42Z",
+        "Size": 467094
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:42Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:42Z",
+        "Size": 467393
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:41Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:41Z",
+        "Size": 466496
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:41Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:41Z",
+        "Size": 476922
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:41Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:41Z",
+        "Size": 467393
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:41Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:41Z",
+        "Size": 476618
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:40Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Windows_arm.zip.sbom.json",
+        "Name": "updatecli_Windows_arm.zip.sbom.json",
+        "UpdatedAt": "2025-11-10T08:38:41Z",
+        "Size": 476010
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:40Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2025-11-10T08:38:42Z",
+        "Size": 37859888
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:39Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2025-11-10T08:38:41Z",
+        "Size": 34623060
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:38Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2025-11-10T08:38:40Z",
+        "Size": 33808322
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:38Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2025-11-10T08:38:40Z",
+        "Size": 35086655
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:38Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2025-11-10T08:38:40Z",
+        "Size": 35966664
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:37Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2025-11-10T08:38:38Z",
+        "Size": 39653532
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:36Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2025-11-10T08:38:38Z",
+        "Size": 39610032
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:36Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2025-11-10T08:38:38Z",
+        "Size": 35095102
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:36Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2025-11-10T08:38:37Z",
+        "Size": 35963304
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:34Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2025-11-10T08:38:36Z",
+        "Size": 38548159
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:34Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2025-11-10T08:38:36Z",
+        "Size": 37693537
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:34Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2025-11-10T08:38:35Z",
+        "Size": 33670479
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:34Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2025-11-10T08:38:35Z",
+        "Size": 34523773
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:31Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2025-11-10T08:38:33Z",
+        "Size": 33880269
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:31Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2025-11-10T08:38:33Z",
+        "Size": 35479429
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:31Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Windows_arm.zip",
+        "Name": "updatecli_Windows_arm.zip",
+        "UpdatedAt": "2025-11-10T08:38:33Z",
+        "Size": 35103244
+      },
+      {
+        "CreatedAt": "2025-11-10T08:38:31Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.110.2/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2025-11-10T08:38:33Z",
+        "Size": 38577910
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "## Changes\r\n\r\n## 🐛 Bug Fixes\r\n\r\n- fix: run git checkout before git push @olblak (#6617)\r\n\r\n## Contributors\r\n\r\n@olblak\r\n",
+    "DescriptionHTML": "\u003ch2\u003eChanges\u003c/h2\u003e\n\u003ch2\u003e🐛 Bug Fixes\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003efix: run git checkout before git push \u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e (\u003ca class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3605364411\" data-permission-text=\"Title is private\" data-url=\"https://github.com/updatecli/updatecli/issues/6617\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/updatecli/updatecli/pull/6617/hovercard\" href=\"https://github.com/updatecli/updatecli/pull/6617\"\u003e#6617\u003c/a\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eContributors\u003c/h2\u003e\n\u003cp\u003e\u003ca class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/olblak/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/olblak\"\u003e@olblak\u003c/a\u003e\u003c/p\u003e",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.110.2",
+    "PublishedAt": "2025-11-10 08:13:00 +0000 UTC",
+    "UpdatedAt": "2025-11-10 08:38:43 +0000 UTC",
+    "Tag": "v0.110.2",
+    "Name": "v0.110.2"
+  },
+  "FrontMatters": "---\ntitle: \"v0.110.2\"\ndate: 2025-11-10 08:13:00 +0000 UTC\n---\n"
+}
