@@ -43,6 +43,7 @@ When these variables are set, Updatecli will use GitHub App authentication for a
 Set the following environment variable to use a Personal Access Token:
 
 - `UPDATECLI_GITHUB_TOKEN`: Your GitHub Personal Access Token
+- `UPDATECLI_GITHUB_USERNAME`: Your GitHub username, if required by certain operations like scm operation.
 
 Example:
 
