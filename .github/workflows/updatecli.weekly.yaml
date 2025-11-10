@@ -17,7 +17,7 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
       - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@v2.94.0"
+        uses: "updatecli/updatecli-action@v2.95.0"
         with:
           version: "v0.110.2"
       # releasepost is required by the Updatecli
