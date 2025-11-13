@@ -1,0 +1,109 @@
+---
+title: "v0.110.3"
+date: 2025-11-13 08:04:45 +0000 UTC
+---
+
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2025-11-13 08:04:45 +0000 UTC - v0.110.3__
+
+
+=== Description
+
+---
+
+++++
+
+<h2>Changes</h2>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix: don't clean up a working branch that doesn't exist <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3616154796" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6683" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6683/hovercard" href="https://github.com/updatecli/updatecli/pull/6683">#6683</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>deps: bump golangci-lint to v2.6.1 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3610804906" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6658" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6658/hovercard" href="https://github.com/updatecli/updatecli/pull/6658">#6658</a>)</li>
+<li>deps(go): bump module helm.sh/helm/v3 to v3.19.2 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3616681035" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6684" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6684/hovercard" href="https://github.com/updatecli/updatecli/pull/6684">#6684</a>)</li>
+<li>deps(go): bump module github.com/aws/aws-sdk-go-v2/credentials to v1.18.23 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3613859057" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6674" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6674/hovercard" href="https://github.com/updatecli/updatecli/pull/6674">#6674</a>)</li>
+<li>deps(go): bump module helm.sh/helm/v3 to v3.19.1 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3610689883" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6656" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6656/hovercard" href="https://github.com/updatecli/updatecli/pull/6656">#6656</a>)</li>
+<li>deps(go): bump module github.com/aws/aws-sdk-go-v2/config to v1.31.18 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3609343795" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6640" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6640/hovercard" href="https://github.com/updatecli/updatecli/pull/6640">#6640</a>)</li>
+<li>Upgrade updatecli action version <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3607875438" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/6620" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/6620/hovercard" href="https://github.com/updatecli/updatecli/pull/6620">#6620</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/updateclibot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/updateclibot">@updateclibot</a>[bot] and <a href="https://github.com/apps/updateclibot">updateclibot[bot]</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/checksums.txt.pem[checksums.txt.pem] | 2025-11-13 09:15:37 +0000 UTC | 2025-11-13T09:15:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/checksums.txt.sig[checksums.txt.sig] | 2025-11-13 09:15:37 +0000 UTC | 2025-11-13T09:15:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/checksums.txt[checksums.txt] | 2025-11-13 09:15:36 +0000 UTC | 2025-11-13T09:15:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Linux_x86_64.tar.gz.sbom.json[updatecli_Linux_x86_64.tar.gz.sbom.json] | 2025-11-13 09:15:36 +0000 UTC | 2025-11-13T09:15:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Windows_arm64.zip.sbom.json[updatecli_Windows_arm64.zip.sbom.json] | 2025-11-13 09:15:36 +0000 UTC | 2025-11-13T09:15:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Windows_x86_64.zip.sbom.json[updatecli_Windows_x86_64.zip.sbom.json] | 2025-11-13 09:15:36 +0000 UTC | 2025-11-13T09:15:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Windows_arm.zip.sbom.json[updatecli_Windows_arm.zip.sbom.json] | 2025-11-13 09:15:36 +0000 UTC | 2025-11-13T09:15:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Darwin_x86_64.tar.gz.sbom.json[updatecli_Darwin_x86_64.tar.gz.sbom.json] | 2025-11-13 09:15:36 +0000 UTC | 2025-11-13T09:15:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Darwin_arm64.tar.gz.sbom.json[updatecli_Darwin_arm64.tar.gz.sbom.json] | 2025-11-13 09:15:35 +0000 UTC | 2025-11-13T09:15:36Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Linux_arm64.tar.gz.sbom.json[updatecli_Linux_arm64.tar.gz.sbom.json] | 2025-11-13 09:15:35 +0000 UTC | 2025-11-13T09:15:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Linux_arm.tar.gz.sbom.json[updatecli_Linux_arm.tar.gz.sbom.json] | 2025-11-13 09:15:35 +0000 UTC | 2025-11-13T09:15:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_amd64.deb[updatecli_amd64.deb] | 2025-11-13 09:15:35 +0000 UTC | 2025-11-13T09:15:37Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_armv6.deb[updatecli_armv6.deb] | 2025-11-13 09:15:34 +0000 UTC | 2025-11-13T09:15:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_arm64.deb[updatecli_arm64.deb] | 2025-11-13 09:15:34 +0000 UTC | 2025-11-13T09:15:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2025-11-13 09:15:33 +0000 UTC | 2025-11-13T09:15:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2025-11-13 09:15:33 +0000 UTC | 2025-11-13T09:15:35Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2025-11-13 09:15:32 +0000 UTC | 2025-11-13T09:15:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_armv6.apk[updatecli_armv6.apk] | 2025-11-13 09:15:32 +0000 UTC | 2025-11-13T09:15:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_amd64.apk[updatecli_amd64.apk] | 2025-11-13 09:15:32 +0000 UTC | 2025-11-13T09:15:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_arm64.apk[updatecli_arm64.apk] | 2025-11-13 09:15:31 +0000 UTC | 2025-11-13T09:15:33Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2025-11-13 09:15:30 +0000 UTC | 2025-11-13T09:15:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2025-11-13 09:15:30 +0000 UTC | 2025-11-13T09:15:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2025-11-13 09:15:30 +0000 UTC | 2025-11-13T09:15:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2025-11-13 09:15:30 +0000 UTC | 2025-11-13T09:15:31Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2025-11-13 09:15:28 +0000 UTC | 2025-11-13T09:15:30Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2025-11-13 09:15:28 +0000 UTC | 2025-11-13T09:15:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2025-11-13 09:15:28 +0000 UTC | 2025-11-13T09:15:29Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.110.3/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2025-11-13 09:15:28 +0000 UTC | 2025-11-13T09:15:29Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.110.3[here]__
+
