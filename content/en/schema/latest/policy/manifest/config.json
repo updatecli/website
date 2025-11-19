@@ -2903,7 +2903,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -2915,7 +2915,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -2932,7 +2932,7 @@
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   false\n\n remark:\n   When force is set to true, Updatecli also recreate the working branches that\n   diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   true\n\n remark:\n   When force is set to true, Updatecli also recreate the working branches that\n   diverged from their base branch."
                                     },
                                     "gpg": {
                                         "properties": {
@@ -3056,7 +3056,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3068,7 +3068,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3152,7 +3152,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3164,7 +3164,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3181,7 +3181,7 @@
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n\tcompatible:\n   * scm\n\n default:\n   false\n\n remark:\n   When force is set to true, Updatecli also recreates the working branches that\n   diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n\tcompatible:\n   * scm\n\n default:\n   true\n\n remark:\n   When force is set to true, Updatecli also recreates the working branches that\n   diverged from their base branch."
                                     },
                                     "gpg": {
                                         "properties": {
@@ -3319,7 +3319,7 @@
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  false\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  true\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
                                     },
                                     "commitmessage": {
                                         "properties": {
@@ -3337,7 +3337,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3349,7 +3349,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3483,7 +3483,7 @@
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  false\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  true\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
                                     },
                                     "commitmessage": {
                                         "properties": {
@@ -3501,7 +3501,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3513,7 +3513,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3617,7 +3617,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3629,7 +3629,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3646,7 +3646,7 @@
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   false\n\n remark:\n   When force is set to true, Updatecli also recreates the working branches that\n   diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   true\n\n remark:\n   When force is set to true, Updatecli also recreates the working branches that\n   diverged from their base branch."
                                     },
                                     "gpg": {
                                         "properties": {
@@ -3762,7 +3762,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title\" defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3774,7 +3774,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3791,7 +3791,7 @@
                                     },
                                     "force": {
                                         "type": "boolean",
-                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   false\n\n remark:\n   When force is set to true, Updatecli also recreate the working branches that\n   diverged from their base branch."
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\n compatible:\n   * scm\n\n default:\n   true\n\n remark:\n   When force is set to true, Updatecli also recreate the working branches that\n   diverged from their base branch."
                                     },
                                     "gpg": {
                                         "properties": {
