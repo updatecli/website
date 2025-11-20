@@ -8023,7 +8023,7 @@
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "[S][C] Specifies a custom HTTP request body. Defaults to \"\" (empty string)."
+                                                "description": "[S][C] Specifies a custom HTTP request body. Required with POST, PUT, PATCH."
                                             },
                                             "headers": {
                                                 "additionalProperties": {
@@ -15360,7 +15360,7 @@
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "[S][C] Specifies a custom HTTP request body. Defaults to \"\" (empty string)."
+                                                "description": "[S][C] Specifies a custom HTTP request body. Required with POST, PUT, PATCH."
                                             },
                                             "headers": {
                                                 "additionalProperties": {
@@ -23039,7 +23039,7 @@
                                             },
                                             "body": {
                                                 "type": "string",
-                                                "description": "[S][C] Specifies a custom HTTP request body. Defaults to \"\" (empty string)."
+                                                "description": "[S][C] Specifies a custom HTTP request body. Required with POST, PUT, PATCH."
                                             },
                                             "headers": {
                                                 "additionalProperties": {
