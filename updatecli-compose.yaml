@@ -28,7 +28,7 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
   - name: Handle NPM version in netlify
-    policy: ghcr.io/updatecli/policies/npm/netlify:0.9.1@sha256:99b2cd55f46d998158997e590514306a8c5de0650c1fce13cba62008e2327d08
+    policy: ghcr.io/updatecli/policies/npm/netlify:0.10.0@sha256:5079aa09beda281da9cb5b47c50d830518add3d1eeee3f239b8705e6fde017b6
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/npm.yaml
