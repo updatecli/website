@@ -23,7 +23,7 @@ policies:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
   - name: Handle HUGO version in GitHub action
-    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.9.1@sha256:36dc28dda540eeff0a453cefdc8a726a4edf12068867a6b5660d6592dc4c3669
+    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.10.0@sha256:53fa2bbd6ed75b750a61d1884aa3b64750ccfcf3bbd1339fa20f0434afe022b1
     values:
       - updatecli/values.d/scm.yaml
       - updatecli/values.d/hugo.yaml
