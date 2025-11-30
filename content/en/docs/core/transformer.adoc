@@ -101,6 +101,9 @@ sources:
       - findsubmatch:
           pattern: '"(.*?):(.*)'
           captureindex: 1
+      - findsubmatch:
+          pattern: '(\d*).(\d*).(\d*)'
+          capturepattern: "major: \\3, minor: \\2, patch: \\1"
       - semverinc: "major,minor"
       - find: "2.234.(.*)$"
     spec:
