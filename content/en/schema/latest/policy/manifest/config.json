@@ -2756,8 +2756,7 @@
                                         "description": "\"labels\" defines labels for the merge request.\n\n\tdefault: empty\n\n\tremark:\n\t\tif a label does not already exist, this creates a new project label and assigns it to the merge request"
                                     },
                                     "mergewhenpipelinesucceeds": {
-                                        "type": "boolean",
-                                        "description": "mergewhenpipelinesucceeds indicates whether to merge the merge request when the pipeline succeeds\n\ndefault: false\n\nremark:\n\n\tThis requires that the merge request has approvals set up in the project settings"
+                                        "type": "boolean"
                                     },
                                     "mergecommitmessage": {
                                         "type": "string",
