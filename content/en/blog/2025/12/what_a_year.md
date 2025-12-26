@@ -28,7 +28,7 @@ We presented talks at FOSDEM, Open Source Experience, and Incontro DevOps (in En
 
 Conference & talk links
 
-- FOSDEM - Olivier Vernin - [**recording**](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-6076-continuously-update-everything-two-years-later/) 
+- FOSDEM - Olivier Vernin - [**recording**](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-6076-continuously-update-everything-two-years-later/)
 - Incontro DevOps - Giovanni Toraldo - [**recording**](https://www.youtube.com/watch?v=kVOYFFbbCho)
 - Open Source Experience - Anthony Benguerfi — recording forthcoming; follow [**Open Source Experience**](https://www.youtube.com/@opensourceexperience7693)
 
@@ -37,7 +37,6 @@ Selected community write-ups from 2025
 - Automating tooling upgrades (Sequra Tech) - [**link**](https://medium.com/sequra-tech/automating-tooling-upgrades-with-updatecli-a-scalable-solution-for-platform-teams-c9f599e301dc)
 - IaC drift resolution (Loïs Postula) - [**link**](https://lois.postu.la/posts/iac-drift-resolution-using-updatecli/)
 - Automating Ruby version upgrades (Sequra Tech) - [**link**](https://medium.com/sequra-tech/automating-ruby-version-upgrades-f71d19e26aeb)
-
 
 Thanks [**Prefect**](https://www.prefect.io/) for sponsoring us one more year!
 
@@ -60,5 +59,5 @@ We'd love more community blog posts and talks, if you'd like help preparing a ta
 See you in 2026!
 
 <p align="center">
-  <img src="https://camo.githubusercontent.com/dc6e55ac9f31838679fbfd8abd131588c325f49cfbe727315d9d0ca2d4a179d3/68747470733a2f2f636f6e747269622e726f636b732f696d6167653f7265706f3d757064617465636c692f757064617465636c69" alt="Prefect Logo"/>
+  <img src="https://camo.githubusercontent.com/dc6e55ac9f31838679fbfd8abd131588c325f49cfbe727315d9d0ca2d4a179d3/68747470733a2f2f636f6e747269622e726f636b732f696d6167653f7265706f3d757064617465636c692f757064617465636c69" alt="Updatecli Community"/>
 </p>
