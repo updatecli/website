@@ -18,7 +18,8 @@ And not only did we continue consolidating and improving Updatecli, we also expe
 <br/><br/>
 
 ---
-**External Plugin Ecosystem**
+
+##### External Plugin Ecosystem
 
 For example, defining update strategies in YAML is convenient, saves time, and helps teams collaborate. But when update rules grow complex, a small DSL can become limiting. This year we explored using WASM to let teams write manifest generators in the language they prefer. The feature is still experimental, and we welcome feedback from teams with complex update scenarios.
 
