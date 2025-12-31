@@ -1,6 +1,6 @@
 ---
 title: "What a year 2025 has been! See you in 2026!"
-date: 2025-12-25T00:00:00+00:00
+date: 2025-12-31T00:00:00+00:00
 draft: false
 weight: 50
 images: [""]
