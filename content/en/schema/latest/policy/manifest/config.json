@@ -2251,7 +2251,7 @@
                                                     "type": "string"
                                                 },
                                                 "type": "object",
-                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr://terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
+                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr:///terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -2273,7 +2273,7 @@
                                                     "type": "string"
                                                 },
                                                 "type": "object",
-                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr://terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
+                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr:///terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
                                             }
                                         },
                                         "additionalProperties": false,
