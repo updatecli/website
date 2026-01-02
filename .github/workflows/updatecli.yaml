@@ -33,9 +33,16 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Login Udash"
+        if: github.ref == 'refs/heads/master'
+        run: "updatecli udash login --experimental --api-url $UPDATECLI_UDASH_API_URL --oauth-access-token $UPDATECLI_UDASH_ACCESS_TOKEN $UPDATECLI_UDASH_URL"
+        env:
+          UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
+          UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
+          UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}
       - name: "Run updatecli"
         if: github.ref == 'refs/heads/master'
-        run: "updatecli compose apply --clean-git-branches=true"
+        run: "updatecli compose apply --clean-git-branches=true --experimental"
         env:
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
