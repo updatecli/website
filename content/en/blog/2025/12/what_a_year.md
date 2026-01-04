@@ -34,13 +34,18 @@ This year was also special for conferences and community events. A heartfelt tha
 {{< youtube kVOYFFbbCho >}}
 <br/><br/>
 
+
+<br/><br/>
+{{< youtube Z-RPVbUPYiI >}}
+<br/><br/>
+
 We presented talks at FOSDEM, Open Source Experience, and Incontro DevOps (in English, Italian, and French).
 
 Conference & talk:
 
 - FOSDEM - Olivier Vernin - [**recording**](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-6076-continuously-update-everything-two-years-later/)
 - Incontro DevOps - Giovanni Toraldo - [**recording**](https://www.youtube.com/watch?v=kVOYFFbbCho)
-- Open Source Experience - Anthony Benguerfi — recording forthcoming; follow [**Open Source Experience**](https://www.youtube.com/@opensourceexperience7693)
+- Open Source Experience - Anthony Benguerfi — [**recording**](https://www.youtube.com/watch?v=Z-RPVbUPYiI)
 
 Selected community write-ups:
 
