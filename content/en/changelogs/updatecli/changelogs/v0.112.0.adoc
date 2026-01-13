@@ -1,0 +1,128 @@
+---
+title: "v0.112.0"
+date: 2025-12-13 12:13:28 +0000 UTC
+---
+
+// Disclaimer: this file is generated, do not edit it manually.
+
+
+__ (github-actions[bot]) released this 2025-12-13 12:13:28 +0000 UTC - v0.112.0__
+
+
+=== Description
+
+---
+
+++++
+
+<div class="markdown-alert markdown-alert-warning"><p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p><p>In the previous version (v0.111.0,  a regression was introduced in the GitLab action, where Updatecli automatically enables auto merge request.<br>
+This wasn't intend and is now reverted to the previous behavior. By default, Updatecli doesn't auto merge GitLab merge request</p>
+</div>
+<h2>Changes</h2>
+<h2>🚀 Features</h2>
+<ul>
+<li>refactor: gitlab client-go migration <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/chrxmvtik/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/chrxmvtik">@chrxmvtik</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3721153833" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7157" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7157/hovercard" href="https://github.com/updatecli/updatecli/pull/7157">#7157</a>)</li>
+<li>feat: add --pipeline-ids param <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3712444780" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7121" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7121/hovercard" href="https://github.com/updatecli/updatecli/pull/7121">#7121</a>)</li>
+<li>feat: add pnpm npm autodiscovery <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3699782995" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7035" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7035/hovercard" href="https://github.com/updatecli/updatecli/pull/7035">#7035</a>)</li>
+</ul>
+<h2>🐛 Bug Fixes</h2>
+<ul>
+<li>fix(autodiscovery/dockerfile): add regex field support for versionfilter <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3716100032" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7140" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7140/hovercard" href="https://github.com/updatecli/updatecli/pull/7140">#7140</a>)</li>
+<li>feat: add option to disable automerge in Gitlab <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/d0mitoridesu/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/d0mitoridesu">@d0mitoridesu</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3701642003" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7036" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7036/hovercard" href="https://github.com/updatecli/updatecli/pull/7036">#7036</a>)</li>
+</ul>
+<h2>🧰 Maintenance</h2>
+<ul>
+<li>deps(go): bump module gitlab.com/gitlab-org/api/client-go to v1.8.1 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722906642" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7176" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7176/hovercard" href="https://github.com/updatecli/updatecli/pull/7176">#7176</a>)</li>
+<li>deps(go): bump module golang.org/x/oauth2 to v0.34.0 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722905253" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7175" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7175/hovercard" href="https://github.com/updatecli/updatecli/pull/7175">#7175</a>)</li>
+<li>deps(go): bump module github.com/spf13/cobra to v1.10.2 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722913138" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7186" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7186/hovercard" href="https://github.com/updatecli/updatecli/pull/7186">#7186</a>)</li>
+<li>deps(go): bump module golang.org/x/mod to v0.31.0 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722907091" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7177" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7177/hovercard" href="https://github.com/updatecli/updatecli/pull/7177">#7177</a>)</li>
+<li>deps(go): bump module github.com/fluxcd/helm-controller/api to v1.4.5 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722913543" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7187" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7187/hovercard" href="https://github.com/updatecli/updatecli/pull/7187">#7187</a>)</li>
+<li>deps: bump golangci-lint to v2.7.2 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722903196" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7174" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7174/hovercard" href="https://github.com/updatecli/updatecli/pull/7174">#7174</a>)</li>
+<li>chore(dockerfile): upgrade node version @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3712594796" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7122" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7122/hovercard" href="https://github.com/updatecli/updatecli/pull/7122">#7122</a>)</li>
+<li>deps: Bump Golang version to 1.25.5 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3722360593" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7158" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7158/hovercard" href="https://github.com/updatecli/updatecli/pull/7158">#7158</a>)</li>
+<li>deps(go): bump module github.com/aws/aws-sdk-go-v2/config to v1.32.4 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3707882132" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7111" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7111/hovercard" href="https://github.com/updatecli/updatecli/pull/7111">#7111</a>)</li>
+<li>deps(go): bump module github.com/aws/aws-sdk-go-v2 to v1.40.1 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3704909464" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7079" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7079/hovercard" href="https://github.com/updatecli/updatecli/pull/7079">#7079</a>)</li>
+<li>deps(updatecli/policies): bump all policies @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3704072652" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7066" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7066/hovercard" href="https://github.com/updatecli/updatecli/pull/7066">#7066</a>)</li>
+<li>deps(go): bump module github.com/drone/go-scm to v1.41.0 @<a href="https://github.com/apps/updateclibot">updateclibot[bot]</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3703736404" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7054" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7054/hovercard" href="https://github.com/updatecli/updatecli/pull/7054">#7054</a>)</li>
+<li>fix: redact version v0.999.0 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3679942690" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7019" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7019/hovercard" href="https://github.com/updatecli/updatecli/pull/7019">#7019</a>)</li>
+</ul>
+<h2>📝 Documentation</h2>
+<ul>
+<li>docs: fix how to verify release assets <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/suzuki-shunsuke/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/suzuki-shunsuke">@suzuki-shunsuke</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3686306466" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/7033" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/7033/hovercard" href="https://github.com/updatecli/updatecli/pull/7033">#7033</a>)</li>
+</ul>
+<h2>Contributors</h2>
+<p><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/chrxmvtik/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/chrxmvtik">@chrxmvtik</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/d0mitoridesu/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/d0mitoridesu">@d0mitoridesu</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/loispostula/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/loispostula">@loispostula</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/suzuki-shunsuke/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/suzuki-shunsuke">@suzuki-shunsuke</a>, <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/updateclibot/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/updateclibot">@updateclibot</a>[bot] and <a href="https://github.com/apps/updateclibot">updateclibot[bot]</a></p>
+
+++++
+
+---
+
+
+
+=== Download
+
+[cols="3,1,1" options="header" frame="all" grid="rows"]
+|===
+| Name | Created At | Updated At
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/checksums.txt.sig[checksums.txt.sig] | 2025-12-13 12:37:21 +0000 UTC | 2025-12-13T12:37:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/checksums.txt[checksums.txt] | 2025-12-13 12:37:21 +0000 UTC | 2025-12-13T12:37:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Windows_arm.zip.sbom.json[updatecli_Windows_arm.zip.sbom.json] | 2025-12-13 12:37:21 +0000 UTC | 2025-12-13T12:37:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Windows_x86_64.zip.sbom.json[updatecli_Windows_x86_64.zip.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Darwin_arm64.tar.gz.sbom.json[updatecli_Darwin_arm64.tar.gz.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Linux_arm64.tar.gz.sbom.json[updatecli_Linux_arm64.tar.gz.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Darwin_x86_64.tar.gz.sbom.json[updatecli_Darwin_x86_64.tar.gz.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Linux_x86_64.tar.gz.sbom.json[updatecli_Linux_x86_64.tar.gz.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Windows_arm64.zip.sbom.json[updatecli_Windows_arm64.zip.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Linux_arm.tar.gz.sbom.json[updatecli_Linux_arm.tar.gz.sbom.json] | 2025-12-13 12:37:20 +0000 UTC | 2025-12-13T12:37:20Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_amd64.deb[updatecli_amd64.deb] | 2025-12-13 12:37:19 +0000 UTC | 2025-12-13T12:37:21Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_armv6.deb[updatecli_armv6.deb] | 2025-12-13 12:37:18 +0000 UTC | 2025-12-13T12:37:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_arm64.deb[updatecli_arm64.deb] | 2025-12-13 12:37:18 +0000 UTC | 2025-12-13T12:37:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_arm64.rpm[updatecli_arm64.rpm] | 2025-12-13 12:37:18 +0000 UTC | 2025-12-13T12:37:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_armv6.rpm[updatecli_armv6.rpm] | 2025-12-13 12:37:18 +0000 UTC | 2025-12-13T12:37:19Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_armv6.apk[updatecli_armv6.apk] | 2025-12-13 12:37:16 +0000 UTC | 2025-12-13T12:37:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_amd64.rpm[updatecli_amd64.rpm] | 2025-12-13 12:37:16 +0000 UTC | 2025-12-13T12:37:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_arm64.apk[updatecli_arm64.apk] | 2025-12-13 12:37:16 +0000 UTC | 2025-12-13T12:37:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_amd64.apk[updatecli_amd64.apk] | 2025-12-13 12:37:16 +0000 UTC | 2025-12-13T12:37:18Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Windows_x86_64.zip[updatecli_Windows_x86_64.zip] | 2025-12-13 12:37:15 +0000 UTC | 2025-12-13T12:37:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Windows_arm.zip[updatecli_Windows_arm.zip] | 2025-12-13 12:37:15 +0000 UTC | 2025-12-13T12:37:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Darwin_arm64.tar.gz[updatecli_Darwin_arm64.tar.gz] | 2025-12-13 12:37:15 +0000 UTC | 2025-12-13T12:37:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Linux_arm64.tar.gz[updatecli_Linux_arm64.tar.gz] | 2025-12-13 12:37:15 +0000 UTC | 2025-12-13T12:37:16Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Linux_x86_64.tar.gz[updatecli_Linux_x86_64.tar.gz] | 2025-12-13 12:37:13 +0000 UTC | 2025-12-13T12:37:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Darwin_x86_64.tar.gz[updatecli_Darwin_x86_64.tar.gz] | 2025-12-13 12:37:13 +0000 UTC | 2025-12-13T12:37:14Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Windows_arm64.zip[updatecli_Windows_arm64.zip] | 2025-12-13 12:37:13 +0000 UTC | 2025-12-13T12:37:15Z
+
+| link:https://github.com/updatecli/updatecli/releases/download/v0.112.0/updatecli_Linux_arm.tar.gz[updatecli_Linux_arm.tar.gz] | 2025-12-13 12:37:13 +0000 UTC | 2025-12-13T12:37:14Z
+
+|===
+
+
+---
+
+__Information retrieved from link:https://github.com/updatecli/updatecli/releases/tag/v0.112.0[here]__
+
