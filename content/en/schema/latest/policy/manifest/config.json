@@ -342,7 +342,7 @@
                                         "description": "InlineKeyChain defines a keychain with OCI registry credentials"
                                     },
                                     "type": "object",
-                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme"
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
                                 },
                                 "filematch": {
                                     "items": {
@@ -372,7 +372,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\nand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 }
                             },
                             "additionalProperties": false,
@@ -469,7 +469,7 @@
                                         "description": "InlineKeyChain defines a keychain with OCI registry credentials"
                                     },
                                     "type": "object",
-                                    "description": "Auths provides a map of registry credentials where the key is the registry URL without scheme"
+                                    "description": "Auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
                                 },
                                 "filematch": {
                                     "items": {
@@ -499,7 +499,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n kind - semver\n   versionfilter of kind `semver` uses semantic versioning as version filtering\n   pattern accepts one of:\n     `patch` - patch only update patch version\n     `minor` - minor only update minor version\n     `major` - major only update major versions\n     `a version constraint` such as `\u003e= 1.0.0`\n\n kind - regex\n   versionfilter of kind `regex` uses regular expression as version filtering\n   pattern accepts a valid regular expression\n\n example:\n\n ```\n versionfilter:\n   kind: semver\n   pattern: minor\n ```\n\n More version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 }
                             },
                             "additionalProperties": false,
@@ -634,7 +634,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nkind - semver\n\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\tpattern accepts one of:\n\t\t\t`patch` - patch only update patch version\n\t\t\t`minor` - minor only update minor version\n\t\t\t`major` - major only update major versions\n\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\tkind - regex\n\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\tpattern accepts a valid regular expression\n\n\texample:\n\t```\n\t\tversionfilter:\n\t\t\tkind: semver\n\t\t\tpattern: minor\n\t```\n\n\tand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 }
                             },
                             "additionalProperties": false,
@@ -1092,7 +1092,7 @@
                                         "description": "InlineKeyChain defines a keychain with OCI registry credentials"
                                     },
                                     "type": "object",
-                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\n\t\tif empty, updatecli relies on OCI credentials such as the one used by Docker."
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
                                 },
                                 "digest": {
                                     "type": "boolean",
@@ -1189,7 +1189,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 },
                                 "skippackaging": {
                                     "type": "boolean",
@@ -1457,7 +1457,7 @@
                                         "description": "InlineKeyChain defines a keychain with OCI registry credentials"
                                     },
                                     "type": "object",
-                                    "description": "Auths provides a map of registry credentials where the key is the registry URL without scheme"
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
                                 },
                                 "digest": {
                                     "type": "boolean",
@@ -1468,7 +1468,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "Files allows to specify a list of Files to analyze.\n\n\t    The pattern syntax is:\n\t       pattern:\n\t         { term }\n\t       term:\n\t         '*'         matches any sequence of non-Separator characters\n\t         '?'         matches any single non-Separator character\n\t         '[' [ '^' ] { character-range } ']' character class (must be non-empty)\n\t         c           matches character c (c != '*', '?', '\\\\', '[')\n\t         '\\\\' c      matches character c\n\n\t\t    character-range:\n\t\t    \tc           matches character c (c != '\\\\', '-', ']')\n\t         '\\\\' c      matches character c\n\t         lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\n\t        Match requires pattern to match all of name, not just a substring.\n\t        The only possible returned error is ErrBadPattern, when pattern\n\t        is malformed.\n\n\t        On Windows, escaping is disabled. Instead, '\\\\' is treated as\n\t        path separator."
+                                    "description": "Files allows to specify a list of Files to analyze.\n\nThe pattern syntax is:\n  pattern:\n   { term }\n   term:\n     '*'         matches any sequence of non-Separator characters\n     '?'         matches any single non-Separator character\n     '[' [ '^' ] { character-range } ']' character class (must be non-empty)\n     c           matches character c (c != '*', '?', '\\\\', '[')\n     '\\\\' c      matches character c\n\ncharacter-range:\n  c         matches character c (c != '\\\\', '-', ']')\n  '\\\\' c    matches character c\n  lo '-' hi matches character c for lo \u003c= c \u003c= hi\n\nMatch requires pattern to match all of name, not just a substring.\nThe only possible returned error is ErrBadPattern, when pattern\nis malformed.\n\nOn Windows, escaping is disabled. Instead, '\\\\' is treated as\npath separator."
                                 },
                                 "rootdir": {
                                     "type": "string",
@@ -1539,7 +1539,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 }
                             },
                             "additionalProperties": false,
@@ -1729,7 +1729,7 @@
                                         "description": "InlineKeyChain defines a keychain with OCI registry credentials"
                                     },
                                     "type": "object",
-                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme"
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
                                 },
                                 "filematch": {
                                     "items": {
@@ -1759,7 +1759,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\nand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 }
                             },
                             "additionalProperties": false,
@@ -1964,7 +1964,7 @@
                                         "description": "InlineKeyChain defines a keychain with OCI registry credentials"
                                     },
                                     "type": "object",
-                                    "description": "Auths provides a map of registry credentials where the key is the registry URL without scheme"
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
                                 },
                                 "digest": {
                                     "type": "boolean",
@@ -1975,7 +1975,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "Files allows to specify a list of Files to analyze.\n\n\t    The pattern syntax is:\n\t       pattern:\n\t         { term }\n\t       term:\n\t         '*'         matches any sequence of non-Separator characters\n\t         '?'         matches any single non-Separator character\n\t         '[' [ '^' ] { character-range } ']' character class (must be non-empty)\n\t         c           matches character c (c != '*', '?', '\\\\', '[')\n\t         '\\\\' c      matches character c\n\n\t\t    character-range:\n\t\t    \tc           matches character c (c != '\\\\', '-', ']')\n\t         '\\\\' c      matches character c\n\t         lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\n\t        Match requires pattern to match all of name, not just a substring.\n\t        The only possible returned error is ErrBadPattern, when pattern\n\t        is malformed.\n\n\t        On Windows, escaping is disabled. Instead, '\\\\' is treated as\n\t        path separator."
+                                    "description": "Files allows to specify a list of Files to analyze.\n\nThe pattern syntax is:\n  pattern:\n   { term }\n   term:\n     '*'         matches any sequence of non-Separator characters\n     '?'         matches any single non-Separator character\n     '[' [ '^' ] { character-range } ']' character class (must be non-empty)\n     c           matches character c (c != '*', '?', '\\\\', '[')\n     '\\\\' c      matches character c\n\ncharacter-range:\n  c         matches character c (c != '\\\\', '-', ']')\n  '\\\\' c    matches character c\n  lo '-' hi matches character c for lo \u003c= c \u003c= hi\n\nMatch requires pattern to match all of name, not just a substring.\nThe only possible returned error is ErrBadPattern, when pattern\nis malformed.\n\nOn Windows, escaping is disabled. Instead, '\\\\' is treated as\npath separator."
                                 },
                                 "rootdir": {
                                     "type": "string",
@@ -2046,7 +2046,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
                                 }
                             },
                             "additionalProperties": false,
@@ -2251,7 +2251,7 @@
                                                     "type": "string"
                                                 },
                                                 "type": "object",
-                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr://terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
+                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr:///terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -2273,7 +2273,7 @@
                                                     "type": "string"
                                                 },
                                                 "type": "object",
-                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr://terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
+                                                "description": "`modules` specifies a map of modules, the key is module url as seen in the different terragrunt manifests,\n\t\tthe value is an optional semver version constraint.\n\n\t\texamples:\n\t\t```\n\t\t- providers:\n\t\t  # Ignore modules update for a specific registry\n\t\t  tfr://registry.opentofu.org:\n\t\t  # Ignore modules updates for a very specific module\n\t\t  tfr:///terraform-aws-modules/rdss/aws:\n\t\t  registry.terraform.io/hashicorp/aws:\n\t\t  # Ignore module updates for this version\n\t\t  git@github.com:hashicorp/exampleLongNameForSorting.git: \"1.x\"\n\t\t```"
                                             }
                                         },
                                         "additionalProperties": false,
