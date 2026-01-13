@@ -97,11 +97,39 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\n kind - semver\n   versionfilter of kind `semver` uses semantic versioning as version filtering\n   pattern accepts one of:\n     `prerelease` - Updatecli tries to identify the latest \"prerelease\" whatever it means\n     `patch` - Updatecli only handles patch version update\n     `minor` - Updatecli handles patch AND minor version update\n     `minoronly` - Updatecli handles minor version only\n     `major` - Updatecli handles patch, minor, AND major version update\n     `majoronly` - Updatecli only handles major version update\n     `a version constraint` such as `\u003e= 1.0.0`\n\n kind - regex\n   versionfilter of kind `regex` uses regular expression as version filtering\n   pattern accepts a valid regular expression\n\n example:\n ```\n \tversionfilter:\n \t\tkind: semver\n \t\tpattern: minor\n ```\n\n\tand its type like regex, semver, or just latest."
+                                },
+                                "auths": {
+                                    "additionalProperties": {
+                                        "properties": {
+                                            "token": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object"
+                                    },
+                                    "type": "object",
+                                    "description": "Auths holds a map of string to string where the key is the registry URL and the value the token used for authentication\n\nPlease be aware that only the host part of the URL is used to lookup for authentication token.\n\nExample:\n\n```yaml\nauths:\n  \"my-helm-repo.com\": \"my-secret-token\"\n```"
                                 }
                             },
                             "additionalProperties": false,
@@ -227,6 +255,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -368,6 +411,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -495,6 +553,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -630,6 +703,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -723,6 +811,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -885,6 +988,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1057,6 +1175,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1185,6 +1318,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1309,6 +1457,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1422,6 +1585,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1535,6 +1713,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1628,6 +1821,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1755,6 +1963,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1842,6 +2065,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1851,11 +2089,52 @@
                                 "ignoreversionconstraints": {
                                     "type": "boolean",
                                     "description": "IgnoreVersionConstraints indicates whether to respect version constraints defined in package.json or not.\nWhen set to true, Updatecli will ignore version constraints and update to the latest version available\nin the registry according to the specified version filter.\nDefault is false.\n\nRemark:\n * If set to false, Updatecli will try to convert version constrains to valid semantic version\n   so we can use versionFilter to retrieve the last Major/Minor/Patch version but in case of complex version constraints, such as \"\u003e=1.0.0 \u003c2.0.0\",\n   Updatecli will convert it to the first version it detects such as 1.0.0 in our example"
+                                },
+                                "npmrcpath": {
+                                    "type": "string",
+                                    "description": "NpmrcPath defines the path to the .npmrc file to use for all discovered packages.\nThis will be propagated to all generated npm resource specs."
+                                },
+                                "url": {
+                                    "type": "string",
+                                    "description": "URL defines the registry url (defaults to `https://registry.npmjs.org/`).\nThis will be propagated to all generated npm resource specs."
+                                },
+                                "registrytoken": {
+                                    "type": "string",
+                                    "description": "RegistryToken defines the token to use when connecting to the registry.\nThis will be propagated to all generated npm resource specs."
                                 }
                             },
                             "additionalProperties": false,
                             "type": "object",
                             "description": "Spec defines the parameters which can be provided to the NPM builder."
+                        },
+                        "plugin": {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "spec": {
+                                    "type": "object",
+                                    "description": "Spec contains the plugin parameters.\ncfr the plugin documentation."
+                                },
+                                "allowedpaths": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "AllowedPaths is a list of paths to be accessed from inside the plugin sandbox,\na path can be either a plain path or a map from HOST_PATH:GUEST_PATH\n\nExample:\n  - .:/mnt\n  - /var/lib/updatecli:/data\n\nDefault: [\".:/mnt\"]\n\nRemark:\n  * Relative paths are considered relative to the Updatecli working directory.\n    If a scm root directory is set, relative paths are considered relative to the scm root directory.\n  * By default, the plugin runs from \"/mnt\""
+                                },
+                                "allowhosts": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "AllowedHosts hold a list of allowed hosts for HTTP requests from the plugin sandbox"
+                                },
+                                "timeout": {
+                                    "type": "integer",
+                                    "description": "Timeout defines a maximum execution time for the plugin in seconds\n\nDefault: 300 seconds"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object"
                         },
                         "precommit": {
                             "$schema": "http://json-schema.org/draft-04/schema",
@@ -1925,6 +2204,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2042,6 +2336,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2056,6 +2365,19 @@
                         "rancher/fleet": {
                             "$schema": "http://json-schema.org/draft-04/schema",
                             "properties": {
+                                "auths": {
+                                    "additionalProperties": {
+                                        "properties": {
+                                            "token": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object"
+                                    },
+                                    "type": "object",
+                                    "description": "Auths holds a map of string to string where the key is the registry URL and the value the token used for authentication\n\nPlease be aware that only the host part of the URL is used to lookup for authentication token.\n\nExample:\n\n```yaml\nauths:\n  \"my-helm-repo.com\": \"my-secret-token\"\n```"
+                                },
                                 "rootdir": {
                                     "type": "string",
                                     "description": "RootDir defines the root directory used to recursively search for Fleet bundle"
@@ -2135,6 +2457,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2214,6 +2551,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2283,6 +2635,10 @@
                                     "type": "array",
                                     "description": "`only` specify required rule to restrict `.terraform.lock.hcl` update."
                                 },
+                                "token": {
+                                    "type": "string",
+                                    "description": "`token` specifies the token to use for Git authentication when accessing private repositories.\nWorks with any Git provider (GitHub, GitLab, Bitbucket, Gitea, etc.)\n\ncompatible:\n  * autodiscovery\n\ndefault:\n  When not specified: No authentication (suitable for public repositories)\n\nremark:\n  Must be explicitly set for private repositories.\n  Use template functions to read from environment: token: \"{{ requiredEnv \\\"GITLAB_TOKEN\\\" }}\"\n\nexample:\n  token: \"ghp_xxxxxxxxxxxx\"\n  token: \"glpat-xxxxxxxxxxxx\"\n  token: \"{{ requiredEnv \\\"GITLAB_TOKEN\\\" }}\""
+                                },
                                 "versionfilter": {
                                     "properties": {
                                         "kind": {
@@ -2300,6 +2656,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2409,6 +2780,21 @@
                                         "regex": {
                                             "type": "string",
                                             "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2755,9 +3141,6 @@
                                         "type": "array",
                                         "description": "\"labels\" defines labels for the merge request.\n\n\tdefault: empty\n\n\tremark:\n\t\tif a label does not already exist, this creates a new project label and assigns it to the merge request"
                                     },
-                                    "mergewhenpipelinesucceeds": {
-                                        "type": "boolean"
-                                    },
                                     "mergecommitmessage": {
                                         "type": "string",
                                         "description": "mergecommitmessage defines the commit message used when the merge request is merged\n\ndefault: empty\n\nremark:\n  if empty, GitLab will use the default message\n  format defined in the project settings"
@@ -2769,6 +3152,10 @@
                                     "allowcollaboration": {
                                         "type": "boolean",
                                         "description": "allowcollaboration indicates whether to allow commits from members who can merge to the target branch\n\ndefault: false\n\nremark:\n  when set to true, members with write access to the repository can push commits to the source branch\n  of the merge request"
+                                    },
+                                    "automerge": {
+                                        "type": "boolean",
+                                        "description": "automerge allows to enable/disable the automerge feature on new merge request\n\ndefault: false\n\nremark:\n  when set to true, the merge request will be automatically merged when all conditions are met\n  (pipeline succeeds, approvals are given, etc.)"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -4288,6 +4675,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -4514,6 +4916,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -5128,6 +5545,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -5532,6 +5964,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -5771,6 +6218,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -5992,6 +6454,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -6233,6 +6710,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -6454,6 +6946,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -6728,6 +7235,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -6948,6 +7470,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -7188,6 +7725,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -7392,6 +7944,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -7615,6 +8182,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -8012,6 +8594,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -8431,6 +9028,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -9060,6 +9672,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -9278,6 +9905,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -9486,6 +10128,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -9994,6 +10651,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -10219,6 +10891,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -11234,6 +11921,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -11448,6 +12150,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -11998,6 +12715,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "documentindex": {
+                                        "type": "integer",
+                                        "description": "DocumentIndex defines the index of the document to interact with in a multi-document yaml file.\n\ncompatible:\n  * source\n  * condition\n  * target\n\ndefault:\n  empty\n\n remark:\n  * when not set in the context of a source, the value will be retrieve from the first documents matching query.\n  * when not set in the context of a condition or a target, all documents will be evaluated by the query.\n  * When not set in the context of a target, all documents will be updated by the query.\n\nexample:\n  * documentindex: 0\n  * documentindex: 1"
+                                    },
                                     "engine": {
                                         "type": "string",
                                         "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\nThere is no one good Golang library to manipulate yaml files.\nAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\nremark:\n * Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n * go-yaml, \"default\" and \"\" are equivalent"
@@ -12497,6 +13218,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -12732,6 +13468,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -13373,6 +14124,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -13795,6 +14561,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -14043,6 +14824,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -14273,6 +15069,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -14523,6 +15334,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -14753,6 +15579,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -15036,6 +15877,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -15265,6 +16121,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -15514,6 +16385,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -15727,6 +16613,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -15959,6 +16860,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -16374,6 +17290,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -16811,6 +17742,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -17467,6 +18413,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -17694,6 +18655,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -17911,6 +18887,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -18437,6 +19428,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -18671,6 +19677,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -19731,6 +20752,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -19954,6 +20990,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -20531,6 +21582,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "documentindex": {
+                                        "type": "integer",
+                                        "description": "DocumentIndex defines the index of the document to interact with in a multi-document yaml file.\n\ncompatible:\n  * source\n  * condition\n  * target\n\ndefault:\n  empty\n\n remark:\n  * when not set in the context of a source, the value will be retrieve from the first documents matching query.\n  * when not set in the context of a condition or a target, all documents will be evaluated by the query.\n  * When not set in the context of a target, all documents will be updated by the query.\n\nexample:\n  * documentindex: 0\n  * documentindex: 1"
+                                    },
                                     "engine": {
                                         "type": "string",
                                         "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\nThere is no one good Golang library to manipulate yaml files.\nAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\nremark:\n * Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n * go-yaml, \"default\" and \"\" are equivalent"
@@ -21048,6 +22103,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -21292,6 +22362,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -21960,6 +23045,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -22400,6 +23500,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -22657,6 +23772,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -22896,6 +24026,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -23155,6 +24300,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -23394,6 +24554,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -23686,6 +24861,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -23924,6 +25114,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -24182,6 +25387,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -24404,6 +25624,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -24645,6 +25880,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -25078,6 +26328,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -25533,6 +26798,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -26216,6 +27496,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -26452,6 +27747,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -26678,6 +27988,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -27222,6 +28547,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -27465,6 +28805,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -28570,6 +29925,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -28802,6 +30172,21 @@
                                             "regex": {
                                                 "type": "string",
                                                 "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -29406,6 +30791,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "documentindex": {
+                                        "type": "integer",
+                                        "description": "DocumentIndex defines the index of the document to interact with in a multi-document yaml file.\n\ncompatible:\n  * source\n  * condition\n  * target\n\ndefault:\n  empty\n\n remark:\n  * when not set in the context of a source, the value will be retrieve from the first documents matching query.\n  * when not set in the context of a condition or a target, all documents will be evaluated by the query.\n  * When not set in the context of a target, all documents will be updated by the query.\n\nexample:\n  * documentindex: 0\n  * documentindex: 1"
+                                    },
                                     "engine": {
                                         "type": "string",
                                         "description": "\"engine\" defines the engine to use to manipulate the yaml file.\n\nThere is no one good Golang library to manipulate yaml files.\nAnd each one of them have has its pros and cons so we decided to allow this customization based on user's needs.\n\nremark:\n * Accepted value is one of \"yamlpath\", \"go-yaml\",\"default\" or nothing\n * go-yaml, \"default\" and \"\" are equivalent"
