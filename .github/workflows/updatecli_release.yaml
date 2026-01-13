@@ -1,39 +1,38 @@
 ---
-name: Updatecli Weekly
+name: Updatecli Release
 on:
   workflow_dispatch:
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run at 12:00 every Thursday
-    - cron: '0 12 * * 4'
+    - cron: "0 12 * * 4"
   repository_dispatch:
     types:
       - "updatecli-release"
 jobs:
   updatecli:
-    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
+
       - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.96.0"
         with:
-          version: "v0.111.0"
+          version: "v0.113.0"
+
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
         uses: "updatecli/releasepost-action@v0.5.0"
-      - uses: tibdex/github-app-token@v2.1
-        id: generate_token
-        if: github.ref == 'refs/heads/master'
-        with:
-          app_id: ${{ secrets.UPDATECLIBOT_APP_ID }}
-          private_key: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
+
       - name: "Run updatecli"
-        if: github.ref == 'refs/heads/master'
-        run: "updatecli compose apply --file updatecli-compose.weekly.yaml"
+        run: "updatecli compose apply --file updatecli-compose-weekly.yaml"
         env:
-          GITHUB_ACTOR: ${{ secrets.UPDATECLI_BOT_GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
+          UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
+          UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
+          UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
+          UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
+          UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}

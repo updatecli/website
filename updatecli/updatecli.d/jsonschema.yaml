@@ -18,12 +18,13 @@ scms:
   default:
     kind: github
     spec:
-      branch: master
-      email: updatecli@olblak.com
-      owner: updatecli
-      repository: website
-      user: updatecli
-      commitusingapi: true
+      branch: "{{ .scm.branch }}"
+      email: "{{ .scm.email }}"
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      user: "{{ .scm.user }}"
+      force: true
+      commitusingapi: {{ scm.commitusingapi }}
     disabled: false
 
 targets:

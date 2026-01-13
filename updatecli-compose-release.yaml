@@ -1,4 +1,10 @@
 policies:
+  - name: Local policies
+    config:
+      - updatecli/updatecli.d/
+    values:
+      - updatecli/values.d/scm.yaml
+
   - name: Trigger releasepost
     policy: ghcr.io/updatecli/policies/releasepost/releasepost:0.10.0@sha256:b4b857efbed3a966cbdbc224b5ba0b9322c96322effa0cedff93a2b39d8e086d
     values:
