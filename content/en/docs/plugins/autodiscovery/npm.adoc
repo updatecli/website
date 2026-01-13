@@ -25,7 +25,40 @@ Then for each of them, it tries to update them.
 
 ==== Example
 
+===== Basic Example
+
 [source,yaml]
 ----
-# updatecli.d/default.yaml
+# updatecli.d/npm.yaml
+autodiscovery:
+  crawlers:
+    npm:
+      rootdir: "."
+      versionfilter:
+        kind: semver
+        pattern: minor
 ----
+
+===== Private Registry Example
+
+The following example shows how to configure npm autodiscovery to work with a private npm registry:
+
+[source,yaml]
+----
+# updatecli.d/npm-private.yaml
+autodiscovery:
+  crawlers:
+    npm:
+      rootdir: "."
+      # URL of your private npm registry
+      url: "https://npm.example.com"
+      # Authentication token (use environment variables for security)
+      registrytoken: "${NPM_TOKEN}"
+      # Optional: path to custom .npmrc file
+      npmrcpath: "/path/to/.npmrc"
+      versionfilter:
+        kind: semver
+        pattern: ">=1.0.0"
+----
+
+NOTE: The `url`, `registrytoken`, and `npmrcpath` parameters are propagated to all generated npm resource specs, allowing consistent authentication across all discovered dependencies.
