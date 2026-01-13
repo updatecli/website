@@ -27,7 +27,7 @@ jobs:
         uses: "updatecli/releasepost-action@v0.5.0"
 
       - name: "Run updatecli"
-        run: "updatecli compose apply --file updatecli-compose-weekly.yaml"
+        run: "updatecli compose apply --file updatecli-compose-weekly.yaml --experimental"
         env:
           RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
