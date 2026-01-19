@@ -55,7 +55,7 @@ Updatecli needs at least one manifest to know what update pipeline to apply.
 In this manifest, we introduce three important concepts of an updatecli manifest.
 
 . A **Source** definition describes where a piece of information is coming from. In the current example, we're looking for the latest Jenkins weekly version.
-. A **Target** definition describes what we want to update based on a *source* output. In our example, we want to update the key "container.tag" in the file "data.yaml" to the version retrieved from the source, the latest Jenkins weekly version.
+. A **Target** definition describes what we want to update based on a *source* output. In our example, we want to update the key "$.container.tag" in the file "data.yaml" to the version retrieved from the source, the latest Jenkins weekly version.
 . A **Condition** definition defined conditions required to update the target. In this example, we want to test that the docker image "jenkinsci/jenkins:<latest Jenkins weekly version>" exists on DockerHub.
 
 {{< btn-copy text="touch ./updatecli/updatecli.d/jenkins.yaml" >}}
