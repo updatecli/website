@@ -3301,7 +3301,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3313,7 +3313,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3454,7 +3454,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3466,7 +3466,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3550,7 +3550,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3562,7 +3562,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3735,7 +3735,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3747,7 +3747,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3899,7 +3899,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3911,7 +3911,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -4011,7 +4011,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -4023,7 +4023,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
@@ -4156,7 +4156,7 @@
                                             },
                                             "title": {
                                                 "type": "string",
-                                                "description": "title defines the title of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   default is set to the target name or the target short description\n   if the name is not defined."
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -4168,7 +4168,7 @@
                                             },
                                             "squash": {
                                                 "type": "boolean",
-                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit title and body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if title and body are not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits."
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
                                             }
                                         },
                                         "additionalProperties": false,
