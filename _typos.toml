@@ -2,4 +2,4 @@
 extend-exclude = ["static/*", "assets/*", "vendor", "content/en/schema", "vale"]
 
 [default]
-extend-ignore-identifiers-re = ["equirements"]
+extend-ignore-identifiers-re = ["equirements","stderr"]
