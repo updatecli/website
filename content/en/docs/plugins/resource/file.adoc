@@ -65,6 +65,7 @@ It retrieves the content of the file at the location `file` and use it as the so
 * `content`
 * `forcecreate`
 * `replacepattern`
+* `template`
 
 === Filtering File Source Content
 
@@ -233,6 +234,7 @@ or fails the pipeline (and never run the pipeline's targets).
 
 * `forcecreate`
 * `replacepattern`
+* `template`
 
 === Condition Input Value
 
@@ -427,9 +429,14 @@ The "Input Value" is the string to write to the specified file.
 * You can also specify a custom content with the `spec.content` attribute instead of using the input source value.
 Using the `spec.content` is useful when you need to templatize with the source input value (see example below).
 
+* Alternatively, you can define a Go template file path with the `spec.template` attribute to render dynamic content based on the source value.
+The template is rendered using all https://masterminds.github.io/sprig/[Sprig template functions], with the source value accessible as `.source` in the template context.
+
 * Finally, you can define a https://pkg.go.dev/regexp[Golang regexp] in the attribute `spec.ReplacePattern`,
 if and only if you also specified a `spec.matchpattern` (see <<Restricting File Content Update>> and <<Target Examples>> for more details).
 ** Regexp's capturing group are supported (this is the recommended use case)
+
+⚠️ The `spec.template` attribute is mutually exclusive with `spec.content`, `spec.matchpattern`, `spec.replacepattern`, and `spec.line`.
 
 === Restricting File Content Update
 
@@ -557,6 +564,70 @@ updateCopyrightYear
 > Copyright (c) 2021 Olblak
 --
 
+
+* The following target uses a Go template file to generate dynamic content based on the source value.
+The template has access to all https://masterminds.github.io/sprig/[Sprig functions] and the source value via `.source`:
++
+[source,yaml]
+.updateCli.yaml:
+--
+# ..
+sources:
+  getLatestVersion:
+    kind: shell
+    spec:
+      command: "echo \"1.25.1\""
+targets:
+  useTemplate:
+    kind: file
+    sourceid: getLatestVersion # Source Value is "1.25.1"
+    spec:
+      file: version-info.txt
+      template: templates/version.tmpl
+      forcecreate: true
+--
++
+[source,go-template]
+.templates/version.tmpl:
+--
+Application Version Information
+================================
+
+Current Version: {{ .source }}
+Updated: {{ now | date "2006-01-02" }}
+Release Notes: https://example.com/releases/{{ .source }}
+--
++
+[source,shell]
+--
+$ updatecli apply
+
+
+source: getLatestVersion
+------------------------
+
+The shell 🐚 command "/bin/sh /tmp/updatecli/bin/ab7e342dff922f8ba849dbf7d0c4ac2adc5855b83fe02401b781e7267f7233c6.sh" ran successfully with the following output:
+----
+1.25.1
+----
+✔ shell command executed successfully
+
+target: useTemplate
+-------------------
+
+Creating a new file at "version-info.txt"
+"version-info.txt" updated with content "Application Version Information\n================================\n\nCurrent Version: 1.25.1\nUpdated: 2026-01-21\nRelease Notes: https://example.com/releases/1.25.1\n"
+
+```
+--- version-info.txt
++++ version-info.txt
+@@ -1 +1,6 @@
++Application Version Information
++================================
++
++Current Version: 1.25.1
++Updated: 2026-01-21
++Release Notes: https://example.com/releases/1.25.1
 
 == Reference
 
@@ -706,4 +777,10 @@ targets:
     spec:
       file: LICENSE
       matchpattern: 'Copyright \(c\) (\d*) (.*)'
+  useTemplate:
+    kind: file
+    sourceid: getLatestVersion # Source Value is "1.25.1"
+    spec:
+      file: version-info.txt
+      template: templates/version.tmpl
 ----
