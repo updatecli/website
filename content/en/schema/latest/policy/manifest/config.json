@@ -5107,19 +5107,19 @@
                                 "properties": {
                                     "architecture": {
                                         "type": "string",
-                                        "description": "architecture specifies the container image architecture such as `amd64`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tamd64"
+                                        "description": "architecture specifies the container image architecture such as `amd64`\n\ncompatible:\n\t* source\n\t* condition\n\ndefault: amd64"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\nexample: `updatecli/updatecli`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "tag specifies the container image tag such as `latest`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "tag specifies the container image tag such as `latest`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "digest": {
                                         "type": "string",
-                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tWhen used from a condition, the default value is set to the linked source output."
+                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\ncompatible:\n\t* condition\n\ndefault:\n\tWhen used from a condition, the default value is set to the linked source output."
                                     },
                                     "username": {
                                         "type": "string",
@@ -5135,7 +5135,7 @@
                                     },
                                     "hidetag": {
                                         "type": "boolean",
-                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\n\t\tcompatible:\n\t\t\t* source\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\ncompatible:\n\t* source\n\ndefault:\n\tfalse"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -5308,21 +5308,21 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "File specifies the dockerimage file path to use and is incompatible with Files"
+                                        "description": "file specifies the dockerimage file path to use and is incompatible with Files\n\ndefault: \"\"\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   File is not compatible with Files. Only one of the two should be specified."
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File"
+                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File\n\ndefault: []\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   Files is not compatible with File. Only one of the two should be specified."
                                     },
                                     "instruction": {
-                                        "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        "description": "Instruction specifies a DockerImage instruction such as ENV\nInstruction can be specified as a simple string or as a map with keyword and matcher keys.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n default: empty\n\n example:\n ```yaml\n instruction:\n   keyword: \"FROM\"\n   matcher: \"alpine\"\n ```"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        "description": "Value specifies the value for a specified Dockerfile instruction.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\ndefault: source output"
                                     },
                                     "stage": {
                                         "type": "string",
@@ -13668,19 +13668,19 @@
                                 "properties": {
                                     "architecture": {
                                         "type": "string",
-                                        "description": "architecture specifies the container image architecture such as `amd64`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tamd64"
+                                        "description": "architecture specifies the container image architecture such as `amd64`\n\ncompatible:\n\t* source\n\t* condition\n\ndefault: amd64"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\nexample: `updatecli/updatecli`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "tag specifies the container image tag such as `latest`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "tag specifies the container image tag such as `latest`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "digest": {
                                         "type": "string",
-                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tWhen used from a condition, the default value is set to the linked source output."
+                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\ncompatible:\n\t* condition\n\ndefault:\n\tWhen used from a condition, the default value is set to the linked source output."
                                     },
                                     "username": {
                                         "type": "string",
@@ -13696,7 +13696,7 @@
                                     },
                                     "hidetag": {
                                         "type": "boolean",
-                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\n\t\tcompatible:\n\t\t\t* source\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\ncompatible:\n\t* source\n\ndefault:\n\tfalse"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -13878,21 +13878,21 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "File specifies the dockerimage file path to use and is incompatible with Files"
+                                        "description": "file specifies the dockerimage file path to use and is incompatible with Files\n\ndefault: \"\"\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   File is not compatible with Files. Only one of the two should be specified."
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File"
+                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File\n\ndefault: []\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   Files is not compatible with File. Only one of the two should be specified."
                                     },
                                     "instruction": {
-                                        "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        "description": "Instruction specifies a DockerImage instruction such as ENV\nInstruction can be specified as a simple string or as a map with keyword and matcher keys.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n default: empty\n\n example:\n ```yaml\n instruction:\n   keyword: \"FROM\"\n   matcher: \"alpine\"\n ```"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        "description": "Value specifies the value for a specified Dockerfile instruction.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\ndefault: source output"
                                     },
                                     "stage": {
                                         "type": "string",
@@ -22571,19 +22571,19 @@
                                 "properties": {
                                     "architecture": {
                                         "type": "string",
-                                        "description": "architecture specifies the container image architecture such as `amd64`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tamd64"
+                                        "description": "architecture specifies the container image architecture such as `amd64`\n\ncompatible:\n\t* source\n\t* condition\n\ndefault: amd64"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\nexample: `updatecli/updatecli`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "tag specifies the container image tag such as `latest`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "tag specifies the container image tag such as `latest`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "digest": {
                                         "type": "string",
-                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tWhen used from a condition, the default value is set to the linked source output."
+                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\ncompatible:\n\t* condition\n\ndefault:\n\tWhen used from a condition, the default value is set to the linked source output."
                                     },
                                     "username": {
                                         "type": "string",
@@ -22599,7 +22599,7 @@
                                     },
                                     "hidetag": {
                                         "type": "boolean",
-                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\n\t\tcompatible:\n\t\t\t* source\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\ncompatible:\n\t* source\n\ndefault:\n\tfalse"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22790,21 +22790,21 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "File specifies the dockerimage file path to use and is incompatible with Files"
+                                        "description": "file specifies the dockerimage file path to use and is incompatible with Files\n\ndefault: \"\"\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   File is not compatible with Files. Only one of the two should be specified."
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File"
+                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File\n\ndefault: []\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   Files is not compatible with File. Only one of the two should be specified."
                                     },
                                     "instruction": {
-                                        "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        "description": "Instruction specifies a DockerImage instruction such as ENV\nInstruction can be specified as a simple string or as a map with keyword and matcher keys.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n default: empty\n\n example:\n ```yaml\n instruction:\n   keyword: \"FROM\"\n   matcher: \"alpine\"\n ```"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        "description": "Value specifies the value for a specified Dockerfile instruction.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\ndefault: source output"
                                     },
                                     "stage": {
                                         "type": "string",
