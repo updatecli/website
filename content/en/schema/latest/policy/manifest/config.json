@@ -5107,19 +5107,19 @@
                                 "properties": {
                                     "architecture": {
                                         "type": "string",
-                                        "description": "architecture specifies the container image architecture such as `amd64`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tamd64"
+                                        "description": "architecture specifies the container image architecture such as `amd64`\n\ncompatible:\n\t* source\n\t* condition\n\ndefault: amd64"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\nexample: `updatecli/updatecli`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "tag specifies the container image tag such as `latest`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "tag specifies the container image tag such as `latest`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "digest": {
                                         "type": "string",
-                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tWhen used from a condition, the default value is set to the linked source output."
+                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\ncompatible:\n\t* condition\n\ndefault:\n\tWhen used from a condition, the default value is set to the linked source output."
                                     },
                                     "username": {
                                         "type": "string",
@@ -5135,7 +5135,7 @@
                                     },
                                     "hidetag": {
                                         "type": "boolean",
-                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\n\t\tcompatible:\n\t\t\t* source\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\ncompatible:\n\t* source\n\ndefault:\n\tfalse"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -5308,21 +5308,21 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "File specifies the dockerimage file path to use and is incompatible with Files"
+                                        "description": "file specifies the dockerimage file path to use and is incompatible with Files\n\ndefault: \"\"\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   File is not compatible with Files. Only one of the two should be specified."
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File"
+                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File\n\ndefault: []\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   Files is not compatible with File. Only one of the two should be specified."
                                     },
                                     "instruction": {
-                                        "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        "description": "Instruction specifies a DockerImage instruction such as ENV\nInstruction can be specified as a simple string or as a map with keyword and matcher keys.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n default: empty\n\n example:\n ```yaml\n instruction:\n   keyword: \"FROM\"\n   matcher: \"alpine\"\n ```"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        "description": "Value specifies the value for a specified Dockerfile instruction.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\ndefault: source output"
                                     },
                                     "stage": {
                                         "type": "string",
@@ -5741,38 +5741,38 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "`file` contains the file path\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * `file` is incompatible with `files`\n\t       * feel free to look at searchpattern attribute to search for files matching a pattern"
+                                        "description": "`file` contains the file path\n\n  compatible:\n      * source\n      * condition\n      * target\n\n  remarks:\n      * `file` is incompatible with `files`\n      * feel free to look at searchpattern attribute to search for files matching a pattern"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "`files` contains the file path(s)\n\n\t   compatible:\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * `files` is incompatible with `file`\n\t       * feel free to look at searchpattern attribute to search for files matching a pattern"
+                                        "description": "`files` contains the file path(s)\n\n  compatible:\n      * condition\n      * target\n\n  remarks:\n      * `files` is incompatible with `file`\n      * feel free to look at searchpattern attribute to search for files matching a pattern"
                                     },
                                     "line": {
                                         "type": "integer",
-                                        "description": "`line` contains the line of the file(s) to manipulate\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`line` contains the line of the file(s) to manipulate\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "content": {
                                         "type": "string",
-                                        "description": "`content` specifies the content to manipulate\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`content` specifies the content to manipulate\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "forcecreate": {
                                         "type": "boolean",
-                                        "description": "`forcecreate` defines if nonexistent file(s) should be created\n\n\t   compatible:\n\t       * target"
+                                        "description": "`forcecreate` defines if nonexistent file(s) should be created\n\n  compatible:\n      * target"
                                     },
                                     "matchpattern": {
                                         "type": "string",
-                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * For targets: Capture groups (parentheses) in the pattern automatically extract\n\t         the current value for changelog generation\n\t       * Without capture groups, changelogs show generic \"unknown\" version changes\n\t       * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n\t       * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n\t       * Supports full Go regexp syntax"
+                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n  compatible:\n      * source\n      * condition\n      * target\n\n  remarks:\n      * For targets: Capture groups (parentheses) in the pattern automatically extract\n        the current value for changelog generation\n      * Without capture groups, changelogs show generic \"unknown\" version changes\n      * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n      * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n      * Supports full Go regexp syntax"
                                     },
                                     "replacepattern": {
                                         "type": "string",
-                                        "description": "`replacepattern` specifies the regexp replace pattern to apply on the file(s) content\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`replacepattern` specifies the regexp replace pattern to apply on the file(s) content\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "searchpattern": {
                                         "type": "boolean",
-                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n\t   If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n\t   When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n\t   The pattern syntax is:\n\n\t   ```\n\t       pattern:\n\t           { term }\n\t       term:\n\t           '*'         matches any sequence of non-Separator characters\n\t           '?'         matches any single non-Separator character\n\t           '[' [ '^' ] { character-range } ']'\n\t                       character class (must be non-empty)\n\t           c           matches character c (c != '*', '?', '\\\\', '[')\n\t           '\\\\' c      matches character c\n\n\t       character-range:\n\t           c           matches character c (c != '\\\\', '-', ']')\n\t           '\\\\' c      matches character c\n\t           lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\t   ```"
+                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n  If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n  When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n  The pattern syntax is:\n\n  ```\n      pattern:\n          { term }\n      term:\n          '*'         matches any sequence of non-Separator characters\n          '?'         matches any single non-Separator character\n          '[' [ '^' ] { character-range } ']'\n                      character class (must be non-empty)\n          c           matches character c (c != '*', '?', '\\\\', '[')\n          '\\\\' c      matches character c\n\n      character-range:\n          c           matches character c (c != '\\\\', '-', ']')\n          '\\\\' c      matches character c\n          lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n  ```"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -13668,19 +13668,19 @@
                                 "properties": {
                                     "architecture": {
                                         "type": "string",
-                                        "description": "architecture specifies the container image architecture such as `amd64`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tamd64"
+                                        "description": "architecture specifies the container image architecture such as `amd64`\n\ncompatible:\n\t* source\n\t* condition\n\ndefault: amd64"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\nexample: `updatecli/updatecli`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "tag specifies the container image tag such as `latest`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "tag specifies the container image tag such as `latest`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "digest": {
                                         "type": "string",
-                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tWhen used from a condition, the default value is set to the linked source output."
+                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\ncompatible:\n\t* condition\n\ndefault:\n\tWhen used from a condition, the default value is set to the linked source output."
                                     },
                                     "username": {
                                         "type": "string",
@@ -13696,7 +13696,7 @@
                                     },
                                     "hidetag": {
                                         "type": "boolean",
-                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\n\t\tcompatible:\n\t\t\t* source\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\ncompatible:\n\t* source\n\ndefault:\n\tfalse"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -13878,21 +13878,21 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "File specifies the dockerimage file path to use and is incompatible with Files"
+                                        "description": "file specifies the dockerimage file path to use and is incompatible with Files\n\ndefault: \"\"\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   File is not compatible with Files. Only one of the two should be specified."
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File"
+                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File\n\ndefault: []\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   Files is not compatible with File. Only one of the two should be specified."
                                     },
                                     "instruction": {
-                                        "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        "description": "Instruction specifies a DockerImage instruction such as ENV\nInstruction can be specified as a simple string or as a map with keyword and matcher keys.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n default: empty\n\n example:\n ```yaml\n instruction:\n   keyword: \"FROM\"\n   matcher: \"alpine\"\n ```"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        "description": "Value specifies the value for a specified Dockerfile instruction.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\ndefault: source output"
                                     },
                                     "stage": {
                                         "type": "string",
@@ -14329,38 +14329,38 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "`file` contains the file path\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * `file` is incompatible with `files`\n\t       * feel free to look at searchpattern attribute to search for files matching a pattern"
+                                        "description": "`file` contains the file path\n\n  compatible:\n      * source\n      * condition\n      * target\n\n  remarks:\n      * `file` is incompatible with `files`\n      * feel free to look at searchpattern attribute to search for files matching a pattern"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "`files` contains the file path(s)\n\n\t   compatible:\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * `files` is incompatible with `file`\n\t       * feel free to look at searchpattern attribute to search for files matching a pattern"
+                                        "description": "`files` contains the file path(s)\n\n  compatible:\n      * condition\n      * target\n\n  remarks:\n      * `files` is incompatible with `file`\n      * feel free to look at searchpattern attribute to search for files matching a pattern"
                                     },
                                     "line": {
                                         "type": "integer",
-                                        "description": "`line` contains the line of the file(s) to manipulate\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`line` contains the line of the file(s) to manipulate\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "content": {
                                         "type": "string",
-                                        "description": "`content` specifies the content to manipulate\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`content` specifies the content to manipulate\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "forcecreate": {
                                         "type": "boolean",
-                                        "description": "`forcecreate` defines if nonexistent file(s) should be created\n\n\t   compatible:\n\t       * target"
+                                        "description": "`forcecreate` defines if nonexistent file(s) should be created\n\n  compatible:\n      * target"
                                     },
                                     "matchpattern": {
                                         "type": "string",
-                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * For targets: Capture groups (parentheses) in the pattern automatically extract\n\t         the current value for changelog generation\n\t       * Without capture groups, changelogs show generic \"unknown\" version changes\n\t       * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n\t       * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n\t       * Supports full Go regexp syntax"
+                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n  compatible:\n      * source\n      * condition\n      * target\n\n  remarks:\n      * For targets: Capture groups (parentheses) in the pattern automatically extract\n        the current value for changelog generation\n      * Without capture groups, changelogs show generic \"unknown\" version changes\n      * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n      * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n      * Supports full Go regexp syntax"
                                     },
                                     "replacepattern": {
                                         "type": "string",
-                                        "description": "`replacepattern` specifies the regexp replace pattern to apply on the file(s) content\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`replacepattern` specifies the regexp replace pattern to apply on the file(s) content\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "searchpattern": {
                                         "type": "boolean",
-                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n\t   If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n\t   When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n\t   The pattern syntax is:\n\n\t   ```\n\t       pattern:\n\t           { term }\n\t       term:\n\t           '*'         matches any sequence of non-Separator characters\n\t           '?'         matches any single non-Separator character\n\t           '[' [ '^' ] { character-range } ']'\n\t                       character class (must be non-empty)\n\t           c           matches character c (c != '*', '?', '\\\\', '[')\n\t           '\\\\' c      matches character c\n\n\t       character-range:\n\t           c           matches character c (c != '\\\\', '-', ']')\n\t           '\\\\' c      matches character c\n\t           lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\t   ```"
+                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n  If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n  When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n  The pattern syntax is:\n\n  ```\n      pattern:\n          { term }\n      term:\n          '*'         matches any sequence of non-Separator characters\n          '?'         matches any single non-Separator character\n          '[' [ '^' ] { character-range } ']'\n                      character class (must be non-empty)\n          c           matches character c (c != '*', '?', '\\\\', '[')\n          '\\\\' c      matches character c\n\n      character-range:\n          c           matches character c (c != '\\\\', '-', ']')\n          '\\\\' c      matches character c\n          lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n  ```"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22571,19 +22571,19 @@
                                 "properties": {
                                     "architecture": {
                                         "type": "string",
-                                        "description": "architecture specifies the container image architecture such as `amd64`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tamd64"
+                                        "description": "architecture specifies the container image architecture such as `amd64`\n\ncompatible:\n\t* source\n\t* condition\n\ndefault: amd64"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "image specifies the container image such as `updatecli/updatecli`\n\nexample: `updatecli/updatecli`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "tag": {
                                         "type": "string",
-                                        "description": "tag specifies the container image tag such as `latest`\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition"
+                                        "description": "tag specifies the container image tag such as `latest`\n\ncompatible:\n\t* source\n\t* condition"
                                     },
                                     "digest": {
                                         "type": "string",
-                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\n\t\tcompatible:\n\t\t\t* condition\n\n\t\tdefault:\n\t\t\tWhen used from a condition, the default value is set to the linked source output."
+                                        "description": "digest specifies the container image digest such as `sha256:ce782db15ab5491c6c6178da8431b3db66988ccd11512034946a9667846952a6`\n\ncompatible:\n\t* condition\n\ndefault:\n\tWhen used from a condition, the default value is set to the linked source output."
                                     },
                                     "username": {
                                         "type": "string",
@@ -22599,7 +22599,7 @@
                                     },
                                     "hidetag": {
                                         "type": "boolean",
-                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\n\t\tcompatible:\n\t\t\t* source\n\n\t\tdefault:\n\t\t\tfalse"
+                                        "description": "hideTag specifies if the tag should be hidden from the digest\n\ncompatible:\n\t* source\n\ndefault:\n\tfalse"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22790,21 +22790,21 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "File specifies the dockerimage file path to use and is incompatible with Files"
+                                        "description": "file specifies the dockerimage file path to use and is incompatible with Files\n\ndefault: \"\"\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   File is not compatible with Files. Only one of the two should be specified."
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File"
+                                        "description": "Files specifies the dockerimage file path(s) to use and is incompatible with File\n\ndefault: []\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n remark:\n   Files is not compatible with File. Only one of the two should be specified."
                                     },
                                     "instruction": {
-                                        "description": "Instruction specifies a DockerImage instruction such as ENV"
+                                        "description": "Instruction specifies a DockerImage instruction such as ENV\nInstruction can be specified as a simple string or as a map with keyword and matcher keys.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\n default: empty\n\n example:\n ```yaml\n instruction:\n   keyword: \"FROM\"\n   matcher: \"alpine\"\n ```"
                                     },
                                     "value": {
                                         "type": "string",
-                                        "description": "Value specifies the value for a specified Dockerfile instruction."
+                                        "description": "Value specifies the value for a specified Dockerfile instruction.\n\ncompatible:\n\t* source\n\t* condition\n\t* target\n\ndefault: source output"
                                     },
                                     "stage": {
                                         "type": "string",
@@ -23259,38 +23259,38 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "description": "`file` contains the file path\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * `file` is incompatible with `files`\n\t       * feel free to look at searchpattern attribute to search for files matching a pattern"
+                                        "description": "`file` contains the file path\n\n  compatible:\n      * source\n      * condition\n      * target\n\n  remarks:\n      * `file` is incompatible with `files`\n      * feel free to look at searchpattern attribute to search for files matching a pattern"
                                     },
                                     "files": {
                                         "items": {
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "`files` contains the file path(s)\n\n\t   compatible:\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * `files` is incompatible with `file`\n\t       * feel free to look at searchpattern attribute to search for files matching a pattern"
+                                        "description": "`files` contains the file path(s)\n\n  compatible:\n      * condition\n      * target\n\n  remarks:\n      * `files` is incompatible with `file`\n      * feel free to look at searchpattern attribute to search for files matching a pattern"
                                     },
                                     "line": {
                                         "type": "integer",
-                                        "description": "`line` contains the line of the file(s) to manipulate\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`line` contains the line of the file(s) to manipulate\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "content": {
                                         "type": "string",
-                                        "description": "`content` specifies the content to manipulate\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`content` specifies the content to manipulate\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "forcecreate": {
                                         "type": "boolean",
-                                        "description": "`forcecreate` defines if nonexistent file(s) should be created\n\n\t   compatible:\n\t       * target"
+                                        "description": "`forcecreate` defines if nonexistent file(s) should be created\n\n  compatible:\n      * target"
                                     },
                                     "matchpattern": {
                                         "type": "string",
-                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target\n\n\t   remarks:\n\t       * For targets: Capture groups (parentheses) in the pattern automatically extract\n\t         the current value for changelog generation\n\t       * Without capture groups, changelogs show generic \"unknown\" version changes\n\t       * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n\t       * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n\t       * Supports full Go regexp syntax"
+                                        "description": "`matchpattern` specifies the regexp pattern to match on the file(s)\n\n  compatible:\n      * source\n      * condition\n      * target\n\n  remarks:\n      * For targets: Capture groups (parentheses) in the pattern automatically extract\n        the current value for changelog generation\n      * Without capture groups, changelogs show generic \"unknown\" version changes\n      * With capture groups, changelogs show actual version changes (e.g., \"1.24.5\" → \"1.25.1\")\n      * Example: `\"version\":\\s*\"([\\d\\.]+)\"` captures version numbers for changelogs\n      * Supports full Go regexp syntax"
                                     },
                                     "replacepattern": {
                                         "type": "string",
-                                        "description": "`replacepattern` specifies the regexp replace pattern to apply on the file(s) content\n\n\t   compatible:\n\t       * source\n\t       * condition\n\t       * target"
+                                        "description": "`replacepattern` specifies the regexp replace pattern to apply on the file(s) content\n\n  compatible:\n      * source\n      * condition\n      * target"
                                     },
                                     "searchpattern": {
                                         "type": "boolean",
-                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n\t   If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n\t   When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n\t   The pattern syntax is:\n\n\t   ```\n\t       pattern:\n\t           { term }\n\t       term:\n\t           '*'         matches any sequence of non-Separator characters\n\t           '?'         matches any single non-Separator character\n\t           '[' [ '^' ] { character-range } ']'\n\t                       character class (must be non-empty)\n\t           c           matches character c (c != '*', '?', '\\\\', '[')\n\t           '\\\\' c      matches character c\n\n\t       character-range:\n\t           c           matches character c (c != '\\\\', '-', ']')\n\t           '\\\\' c      matches character c\n\t           lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n\t   ```"
+                                        "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n  If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n  When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n  The pattern syntax is:\n\n  ```\n      pattern:\n          { term }\n      term:\n          '*'         matches any sequence of non-Separator characters\n          '?'         matches any single non-Separator character\n          '[' [ '^' ] { character-range } ']'\n                      character class (must be non-empty)\n          c           matches character c (c != '*', '?', '\\\\', '[')\n          '\\\\' c      matches character c\n\n      character-range:\n          c           matches character c (c != '\\\\', '-', ']')\n          '\\\\' c      matches character c\n          lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n  ```"
                                     }
                                 },
                                 "additionalProperties": false,
