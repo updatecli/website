@@ -4,11 +4,11 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "\"name\" defines a pipeline name\n\n\t\texample:\n\t\t\t* \"name: 'deps: update nodejs version to latest stable'\"\n\n\t\tremark:\n\t\t\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t\t\t* using conventional commits convention is a good way to name your pipeline.\n\t\t\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t\t\t* \"name\" shouldn't contain any dynamic information such as source output."
+            "description": "\"name\" defines a pipeline name\n\nexample:\n\t* \"name: 'deps: update nodejs version to latest stable'\"\n\nremark:\n\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t* using conventional commits convention is a good way to name your pipeline.\n\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t* \"name\" shouldn't contain any dynamic information such as source output."
         },
         "pipelineid": {
             "type": "string",
-            "description": "\"pipelineid\" allows to identify a full pipeline run.\n\n\t\texample:\n\t\t\t* \"pipelineid: nodejs/dependencies\"\n\t\t\t* \"pipelineid: gomod/github.com/updatecli/updatecli\"\n\t\t\t* \"pipelineid: autodiscovery/gomodules/minor\"\n\n\t\tremark:\n\t\t\t* \"pipelineid\" is used to generate uniq branch name for target update relying on scm configuration.\n\t\t\t* The same \"pipelineid\" may be used by different Updatecli manifest\" to ensure they are updated in the same workflow including pullrequest."
+            "description": "\"pipelineid\" allows to identify a full pipeline run.\n\nexample:\n\t* \"pipelineid: nodejs/dependencies\"\n\t* \"pipelineid: gomod/github.com/updatecli/updatecli\"\n\t* \"pipelineid: autodiscovery/gomodules/minor\"\n\nremark:\n\t* \"pipelineid\" is used to generate uniq branch name for target update relying on scm configuration.\n\t* The same \"pipelineid\" may be used by different Updatecli manifest\" to ensure they are updated in the same workflow including pullrequest."
         },
         "autodiscovery": {
             "properties": {
@@ -2829,7 +2829,7 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "description": "\"autodiscovery\" defines the configuration to automatically discover new versions update.\n\n\t\texample:\n\t\t---\n\t\tautodiscovery:\n\t\t\tscmid: default\n\t\t\tactionid:  default\n\t\t\tgroupby: all\n\t\t\tcrawlers:\n\t\t\t\tgolang/gomod:\n\t\t\t\t\tversionfilter:\n\t\t\t\t\tkind: semver\n\t\t\t\t\tpattern: patch\n\t\t---"
+            "description": "\"autodiscovery\" defines the configuration to automatically discover new versions update.\n\nexample:\n---\nautodiscovery:\n\tscmid: default\n\tactionid:  default\n\tgroupby: all\n\tcrawlers:\n\t  golang/gomod:\n\t  \tversionfilter:\n\t  \tkind: semver\n\t  \tpattern: patch\n---"
         },
         "actions": {
             "additionalProperties": {
@@ -3249,7 +3249,7 @@
                 ]
             },
             "type": "object",
-            "description": "\"actions\" defines the list of action configurations which need to be managed.\n\n\t\texamples:\n\t\t---\n\t\tactions:\n\t\t\tdefault:\n\t\t\t\tkind: github/pullrequest\n\t\t\t\tscmid: default\n\t\t\t\tspec:\n\t\t\t\t\tautomerge: true\n\t\t\t\t\tlabels:\n\t\t\t\t\t\t- \"dependencies\"\n\t\t---"
+            "description": "\"actions\" defines the list of action configurations which need to be managed.\nThey are triggered if any of the depending target is updated.\n\nexamples:\n---\nactions:\n\tdefault:\n\t  kind: github/pullrequest\n\t  scmid: default\n\t  spec:\n\t  \tautomerge: true\n\t  \tlabels:\n\t  \t  - \"dependencies\"\n---"
         },
         "scms": {
             "additionalProperties": {
@@ -4246,7 +4246,7 @@
                 ]
             },
             "type": "object",
-            "description": "\"scms\" defines the list of repository configuration used to fetch content from.\n\n\t\texamples:\n\t\t---\n\t\tscms:\n\t\t\tdefault:\n\t\t\t\tkind: github\n\t\t\t\tspec:\n\t\t\t\t\towner: \"updatecli\"\n\t\t\t\t\trepository: \"updatecli\"\n\t\t\t\t\ttoken: \"${{ env \"GITHUB_TOKEN\" }}\"\n\t\t\t\t\tbranch: \"main\"\n\t\t---"
+            "description": "\"scms\" defines the list of repository configuration used to fetch content from.\n\nexamples:\n---\nscms:\n\tdefault:\n\t  kind: github\n\t  spec:\n\t    owner: \"updatecli\"\n\t    repository: \"updatecli\"\n\t    token: \"${{ env \"GITHUB_TOKEN\" }}\"\n\t    branch: \"main\"\n---"
         },
         "sources": {
             "additionalProperties": {
@@ -12780,7 +12780,7 @@
                 ]
             },
             "type": "object",
-            "description": "\"sources\" defines the list of Updatecli source definition.\n\n\t\texample:\n\t\t---\n\t\tsources:\n\t\t\t# Source to retrieve the latest version of nodejs\n\t\t\tnodejs:\n\t\t\t\tname: Get latest nodejs version\n\t\t\t\tkind: json\n\t\t\t\tspec:\n\t\t\t\t\tfile: https://nodejs.org/dist/index.json\n\t\t\t\t\tkey: .(lts!=false).version\n\t\t---"
+            "description": "\"sources\" defines the list of Updatecli source definition.\n\nexample:\n---\nsources:\n\t# Source to retrieve the latest version of nodejs\n  nodejs:\n\t   name: Get latest nodejs version\n\t   kind: json\n\t   spec:\n\t     file: https://nodejs.org/dist/index.json\n\t     key: .(lts!=false).version\n---"
         },
         "conditions": {
             "additionalProperties": {
@@ -21656,7 +21656,7 @@
                 ]
             },
             "type": "object",
-            "description": "\"conditions\" defines the list of Updatecli condition definition.\n\n\t\texample:\n\t\t---\n\t\tconditions:\n\t\t\tcontainer:\n\t\t\t\tname: Check if Updatecli container image for tag \"v0.63.0\" exists\n\t\t\t\tkind: dockerimage\n\t\t\t\tspec:\n\t\t\t\t\timage: \"updatecli/updatecli:latest\"\n\t\t\t\t\ttag: \"v0.63.0\"\n\t\t---"
+            "description": "\"conditions\" defines the list of Updatecli condition definition.\n\nexample:\n---\nconditions:\n  container:\n    name: Check if Updatecli container image for tag \"v0.63.0\" exists\n    kind: dockerimage\n    spec:\n      image: \"updatecli/updatecli:latest\"\n      tag: \"v0.63.0\"\n---"
         },
         "targets": {
             "additionalProperties": {
@@ -30874,7 +30874,7 @@
                 ]
             },
             "type": "object",
-            "description": "\"targets\" defines the list of Updatecli target definition.\n\n\t\texample:\n\t\t---\n\t\ttargets:\n\t\t  \tdefault:\n\t\t     \tname: 'ci: update Golangci-lint version to {{ source \"default\" }}'\n\t\t     \tkind: yaml\n\t\t     \tspec:\n\t\t         \tfile: .github/workflows/go.yaml\n\t\t         \tkey: $.jobs.build.steps[2].with.version\n\t\t     \tscmid: default\n\t\t     \tsourceid: default\n\t\t---"
+            "description": "targets defines the list of Updatecli target definition.\n\nexample:\n---\ntargets:\n  default:\n    name: 'ci: update Golangci-lint version to {{ source \"default\" }}'\n    kind: yaml\n    spec:\n      file: .github/workflows/go.yaml\n      key: $.jobs.build.steps[2].with.version\n    scmid: default\n    sourceid: default\n\t---"
         },
         "version": {
             "type": "string",
