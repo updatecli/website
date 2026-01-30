@@ -21,5 +21,5 @@ targets:
     name: Bump Jenkins Docker Image Tag
     kind: yaml
     spec:
-      key: container.tag
+      key: $.container.tag
       file: data.yaml
