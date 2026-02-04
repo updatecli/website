@@ -76,11 +76,37 @@ Source, Condition, and Target behave differently based on the plugin used, which
 
 Now that we have a data file and an updatecli manifest, describing how to update our file, let's see how to use updatecli.
 
-So for doing so, please execute the following command:
+So for doing so, please execute the following commands:
 
-1. To see what would change: `updatecli diff --config manifest.yaml`
-2. To apply the change: `updatecli apply --config manifest.yaml`
-3. To see that nothing needs to be changed anymore: `updatecli apply --config manifest.yaml`
+. To see what would change:
++
+[source,shell]
+----
+updatecli diff --config manifest.yaml
+----
+
+. To apply the change:
++
+[source,shell]
+----
+updatecli apply --config manifest.yaml
+----
+
+. To see that nothing needs to be changed anymore:
++
+[source,shell]
+----
+updatecli apply --config manifest.yaml
+----
+
+Alternatively, you can copy all commands at once:
+
+[source,shell]
+----
+updatecli diff --config manifest.yaml
+updatecli apply --config manifest.yaml
+updatecli apply --config manifest.yaml
+----
 
 == Video
 
