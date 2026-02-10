@@ -7975,7 +7975,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
                                     },
                                     "username": {
                                         "type": "string",
@@ -16644,7 +16644,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
                                     },
                                     "username": {
                                         "type": "string",
@@ -25655,7 +25655,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
                                     },
                                     "username": {
                                         "type": "string",
