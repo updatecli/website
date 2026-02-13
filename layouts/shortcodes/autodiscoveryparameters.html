@@ -7,7 +7,7 @@
       <th>Description</th>
       <th>Required</th>
     </tr>
-{{ $dataJ := getJSON "/content/en/schema/latest/policy/manifest/config.json" }}
+{{ $dataJ := getJSON "/content/en/schema/latest/config.json" }}
     {{ range $k, $v := $dataJ.properties.autodiscovery.properties.crawlers.properties }}
       {{ if eq $k $pluginName }}
                     {{ range $key, $value := $v.properties }}
