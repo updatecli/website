@@ -1,0 +1,33 @@
+---
+title: "Woodpecker"
+description: "Woodpecker CI/CD autodiscovery "
+lead: "kind: woodpecker"
+draft: false
+images: []
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `woodpecker` Autodiscovery plugin allows to automatically search and update content in Woodpecker CI/CD configuration file.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "woodpecker" >}}
+
+==== Example
+
+[source,yaml]
+----
+autodiscovery:
+  crawlers:
+    woodpecker:    
+----
+
