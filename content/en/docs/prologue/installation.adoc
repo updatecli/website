@@ -50,33 +50,33 @@ To upgrade to the latest version, use `brew upgrade updatecli`.
 [source,shell]
 ```
 # amd64
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_amd64.rpm
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_amd64.rpm
 # arm64
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_arm64.rpm
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_arm64.rpm
 # armv6
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_armv6.rpm
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_armv6.rpm
 ```
 
 **Debian/Ubuntu**
 [source,shell]
 ```
 # amd64
-curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_amd64.deb
+curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_amd64.deb
 # arm64
-curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_arm64.deb
+curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_arm64.deb
 # armv6
-curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_armv6.deb
+curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_armv6.deb
 ```
 
 **Fedora/Centos/RedHat**
 [source,shell]
 ```
 # amd64
-dnf install https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_amd64.rpm
+dnf install https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_amd64.rpm
 # arm64
-dnf install https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_arm64.rpm
+dnf install https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_arm64.rpm
 # armv6
-dnf install https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_armv6.rpm
+dnf install https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_armv6.rpm
 ```
 
 **Arch Linux (AUR)**
@@ -89,13 +89,13 @@ yay -S updatecli-bin
 [source,shell]
 ```
 # amd64
-curl -sL -o/tmp/updatecli_amd64.tgz https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_Linux_x86_64.tar.gz
+curl -sL -o/tmp/updatecli_amd64.tgz https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_Linux_x86_64.tar.gz
 
 # arm64
-curl -sL -o/tmp/updatecli_arm64.tgz https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_Linux_arm64.tar.gz
+curl -sL -o/tmp/updatecli_arm64.tgz https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_Linux_arm64.tar.gz
 
 # armv6
-curl -sL -o/tmp/updatecli_arm.tgz https://github.com/updatecli/updatecli/releases/download/v0.113.0/updatecli_Linux_arm.tar.gz
+curl -sL -o/tmp/updatecli_arm.tgz https://github.com/updatecli/updatecli/releases/download/v0.114.0/updatecli_Linux_arm.tar.gz
 
 ```
 
