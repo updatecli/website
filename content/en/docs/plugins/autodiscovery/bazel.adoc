@@ -1,0 +1,33 @@
+---
+title: "Bazel"
+description: "Discover Bazel update"
+lead: "kind: bazel"
+draft: false
+images: []
+menu:
+    docs:
+        parent: "plugin-autodiscovery"
+weight: 130
+toc: true
+plugins:
+    - autodiscovery
+---
+
+== Description
+
+The `bazel` Autodiscovery plugin allows to automatically search and update content in Bazel configuration file.
+
+=== Manifests
+==== Parameters
+
+{{< autodiscoveryparameters "bazel" >}}
+
+==== Example
+
+[source,yaml]
+----
+autodiscovery:
+  crawlers:
+    bazel:    
+----
+
