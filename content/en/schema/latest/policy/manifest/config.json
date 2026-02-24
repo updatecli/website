@@ -136,6 +136,100 @@
                             "type": "object",
                             "description": "Spec defines the parameters which can be provided to the argocd builder."
                         },
+                        "bazel": {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "rootdir": {
+                                    "type": "string",
+                                    "description": "`rootdir` defines the root directory used to recursively search for `MODULE.bazel` files"
+                                },
+                                "ignore": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "`path` specifies a `MODULE.bazel` path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "modules": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object",
+                                                "description": "`modules` specifies a map of modules, the key is module name as seen in the `MODULE.bazel`,\nthe value is an optional semver version constraint.\n\nexamples:\n```\n- modules:\n  # Ignoring module updates for this module\n  rules_go:\n  # Ignore module updates for this version\n  gazelle: \"1.x\"\n```"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows specifying rules to identify manifests"
+                                    },
+                                    "type": "array",
+                                    "description": "`ignore` specifies rule to ignore Bazel module updates."
+                                },
+                                "only": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "`path` specifies a `MODULE.bazel` path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "modules": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object",
+                                                "description": "`modules` specifies a map of modules, the key is module name as seen in the `MODULE.bazel`,\nthe value is an optional semver version constraint.\n\nexamples:\n```\n- modules:\n  # Ignoring module updates for this module\n  rules_go:\n  # Ignore module updates for this version\n  gazelle: \"1.x\"\n```"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows specifying rules to identify manifests"
+                                    },
+                                    "type": "array",
+                                    "description": "`only` specify required rule to restrict Bazel module updates."
+                                },
+                                "versionfilter": {
+                                    "properties": {
+                                        "kind": {
+                                            "type": "string",
+                                            "description": "specifies the version kind such as semver, regex, or latest"
+                                        },
+                                        "pattern": {
+                                            "type": "string",
+                                            "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                        },
+                                        "strict": {
+                                            "type": "boolean",
+                                            "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                        },
+                                        "regex": {
+                                            "type": "string",
+                                            "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "`versionfilter` provides parameters to specify the version pattern to use when generating manifest.\n\nkind - semver\n\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\tpattern accepts one of:\n\t\t`patch` - patch only update patch version\n\t\t`minor` - minor only update minor version\n\t\t`major` - major only update major versions\n\t\t`a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\n\tversionfilter of kind `regex` uses regular expression as version filtering\n\tpattern accepts a valid regular expression\n\nexample:\n```\n\tversionfilter:\n\t\tkind: semver\n\t\tpattern: minor\n```"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object",
+                            "description": "Spec defines the Bazel autodiscovery parameters."
+                        },
                         "cargo": {
                             "$schema": "http://json-schema.org/draft-04/schema",
                             "properties": {
@@ -2639,6 +2733,10 @@
                                     "type": "string",
                                     "description": "`token` specifies the token to use for Git authentication when accessing private repositories.\nWorks with any Git provider (GitHub, GitLab, Bitbucket, Gitea, etc.)\n\ncompatible:\n  * autodiscovery\n\ndefault:\n  When not specified: No authentication (suitable for public repositories)\n\nremark:\n  Must be explicitly set for private repositories.\n  Use template functions to read from environment: token: \"{{ requiredEnv \\\"GITLAB_TOKEN\\\" }}\"\n\nexample:\n  token: \"ghp_xxxxxxxxxxxx\"\n  token: \"glpat-xxxxxxxxxxxx\"\n  token: \"{{ requiredEnv \\\"GITLAB_TOKEN\\\" }}\""
                                 },
+                                "username": {
+                                    "type": "string",
+                                    "description": "`username` specifies the username to use for Git authentication when accessing private repositories.\nWorks with any Git provider (GitHub, GitLab, Bitbucket, Gitea, etc.)\n\ncompatible:\n  * autodiscovery\n\ndefault:\n  When not specified: \"oauth2\" (matches GitHub SCM plugin, required for go-git HTTP BasicAuth)\n\nremark:\n  For token-based auth, the username is typically a placeholder (token identifies the user).\n  Common values: \"oauth2\" (default), \"x-access-token\", \"git\", or actual username.\n  Use template functions to read from environment: username: \"{{ requiredEnv \\\"GIT_USERNAME\\\" }}\"\n\nexample:\n  username: \"git\"\n  username: \"oauth2\"\n  username: \"{{ requiredEnv \\\"GIT_USERNAME\\\" }}\""
+                                },
                                 "versionfilter": {
                                     "properties": {
                                         "kind": {
@@ -2805,6 +2903,134 @@
                             "additionalProperties": false,
                             "type": "object",
                             "description": "Spec defines the Updatecli parameters."
+                        },
+                        "woodpecker": {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "digest": {
+                                    "type": "boolean",
+                                    "description": "digest provides parameters to specify if the generated manifest should use a digest on top of the tag."
+                                },
+                                "rootdir": {
+                                    "type": "string",
+                                    "description": "rootDir defines the root directory used to recursively search for Woodpecker workflow files\nIf rootDir is not provided, the current working directory will be used.\nIf rootDir is provided as an absolute path, scmID will be ignored.\nIf rootDir is not provided but a scmid is, then rootDir will be set to the git repository root directory."
+                                },
+                                "ignore": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "Path specifies a Woodpecker workflow path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "images": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "Images specifies a list of docker images"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows to specify rules to identify manifests"
+                                    },
+                                    "type": "array",
+                                    "description": "ignore allows to specify rule to ignore autodiscovery a specific Woodpecker workflow based on a rule"
+                                },
+                                "only": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "Path specifies a Woodpecker workflow path pattern, the pattern requires to match all of name, not just a substring."
+                                            },
+                                            "images": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "Images specifies a list of docker images"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule allows to specify rules to identify manifests"
+                                    },
+                                    "type": "array",
+                                    "description": "only allows to specify rule to only autodiscover manifest for a specific Woodpecker workflow based on a rule"
+                                },
+                                "auths": {
+                                    "additionalProperties": {
+                                        "properties": {
+                                            "username": {
+                                                "type": "string",
+                                                "description": "username specifies the container registry username to use for authentication.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tby default credentials are fetch from the local environment such as `~/.docker/config.json`.\n\n\t\tremark:\n\t\t\tNot compatible with token"
+                                            },
+                                            "password": {
+                                                "type": "string",
+                                                "description": "password specifies the container registry password to use for authentication. Not compatible with token\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tby default credentials are fetch from the local environment such as `~/.docker/config.json`.\n\n\t\tremark:\n\t\t\tNot compatible with token"
+                                            },
+                                            "token": {
+                                                "type": "string",
+                                                "description": "token specifies the container registry token to use for authentication.\n\n\t\tcompatible:\n\t\t\t* source\n\t\t\t* condition\n\t\t\t* target\n\n\t\tdefault:\n\t\t\tby default credentials are fetch from the local environment such as `~/.docker/config.json`.\n\n\t\tremark:\n\t\t\tNot compatible with username/password"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "InlineKeyChain defines a keychain with OCI registry credentials"
+                                    },
+                                    "type": "object",
+                                    "description": "auths provides a map of registry credentials where the key is the registry URL without scheme\nif empty, updatecli relies on OCI credentials such as the one used by Docker.\n\nexample:\n\n---\nauths:\n  \"ghcr.io\":\n    token: \"xxx\"\n  \"index.docker.io\":\n    username: \"admin\"\n    password: \"password\"\n---"
+                                },
+                                "filematch": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "description": "FileMatch allows to override default Woodpecker workflow file matching.\nDefault [\".woodpecker.yml\", \".woodpecker.yaml\", \".woodpecker/*.yml\", \".woodpecker/*.yaml\", \".woodpecker/**/*.yml\", \".woodpecker/**/*.yaml\"]"
+                                },
+                                "versionfilter": {
+                                    "properties": {
+                                        "kind": {
+                                            "type": "string",
+                                            "description": "specifies the version kind such as semver, regex, or latest"
+                                        },
+                                        "pattern": {
+                                            "type": "string",
+                                            "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                        },
+                                        "strict": {
+                                            "type": "boolean",
+                                            "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                        },
+                                        "regex": {
+                                            "type": "string",
+                                            "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifest.\n\nMore information available at\nhttps://www.updatecli.io/docs/core/versionfilter/\n\nkind - semver\n  versionfilter of kind `semver` uses semantic versioning as version filtering\n  pattern accepts one of:\n    `patch` - patch only update patch version\n    `minor` - minor only update minor version\n    `major` - major only update major versions\n    `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\nversionfilter of kind `regex` uses regular expression as version filtering\npattern accepts a valid regular expression\n\nexample:\n```\n  versionfilter:\n  kind: semver\n  pattern: minor\n```\n\nMore version filter available at https://www.updatecli.io/docs/core/versionfilter/"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object",
+                            "description": "Spec is a struct filled from Updatecli manifest data and shouldn't be modified at runtime unless For Fields that requires it, we can use the struct Woodpecker Spec defines the parameters which can be provided to the Woodpecker autodiscovery plugin."
                         }
                     },
                     "type": "object",
@@ -3303,6 +3529,10 @@
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
+                                            },
                                             "body": {
                                                 "type": "string",
                                                 "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
@@ -3323,6 +3553,10 @@
                                     "directory": {
                                         "type": "string",
                                         "description": "\"directory\" defines the local path where the git repository is cloned.\n\n compatible:\n   * scm\n\n remark:\n   Unless you know what you are doing, it is recommended to use the default value.\n   The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n default:\n   The default value is based on your local temporary directory like: (on Linux)\n   /tmp/updatecli/bitbucket/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
                                     },
                                     "email": {
                                         "type": "string",
@@ -3430,6 +3664,10 @@
                                         "type": "string",
                                         "description": "\"email\" defines the email used to commit changes.\n\n\tcompatible:\n\t  * scm\n\n\tdefault:\n\t\tdefault set to your global git configuration"
                                     },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
+                                    },
                                     "directory": {
                                         "type": "string",
                                         "description": "\"directory\" defines the local path where the git repository is cloned.\n\n\tcompatible:\n\t  * scm\n\n\tremark:\n\t  Unless you know what you are doing, it is highly recommended to use the default value.\n\t  The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n\tdefault:\n\t  The default value is based on your local temporary directory like /tmp/updatecli/\u003curl\u003e on Linux"
@@ -3455,6 +3693,10 @@
                                             "title": {
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
+                                            },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3552,6 +3794,10 @@
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
+                                            },
                                             "body": {
                                                 "type": "string",
                                                 "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
@@ -3572,6 +3818,10 @@
                                     "directory": {
                                         "type": "string",
                                         "description": "\"directory\" defines the local path where the git repository is cloned.\n\n compatible:\n   * scm\n\n remark:\n   Unless you know what you are doing, it is recommended to use the default value.\n   The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n default:\n    The default value is based on your local temporary directory like: (on Linux)\n    /tmp/updatecli/github/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
                                     },
                                     "email": {
                                         "type": "string",
@@ -3672,6 +3922,10 @@
                                         "type": "string",
                                         "description": "\"directory\" defines the local path where the git repository is cloned.\n\ncompatible:\n  * scm\n\nremark:\n  Unless you know what you are doing, it is recommended to use the default value.\n  The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\ndefault:\n  The default value is based on your local temporary directory like: (on Linux)\n  /tmp/updatecli/github/\u003cowner\u003e/\u003crepository\u003e"
                                     },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
+                                    },
                                     "email": {
                                         "type": "string",
                                         "description": "\"email\" defines the email used to commit changes.\n\ncompatible:\n  * scm\n\ndefault:\n  default set to your global git configuration"
@@ -3736,6 +3990,10 @@
                                             "title": {
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
+                                            },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
                                             },
                                             "body": {
                                                 "type": "string",
@@ -3901,6 +4159,10 @@
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
+                                            },
                                             "body": {
                                                 "type": "string",
                                                 "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
@@ -4013,6 +4275,10 @@
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
+                                            },
                                             "body": {
                                                 "type": "string",
                                                 "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
@@ -4033,6 +4299,10 @@
                                     "directory": {
                                         "type": "string",
                                         "description": "\"directory\" defines the local path where the git repository is cloned.\n\n\tcompatible:\n\t  * scm\n\n\tremark:\n   Unless you know what you are doing, it is recommended to use the default value.\n\t  The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n\tdefault:\n\t  The default value is based on your local temporary directory like: (on Linux)\n\t  /tmp/updatecli/gitlab/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
                                     },
                                     "email": {
                                         "type": "string",
@@ -4158,6 +4428,10 @@
                                                 "type": "string",
                                                 "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
                                             },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
+                                            },
                                             "body": {
                                                 "type": "string",
                                                 "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
@@ -4178,6 +4452,10 @@
                                     "directory": {
                                         "type": "string",
                                         "description": "\"directory\" defines the local path where the git repository is cloned.\n\n compatible:\n   * scm\n\n remark:\n   Unless you know what you are doing, it is recommended to use the default value.\n   The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\n default:\n   The default value is based on your local temporary directory like: (on Linux)\n   /tmp/updatecli/stash/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
                                     },
                                     "email": {
                                         "type": "string",
@@ -4460,6 +4738,408 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "bazelmod"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "File specifies the path to the MODULE.bazel file\n\ncompatible:\n  * source\n  * condition\n  * target\n\nexample:\n  * MODULE.bazel\n  * path/to/MODULE.bazel"
+                                    },
+                                    "module": {
+                                        "type": "string",
+                                        "description": "Module specifies the Bazel module name to target\n\ncompatible:\n  * source\n  * condition\n  * target\n\nexample:\n  * rules_go\n  * gazelle\n  * protobuf"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "file",
+                                    "module"
+                                ],
+                                "description": "Spec defines a specification for a \"bazelmod\" resource parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "bazelregistry"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "module": {
+                                        "type": "string",
+                                        "description": "Module specifies the Bazel module name to query from the registry\n\ncompatible:\n  * source\n  * condition\n\nexample:\n  * rules_go\n  * rules_python\n  * gazelle"
+                                    },
+                                    "versionfilter": {
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "description": "specifies the version kind such as semver, regex, or latest"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                            },
+                                            "strict": {
+                                                "type": "boolean",
+                                                "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                            },
+                                            "regex": {
+                                                "type": "string",
+                                                "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ncompatible:\n  * source\n\ndefault:\n  kind: latest"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "URL specifies the custom registry URL (defaults to Bazel Central Registry)\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json\n\nexample:\n  * https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json\n  * https://mycompany.com/bazel-registry/modules/{module}/metadata.json\n\nremarks:\n  * The URL must contain {module} placeholder which will be replaced with the module name\n  * If not specified, defaults to the official Bazel Central Registry"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "module"
+                                ],
+                                "description": "Spec defines a specification for a \"bazelregistry\" resource parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -4712,6 +5392,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -4949,6 +5630,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -5140,6 +5822,9 @@
                                 },
                                 "additionalProperties": false,
                                 "type": "object",
+                                "required": [
+                                    "image"
+                                ],
                                 "description": "Spec defines a specification for a \"dockerdigest\" resource parsed from an updatecli manifest file"
                             },
                             "scmid": {
@@ -5150,6 +5835,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -5341,6 +6027,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -5583,6 +6270,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -5773,6 +6461,14 @@
                                     "searchpattern": {
                                         "type": "boolean",
                                         "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n  If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n  When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n  The pattern syntax is:\n\n  ```\n      pattern:\n          { term }\n      term:\n          '*'         matches any sequence of non-Separator characters\n          '?'         matches any single non-Separator character\n          '[' [ '^' ] { character-range } ']'\n                      character class (must be non-empty)\n          c           matches character c (c != '*', '?', '\\\\', '[')\n          '\\\\' c      matches character c\n\n      character-range:\n          c           matches character c (c != '\\\\', '-', ']')\n          '\\\\' c      matches character c\n          lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n  ```"
+                                    },
+                                    "template": {
+                                        "type": "string",
+                                        "description": "`template` specifies the path to a Go template file to render with source values\n\n  compatible:\n      * target\n\n  remarks:\n      * When using template, the source value is passed as `.source` in the template context\n      * All Go template functions from sprig are available\n      * The template file is read and rendered at execution time\n      * `template` is mutually exclusive with `content`, `line`, `matchpattern`, and `replacepattern`\n\n  example:\n      template: \"path/to/template.tmpl\""
+                                    },
+                                    "templatedata": {
+                                        "type": "object",
+                                        "description": "`templateData` specifies additional data to pass to the template\n\n\tcompatible:\n\t    * target\n\n\tremarks:\n\t    * When using template, the data specified here is passed as additional fields in the template context\n\t    * All Go template functions from sprig are available\n\t    * The template file is read and rendered at execution time\n\t    * `templateData` is optional\n\n\texample:\n\t    templateData:\n\t        key1: \"value1\"\n\t        key2: \"value2\""
                                     }
                                 },
                                 "additionalProperties": false,
@@ -5787,6 +6483,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -5989,6 +6686,10 @@
                                         "type": "string",
                                         "description": "branch specifies the branch name\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth is used to limit the number of commits fetched from the git repository.\n\ncompatible:\n * source\n * condition\n * target\n\n default: 0 (no limit)\n\nremark:\n * Updatecli won't be able to find branches that are not included in the fetched commits."
+                                    },
                                     "sourcebranch": {
                                         "type": "string",
                                         "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
@@ -6025,6 +6726,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -6261,6 +6963,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -6517,6 +7220,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -6753,6 +7457,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -7042,6 +7747,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -7277,6 +7983,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -7532,6 +8239,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -7767,6 +8475,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -7965,6 +8674,10 @@
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "tag": {
+                                        "type": "string",
+                                        "description": "Tag defines the git tag to check for exact match.\n\ncompatible:\n  * condition\n\nWhen specified, the condition will check for an exact tag match\ninstead of using versionFilter pattern matching."
+                                    },
                                     "message": {
                                         "type": "string",
                                         "description": "Message associated to the git tag\n\n compatible:\n   * target"
@@ -7988,6 +8701,13 @@
                                     "sourcebranch": {
                                         "type": "string",
                                         "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined.\n\ndefault: main"
+                                    },
+                                    "lsremote": {
+                                        "type": "boolean"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth is used to limit the number of commits fetched from the git repository.\n\ncompatible:\n * source\n * condition\n * target\n\n default: 0 (no limit)\n\nremark:\n * Updatecli won't be able to find tags that are not included in the fetched commits."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -8005,6 +8725,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -8216,6 +8937,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -8409,6 +9131,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -8631,6 +9354,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -8819,6 +9543,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -9074,6 +9799,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -9295,6 +10021,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -9472,6 +10199,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -9705,6 +10433,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -9939,6 +10668,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -10166,6 +10896,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -10357,7 +11088,13 @@
                                                             "console/output"
                                                         ]
                                                     },
-                                                    "spec": true
+                                                    "spec": {
+                                                        "$schema": "http://json-schema.org/draft-04/schema",
+                                                        "properties": {},
+                                                        "additionalProperties": false,
+                                                        "type": "object",
+                                                        "description": "Spec is an empty struct used as a placeholder for the jsonschema."
+                                                    }
                                                 },
                                                 "additionalProperties": false,
                                                 "type": "object"
@@ -10454,6 +11191,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -10694,6 +11432,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -10934,6 +11673,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -11145,6 +11885,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -11333,6 +12074,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -11532,6 +12274,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -11720,6 +12463,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -11954,6 +12698,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -12187,6 +12932,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -12378,6 +13124,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -12559,6 +13306,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -12774,6 +13522,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     }
@@ -13003,6 +13752,426 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "bazelmod"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "File specifies the path to the MODULE.bazel file\n\ncompatible:\n  * source\n  * condition\n  * target\n\nexample:\n  * MODULE.bazel\n  * path/to/MODULE.bazel"
+                                    },
+                                    "module": {
+                                        "type": "string",
+                                        "description": "Module specifies the Bazel module name to target\n\ncompatible:\n  * source\n  * condition\n  * target\n\nexample:\n  * rules_go\n  * gazelle\n  * protobuf"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "file",
+                                    "module"
+                                ],
+                                "description": "Spec defines a specification for a \"bazelmod\" resource parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "failwhen": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "bazelregistry"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "module": {
+                                        "type": "string",
+                                        "description": "Module specifies the Bazel module name to query from the registry\n\ncompatible:\n  * source\n  * condition\n\nexample:\n  * rules_go\n  * rules_python\n  * gazelle"
+                                    },
+                                    "versionfilter": {
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "description": "specifies the version kind such as semver, regex, or latest"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                            },
+                                            "strict": {
+                                                "type": "boolean",
+                                                "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                            },
+                                            "regex": {
+                                                "type": "string",
+                                                "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ncompatible:\n  * source\n\ndefault:\n  kind: latest"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "URL specifies the custom registry URL (defaults to Bazel Central Registry)\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json\n\nexample:\n  * https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json\n  * https://mycompany.com/bazel-registry/modules/{module}/metadata.json\n\nremarks:\n  * The URL must contain {module} placeholder which will be replaced with the module name\n  * If not specified, defaults to the official Bazel Central Registry"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "module"
+                                ],
+                                "description": "Spec defines a specification for a \"bazelregistry\" resource parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "failwhen": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -13264,6 +14433,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -13510,6 +14680,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -13701,6 +14872,9 @@
                                 },
                                 "additionalProperties": false,
                                 "type": "object",
+                                "required": [
+                                    "image"
+                                ],
                                 "description": "Spec defines a specification for a \"dockerdigest\" resource parsed from an updatecli manifest file"
                             },
                             "scmid": {
@@ -13720,6 +14894,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -13920,6 +15095,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -14171,6 +15347,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -14361,6 +15538,14 @@
                                     "searchpattern": {
                                         "type": "boolean",
                                         "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n  If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n  When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n  The pattern syntax is:\n\n  ```\n      pattern:\n          { term }\n      term:\n          '*'         matches any sequence of non-Separator characters\n          '?'         matches any single non-Separator character\n          '[' [ '^' ] { character-range } ']'\n                      character class (must be non-empty)\n          c           matches character c (c != '*', '?', '\\\\', '[')\n          '\\\\' c      matches character c\n\n      character-range:\n          c           matches character c (c != '\\\\', '-', ']')\n          '\\\\' c      matches character c\n          lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n  ```"
+                                    },
+                                    "template": {
+                                        "type": "string",
+                                        "description": "`template` specifies the path to a Go template file to render with source values\n\n  compatible:\n      * target\n\n  remarks:\n      * When using template, the source value is passed as `.source` in the template context\n      * All Go template functions from sprig are available\n      * The template file is read and rendered at execution time\n      * `template` is mutually exclusive with `content`, `line`, `matchpattern`, and `replacepattern`\n\n  example:\n      template: \"path/to/template.tmpl\""
+                                    },
+                                    "templatedata": {
+                                        "type": "object",
+                                        "description": "`templateData` specifies additional data to pass to the template\n\n\tcompatible:\n\t    * target\n\n\tremarks:\n\t    * When using template, the data specified here is passed as additional fields in the template context\n\t    * All Go template functions from sprig are available\n\t    * The template file is read and rendered at execution time\n\t    * `templateData` is optional\n\n\texample:\n\t    templateData:\n\t        key1: \"value1\"\n\t        key2: \"value2\""
                                     }
                                 },
                                 "additionalProperties": false,
@@ -14384,6 +15569,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -14586,6 +15772,10 @@
                                         "type": "string",
                                         "description": "branch specifies the branch name\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth is used to limit the number of commits fetched from the git repository.\n\ncompatible:\n * source\n * condition\n * target\n\n default: 0 (no limit)\n\nremark:\n * Updatecli won't be able to find branches that are not included in the fetched commits."
+                                    },
                                     "sourcebranch": {
                                         "type": "string",
                                         "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
@@ -14631,6 +15821,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -14876,6 +16067,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -15141,6 +16333,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -15386,6 +16579,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -15684,6 +16878,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -15928,6 +17123,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -16192,6 +17388,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -16436,6 +17633,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -16634,6 +17832,10 @@
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "tag": {
+                                        "type": "string",
+                                        "description": "Tag defines the git tag to check for exact match.\n\ncompatible:\n  * condition\n\nWhen specified, the condition will check for an exact tag match\ninstead of using versionFilter pattern matching."
+                                    },
                                     "message": {
                                         "type": "string",
                                         "description": "Message associated to the git tag\n\n compatible:\n   * target"
@@ -16657,6 +17859,13 @@
                                     "sourcebranch": {
                                         "type": "string",
                                         "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined.\n\ndefault: main"
+                                    },
+                                    "lsremote": {
+                                        "type": "boolean"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth is used to limit the number of commits fetched from the git repository.\n\ncompatible:\n * source\n * condition\n * target\n\n default: 0 (no limit)\n\nremark:\n * Updatecli won't be able to find tags that are not included in the fetched commits."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -16683,6 +17892,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -16903,6 +18113,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -17105,6 +18316,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -17336,6 +18548,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -17533,6 +18746,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -17797,6 +19011,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -18027,6 +19242,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -18213,6 +19429,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -18455,6 +19672,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -18698,6 +19916,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -18934,6 +20153,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -19125,7 +20345,13 @@
                                                             "console/output"
                                                         ]
                                                     },
-                                                    "spec": true
+                                                    "spec": {
+                                                        "$schema": "http://json-schema.org/draft-04/schema",
+                                                        "properties": {},
+                                                        "additionalProperties": false,
+                                                        "type": "object",
+                                                        "description": "Spec is an empty struct used as a placeholder for the jsonschema."
+                                                    }
                                                 },
                                                 "additionalProperties": false,
                                                 "type": "object"
@@ -19231,6 +20457,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -19480,6 +20707,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -19729,6 +20957,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -19949,6 +21178,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -20146,6 +21376,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -20354,6 +21585,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -20551,6 +21783,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -20794,6 +22027,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -21036,6 +22270,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -21236,6 +22471,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -21426,6 +22662,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -21650,6 +22887,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     }
@@ -21888,6 +23126,444 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "bazelmod"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "File specifies the path to the MODULE.bazel file\n\ncompatible:\n  * source\n  * condition\n  * target\n\nexample:\n  * MODULE.bazel\n  * path/to/MODULE.bazel"
+                                    },
+                                    "module": {
+                                        "type": "string",
+                                        "description": "Module specifies the Bazel module name to target\n\ncompatible:\n  * source\n  * condition\n  * target\n\nexample:\n  * rules_go\n  * gazelle\n  * protobuf"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "file",
+                                    "module"
+                                ],
+                                "description": "Spec defines a specification for a \"bazelmod\" resource parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "dependsonchange": {
+                                "type": "boolean"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "deprecatedconditionids": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "disableconditions": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "bazelregistry"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "module": {
+                                        "type": "string",
+                                        "description": "Module specifies the Bazel module name to query from the registry\n\ncompatible:\n  * source\n  * condition\n\nexample:\n  * rules_go\n  * rules_python\n  * gazelle"
+                                    },
+                                    "versionfilter": {
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "description": "specifies the version kind such as semver, regex, or latest"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                            },
+                                            "strict": {
+                                                "type": "boolean",
+                                                "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                            },
+                                            "regex": {
+                                                "type": "string",
+                                                "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ncompatible:\n  * source\n\ndefault:\n  kind: latest"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "URL specifies the custom registry URL (defaults to Bazel Central Registry)\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json\n\nexample:\n  * https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json\n  * https://mycompany.com/bazel-registry/modules/{module}/metadata.json\n\nremarks:\n  * The URL must contain {module} placeholder which will be replaced with the module name\n  * If not specified, defaults to the official Bazel Central Registry"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "module"
+                                ],
+                                "description": "Spec defines a specification for a \"bazelregistry\" resource parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "dependsonchange": {
+                                "type": "boolean"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "deprecatedconditionids": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "disableconditions": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -22158,6 +23834,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -22413,6 +24090,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -22604,6 +24282,9 @@
                                 },
                                 "additionalProperties": false,
                                 "type": "object",
+                                "required": [
+                                    "image"
+                                ],
                                 "description": "Spec defines a specification for a \"dockerdigest\" resource parsed from an updatecli manifest file"
                             },
                             "scmid": {
@@ -22632,6 +24313,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -22841,6 +24523,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -23101,6 +24784,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -23291,6 +24975,14 @@
                                     "searchpattern": {
                                         "type": "boolean",
                                         "description": "`searchpattern` defines if the MatchPattern should be applied on the file(s) path\n\n  If set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\n  When looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\n  The pattern syntax is:\n\n  ```\n      pattern:\n          { term }\n      term:\n          '*'         matches any sequence of non-Separator characters\n          '?'         matches any single non-Separator character\n          '[' [ '^' ] { character-range } ']'\n                      character class (must be non-empty)\n          c           matches character c (c != '*', '?', '\\\\', '[')\n          '\\\\' c      matches character c\n\n      character-range:\n          c           matches character c (c != '\\\\', '-', ']')\n          '\\\\' c      matches character c\n          lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n  ```"
+                                    },
+                                    "template": {
+                                        "type": "string",
+                                        "description": "`template` specifies the path to a Go template file to render with source values\n\n  compatible:\n      * target\n\n  remarks:\n      * When using template, the source value is passed as `.source` in the template context\n      * All Go template functions from sprig are available\n      * The template file is read and rendered at execution time\n      * `template` is mutually exclusive with `content`, `line`, `matchpattern`, and `replacepattern`\n\n  example:\n      template: \"path/to/template.tmpl\""
+                                    },
+                                    "templatedata": {
+                                        "type": "object",
+                                        "description": "`templateData` specifies additional data to pass to the template\n\n\tcompatible:\n\t    * target\n\n\tremarks:\n\t    * When using template, the data specified here is passed as additional fields in the template context\n\t    * All Go template functions from sprig are available\n\t    * The template file is read and rendered at execution time\n\t    * `templateData` is optional\n\n\texample:\n\t    templateData:\n\t        key1: \"value1\"\n\t        key2: \"value2\""
                                     }
                                 },
                                 "additionalProperties": false,
@@ -23323,6 +25015,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -23525,6 +25218,10 @@
                                         "type": "string",
                                         "description": "branch specifies the branch name\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth is used to limit the number of commits fetched from the git repository.\n\ncompatible:\n * source\n * condition\n * target\n\n default: 0 (no limit)\n\nremark:\n * Updatecli won't be able to find branches that are not included in the fetched commits."
+                                    },
                                     "sourcebranch": {
                                         "type": "string",
                                         "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
@@ -23579,6 +25276,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -23833,6 +25531,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -24107,6 +25806,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -24361,6 +26061,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -24668,6 +26369,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -24921,6 +26623,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -25194,6 +26897,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -25447,6 +27151,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -25645,6 +27350,10 @@
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "tag": {
+                                        "type": "string",
+                                        "description": "Tag defines the git tag to check for exact match.\n\ncompatible:\n  * condition\n\nWhen specified, the condition will check for an exact tag match\ninstead of using versionFilter pattern matching."
+                                    },
                                     "message": {
                                         "type": "string",
                                         "description": "Message associated to the git tag\n\n compatible:\n   * target"
@@ -25668,6 +27377,13 @@
                                     "sourcebranch": {
                                         "type": "string",
                                         "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined.\n\ndefault: main"
+                                    },
+                                    "lsremote": {
+                                        "type": "boolean"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth is used to limit the number of commits fetched from the git repository.\n\ncompatible:\n * source\n * condition\n * target\n\n default: 0 (no limit)\n\nremark:\n * Updatecli won't be able to find tags that are not included in the fetched commits."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -25703,6 +27419,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -25932,6 +27649,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -26143,6 +27861,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -26383,6 +28102,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -26589,6 +28309,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -26862,6 +28583,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -27101,6 +28823,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -27296,6 +29019,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -27547,6 +29271,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -27799,6 +29524,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -28044,6 +29770,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -28235,7 +29962,13 @@
                                                             "console/output"
                                                         ]
                                                     },
-                                                    "spec": true
+                                                    "spec": {
+                                                        "$schema": "http://json-schema.org/draft-04/schema",
+                                                        "properties": {},
+                                                        "additionalProperties": false,
+                                                        "type": "object",
+                                                        "description": "Spec is an empty struct used as a placeholder for the jsonschema."
+                                                    }
                                                 },
                                                 "additionalProperties": false,
                                                 "type": "object"
@@ -28350,6 +30083,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -28608,6 +30342,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -28866,6 +30601,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -29095,6 +30831,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -29301,6 +31038,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -29518,6 +31256,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -29724,6 +31463,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -29976,6 +31716,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -30227,6 +31968,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -30436,6 +32178,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -30635,6 +32378,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     },
@@ -30868,6 +32612,7 @@
                         "additionalProperties": false,
                         "type": "object",
                         "required": [
+                            "name",
                             "kind"
                         ]
                     }
@@ -30879,6 +32624,13 @@
         "version": {
             "type": "string",
             "description": "\"version\" defines the minimum Updatecli version compatible with the manifest"
+        },
+        "labels": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "type": "object",
+            "description": "Labels contains user defined labels attached to the pipeline.\n\nLabels are arbitrary key/value pairs that can be used to categorize or\nselect pipelines. They are typically used for filtering pipelines when\nrunning Updatecli, for example to only run pipelines matching a given\nenvironment, operating system, or team.\n\nexample:\n---\nname: \"Update dependencies\"\nlabels:\n  os: debian\n  environment: staging\n  team: backend\nsources:\n  ...\n---"
         }
     },
     "additionalProperties": false,
