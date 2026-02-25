@@ -19,15 +19,25 @@ jobs:
       - name: "Install Updatecli"
         uses: "updatecli/updatecli-action@v2.96.0"
         with:
-          version: "v0.113.0"
+          version: "v0.114.0"
 
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
         uses: "updatecli/releasepost-action@v0.5.0"
 
+      - name: "Run updatecli only on release pipelines"
+        run: updatecli compose apply --clean-git-branches=true --labels="event:release" --experimental
+        env:
+          UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
+          UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
+          UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
+          UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
+          UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
+          UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}
+
       - name: "Run updatecli"
-        run: "updatecli compose apply --file updatecli-compose-weekly.yaml --experimental"
+        run: "updatecli compose apply --file updatecli-compose-release.yaml --experimental"
         env:
           RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
