@@ -1,0 +1,57 @@
+---
+title: Bazelmod
+description: "Manipulate bazelmod information"
+lead: "kind: bazelmod"
+date: 2026-02-02T12:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"    
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The Bazelmod "source" retrieves an information from a bazelmod file.
+
+**condition**
+
+The Bazelmod "condition" tests that an information exist in a bazelmod file.
+
+**target**
+
+The Bazelmod "target" ensures that a bazelmod file content a specific value at
+
+== Parameters
+
+{{< resourceparameters "sources" "bazelmod" >}}
+
+== Example
+
+[source,yaml]
+----
+targets:
+    rules_python:
+        name: Bump Bazel module rules_python
+        kind: bazelmod
+        spec:
+            file: project2/MODULE.bazel
+            module: rules_python
+----
