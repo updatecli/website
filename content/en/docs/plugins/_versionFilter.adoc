@@ -57,6 +57,9 @@ If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern
 return the newest version returned from a resource matching the regex
 If no versionFilter.pattern is provided then it uses '.*' which return the newest version
 
+`versionFilter.replaceall` can optionally be used to transform version strings before the regex is applied.
+It accepts a `pattern` (regex) and a `replacement` string, similar to a find-and-replace operation.
+
 ```
 sources:
   kubectl:
@@ -73,6 +76,28 @@ sources:
       - trimPrefix: "kubernetes-"
 ```
 => Return the newest kubectl version matching pattern "kubernetes-1.(\\d*).(\\d*)$" and remove "kubernetes-" from it
+
+===== Example with replaceall
+
+Some projects use version tags that are not directly compatible with the regex pattern. For example, curl uses tags like
+`curl-8_11_1` where underscores separate version components.
+The `replaceall` option can be used to normalize these tags before applying the regex.
+
+```yaml
+sources:
+  curl:
+    kind: githubRelease
+    spec:
+      owner: "curl"
+      repository: "curl"
+      versionFilter:
+        kind: regex
+        regex: 'curl-(\d+\.\d+\.\d+)'
+        replaceall:
+          pattern: "_"
+          replacement: "."
+```
+=> The `replaceall` converts `curl-8_11_1` to `curl-8.11.1` before matching, then the regex extracts `8.11.1`
 
 ==== semver
 
@@ -107,6 +132,10 @@ The regular expression should return the semantic version in the first capturing
 We can then use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
 If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
 If a extracted version doesn't respect semantic versioning, then it's not the value is just ignored.
+
+`versionFilter.replaceall` can optionally be used to transform version strings before the regex is applied.
+It accepts a `pattern` (regex) and a `replacement` string, similar to a find-and-replace operation.
+See the [regex section](#_regexp) for an example.
 
 ===== Example
 
