@@ -1,5 +1,12 @@
 [files]
-extend-exclude = ["static/*", "assets/*", "vendor", "content/en/schema", "vale"]
+extend-exclude = [
+  "static/*",
+  "assets/*",
+  "vendor",
+  "content/en/schema",
+  "vale",
+  "content/en/changelogs/updatecli/changelogs/v0.87.0.adoc",
+]
 
 [default]
-extend-ignore-identifiers-re = ["equirements","stderr"]
+extend-ignore-identifiers-re = ["equirements", "stderr"]
