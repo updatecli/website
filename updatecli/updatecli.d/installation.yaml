@@ -1,6 +1,10 @@
 name: "docs: update Updatecli version throughout the documentation"
 pipelineid: updatecli/version
 
+labels:
+  event: release
+  monitoring: enable
+
 actions:
   default:
     kind: github/pullrequest

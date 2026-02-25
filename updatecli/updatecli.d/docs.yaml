@@ -1,6 +1,9 @@
 name: "docs: update Updatecli cli documentation"
-
 pipelineid: cli_docs
+
+labels:
+  event: release
+  monitoring: enable
 
 actions:
   default:

@@ -1,6 +1,10 @@
 pipelineid: jsonschema
 name: "docs: update Updatecli jsonschema"
 
+labels:
+  event: release
+  monitoring: enable
+
 actions:
   default:
     kind: github/pullrequest
