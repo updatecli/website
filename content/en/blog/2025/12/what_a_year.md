@@ -34,7 +34,6 @@ This year was also special for conferences and community events. A heartfelt tha
 {{< youtube kVOYFFbbCho >}}
 <br/><br/>
 
-
 <br/><br/>
 {{< youtube Z-RPVbUPYiI >}}
 <br/><br/>

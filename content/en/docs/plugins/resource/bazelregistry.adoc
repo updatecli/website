@@ -1,0 +1,58 @@
+---
+title: Bazelregistry
+description: "Manipulate bazelregistry information"
+lead: "kind: bazelregistry"
+date: 2026-02-02T12:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"    
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+**source**
+
+The Bazelregistry "source" retrieves an information from a bazelregistry file.
+
+**condition**
+
+The Bazelregistry "condition" tests that an information exist in a bazelregistry file.
+
+**target**
+
+Not supported. Feel free to open an issue if you want to see this implemented.
+
+== Parameters
+
+{{< resourceparameters "sources" "bazelregistry" >}}
+
+== Example
+
+[source,yaml]
+----
+sources:
+    rules_python:
+        name: Get latest version of Bazel module rules_python
+        kind: bazelregistry
+        spec:
+            module: rules_python
+            versionfilter:
+                kind: semver
+                pattern: '>=0.25.0'
+----

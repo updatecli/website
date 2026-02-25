@@ -45,55 +45,51 @@ baseName = "sitemap"
 isHTML = false
 isPlainText = true
 noUgly = true
-rel = "sitemap"
+rel  = "sitemap"
 
 [security]
-enableInlineShortcodes = false
-[security.exec]
-allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$', '^asciidoctor$']
-osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
-[security.funcs]
-getenv = ['^HUGO_']
-[security.http]
-methods = ['(?i)GET|POST']
-urls = ['.*']
+  enableInlineShortcodes = false
+  [security.exec]
+    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$', '^asciidoctor$']
+    osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
+  [security.funcs]
+    getenv = ['^HUGO_']
+  [security.http]
+    methods = ['(?i)GET|POST']
+    urls = ['.*']
 
 [caches]
-[caches.getjson]
-dir = ":cacheDir/:project"
-maxAge = "10s"
+  [caches.getjson]
+    dir = ":cacheDir/:project"
+    maxAge = "10s"
 
 [sitemap]
-changefreq = "weekly"
-filename = "sitemap.xml"
-priority = 0.5
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
 
 [taxonomies]
-contributor = "contributors"
-plugin = "plugins"
+  contributor = "contributors"
+  plugin = "plugins"
 
 [permalinks]
 blog = "/blog/:title/"
 # docs = "/docs/1.0/:sections[1:]/:title/"
 
 [minify.tdewolff.html]
-keepWhitespace = false
-
-[minify]
-# Disabling js minify as it generates a weird issue :/
-# It would be nice to revert this decision in the future
-disableJS = true
+  keepWhitespace = false
 
 [related]
-threshold = 80
-includeNewer = true
-toLower = false
-[[related.indices]]
-name = "categories"
-weight = 100
-[[related.indices]]
-name = "tags"
-weight = 80
-[[related.indices]]
-name = "date"
-weight = 10
+  threshold = 80
+  includeNewer = true
+  toLower = false
+    [[related.indices]]
+    name = "categories"
+    weight = 100
+    [[related.indices]]
+    name = "tags"
+    weight = 80
+    [[related.indices]]
+    name = "date"
+    weight = 10
+
