@@ -27,7 +27,7 @@ scms:
       repository: "{{ .scm.repository }}"
       user: "{{ .scm.user }}"
       force: true
-      commitusingapi: {{ scm.commitusingapi }}
+      commitusingapi: {{ .scm.commitusingapi }}
     disabled: false
 
 sources:
