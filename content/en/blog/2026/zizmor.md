@@ -20,6 +20,7 @@ Zizmor can find many common security issues in typical GitHub Actions CI/CD setu
 - Excessive permission scopes and credential grants to runners
 - Impostor commits and confusable `git` references
 - ...[and much more](https://docs.zizmor.sh/audits/)!
+
 ---
 
 After testing it for a few days, I found it very easy to adopt: add a workflow, run it, and quickly get actionable findings.  
