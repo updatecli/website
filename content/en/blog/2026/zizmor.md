@@ -90,4 +90,3 @@ Now it is time to review all my GitHub repositories.
 - [**updatecli/policies** source](https://github.com/updatecli/policies/tree/main/updatecli/policies/zizmor/githubaction/scaffold)
 - [**Zizmor audits** documentation](https://docs.zizmor.sh/audits/)
 - [**Updatecli policy** documentation](https://www.updatecli.io/docs/core/shareandreuse/)
-
