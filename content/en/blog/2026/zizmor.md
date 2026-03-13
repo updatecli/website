@@ -1,5 +1,5 @@
 ---
-title: "Securing GitHub Actions workflows with Zizmor"
+title: "Securing GitHub Actions Workflows with Zizmor, Scaling Using Updatecli"
 date: 2026-03-13T00:00:00+00:00
 draft: false
 weight: 50
@@ -7,7 +7,7 @@ images: [""]
 contributors: ["olblak"]
 ---
 
-Recent incidents have shown that weak GitHub Actions workflows can lead to repository compromise.  
+Recent [incidents](https://awesomeagents.ai/news/hackerbot-claw-trivy-github-actions-compromise/) have shown that weak GitHub Actions workflows can lead to repository compromise.  
 A great tool to prevent this is [Zizmor](https://github.com/zizmorcore/zizmor), a static analysis tool for GitHub Actions.
 
 As the Zizmor project states:
@@ -42,11 +42,13 @@ scm:
   # search accepts an advanced GitHub search query
   # Use https://github.com/search/advanced to craft one
   search: |
-    repo:updatecli/updatecli
+    org:updatecli
     fork:true
+    is:public
+    archived:false
   # branch accepts a regex to filter detected branches
   branch: "^main$"
-  email: <email used in created commits>
+  email: <email used to create commits>
   # 0 means no limit
   limit: 1
 ```
