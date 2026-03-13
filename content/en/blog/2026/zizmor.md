@@ -7,8 +7,8 @@ images: [""]
 contributors: ["olblak"]
 ---
 
-Recent [incidents](https://awesomeagents.ai/news/hackerbot-claw-trivy-github-actions-compromise/) have shown that weak GitHub Actions workflows can lead to repository compromise.  
-A great tool to prevent this is [Zizmor](https://github.com/zizmorcore/zizmor), a static analysis tool for GitHub Actions.
+Recent [**incidents**](https://awesomeagents.ai/news/hackerbot-claw-trivy-github-actions-compromise/) have shown that weak GitHub Actions workflows can lead to repository compromise.  
+A great tool to prevent this is [**Zizmor**](https://github.com/zizmorcore/zizmor), a static analysis tool for GitHub Actions.
 
 As the Zizmor project states:
 
@@ -19,7 +19,7 @@ Zizmor can find many common security issues in typical GitHub Actions CI/CD setu
 - Accidental credential persistence and leakage
 - Excessive permission scopes and credential grants to runners
 - Impostor commits and confusable `git` references
-- ...[and much more](https://docs.zizmor.sh/audits/)!
+- ...[**and much more**](https://docs.zizmor.sh/audits/)!
 
 ---
 
@@ -28,7 +28,7 @@ Like most security tools, it can produce some noise (findings with low exploitab
 
 The next challenge is scale: enabling Zizmor across all repositories in a GitHub organization.
 
-To solve that, I created an [Updatecli policy](https://www.updatecli.io/docs/core/shareandreuse/) that detects repositories without a Zizmor workflow and automatically opens a pull request.
+To solve that, I created an [**Updatecli policy**](https://www.updatecli.io/docs/core/shareandreuse/) that detects repositories without a Zizmor workflow and automatically opens a pull request.
 
 In short, an Updatecli policy is a collection of manifests distributed via an OCI registry (for example, `ghcr.io`).  
 When Updatecli runs a policy, it downloads those manifests to a temporary local directory and applies them.
@@ -68,21 +68,21 @@ updatecli manifest show --values values.yaml ghcr.io/updatecli/policies/zizmor/g
 ```
 
 Updatecli then opens pull requests, such as this one:  
-[kubewarden/sbomscanner#927](https://github.com/kubewarden/sbomscanner/pull/927)
+[**kubewarden/sbomscanner#927**](https://github.com/kubewarden/sbomscanner/pull/927)
 
 The source code for this policy is available at:  
-[updatecli/policies](https://github.com/updatecli/policies/tree/main/updatecli/policies/zizmor/githubaction/scaffold)
+[**updatecli/policies**](https://github.com/updatecli/policies/tree/main/updatecli/policies/zizmor/githubaction/scaffold)
 
 This approach is flexible enough for different repository types and can be run in CI to ensure every new repository gets a PR enabling Zizmor.  
-That is what we do [here](https://github.com/updatecli/.github/blob/main/updatecli-compose.yaml).
+That is what we do [**here**](https://github.com/updatecli/.github/blob/main/updatecli-compose.yaml).
 
 Now it is time to review all my GitHub repositories.
 
 ## Links
 
-- [Hackerbot Claw trivy github actions compromise](https://awesomeagents.ai/news/hackerbot-claw-trivy-github-actions-compromise/)
-- [Zizmor](https://github.com/zizmorcore/zizmor)
-- [kubewarden/sbomscanner pull request](https://github.com/kubewarden/sbomscanner/pull/927)
-- [updatecli/policies source](https://github.com/updatecli/policies/tree/main/updatecli/policies/zizmor/githubaction/scaffold)
-- [Zizmor audits documentation](https://docs.zizmor.sh/audits/)
-- [Updatecli policy documentation](https://www.updatecli.io/docs/core/shareandreuse/)
+- [**Hackerbot Claw trivy github actions compromise**](https://awesomeagents.ai/news/hackerbot-claw-trivy-github-actions-compromise/)
+- [**Zizmor**](https://github.com/zizmorcore/zizmor)
+- [**kubewarden/sbomscanner pull request**](https://github.com/kubewarden/sbomscanner/pull/927)
+- [**updatecli/policies** source](https://github.com/updatecli/policies/tree/main/updatecli/policies/zizmor/githubaction/scaffold)
+- [**Zizmor audits** documentation](https://docs.zizmor.sh/audits/)
+- [**Updatecli policy** documentation](https://www.updatecli.io/docs/core/shareandreuse/)
