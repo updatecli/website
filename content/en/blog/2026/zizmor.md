@@ -78,6 +78,10 @@ That is what we do [**here**](https://github.com/updatecli/.github/blob/main/upd
 
 Now it is time to review all my GitHub repositories.
 
+<p align="center">
+  <img style="max-height:600px;" src="/images/blog/2026/03/diagram.png" alt="show Updatecli automate update"/>
+</p>
+
 ## Links
 
 - [**Hackerbot Claw trivy github actions compromise**](https://awesomeagents.ai/news/hackerbot-claw-trivy-github-actions-compromise/)
@@ -86,3 +90,4 @@ Now it is time to review all my GitHub repositories.
 - [**updatecli/policies** source](https://github.com/updatecli/policies/tree/main/updatecli/policies/zizmor/githubaction/scaffold)
 - [**Zizmor audits** documentation](https://docs.zizmor.sh/audits/)
 - [**Updatecli policy** documentation](https://www.updatecli.io/docs/core/shareandreuse/)
+
