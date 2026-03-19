@@ -46,14 +46,14 @@
                 "type": "string"
             },
             "type": "object",
-            "description": "Environment contains a list of environment variables"
+            "description": "Environment contains a list of environment variables\n\nExample:\n  ENV_VAR1: value1\n  ENV_VAR2: value2"
         },
         "env_files": {
             "items": {
                 "type": "string"
             },
             "type": "array",
-            "description": "Env_files contains a list of environment files"
+            "description": "Env_files contains a list of environment files\n\nExample:\n  - env_file1.env\n  - env_file2.env"
         }
     },
     "additionalProperties": false,

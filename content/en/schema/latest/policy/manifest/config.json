@@ -486,7 +486,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "FileMatch allows to override default docker-compose.yaml file matching. Default [\"docker-compose.yaml\",\"docker-compose.yml\",\"docker-compose.*.yaml\",\"docker-compose.*.yml\"]"
+                                    "description": "FileMatch allows to override default docker-compose.yaml file matching. Default [\"compose.yaml\", \"compose.yml\", \"compose.*.yaml\", \"compose.*.yml\", \"docker-compose.yaml\",\"docker-compose.yml\",\"docker-compose.*.yaml\",\"docker-compose.*.yml\"]"
                                 },
                                 "versionfilter": {
                                     "properties": {
