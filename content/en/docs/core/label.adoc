@@ -1,0 +1,164 @@
+---
+title: "Labels"
+description: "Label Updatecli policies"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Overview
+
+Pipeline labels are arbitrary key/value pairs attached to a pipeline manifest that allow you to categorize, organize, and filter pipelines during execution and reporting.
+
+.updatecli.yaml
+[source,yaml]
+----
+name: "docs: update Golang version throughout the documentation"
+
+# Pipeline labels: key/value pairs used to filter and organize pipelines in Updatecli and Udash.
+labels:
+  ecosystem: golang
+
+actions:
+  default:
+    kind: github/pullrequest
+    spec:
+      # PR labels: applied to the pull request on the SCM (e.g. GitHub). Different from pipeline labels above.
+      labels:
+        - dependencies
+----
+
+These labels can be used for two main purposes:
+
+1. **Filtering pipeline execution** — Use labels to run only specific pipelines matching given criteria.
++
+For example, only apply pipelines tagged with `ecosystem: golang`:
++
+[source,bash]
+----
+updatecli compose apply --labels="ecosystem:golang"
+----
++
+Pipelines matching the filter will execute. Pipelines without the label or with a different value will be skipped.
+
+2. **Filtering pipeline reports** in link:https://github.com/updatecli/udash/[Udash]
+
+== Naming Conventions
+
+Use descriptive, lowercase keys that identify a dimension. Here are common patterns:
+
+=== By Ecosystem or Dependency
+
+[source,yaml]
+----
+labels:
+  ecosystem: golang
+----
+
+Pipelines with `--labels="ecosystem:golang"` will match. Pipelines without that label or with a different value will be skipped.
+
+Pipelines with `--labels="ecosystem:"` will match all pipelines with an `ecosystem` label, regardless of its value. Pipelines without that label or with a different value will be skipped.
+
+=== By Team or Domain
+
+[source,yaml]
+----
+labels:
+  team: backend
+  domain: infrastructure
+----
+
+=== By Policy Type
+
+[source,yaml]
+----
+labels:
+  policy: autodiscovery
+----
+
+=== By Environment
+
+[source,yaml]
+----
+labels:
+  environment: staging
+  approval: required
+----
+
+=== By Monitor Mode
+
+Use `monitor` to signal how urgently a pipeline should be executed.
+
+[source,yaml]
+----
+# Always run — detect updates as soon as possible
+labels:
+  monitor: active
+----
+
+[source,yaml]
+----
+# Run periodically — some drift is acceptable
+labels:
+  monitor: passive
+----
+
+[source,yaml]
+----
+# Intentionally frozen — assert this version stays locked
+labels:
+  monitor: pinned
+----
+
+[source,yaml]
+----
+# Human-triggered only — never run in automated CI
+labels:
+  monitor: manual
+----
+
+== To avoid
+
+=== Too generic to be useful
+
+update, dependency, pipeline — these describe what Updatecli does by definition; they add no filtering value.
+
+=== Free-form / inconsistent spellings
+
+Mixing github-actions, GithubActions, github_actions — pick one convention (kebab-case is common) and stick to it. Inconsistency breaks filtering.
+
+=== Status-like labels
+
+done, pending, failed — Updatecli and Udash already track state natively; encoding status in labels leads to stale metadata.
+
+=== Highly volatile values
+
+version:1.2.3 — versions change constantly; labels should be stable identifiers, not point-in-time values.
+
+=== Overly broad owner labels without structure
+
+john, alice — person names become stale when teams change. Prefer `team:` or `squad:` prefixes.
+
+=== Pull request labels in pipeline labels
+
+`dependencies`, `automerge`, `bug` — these are pull request labels and belong in `action.spec.labels`, not in the pipeline `labels` field.
+They are applied to the SCM pull request (GitHub, GitLab, etc.) and have no effect on pipeline filtering or Udash dashboards.
+See link:/docs/core/action[Actions] for the correct location.
+
+=== By CI/CD platform or integration
+
+These labels should be avoided: the risk is executing pipelines outside the expected CI/CD platform.
+If needed, this information can be detected at runtime. Feel free to open an issue or a PR to implement this feature.
+
+== Conclusion
+
+Labels are a powerful tool for organizing and filtering pipelines, but they require thoughtful design to be effective.
+Use clear, consistent naming conventions that reflect stable dimensions of your projects, teams, and policies.
