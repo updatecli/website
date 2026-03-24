@@ -29,6 +29,8 @@ plugins:
 
 The Temurin (Adoptium) "source" retrieves a release name, Installer URL, Checksum URL or signature URL from Adoptium (link:https://adoptium.net/[]) using their API (link:https://api.adoptium.net/[]).
 
+NOTE: When the latest advertised release has no GA builds indexed yet (e.g. a newly announced major version), the plugin automatically falls back to the next available version.
+
 **condition**
 
 The Temurin (Adoptium) "condition" verifies if a given Temurin Adoptium (link:https://adoptium.net/[]) release exists using their API (link:https://api.adoptium.net/[]). It can perform verification for a collection of platforms (Operating System + CPU Architecture).
