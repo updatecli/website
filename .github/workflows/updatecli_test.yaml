@@ -14,7 +14,7 @@ jobs:
         uses: "actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3" # v6.0.0
 
       - name: "Setup updatecli"
-        uses: "updatecli/updatecli-action@5ca36367fadc6ad94d590984fd9c696e783ec635" # v2.96.0
+        uses: "updatecli/updatecli-action@2cc8e6d8e356d76b0280cdd03766c36596a0614e" # v3.0.0
         with:
           version: "v0.115.0"
 
