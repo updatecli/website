@@ -39,6 +39,9 @@ jobs:
       - name: "Run updatecli"
         run: "updatecli compose apply --file updatecli-compose-release.yaml --experimental"
         env:
+          # The releasepost policy requires the env GITHUB_TOKEN even though
+          # So I am temporarily adding an empty value to publish the release note
+          GITHUB_TOKEN: ""
           RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}

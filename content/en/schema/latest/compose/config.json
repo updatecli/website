@@ -2,6 +2,10 @@
     "$schema": "http://json-schema.org/draft-04/schema",
     "$id": "https://www.updatecli.io/latest/schema/compose/spec",
     "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name contains the compose name"
+        },
         "policies": {
             "items": {
                 "properties": {
@@ -26,6 +30,10 @@
                         },
                         "type": "array",
                         "description": "Values contains a list of Updatecli config file path"
+                    },
+                    "valuesinline": {
+                        "type": "object",
+                        "description": "ValuesInline contains a list of inline values for Updatecli config\nA deep merge will be performed between global inline values and policy inline values if both are defined.\n\nExample:\n  key1: value1\n  key2: value2"
                     },
                     "secrets": {
                         "items": {
@@ -54,8 +62,22 @@
             },
             "type": "array",
             "description": "Env_files contains a list of environment files\n\nExample:\n  - env_file1.env\n  - env_file2.env"
+        },
+        "valuesinline": {
+            "type": "object",
+            "description": "ValuesInline contains a list of inline values for Updatecli config\nThis is the default inline values that will be applied to all policies if not overridden by the policy inline values.\nA deep merge will be performed between global inline values and policy inline values if both are defined.\n\nExample:\n  key1: value1\n  key2: value2"
+        },
+        "include": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array",
+            "description": "Include contains a list of compose files to include"
         }
     },
     "additionalProperties": false,
-    "type": "object"
+    "type": "object",
+    "required": [
+        "name"
+    ]
 }
