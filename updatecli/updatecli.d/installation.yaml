@@ -2,8 +2,8 @@ name: "docs: update Updatecli version throughout the documentation"
 pipelineid: updatecli/version
 
 labels:
-  event: release
-  monitoring: enable
+  release: updatecli
+  monitor: active
 
 actions:
   default:
@@ -48,5 +48,3 @@ targets:
       replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
     scmid: default
     sourceid: updatecli
-
-version: 0.109.0
