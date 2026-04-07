@@ -3222,7 +3222,7 @@
                                 "properties": {
                                     "automerge": {
                                         "type": "boolean",
-                                        "description": "automerge allows to enable/disable the automerge feature on new pullrequest\n\ncompatible:\n  * action\n\ndefault:\n  false"
+                                        "description": "automerge allows to enable/disable the automerge feature on new pullrequest\ndeprecated since the field \"merge.strategy\" should now be used to specify the merge strategy and enable automerge with \"auto\" value.\n\ncompatible:\n  * action\n\ndefault:\n  false\n\ndeprecated: use merge.strategy: auto instead"
                                     },
                                     "title": {
                                         "type": "string",
