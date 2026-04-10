@@ -1,0 +1,25 @@
+name: PyPI resource example
+sources:
+  requests:
+    name: Get latest requests version from PyPI
+    kind: pypi
+    spec:
+      name: requests
+  flask:
+    name: Get latest flask version matching >=3.0
+    kind: pypi
+    spec:
+      name: flask
+      versionfilter:
+        kind: semver
+        pattern: ">=3.0.0"
+conditions:
+  requests:
+    name: Test that requests version 2.31.0 exists on PyPI
+    kind: pypi
+    disablesourceinput: true
+    spec:
+      name: requests
+      version: 2.31.0
+targets:
+  # Targets are not supported
