@@ -214,7 +214,7 @@ Matches https://docs.docker.com/engine/reference/builder/#arg[Dockerfile ARG, wi
 
 * When used as a target, *only* the value of the argument (right of the `=` when present)
 ** When no argument value is found (e.g. default value, no character `=` or empty value),
-  then updatecli appends the `=` character followed by the value.
+  then updatecli appends the `=` character followed by the value. It is possible to disable this behaviour by providing `ignoreUnsetValue: true` in the configuration.
 
 With the following definition:
 
@@ -243,6 +243,34 @@ ARG RUST_VERSION=UPDATECLI_VERSION
 ARG updatecli_version
 ----
 
+Using `ignoreUnsetValue: true`, with the following definition:
+
+[source, yaml]
+----
+spec:
+  file: Dockerfile
+  instruction:
+    keyword: "ARG"
+    matcher: "UPDATECLI_VERSION"
+    ignoreUnsetValue: true
+----
+
+you get the following results:
+
+[source, Dockerfile]
+----
+# Matches
+ARG UPDATECLI_VERSION=0.1.0
+arg UPDATECLI_VERSION=0.1.0
+
+## Does NOT matches
+ARG UPDATECLI_VERSION
+ARG UPDATECLI_VERSION=
+ARG GOLANG_VERSION
+ARG RUST_VERSION=UPDATECLI_VERSION
+ARG updatecli_version
+----
+
 ==== ENV
 
 Matches https://docs.docker.com/engine/reference/builder/#env[Dockerfile ENV, window="_blank"] instruction by keys to manipulate their values.
@@ -257,7 +285,7 @@ Matches https://docs.docker.com/engine/reference/builder/#env[Dockerfile ENV, wi
 
 * When used as a target, *only* the value of the environment (right of the `=` when present)
 ** When no environment value is found (e.g. default value, no character `=` or empty value),
-  then updatecli appends the `=` character followed by the value.
+  then updatecli appends the `=` character followed by the value. It is possible to disable this behaviour by providing `ignoreUnsetValue: true` in the configuration.
 
 With the following definition:
 

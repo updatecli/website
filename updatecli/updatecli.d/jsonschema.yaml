@@ -2,8 +2,8 @@ pipelineid: jsonschema
 name: "docs: update Updatecli jsonschema"
 
 labels:
-  event: release
-  monitoring: enable
+  release: updatecli
+  monitor: active
 
 actions:
   default:
@@ -50,5 +50,3 @@ targets:
       environments:
         - name: PATH
     scmid: default
-
-version: 0.109.0
