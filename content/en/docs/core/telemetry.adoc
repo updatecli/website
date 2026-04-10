@@ -1,0 +1,291 @@
+---
+title: "Telemetry"
+description: "Observe Updatecli pipeline execution with OpenTelemetry tracing"
+lead: "Observe Updatecli pipeline execution with OpenTelemetry tracing"
+date: 2026-04-01T00:00:00+00:00
+lastmod: 2026-04-01T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 190
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Updatecli supports distributed tracing via OpenTelemetry. When enabled, every pipeline run emits spans that show exactly where time is spent and which resources succeeded or failed.
+
+Tracing is opt-in and disabled by default. When tracing initialization fails, Updatecli continues normally — tracing never blocks execution.
+
+== Enabling Tracing
+
+Configuration is done entirely via standard OpenTelemetry environment variables. No Updatecli-specific flags are required.
+
+[cols="1,3",options="header"]
+|===
+| Variable | Description
+
+| `OTEL_TRACES_EXPORTER`
+| Selects the exporter. Supported values: `otlp` (gRPC), `otlphttp` (HTTP/protobuf), `console` or `stdout` (prints to stdout).
+
+| `OTEL_EXPORTER_OTLP_ENDPOINT`
+| Collector endpoint for all signals (e.g. `http://localhost:4317` for gRPC, `http://localhost:4318` for HTTP).
+
+| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`
+| Override the endpoint specifically for traces.
+|===
+
+When neither `OTEL_TRACES_EXPORTER` nor any endpoint variable is set, tracing is fully disabled (noop). When only an endpoint is set with no exporter name, Updatecli infers `otlp` (gRPC).
+
+NOTE: The `console` and `stdout` exporter values are aliases — both print spans to stdout. This is useful for verifying that tracing works, but the output is very verbose (one JSON block per span). For day-to-day use, prefer sending traces to a backend like Jaeger or Grafana Tempo.
+
+== Span Hierarchy
+
+Each Updatecli run produces a trace with the following span structure:
+
+----
+updatecli (root)
+├── updatecli.prepare
+│   ├── updatecli.load_configurations
+│   ├── updatecli.init_scm
+│   └── updatecli.autodiscovery
+└── updatecli.run
+    ├── updatecli.pipeline              (one per pipeline)
+    │   └── updatecli.resource          (one per source, condition, or target)
+    ├── updatecli.push_commits          (apply mode only)
+    ├── updatecli.run_actions
+    └── updatecli.prune_scm_branches    (apply mode with branch cleanup enabled)
+----
+
+NOTE: `updatecli.push_commits` and `updatecli.prune_scm_branches` are only emitted in apply mode when push is enabled. They will not appear in `diff` or `prepare` traces.
+
+== Span Attributes
+
+=== Root Span
+
+[cols="1,3",options="header"]
+|===
+| Attribute | Description
+
+| `updatecli.command`
+| The CLI subcommand that was run (e.g. `pipeline/apply`, `pipeline/diff`).
+
+| `updatecli.version`
+| The Updatecli version string.
+|===
+
+=== Run Span
+
+[cols="1,3",options="header"]
+|===
+| Attribute | Description
+
+| `updatecli.pipeline_count`
+| Total number of pipelines executed in this run.
+
+| `updatecli.dry_run`
+| Whether the run was in dry-run mode.
+|===
+
+=== Pipeline Span
+
+[cols="1,3",options="header"]
+|===
+| Attribute | Description
+
+| `updatecli.pipeline.name`
+| Human-readable pipeline name.
+
+| `updatecli.pipeline.id`
+| Unique pipeline identifier.
+
+| `updatecli.pipeline.sources_count`
+| Number of sources in the pipeline.
+
+| `updatecli.pipeline.conditions_count`
+| Number of conditions in the pipeline.
+
+| `updatecli.pipeline.targets_count`
+| Number of targets in the pipeline.
+
+| `updatecli.pipeline.dry_run`
+| Present (and set to `true`) only when dry-run mode is active.
+
+| `updatecli.pipeline.result`
+| Final result of the pipeline execution.
+
+| `updatecli.pipeline.crawler_kind`
+| Crawler that generated this pipeline (autodiscovered pipelines only).
+|===
+
+=== Resource Span
+
+[cols="1,3",options="header"]
+|===
+| Attribute | Description
+
+| `updatecli.resource.id`
+| Resource identifier within the pipeline.
+
+| `updatecli.resource.category`
+| Resource category: `source`, `condition`, or `target`.
+
+| `updatecli.resource.name`
+| Resource name.
+
+| `updatecli.resource.kind`
+| Plugin kind (e.g. `github/release`, `file`).
+
+| `updatecli.resource.result`
+| Execution result of this resource.
+
+| `updatecli.resource.description`
+| Human-readable description of what the resource did.
+|===
+
+==== Condition-Specific Attributes
+
+[cols="1,3",options="header"]
+|===
+| Attribute | Description
+
+| `updatecli.condition.pass`
+| Whether the condition passed.
+
+| `updatecli.condition.source_id`
+| ID of the source this condition depends on, if any.
+|===
+
+==== Target-Specific Attributes
+
+[cols="1,3",options="header"]
+|===
+| Attribute | Description
+
+| `updatecli.target.changed`
+| Whether the target made a change.
+
+| `updatecli.target.dry_run`
+| Whether this target ran in dry-run mode.
+
+| `updatecli.target.source_id`
+| ID of the source this target applies, if any.
+
+| `updatecli.target.files`
+| Files modified by this target.
+|===
+
+==== Span Events
+
+[cols="1,3",options="header"]
+|===
+| Event | Span | Description
+
+| `target.changed`
+| `updatecli.resource`
+| Emitted on target resource spans that modified files. The changed files are available in the `updatecli.target.files` span attribute.
+
+| `pipeline.failed`
+| `updatecli.run`
+| Emitted on the run span when a pipeline fails. Includes `pipeline.name` and sanitized `error` attributes.
+|===
+
+=== Prepare Span Attributes
+
+[cols="1,2,3",options="header"]
+|===
+| Span | Attribute | Description
+
+| `updatecli.load_configurations`
+| `updatecli.pipelines_loaded`
+| Number of pipelines loaded from manifests.
+
+| `updatecli.autodiscovery`
+| `updatecli.autodiscovery.default_crawlers_enabled`
+| Whether default crawlers were enabled (true when no manifests are found).
+|===
+
+=== Result Values
+
+Pipeline and resource results use the following symbols:
+
+[cols="1,3",options="header"]
+|===
+| Symbol | Meaning
+
+| `✔`
+| Success
+
+| `⚠`
+| Attention — a change was detected (or would be applied in dry-run mode)
+
+| `✗`
+| Failure
+
+| `-`
+| Skipped
+|===
+
+== HTTP Instrumentation
+
+Outgoing HTTP requests — to registries, GitHub, and other external APIs — are automatically instrumented via an `otelhttp` transport wrapper. HTTP spans appear as children of the pipeline span, giving full visibility into external API latency without any additional configuration.
+
+== Credential Safety
+
+Error messages recorded on spans are automatically sanitized to strip URL-embedded credentials before they are sent to the trace backend. For example, `https://user:token@github.com` is recorded as `https://****:****@github.com`. This prevents accidental token leaks regardless of which backend you use.
+
+== Examples
+
+=== Local Debugging with Stdout
+
+Print spans to stdout without running a collector:
+
+[source,bash]
+----
+OTEL_TRACES_EXPORTER=console updatecli pipeline diff --config manifest.yaml
+----
+
+IMPORTANT: The `console` exporter is very verbose — it outputs a full JSON block for every span, including HTTP requests. It is best suited for one-off verification, not regular use. For a better experience, use a trace backend like Jaeger (see below).
+
+=== Jaeger
+
+Start Jaeger all-in-one locally:
+
+[source,bash]
+----
+docker run --rm -p 4317:4317 -p 16686:16686 \
+  jaegertracing/all-in-one:latest
+----
+
+Then run Updatecli with the gRPC endpoint. Because only the endpoint is set, Updatecli infers `otlp` (gRPC) automatically:
+
+[source,bash]
+----
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 updatecli pipeline apply --config manifest.yaml
+----
+
+Open `http://localhost:16686` to explore the traces.
+
+=== Grafana Tempo or Any OTLP-Compatible Backend
+
+[source,bash]
+----
+OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317 updatecli pipeline apply --config manifest.yaml
+----
+
+=== HTTP Exporter
+
+For backends that only accept HTTP/protobuf instead of gRPC:
+
+[source,bash]
+----
+OTEL_TRACES_EXPORTER=otlphttp \
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 \
+updatecli pipeline apply --config manifest.yaml
+----
