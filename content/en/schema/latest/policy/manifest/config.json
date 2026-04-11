@@ -2456,6 +2456,104 @@
                             "type": "object",
                             "description": "Spec defines the parameters which can be provided to the Kubernetes builder."
                         },
+                        "pyproject": {
+                            "$schema": "http://json-schema.org/draft-04/schema",
+                            "properties": {
+                                "rootdir": {
+                                    "type": "string",
+                                    "description": "RootDir defines the root directory used to recursively search for pyproject.toml files."
+                                },
+                                "ignore": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "Path specifies a pyproject.toml path pattern. The pattern must match the full path,\nnot just a substring. Wildcards accepted by filepath.Match are supported."
+                                            },
+                                            "packages": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object",
+                                                "description": "Packages specifies the list of Python packages to match, keyed by package name.\nThe value is a PEP 440 version specifier (e.g. \"\u003e=2.0,\u003c3.0\") or empty to match any version."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule specifies a rule to include or exclude pyproject.toml dependencies."
+                                    },
+                                    "type": "array",
+                                    "description": "Ignore specifies rules to exclude pyproject.toml dependencies from autodiscovery."
+                                },
+                                "only": {
+                                    "items": {
+                                        "properties": {
+                                            "path": {
+                                                "type": "string",
+                                                "description": "Path specifies a pyproject.toml path pattern. The pattern must match the full path,\nnot just a substring. Wildcards accepted by filepath.Match are supported."
+                                            },
+                                            "packages": {
+                                                "additionalProperties": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object",
+                                                "description": "Packages specifies the list of Python packages to match, keyed by package name.\nThe value is a PEP 440 version specifier (e.g. \"\u003e=2.0,\u003c3.0\") or empty to match any version."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "MatchingRule specifies a rule to include or exclude pyproject.toml dependencies."
+                                    },
+                                    "type": "array",
+                                    "description": "Only specifies rules to restrict autodiscovery to matching pyproject.toml dependencies."
+                                },
+                                "versionfilter": {
+                                    "properties": {
+                                        "kind": {
+                                            "type": "string",
+                                            "description": "specifies the version kind such as semver, regex, or latest"
+                                        },
+                                        "pattern": {
+                                            "type": "string",
+                                            "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                        },
+                                        "strict": {
+                                            "type": "boolean",
+                                            "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                        },
+                                        "regex": {
+                                            "type": "string",
+                                            "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                        },
+                                        "replaceall": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern specifies the regex pattern to match for replacement"
+                                                },
+                                                "replacement": {
+                                                    "type": "string",
+                                                    "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "versionfilter provides parameters to specify the version pattern used when generating manifests.\n\n\t\tkind - pep440 (default)\n\t\t\tversionfilter of kind `pep440` uses PEP 440 version specifiers natively.\n\t\t\tpattern accepts a PEP 440 version specifier such as `\u003e=2.28`, `\u003e=1.0,\u003c3.0`, or `*` (any).\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering.\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - update patch version only\n\t\t\t\t`minor` - update minor version only\n\t\t\t\t`major` - update major versions only\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering.\n\t\t\tpattern accepts a valid regular expression.\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: pep440\n\t\t\t\tpattern: \"\u003e=2.28\"\n\t\t```"
+                                },
+                                "indexurl": {
+                                    "type": "string",
+                                    "description": "IndexURL specifies a custom PyPI index URL propagated to all generated source specs."
+                                }
+                            },
+                            "additionalProperties": false,
+                            "type": "object",
+                            "description": "Spec defines the pyproject autodiscovery parameters."
+                        },
                         "rancher/fleet": {
                             "$schema": "http://json-schema.org/draft-04/schema",
                             "properties": {
@@ -3222,7 +3320,7 @@
                                 "properties": {
                                     "automerge": {
                                         "type": "boolean",
-                                        "description": "automerge allows to enable/disable the automerge feature on new pullrequest\n\ncompatible:\n  * action\n\ndefault:\n  false"
+                                        "description": "automerge allows to enable/disable the automerge feature on new pullrequest\ndeprecated since the field \"merge.strategy\" should now be used to specify the merge strategy and enable automerge with \"auto\" value.\n\ncompatible:\n  * action\n\ndefault:\n  false\n\ndeprecated: use merge.strategy: auto instead"
                                     },
                                     "title": {
                                         "type": "string",
@@ -3272,6 +3370,21 @@
                                         },
                                         "type": "array",
                                         "description": "Assignees contains the list of assignee to add to the pull request\n\ndefault: empty\n\nremark:\n  * Please note that contrary to reviewers, assignees only accept GitHub usernames"
+                                    },
+                                    "merge": {
+                                        "properties": {
+                                            "strategy": {
+                                                "type": "string",
+                                                "description": "strategy specifies the merge strategy: \"client\", \"auto\", or \"manual\" (default)\nclient: merge immediately via GitHub API (no server-side automerge needed)\nauto: enable server-side auto-merge (requires branch protection rules)\nmanual: do not merge automatically (default)"
+                                            },
+                                            "after": {
+                                                "type": "string",
+                                                "description": "after specifies a minimum duration to wait before merging (e.g., \"24h\", \"30m\")\nThe pull request will not be merged until it has been open for at least this duration."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "merge configures automatic merge behavior for the pull request.\n\ncompatible:\n  * action\n\ndefault:\n  strategy: manual (no automatic merge)\n\nexample:\n  merge:\n    strategy: client      # merge immediately via API (no server-side automerge needed)\n    after: 24h            # never merge before waiting 24h"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -4078,6 +4191,10 @@
                             "spec": {
                                 "$schema": "http://json-schema.org/draft-04/schema",
                                 "properties": {
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
+                                    },
                                     "limit": {
                                         "type": "integer",
                                         "description": "Limit defines the maximum number of repositories to return from the search query.\n\ncompatible:\n  * scm\n\ndefault:\n  10\n\nremark:\n  If limit is set to 0, all repositories matching the search query will be returned."
@@ -4367,6 +4484,154 @@
                                     "repository"
                                 ],
                                 "description": "Spec defines settings used to interact with GitLab release"
+                            },
+                            "disabled": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object"
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "kind": {
+                                "enum": [
+                                    "gitlabsearch"
+                                ]
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "description": "\"url\" defines the GitLab url to interact with\n\n default:\n    \"gitlab.com\""
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "description": "\"username\" defines the username used to authenticate with GitLab"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "description": "\"token\" defines the credential used to authenticate with GitLab\n\n remark:\n   A token is a sensitive information, it's recommended to not set this value directly in the configuration file\n   but to use an environment variable or a SOPS file.\n\n   The value can be set to `{{ requiredEnv \"GITLAB_TOKEN\"}}` to retrieve the token from the environment variable `GITLAB_TOKEN`\n\t  or `{{ .gitlab.token }}` to retrieve the token from a SOPS file.\n\n\t  For more information, about a SOPS file, please refer to the following documentation:\n   https://github.com/getsops/sops"
+                                    },
+                                    "group": {
+                                        "type": "string",
+                                        "description": "\"group\" defines the GitLab group (or subgroup) to search repositories in.\n\ncompatible:\n  * scm\n\nremark:\n  Supports nested groups using slash notation, e.g. \"myorg/myteam\"."
+                                    },
+                                    "search": {
+                                        "type": "string",
+                                        "description": "\"search\" filters the repository list by name.\n\ncompatible:\n  * scm\n\nremark:\n  When omitted, all projects in the group are returned."
+                                    },
+                                    "includesubgroups": {
+                                        "type": "boolean",
+                                        "description": "\"includeSubgroups\" defines whether projects from subgroups should be included in the search results.\n\ncompatible:\n  * scm\n\ndefault:\n  true"
+                                    },
+                                    "limit": {
+                                        "type": "integer",
+                                        "description": "Limit defines the maximum number of repositories to return.\n\ncompatible:\n  * scm\n\ndefault:\n  10\n\nremark:\n  If limit is set to 0, all repositories matching the query will be returned."
+                                    },
+                                    "branch": {
+                                        "type": "string",
+                                        "description": "\"branch\" defines the git branch to work on.\n\ncompatible:\n  * scm\n\ndefault:\n  ^main$\n\nremark:\n  The branch value is a regular expression used to match branches across the discovered repositories.\n\n  If the scm is linked to a source or a condition (using scmid), the branch will be used to retrieve\n  file(s) from that branch.\n\n  If the scm is linked to a target then Updatecli creates a new \"working branch\" based on the branch value.\n  The working branch created by Updatecli looks like \"updatecli_\u003cpipelineID\u003e\".\n  The working branch can be disabled using the \"workingBranch\" parameter set to false."
+                                    },
+                                    "workingbranchprefix": {
+                                        "type": "string",
+                                        "description": "WorkingBranchPrefix defines the prefix used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  updatecli\n\nremark:\n  A working branch is composed of three components:\n  1. WorkingBranchPrefix\n  2. Target Branch\n  3. PipelineID\n\n  If WorkingBranchPrefix is set to '', then\n  the working branch will look like \"\u003cbranch\u003e_\u003cpipelineID\u003e\"."
+                                    },
+                                    "workingbranchseparator": {
+                                        "type": "string",
+                                        "description": "WorkingBranchSeparator defines the separator used to create a working branch.\n\ncompatible:\n  * scm\n\ndefault:\n  \"_\""
+                                    },
+                                    "directory": {
+                                        "type": "string",
+                                        "description": "\"directory\" defines the local path where the git repository is cloned.\n\ncompatible:\n  * scm\n\nremark:\n  Unless you know what you are doing, it is recommended to use the default value.\n  The reason is that Updatecli may automatically clean up the directory after a pipeline execution.\n\ndefault:\n  The default value is based on your local temporary directory like: (on Linux)\n  /tmp/updatecli/gitlab/\u003cowner\u003e/\u003crepository\u003e"
+                                    },
+                                    "depth": {
+                                        "type": "integer",
+                                        "description": "Depth defines the depth used when cloning the git repository.\n\nDefault: disabled (full clone)\n\nRemark:\n  When using a shallow clone (depth greater than 0), Updatecli is not able to retrieve the full git history.\n  This may cause some issues when Updatecli tries to push changes to the remote repository.\n  In that case, you may need to set the force option to true to force push changes to the remote repository."
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "\"email\" defines the email used to commit changes.\n\ncompatible:\n  * scm\n\ndefault:\n  default set to your global git configuration"
+                                    },
+                                    "user": {
+                                        "type": "string",
+                                        "description": "\"user\" specifies the user associated with new git commit messages created by Updatecli\n\ncompatible:\n * scm"
+                                    },
+                                    "gpg": {
+                                        "properties": {
+                                            "signingkey": {
+                                                "type": "string",
+                                                "description": "signingKey defines the gpg key used to sign the commit message\n\n\t\tdefault:\n\t\t\tnone"
+                                            },
+                                            "passphrase": {
+                                                "type": "string",
+                                                "description": "passphrase defines the gpg passphrase used to sign the commit message"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"gpg\" specifies the GPG key and passphrase used for commit signing\n\ncompatible:\n  * scm"
+                                    },
+                                    "force": {
+                                        "type": "boolean",
+                                        "description": "\"force\" is used during the git push phase to run `git push --force`.\n\ncompatible:\n  * scm\n\ndefault:\n  true\n\nremark:\n  When force is set to true, Updatecli also recreates the working branches that\n  diverged from their base branch."
+                                    },
+                                    "commitmessage": {
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "description": "type defines the type of commit message such as \"chore\", \"fix\", \"feat\", etc. as\n defined by the conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   * chore"
+                                            },
+                                            "scope": {
+                                                "type": "string",
+                                                "description": "scope defines the scope of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
+                                            },
+                                            "footers": {
+                                                "type": "string",
+                                                "description": "footers defines the footer of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "description": "Title is the parsed commit message title (not configurable via YAML).\n The title is automatically generated from the target name or description."
+                                            },
+                                            "deprecatedtitle": {
+                                                "type": "string",
+                                                "description": "DeprecatedTitle is deprecated and will be ignored.\n The commit title is now always generated from the target name or description."
+                                            },
+                                            "body": {
+                                                "type": "string",
+                                                "description": "body defines the commit body of the commit message as defined by the\n conventional commit specification. More information on\n -\u003e https://www.conventionalcommits.org/en/\n\n default:\n   none"
+                                            },
+                                            "hidecredit": {
+                                                "type": "boolean",
+                                                "description": "hideCredit defines if updatecli credits should be displayed inside commit message body\n\n please consider sponsoring the Updatecli project if you want to disable credits.\n -\u003e https://github.com/updatecli/updatecli\n\n default:\n \tfalse"
+                                            },
+                                            "squash": {
+                                                "type": "boolean",
+                                                "description": "squash defines if the commit should be squashed\n\n default:\n \tfalse\n\n important:\n  if squash is set to true, then it's highly recommended to set the commit body\n  to a meaningful value as all other commit information will be lost during the squash operation.\n\n  if body is not set, then the commit title/message will be generated based on the most recent commit\n  message of the squashed commits. The commit title is always generated from the target name or description."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"commitMessage\" is used to generate the final commit message.\n\ncompatible:\n  * scm\n\nremark:\n  it's worth mentioning that the commit message settings is applied to all targets linked to the same scm."
+                                    },
+                                    "submodules": {
+                                        "type": "boolean",
+                                        "description": "\"submodules\" defines if Updatecli should checkout submodules.\n\ncompatible:\n  * scm\n\ndefault: true"
+                                    },
+                                    "workingbranch": {
+                                        "type": "boolean",
+                                        "description": "\"workingBranch\" defines if Updatecli should use a temporary branch to work on.\nIf set to `true`, Updatecli create a temporary branch to work on, based on the branch value.\n\ncompatible:\n * scm\n\ndefault: true"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "required": [
+                                    "group"
+                                ],
+                                "description": "Spec represents the configuration input for the gitlabsearch SCM."
                             },
                             "disabled": {
                                 "type": "boolean"
@@ -10887,6 +11152,230 @@
                                 "additionalProperties": false,
                                 "type": "object",
                                 "description": "Spec defines a specification for an Npm package parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "pypi"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name defines the PyPI package name."
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "Version defines a specific package version for condition checks."
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "URL defines the PyPI-compatible registry URL (defaults to https://pypi.org/)."
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "description": "Token defines the Bearer token for private registries."
+                                    },
+                                    "versionfilter": {
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "description": "specifies the version kind such as semver, regex, or latest"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                            },
+                                            "strict": {
+                                                "type": "boolean",
+                                                "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                            },
+                                            "regex": {
+                                                "type": "string",
+                                                "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type."
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "Spec defines a specification for a PyPI package parsed from an updatecli manifest."
                             },
                             "scmid": {
                                 "type": "string",
@@ -20135,6 +20624,239 @@
                                 "additionalProperties": false,
                                 "type": "object",
                                 "description": "Spec defines a specification for an Npm package parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "failwhen": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "pypi"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name defines the PyPI package name."
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "Version defines a specific package version for condition checks."
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "URL defines the PyPI-compatible registry URL (defaults to https://pypi.org/)."
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "description": "Token defines the Bearer token for private registries."
+                                    },
+                                    "versionfilter": {
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "description": "specifies the version kind such as semver, regex, or latest"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                            },
+                                            "strict": {
+                                                "type": "boolean",
+                                                "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                            },
+                                            "regex": {
+                                                "type": "string",
+                                                "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type."
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "Spec defines a specification for a PyPI package parsed from an updatecli manifest."
                             },
                             "scmid": {
                                 "type": "string",
@@ -29743,6 +30465,248 @@
                                 "additionalProperties": false,
                                 "type": "object",
                                 "description": "Spec defines a specification for an Npm package parsed from an updatecli manifest file"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "dependsonchange": {
+                                "type": "boolean"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "deprecatedconditionids": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "disableconditions": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "pypi"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name defines the PyPI package name."
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "Version defines a specific package version for condition checks."
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "URL defines the PyPI-compatible registry URL (defaults to https://pypi.org/)."
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "description": "Token defines the Bearer token for private registries."
+                                    },
+                                    "versionfilter": {
+                                        "properties": {
+                                            "kind": {
+                                                "type": "string",
+                                                "description": "specifies the version kind such as semver, regex, or latest"
+                                            },
+                                            "pattern": {
+                                                "type": "string",
+                                                "description": "specifies the version pattern according the version kind\nfor semver, it is a semver constraint\nfor regex, it is a regex pattern\nfor time, it is a date format"
+                                            },
+                                            "strict": {
+                                                "type": "boolean",
+                                                "description": "strict enforce strict versioning rule.\nOnly used for semantic versioning at this time"
+                                            },
+                                            "regex": {
+                                                "type": "string",
+                                                "description": "specifies the regex pattern, used for regex/semver and regex/time.\nOutput of the first capture group will be used."
+                                            },
+                                            "replaceall": {
+                                                "properties": {
+                                                    "pattern": {
+                                                        "type": "string",
+                                                        "description": "Pattern specifies the regex pattern to match for replacement"
+                                                    },
+                                                    "replacement": {
+                                                        "type": "string",
+                                                        "description": "Replacement specifies the replacement string (supports $1, $2, etc. for captured groups)"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "description": "replaceAll applies a regex replacement to version strings before filtering.\nThis is useful for transforming versions (e.g., curl-8_15_0 to curl-8.15.0) before regex extraction."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type."
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "Spec defines a specification for a PyPI package parsed from an updatecli manifest."
                             },
                             "scmid": {
                                 "type": "string",

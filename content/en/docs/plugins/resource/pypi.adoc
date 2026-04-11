@@ -1,0 +1,49 @@
+---
+title: "PyPI"
+description: "Interact with the PyPI registry"
+lead: "kind: pypi"
+date: 2026-03-25T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+**source**
+
+The PyPI "source" retrieves the latest version of a Python package from a PyPI-compatible registry matching a specific version filter. PEP 440 pre-release versions (alpha, beta, rc) are automatically normalized to semver for filtering.
+
+**condition**
+
+The PyPI "condition" tests that a specific version exists on a PyPI-compatible registry.
+
+**target**
+
+The PyPI "target" is not supported.
+
+== Parameter
+
+{{< resourceparameters "sources" "pypi" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/pypi/updatecli.d/default.yaml">}}
+----

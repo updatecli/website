@@ -18,7 +18,8 @@ actions:
     kind: "github/pullrequest"
     scmid: "website"
     spec:
-      automerge: true
+      merge:
+        strategy: auto
       description: "Prepend description"
       draft: false
       labels:

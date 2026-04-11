@@ -9,25 +9,33 @@ on:
   repository_dispatch:
     types:
       - "updatecli-release"
+
+permissions: {}
+
 jobs:
   updatecli:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@v2.96.0"
+        uses: "updatecli/updatecli-action@3e2cbfd2d4bec97ce3ec7155da54ddf599893026" # v3.1.0
         with:
-          version: "v0.114.0"
+          version: "v0.116.0"
 
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
-        uses: "updatecli/releasepost-action@v0.5.0"
+        uses: "updatecli/releasepost-action@864390bddae97db06ee881ab4a08d159b4464643" # v0.5.0
 
       - name: "Run updatecli only on release pipelines"
-        run: updatecli compose apply --clean-git-branches=true --labels="event:release" --experimental
+        run: updatecli compose apply --clean-git-branches=true --labels="release:updatecli" --experimental
         env:
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
@@ -39,7 +47,7 @@ jobs:
       - name: "Run updatecli"
         run: "updatecli compose apply --file updatecli-compose-release.yaml --experimental"
         env:
-          RELEASEPOST_GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          RELEASEPOST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
           UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
