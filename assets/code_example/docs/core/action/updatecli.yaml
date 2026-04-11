@@ -7,7 +7,8 @@ actions:
         title: 'deps: bump golangci-lint to {{ source "golangci-lint" }}'
         kind: github/pullrequest
         spec:
-            automerge: true
+            merge:
+                strategy: auto
             labels:
                 - chore
                 - dependencies
@@ -55,4 +56,3 @@ targets:
         scmid: default
         sourceid: golangci-lint
 version: v0.68.0
-

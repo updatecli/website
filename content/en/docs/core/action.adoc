@@ -25,10 +25,9 @@ An Updatecli action defines what happens after a change is detected and validate
 
 == Examples
 
-In the follow example, we define an action that creates a pull request on GitHub when Updatecli detected outdated version of golangci-lint in GitHub action workflow files. The action uses the `github/pullrequest` plugin to create a pull request with a specific labels, merge method, automerge set to true.
+In the follow example, we define an action that creates a pull request on GitHub when Updatecli detected outdated version of golangci-lint in GitHub action workflow files. The action uses the `github/pullrequest` plugin to create a pull request with specific labels and `merge.strategy` set to `auto`.
 
 [source,yaml]
 ----
 {{<include "assets/code_example/docs/core/action/updatecli.yaml">}}
 ----
-

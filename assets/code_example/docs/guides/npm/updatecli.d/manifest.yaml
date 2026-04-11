@@ -90,6 +90,7 @@ actions:
     spec:
       labels:
         - dependencies
-      automerge: true
+      merge:
+        strategy: auto
       usetitleforautomerge: true
       mergemethod: squash

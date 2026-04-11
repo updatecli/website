@@ -57,10 +57,11 @@ scms:
 
 actions:
   default:
-    kind: "github"
+    kind: "github/pullrequest"
     scmid: "helm-charts"
     spec:
-      automerge: true
+      merge:
+        strategy: auto
       labels:
         - "dependencies"
         - "jenkins-wiki-exporter"
