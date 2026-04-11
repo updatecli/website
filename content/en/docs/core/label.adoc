@@ -51,7 +51,7 @@ Pipelines matching the filter will execute. Pipelines without the label or with 
 
 2. **Filtering pipeline reports** in link:https://github.com/updatecli/udash/[Udash]
 
-== Naming Conventions
+== Naming Suggestion
 
 Use descriptive, lowercase keys that identify a dimension. Here are common patterns:
 
@@ -162,3 +162,4 @@ If needed, this information can be detected at runtime. Feel free to open an iss
 
 Labels are a powerful tool for organizing and filtering pipelines, but they require thoughtful design to be effective.
 Use clear, consistent naming conventions that reflect stable dimensions of your projects, teams, and policies.
+
