@@ -1,47 +1,36 @@
 name: Build
-
 on:
   merge_group:
     branches: master
   push:
     branches: master
   pull_request:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Use Node.js
-      uses: actions/setup-node@v4.4.0
-      with:
-        node-version: 20
-
-    - name: Install Hugo
-      uses: peaceiris/actions-hugo@v3
-      with:
-        hugo-version: 0.157.0
-        extended: true
-
-    - name: Install Bundler
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.7
-        bundler-cache: true
-
-    - name: Install asciidoctor
-      run: gem install asciidoctor
-
-    - name: Show Hugo Version
-      run: hugo version
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run Hyas test script
-      run: npm test
-
-    - name: Build production website
-      run: npm run build
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Use Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: 24
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3.0.0
+        with:
+          hugo-version: 0.160.0
+          extended: true
+      - name: Install Bundler
+        uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92 # v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+      - name: Install asciidoctor
+        run: gem install asciidoctor
+      - name: Show Hugo Version
+        run: hugo version
+      - name: Install dependencies
+        run: npm install
+      - name: Run Hyas test script
+        run: npm test
+      - name: Build production website
+        run: npm run build

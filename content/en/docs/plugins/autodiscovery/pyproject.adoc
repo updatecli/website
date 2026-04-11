@@ -1,0 +1,78 @@
+---
+title: "Pyproject"
+description: "Discover Python dependency updates from pyproject.toml"
+lead: "kind: pyproject"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-autodiscovery"
+weight: 131
+toc: true
+plugins:
+  - autodiscovery
+---
+
+== Description
+
+The pyproject crawler looks recursively for all Python dependencies from `pyproject.toml` files.
+It detects the package manager in use via lock files (currently `uv.lock` is supported) and generates manifests to update dependencies using the appropriate tool.
+
+Dependencies are discovered from both `[project.dependencies]` and `[project.optional-dependencies]` sections. PEP 508 dependency strings are parsed to extract package names and version constraints. Environment markers are stripped.
+
+Generated manifests use the `pypi` resource as a source and `uv add` as a shell target, which atomically updates both `pyproject.toml` and `uv.lock`.
+
+== Manifest
+=== Parameters
+
+{{< autodiscoveryparameters "pyproject" >}}
+
+==== Example
+
+===== Basic Example
+
+[source,yaml]
+----
+# updatecli.d/pyproject.yaml
+autodiscovery:
+  crawlers:
+    pyproject:
+      rootdir: "."
+      versionfilter:
+        kind: semver
+        pattern: minor
+----
+
+===== Filter to Specific Packages
+
+[source,yaml]
+----
+# updatecli.d/pyproject-only.yaml
+autodiscovery:
+  crawlers:
+    pyproject:
+      only:
+        - packages:
+            "requests": ""
+            "flask": ""
+----
+
+===== Private PyPI Registry
+
+[source,yaml]
+----
+# updatecli.d/pyproject-private.yaml
+autodiscovery:
+  crawlers:
+    pyproject:
+      rootdir: "."
+      # Custom PyPI index URL propagated to all generated pypi source specs
+      indexurl: "https://pypi.example.com/"
+      versionfilter:
+        kind: semver
+        pattern: ">=1.0.0"
+----
+
+NOTE: The `indexurl` parameter is propagated to all generated pypi resource specs, allowing consistent registry configuration across all discovered dependencies. For private registry authentication, the `pypi` resource supports a `token` field for Bearer token auth.
+
+NOTE: The alias `python/uv` can also be used instead of `pyproject`.

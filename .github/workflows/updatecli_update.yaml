@@ -1,24 +1,29 @@
+---
 name: Updatecli - Update
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
+
+permissions: {}
 
 jobs:
   updatecli:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3" # v6.0.0
+        uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: "Setup updatecli"
-        uses: "updatecli/updatecli-action@5ca36367fadc6ad94d590984fd9c696e783ec635" # v2.96.0
+        uses: "updatecli/updatecli-action@3e2cbfd2d4bec97ce3ec7155da54ddf599893026" # v3.1.0
         with:
-          version: "v0.114.0"
+          version: "v0.116.0"
 
       - name: "Run updatecli only on monitored pipelines"
-        run: updatecli compose apply --clean-git-branches=true --labels="monitoring:enabled" --experimental
+        run: updatecli compose apply --clean-git-branches=true --labels="monitor:active" --experimental
         env:
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
