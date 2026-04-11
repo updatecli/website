@@ -5,16 +5,23 @@ on:
   push:
     branches:
       - master
+
+permissions: {}
+
 jobs:
   updatecli:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
+        with:
+          persist-credentials: false
+
       - name: "Setup updatecli"
         uses: "updatecli/updatecli-action@3e2cbfd2d4bec97ce3ec7155da54ddf599893026" # v3.1.0
         with:
-          version: "v0.115.0"
+          version: "v0.116.0"
+
       - name: "Run updatecli only on monitored pipelines"
         run: updatecli compose apply --clean-git-branches=true --labels="monitor:active" --experimental
         env:
@@ -24,6 +31,7 @@ jobs:
           UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
           UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
           UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}
+
       - name: "Run updatecli only on existing pipelines"
         run: updatecli compose apply --clean-git-branches=true --existing-only=true --experimental
         env:
