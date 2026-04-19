@@ -6,16 +6,23 @@ on:
   schedule:
     # Run at 12:00 every Saterday every 14 days
     - cron: "0 12 */14 * *"
+
+permissions: {}
+
 jobs:
   updatecli:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
+        with:
+          persistent-credentials: false
+
       - name: "Setup updatecli"
         uses: "updatecli/updatecli-action@3e2cbfd2d4bec97ce3ec7155da54ddf599893026" # v3.1.0
         with:
-          version: "v0.115.0"
+          version: "v0.116.0"
+
       - name: "Run updatecli"
         run: updatecli compose apply --clean-git-branches=true --experimental
         env:

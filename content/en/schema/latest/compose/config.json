@@ -41,6 +41,10 @@
                         },
                         "type": "array",
                         "description": "Secrets contains a list of Updatecli secret file path"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "ID contains the policy ID, it can be used to filter policies to execute"
                     }
                 },
                 "additionalProperties": false,
@@ -67,12 +71,26 @@
             "type": "object",
             "description": "ValuesInline contains a list of inline values for Updatecli config\nThis is the default inline values that will be applied to all policies if not overridden by the policy inline values.\nA deep merge will be performed between global inline values and policy inline values if both are defined.\n\nExample:\n  key1: value1\n  key2: value2"
         },
+        "values": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array",
+            "description": "Values contains a list of Updatecli config file path\nThis is the default values file that will be applied to all policies if not overridden by the policy values file."
+        },
         "include": {
             "items": {
                 "type": "string"
             },
             "type": "array",
             "description": "Include contains a list of compose files to include"
+        },
+        "secrets": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array",
+            "description": "Secrets contains a list of Updatecli secret file path\nThis is the default secret file that will be applied to all policies if not overridden by the policy secret file."
         }
     },
     "additionalProperties": false,
