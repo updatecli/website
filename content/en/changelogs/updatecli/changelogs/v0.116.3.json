@@ -1,0 +1,214 @@
+{
+  "Changelog": {
+    "Assets": [
+      {
+        "CreatedAt": "2026-04-20T09:15:35Z",
+        "ContentType": "application/pgp-signature",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/checksums.txt.sig",
+        "Name": "checksums.txt.sig",
+        "UpdatedAt": "2026-04-20T09:15:35Z",
+        "Size": 9747
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:35Z",
+        "ContentType": "text/plain; charset=utf-8",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/checksums.txt",
+        "Name": "checksums.txt",
+        "UpdatedAt": "2026-04-20T09:15:35Z",
+        "Size": 2176
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:34Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:35Z",
+        "Size": 518005
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:34Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Windows_x86_64.zip.sbom.json",
+        "Name": "updatecli_Windows_x86_64.zip.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 527702
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:34Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Windows_arm64.zip.sbom.json",
+        "Name": "updatecli_Windows_arm64.zip.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 527374
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:34Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_x86_64.tar.gz.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 518328
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:34Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Darwin_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 518005
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:33Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Linux_arm64.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm64.tar.gz.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 517682
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:33Z",
+        "ContentType": "application/json",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Linux_arm.tar.gz.sbom.json",
+        "Name": "updatecli_Linux_arm.tar.gz.sbom.json",
+        "UpdatedAt": "2026-04-20T09:15:33Z",
+        "Size": 517036
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:32Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_arm64.rpm",
+        "Name": "updatecli_arm64.rpm",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 36383793
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:32Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_amd64.deb",
+        "Name": "updatecli_amd64.deb",
+        "UpdatedAt": "2026-04-20T09:15:34Z",
+        "Size": 40927164
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:31Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_arm64.deb",
+        "Name": "updatecli_arm64.deb",
+        "UpdatedAt": "2026-04-20T09:15:33Z",
+        "Size": 36459880
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:31Z",
+        "ContentType": "application/vnd.debian.binary-package",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_armv6.deb",
+        "Name": "updatecli_armv6.deb",
+        "UpdatedAt": "2026-04-20T09:15:33Z",
+        "Size": 37445914
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:30Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_armv6.rpm",
+        "Name": "updatecli_armv6.rpm",
+        "UpdatedAt": "2026-04-20T09:15:32Z",
+        "Size": 37373831
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:30Z",
+        "ContentType": "application/x-rpm",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_amd64.rpm",
+        "Name": "updatecli_amd64.rpm",
+        "UpdatedAt": "2026-04-20T09:15:32Z",
+        "Size": 40883462
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:29Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_arm64.apk",
+        "Name": "updatecli_arm64.apk",
+        "UpdatedAt": "2026-04-20T09:15:31Z",
+        "Size": 38002069
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:29Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_armv6.apk",
+        "Name": "updatecli_armv6.apk",
+        "UpdatedAt": "2026-04-20T09:15:31Z",
+        "Size": 39028431
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:28Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Linux_x86_64.tar.gz",
+        "Name": "updatecli_Linux_x86_64.tar.gz",
+        "UpdatedAt": "2026-04-20T09:15:29Z",
+        "Size": 40929024
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:27Z",
+        "ContentType": "application/vnd.android.package-archive",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_amd64.apk",
+        "Name": "updatecli_amd64.apk",
+        "UpdatedAt": "2026-04-20T09:15:30Z",
+        "Size": 42923543
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:27Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Windows_x86_64.zip",
+        "Name": "updatecli_Windows_x86_64.zip",
+        "UpdatedAt": "2026-04-20T09:15:29Z",
+        "Size": 41866592
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:27Z",
+        "ContentType": "application/zip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Windows_arm64.zip",
+        "Name": "updatecli_Windows_arm64.zip",
+        "UpdatedAt": "2026-04-20T09:15:29Z",
+        "Size": 36694485
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:25Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Darwin_arm64.tar.gz",
+        "Name": "updatecli_Darwin_arm64.tar.gz",
+        "UpdatedAt": "2026-04-20T09:15:27Z",
+        "Size": 38374476
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:25Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Linux_arm64.tar.gz",
+        "Name": "updatecli_Linux_arm64.tar.gz",
+        "UpdatedAt": "2026-04-20T09:15:27Z",
+        "Size": 36465259
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:25Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Darwin_x86_64.tar.gz",
+        "Name": "updatecli_Darwin_x86_64.tar.gz",
+        "UpdatedAt": "2026-04-20T09:15:27Z",
+        "Size": 41809801
+      },
+      {
+        "CreatedAt": "2026-04-20T09:15:25Z",
+        "ContentType": "application/gzip",
+        "DownloadURL": "https://github.com/updatecli/updatecli/releases/download/v0.116.3/updatecli_Linux_arm.tar.gz",
+        "Name": "updatecli_Linux_arm.tar.gz",
+        "UpdatedAt": "2026-04-20T09:15:27Z",
+        "Size": 37445811
+      }
+    ],
+    "Author": " (github-actions[bot])",
+    "Description": "\n",
+    "URL": "https://github.com/updatecli/updatecli/releases/tag/v0.116.3",
+    "PublishedAt": "2026-04-20 09:15:35 +0000 UTC",
+    "UpdatedAt": "2026-04-20 09:15:35 +0000 UTC",
+    "Tag": "v0.116.3",
+    "Name": "v0.116.3"
+  },
+  "FrontMatters": "---\ntitle: \"v0.116.3\"\ndate: 2026-04-20 09:15:35 +0000 UTC\n---\n"
+}
