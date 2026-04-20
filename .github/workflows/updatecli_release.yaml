@@ -9,9 +9,7 @@ on:
   repository_dispatch:
     types:
       - "updatecli-release"
-
 permissions: {}
-
 jobs:
   updatecli:
     runs-on: ubuntu-latest
@@ -23,17 +21,14 @@ jobs:
         uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
         with:
           persist-credentials: false
-
       - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@3e2cbfd2d4bec97ce3ec7155da54ddf599893026" # v3.1.0
+        uses: "updatecli/updatecli-action@af341a800cdbcde3ddcebb7a62410ac06a78a207" # v3.1.2
         with:
           version: "v0.116.0"
-
       # releasepost is required by the Updatecli
       #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
       - name: "Install Releasepost"
         uses: "updatecli/releasepost-action@864390bddae97db06ee881ab4a08d159b4464643" # v0.5.0
-
       - name: "Run updatecli only on release pipelines"
         run: updatecli compose apply --clean-git-branches=true --labels="release:updatecli" --experimental
         env:
@@ -43,7 +38,6 @@ jobs:
           UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
           UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
           UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}
-
       - name: "Run updatecli"
         run: "updatecli compose apply --file updatecli-compose-release.yaml --experimental"
         env:
