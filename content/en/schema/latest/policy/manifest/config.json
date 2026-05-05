@@ -6,6 +6,17 @@
             "type": "string",
             "description": "\"name\" defines a pipeline name\n\nexample:\n\t* \"name: 'deps: update nodejs version to latest stable'\"\n\nremark:\n\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t* using conventional commits convention is a good way to name your pipeline.\n\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t* \"name\" shouldn't contain any dynamic information such as source output."
         },
+        "id": {
+            "type": "string",
+            "description": "\"id\" defines a manifest dependency identifier that can be referenced by other manifests.\n\nexample:\n\t* \"id: nodejs\"\n\t* \"id: docker/alpine\"\n\nremark:\n\t* \"id\" only affects manifest execution ordering.\n\t* \"id\" is used by the root manifest \"dependson\" keyword.\n\t* multiple manifests may intentionally share the same \"id\".\n\t* unlike \"pipelineid\", \"id\" does not affect branch naming or workflow grouping."
+        },
+        "dependson": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array",
+            "description": "\"dependson\" defines which manifest IDs must run before the current manifest.\n\nexample:\n---\ndependson:\n  - base-images\n  - shared-policies\n---\n\nremark:\n\t* entries reference root manifest \"id\" values.\n\t* if multiple manifests share the same \"id\" then all of them must run first.\n\t* \"dependson\" only affects manifest execution ordering."
+        },
         "pipelineid": {
             "type": "string",
             "description": "\"pipelineid\" allows to identify a full pipeline run.\n\nexample:\n\t* \"pipelineid: nodejs/dependencies\"\n\t* \"pipelineid: gomod/github.com/updatecli/updatecli\"\n\t* \"pipelineid: autodiscovery/gomodules/minor\"\n\nremark:\n\t* \"pipelineid\" is used to generate uniq branch name for target update relying on scm configuration.\n\t* The same \"pipelineid\" may be used by different Updatecli manifest\" to ensure they are updated in the same workflow including pullrequest."
