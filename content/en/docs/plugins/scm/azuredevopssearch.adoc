@@ -1,0 +1,72 @@
+---
+title: "Azure DevOps Search"
+description: "Use Azure DevOps search to interact with multiple repositories"
+lead: "kind: azuredevopssearch"
+date: 2025-05-12T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The Azure DevOps Search SCM plugin allows you to interact with multiple Azure DevOps repositories at once — either by fetching files or by pushing updates to them. Repositories are discovered dynamically using regex patterns for project name, repository name, and branch name.
+
+**condition**
+
+When used in a condition, the SCM block typically fetches files or metadata from the matching repositories.
+
+**target**
+
+When used in a target, the SCM block pushes changes to all matching repositories.
+
+By default, the Azure DevOps Search SCM uses a working branch workflow: it creates a temporary branch, commits the changes, and opens a pull request targeting the branch defined in the configuration for each matching repository.
+
+== Parameters
+
+{{< resourceparameters "scms" "azuredevopssearch" >}}
+
+=== Authentication
+
+include::content/en/docs/plugins/_azuredevopsAuth.adoc[]
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+
+== Example
+
+This pipeline automatically updates the Golang version across multiple Azure DevOps repositories within the `myorg` organization.
+Using the `azuredevopssearch` SCM, it discovers all repositories within projects and branches matching the configured regex patterns, and opens pull requests that update the Golang version in the build workflows accordingly.
+All changes are squashed into one commit per repository.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/azuredevopssearch/updatecli.d/default.yaml">}}
+----

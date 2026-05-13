@@ -1,0 +1,72 @@
+---
+title: "Azure DevOps"
+description: "Interact with Azure DevOps repositories"
+lead: "kind: azuredevops"
+date: 2025-05-12T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The Azure DevOps SCM plugin is used to manage git repositories hosted on Azure DevOps. Depending on the stage, it can be used for different purposes:
+
+**condition**
+
+When used in a condition, the SCM block fetches files or metadata from the specified Azure DevOps repository.
+
+**target**
+
+When used in a target, the SCM block pushes changes to that repository.
+
+By default, the Azure DevOps SCM uses a working branch workflow: it creates a temporary branch, commits the changes, and opens a pull request targeting the branch defined in the configuration.
+
+== Parameters
+
+{{< resourceparameters "scms" "azuredevops" >}}
+
+=== Authentication
+
+include::content/en/docs/plugins/_azuredevopsAuth.adoc[]
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+
+== Example
+
+This pipeline automatically updates the Golang version in an Azure DevOps repository.
+Updatecli retrieves the latest matching Golang version and opens a pull request that updates the build workflow file accordingly.
+It creates the pull request on a temporary working branch, following the Azure DevOps workflow.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/azuredevops/updatecli.d/default.yaml">}}
+----
