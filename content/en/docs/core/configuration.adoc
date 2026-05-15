@@ -74,6 +74,15 @@ pipelineid: go/version
 In Git, / is treated as a directory separator in branch names, which can make branch management confusing.
 ====
 
+=== Manifest Order
+
+When running multiple manifests, Updatecli can order them explicitly with the root keys `id` and `dependson`.
+
+Use `id` to declare a manifest identifier, and `dependson` to list which manifest IDs must run first.
+This affects manifest execution order only and does not replace `pipelineid`.
+
+To learn more, see **link:/docs/core/order[manifest order]**.
+
 === File
 
 Each Updatecli pipeline is defined in its own manifest file.
@@ -191,6 +200,7 @@ That can used in a pipeline manifest as:
 * To know more about Condition syntax **link:/docs/core/condition[condition]**
 * To know more about Source syntax **link:/docs/core/source[source]**
 * To know more about Target syntax **link:/docs/core/target[target]**
+* To know more about manifest ordering **link:/docs/core/order[manifest order]**
 * To know more about **link:/plugins/[Plugins]**
 ** More specifically about the **link:/plugins/source[source]**
 ** More specifically about the **link:/plugins/condition[condition]**
