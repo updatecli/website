@@ -1,0 +1,179 @@
+---
+title: "Manifest Order"
+description: "Control the order in which Updatecli manifests run"
+date: 2026-04-15T07:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "core"
+weight: 130
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+By default, Updatecli treats each manifest as an independent pipeline and do not guarantee ordering.
+When you run multiple manifests from the same directory, Updatecli can now order them explicitly before execution.
+
+Manifest ordering is controlled with two root keys:
+
+* `id`: declares the manifest identifier that other manifests can depend on
+* `dependson`: lists the manifest IDs that must run first
+
+This is useful when one manifest prepares data, policies, or files that another manifest relies on.
+
+[IMPORTANT]
+====
+`id` and `dependson` only affect the execution order of manifests.
+
+They do *not* change:
+
+* branch naming
+* pull request grouping
+* workflow grouping
+
+For those behaviors, keep using `pipelineid`.
+====
+
+== Parameters
+
+=== `id`
+
+The `id` key defines a manifest dependency identifier.
+
+[source,yaml]
+----
+name: Base image updates
+id: base-images
+----
+
+Use `id` when another manifest must wait for this one to complete.
+
+[NOTE]
+====
+Multiple manifests may intentionally share the same `id`.
+When another manifest depends on that `id`, Updatecli waits for *all* matching manifests to run first.
+====
+
+=== `dependson`
+
+The `dependson` key lists the manifest IDs that must be executed before the current manifest.
+
+[source,yaml]
+----
+name: Application updates
+id: app
+dependson:
+  - base-images
+  - shared-policies
+----
+
+Each entry in `dependson` must reference an existing manifest `id`.
+
+== Example
+
+In this example, the application manifest only runs after the base image manifest has been evaluated.
+
+++++
+<details><summary>manifests/base.yaml</summary>
+
+<pre>
+name: Base image updates
+id: base-images
+
+sources:
+  alpine:
+    name: Get latest Alpine version
+    kind: dockerimage
+    spec:
+      image: alpine
+      tag: latest
+
+targets:
+  dockerfile:
+    name: Update Dockerfile base image
+    kind: dockerfile
+    spec:
+      file: Dockerfile
+      instruction: FROM
+</pre>
+</details>
+++++
+
+++++
+<details><summary>manifests/app.yaml</summary>
+
+<pre>
+name: Application updates
+id: app
+dependson:
+  - base-images
+
+sources:
+  version:
+    name: Get latest release
+    kind: githubrelease
+    spec:
+      owner: updatecli
+      repository: updatecli
+
+targets:
+  yaml:
+    name: Update application version
+    kind: yaml
+    spec:
+      file: values.yaml
+      key: $.image.tag
+</pre>
+</details>
+++++
+
+If you run Updatecli against the `manifests/` directory, it executes `base.yaml` before `app.yaml`.
+
+== Behavior
+
+=== Shared IDs
+
+If multiple manifests share the same `id`, a dependency waits for all of them.
+
+[source,yaml]
+----
+# policies/a.yaml
+name: Policy A
+id: shared-policy
+
+# policies/b.yaml
+name: Policy B
+id: shared-policy
+
+# app.yaml
+name: App
+dependson:
+  - shared-policy
+----
+
+In this case, `app.yaml` runs after both `policies/a.yaml` and `policies/b.yaml`.
+
+=== Legacy manifests
+
+Manifests without an explicit `id` continue to work as before.
+They keep their existing execution order, but they cannot be referenced from another manifest using `dependson`.
+
+=== Invalid dependencies
+
+Updatecli stops with an error when:
+
+* a manifest depends on an unknown `id`
+* a manifest depends on its own `id`
+* manifest dependencies create a cycle
+
+== Go Further
+
+* To understand the full manifest structure, see **link:/docs/core/configuration[configuration]**
+* To group manifests into the same workflow, see `pipelineid` in **link:/docs/core/configuration[configuration]**
+* To order resources inside a single manifest, see **link:/docs/core/condition[condition]**, **link:/docs/core/source[source]**, and **link:/docs/core/target[target]**
