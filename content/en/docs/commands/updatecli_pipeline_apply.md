@@ -1,7 +1,7 @@
 ---
-title: updatecli apply
-description: Documentation for the command `updatecli apply`
-lead: Documentation for the command `updatecli apply`
+title: updatecli pipeline apply
+description: Documentation for the command `updatecli pipeline apply`
+lead: Documentation for the command `updatecli pipeline apply`
 draft: false
 images: []
 menu:
@@ -11,12 +11,12 @@ weight: 130
 toc: true
 ---
 
-## updatecli apply
+## updatecli pipeline apply
 
-**Deprecated in favor of updatecli pipeline apply** apply checks if an update is needed then apply the changes
+apply checks if an update is needed then apply the changes
 
 ```
-updatecli apply NAME[:TAG|@DIGEST] [flags]
+updatecli pipeline apply NAME[:TAG|@DIGEST] [flags]
 ```
 
 ### Options
@@ -29,8 +29,8 @@ updatecli apply NAME[:TAG|@DIGEST] [flags]
       --disable-tls                 Disable TLS verification like '--disable-tls=true'
       --existing-only               Skip targets when pipeline has no existing remote branch '--existing-only=true'
   -h, --help                        help for apply
-      --labels stringArray          Filter pipelines by their labels, accepted as a comma separated list (key:value)
-      --pipeline-ids stringArray    Filter pipelines to apply by their pipeline IDs, accepted as comma separated list
+      --labels stringArray          Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
+      --pipeline-ids stringArray    Filter pipelines to apply by their IDs, accepted as a comma separated list
       --push                        Update remote refs '--push=false' (default true)
       --reportAPI string            Set the report API URL where to publish pipeline reports
       --secrets stringArray         Sets Sops secrets file uses for templating
@@ -48,5 +48,5 @@ updatecli apply NAME[:TAG|@DIGEST] [flags]
 
 ### SEE ALSO
 
-* [updatecli](/docs/commands/updatecli)	 - Updatecli is a declarative dependency manager command line tool
+* [updatecli pipeline](/docs/commands/updatecli_pipeline)	 - pipeline executes specific pipeline tasks such as diff or apply
 

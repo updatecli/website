@@ -1,7 +1,7 @@
 ---
-title: updatecli manifest show
-description: Documentation for the command `updatecli manifest show`
-lead: Documentation for the command `updatecli manifest show`
+title: updatecli pipeline diff
+description: Documentation for the command `updatecli pipeline diff`
+lead: Documentation for the command `updatecli pipeline diff`
 draft: false
 images: []
 menu:
@@ -11,12 +11,12 @@ weight: 130
 toc: true
 ---
 
-## updatecli manifest show
+## updatecli pipeline diff
 
-show manifest(s) which will be executed
+diff shows changes
 
 ```
-updatecli manifest show NAME[:TAG|@DIGEST] [flags]
+updatecli pipeline diff NAME[:TAG|@DIGEST] [flags]
 ```
 
 ### Options
@@ -24,15 +24,12 @@ updatecli manifest show NAME[:TAG|@DIGEST] [flags]
 ```
       --clean                       Remove updatecli working directory like '--clean=true'
   -c, --config stringArray          Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
-      --disable-prepare             --disable-prepare skip the Updatecli 'prepare' stage
-      --disable-templating          Disable manifest templating
       --disable-tls                 Disable TLS verification like '--disable-tls=true'
-      --graph                       Output in graph format
-      --graph-flavor string         Flavor of graph format, accepted values are 'dot' for graphviz or 'mermaid' (default "dot")
-  -h, --help                        help for show
+  -h, --help                        help for diff
       --labels stringArray          Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
-      --pipeline-ids stringArray    Filter pipelines to apply by their IDs, accepted a comma separated list
-      --secrets stringArray         Sets secrets file uses for templating
+      --pipeline-ids stringArray    Filter pipelines to apply by their pipeline IDs, accepted a comma separated list
+      --reportAPI string            Set the report API URL where to publish pipeline reports
+      --secrets stringArray         Sets Sops secrets file uses for templating
   -v, --values stringArray          Sets values file uses for templating
   -i, --values-inline stringArray   Sets inline values uses for templating, accepted valid json/yaml string
 ```
@@ -47,5 +44,5 @@ updatecli manifest show NAME[:TAG|@DIGEST] [flags]
 
 ### SEE ALSO
 
-* [updatecli manifest](/docs/commands/updatecli_manifest)	 - manifest executes specific manifest task such as upgrade
+* [updatecli pipeline](/docs/commands/updatecli_pipeline)	 - pipeline executes specific pipeline tasks such as diff or apply
 

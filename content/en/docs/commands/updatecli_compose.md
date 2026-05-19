@@ -2,8 +2,6 @@
 title: updatecli compose
 description: Documentation for the command `updatecli compose`
 lead: Documentation for the command `updatecli compose`
-date: 2023-10-12T14:48:08+02:00
-lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -26,8 +24,9 @@ compose executes specific Updatecli compose tasks such as diff or apply
 ### Options inherited from parent commands
 
 ```
-      --debug          Debug Output
-      --experimental   Enable Experimental mode
+      --debug            Debug Output
+      --experimental     Enable Experimental mode
+      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO

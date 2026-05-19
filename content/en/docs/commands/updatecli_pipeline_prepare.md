@@ -1,7 +1,7 @@
 ---
-title: updatecli prepare
-description: Documentation for the command `updatecli prepare`
-lead: Documentation for the command `updatecli prepare`
+title: updatecli pipeline prepare
+description: Documentation for the command `updatecli pipeline prepare`
+lead: Documentation for the command `updatecli pipeline prepare`
 draft: false
 images: []
 menu:
@@ -11,12 +11,12 @@ weight: 130
 toc: true
 ---
 
-## updatecli prepare
+## updatecli pipeline prepare
 
 prepare run tasks needed for a run like `git clone`
 
 ```
-updatecli prepare NAME[:TAG|@DIGEST] [flags]
+updatecli pipeline prepare NAME[:TAG|@DIGEST] [flags]
 ```
 
 ### Options
@@ -43,5 +43,5 @@ updatecli prepare NAME[:TAG|@DIGEST] [flags]
 
 ### SEE ALSO
 
-* [updatecli](/docs/commands/updatecli)	 - Updatecli is a declarative dependency manager command line tool
+* [updatecli pipeline](/docs/commands/updatecli_pipeline)	 - pipeline executes specific pipeline tasks such as diff or apply
 
