@@ -2,8 +2,6 @@
 title: updatecli completion fish
 description: Documentation for the command `updatecli completion fish`
 lead: Documentation for the command `updatecli completion fish`
-date: 2023-10-12T14:48:08+02:00
-lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -46,8 +44,9 @@ updatecli completion fish [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug          Debug Output
-      --experimental   Enable Experimental mode
+      --debug            Debug Output
+      --experimental     Enable Experimental mode
+      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO

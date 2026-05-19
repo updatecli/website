@@ -1,7 +1,7 @@
 ---
-title: updatecli manifest pull
-description: Documentation for the command `updatecli manifest pull`
-lead: Documentation for the command `updatecli manifest pull`
+title: updatecli manifest init
+description: Documentation for the command `updatecli manifest init`
+lead: Documentation for the command `updatecli manifest init`
 draft: false
 images: []
 menu:
@@ -11,19 +11,18 @@ weight: 130
 toc: true
 ---
 
-## updatecli manifest pull
+## updatecli manifest init
 
-pull manifest(s) from an OCI registry
+init a new Updatecli policy
 
 ```
-updatecli manifest pull NAME[:TAG|@DIGEST] [flags]
+updatecli manifest init <path> [flags]
 ```
 
 ### Options
 
 ```
-      --disable-tls   Disable TLS verification like '--disable-tls=true'
-  -h, --help          help for pull
+  -h, --help   help for init
 ```
 
 ### Options inherited from parent commands

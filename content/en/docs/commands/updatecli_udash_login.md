@@ -2,8 +2,6 @@
 title: updatecli udash login
 description: Documentation for the command `updatecli udash login`
 lead: Documentation for the command `updatecli udash login`
-date: 2023-10-12T14:48:08+02:00
-lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -30,6 +28,7 @@ updatecli udash login app.updatecli.io
 ### Options
 
 ```
+      --api-url string              api-url defines the udash API URL
   -h, --help                        help for login
       --oauth-access-token string   oauth-access-token defines the Oauth access token
       --oauth-audience string       oauth-audience defines the Oauth audience URL
@@ -40,8 +39,9 @@ updatecli udash login app.updatecli.io
 ### Options inherited from parent commands
 
 ```
-      --debug          Debug Output
-      --experimental   Enable Experimental mode
+      --debug            Debug Output
+      --experimental     Enable Experimental mode
+      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO
