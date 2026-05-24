@@ -1,0 +1,45 @@
+---
+title: "Tangled Pull Request"
+description: "Open a Tangled Pull Request"
+lead: "kind: tangled/pullrequest"
+date: 2026-05-24T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-actions"
+toc: true
+plugins:
+  - actions
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The `actions` section describes the link:https://tangled.sh[Tangled] Pull Requests that updatecli is expected to open (or update) when the manifest is applied.
+
+Tangled pull requests are atproto records (`sh.tangled.repo.pull`) written on the author's Personal Data Server (PDS). The plugin:
+
+. Resolves the target repository DID by reading the `repoDid` field of the matching `sh.tangled.repo` record on the owner's PDS (or uses the explicit `repoDid` from the action spec when set). The appview indexes pull request records by this knot-minted DID, not by the owner DID.
+. Lists existing `sh.tangled.repo.pull` records on the author's PDS, cross-references them against `sh.tangled.repo.pull.status` records, and skips creation only when an *open* pull request already targets the same source/target branch pair. Closed or merged pulls do not block creation of a replacement.
+. Runs `git format-patch <target>..<source>` inside the scm working directory and gzip-compresses the resulting patch.
+. Uploads the gzipped patch as an atproto blob via `com.atproto.repo.uploadBlob`.
+. Writes the `sh.tangled.repo.pull` record via `com.atproto.repo.putRecord`.
+
+Authentication uses an atproto app password against the configured PDS (defaults to `https://bsky.social`; override with `pds` when your account lives elsewhere). Generate the app password from your PDS's web UI — never paste your account password into the manifest.
+
+== Parameters
+
+{{< resourceparameters "actions" "tangled/pullrequest" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/actions/tangled_pullrequest/updatecli.yaml">}}
+----
