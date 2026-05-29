@@ -1,5 +1,5 @@
 ---
-name: Updatecli Release
+name: Updatecli - Release
 on:
   workflow_dispatch:
   schedule:
@@ -12,36 +12,29 @@ on:
 permissions: {}
 jobs:
   updatecli:
+    name: "Updatecli - ${{ matrix.target_name }}"
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - target_name: "release pipelines"
+            apply_args: "--file updatecli-compose-release.yaml"
+          - target_name: "updatecli release"
+            apply_args: "--labels=release:updatecli"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
         with:
           persist-credentials: false
-      - name: "Install Updatecli"
-        uses: "updatecli/updatecli-action@2c3221bc5f4499a99fec2c87d9de4a83cb30e990" # v3.1.3
+      - name: "Setup updatecli"
+        uses: "updatecli/updatecli-action@e71be7554f3f940bc439cf720b3e4e379823c562" # v3.2.0
         with:
           version: "v0.117.1"
-      # releasepost is required by the Updatecli
-      #   * policy ghcr.io/updatecli/policies/releasepost/releasepost
-      - name: "Install Releasepost"
-        uses: "updatecli/releasepost-action@864390bddae97db06ee881ab4a08d159b4464643" # v0.5.0
-      - name: "Run updatecli only on release pipelines"
-        run: updatecli compose apply --clean-git-branches=true --labels="release:updatecli" --experimental
-        env:
-          UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
-          UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
-          UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
-          UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
-          UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
-          UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}
       - name: "Run updatecli"
-        run: "updatecli compose apply --file updatecli-compose-release.yaml --experimental"
+        run: updatecli compose apply --clean-git-branches=true ${{ matrix.apply_args }} --experimental
         env:
-          RELEASEPOST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
           UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
