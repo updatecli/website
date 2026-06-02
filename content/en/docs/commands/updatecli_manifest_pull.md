@@ -2,8 +2,6 @@
 title: updatecli manifest pull
 description: Documentation for the command `updatecli manifest pull`
 lead: Documentation for the command `updatecli manifest pull`
-date: 2023-10-12T14:48:08+02:00
-lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -31,8 +29,9 @@ updatecli manifest pull NAME[:TAG|@DIGEST] [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug          Debug Output
-      --experimental   Enable Experimental mode
+      --debug            Debug Output
+      --experimental     Enable Experimental mode
+      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO

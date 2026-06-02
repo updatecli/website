@@ -1,0 +1,43 @@
+---
+title: "Azure DevOps Pull Request"
+description: "Open an Azure DevOps Pull Request"
+lead: "kind: azuredevops/pullrequest"
+date: 2025-05-12T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-actions"
+toc: true
+plugins:
+  - actions
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The `actions` section describes the link:https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests[Azure DevOps Pull Requests] that Updatecli is expected to open (or update) when the manifest is applied.
+
+The `azuredevops/pullrequest` action is typically paired with an `azuredevops` or `azuredevopssearch` SCM block. Updatecli will create or update a pull request from the working branch to the target branch whenever a target produces a change.
+
+== Parameters
+
+{{< resourceparameters "actions" "azuredevops/pullrequest" >}}
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/actions/azuredevops_pullrequest/updatecli.yaml">}}
+----
+
+== Links
+
+* link:https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests[Documentation: Azure DevOps Pull Requests]
+* link:https://learn.microsoft.com/en-us/azure/devops/repos/git/branch-policies[Documentation: Azure DevOps Branch Policies]
+* link:https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate[Documentation: Azure DevOps Personal Access Tokens]

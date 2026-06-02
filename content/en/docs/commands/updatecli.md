@@ -2,8 +2,6 @@
 title: updatecli
 description: Documentation for the command `updatecli`
 lead: Documentation for the command `updatecli`
-date: 2023-10-12T14:48:08+02:00
-lastmod: 2023-10-12T14:48:08+02:00
 draft: false
 images: []
 menu:
@@ -32,19 +30,21 @@ Updatecli  works into three stages:
 ### Options
 
 ```
-      --debug          Debug Output
-      --experimental   Enable Experimental mode
-  -h, --help           help for updatecli
+      --debug            Debug Output
+      --experimental     Enable Experimental mode
+  -h, --help             help for updatecli
+      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO
 
-* [updatecli apply](/docs/commands/updatecli_apply)	 - apply checks if an update is needed then apply the changes
+* [updatecli apply](/docs/commands/updatecli_apply)	 - **Deprecated in favor of updatecli pipeline apply** apply checks if an update is needed then apply the changes
 * [updatecli completion](/docs/commands/updatecli_completion)	 - Generate the autocompletion script for the specified shell
 * [updatecli compose](/docs/commands/updatecli_compose)	 - compose executes specific Updatecli compose tasks such as diff or apply
-* [updatecli diff](/docs/commands/updatecli_diff)	 - diff shows changes
+* [updatecli diff](/docs/commands/updatecli_diff)	 - **Deprecated in favor of updatecli pipeline diff** diff shows changes
 * [updatecli jsonschema](/docs/commands/updatecli_jsonschema)	 - **Experimental** Export JsonSchema to file
 * [updatecli manifest](/docs/commands/updatecli_manifest)	 - manifest executes specific manifest task such as upgrade
+* [updatecli pipeline](/docs/commands/updatecli_pipeline)	 - pipeline executes specific pipeline tasks such as diff or apply
 * [updatecli prepare](/docs/commands/updatecli_prepare)	 - prepare run tasks needed for a run like `git clone`
 * [updatecli show](/docs/commands/updatecli_show)	 - **Deprecated in favor of updatecli manifest show** Print the configuration that will be executed
 * [updatecli udash](/docs/commands/updatecli_udash)	 - udash provides various Udash service integration.

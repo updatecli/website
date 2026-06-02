@@ -5,35 +5,33 @@ on:
   push:
     branches:
       - master
-
+  schedule:
+    - cron: "0 1 * * *"
 permissions: {}
-
 jobs:
   updatecli:
+    name: "Updatecli - ${{ matrix.target_name }}"
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - target_name: "monitored pipelines"
+            apply_args: "--labels=monitor:active"
+          - target_name: "existing pipelines"
+            apply_args: "--existing-only=true"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd" # v6.0.2
         with:
           persist-credentials: false
-
       - name: "Setup updatecli"
-        uses: "updatecli/updatecli-action@3e2cbfd2d4bec97ce3ec7155da54ddf599893026" # v3.1.0
+        uses: "updatecli/updatecli-action@e71be7554f3f940bc439cf720b3e4e379823c562" # v3.2.0
         with:
-          version: "v0.116.0"
-
-      - name: "Run updatecli only on monitored pipelines"
-        run: updatecli compose apply --clean-git-branches=true --labels="monitor:active" --experimental
-        env:
-          UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
-          UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
-          UPDATECLI_GITHUB_APP_INSTALLATION_ID: ${{ secrets.UPDATECLIBOT_APP_INSTALLATION_ID }}
-          UPDATECLI_UDASH_API_URL: ${{ secrets.UPDATECLI_UDASH_API_URL }}
-          UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UPDATECLI_UDASH_ACCESS_TOKEN }}
-          UPDATECLI_UDASH_URL: ${{ secrets.UPDATECLI_UDASH_URL }}
-
-      - name: "Run updatecli only on existing pipelines"
-        run: updatecli compose apply --clean-git-branches=true --existing-only=true --experimental
+          version: "v0.117.1"
+      - name: "Run updatecli"
+        run: updatecli compose apply --clean-git-branches=true ${{ matrix.apply_args }} --experimental
         env:
           UPDATECLI_GITHUB_APP_CLIENT_ID: ${{ secrets.UPDATECLIBOT_APP_ID }}
           UPDATECLI_GITHUB_APP_PRIVATE_KEY: ${{ secrets.UPDATECLIBOT_APP_PRIVKEY }}
