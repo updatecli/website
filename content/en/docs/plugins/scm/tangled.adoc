@@ -1,0 +1,73 @@
+---
+title: "Tangled"
+description: "Interact with Tangled repositories"
+lead: "Tangled scm"
+date: 2026-05-24T00:00:00+00:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+---
+
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The Tangled scm plugin is used to manage git repositories hosted on link:https://tangled.sh[Tangled], an AT protocol based git host. Depending on the stage, it can be used for different purposes:
+
+**source**: Retrieve data from a git repository, such as a file content +
+**condition**: Ensure data exist on a git repository, such as a file content +
+**target**: Ensure data is up to date on a git repository
+
+== Authentication
+
+Tangled repositories live on knots (git servers) while pull request records are stored as atproto records on the author's Personal Data Server (PDS).
+
+* Git clone and push both go through SSH. Tangled knots reject HTTPS pushes, so the plugin uses an `ssh://`-style URL for both directions. For the default knot (`knot1.tangled.sh`), the SSH gateway lives on `tangled.org`; self-hosted knots use the knot hostname directly. The plugin builds the URL automatically from `owner` and `repository`; override with `cloneURL` only if you need a different host or path.
+* Authentication relies on your SSH agent. Make sure the key registered with your Tangled account is loaded (`ssh-add ~/.ssh/id_ed25519`); the underlying `go-git` transport does not read default identity files on its own.
+* Pull request creation uses an atproto app password against the user's PDS (no token is sent to the knot itself). Generate the app password from your PDS's web UI (Bluesky users: https://bsky.app/settings/app-passwords).
+
+== Parameters
+
+{{< resourceparameters "scms" "tangled" >}}
+
+=== CommitMessage
+
+Updatecli uses conventional commits as described on link:https://www.conventionalcommits.org/[www.conventionalcommits.org].
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default | Description
+| type ||chore| Specify commit type
+| scope ||| Specify commit scope
+| footer ||| Specify commit footer message
+| title ||| Override default body message
+| hideCredit ||| Remove "Made with ❤️️  by updatecli" from commit message
+| body ||| Override default body message
+|===
+
+=== GPG
+
+Updatecli can sign commits using a private GPG key if configured accordingly.
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default | Description
+| signingkey ||| Defines the armored private gpg key
+| password ||| Defines the gpg key password
+|===
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/tangled/updatecli.yaml">}}
+----
