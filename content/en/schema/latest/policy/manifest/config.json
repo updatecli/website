@@ -1299,7 +1299,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "`versionfilter` provides parameters to specify the version pattern to use when generating manifest.\n\n\t\tkind - semver\n\t\t\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\t\t\tpattern accepts one of:\n\t\t\t\t`patch` - patch only update patch version\n\t\t\t\t`minor` - minor only update minor version\n\t\t\t\t`major` - major only update major versions\n\t\t\t\t`a version constraint` such as `\u003e= 1.0.0`\n\n\t\tkind - regex\n\t\t\tversionfilter of kind `regex` uses regular expression as version filtering\n\t\t\tpattern accepts a valid regular expression\n\n\t\texample:\n\t\t```\n\t\t\tversionfilter:\n\t\t\t\tkind: semver\n\t\t\t\tpattern: minor\n\t\t```\n\n\t\tand its type like regex, semver, or just latest."
+                                    "description": "`versionfilter` provides parameters to specify the version pattern to use when generating manifest.\n\nkind - semver\n\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\tpattern accepts one of:\n\t  `patch` - patch only update patch version\n\t  `minor` - minor only update minor version\n\t  `major` - major only update major versions\n\t  `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\n\tversionfilter of kind `regex` uses regular expression as version filtering\n\tpattern accepts a valid regular expression\n\nexample:\n```\n\tversionfilter:\n\t\tkind: semver\n\t\tpattern: minor\n```\n\nand its type like regex, semver, or just latest."
                                 }
                             },
                             "additionalProperties": false,
@@ -9530,7 +9530,7 @@
                                 "properties": {
                                     "version": {
                                         "type": "string",
-                                        "description": "[C] Version defines a specific golang version"
+                                        "description": "Version defines a specific golang version\n\nCompatible:\n  * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -9568,7 +9568,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "versionfilter provides parameters to specify version pattern and\nits type like regex, semver, or just latest.\n\nCompatible:\n  * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -9936,15 +9936,15 @@
                                 "properties": {
                                     "proxy": {
                                         "type": "string",
-                                        "description": "Proxy may have the schemes https, http. file is not supported at this time. If a URL has no scheme, https is assumed\n[S][C] Proxy allows to override GO proxy similarly to GOPROXY environment variable."
+                                        "description": "Proxy allows to override GO proxy similarly to GOPROXY environment variable.\nProxy may have the schemes https, http. file is not supported at this time. If a URL has no scheme, https is assumed\nCompatible:\n  * source\n  * condition"
                                     },
                                     "module": {
                                         "type": "string",
-                                        "description": "[S][C] Module specifies the name of the module"
+                                        "description": "module specifies the name of the Golang module\n\nCompatible:\n  * source\n  * condition"
                                     },
                                     "version": {
                                         "type": "string",
-                                        "description": "[C] Defines a specific package version"
+                                        "description": "version defines a specific package version to check\n\nCompatible:\n  * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -9982,7 +9982,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\nCompatible:\n  * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -18921,7 +18921,7 @@
                                 "properties": {
                                     "version": {
                                         "type": "string",
-                                        "description": "[C] Version defines a specific golang version"
+                                        "description": "Version defines a specific golang version\n\nCompatible:\n  * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -18959,7 +18959,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "versionfilter provides parameters to specify version pattern and\nits type like regex, semver, or just latest.\n\nCompatible:\n  * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -19345,15 +19345,15 @@
                                 "properties": {
                                     "proxy": {
                                         "type": "string",
-                                        "description": "Proxy may have the schemes https, http. file is not supported at this time. If a URL has no scheme, https is assumed\n[S][C] Proxy allows to override GO proxy similarly to GOPROXY environment variable."
+                                        "description": "Proxy allows to override GO proxy similarly to GOPROXY environment variable.\nProxy may have the schemes https, http. file is not supported at this time. If a URL has no scheme, https is assumed\nCompatible:\n  * source\n  * condition"
                                     },
                                     "module": {
                                         "type": "string",
-                                        "description": "[S][C] Module specifies the name of the module"
+                                        "description": "module specifies the name of the Golang module\n\nCompatible:\n  * source\n  * condition"
                                     },
                                     "version": {
                                         "type": "string",
-                                        "description": "[C] Defines a specific package version"
+                                        "description": "version defines a specific package version to check\n\nCompatible:\n  * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -19391,7 +19391,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\nCompatible:\n  * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -28681,7 +28681,7 @@
                                 "properties": {
                                     "version": {
                                         "type": "string",
-                                        "description": "[C] Version defines a specific golang version"
+                                        "description": "Version defines a specific golang version\n\nCompatible:\n  * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -28719,7 +28719,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "versionfilter provides parameters to specify version pattern and\nits type like regex, semver, or just latest.\n\nCompatible:\n  * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -29123,15 +29123,15 @@
                                 "properties": {
                                     "proxy": {
                                         "type": "string",
-                                        "description": "Proxy may have the schemes https, http. file is not supported at this time. If a URL has no scheme, https is assumed\n[S][C] Proxy allows to override GO proxy similarly to GOPROXY environment variable."
+                                        "description": "Proxy allows to override GO proxy similarly to GOPROXY environment variable.\nProxy may have the schemes https, http. file is not supported at this time. If a URL has no scheme, https is assumed\nCompatible:\n  * source\n  * condition"
                                     },
                                     "module": {
                                         "type": "string",
-                                        "description": "[S][C] Module specifies the name of the module"
+                                        "description": "module specifies the name of the Golang module\n\nCompatible:\n  * source\n  * condition"
                                     },
                                     "version": {
                                         "type": "string",
-                                        "description": "[C] Defines a specific package version"
+                                        "description": "version defines a specific package version to check\n\nCompatible:\n  * condition"
                                     },
                                     "versionfilter": {
                                         "properties": {
@@ -29169,7 +29169,7 @@
                                         },
                                         "additionalProperties": false,
                                         "type": "object",
-                                        "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                        "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\nCompatible:\n  * source"
                                     }
                                 },
                                 "additionalProperties": false,
