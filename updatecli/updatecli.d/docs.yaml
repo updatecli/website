@@ -38,4 +38,10 @@ targets:
       command: updatecli docs -d ./content/en/docs/commands
       environments:
         - name: PATH
+      changedif:
+        kind: exitcode
+        spec:
+          warning: 2
+          success: 0
+          failure: 1
     scmid: default
