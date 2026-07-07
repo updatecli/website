@@ -24,6 +24,7 @@ updatecli diff NAME[:TAG|@DIGEST] [flags]
 ```
       --clean                       Remove updatecli working directory like '--clean=true'
   -c, --config stringArray          Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
+      --disable-changelog           Disable changelog retrieval to avoid unnecessary requests (env: UPDATECLI_DISABLE_CHANGELOG)
       --disable-tls                 Disable TLS verification like '--disable-tls=true'
   -h, --help                        help for diff
       --labels stringArray          Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
@@ -37,9 +38,10 @@ updatecli diff NAME[:TAG|@DIGEST] [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug            Debug Output
-      --experimental     Enable Experimental mode
-      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
+      --debug                   Debug Output
+      --disable-version-check   Disable version check (env: UPDATECLI_DISABLE_VERSION_CHECK)
+      --experimental            Enable Experimental mode
+      --unique-tmp-dir          Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO
