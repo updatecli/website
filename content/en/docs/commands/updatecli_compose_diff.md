@@ -23,6 +23,7 @@ updatecli compose diff [flags]
 
 ```
       --clean                            Remove updatecli working directory like '--clean=true'
+      --disable-changelog                Disable changelog retrieval to avoid unnecessary requests (env: UPDATECLI_DISABLE_CHANGELOG)
       --disable-tls                      Disable TLS verification like '--disable-tls=true'
   -f, --file string                      Define the Updatecli compose file name (default "updatecli-compose.yaml")
   -h, --help                             help for diff
@@ -36,9 +37,10 @@ updatecli compose diff [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug            Debug Output
-      --experimental     Enable Experimental mode
-      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
+      --debug                   Debug Output
+      --disable-version-check   Disable version check (env: UPDATECLI_DISABLE_VERSION_CHECK)
+      --experimental            Enable Experimental mode
+      --unique-tmp-dir          Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO

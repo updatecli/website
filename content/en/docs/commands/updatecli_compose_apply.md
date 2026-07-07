@@ -25,6 +25,7 @@ updatecli compose apply [flags]
       --clean                            Remove updatecli working directory like '--clean=true'
       --clean-git-branches               Remove git branches created by updatecli like '--clean-git-branches=true'
       --commit                           Record changes to the repository, '--commit=false' (default true)
+      --disable-changelog                Disable changelog retrieval to avoid unnecessary requests (env: UPDATECLI_DISABLE_CHANGELOG)
       --disable-tls                      Disable TLS verification like '--disable-tls=true'
       --existing-only                    Skip targets when pipeline has no existing remote branch '--existing-only=true'
   -f, --file string                      Define the update-compose file (default "updatecli-compose.yaml")
@@ -40,9 +41,10 @@ updatecli compose apply [flags]
 ### Options inherited from parent commands
 
 ```
-      --debug            Debug Output
-      --experimental     Enable Experimental mode
-      --unique-tmp-dir   Use a unique temporary directory to allow running multiple Updatecli instances in parallel
+      --debug                   Debug Output
+      --disable-version-check   Disable version check (env: UPDATECLI_DISABLE_VERSION_CHECK)
+      --experimental            Enable Experimental mode
+      --unique-tmp-dir          Use a unique temporary directory to allow running multiple Updatecli instances in parallel
 ```
 
 ### SEE ALSO
