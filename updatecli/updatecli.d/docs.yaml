@@ -39,3 +39,10 @@ targets:
       environments:
         - name: PATH
     scmid: default
+    changedif:
+      kind: exitcode
+      spec:
+        warning: 2
+        success: 0
+        failure: 1
+
