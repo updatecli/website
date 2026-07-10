@@ -1300,6 +1300,21 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "`versionfilter` provides parameters to specify the version pattern to use when generating manifest.\n\nkind - semver\n\tversionfilter of kind `semver` uses semantic versioning as version filtering\n\tpattern accepts one of:\n\t  `patch` - patch only update patch version\n\t  `minor` - minor only update minor version\n\t  `major` - major only update major versions\n\t  `a version constraint` such as `\u003e= 1.0.0`\n\nkind - regex\n\tversionfilter of kind `regex` uses regular expression as version filtering\n\tpattern accepts a valid regular expression\n\nexample:\n```\n\tversionfilter:\n\t\tkind: semver\n\t\tpattern: minor\n```\n\nand its type like regex, semver, or just latest."
+                                },
+                                "age": {
+                                    "properties": {
+                                        "minimum": {
+                                            "type": "string",
+                                            "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        },
+                                        "maximum": {
+                                            "type": "string",
+                                            "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"1w\")."
                                 }
                             },
                             "additionalProperties": false,
@@ -9569,6 +9584,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "versionfilter provides parameters to specify version pattern and\nits type like regex, semver, or just latest.\n\nCompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "age defines the minimum or maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\").\n\nCompatible:\n  * source\n  * condition\n\nRemarks:\n  If age is specified, the Updatecli retrieves the release date of each Golang version from a git repository.\n  This has significant performance implications, as it requires fetching git tags and their associated commit dates.\n  Use wisely."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -9983,6 +10013,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\nCompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\").\n\nCompatible:\n  * source\n  * condition"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -12534,6 +12579,196 @@
                                     "repository"
                                 ],
                                 "description": "Spec defines settings used to interact with Bitbucket Server release"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "systemd"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "file specifies the systemd unit file path to manipulate\n\ncompatible:\n    * source\n    * condition\n    * target\n\nremark:\n    * supports absolute or relative path"
+                                    },
+                                    "section": {
+                                        "type": "string",
+                                        "description": "section specifies the unit file section to interact with, such as \"Unit\", \"Service\",\n\ncompatible:\n    * source\n    * condition\n    * target"
+                                    },
+                                    "option": {
+                                        "type": "string",
+                                        "description": "option specifies the key within the section to read or update, such as \"ExecStart\".\n\ncompatible:\n    * source\n    * condition\n    * target"
+                                    },
+                                    "index": {
+                                        "type": "integer",
+                                        "description": "index specifies which matching option to read or update when the same option is defined multiple times.\nIt starts at 0, so index 0 selects the first match, index 1 selects the second match, and so on.\nIf unset then a condition or a target matches every occurrences.\n\ncompatible:\n    * source\n    * condition\n    * target\n\ndefault:\n    0"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "description": "value specifies the value for a specific option.\n\ncompatible:\n    * condition\n    * target\n\ndefault:\n    When used from a condition or a target, the default value is set to the associated source output."
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "Spec defines a specification for a \"systemd\" resource parsed from an updatecli manifest file"
                             },
                             "scmid": {
                                 "type": "string",
@@ -18960,6 +19195,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "versionfilter provides parameters to specify version pattern and\nits type like regex, semver, or just latest.\n\nCompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "age defines the minimum or maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\").\n\nCompatible:\n  * source\n  * condition\n\nRemarks:\n  If age is specified, the Updatecli retrieves the release date of each Golang version from a git repository.\n  This has significant performance implications, as it requires fetching git tags and their associated commit dates.\n  Use wisely."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -19392,6 +19642,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\nCompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\").\n\nCompatible:\n  * source\n  * condition"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22042,6 +22307,205 @@
                                     "repository"
                                 ],
                                 "description": "Spec defines settings used to interact with Bitbucket Server release"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "failwhen": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "systemd"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "file specifies the systemd unit file path to manipulate\n\ncompatible:\n    * source\n    * condition\n    * target\n\nremark:\n    * supports absolute or relative path"
+                                    },
+                                    "section": {
+                                        "type": "string",
+                                        "description": "section specifies the unit file section to interact with, such as \"Unit\", \"Service\",\n\ncompatible:\n    * source\n    * condition\n    * target"
+                                    },
+                                    "option": {
+                                        "type": "string",
+                                        "description": "option specifies the key within the section to read or update, such as \"ExecStart\".\n\ncompatible:\n    * source\n    * condition\n    * target"
+                                    },
+                                    "index": {
+                                        "type": "integer",
+                                        "description": "index specifies which matching option to read or update when the same option is defined multiple times.\nIt starts at 0, so index 0 selects the first match, index 1 selects the second match, and so on.\nIf unset then a condition or a target matches every occurrences.\n\ncompatible:\n    * source\n    * condition\n    * target\n\ndefault:\n    0"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "description": "value specifies the value for a specific option.\n\ncompatible:\n    * condition\n    * target\n\ndefault:\n    When used from a condition or a target, the default value is set to the associated source output."
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "Spec defines a specification for a \"systemd\" resource parsed from an updatecli manifest file"
                             },
                             "scmid": {
                                 "type": "string",
@@ -28720,6 +29184,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "versionfilter provides parameters to specify version pattern and\nits type like regex, semver, or just latest.\n\nCompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "age defines the minimum or maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\").\n\nCompatible:\n  * source\n  * condition\n\nRemarks:\n  If age is specified, the Updatecli retrieves the release date of each Golang version from a git repository.\n  This has significant performance implications, as it requires fetching git tags and their associated commit dates.\n  Use wisely."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -29170,6 +29649,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\nCompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\").\n\nCompatible:\n  * source\n  * condition"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -31919,6 +32413,214 @@
                                     "repository"
                                 ],
                                 "description": "Spec defines settings used to interact with Bitbucket Server release"
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "dependsonchange": {
+                                "type": "boolean"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "deprecatedconditionids": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "disableconditions": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "name",
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "systemd"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "AddPrefix adds a prefix to the transformer input value"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "AddSuffix adds a suffix to the transformer input value"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "TrimPrefix removes a prefix to the transformer input value"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "TrimSuffix removes the suffix from the transformer input value"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "From defines the source value which need to be replaced"
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer is struct used to feed strings.Replacer"
+                                            },
+                                            "type": "array",
+                                            "description": "Replacers specifies a list of replacer instruction"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "From defines the source value which need to be replaced"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "To defines the \"to what\" a \"from\" value needs to be replaced"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "Replacer specifies what value needs to be changed and how"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "Find searches for a specific value if it exists and return false if it doesn't"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "Pattern defines regular expression to use for retrieving a submatch"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "CaptureIndex defines which substring occurrence to retrieve. Note also that a value of `0` for `captureIndex` returns all submatches, and individual submatch indexes start at `1`."
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "Uses the match group(s) to generate the output using \\0, \\1, \\2, etc"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "Find searches for a specific value if it exists then return the value using regular expression"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "If we don't find a match then return the following string or the input value"
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, join them by this"
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "If we find multiple matches, select the \"first\" or the \"last\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ]
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "SemvVerInc specifies a comma separated list semantic versioning component that needs to be upgraded."
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "Quote add quote around the value"
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "Unquote remove quotes around the value"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer holds a transformer rule"
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "file specifies the systemd unit file path to manipulate\n\ncompatible:\n    * source\n    * condition\n    * target\n\nremark:\n    * supports absolute or relative path"
+                                    },
+                                    "section": {
+                                        "type": "string",
+                                        "description": "section specifies the unit file section to interact with, such as \"Unit\", \"Service\",\n\ncompatible:\n    * source\n    * condition\n    * target"
+                                    },
+                                    "option": {
+                                        "type": "string",
+                                        "description": "option specifies the key within the section to read or update, such as \"ExecStart\".\n\ncompatible:\n    * source\n    * condition\n    * target"
+                                    },
+                                    "index": {
+                                        "type": "integer",
+                                        "description": "index specifies which matching option to read or update when the same option is defined multiple times.\nIt starts at 0, so index 0 selects the first match, index 1 selects the second match, and so on.\nIf unset then a condition or a target matches every occurrences.\n\ncompatible:\n    * source\n    * condition\n    * target\n\ndefault:\n    0"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "description": "value specifies the value for a specific option.\n\ncompatible:\n    * condition\n    * target\n\ndefault:\n    When used from a condition or a target, the default value is set to the associated source output."
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "Spec defines a specification for a \"systemd\" resource parsed from an updatecli manifest file"
                             },
                             "scmid": {
                                 "type": "string",
