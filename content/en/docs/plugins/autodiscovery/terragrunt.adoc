@@ -27,8 +27,9 @@ It will parsed the module source and infer the source type.
 It will update the file using the link:{{< ref "hcl" >}}[`hcl`] target.
 
 It supports the following module source definition and will update with prefixing accordingly
+
 [,hcl]
----
+----
 terraform {
   source = "tfr://someModule?version=1.2.3
 }
@@ -44,7 +45,7 @@ terraform {
 terraform {
   source = "tfr://${local.module}?version=1.2.3"
 }
----
+----
 
 == Manifest
 === Parameters

@@ -1,0 +1,28 @@
+sources:
+  default:
+    name: Get value from systemd configuration
+    kind: systemd
+    spec:
+      file: "wg.container"
+      section: "Container"
+      option: Image
+
+conditions:
+  default:
+    name: Test if source output exist in systemd configuration
+    kind: systemd
+    spec:
+      file: "wg.container"
+      section: "Container"
+      option: Image
+
+targets:
+  default:
+    name: Update systemd configuration
+    kind: systemd
+    disablesourceinput: true
+    spec:
+      file: "wg.container"
+      section: "Container"
+      option: Volume
+      value: "xxx"

@@ -1,0 +1,55 @@
+---
+title: "Systemd"
+description: "Manipulate systemd configuration file"
+lead: "kind: systemd"
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+  - condition
+  - target
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10004;
+|===
+
+== Description
+
+**source**
+
+The Systemd "source" retrieves information from a systemd configuration file.
+
+**condition**
+
+The Systemd "condition" tests that an information exist in a systemd configuration file.
+
+**target**
+
+The Systemd "target" ensures that a systemd configuration file contains a specific value at a location.
+
+IMPORTANT: Updatecli will drop all comments in the system configuration file. Feel free to report an issue if you need to keep comments in the systemd configuration file.
+
+== Parameters
+
+{{< resourceparameters "sources" "systemd" >}}
+
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/systemd/updatecli.d/default.yaml">}}
+----
+
