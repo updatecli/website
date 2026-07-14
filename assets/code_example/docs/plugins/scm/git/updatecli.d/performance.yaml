@@ -1,0 +1,20 @@
+name: "Example with Git SCM optimized for large repositories"
+
+scms:
+  scenario-target:
+    kind: git
+    spec:
+      url: "git@github.com:updatecli/updatecli.git"
+      branch: "main"
+      depth: 1
+      singleBranch: true
+      user: "git user to push from changes"
+      email: "git user email to push from change"
+
+targets:
+  target-1:
+    name: "Target 1"
+    kind: file
+    scmid: scenario-target
+    spec:
+      file: README.md

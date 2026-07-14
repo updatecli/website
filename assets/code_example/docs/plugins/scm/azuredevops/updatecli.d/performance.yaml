@@ -1,0 +1,42 @@
+name: Update a file and open an Azure DevOps Pull Request on a large repository
+
+scms:
+  default:
+    kind: azuredevops
+    spec:
+      organization: myorg
+      project: myproject
+      repository: myrepo
+      branch: main
+      depth: 1
+      singleBranch: true
+      token: '{{ requiredEnv "UPDATECLI_AZURE_DEVOPS_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_AZURE_DEVOPS_USERNAME" }}'
+      user: updatecli
+      email: updatecli@example.com
+
+sources:
+  golang:
+    name: Get the latest Golang version
+    kind: golang
+    spec:
+      versionfilter:
+        kind: semver
+        pattern: "1.24.x"
+
+targets:
+  golang-version:
+    name: 'deps(golang): Bump Golang version to {{ source "golang" }}'
+    kind: yaml
+    scmid: default
+    spec:
+      file: .github/workflows/*.yaml
+      key: '$.jobs.build.steps[?(@.uses =~ /^actions\/setup-go/)].with.go-version'
+      searchpattern: true
+
+actions:
+  default:
+    kind: azuredevops/pullrequest
+    scmid: default
+    spec:
+      title: 'deps(golang): Bump Golang version'
