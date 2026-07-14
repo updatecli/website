@@ -83,3 +83,17 @@ Updatecli can sign commits using a private GPG key if configured accordingly.
 {{<include "assets/code_example/docs/plugins/stash/updatecli.yaml">}}
 ----
 
+=== Performance on large repositories
+
+By default, Updatecli fetches every branch, tag, and other ref from the remote repository, which can be slow on repositories with a large number of refs (hundreds of branches/tags, hundreds of thousands of commits).
+
+Setting `depth` to a low value (e.g. `1`) combined with `singleBranch: true` restricts the checkout to the configured `branch` only, skipping the fetch of every other branch, tag, and ref on the remote. This can drastically reduce checkout time on large repositories.
+
+NOTE: Enabling `singleBranch` means Updatecli only has visibility into the configured branch. If your pipeline relies on detecting other branches or tags (for example to avoid opening duplicate pull requests), keep this option disabled.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/stash/updatecli-performance.yaml">}}
+----
+

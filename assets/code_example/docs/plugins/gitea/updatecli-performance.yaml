@@ -1,0 +1,21 @@
+---
+name: Test Gitea scm optimized for large repositories
+
+scms:
+  gitea:
+    kind: gitea
+    spec:
+      url: "try.gitea.io"
+      owner: "olblak"
+      repository: "updatecli-mirror"
+      branch: main
+      depth: 1
+      singleBranch: true
+
+sources:
+  license:
+    name: Retrieve license file content
+    kind: file
+    scmid: gitea
+    spec:
+      file: LICENSE
