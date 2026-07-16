@@ -1,0 +1,53 @@
+---
+title: "Git Commit"
+description: "Retrieve the latest commit hash from a Git branch"
+lead: "kind: gitcommit"
+date: 2026-07-16T09:30:00+07:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+toc: true
+plugins:
+  - source
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10008; | &#10008;
+|===
+
+The Git Commit resource returns the latest commit hash referenced by a Git branch.
+It is source-only because commit hashes are immutable values.
+
+== Repository selection
+
+The source selects a repository in the following order:
+
+. The repository configured by `spec.url` is cloned.
+. Otherwise, `spec.path` selects an existing local repository.
+. Otherwise, the working directory from `scmid` is used.
+
+When `spec.branch` is omitted, the current `HEAD` commit is returned.
+When it is set, Updatecli resolves the local branch first and then its `origin` remote-tracking branch.
+The lookup does not check out the branch or modify the working tree.
+
+== Parameters
+
+{{< resourceparameters "sources" "gitcommit" >}}
+
+== Example
+
+The following manifest shows SCM, URL, and local-path inputs.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/gitcommit/updatecli.yaml">}}
+----
