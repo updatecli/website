@@ -26,3 +26,18 @@ sources:
     kind: gitcommit
     spec:
       path: ./application
+
+conditions:
+  exists-in-scm:
+    name: Check that the source commit exists in the configured SCM
+    kind: gitcommit
+    scmid: application
+    sourceid: from-scm
+
+  pinned-commit:
+    name: Check that a pinned commit exists in the repository
+    kind: gitcommit
+    disablesourceinput: true
+    spec:
+      url: https://github.com/example/application.git
+      hash: 69619610a3fac402931709dfbe89d113041c8776

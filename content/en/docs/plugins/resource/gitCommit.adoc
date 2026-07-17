@@ -11,6 +11,7 @@ menu:
 toc: true
 plugins:
   - source
+  - condition
 ---
 // <!-- Required for asciidoctor -->
 :toc:
@@ -20,15 +21,20 @@ plugins:
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10008; | &#10008;
+| &#10004; | &#10004; | &#10008;
 |===
 
-The Git Commit resource returns the latest commit hash referenced by a Git branch.
-It is source-only because commit hashes are immutable values.
+The Git Commit "source" returns the latest commit hash referenced by a Git branch.
+
+The Git Commit "condition" checks that a commit exists in a repository.
+The commit hash defaults to the source output and can be overridden with `spec.hash`.
+Abbreviated hashes are supported.
+
+The target stage is not supported because commit hashes are immutable values.
 
 == Repository selection
 
-The source selects a repository in the following order:
+Both the source and the condition select a repository in the following order:
 
 . The repository configured by `spec.url` is cloned.
 . Otherwise, `spec.path` selects an existing local repository.
@@ -41,6 +47,12 @@ The lookup does not check out the branch or modify the working tree.
 == Parameters
 
 {{< resourceparameters "sources" "gitcommit" >}}
+
+[NOTE]
+====
+YAML parses an unquoted all-digit value as a number.
+Quote `spec.hash` when the commit hash only contains digits.
+====
 
 == Example
 
