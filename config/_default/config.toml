@@ -6,23 +6,53 @@ enableEmoji = true
 enableGitInfo = true
 enableRobotsTXT = true
 languageCode = "en-US"
-paginate = 7
 rssLimit = 10
+summarylength = 20
 
 # Multilingual
-#defaultContentLanguage = "en"
+defaultContentLanguage = "en"
 #disableLanguages = ["de", "nl"]
 defaultContentLanguageInSubdir = false
 
-# add redirects/headers
+# Doks/Thulite needs hugo_stats.json for PurgeCSS (see module.toml "watching" mount)
+[build]
+  [build.buildStats]
+    enable = true
+
+# Output formats per page kind.
+# - searchIndex is required by Doks FlexSearch.
+# - REDIRECTS/HEADERS render Netlify _redirects and _headers from the home page.
 [outputs]
-home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]
-section = ["HTML", "RSS", "SITEMAP"]
+home = ["html", "rss", "sitemap", "searchIndex", "llms", "REDIRECTS", "HEADERS"]
+page = ["html", "markdown"]
+section = ["html", "rss", "sitemap"]
+taxonomy = ["html", "rss", "sitemap"]
+term = ["html", "rss", "sitemap"]
 
 # remove .{ext} from text/netlify
 [mediaTypes."text/netlify"]
 suffixes = [""]
 delimiter = ""
+
+# Doks search index
+[outputFormats.searchIndex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
+# Plain-text page markdown + llms.txt
+[outputFormats.markdown]
+  baseName = "index"
+  isHTML = false
+  isPlainText = true
+  mediaType = "text/markdown"
+
+[outputFormats.llms]
+  baseName = "llms"
+  isHTML = false
+  isPlainText = true
+  mediaType = "text/plain"
 
 # add output format for netlify _redirects
 [outputFormats.REDIRECTS]
@@ -38,30 +68,23 @@ baseName = "_headers"
 isPlainText = true
 notAlternative = true
 
-# add output format for section sitemap.xml
-[outputFormats.SITEMAP]
-mediaType = "application/xml"
-baseName = "sitemap"
-isHTML = false
-isPlainText = true
-noUgly = true
-rel  = "sitemap"
-
 [security]
   enableInlineShortcodes = false
   [security.exec]
-    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$', '^asciidoctor$']
+    allow = ['^dart-sass-embedded$', '^dart-sass$', '^sass$', '^git$', '^go$', '^node$', '^npx$', '^postcss$', '^asciidoctor$', '^tailwindcss$']
     osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
   [security.funcs]
-    getenv = ['^HUGO_']
+    getenv = ['^HUGO_', '^CI$']
   [security.http]
     methods = ['(?i)GET|POST']
     urls = ['.*']
 
 [caches]
-  [caches.getjson]
+  # getresource now also backs getJSON/getCSV (used by the schema-driven
+  # parameter-table shortcodes) as well as Thulite images.
+  [caches.getresource]
     dir = ":cacheDir/:project"
-    maxAge = "10s"
+    maxAge = -1
 
 [sitemap]
   changefreq = "weekly"
@@ -71,13 +94,26 @@ rel  = "sitemap"
 [taxonomies]
   contributor = "contributors"
   plugin = "plugins"
+  category = "categories"
+  tag = "tags"
 
 [permalinks]
 blog = "/blog/:title/"
 # docs = "/docs/1.0/:sections[1:]/:title/"
 
+[pagination]
+  pagerSize = 7
+
 [minify.tdewolff.html]
+  keepComments = true
   keepWhitespace = false
+
+[imaging]
+  anchor = "Center"
+  bgColor = "#ffffff"
+  hint = "photo"
+  quality = 85
+  resampleFilter = "Lanczos"
 
 [related]
   threshold = 80
@@ -92,4 +128,3 @@ blog = "/blog/:title/"
     [[related.indices]]
     name = "date"
     weight = 10
-

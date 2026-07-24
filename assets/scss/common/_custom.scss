@@ -1,0 +1,83 @@
+// Put your custom SCSS code here
+
+// -----------------------------------------------------------------------------
+// Code-block "copy to clipboard" button
+//
+// doks-core's clipboard.js injects
+//   <div class="copy"><button class="btn-copy"><div></div></button></div>
+// as the first child of every `.highlight` block. That selector covers BOTH
+// Chroma output (Markdown fenced blocks) and Asciidoctor output
+// (`<pre class="highlight">`), so it is the one copy mechanism that works across
+// our mostly-AsciiDoc docs.
+//
+// However doks-core 1.9.3 only styles the copy button when it lives *inside*
+// `.expressive-code` (the Markdown-only render hook). Bare `.highlight` blocks —
+// i.e. all our AsciiDoc code — therefore get an unstyled, icon-less button.
+// Re-create the icon here for the `.highlight .copy` structure. `.highlight` is
+// already positioned `relative` by the theme, and `--ec-frm-inlBtnFg` is defined
+// on `:root`, so the icon colour adapts to light/dark automatically.
+// -----------------------------------------------------------------------------
+
+.highlight .copy {
+  position: absolute;
+  inset-block-start: 0.4rem;
+  inset-inline-end: 0.4rem;
+  z-index: 1;
+  line-height: 0;
+}
+
+.highlight .copy .btn-copy {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--sl-color-gray-6), transparent 35%);
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.highlight .copy .btn-copy:hover {
+  opacity: 1;
+}
+
+// On hover-capable devices, keep the button hidden until the block is hovered
+// (matches the theme's Expressive Code behaviour); always-visible on touch.
+@media (hover: hover) {
+  .highlight .copy .btn-copy {
+    opacity: 0;
+  }
+
+  .highlight:hover .copy .btn-copy,
+  .highlight .copy .btn-copy:focus-visible {
+    opacity: 0.85;
+  }
+
+  .highlight .copy .btn-copy:hover {
+    opacity: 1;
+  }
+}
+
+// The empty inner <div> carries the copy icon, drawn with a mask so it inherits
+// the theme text colour. Icons are the same SVGs the theme uses for Expressive
+// Code, for a consistent look.
+.highlight .copy .btn-copy > div {
+  position: absolute;
+  inset: 0;
+  margin: 0.5rem;
+  background-color: var(--ec-frm-inlBtnFg);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75'%3E%3Cpath d='M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1'/%3E%3Crect x='6' y='5' width='16' height='18' rx='1.5' ry='1.5'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75'%3E%3Cpath d='M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1'/%3E%3Crect x='6' y='5' width='16' height='18' rx='1.5' ry='1.5'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+// After a successful copy, clipboard.js leaves the button focused → show a check.
+.highlight .copy .btn-copy:focus > div,
+.highlight .copy .btn-copy:active > div {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
+}

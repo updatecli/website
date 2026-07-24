@@ -1,127 +1,108 @@
-[[docs]]
-  name = "Prologue"
-  weight = 10
-  identifier = "prologue"
-  url = "/docs/prologue/"
+# The doks-core section-menu partial resolves each entry to a real page and
+# builds the sub-tree from that page's child pages, so entries use `pageRef`
+# (not `url`) and point at the docs sections. The Plugins sub-tree
+# (autodiscovery/resource/actions/scm) is expanded automatically from content.
+[[sidebar_docs]]
+name = "Prologue"
+weight = 10
+identifier = "prologue"
+pageRef = "/docs/prologue"
 
-[[docs]]
-  name = "Core"
-  weight = 20
-  identifier = "core"
-  url = "/docs/core/"
+[[sidebar_docs]]
+name = "Core"
+weight = 20
+identifier = "core"
+pageRef = "/docs/core"
 
-[[docs]]
-  name = "Commands"
-  weight = 50
-  identifier = "commands"
-  url = "/docs/commands/"
+[[sidebar_docs]]
+name = "Plugins"
+weight = 25
+identifier = "plugins"
+pageRef = "/docs/plugins"
 
-[[docs]]
-  name = "Guide"
-  weight = 40
-  identifier = "guide"
-  url = "/docs/guide/"
+[[sidebar_docs]]
+name = "Automate"
+weight = 30
+identifier = "automate"
+pageRef = "/docs/automate"
 
-[[docs]]
-  name = "Plugins"
-  weight = 25
-  identifier = "plugins"
-  url = "/plugins/"
+[[sidebar_docs]]
+name = "Guide"
+weight = 40
+identifier = "guide"
+pageRef = "/docs/guides"
 
-[[docs]]
-  name = "autodiscovery"
-  weight = 25
-  identifier = "plugin-autodiscovery"
-  url = "/plugins/autodiscovery/"
-  parent= "plugins"
+[[sidebar_docs]]
+name = "Commands"
+weight = 50
+identifier = "commands"
+pageRef = "/docs/commands"
 
-[[docs]]
-  name = "resource"
-  weight = 25
-  identifier = "plugin-resource"
-  url = "/plugins/resource/"
-  parent= "plugins"
-
-[[docs]]
-  name = "actions"
-  weight = 25
-  identifier = "plugin-actions"
-  url = "/plugins/actions/"
-  parent= "plugins"
-
-[[docs]]
-  name = "scm"
-  weight = 25
-  identifier = "plugin-scm"
-  url = "/plugins/scm/"
-  parent= "plugins"
-
-
-[[docs]]
-  name = "Automate"
-  identifier = "automate"
-  url = "/docs/automate"
-  weight = 30
-
-[[docs]]
-  name = "Help"
-  weight = 60
-  identifier = "help"
-  url = "/docs/help/"
+[[sidebar_docs]]
+name = "Help"
+weight = 60
+identifier = "help"
+pageRef = "/docs/help"
 
 [[main]]
-  name = "Blog"
-  url = "/blog/"
-  weight = 10
+name = "Blog"
+url = "/blog/"
+weight = 10
 
 [[main]]
-  name = "Docs"
-  url = "/docs/prologue/introduction/"
-  weight = 20
+name = "Docs"
+url = "/docs/prologue/introduction/"
+weight = 20
 
 [[main]]
-  name = "Support"
-  url = "/support/"
-  weight = 40
+name = "Support"
+url = "/support/"
+weight = 40
 
 [[main]]
-  name = "Changelogs"
-  url = "/changelogs/updatecli"
-  weight = 50
+name = "Changelogs"
+url = "/changelogs/updatecli"
+weight = 50
 
 [[social]]
-  name = "Twitter"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-twitter\"><path d=\"M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z\"></path></svg>"
-  url = "https://twitter.com/updatecliio"
-  weight = 10
+name = "Mastodon"
+pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"icon icon-tabler icons-tabler-outline icon-tabler-brand-mastodon\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" /><path d=\"M18.648 15.254c-1.816 1.763 -6.648 1.626 -6.648 1.626a18.262 18.262 0 0 1 -3.288 -.256c1.127 1.985 4.12 2.81 8.982 2.475c-1.945 2.013 -13.598 5.257 -13.668 -7.636l-.026 -1.154c0 -3.036 .023 -4.115 1.352 -5.633c1.671 -1.91 6.648 -1.666 6.648 -1.666s4.977 -.243 6.648 1.667c1.329 1.518 1.352 2.597 1.352 5.633s-.456 4.074 -1.352 4.944\" /><path d=\"M12 11.204v-2.926c0 -1.258 -.895 -2.278 -2 -2.278s-2 1.02 -2 2.278v4.722m4 -4.722c0 -1.258 .895 -2.278 2 -2.278s2 1.02 2 2.278v4.722\" /></svg>"
+url = "https://fosstodon.org/@updatecli"
+weight = 11
 
 [[social]]
-  name = "GitHub"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-github\"><path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"></path></svg>"
-  url = "https://github.com/updatecli/updatecli"
-  post = "v0.1.0"
-  weight = 20
+name = "Bluesky"
+pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"icon icon-tabler icons-tabler-outline icon-tabler-brand-bluesky\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" /><path d=\"M6.335 5.144c-1.654 -1.199 -4.335 -2.127 -4.335 .826c0 .59 .35 4.953 .556 5.661c.713 2.463 3.13 2.75 5.444 2.369c-4.045 .665 -4.889 3.208 -2.667 5.41c1.03 1.018 1.913 1.59 2.667 1.59c2 0 3.134 -2.769 3.5 -3.5c.333 -.667 .5 -1.167 .5 -1.5c0 .333 .167 .833 .5 1.5c.366 .731 1.5 3.5 3.5 3.5c.754 0 1.637 -.571 2.667 -1.59c2.222 -2.203 1.378 -4.746 -2.667 -5.41c2.314 .38 4.73 .094 5.444 -2.369c.206 -.708 .556 -5.072 .556 -5.661c0 -2.953 -2.68 -2.025 -4.335 -.826c-2.293 1.662 -4.76 5.048 -5.665 6.856c-.905 -1.808 -3.372 -5.194 -5.665 -6.856\" /></svg>"
+url = "https://bsky.app/profile/updatecli.io"
+weight = 11
 
 [[social]]
-  name = "Chat"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-message-square\"><path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"></path></svg>"
-  url = "https://gitter.im/Updatecli/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link"
-  post = "v0.1.0"
-  weight = 9
-  
+name = "GitHub"
+pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-github\"><path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"></path></svg>"
+url = "https://github.com/updatecli/updatecli"
+post = "v0.1.0"
+weight = 20
+
 [[social]]
-  name = "Monitor"
-  pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-activity\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"></polyline></svg>"
-  url = "https://app.uda.sh/updatecli/" 
-  post = "v0.1.0"
-  weight = 9
+name = "Chat"
+pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-message-square\"><path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"></path></svg>"
+url = "https://matrix.to/#/#Updatecli_community:gitter.im"
+post = "v0.1.0"
+weight = 9
+
+[[social]]
+name = "Monitor"
+pre = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-activity\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"></polyline></svg>"
+url = "https://app.uda.sh/updatecli/"
+post = "v0.1.0"
+weight = 9
 
 [[footer]]
-  name = "Privacy"
-  url = "/privacy-policy/"
-  weight = 10
+name = "Privacy"
+url = "/privacy-policy/"
+weight = 10
 
 [[footer]]
-  name = "Contact"
-  url = "/contact/"
-  weight = 30
+name = "Contact"
+url = "/contact/"
+weight = 30

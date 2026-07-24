@@ -1,113 +1,130 @@
-# Meta Data for SEO
-
-## Homepage
+# Site-wide metadata
 title = "Updatecli"
-titleSeparator = "-"
 titleAddition = "Continuously update everything"
 description = "Automatically open a PR on your GitOps repository when a third service publishes an updates"
 
-## Documentation
-# docsVersion = "0.3"
+# Theme options (Doks / Thulite)
+[doks]
+  # Color mode
+  colorMode = "auto"
+  colorModeToggler = true
 
-## Open Graph
-images = ["twitter_cards.png"]
-ogLocale = "en_US"
-domainTLD = "www.updatecli.io"
-titleHome = "Updatecli"
+  # Navbar
+  navbarSticky = true
+  containerBreakpoint = "fluid"
+  navBarButton = false
+  navBarButtonUrl = "/docs/prologue/introduction/"
+  navBarButtonText = "Get started"
 
-## Twitter Cards
-twitterSite = "@updatecliio"
-twitterCreator = "@olblak"
+  # FlexSearch
+  flexSearch = true
+  searchExclKinds = []
+  searchExclTypes = []
+  showSearch = []
+  indexSummary = false
+  showDate = false
+  showSummary = true
+  searchLimit = 99
 
-## JSON-LD
-# schemaType = "Person"
-schemaType = "Organization"
-schemaName = "Updatecli"
-schemaAuthor = "Olivier Vernin"
-schemaAuthorTwitter = "https://twitter.com/0lblak"
-schemaAuthorLinkedIn = "https://www.linkedin.com/in/overnin/"
-schemaAuthorGitHub = "https://github.com/olblak"
-schemaLocale = "en-US"
-schemaLogo = "images/updatecli_512x512.png"
-schemaLogoWidth = 512
-schemaLogoHeight = 512
-schemaImage = "doks.png"
-schemaImageWidth = 1280
-schemaImageHeight = 640
-schemaTwitter = "https://twitter.com/updatecliio"
-schemaLinkedIn = ""
-schemaGitHub = "https://github.com/updatecli"
-schemaSection = "blog"
+  # Global alert
+  alert = true
+  alertDismissable = true
 
-## Sitelinks Search Box
-siteLinksSearchBox = false
+  # Bootstrap
+  bootstrapJavascript = true
 
-## Chrome Browser
-themeColor = "#fff"
+  # Nav
+  sectionSwitcher = false
+  sectionNav = ["docs", "guides"]
+  toTopButton = true
+  breadcrumbTrail = false
+  headlineHash = true
+  scrollSpy = true
 
-# Images - Temporarily left in place for backward compatibility
+  # Multilingual
+  multilingualMode = false
+  showMissingLanguages = true
+
+  # Versioning
+  docsVersioning = false
+  docsVersion = "1.0"
+
+  # UX
+  headerBar = false
+  backgroundDots = true
+  aiButtons = false
+
+  # Homepage
+  sectionFooter = false
+
+  # Blog
+  relatedPosts = false
+  imageList = true
+  imageSingle = true
+
+  # Repository
+  editPage = true
+  lastMod = true
+  repoHost = "GitHub"
+  docsRepo = "https://github.com/updatecli/website"
+  docsRepoBranch = "master"
+  docsRepoSubPath = ""
+
+  krokiURL = "https://kroki.io"
+
+# Alert banner
+alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!</a>"
+
+# Footer
+footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+copyRight = "Copyright (c) Updatecli Project"
+
+# SEO (@thulite/seo)
+[seo]
+  [seo.title]
+    separator = "-"
+    suffix = "Updatecli"
+  [seo.description]
+    [seo.description.length]
+      errorLevel = "warning"
+      min = 50
+      max = 160
+  [seo.favicons]
+    icon = "favicon.png"
+    svgIcon = "favicon.svg"
+  [seo.schemas]
+    type = "Organization"
+    name = "Updatecli"
+    logo = "images/updatecli_512x512.png"
+    images = ["twitter_cards.png"]
+    sameAs = [
+      "https://twitter.com/updatecliio",
+      "https://github.com/updatecli",
+    ]
+
+# Social (used by SEO + social menu)
+[social]
+  twitter = "updatecliio"
+
+# Image processing (@thulite/images)
+[thulite_images.defaults]
+  loading = "lazy"
+  decoding = "async"
+  fetchpriority = "auto"
+  widths = [480, 576, 768, 1025, 1200, 1440]
+  lqip = "16x webp q20"
+
+# Legacy image params consumed by the custom img/img-simple shortcodes
+imageResponsive = true
+imageConvertTo = "webp"
+imageImageSizes = ["480", "720", "1080", "1280", "1600", "2048"]
+singleSize = false
+imageAddClass = "img-fluid lazyload blur-up"
 quality = 85
 bgColor = "#fff"
 landscapePhotoWidths = [900, 800, 700, 600, 500]
 portraitPhotoWidths = [800, 700, 600, 500]
 lqipWidth = "20x"
 smallLimit = "300"
-
-# Images
-imageResponsive = true
-imageConvertTo = "webp"
-imageImageSizes = ["480","720","1080","1280","1600","2048"]
-singleSize = false
-imageAddClass = "img-fluid lazyload blur-up"
-
-### Image template
-defaultImage = "default-image.png" # put in `./assets/images/`
-fillImage = "1270x740 Center" # normalize image size
-
-# Footer
-footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
-
-# Feed
-copyRight = "Copyright (c) Updatecli Project"
-
-# Alert
-alert = true
-alertDismissable = true
-alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!</a>"
-
-# Edit Page
-# repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
-repoHost = "GitHub"
-#repoHost = "Gitea"
-docsRepo = "https://github.com/updatecli/website"
-docsRepoBranch = "master"
-docsRepoSubPath = ""
-editPage = true
-lastMod = true
-
-[sections]
-  sectionNav = ["docs", "guides"]
-
-[options]
-  lazySizes = true
-  clipBoard = true
-  instantPage = true
-  flexSearch = true
-  searchSectionsShow = []
-  searchSectionsIndex = []
-  darkMode = true
-  bootStrapJs = true
-  breadCrumb = false
-  highLight = true
-  kaTex = false
-  multilingualMode = false
-  docsVersioning = false
-  fullWidth = true
-  navbarSticky = true
-  toTopButton = true
-  scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
-
-[menu]
-  [menu.section]
-    auto = false
-    collapsibleSidebar = true
+defaultImage = "default-image.png"
+fillImage = "1270x740 Center"

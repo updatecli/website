@@ -1,40 +1,66 @@
-const autoprefixer = require('autoprefixer');
-const purgecss = require('@fullhuman/postcss-purgecss');
-const whitelister = require('purgecss-whitelister');
+import autoprefixer from 'autoprefixer';
+import purgeCSSPlugin from '@fullhuman/postcss-purgecss';
 
-module.exports = {
-  plugins: [
-    autoprefixer(),
-    purgecss({
-      content: [
-        './node_modules/@hyas/doks/layouts/**/*.html',
-        './node_modules/@hyas/doks/content/**/*.md',
-        './layouts/**/*.html',
-        './content/**/*.md',
-      ],
-      safelist: [
+const purgecss = purgeCSSPlugin({
+    content: ['./hugo_stats.json'],
+    defaultExtractor: (content) => {
+        const els = JSON.parse(content).htmlElements;
+        return [...(els.tags || []), ...(els.classes || []), ...(els.ids || [])];
+    },
+    dynamicAttributes: [
+        'aria-expanded',
+        'data-bs-popper',
+        'data-bs-target',
+        'data-bs-theme',
+        'data-dark-mode',
+        'data-global-alert',
+        'data-pane',
+        'data-popper-placement',
+        'data-sizes',
+        'data-toggle-tab',
+        'id',
+        'size',
+        'type'
+    ],
+    safelist: [
+        'active',
+        'btn-clipboard',
+        'clipboard',
+        'disabled',
+        'hidden',
+        'modal-backdrop',
+        'selected',
+        'show',
+        'img-fluid',
+        'blur-up',
+        'lazyload',
         'lazyloaded',
+        'alert-link',
+        'container-fw',
+        'container-lg',
+        'container-fluid',
+        'offcanvas-backdrop',
+        'figcaption',
+        'dt',
+        'dd',
+        'showing',
+        'hiding',
+        'page-item',
+        'page-link',
+        'not-content',
+        'copy',
+        'btn-copy',
+        // Updatecli / asciinema embeds and custom shortcodes
+        'asciinema-player',
         'table',
         'thead',
         'tbody',
-        'tr',
-        'th',
-        'td',
-        'h5',
-        'alert-link',
-        'container-xxl',
-        'container-fluid',
-        ...whitelister([
-          './node_modules/@hyas/doks/assets/scss/common/_variables.scss',
-          './node_modules/@hyas/doks/assets/scss/components/_alerts.scss',
-          './node_modules/@hyas/doks/assets/scss/components/_buttons.scss',
-          './node_modules/@hyas/doks/assets/scss/components/_code.scss',
-          './node_modules/@hyas/doks/assets/scss/components/_syntax.scss',
-          './node_modules/@hyas/doks/assets/scss/components/_search.scss',
-          './node_modules/@hyas/doks/assets/scss/common/_dark.scss',
-          './node_modules/katex/dist/katex.css',
-        ]),
-      ],
-    }),
+    ]
+});
+
+export default {
+  plugins: [
+    autoprefixer(),
+    ...(process.env.HUGO_ENVIRONMENT === "production" ? [purgecss] : []),
   ],
-}
+};

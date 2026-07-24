@@ -1,5 +1,5 @@
 ---
-title: "Github "
+title: "Github"
 description: "Interact with github repositories"
 lead: "kind: github"
 date: 2021-01-09T15:21:01+02:00
@@ -12,6 +12,7 @@ menu:
 toc: true
 plugins:
   - scm
+weight: 10
 ---
 // <!-- Required for asciidoctor -->
 :toc:
