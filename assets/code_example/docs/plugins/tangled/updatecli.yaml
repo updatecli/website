@@ -1,0 +1,22 @@
+---
+name: Test Tangled scm
+
+scms:
+  tangled:
+    kind: tangled
+    spec:
+      owner: alice.tangled.sh
+      repository: updatecli-mirror
+      branch: main
+      handle: alice.tangled.sh
+      # atproto app password used to author pull request records on the user's PDS.
+      # Generate one from your PDS's web UI (Bluesky: https://bsky.app/settings/app-passwords).
+      appPassword: '{{ requiredEnv "TANGLED_APP_PASSWORD" }}'
+
+sources:
+  license:
+    name: Retrieve license file content
+    kind: file
+    scmid: tangled
+    spec:
+      file: LICENSE

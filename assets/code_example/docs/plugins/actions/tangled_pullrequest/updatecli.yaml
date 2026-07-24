@@ -1,0 +1,40 @@
+# updatecli.yaml
+# updatecli diff --config updatecli.yaml
+#
+name: Show Tangled pipeline example
+
+scms:
+  tangled:
+    kind: tangled
+    spec:
+      owner: alice.tangled.sh
+      repository: updatecli-mirror
+      branch: main
+      handle: alice.tangled.sh
+      appPassword: '{{ requiredEnv "TANGLED_APP_PASSWORD" }}'
+
+# Sources are responsible to fetch information from third location such as npm registry.
+sources:
+  updatecli:
+    name: Get latest axios version
+    kind: npm
+    spec:
+      name: axios
+
+# Targets are responsible to update targeted files such as a yaml file.
+targets:
+  npm:
+    name: Update e2e test file
+    kind: yaml
+    sourceid: updatecli
+    scmid: tangled
+    spec:
+      file: e2e/updatecli.d/success.d/npm.yaml
+      key: $.conditions.axios.spec.version
+
+# Actions such as tangled/pullrequest are triggered when a target is updated.
+actions:
+  default:
+    kind: tangled/pullrequest
+    scmid: tangled
+    title: Bump axios version
