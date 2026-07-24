@@ -1,0 +1,57 @@
+---
+title: "GitLab Search"
+description: "Use GitLab search to interact with multiple gitlab repositories"
+lead: "kind: gitlabsearch"
+date: 2025-10-23T20:21:01+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-scm"
+toc: true
+plugins:
+  - scm
+weight: 20
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+The GitLab Search SCM block allows you to interact with multiple GitLab repositories, either by fetching files or by pushing updates to them.
+
+**condition**
+
+When used in a condition, the SCM block typically fetches files or metadata from the specified repository
+
+**target**
+
+When used in a target, the SCM block usually pushes changes to that repository.
+
+
+== Parameters
+
+{{< resourceparameters "scms" "gitlabsearch" >}}
+
+=== CommitMessage
+
+Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
+The goal is to add human and machine readable meaning to commit messages
+
+By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+
+---
+```
+Author: olblak <updatecli@updatecli.io>
+Date:   Tue May 4 15:41:44 2021 +0200
+
+    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+
+    ... equirements.yaml"
+
+    Made with ❤️️  by updatecli
+```
+---
+

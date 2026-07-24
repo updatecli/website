@@ -1,0 +1,246 @@
+{{ $pluginName := .Get 0 }}
+
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+{{ $dataJ := os.ReadFile "content/en/schema/latest/policy/manifest/config.json" | transform.Unmarshal }}
+    {{ range $k, $v := $dataJ.properties.autodiscovery.properties.crawlers.properties }}
+      {{ if eq $k $pluginName }}
+                    {{ range $key, $value := $v.properties }}
+    <tr>
+        <td><b>{{ $key }}</b></td>
+        <td>{{ $value.type }}</td>
+        <td>{{ $value.description | markdownify }}</td>
+        <td>{{ $value.required }}</td>
+    </tr>
+                        <!-- Handle object with properties -->
+                        {{ if and (eq $value.type "object") $value.properties }}
+                          {{ range $level1key, $level1value := $value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+        <td>{{ $level1value.type }}</td>
+        <td>{{ $level1value.description | markdownify }}</td>
+        <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                        <!-- Handle object with additionalProperties -->
+                        {{ if and (eq $value.type "object") $value.additionalProperties $value.additionalProperties.properties }}
+                          {{ range $level1key, $level1value := $value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+        <td>{{ $level1value.type }}</td>
+        <td>{{ $level1value.description | markdownify }}</td>
+        <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                        <!-- Handle array with properties -->
+                        {{ if and (eq $value.type "array") $value.items.properties }}
+                          {{ range $level1key, $level1value := $value.items.properties }}
+    <tr>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+      <td>{{ $level1value.type }}</td>
+      <td>{{ $level1value.description | markdownify }}</td>
+      <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                        <!-- Handle array with additionalProperties -->
+                        {{ if and (eq $value.type "array") $value.items.additionalProperties $value.items.additionalProperties.properties }}
+                          {{ range $level1key, $level1value := $value.items.additionalProperties.properties }}
+    <tr>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+      <td>{{ $level1value.type }}</td>
+      <td>{{ $level1value.description | markdownify }}</td>
+      <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                    {{ end }}
+      {{ end }}
+    {{ end }}
+
+</table>
+
+<small>&#9888; This table is generated from the Updatecli codebase and may contain inaccurate data. Feel free to report them on <a href="https://github.com/updatecli/updatecli/issues">github.com/updatecli/updatecli</a></small>

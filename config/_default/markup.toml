@@ -13,14 +13,13 @@ defaultMarkdownHandler = "goldmark"
     unsafe = true
 
 [highlight]
-  codeFences = false
-  guessSyntax = false
+  codeFences = true
+  guessSyntax = true
   hl_Lines = ""
   lineNoStart = 1
   lineNos = false
   lineNumbersInTable = true
   noClasses = false
-  style = "dracula"
   tabWidth = 4
 
 [tableOfContents]
