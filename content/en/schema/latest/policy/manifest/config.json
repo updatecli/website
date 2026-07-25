@@ -11048,7 +11048,7 @@
                                 "properties": {
                                     "engine": {
                                         "type": "string",
-                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v2"
+                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel/v3\" for dasel v3 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v3"
                                     },
                                     "file": {
                                         "type": "string",
@@ -14022,7 +14022,7 @@
                                     },
                                     "createmissingkey": {
                                         "type": "boolean",
-                                        "description": "[t] CreateMissingKey allows non-existing keys. If the key does not exist, the key is created if AllowsMissingKey\n\t  is true, otherwise an error is raised (the default).\n\t  Only supported if Key is used"
+                                        "description": "[t] CreateMissingKey allows non-existing keys. If the key does not exist, the key is created if AllowsMissingKey\n\t  is true, otherwise an error is raised (the default).\n\t  Only supported if Key is used.\n\t  Not supported by the \"dasel/v3\" engine, which cannot create missing keys."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -20722,7 +20722,7 @@
                                 "properties": {
                                     "engine": {
                                         "type": "string",
-                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v2"
+                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel/v3\" for dasel v3 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v3"
                                     },
                                     "file": {
                                         "type": "string",
@@ -23813,7 +23813,7 @@
                                     },
                                     "createmissingkey": {
                                         "type": "boolean",
-                                        "description": "[t] CreateMissingKey allows non-existing keys. If the key does not exist, the key is created if AllowsMissingKey\n\t  is true, otherwise an error is raised (the default).\n\t  Only supported if Key is used"
+                                        "description": "[t] CreateMissingKey allows non-existing keys. If the key does not exist, the key is created if AllowsMissingKey\n\t  is true, otherwise an error is raised (the default).\n\t  Only supported if Key is used.\n\t  Not supported by the \"dasel/v3\" engine, which cannot create missing keys."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -30774,7 +30774,7 @@
                                 "properties": {
                                     "engine": {
                                         "type": "string",
-                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v2"
+                                        "description": "default:\n  * \"dasel/v1\" is the default engine used to manipulate json files\n\naccepted values:\n  * \"dasel/v1\" for dasel v1 engine\n  * \"dasel/v2\" for dasel v2 engine\n  * \"dasel/v3\" for dasel v3 engine\n  * \"dasel\" for the latest dasel engine which is currently dasel v3"
                                     },
                                     "file": {
                                         "type": "string",
@@ -33982,7 +33982,7 @@
                                     },
                                     "createmissingkey": {
                                         "type": "boolean",
-                                        "description": "[t] CreateMissingKey allows non-existing keys. If the key does not exist, the key is created if AllowsMissingKey\n\t  is true, otherwise an error is raised (the default).\n\t  Only supported if Key is used"
+                                        "description": "[t] CreateMissingKey allows non-existing keys. If the key does not exist, the key is created if AllowsMissingKey\n\t  is true, otherwise an error is raised (the default).\n\t  Only supported if Key is used.\n\t  Not supported by the \"dasel/v3\" engine, which cannot create missing keys."
                                     }
                                 },
                                 "additionalProperties": false,
