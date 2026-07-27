@@ -139,7 +139,7 @@
                                         "type": "object"
                                     },
                                     "type": "object",
-                                    "description": "Auths holds a map of string to string where the key is the registry URL and the value the token used for authentication\n\nPlease be aware that only the host part of the URL is used to lookup for authentication token.\n\nExample:\n\n```\nauths:\n  \"my-helm-repo.com\": \"my-secret-token\"\n```"
+                                    "description": "Auths holds a map of registry credentials where the key is the registry host (domain[:port]) without scheme.\n\nPlease be aware that only the host part of the URL is used to lookup for authentication credentials.\n\nExample:\n\n```\nauths:\n  \"my-helm-repo.com\":\n    token: \"my-secret-token\"\n  \"my-second-helm-repo.com\":\n    username: \"username\"\n    password: \"my-secret-password\"\n```"
                                 }
                             },
                             "additionalProperties": false,
