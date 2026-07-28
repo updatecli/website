@@ -22,7 +22,7 @@ migration guidance when relevant.
 
 #### `json` - `csv` - `toml`: Dasel v3
 
-The three plugins `json`, `csv`, and `toml` deprecate the dasel v2 syntax in favor of the dasel v3 syntax.
+In version `v0.120.0`, the three plugins `json`, `csv`, and `toml` deprecate the dasel v1 and v2 syntax in favor of the dasel v3 syntax.
 To ensure backward compatibility, the dasel v2 syntax will continue to work for now but it's recommended to migrate to the dasel v3 as soon as possible.
 
 <table class="table">
