@@ -81,3 +81,31 @@
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
 }
+
+// -----------------------------------------------------------------------------
+// Asciidoctor admonition blocks ([NOTE], [WARNING], …)
+//
+// Asciidoctor renders an admonition as a two-cell <table> (icon + content), and
+// doks-core's `_tables.scss` extends Bootstrap's `.table` onto every bare
+// <table>. With the default `table-layout: auto`, a code block inside the
+// content cell sets that column's minimum width to its longest line: `pre`
+// scrolls, but a scroll container still contributes its content's min-content
+// width to table sizing, and a table never renders narrower than that minimum.
+// A long line therefore pushes the whole block out of `.docs-content` and over
+// the sticky table of contents on the right.
+//
+// `fixed` sizes the columns from the first row instead, so the text wraps and
+// the code block scrolls inside its own cell. The icon column needs an explicit
+// width, otherwise the two columns split the table evenly.
+//
+// The parameter tables built by the `*parameters` shortcodes solve the same
+// problem the same way, inline in `layouts/_shortcodes/`.
+// -----------------------------------------------------------------------------
+
+.admonitionblock > table {
+  table-layout: fixed;
+
+  td.icon {
+    width: 6rem;
+  }
+}
