@@ -1,8 +1,9 @@
 ---
 title: "GitLab Search"
-description: "Use GitLab search to interact with multiple gitlab repositories"
+description: "Run the same manifest against every GitLab project of a group"
 lead: "kind: gitlabsearch"
 date: 2025-10-23T20:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,38 +21,92 @@ weight: 20
 
 == Description
 
-The GitLab Search SCM block allows you to interact with multiple GitLab repositories, either by fetching files or by pushing updates to them.
+`gitlabsearch` is not an scm you clone from — it is a *generator*. Before anything else runs, Updatecli lists the projects of the configured GitLab group, lists the branches of each of them, keeps the branches matching `branch`, and turns each surviving project/branch pair into a regular link:/docs/plugins/scm/gitlab/[`gitlab` scm].
 
-**condition**
+Your manifest is then duplicated once per pair, each copy pinned to one project and one branch. Ten matches mean ten pipelines, ten working branches, and — if the manifest declares a `gitlab/mergerequest` action — ten merge requests. Everything the `gitlab` documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
 
-When used in a condition, the SCM block typically fetches files or metadata from the specified repository
+Its behavior depends on the stage referencing it:
 
-**target**
+**source** and **condition**::
+Each discovered project is cloned and the resource works on the files from the matched branch. Nothing is pushed.
 
-When used in a target, the SCM block usually pushes changes to that repository.
+**target**::
+Updatecli creates a working branch in each discovered project, commits the changes there, and pushes it.
 
+IMPORTANT: Like the `gitlab` scm, this plugin does not open merge requests — that is the job of an `actions` block of kind `gitlab/mergerequest`, documented on the link:/docs/plugins/actions/gitlab/["GitLab Merge Request" page].
 
 == Parameters
 
 {{< resourceparameters "scms" "gitlabsearch" >}}
 
-=== CommitMessage
+`group` is the only mandatory parameter; without it the run aborts with `GitLab group is required for gitlabsearch SCM`.
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+Apart from `group`, `search`, `includeSubgroups`, `branch`, and `limit`, every parameter is passed through untouched to each generated `gitlab` scm; see the link:/docs/plugins/scm/gitlab/["GitLab" page] for what they do. One consequence is worth spelling out: `directory` is copied verbatim, so every discovered project would be cloned into the *same* path. Leave it unset and let Updatecli derive one path per project.
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+=== Selecting projects
 
----
-```
-Author: olblak <updatecli@updatecli.io>
-Date:   Tue May 4 15:41:44 2021 +0200
+`group`::
+The group path. Nested groups use slash notation:
++
+[source,yaml]
+----
+group: "myorg/myteam"
+----
 
-    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
+`includeSubgroups`::
+Defaults to `true`, so projects of nested subgroups are discovered too. Set it to `false` to stay in the group itself.
 
-    ... equirements.yaml"
+`search`::
+An optional GitLab project-name filter, passed to the API as-is. Omitted, every project of the group is returned. It is a substring search, not a regular expression — unlike `branch`.
 
-    Made with ❤️️  by updatecli
-```
----
+Each discovered project's full path is split at the last slash: `myorg/myteam/myproject` becomes `owner: myorg/myteam` and `repository: myproject` on the generated scm.
 
+=== Branch selection
+
+`branch` is a *regular expression* matched against every branch name of every discovered project, not a branch name. It defaults to `^main$`.
+
+[source,yaml]
+----
+branch: "^main$"          # main only (default)
+branch: "^main$|^v2$"     # main or v2
+branch: "^release/"       # every release branch
+----
+
+Anchors matter. An unanchored expression such as `main` also matches `maintenance`, and `.` matches every branch in the project.
+
+=== Limit
+
+`limit` caps the number of *generated pipelines*, that is project/branch pairs — not the number of projects. It defaults to `10`; `0` means no cap.
+
+A project with three matching branches therefore consumes three slots, and can exhaust the limit before the second project is reached. Projects and branches are consumed in the order the API returns them, so a `limit` that truncates the set gives you an arbitrary subset rather than a chosen one. Tighten `branch` and `search` instead of relying on `limit` to keep a run small.
+
+=== Authentication
+
+`url` defaults to `gitlab.com`; for a self-managed instance, give its hostname with or without a scheme. `token` authenticates both the API calls used for discovery and the git operations on each discovered project, together with `username`.
+
+[source,yaml]
+----
+# url: gitlab.example.com   # defaults to gitlab.com
+username: '{{ requiredEnv "GITLAB_USERNAME" }}'
+token: '{{ requiredEnv "GITLAB_TOKEN" }}'
+----
+
+The token must be able to list the group's projects, on top of the permissions each project needs. As with the `gitlab` scm, a group or project access token has no user identity of its own — set `user` and `email` accordingly, or the merge requests can stay stuck in the *"Your merge request is almost ready!"* state.
+
+=== Working branch and commit message
+
+Both work exactly as on the link:/docs/plugins/scm/gitlab/["GitLab" page]: a working branch named `<workingBranchPrefix><separator><branch><separator><pipelineID>`, `force` defaulting to `true` with its "better safe than sorry" safeguard, and link:https://www.conventionalcommits.org/[conventional commit] messages driven by `commitMessage`.
+
+The `pipelineID` component is derived from the manifest, not from the project, so all copies share it and every discovered project ends up with an identically named working branch — convenient when you later need to find or clean up the branches a group-wide run created.
+
+NOTE: `commitMessage.title` is deprecated and ignored. The commit title comes from the target `name`.
+
+== Example
+
+This manifest bumps the Golang version across the projects of the `myorg/myteam` group. Each discovered project/branch pair gets its own working branch, its own squashed commit, and its own merge request.
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/gitlabsearch/updatecli.d/default.yaml">}}
+----

@@ -1,8 +1,9 @@
 ---
-title: "Bitbucket Server (Stash) "
-description: "Interact with Bitbucket Server (Stash) repositories"
-lead: "Stash scm"
+title: "Bitbucket Server (Stash)"
+description: "Clone a Bitbucket Server repository, commit changes to a working branch, and push them back"
+lead: "kind: stash"
 date: 2022-07-25T18:31:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,26 +21,85 @@ plugins:
 
 == Description
 
-The Bitbucket Server (Stash) scm plugin is used to manage git repositories hosted on Bitbucket Server (Stash), depending on the stage, it can be used for different purposes
+The `stash` scm plugin clones a repository hosted on a self-managed *Bitbucket Data Center / Server* instance — historically named Stash — and pushes changes back to it. It is referenced by a resource through its `scmid`, as described on the link:/docs/core/scm/["SCM" page].
 
-**source**: Retrieve data from a git repository, such as a file content
-**condition**: Ensure data exist on a git repository, such as a file content
-**target**: Ensure data is up to date on a git repository
+For repositories on bitbucket.org, use the link:/docs/plugins/scm/bitbucket/[`bitbucket`] plugin instead.
+
+Its behavior depends on the stage referencing it:
+
+**source** and **condition**::
+The repository is cloned and the resource works on the files from the branch defined by `branch`. Nothing is pushed.
+
+**target**::
+Updatecli creates a *working branch* based on `branch`, commits the changes to it, and pushes that branch. The `branch` value itself is left untouched.
+
+IMPORTANT: This plugin does not open pull requests. Pushing a working branch and opening a pull request are two distinct steps: the pull request comes from an `actions` block of kind `stash/pullrequest`, documented on the link:/docs/plugins/actions/stash/["Bitbucket Server Pull Request" page]. Without such an action, the branch is pushed and nothing else happens.
 
 == Parameters
 
 {{< resourceparameters "scms" "stash" >}}
 
-=== CommitMessage
+`url`, `owner`, and `repository` are mandatory. `owner` is the *project key* on Bitbucket Server, and the repository is cloned from `<url>/scm/<owner>/<repository>.git` — the `/scm/` segment is added by Updatecli, so do not include it in `url`.
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+NOTE: The table is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter — currently `singleBranch`, which restricts clone and fetch to the configured branch — may work in the binary before it appears there.
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+=== Authentication
 
----
-```
-Author: olblak <updatecli@updatecli.io>
+`url` is your instance, with or without a scheme; `https://` is assumed when none is given. A missing `url` aborts the run with `wrong configuration`.
+
+Authentication is driven by `token`, an HTTP access token:
+
+[source,yaml]
+----
+url: "https://bitbucket.example.com"
+username: '{{ requiredEnv "BITBUCKET_USERNAME" }}'
+token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
+----
+
+With `username` set, the token is sent as HTTP basic credentials; on its own it is sent as a bearer token. Git operations always use `username` together with `token`.
+
+[WARNING]
+====
+The `password` parameter appears in the table above but is not used by this plugin — neither for API calls nor for git operations. Configuring `username` and `password` alone leaves Updatecli unauthenticated. Put the credential in `token`.
+====
+
+=== Working branch
+
+For a target, the working branch is derived from three components joined by a separator:
+
+[source,text]
+----
+<workingBranchPrefix><workingBranchSeparator><branch><workingBranchSeparator><pipelineID>
+----
+
+With the defaults (`updatecli` and `_`), a pipeline based on `main` produces `updatecli_main_<pipelineID>`, where `pipelineID` is a hash derived from the manifest — so the same pipeline reuses the same branch instead of piling up new ones. Characters git refuses in a ref are stripped, and the name is truncated to 255 characters. Setting `workingBranchPrefix: ""` gives `<branch>_<pipelineID>`.
+
+`branch` defaults to `main`, with a warning in the logs when it is left unset.
+
+==== Disabling the working branch
+
+`workingBranch: false` makes Updatecli commit and push straight to `branch`. Since `force` defaults to `true` — meaning `git push --force` — that combination is refused unless `force` is also set explicitly:
+
+[source,text]
+----
+Better safe than sorry.
+
+Updatecli may be pushing unwanted changes to the branch "main".
+----
+
+Set `force: false` to push without forcing, or `force: true` to acknowledge the force push. When `force` is `true`, Updatecli also recreates working branches that diverged from their base branch.
+
+TIP: `updatecli apply --clean-git-branches` deletes, at the end of a run, the working branches that ended up identical to their base branch — those left behind by pipelines that had nothing to change.
+
+=== Commit message
+
+Updatecli generates link:https://www.conventionalcommits.org/[conventional commits]. The `commitMessage` parameters (`type`, `scope`, `body`, `footers`, `hideCredit`, `squash`) shape the result.
+
+The commit title always comes from the target's `name`, or from its description when `name` is unset. It is capped at 72 characters minus the room taken by `type` and `scope`; the overflow moves into the body. With the default type `chore`:
+
+[source,text]
+----
+Author: updatecli-bot <updatecli-bot@updatecli.io>
 Date:   Tue May 4 15:41:44 2021 +0200
 
     chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
@@ -47,33 +107,37 @@ Date:   Tue May 4 15:41:44 2021 +0200
     ... equirements.yaml"
 
     Made with ❤️️  by updatecli
-```
----
+----
 
+Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits of the working branch into one — set `body` when you use it, since the individual messages are lost.
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-|type ||chore| Specify commit type
-|scope ||| Specify commit scope
-|footer ||| Specify commit footer message
-|title ||| Override default body message
-|hideCredit ||| Remove "Made with ❤️️  by updatecli" from commit message
-|body ||| Override default body message
-|===
+[WARNING]
+====
+`commitMessage.title` is deprecated and ignored. Rename the target instead; Updatecli logs a warning when the field is present.
+====
 
-=== GPG
+NOTE: `commitMessage` applies to every target linked to the same scm.
 
-Updatecli can sign commits using a private GPG key if configured accordingly.
+=== Commit signing and identity
 
----
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| signingkey ||| Defines the armored private gpg key 
-| password ||| Defines the gpg key password
-|===
+`gpg.signingkey` takes an *armored private* GPG key and `gpg.passphrase` its passphrase. Both are secrets:
 
+[source,yaml]
+----
+gpg:
+  signingkey: '{{ requiredEnv "GPG_SIGNING_KEY" }}'
+  passphrase: '{{ requiredEnv "GPG_PASSPHRASE" }}'
+----
+
+`user` and `email` name the commit author, defaulting to `updatecli-bot` and `updatecli-bot@updatecli.io`.
+
+=== Clone behavior
+
+Left unset, `directory` defaults to `<tmp>/updatecli/stash/<owner>/<repository>` on your system temporary directory. Overriding it is rarely useful, as Updatecli may clean that directory up after a run.
+
+`submodules`:: Defaults to `true`; set it to `false` to skip submodule checkout.
+`depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves an incomplete history, which can break pushes; `force: true` is often needed alongside.
+`singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. `true` fetches only `branch` — much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch and opening a duplicate pull request.
 
 == Example
 
@@ -82,4 +146,3 @@ Updatecli can sign commits using a private GPG key if configured accordingly.
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/stash/updatecli.yaml">}}
 ----
-

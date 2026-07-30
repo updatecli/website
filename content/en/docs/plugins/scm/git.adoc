@@ -1,9 +1,9 @@
 ---
 title: "Git"
-description: "Interact with git repositories"
+description: "Clone any git repository, commit changes, and push them back to a branch"
 lead: "kind: git"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-05-02T20:44:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,48 +20,91 @@ plugins:
 
 == Description
 
-The "scm" of kind `git`, defines parameters to interact with a git repository. It is then referenced from another "resource" by using the key `scmID`.
-Depending on the resource that referenced the git configuration, the behavior will change.
+The `git` scm plugin clones a git repository from any URL and pushes changes back to it. It knows nothing about the hosting platform, which makes it the fallback for servers Updatecli has no dedicated plugin for. It is referenced by a resource through its `scmid`, as described on the link:/docs/core/scm/["SCM" page].
 
-**source**
+Its behavior depends on the stage referencing it:
 
-When a source resource references a scm configuration, then it usually means using a file from that repository.
+**source** and **condition**::
+The repository is cloned and the resource works on the files from the branch defined by `branch`. Nothing is pushed.
 
-**condition**
+**target**::
+The changes are committed and pushed. *By default they go straight to `branch`*, because `workingBranch` defaults to `false` on this plugin. See <<_working_branch>> to commit to a dedicated branch instead.
 
-When a condition references a scm configuration, then it usually means using a file from that repository.
-
-**target**
-
-When a target references a scm configuration, it usually means pushing file to that repository.
+[NOTE]
+====
+Prefer the dedicated plugin when one exists — link:/docs/plugins/scm/github/[GitHub], link:/docs/plugins/scm/gitlab/[GitLab], link:/docs/plugins/scm/gitea/[Gitea], link:/docs/plugins/scm/bitbucket/[Bitbucket], link:/docs/plugins/scm/stash/[Stash], link:/docs/plugins/scm/azuredevops/[Azure DevOps]. They default to a working branch and can be paired with an action that opens a pull request. The `git` plugin can only push; no pull request will ever be opened from it.
+====
 
 == Parameters
 
 {{< resourceparameters "scms" "git" >}}
 
-=== GPG
+`url` is the only mandatory parameter. It accepts both protocols:
 
-Updatecli can sign commits using a private GPG key if configured accordingly.
+[source,yaml]
+----
+url: "https://github.com/updatecli/updatecli.git"   # HTTP(S)
+url: "git@github.com:updatecli/updatecli.git"       # SSH
+----
 
----
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-| signingkey ||| Defines the armored private gpg key
-| password ||| Defines the gpg key password
-|===
+NOTE: The table above is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter — currently `singleBranch`, which restricts clone and fetch to the configured branch — may work in the binary before it shows up here.
 
+=== Authentication
 
-=== CommitMessage
+How Updatecli authenticates follows from the URL scheme.
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+HTTP(S)::
+`username` and `password` are sent as HTTP basic credentials. On most platforms the "password" is a personal access token rather than an account password, and the username can be any non-empty value. Keep them out of the manifest itself:
++
+[source,yaml]
+----
+username: '{{ requiredEnv "GIT_USERNAME" }}'
+password: '{{ requiredEnv "GIT_TOKEN" }}'
+----
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+SSH::
+`username` and `password` are ignored. Updatecli relies on your local ssh-agent, so the key must already be loaded — `ssh-add -l` should list it — and the agent reachable through `SSH_AUTH_SOCK`. There is no parameter to point at a private key file.
 
----
-```
-Author: olblak <updatecli@updatecli.io>
+Anonymous access works for public repositories over HTTPS when both fields are left empty, which is enough for a source or a condition.
+
+[[_working_branch]]
+=== Working branch
+
+Unlike the platform-specific plugins, `git` commits directly to `branch` unless you opt in. Setting `workingBranch: true` makes Updatecli create a dedicated branch instead:
+
+[source,text]
+----
+<workingBranchPrefix><workingBranchSeparator><branch><workingBranchSeparator><pipelineID>
+----
+
+With the defaults (`updatecli` and `_`), a pipeline based on `main` produces `updatecli_main_<pipelineID>`, where `pipelineID` is a hash derived from the manifest, so the same pipeline reuses the same branch instead of piling up new ones. Characters git refuses in a ref are stripped, and the name is truncated to 255 characters. Setting `workingBranchPrefix: ""` gives `<branch>_<pipelineID>`.
+
+`branch` itself defaults to `main`.
+
+=== Force push
+
+`force` runs `git push --force`, and also makes Updatecli recreate working branches that diverged from their base branch. It defaults to `false` here.
+
+Because force-pushing straight onto a shared branch is destructive, and because some targets — the `shell` one, for instance — stage every change in the working tree, combining `force: true` with an unset `workingBranch` is refused:
+
+[source,text]
+----
+Better safe than sorry.
+
+The scm force option set to true means that Updatecli is going to run "git push --force"
+----
+
+Set `workingBranch` explicitly — to `true` to force-push a dedicated branch, or to `false` to confirm you really mean the shared one.
+
+=== Commit message
+
+Updatecli generates link:https://www.conventionalcommits.org/[conventional commits]. The `commitMessage` parameters (`type`, `scope`, `body`, `footers`, `hideCredit`, `squash`) shape the result.
+
+The commit title always comes from the target's `name`, or from its description when `name` is unset. It is capped at 72 characters minus the room taken by `type` and `scope`; the overflow is moved into the body. With the default type `chore`:
+
+[source,text]
+----
+Author: updatecli-bot <updatecli-bot@updatecli.io>
 Date:   Tue May 4 15:41:44 2021 +0200
 
     chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
@@ -69,28 +112,46 @@ Date:   Tue May 4 15:41:44 2021 +0200
     ... equirements.yaml"
 
     Made with ❤️️  by updatecli
-```
----
+----
 
+Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits added on the working branch into one — set `body` when you use it, since the individual messages are lost.
 
-[cols="1,1,1,4",options=header]
-|===
-| Name | Required | Default |Description
-|type ||chore| Specify commit type
-|scope ||| Specify commit scope
-|footer ||| Specify commit footer message
-|title ||| Override default body message
-|hideCredit ||| Remove "Made with ❤️️  by updatecli" from commit message body
-|body ||| Override default body message
-|===
+[WARNING]
+====
+`commitMessage.title` is deprecated and ignored. Rename the target instead; Updatecli logs a warning when the field is present.
+====
 
-=== Authentication
+NOTE: `commitMessage` applies to every target linked to the same scm.
 
-At the moment they are two ways to authentication with a git repository, either using a `username`/`password`` from the updatecli configuration, or relying on the local ssh-agent.
+=== Commit signing
+
+`gpg.signingkey` takes an *armored private* GPG key — not the public half — and `gpg.passphrase` its passphrase. Both are secrets and belong in an environment variable or a SOPS file:
+
+[source,yaml]
+----
+gpg:
+  signingkey: '{{ requiredEnv "GPG_SIGNING_KEY" }}'
+  passphrase: '{{ requiredEnv "GPG_PASSPHRASE" }}'
+----
+
+=== Clone behavior
+
+Left unset, `directory` is derived from the URL under your system temporary directory — `/tmp/updatecli/github_com_updatecli_updatecli_git` on Linux for `https://github.com/updatecli/updatecli.git`, with the protocol dropped and separators replaced. Overriding it is rarely useful, as Updatecli may clean that directory up after a run.
+
+`submodules`:: Defaults to `true`; set it to `false` to skip submodule checkout.
+`depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves Updatecli with an incomplete history, which can break pushes; `force: true` is often needed alongside.
+`singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. Setting it to `true` fetches only `branch`, which is much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch.
+
+=== Commit identity
+
+`user` and `email` name the commit author, defaulting to `updatecli-bot` and `updatecli-bot@updatecli.io`.
 
 == Example
 
-**updatecli.yaml**
-```
+The manifest below uses three separate scms: one to read a file, one to test a condition, and one over SSH to push a change on a working branch.
+
+[source,yaml]
+----
+# updatecli.yaml
 {{< include "assets/code_example/docs/plugins/scm/git/updatecli.d/default.yaml" >}}
-```
+----

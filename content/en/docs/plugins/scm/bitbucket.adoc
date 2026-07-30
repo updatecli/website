@@ -1,9 +1,9 @@
 ---
 title: "Bitbucket Cloud"
-description: "Interact with Bitbucket Cloud repositories"
+description: "Clone a Bitbucket Cloud repository, commit changes to a working branch, and push them back"
 lead: "kind: bitbucket"
 date: 2024-10-22T16:43:01+01:00
-lastmod: 2024-10-22T16:43:01+01:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,28 +20,88 @@ plugins:
 
 == Description
 
-The Bitbucket Cloud scm plugin is used to manage git repositories hosted on Bitbucket Cloud, depending on the stage, it can be used for different purposes
+The `bitbucket` scm plugin clones a repository hosted on *Bitbucket Cloud* (bitbucket.org) and pushes changes back to it. It is referenced by a resource through its `scmid`, as described on the link:/docs/core/scm/["SCM" page].
 
-**source**: Retrieve data from a git repository, such as a file content
+For a self-hosted Bitbucket Data Center or Server instance, use the link:/docs/plugins/scm/stash/[`stash`] plugin instead — this one always talks to `https://bitbucket.org` and has no `url` parameter.
 
-**condition**: Ensure data exist on a git repository, such as a file content
+Its behavior depends on the stage referencing it:
 
-**target**: Ensure data is up to date on a git repository
+**source** and **condition**::
+The repository is cloned and the resource works on the files from the branch defined by `branch`. Nothing is pushed.
+
+**target**::
+Updatecli creates a *working branch* based on `branch`, commits the changes to it, and pushes that branch. The `branch` value itself is left untouched.
+
+IMPORTANT: This plugin does not open pull requests. Pushing a working branch and opening a pull request are two distinct steps: the pull request comes from an `actions` block of kind `bitbucket/pullrequest`, documented on the link:/docs/plugins/actions/bitbucket/["Bitbucket Cloud Pull Request" page]. Without such an action, the branch is pushed and nothing else happens.
 
 == Parameters
 
 {{< resourceparameters "scms" "bitbucket" >}}
 
-=== CommitMessage
+`owner` and `repository` identify the repository — `https://bitbucket.org/<owner>/<repository>`.
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+NOTE: The table is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter — currently `singleBranch`, which restricts clone and fetch to the configured branch — may work in the binary before it appears there.
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+=== Authentication
 
----
-```
-Author: olblak <updatecli@updatecli.io>
+Two mutually exclusive credentials are supported, and `token` wins when both are given.
+
+`token`::
+A repository or project access token, needing the `pullrequest:write` scope when an action opens pull requests. Updatecli sends it as a bearer token to the API, and for git operations it authenticates as the literal user `x-token-auth` with the token as password — you do not set `username` alongside it.
++
+[source,yaml]
+----
+token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
+----
+
+`username` + `password`::
+An account name together with an *app password*, again with the `pullrequest:write` scope for actions. Your real account password will not work.
++
+[source,yaml]
+----
+username: '{{ requiredEnv "BITBUCKET_USER" }}'
+password: '{{ requiredEnv "BITBUCKET_APP_PASSWORD" }}'
+----
+
+Reading from a public repository works without any credential; a target always needs write access.
+
+=== Working branch
+
+For a target, the working branch is derived from three components joined by a separator:
+
+[source,text]
+----
+<workingBranchPrefix><workingBranchSeparator><branch><workingBranchSeparator><pipelineID>
+----
+
+With the defaults (`updatecli` and `_`), a pipeline based on `main` produces `updatecli_main_<pipelineID>`, where `pipelineID` is a hash derived from the manifest — so the same pipeline reuses the same branch instead of piling up new ones. Characters git refuses in a ref are stripped, and the name is truncated to 255 characters. Setting `workingBranchPrefix: ""` gives `<branch>_<pipelineID>`.
+
+`branch` defaults to `main`, with a warning in the logs when it is left unset.
+
+==== Disabling the working branch
+
+`workingBranch: false` makes Updatecli commit and push straight to `branch`. Since `force` defaults to `true` — meaning `git push --force` — that combination is refused unless `force` is also set explicitly:
+
+[source,text]
+----
+Better safe than sorry.
+
+Updatecli may be pushing unwanted changes to the branch "main".
+----
+
+Set `force: false` to push without forcing, or `force: true` to acknowledge the force push. When `force` is `true`, Updatecli also recreates working branches that diverged from their base branch.
+
+TIP: `updatecli apply --clean-git-branches` deletes, at the end of a run, the working branches that ended up identical to their base branch — those left behind by pipelines that had nothing to change.
+
+=== Commit message
+
+Updatecli generates link:https://www.conventionalcommits.org/[conventional commits]. The `commitMessage` parameters (`type`, `scope`, `body`, `footers`, `hideCredit`, `squash`) shape the result.
+
+The commit title always comes from the target's `name`, or from its description when `name` is unset. It is capped at 72 characters minus the room taken by `type` and `scope`; the overflow moves into the body. With the default type `chore`:
+
+[source,text]
+----
+Author: updatecli-bot <updatecli-bot@updatecli.io>
 Date:   Tue May 4 15:41:44 2021 +0200
 
     chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
@@ -49,14 +109,44 @@ Date:   Tue May 4 15:41:44 2021 +0200
     ... equirements.yaml"
 
     Made with ❤️️  by updatecli
-```
----
+----
+
+Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits of the working branch into one — set `body` when you use it, since the individual messages are lost.
+
+[WARNING]
+====
+`commitMessage.title` is deprecated and ignored. Rename the target instead; Updatecli logs a warning when the field is present.
+====
+
+NOTE: `commitMessage` applies to every target linked to the same scm.
+
+=== Commit signing and identity
+
+`gpg.signingkey` takes an *armored private* GPG key and `gpg.passphrase` its passphrase. Both are secrets:
+
+[source,yaml]
+----
+gpg:
+  signingkey: '{{ requiredEnv "GPG_SIGNING_KEY" }}'
+  passphrase: '{{ requiredEnv "GPG_PASSPHRASE" }}'
+----
+
+`user` and `email` name the commit author, defaulting to `updatecli-bot` and `updatecli-bot@updatecli.io`. Set `email` to an address attached to your Bitbucket account if you want the commits attributed to it.
+
+=== Clone behavior
+
+Left unset, `directory` defaults to `<tmp>/updatecli/bitbucket/<owner>/<repository>` on your system temporary directory. Overriding it is rarely useful, as Updatecli may clean that directory up after a run.
+
+`submodules`:: Defaults to `true`; set it to `false` to skip submodule checkout.
+`depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves an incomplete history, which can break pushes; `force: true` is often needed alongside.
+`singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. `true` fetches only `branch` — much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch and opening a duplicate pull request.
 
 == Example
+
+The manifest below picks whichever credential is available in the environment, thanks to the Go template guards around the two blocks.
 
 [source,yaml]
 ----
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/scm/bitbucket/updatecli.d/default.yaml">}}
 ----
-
