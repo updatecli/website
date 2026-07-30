@@ -1,7 +1,8 @@
 ---
 title: "Bitbucket Cloud Pull Request"
-description: "Open a Bitbucket Cloud Pull Request"
+description: "Open or update a Bitbucket Cloud pull request once a target changed a file"
 lead: "kind: bitbucket/pullrequest"
+lastmod: 2026-07-29T10:00:00+02:00
 images: []
 menu:
   docs:
@@ -18,11 +19,33 @@ plugins:
 
 == Description
 
-The `action` section describes the link:https://www.atlassian.com/git/tutorials/making-a-pull-request[Bitbucket Cloud Pull Request] that updatecli is expected to open (or update) when a target is modified.
+The `bitbucket/pullrequest` action opens — or updates — a link:https://support.atlassian.com/bitbucket-cloud/docs/pull-requests-and-code-review/[Bitbucket Cloud pull request] once a target linked to the same scm has changed something and the change has been pushed.
+
+It is the second half of the Bitbucket Cloud workflow: the link:/docs/plugins/scm/bitbucket/[`bitbucket` scm] commits to a working branch and pushes it, this action turns that branch into a pull request. Without it, the branch is pushed and nothing else happens.
+
+For a self-hosted Bitbucket Data Center or Server instance, use link:/docs/plugins/actions/stash/[`stash/pullrequest`] instead.
+
+== Requirements
+
+include::content/en/docs/plugins/_actionScm.adoc[]
+
+The credential carried by the scm — a token, or a username with an app password — needs the `pullrequest:write` scope for this action to work.
 
 == Parameters
 
 {{< resourceparameters "actions" "bitbucket/pullrequest" >}}
+
+The spec is deliberately small — `title` and `body`, on top of the identity fields inherited from the scm. Reviewers, labels, and merge automation are not exposed by this plugin.
+
+`body`:: Replaces the description Updatecli generates from the pipeline run, on creation and on update alike.
+
+An already open pull request is refreshed on each run: Updatecli merges the report of the latest run into the existing description rather than opening a second request.
+
+=== Cleanup
+
+Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branches` removes working branches that ended up with no changes, but a pull request already opened for one of them is not closed automatically — that stays a manual step.
+
+The same goes for the options this plugin does not expose, such as reviewers and labels. If closing stale pull requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] — these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised.
 
 == Example
 
@@ -31,3 +54,7 @@ The `action` section describes the link:https://www.atlassian.com/git/tutorials/
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/actions/bitbucket_pullrequest/updatecli.yaml">}}
 ----
+
+== Links
+
+* link:https://support.atlassian.com/bitbucket-cloud/docs/pull-requests-and-code-review/[Documentation: Bitbucket Cloud pull requests]

@@ -1,9 +1,9 @@
 ---
 title: "Github Pull Request"
-description: "Open a Github Pull Request"
+description: "Open or update a GitHub pull request once a target changed a file"
 lead: "kind: github/pullrequest"
 date: 2022-01-30T08:21:01+02:00
-lastmod: 2022-01-30T08:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -21,13 +21,84 @@ plugins:
 
 == Description
 
-The `actions` section describes the link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub Pull Requests] that updatecli is expected to open (or update) when the manifest is applied.
+The `github/pullrequest` action opens — or updates — a link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub pull request] once a target linked to the same scm has changed something and the change has been pushed.
+
+It is the second half of the GitHub workflow: the link:/docs/plugins/scm/github/[`github` scm] commits to a working branch and pushes it, this action turns that branch into a pull request. Without it, the branch is pushed and nothing else happens.
+
+NOTE: `kind: github` is a deprecated alias for `kind: github/pullrequest`. It still works and logs a warning.
+
+== Requirements
+
+include::content/en/docs/plugins/_actionScm.adoc[]
+
+The credential the scm uses must also be allowed to open pull requests. Requesting reviews from a *team* additionally requires organization read permission.
 
 == Parameters
 
 {{< resourceparameters "actions" "github/pullrequest" >}}
 
+=== Merge behavior
+
+`merge.strategy` decides what happens to the pull request once it exists. It accepts three values, and anything else is rejected at load time with `invalid merge strategy`.
+
+`manual`::
+The default, also the behaviour when `merge` is omitted entirely. Updatecli opens the pull request and stops there.
+
+`auto`::
+Enables GitHub's own link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request[auto-merge], so GitHub merges once the required checks pass. This needs *"Allow auto-merge" enabled on the repository* and *branch protection rules on the target branch* — without them the API refuses and Updatecli logs which of the two is missing:
++
+[source,text]
+----
+Automerge can't be enabled. Make sure to allow it on the repository.
+Automerge can't be enabled. Make sure to have branch protection rules enabled on the repository.
+----
+
+`client`::
+Updatecli merges the pull request itself through the API, with no repository configuration required. Useful where auto-merge is unavailable, but note that it does not wait for checks the way `auto` does.
+
+`merge.after` sets a minimum age before a `client` merge happens, as a Go duration (`30m`, `24h`, `168h`). *It defaults to `24h` when `merge.strategy: client` and `after` is unset* — a pull request younger than that is left alone, with a message saying how long it still has to wait, and merged on a later run:
+
+[source,text]
+----
+Pull request is only 3h0m0s old — waiting for merge.after duration of 24h
+----
+
+An unparseable value fails with `invalid merge.after duration`.
+
+[source,yaml]
+----
+spec:
+  merge:
+    strategy: client
+    after: 24h
+----
+
+WARNING: `automerge: true` is deprecated. It is silently translated to `merge.strategy: auto` (and `automerge: false` to `manual`) with a warning in the logs. Use `merge` instead.
+
+`mergemethod` selects how the merge is performed — `merge`, `squash`, `rebase`, or empty to use the repository default. Any other value is rejected with `wrong merge method defined`. `usetitleforautomerge: true` then uses the pull request title as the resulting commit message, which GitHub only honours for `squash` and `rebase`.
+
+=== Reviewers, assignees, and labels
+
+`reviewers`:: GitHub usernames, or `organization/team` to request a review from a team. A team entry needs a token with organization read permission.
+`assignees`:: GitHub usernames only — the `organization/team` form is not accepted here.
+`labels`:: *Must already exist on the repository.* GitHub does not create them on the fly, unlike GitLab.
+
+=== Other options
+
+`draft`:: Opens the pull request as a link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request#converting-a-pull-request-to-a-draft[draft].
+`description`:: Prepended to the description Updatecli generates from the pipeline run; it does not replace it.
+`parent`:: Opens the pull request against the *parent* of the current fork instead of the fork itself.
+`maintainercannotmodify`:: Denies link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork#enabling-repository-maintainer-permissions-on-existing-pull-requests[maintainer edits] on the branch. The default, `false`, leaves them allowed.
+
+=== Cleanup
+
+Unlike most other action plugins, this one implements cleanup. On `updatecli apply`, an existing pull request that turns out to have *no changed files* — because the change was applied by other means in the meantime — is closed automatically, and the report records `Pull request closed as no changed file detected`.
+
+With `merge.strategy: client`, cleanup is also where a pull request that has now reached its `merge.after` age gets merged.
+
 == Example
+
+The manifest below opens a labelled pull request from the working branch created by the `github` scm, and lets GitHub merge it once the checks pass.
 
 [source,yaml]
 ----
