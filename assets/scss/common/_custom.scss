@@ -83,29 +83,43 @@
 }
 
 // -----------------------------------------------------------------------------
-// Asciidoctor admonition blocks ([NOTE], [WARNING], …)
+// Table sizing inside the docs
 //
-// Asciidoctor renders an admonition as a two-cell <table> (icon + content), and
 // doks-core's `_tables.scss` extends Bootstrap's `.table` onto every bare
-// <table>. With the default `table-layout: auto`, a code block inside the
-// content cell sets that column's minimum width to its longest line: `pre`
-// scrolls, but a scroll container still contributes its content's min-content
-// width to table sizing, and a table never renders narrower than that minimum.
-// A long line therefore pushes the whole block out of `.docs-content` and over
-// the sticky table of contents on the right.
+// <table>, which leaves them at `table-layout: auto`. A table can never render
+// narrower than its min-content width, and a code block sets that width to its
+// longest line: `pre` scrolls, but a scroll container still contributes its
+// content's min-content width to table sizing. One long line therefore pushes
+// the whole table out of `.docs-content` and over the sticky table of contents
+// on the right.
 //
-// `fixed` sizes the columns from the first row instead, so the text wraps and
-// the code block scrolls inside its own cell. The icon column needs an explicit
-// width, otherwise the two columns split the table evenly.
-//
-// The parameter tables built by the `*parameters` shortcodes solve the same
-// problem the same way, inline in `layouts/_shortcodes/`.
+// `fixed` sizes the columns from the colgroup (or, lacking one, evenly) and
+// ignores content, so cells wrap and a code block scrolls inside its own cell.
+// Every table we render already declares its columns: Asciidoctor emits a
+// <colgroup> from the `cols=` attribute, and the `*parameters` shortcodes in
+// `layouts/_shortcodes/` write one by hand.
 // -----------------------------------------------------------------------------
 
-.admonitionblock > table {
+.docs-content table {
   table-layout: fixed;
+  overflow-wrap: break-word;
+}
 
-  td.icon {
-    width: 6rem;
+// Asciidoctor renders an admonition ([NOTE], [WARNING], …) as a two-cell table
+// with no colgroup, so the icon column needs a width of its own — otherwise the
+// label and the body split the block evenly.
+.admonitionblock > table td.icon {
+  width: 6rem;
+}
+
+// Wrapper the `*parameters` shortcodes put around their table. The min-width
+// keeps the four columns readable on a phone by scrolling the table instead of
+// squeezing every cell down to broken words; the scroll stays inside this box,
+// so the page itself never scrolls sideways.
+.table-scroll {
+  overflow-x: auto;
+
+  > table {
+    min-width: 34rem;
   }
 }

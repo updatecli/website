@@ -1,4 +1,17 @@
+{{- /* The colgroup below is what keeps this table inside the .docs-content
+     column: `.docs-content table` is laid out with `table-layout: fixed`, which
+     sizes columns from the colgroup and ignores content, so a description
+     holding a fenced code block can no longer stretch the table over the table
+     of contents. See the table sizing block in assets/scss/common/_custom.scss
+     for the whole story, and for what `.table-scroll` does. */ -}}
+<div class="table-scroll">
 <table>
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 12%;">
+      <col style="width: 54%;">
+      <col style="width: 14%;">
+    </colgroup>
     <tr>
       <th>Name</th>
       <th>Type</th>
@@ -10,7 +23,7 @@
     <tr>
         <td><b>{{ $key }}</b></td>
         <td>{{ $value.type }}</td>
-        <td>{{ $value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $value.description }}</td>
         <td>{{ $value.required }}</td>
     </tr>
       {{ if eq $value.type "object" }}
@@ -18,7 +31,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $subkey }}</b></td>
         <td>{{ $subvalue.type }}</td>
-        <td>{{ $subvalue.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $subvalue.description }}</td>
         <td>{{ $subvalue.required }}</td>
     </tr>
         {{ end }}
@@ -28,7 +41,7 @@
     <tr>
       <td><b>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
       <td>{{ $item.type }}</td>
-      <td>{{ $item.description | markdownify }}</td>
+      <td>{{ partial "schema-description.html" $item.description }}</td>
       <td>{{ $item.required }}</td>
     </tr>
         {{ end }}
@@ -36,5 +49,6 @@
 {{ end }}
 
 </table>
+</div>
 
 <small>&#9888; This table is generated from the Updatecli codebase and may contain inaccurate data. Feel free to report them on <a href="https://github.com/updatecli/updatecli/issues">github.com/updatecli/updatecli</a></small>
