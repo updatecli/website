@@ -29,7 +29,7 @@ plugins:
 
 == Description
 
-The `gittag` resource works with the tags of a git repository directly, over the git protocol — no forge API involved, so it works with any host.
+The `gittag` resource works with the tags of a git repository directly, over the git protocol (no forge API involved, so it works with any host).
 
 **source**::
 Returns the tag matching `versionfilter`, or its hash when `key: hash`.
@@ -44,11 +44,11 @@ Tests that a matching tag exists. With `tag` set, the check is an exact match in
 
 {{< resourceparameters "sources" "gittag" >}}
 
-`url`:: The repository. Over SSH — `git@github.com:updatecli/updatecli.git` — access depends on your local SSH configuration; over HTTPS, on `username` and `password`.
+`url`:: The repository. Over SSH (`git@github.com:updatecli/updatecli.git`), access depends on your local SSH configuration; over HTTPS, on `username` and `password`.
 `path`:: A local repository to read instead of cloning.
 `key`:: Source only. `name`, the default, returns the tag name; `hash` returns the commit hash it points at. Any other value is rejected with `The only valid values for Key are 'name', 'hash', or empty.`
-`tag`:: Condition only — an exact tag, bypassing `versionfilter`.
-`message`:: Target only — the annotation message of the tag being created.
+`tag`:: Condition only - an exact tag, bypassing `versionfilter`.
+`message`:: Target only - the annotation message of the tag being created.
 `sourcebranch`:: Target only, and required when no `scmid` is set.
 
 === Avoiding a clone

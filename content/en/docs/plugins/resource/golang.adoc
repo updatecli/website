@@ -30,7 +30,7 @@ plugins:
 
 == Description
 
-The `golang` resource returns a released version of the Go language itself — not of a module. It is the resource to use for bumping the toolchain version in a Dockerfile, a CI workflow, or a `go.mod`.
+The `golang` resource returns a released version of the Go language itself - not of a module. It is the resource to use for bumping the toolchain version in a Dockerfile, a CI workflow, or a `go.mod`.
 
 **source**::
 Returns the Go version matching `versionfilter`.
@@ -39,9 +39,9 @@ Returns the Go version matching `versionfilter`.
 Checks that `version` is a released Go version.
 
 **target**::
-Not supported — a target fails with `Target not supported for the plugin Go`. To write the version into a file, pair this source with link:/docs/plugins/resource/gomod/[`golang/gomod`], link:/docs/plugins/resource/dockerfile/[`dockerfile`], or link:/docs/plugins/resource/file/[`file`].
+Not supported - a target fails with `Target not supported for the plugin Go`. To write the version into a file, pair this source with link:/docs/plugins/resource/gomod/[`golang/gomod`], link:/docs/plugins/resource/dockerfile/[`dockerfile`], or link:/docs/plugins/resource/file/[`file`].
 
-NOTE: An `scm` attached to a condition is ignored — the lookup is remote. Unlike most plugins this is logged at debug level only, so nothing appears in a normal run.
+NOTE: An `scm` attached to a condition is ignored - the lookup is remote. Unlike most plugins this is logged at debug level only, so nothing appears in a normal run.
 
 == Parameters
 
@@ -64,7 +64,7 @@ spec:
 
 [WARNING]
 ====
-Setting `age` changes how the resource works. To learn a release date, Updatecli fetches the git tags of the Go repository and reads their commit dates — considerably slower than the plain version lookup. Use it where the delay is worth it, not by default.
+Setting `age` changes how the resource works. To learn a release date, Updatecli fetches the git tags of the Go repository and reads their commit dates - considerably slower than the plain version lookup. Use it where the delay is worth it, not by default.
 ====
 
 == Example

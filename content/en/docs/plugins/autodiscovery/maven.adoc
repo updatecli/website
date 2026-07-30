@@ -44,8 +44,8 @@ Updatecli also reads `settings.xml`, looked up in this order:
 
 From it, Updatecli applies:
 
-* **mirrors** — a repository whose `id` or URL matches a `<mirrorOf>` rule is replaced by the mirror, including the `central` shorthand,
-* **server credentials** — the `<username>` and `<password>` of the `<server>` whose `id` matches the repository.
+* **mirrors** - a repository whose `id` or URL matches a `<mirrorOf>` rule is replaced by the mirror, including the `central` shorthand,
+* **server credentials** - the `<username>` and `<password>` of the `<server>` whose `id` matches the repository.
 
 The `MAVEN_MIRROR_URL` environment variable is honoured, and `${env.VARIABLE}` expressions inside `settings.xml` are interpolated.
 

@@ -35,7 +35,7 @@ The `helmchart` resource works at two levels, and which one applies depends on t
 Talk to a *chart repository*. The source returns the latest version of a published chart; the condition checks that `version` exists there.
 
 **target**::
-Works on a chart *in your repository*. It updates a value in the chart's `values.yaml`, then maintains the chart's own metadata — bumping `version`, optionally `appVersion`, and refreshing `requirements.lock`.
+Works on a chart *in your repository*. It updates a value in the chart's `values.yaml`, then maintains the chart's own metadata (bumping `version`, optionally `appVersion`, and refreshing `requirements.lock`).
 
 That asymmetry is the thing to keep in mind: `url` addresses the remote repository and is read-only, while `name` and `key` address the local chart the target rewrites.
 
@@ -44,7 +44,7 @@ That asymmetry is the thing to keep in mind: `url` addresses the remote reposito
 {{< resourceparameters "sources" "helmchart" >}}
 
 `name`:: The chart, as `stable/chart`. With an `scm`, it is the path to the chart relative to the repository root.
-`file`:: Defaults to `values.yaml`, resolved relative to the chart root — not to the repository root.
+`file`:: Defaults to `values.yaml`, resolved relative to the chart root (not to the repository root).
 `key`:: Target only. The yamlpath of the value to update, e.g. `$.image.tag`.
 `url`:: Source and condition only. Accepts a repository index, a git URL, or an OCI registry:
 +
@@ -65,10 +65,10 @@ Credentials for an OCI registry are given inline on the spec, next to the other 
 
 [WARNING]
 ====
-The increment is applied *per target*. When several targets in the same pipeline update the same chart, the chart version is bumped once for each of them — three targets with the default `minor` move a chart from 1.0.0 to 1.3.0. Use `versionincrement: none` on all but one of them, and see link:https://github.com/updatecli/updatecli/issues/693[updatecli#693].
+The increment is applied *per target*. When several targets in the same pipeline update the same chart, the chart version is bumped once for each of them - three targets with the default `minor` move a chart from 1.0.0 to 1.3.0. Use `versionincrement: none` on all but one of them, and see link:https://github.com/updatecli/updatecli/issues/693[updatecli#693].
 ====
 
-`appversion: true` also writes the source value into the chart's `appVersion` field — the usual choice when the chart ships one application whose image tag you are bumping.
+`appversion: true` also writes the source value into the chart's `appVersion` field (the usual choice when the chart ships one application whose image tag you are bumping).
 
 `skippackaging: true` updates the files without packaging the chart afterwards.
 
@@ -87,7 +87,7 @@ Unlike most resources, `versionfilter` defaults to **semver** here rather than t
 What it says:
 
 **Source**::
-Retrieve the version of the Jenkins chart from `https://charts.jenkins.io` — 2.7.1.
+Retrieve the version of the Jenkins chart from `https://charts.jenkins.io` (2.7.1).
 
 **Condition**::
 Check that version 11.16.5 of the prometheus chart is available from `https://prometheus-community.github.io/helm-charts`. If not, the pipeline stops.

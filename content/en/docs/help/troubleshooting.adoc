@@ -24,8 +24,8 @@ line in your log should land on the right entry.
 
 Before anything else, two things resolve most of what follows:
 
-`--debug`:: Raises the log level. Several decisions — which token was used, which engine was
-selected, why a target was skipped — are logged at debug level only.
+`--debug`:: Raises the log level. Several decisions (which token was used, which engine was
+selected, why a target was skipped) are logged at debug level only.
 
 `updatecli pipeline diff`:: Parses and validates the whole manifest and reports what would change
 without writing anything. Every validation error on this page surfaces from a `diff`, so there is no
@@ -33,7 +33,7 @@ need to risk an `apply` to find them.
 
 NOTE: Debug mode also switches itself on when Updatecli runs inside a CI system that reports being in
 debug mode. When it does, it says so: `CI pipeline detected in Debug Mode - hence enabling debug
-mode`. Jenkins, GitLab CI, and GitHub Actions are detected — see
+mode`. Jenkins, GitLab CI, and GitHub Actions are detected, see
 link:/docs/help/environment/#_ci_detection["Environment variables"].
 
 == Authentication
@@ -52,7 +52,7 @@ Nothing supplied a GitHub token. Updatecli looks in this order and stops at the 
 . the GitHub App variables (`UPDATECLI_GITHUB_APP_CLIENT_ID` and friends)
 . `GITHUB_TOKEN`, the fallback that makes GitHub Actions work without extra configuration
 
-Run with `--debug` to see which one was picked — each path logs its own line, such as `using GitHub
+Run with `--debug` to see which one was picked, each path logs its own line, such as `using GitHub
 token from environment variable UPDATECLI_GITHUB_TOKEN`. Silence from all four means none was set.
 
 The full list is on the link:/docs/help/environment/["Environment variables" page].
@@ -71,7 +71,7 @@ The GitHub spec is missing `owner`, `repository`, or both. The message lists exa
 This one deserves an explanation, because the message alone does not give you the fix. It is preceded
 in the log by a longer block beginning `Better safe than sorry.`
 
-It means Updatecli was about to force-push to a branch that is *not* a generated working branch — so
+It means Updatecli was about to force-push to a branch that is *not* a generated working branch, so
 `git push --force` would land directly on, say, `main`. Rather than guess, it refuses.
 
 Either let Updatecli use a working branch (the default), or, if pushing straight to that branch is
@@ -86,8 +86,8 @@ scms:
       force: true
 ----
 
-IMPORTANT: `force: true` means `git push --force` to the branch you named. Some targets — the `shell`
-plugin in particular — commit every change in the working directory, so what gets force-pushed may be
+IMPORTANT: `force: true` means `git push --force` to the branch you named. Some targets, the `shell`
+plugin in particular, commit every change in the working directory, so what gets force-pushed may be
 more than you expected.
 
 == Rate limiting
@@ -102,7 +102,7 @@ Updatecli sleeps until the window resets rather than failing:
 GitHub API rate limit reached, on hold for 45 minute(s) until 2026-07-30 11:15:00 UTC. The process will resume automatically.
 ----
 
-There is nothing to fix in the run — it resumes by itself. To avoid the wait, reduce how many API
+There is nothing to fix in the run, it resumes by itself. To avoid the wait, reduce how many API
 calls the manifest makes, or authenticate with a token that has a larger allowance. Run with
 `--debug` to watch the credit drain: `GitHub API credit used 1, remaining 4998 (reset at ...)`.
 
@@ -115,7 +115,7 @@ API rate limit exceeded, final attempt failed
 ----
 
 The first appears when a call starts with no credit left; Updatecli retries. The second means the
-retries ran out. An unauthenticated run hits this quickly — GitHub's anonymous allowance is far
+retries ran out. An unauthenticated run hits this quickly, GitHub's anonymous allowance is far
 smaller than an authenticated one, so setting a token is usually the whole fix.
 
 TIP: Docker Hub has its own, unrelated limits, with their own symptoms. See the
@@ -131,7 +131,7 @@ force push needed, use scm parameter "force" to true
 ----
 
 The remote branch has commits that the local one does not, so a fast-forward push is impossible. This
-normally means something else moved the branch — a previous Updatecli run, or a human.
+normally means something else moved the branch (a previous Updatecli run, or a human).
 
 Setting `force: true` on the scm lets Updatecli overwrite it. That is safe on a generated working
 branch and destructive anywhere else, so check which branch is being pushed before reaching for the
@@ -212,7 +212,7 @@ Name it explicitly, or set `disablesourceinput: true` on targets that need no so
 === `target "..." has undefined conditionids`
 
 A deprecated `conditionids` entry names a condition that does not exist. See
-link:/docs/help/deprecations/#_stage_identifiers["Deprecations"] — `conditionids` is superseded by
+link:/docs/help/deprecations/#_stage_identifiers["Deprecations"], `conditionids` is superseded by
 `dependson`.
 
 === `... key "..." contains forbidden go template instruction`
@@ -240,7 +240,7 @@ if it is no longer accurate.
 
 == Version filtering
 
-The most common source of "it found nothing" — and the messages are terse enough to be misleading.
+The most common source of "it found nothing", and the messages are terse enough to be misleading.
 
 [source,text]
 ----
@@ -255,7 +255,7 @@ unsupported version kind "..."
 unsupported version kind "..." with pattern "..."
 ----
 
-`versions list empty`:: The lookup itself returned nothing — the repository, registry, or API has no
+`versions list empty`:: The lookup itself returned nothing, the repository, registry, or API has no
 versions at all. The filter is not the problem; the query is. Check the repository name and
 credentials first.
 
@@ -265,14 +265,14 @@ with `--debug` before adjusting the pattern.
 `no valid semantic version found`:: The versions exist but are not semver, while the filter is
 `kind: semver`. Tags like `2024-06-01` or `release-7` need `kind: regex` or `kind: time` instead.
 
-`wrong semantic versioning constraint "..."`:: The constraint expression itself is malformed — `~>2.0`
+`wrong semantic versioning constraint "..."`:: The constraint expression itself is malformed, `~>2.0`
 rather than `~2.0`, for example.
 
 `unsupported version kind "..."`:: A typo in `kind`. The accepted values are on the
 link:/docs/core/versionfilter/["Version Filtering" page].
 
 IMPORTANT: A version filter is a subset check, not an ordering. `kind: latest` returns what the
-upstream considers latest — it does not sort the list and pick the highest. When the newest tag is not
+upstream considers latest, it does not sort the list and pick the highest. When the newest tag is not
 the one you expect, that distinction is usually why.
 
 == Nothing happened
@@ -289,7 +289,7 @@ The run finished, reported success, and opened nothing. In order of likelihood:
   selected never executes.
 . **The manifest requires a newer Updatecli.** Reported as a skip, as described above.
 
-Run with `--debug` — the per-target result says which of these applied.
+Run with `--debug` (the per-target result says which of these applied).
 
 NOTE: An action whose targets all reported unchanged is not simply skipped. Updatecli still looks for
 a pull request opened by an earlier run, so an update that has become obsolete is reported rather than
@@ -297,7 +297,7 @@ left dangling. See the link:/docs/core/action/["Action" page].
 
 == Still stuck?
 
-* Confirm the behaviour is not a documented deprecation — link:/docs/help/deprecations/[Deprecations].
-* Check whether the feature needs `--experimental` — link:/docs/help/experimental/[Experimental features].
+* Confirm the behaviour is not a documented deprecation - link:/docs/help/deprecations/[Deprecations].
+* Check whether the feature needs `--experimental` - link:/docs/help/experimental/[Experimental features].
 * Ask on one of the channels listed on the link:/support/[support page], including the manifest and the
   `--debug` output.

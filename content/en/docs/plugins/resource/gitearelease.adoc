@@ -57,13 +57,13 @@ These fields apply to a target, and two of them have defaults that are easy to t
 | Field | Behaviour
 | `tag` | The tag the release points at. **Defaults to the source output.**
 | `title` | The release title. **Defaults to the tag**, so an untitled release is named after its version.
-| `commitish` | The branch or commit the tag is created from. **Defaults to `main`**, with the warning `No commitish provided, fallback to branch "main"` — wrong on any repository whose default branch is `master` or `develop`, so set it explicitly.
+| `commitish` | The branch or commit the tag is created from. **Defaults to `main`**, with the warning `No commitish provided, fallback to branch "main"` - wrong on any repository whose default branch is `master` or `develop`, so set it explicitly.
 | `description` | The release body.
 | `draft` | Publish as a draft.
 | `prerelease` | Flag the release as a pre-release.
 |===
 
-A release that already exists is left untouched — the target neither updates its title nor its description.
+A release that already exists is left untouched (the target neither updates its title nor its description).
 
 == Authentication
 
@@ -92,4 +92,4 @@ A source or condition on a public repository needs no credential. Creating a rel
 
 * link:/docs/plugins/resource/giteabranch/[The `gitea/branch` resource]
 * link:/docs/plugins/resource/giteatag/[The `gitea/tag` resource]
-* link:/docs/plugins/scm/gitea/[The `gitea` scm] — to clone and push
+* link:/docs/plugins/scm/gitea/[The `gitea` scm] - to clone and push

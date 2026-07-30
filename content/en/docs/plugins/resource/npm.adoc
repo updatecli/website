@@ -38,9 +38,9 @@ Returns the version of the package matching `versionfilter`.
 Checks that `version` is published for the package.
 
 **target**::
-Not supported — a registry is not something Updatecli publishes to. A target fails with `Target not supported for the plugin Npm`. To bump a dependency *in a file*, use the link:/docs/plugins/resource/json/["JSON" resource] against `package.json`, or the link:/docs/plugins/autodiscovery/npm/[npm autodiscovery crawler].
+Not supported - a registry is not something Updatecli publishes to. A target fails with `Target not supported for the plugin Npm`. To bump a dependency *in a file*, use the link:/docs/plugins/resource/json/["JSON" resource] against `package.json`, or the link:/docs/plugins/autodiscovery/npm/[npm autodiscovery crawler].
 
-NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup always goes to the registry.
+NOTE: An `scm` attached to a condition is ignored, with a warning (the lookup always goes to the registry).
 
 == Parameters
 
@@ -48,11 +48,11 @@ NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup
 
 `name`:: The package name, scope included: `@updatecli/updatecli` as well as `express`.
 `url`:: Defaults to `https://registry.npmjs.org/`.
-`version`:: Condition only — the version whose existence is being checked.
+`version`:: Condition only - the version whose existence is being checked.
 
 == Version selection
 
-`versionfilter` behaves differently here than on most resources: with `kind: latest`, the value is taken from the registry's own `dist-tags.latest`, which is what `npm install <pkg>` would give you — *not* the highest version number.
+`versionfilter` behaves differently here than on most resources: with `kind: latest`, the value is taken from the registry's own `dist-tags.latest`, which is what `npm install <pkg>` would give you (*not* the highest version number).
 
 Every other filter kind sorts the full version list and applies the pattern. That distinction matters for packages that publish patches for older majors after a new major: `latest` follows the maintainer's tag, `semver` follows the numbering. See the link:/docs/core/versionfilter/["Version Filtering" page].
 
@@ -60,7 +60,7 @@ Every other filter kind sorts the full version list and applies the pattern. Tha
 
 Private registries are reached in one of two ways.
 
-`registrytoken` sets the bearer token directly — keep it out of the manifest:
+`registrytoken` sets the bearer token directly, keep it out of the manifest:
 
 [source,yaml]
 ----
@@ -74,13 +74,13 @@ spec:
 
 [IMPORTANT]
 ====
-When `npmrcpath` is empty *or the file it names does not exist*, Updatecli falls back to `$HOME/.npmrc`. A typo in the path therefore does not raise an error — it silently reads the user's own configuration, which is easy to miss when it works locally and fails in CI where that file is absent.
+When `npmrcpath` is empty *or the file it names does not exist*, Updatecli falls back to `$HOME/.npmrc`. A typo in the path therefore does not raise an error (it silently reads the user's own configuration, which is easy to miss when it works locally and fails in CI where that file is absent).
 ====
 
 From an `.npmrc`, Updatecli reads two kinds of entry:
 
-* `//registry.example.com/:_authToken=xxx` — a token per registry
-* `@scope:registry=https://registry.example.com` — a registry per scope
+* `//registry.example.com/:_authToken=xxx` - a token per registry
+* `@scope:registry=https://registry.example.com` - a registry per scope
 
 == Example
 

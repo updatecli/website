@@ -234,7 +234,7 @@ Updatecli never loads a partial as a standalone manifest.
 
 [IMPORTANT]
 ====
-* Partial files are prepended to the main manifest before templating, and the result is parsed as a single YAML document. A partial can therefore only define root keys that the main manifest does not already define — a duplicated root key is a YAML error.
+* Partial files are prepended to the main manifest before templating, and the result is parsed as a single YAML document. A partial can therefore only define root keys that the main manifest does not already define (a duplicated root key is a YAML error).
 * If a `---` YAML document separator is present, the partial feature is effectively disabled, as the resulting content would be treated as multiple separate YAML documents.
 ====
 
@@ -322,7 +322,7 @@ On top of the standard Go template functions, a manifest can use:
 
 [IMPORTANT]
 ====
-`source` and `pipeline` are *not* evaluated when the manifest is loaded — at that point the values do not exist yet.
+`source` and `pipeline` are *not* evaluated when the manifest is loaded (at that point the values do not exist yet).
 They are re-evaluated during the pipeline run, each time a resource completes, and only then replaced by their value.
 
 As a side effect, `{{ source "id" }}` also declares an execution dependency: a resource referencing it

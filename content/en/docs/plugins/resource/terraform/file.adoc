@@ -1,6 +1,6 @@
 ---
 title: "Terraform File"
-description: "Read and update an attribute in a Terraform file — an alias for the hcl resource"
+description: "Read and update an attribute in a Terraform file, an alias for the hcl resource"
 lead: "kind: terraform/file"
 date: 2023-07-28T15:00:00+01:00
 lastmod: 2026-07-29T10:00:00+02:00
@@ -29,7 +29,7 @@ plugins:
 
 == Description
 
-`terraform/file` is an **alias** for link:{{< ref "hcl" >}}[`hcl`] — the same spec, backed by the same implementation. Use whichever name reads better in your manifest; there is no behavioural difference.
+`terraform/file` is an **alias** for link:{{< ref "hcl" >}}[`hcl`] - the same spec, backed by the same implementation. Use whichever name reads better in your manifest; there is no behavioural difference.
 
 **source**::
 Retrieves an attribute from a Terraform file at the configured path. A source accepts only one file.
@@ -57,7 +57,7 @@ resource "aws_instance" "app_server" {
 
 is addressed as `resource.aws_instance.app_server.ami`. It points at an attribute, never at a block.
 
-TIP: To bump a provider version, reach for link:{{< ref "provider" >}}[`terraform/provider`] instead — it understands `required_providers` blocks directly, rather than needing the exact attribute path.
+TIP: To bump a provider version, reach for link:{{< ref "provider" >}}[`terraform/provider`] instead (it understands `required_providers` blocks directly, rather than needing the exact attribute path).
 
 == Remote files
 
@@ -75,5 +75,5 @@ The example uses an additional resource plugin: link:{{< ref "registry" >}}[`ter
 
 == Links
 
-* link:{{< ref "hcl" >}}[The `hcl` resource] — the same plugin under its generic name
-* link:https://github.com/minamijoyo/hcledit[hcledit] — the library doing the editing
+* link:{{< ref "hcl" >}}[The `hcl` resource] - the same plugin under its generic name
+* link:https://github.com/minamijoyo/hcledit[hcledit] - the library doing the editing

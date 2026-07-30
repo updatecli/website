@@ -34,10 +34,10 @@ The `dockerdigest` resource resolves a container image tag to the digest it curr
 Returns the digest for `image` and `tag`, in the form `jenkins/jenkins:lts-jdk11@sha256:...`.
 
 **condition**::
-Checks that an image exists in the registry for the given digest — `digest` when set, otherwise the source output. A missing image reports `the Docker image <ref> doesn't exist.` rather than erroring.
+Checks that an image exists in the registry for the given digest - `digest` when set, otherwise the source output. A missing image reports `the Docker image <ref> doesn't exist.` rather than erroring.
 
 **target**::
-Not supported — a target fails with `Target not supported for the plugin Docker Digest`. Write the digest into a file with the link:/docs/plugins/resource/yaml/["Yaml"] or link:/docs/plugins/resource/file/["File"] resources.
+Not supported - a target fails with `Target not supported for the plugin Docker Digest`. Write the digest into a file with the link:/docs/plugins/resource/yaml/["Yaml"] or link:/docs/plugins/resource/file/["File"] resources.
 
 NOTE: An `scm` is accepted but ignored, logging `scm is not supported, ignoring`. The lookup always goes to the registry.
 
@@ -46,7 +46,7 @@ NOTE: An `scm` is accepted but ignored, logging `scm is not supported, ignoring`
 {{< resourceparameters "sources" "dockerdigest" >}}
 
 `image`:: Mandatory, e.g. `updatecli/updatecli`.
-`tag`:: Defaults to `latest`. It must not already contain a digest — a value starting with `@` is rejected with `invalid tag <image>: only contain a digest`.
+`tag`:: Defaults to `latest`. It must not already contain a digest (a value starting with `@` is rejected with `invalid tag <image>: only contain a digest`).
 `architecture`:: Defaults to `amd64`. Unset, the digest returned is that of the **image index**, valid on any platform; set, it is the digest of that one platform's image. The two are different values for the same tag.
 `digest`:: Condition only, defaulting to the source output.
 `hidetag`:: Source only. Changes the shape of the returned value.
@@ -75,7 +75,7 @@ IMPORTANT: Storing credentials in an unencrypted manifest is a bad practice. Rea
 
 === GHCR
 
-GitHub uses a personal access token — see link:https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token[Creating a personal access token].
+GitHub uses a personal access token (see link:https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token[Creating a personal access token]).
 
 === DockerHub
 
@@ -144,4 +144,4 @@ Update the YAML key `jenkins.master.imageTag` in `config/default/jenkins-release
 
 == Links
 
-* link:/docs/plugins/resource/docker_image/[The `dockerimage` resource] — to find a tag rather than resolve one
+* link:/docs/plugins/resource/docker_image/[The `dockerimage` resource] - to find a tag rather than resolve one

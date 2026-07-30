@@ -49,7 +49,7 @@ The result depends on what Updatecli finds next to each `pyproject.toml`:
 | present | no
 | The `pyproject.toml` is **skipped entirely**, with a warning. Updatecli refuses to bump a dependency it cannot re-lock.
 
-| absent | –
+| absent | -
 | **Source-only** manifests. Updatecli reports the latest published version but generates no target, so nothing is modified.
 |===
 

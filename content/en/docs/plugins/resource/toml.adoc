@@ -46,7 +46,7 @@ Writes the value at the given key. Files already holding it are reported as up t
 
 `file` or `files` is mandatory, as is `key` or `query`; missing either aborts the run with `wrong spec content`. `file` and `files` are mutually exclusive.
 
-`createmissingkey`:: Target only. Creates the key when it does not exist instead of failing. Only works together with `key`, and **not** with the `dasel/v3` engine — that combination is rejected at validation time with `engine "dasel/v3" does not support the parameter "createmissingkey"`, because the v3 API resolves the key before setting a value.
+`createmissingkey`:: Target only. Creates the key when it does not exist instead of failing. Only works together with `key`, and **not** with the `dasel/v3` engine (that combination is rejected at validation time with `engine "dasel/v3" does not support the parameter "createmissingkey"`, because the v3 API resolves the key before setting a value).
 
 NOTE: `multiple` is deprecated and hidden from the table above. Use a selector returning several values instead.
 
@@ -57,8 +57,8 @@ NOTE: `multiple` is deprecated and hidden from the table above. Use a selector r
 [cols="1,3",options=header]
 |===
 | Value | Behaviour
-| `dasel/v1` | Default when `engine` is unset. Deprecated — every run logs a warning.
-| `dasel/v2` | Deprecated — every run logs a warning.
+| `dasel/v1` | Default when `engine` is unset. Deprecated - every run logs a warning.
+| `dasel/v2` | Deprecated - every run logs a warning.
 | `dasel/v3` | Current engine. Rejects the leading dot: use `package.version`, not `.package.version`. Incompatible with `createmissingkey`.
 | `dasel` | Alias resolving to the latest engine, currently `dasel/v3`.
 |===
@@ -71,7 +71,7 @@ WARNING: `query` is a `dasel/v1` parameter. On `dasel/v2` and `dasel/v3`, a `que
 
 == Limitations
 
-Dasel rewrites the file from its parsed representation, so **comments are dropped** on any target that changes something — see link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. This bites hardest on hand-maintained files such as `netlify.toml` or `Cargo.toml`.
+Dasel rewrites the file from its parsed representation, so **comments are dropped** on any target that changes something - see link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. This bites hardest on hand-maintained files such as `netlify.toml` or `Cargo.toml`.
 
 The workaround is to drive the edit with the link:/docs/plugins/resource/file/["File" resource], matching the line with a regular expression so only those bytes are rewritten:
 

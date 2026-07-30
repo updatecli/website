@@ -20,8 +20,8 @@ The `versionfilter` key decides which one of them the source actually returns.
 
 Two things happen, depending on the `kind`:
 
-* **sorting** — `semver`, `regex/semver`, `time`, `regex/time`, `pep440`, and `lex` order the versions themselves, so the *highest* or *most recent* one wins whatever order the resource used.
-* **filtering** — `pattern` restricts the candidates, for instance to a major version, a release branch, or a date format.
+* **sorting** - `semver`, `regex/semver`, `time`, `regex/time`, `pep440`, and `lex` order the versions themselves, so the *highest* or *most recent* one wins whatever order the resource used.
+* **filtering** - `pattern` restricts the candidates, for instance to a major version, a release branch, or a date format.
 
 `latest` and `regex` only filter: they keep the order given by the resource, which is usually the
 publication order.

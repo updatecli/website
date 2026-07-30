@@ -24,7 +24,7 @@ It is open to contributions, and plenty of them involve no Go at all.
 
 NOTE: This page is the canonical contributor guide, verified against Updatecli `v0.119.0`. The
 `CONTRIBUTING.adoc` file in the repository covers building and testing locally and points here for
-everything else. If the two disagree, the Go source decides — see <<_the_source_is_the_source_of_truth>>.
+everything else. If the two disagree, the Go source decides, see <<_the_source_is_the_source_of_truth>>.
 
 Please read the link:/code-of-conduct/[Code of Conduct] before taking part.
 
@@ -52,8 +52,8 @@ link:https://opencollective.com/updatecli[OpenCollective].
 
 == Building and testing
 
-Building needs Go — the version in
-link:https://github.com/updatecli/updatecli/blob/main/go.mod[`go.mod`] is authoritative — plus GNU Make
+Building needs Go, the version in
+link:https://github.com/updatecli/updatecli/blob/main/go.mod[`go.mod`] is authoritative, plus GNU Make
 and link:https://goreleaser.com/install/[goreleaser].
 
 [source,shell]
@@ -83,7 +83,7 @@ TIP: `make help` lists every target.
 
 === Commits and pull requests
 
-Commits carry a `Signed-off-by:` trailer — `git commit --signoff`. Nothing in CI rejects a commit
+Commits carry a `Signed-off-by:` trailer, `git commit --signoff`. Nothing in CI rejects a commit
 without one, but every recent commit has it, so please follow suit.
 
 The repository has a pull request template; filling it in is the fastest route to a review.
@@ -97,7 +97,7 @@ touches four places, none of them in the core's logic.
 === The source is the source of truth
 
 Before copying anything from this page into an editor, read an existing plugin. The interfaces here are
-current as of `v0.119.0`, but a plugin in the tree cannot drift — this page can.
+current as of `v0.119.0`, but a plugin in the tree cannot drift (this page can).
 
 link:https://github.com/updatecli/updatecli/tree/main/pkg/plugins/resources/gitcommit[`pkg/plugins/resources/gitcommit`]
 is a good model: it is recent, small, implements a source and a condition, and explicitly refuses a
@@ -105,7 +105,7 @@ target.
 
 === 1. Create the package
 
-Resource plugins live under `pkg/plugins/resources/<name>/` — note **`resources`**, plural:
+Resource plugins live under `pkg/plugins/resources/<name>/`, note **`resources`**, plural:
 
 [source,text]
 ----
@@ -149,7 +149,7 @@ type Spec struct {
 **Tags** come from two modules: link:https://github.com/go-yaml/yaml[go-yaml] for `yaml:` and
 link:https://github.com/invopop/jsonschema[invopop/jsonschema] for `jsonschema:`. Use
 `yaml:",omitempty"` on optional fields, `jsonschema:"required"` on mandatory ones, and
-`jsonschema:"-"` to hide a field — which is how deprecated aliases stay out of the schema.
+`jsonschema:"-"` to hide a field (which is how deprecated aliases stay out of the schema).
 
 [IMPORTANT]
 ====
@@ -208,7 +208,7 @@ All five methods are required, even when a stage makes no sense for the resource
 not obvious from the signatures:
 
 **Results are written, not returned.** `Source` and `Target` report through `*result.Source` and
-`*result.Target` — set `Result` to one of the `result` constants, plus `Information` and `Description`:
+`*result.Target`, set `Result` to one of the `result` constants, plus `Information` and `Description`:
 
 [source,go]
 ----
@@ -232,7 +232,7 @@ func (gc *GitCommit) Target(_ context.Context, source string, scm scm.ScmHandler
 changing nothing on disk.
 
 **`ReportConfig` must redact.** It is what ends up in reports, so return a copy of the `Spec` carrying
-only what is safe — no tokens, no passwords, no absolute paths from the runner. `redact.URL()` strips
+only what is safe, no tokens, no passwords, no absolute paths from the runner. `redact.URL()` strips
 credentials out of a URL.
 
 Return `nil` from `Changelog` when the resource has no changelog to offer.
@@ -269,12 +269,12 @@ what the switch says, because the map is checked first. It is also what the JSON
 from, so a kind registered only in the switch gets no parameter table and no editor completion.
 
 The map is the authoritative list of kinds, and the place to look up the exact spelling of an existing
-one — note the aliases, such as `terraform/file` for `hcl`.
+one (note the aliases, such as `terraform/file` for `hcl`).
 
 === 5. Test it
 
 Unit tests belong beside the code. Beyond those, add an end-to-end manifest under
-`e2e/updatecli.d/success.d/`, named after your kind — `e2e/updatecli.d/success.d/gitCommit.yaml`, for
+`e2e/updatecli.d/success.d/`, named after your kind, `e2e/updatecli.d/success.d/gitCommit.yaml`, for
 instance.
 
 The bar for `success.d` is strict, and it is asserted in
@@ -282,7 +282,7 @@ The bar for `success.d` is strict, and it is asserted in
 its output must contain **neither** `WARNING:` **nor** `ERROR:`. A manifest that works but warns will
 fail the suite.
 
-Sibling directories cover the other outcomes — `warning.d`, `deprecated.d`, and `skipped.targets.d`,
+Sibling directories cover the other outcomes, `warning.d`, `deprecated.d`, and `skipped.targets.d`,
 each with its own Venom suite in `e2e/venom.d/`.
 
 === 6. Document it
@@ -304,7 +304,7 @@ page and add a temporary hand-written table if the gap matters.
 
 The core provides the skeleton: manifest parsing, the pipeline stages, ordering, reporting, and the SCM
 and action abstractions. It changes less often than plugins do and has no equivalent step-by-step
-recipe — start from an link:https://github.com/updatecli/updatecli/issues[issue] so the design can be
+recipe, start from an link:https://github.com/updatecli/updatecli/issues[issue] so the design can be
 discussed before the code exists.
 
 == Contributing documentation
@@ -331,18 +331,18 @@ not on `PATH`. Because `security.exec.osEnv` strips most environment variables b
 
 A few conventions worth knowing before opening a documentation pull request:
 
-* A cross-page link is `link:/docs/core/versionfilter/["Version Filtering" page]` — root-relative, so it
+* A cross-page link is `link:/docs/core/versionfilter/["Version Filtering" page]` - root-relative, so it
   survives deploy previews. `xref:` is for anchors within the same page.
 * Examples live under `assets/code_example/` and are pulled in with an `include` shortcode inside the
   listing block. A missing path fails the build.
-* Shared prose fragments — version filtering, GitHub authentication — are included from
+* Shared prose fragments (version filtering, GitHub authentication) are included from
   `content/en/docs/plugins/_*.adoc` rather than repeated.
 * Front matter descriptions are checked at build time and must be between 50 and 160 characters.
 
 == Go Further
 
-* link:https://github.com/updatecli/updatecli[updatecli/updatecli] — the CLI, plugins, and e2e tests.
-* link:https://github.com/updatecli/website[updatecli/website] — this documentation.
-* link:/docs/help/troubleshooting/[Troubleshooting] — error messages and their causes.
-* link:/support/[Support] — where to ask, and how to report a bug.
+* link:https://github.com/updatecli/updatecli[updatecli/updatecli] - the CLI, plugins, and e2e tests.
+* link:https://github.com/updatecli/website[updatecli/website] - this documentation.
+* link:/docs/help/troubleshooting/[Troubleshooting] - error messages and their causes.
+* link:/support/[Support] - where to ask, and how to report a bug.
 * link:/code-of-conduct/[Code of Conduct].

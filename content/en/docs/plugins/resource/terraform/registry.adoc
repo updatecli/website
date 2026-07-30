@@ -37,7 +37,7 @@ Returns the version matching `versionfilter`.
 Checks that `version` exists in the registry.
 
 **target**::
-Not supported — a registry is read-only. A target fails with `Target not supported for the plugin terraform/registry`.
+Not supported - a registry is read-only. A target fails with `Target not supported for the plugin terraform/registry`.
 
 NOTE: An `scm` attached to a condition is ignored; the lookup always goes to the registry over HTTP.
 
@@ -87,7 +87,7 @@ failed to create resource terraform/registry: a module registry source address m
 
 === Version selection
 
-`versionfilter` defaults to `kind: semver` with pattern `*` when it is not set — unlike most resources, which default to the generic filter. See the link:/docs/core/versionfilter/["Version Filtering" page].
+`versionfilter` defaults to `kind: semver` with pattern `*` when it is not set - unlike most resources, which default to the generic filter. See the link:/docs/core/versionfilter/["Version Filtering" page].
 
 `version` is condition-only: it names the version whose existence is being checked.
 

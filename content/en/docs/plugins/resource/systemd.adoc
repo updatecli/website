@@ -53,11 +53,11 @@ Updates the option.
 
 {{< resourceparameters "sources" "systemd" >}}
 
-`file`, `section` and `option` are all mandatory — each missing one is reported as `the attribute 'spec.<name>' is required.`. `file` takes an absolute or relative path.
+`file`, `section` and `option` are all mandatory - each missing one is reported as `the attribute 'spec.<name>' is required.`. `file` takes an absolute or relative path.
 
 `index`:: systemd allows the same option to appear several times in a section, and `index` picks one, counting from zero. A negative value is rejected with `the attribute 'spec.index' must be greater than or equal to 0.`
 +
-Its default differs by stage: a **source** reads the first occurrence, while a **condition** and a **target** with `index` unset match *every* occurrence. Set it explicitly when a unit file repeats an option — `ExecStartPre` and `Environment` commonly do — and you only mean one of them.
+Its default differs by stage: a **source** reads the first occurrence, while a **condition** and a **target** with `index` unset match *every* occurrence. Set it explicitly when a unit file repeats an option (`ExecStartPre` and `Environment` commonly do) and you only mean one of them.
 
 `value`:: Defaults to the source output.
 
@@ -68,7 +68,7 @@ Its default differs by stage: a **source** reads the first occurrence, while a *
 The unit file is rewritten from its parsed form, so **all comments are dropped** when a target changes something. If you need them preserved, drive the edit with the link:/docs/plugins/resource/file/["File" resource] and a `matchpattern`/`replacepattern` pair, or say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker].
 ====
 
-This resource edits unit files as text. It does not reload the daemon or restart units — no `systemctl daemon-reload` is issued, so a change applied by Updatecli takes effect only once something else reloads systemd.
+This resource edits unit files as text. It does not reload the daemon or restart units (no `systemctl daemon-reload` is issued, so a change applied by Updatecli takes effect only once something else reloads systemd).
 
 == Example
 
@@ -80,4 +80,4 @@ This resource edits unit files as text. It does not reload the daemon or restart
 
 == Links
 
-* link:https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html[systemd.unit(5)] — unit file sections and options
+* link:https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html[systemd.unit(5)] - unit file sections and options

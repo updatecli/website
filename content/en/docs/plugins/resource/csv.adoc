@@ -57,7 +57,7 @@ NOTE: `multiple` is deprecated and hidden from the table above. Use a selector r
 spec:
   file: data.csv
   key: .[0].version
-  comma: 59      # ";"  — 44 is "," (the default), 9 is a tab
+  comma: 59      # ";" - 44 is "," (the default), 9 is a tab
 ----
 
 Passing the character itself aborts the run before the pipeline starts:
@@ -77,8 +77,8 @@ error while cleaning config: failed to create resource csv: decoding failed due 
 [cols="1,3",options=header]
 |===
 | Value | Behaviour
-| `dasel/v1` | Default when `engine` is unset. Deprecated — every run logs a warning.
-| `dasel/v2` | Deprecated — every run logs a warning.
+| `dasel/v1` | Default when `engine` is unset. Deprecated - every run logs a warning.
+| `dasel/v2` | Deprecated - every run logs a warning.
 | `dasel/v3` | Current engine. Rejects the leading dot: use `[0].firstname`, not `.[0].firstname`.
 | `dasel` | Alias resolving to the latest engine, currently `dasel/v3`.
 |===
@@ -96,7 +96,7 @@ URL scheme is not supported for CSV target: "https://example.com/data.csv"
 
 == Limitations
 
-Dasel rewrites the file from its parsed representation, so **comments are dropped** on any target that changes something — see link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Formatting details such as quoting style are normalised the same way.
+Dasel rewrites the file from its parsed representation, so **comments are dropped** on any target that changes something - see link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Formatting details such as quoting style are normalised the same way.
 
 When that matters, drive the edit with the link:/docs/plugins/resource/file/["File" resource] and a `matchpattern`/`replacepattern` pair instead, which rewrites only the bytes that changed.
 

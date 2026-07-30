@@ -33,7 +33,7 @@ What the crawler generates depends on which lock file sits next to `package.json
 | Lock file | Command available | Result
 
 | none
-| –
+| -
 | `package.json` is updated on its own. Nothing refreshes a lock file, because there is none.
 
 | `package-lock.json`

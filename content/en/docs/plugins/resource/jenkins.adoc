@@ -38,7 +38,7 @@ Returns the latest version of the requested release line.
 Checks that `version` exists *and* that it belongs to the release line named by `release`.
 
 **target**::
-Not supported — a target fails with `Target not supported for the plugin Jenkins`.
+Not supported - a target fails with `Target not supported for the plugin Jenkins`.
 
 NOTE: An `scm` attached to a condition is ignored, with the warning `SCM configuration is not supported for Jenkins condition`.
 
@@ -47,7 +47,7 @@ NOTE: An `scm` attached to a condition is ignored, with the warning `SCM configu
 {{< resourceparameters "sources" "jenkins" >}}
 
 `release`:: Either `stable` or `weekly`.
-`version`:: Condition only — the version being checked.
+`version`:: Condition only - the version being checked.
 
 == Release lines
 
@@ -60,13 +60,13 @@ The release line is derived from the *shape* of the version number, by counting 
 | 3 | `stable` (LTS) | `2.426.1`
 |===
 
-Anything else is rejected — a non-numeric component gives `in version '<v>', component '<c>' is not a valid integer`, and any other count gives `version <v> contains <n> component(s) which doesn't correspond to any valid release type`.
+Anything else is rejected (a non-numeric component gives `in version '<v>', component '<c>' is not a valid integer`, and any other count gives `version <v> contains <n> component(s) which doesn't correspond to any valid release type`).
 
 This is what makes the condition useful: it does not merely check that a version was published, it checks that you are not about to install a weekly where you meant an LTS.
 
 == Example
 
-In the following example we want to update a Jenkins Docker image tag inside a YAML file each time a new Jenkins weekly release is published — but only after validating that:
+In the following example we want to update a Jenkins Docker image tag inside a YAML file each time a new Jenkins weekly release is published, but only after validating that:
 
 . a matching Docker image has been published;
 . the infrastructure uses the expected image name;

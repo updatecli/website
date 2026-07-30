@@ -31,13 +31,13 @@ plugins:
 The `temurin` resource queries the link:https://api.adoptium.net/[Adoptium API] for link:https://adoptium.net/[Eclipse Temurin] JDK and JRE releases.
 
 **source**::
-Returns one attribute of the matching release — its version name, or a URL to the installer, checksum or signature, depending on `result`.
+Returns one attribute of the matching release (its version name, or a URL to the installer, checksum or signature, depending on `result`).
 
 **condition**::
 Verifies that a release exists, optionally across a set of platforms.
 
 **target**::
-Not supported — a target fails with `Target not supported for resource of kind 'temurin'`.
+Not supported - a target fails with `Target not supported for resource of kind 'temurin'`.
 
 == Parameters
 
@@ -50,7 +50,7 @@ Every field has a default, so an empty spec is valid and resolves to the latest 
 | Field | Default | Notes
 | `releaseline` | `lts` | `lts` or `feature`.
 | `releasetype` | `ga` | `ga` for general availability, `ea` for early access.
-| `featureversion` | latest | The major Java version — 8, 11, 17, 21…
+| `featureversion` | latest | The major Java version - 8, 11, 17, 21…
 | `specificversion` | unset | An exact version, a JDK version, or a Temurin release name. **Takes precedence over `featureversion`**, which is then ignored.
 | `architecture` | `x64` | `x86`, `aarch64`, `arm`, `ppc64`, `ppc64le`, `s390x`, `sparcv9`, `riscv64`.
 | `operatingsystem` | `linux` | `windows`, `mac`, `solaris`, `aix`, `alpine-linux`.
@@ -59,7 +59,7 @@ Every field has a default, so an empty spec is valid and resolves to the latest 
 | `result` | `version` | `installer_url`, `checksum_url`, `signature_url`.
 |===
 
-`platforms` is **condition-only**. It takes `<os>/<architecture>` pairs and passes only when a release exists for all of them — the check to run before publishing something that claims multi-platform support:
+`platforms` is **condition-only**. It takes `<os>/<architecture>` pairs and passes only when a release exists for all of them, the check to run before publishing something that claims multi-platform support:
 
 [source,yaml]
 ----
@@ -99,5 +99,5 @@ So a source asking for the latest LTS keeps returning a usable version across th
 
 == Links
 
-* link:https://api.adoptium.net/q/swagger-ui/[Adoptium API reference] — the authoritative list of accepted architectures and operating systems
+* link:https://api.adoptium.net/q/swagger-ui/[Adoptium API reference] - the authoritative list of accepted architectures and operating systems
 * link:https://adoptium.net/[Eclipse Temurin]

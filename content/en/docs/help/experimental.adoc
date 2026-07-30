@@ -54,7 +54,7 @@ set.
 
 link:https://github.com/updatecli/udash[Udash] collects pipeline results for viewing over time.
 
-Without the flag, publishing is skipped **silently** — no warning, no error, and the run reports
+Without the flag, publishing is skipped **silently**, no warning, no error, and the run reports
 success. Configuring `UPDATECLI_UDASH_*` or running `updatecli udash login` is not enough on its own.
 With the flag, results are published under a section headed `Udash - Experimental`.
 
@@ -83,7 +83,7 @@ updatecli compose diff --experimental
 ----
 
 This website's own CI runs `updatecli compose diff --experimental` on every pull request, so the flag
-is safe to adopt for regular use — the caveat is about stability of the features themselves, not about
+is safe to adopt for regular use, the caveat is about stability of the features themselves, not about
 the flag being dangerous.
 
 TIP: Nothing already working changes when you add the flag. Enabling it never *disables* a stable
@@ -91,7 +91,7 @@ feature, so adding it to a CI job that does not use any of the above is a no-op.
 
 == Go Further
 
-* link:/docs/help/deprecations/[Deprecations] — the stability promise that experimental features are exempt from.
-* link:/docs/help/environment/[Environment variables] — including the Udash variables.
-* link:/docs/core/autodiscovery/[Autodiscovery] — the built-in crawlers.
-* link:/docs/commands/[Commands] — the full flag reference.
+* link:/docs/help/deprecations/[Deprecations] - the stability promise that experimental features are exempt from.
+* link:/docs/help/environment/[Environment variables] - including the Udash variables.
+* link:/docs/core/autodiscovery/[Autodiscovery] - the built-in crawlers.
+* link:/docs/commands/[Commands] - the full flag reference.

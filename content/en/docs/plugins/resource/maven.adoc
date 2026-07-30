@@ -37,7 +37,7 @@ Returns the version matching `versionfilter`.
 Checks that `version` exists for the artifact.
 
 **target**::
-Not supported — a target fails with `Target not supported for the plugin Maven`. To write a version *into* a `pom.xml`, use the link:/docs/plugins/resource/xml/["XML" resource], or the link:/docs/plugins/autodiscovery/maven/[maven autodiscovery crawler].
+Not supported - a target fails with `Target not supported for the plugin Maven`. To write a version *into* a `pom.xml`, use the link:/docs/plugins/resource/xml/["XML" resource], or the link:/docs/plugins/autodiscovery/maven/[maven autodiscovery crawler].
 
 NOTE: An `scm` attached to a condition is not supported and aborts it with `SCM configuration is not supported for maven condition, aborting`.
 
@@ -47,7 +47,7 @@ NOTE: An `scm` attached to a condition is not supported and aborts it with `SCM 
 
 `groupid` and `artifactid` identify the artifact; the group's dots become path separators when the metadata URL is built. `version` is condition-only.
 
-`repository` and `repositories` are mutually exclusive — setting both is rejected with `parameter "repository" and "repositories" are mutually exclusive`.
+`repository` and `repositories` are mutually exclusive (setting both is rejected with `parameter "repository" and "repositories" are mutually exclusive`).
 
 NOTE: `url` is deprecated. It is prepended to `repository` and logs `Parameter "URL" is deprecate, please prefix its content to parameter "repository"`. Put the whole URL in `repository` instead.
 
@@ -57,7 +57,7 @@ NOTE: `url` is deprecated. It is prepended to `repository` and logs `Parameter "
 ====
 **Maven Central is always consulted.** Unless `https://repo.maven.apache.org/maven2` already appears in `repositories`, Updatecli appends it as the last repository to try.
 
-A lookup against a private repository therefore falls through to Maven Central rather than failing when the artifact is missing — which is convenient for public dependencies, and surprising if you expected an internal-only artifact to be resolved internally or not at all.
+A lookup against a private repository therefore falls through to Maven Central rather than failing when the artifact is missing (which is convenient for public dependencies, and surprising if you expected an internal-only artifact to be resolved internally or not at all).
 ====
 
 `repositories` is ordered: the first repository that answers wins, with Maven Central last. Use it when an artifact may live in either a snapshot or a release repository:
@@ -85,7 +85,7 @@ NOTE: `repository` can carry Basic Auth credentials in the standard notation, `u
 What it says:
 
 **Sources**::
-Retrieve the version of the artifact `jenkins-war` from the group `org.jenkins-ci.main` in the `releases` repository on `repo.jenkins-ci.org` — 2.264 — then append `jdk11`, giving `2.264-jdk11`.
+Retrieve the version of the artifact `jenkins-war` from the group `org.jenkins-ci.main` in the `releases` repository on `repo.jenkins-ci.org` (2.264), then append `jdk11`, giving `2.264-jdk11`.
 
 **Conditions**::
 Check that a Docker image `jenkins/jenkins:2.264-jdk11` is published on DockerHub, and that the key `jenkins.master.image` in `charts/jenkins/values.yaml` is set to `jenkins/jenkins`. Either failing stops the pipeline.

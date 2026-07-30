@@ -49,7 +49,7 @@ Tests that the block records the expected version for the provider.
 Updates that version.
 
 **source**::
-Not supported — a source fails with `Source not supported for the plugin terraform/provider`. Get the version from link:{{< ref "registry" >}}[`terraform/registry`].
+Not supported - a source fails with `Source not supported for the plugin terraform/provider`. Get the version from link:{{< ref "registry" >}}[`terraform/registry`].
 
 == Parameters
 
@@ -57,7 +57,7 @@ Not supported — a source fails with `Source not supported for the plugin terra
 
 `file` or `files` and `provider` are mandatory; missing either aborts the run with `wrong spec content`, preceded by `terraform/provider file undefined` or `terraform/provider provider undefined`. `file` and `files` are mutually exclusive, and a condition accepts only one file.
 
-`provider`:: The key inside `required_providers` — `kubernetes` in the example above, not `hashicorp/kubernetes`. Unlike link:{{< ref "lock" >}}[`terraform/lock`], this resource matches on the block key rather than the registry address.
+`provider`:: The key inside `required_providers` - `kubernetes` in the example above, not `hashicorp/kubernetes`. Unlike link:{{< ref "lock" >}}[`terraform/lock`], this resource matches on the block key rather than the registry address.
 `value`:: Defaults to the source output.
 
 TIP: Updating a provider usually means touching two files. Pair this resource with a link:{{< ref "lock" >}}[`terraform/lock`] target in the same pipeline so `required_providers` and `.terraform.lock.hcl` stay consistent.

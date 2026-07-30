@@ -56,7 +56,7 @@ The following parameters can be specified through the `spec` attributes map:
 | value | | | Environments variable value. If the value is empty, then we inherit the value from the updatecli process.
 |===
 
-The command does **not** inherit the whole environment of the Updatecli process — that would leak every secret in your CI environment into every script. Instead Updatecli works from an allow list.
+The command does **not** inherit the whole environment of the Updatecli process - that would leak every secret in your CI environment into every script. Instead Updatecli works from an allow list.
 
 Leaving `environments` unset does not mean an empty environment, though: a small default list is passed, which differs per operating system.
 
@@ -76,7 +76,7 @@ environments:
   - name: GITHUB_TOKEN
 ----
 
-Verified with a script that prints its own environment — `MY_SECRET` does not reach it:
+Verified with a script that prints its own environment, `MY_SECRET` does not reach it:
 
 [source,shell]
 ----
@@ -109,12 +109,12 @@ To specify an environment variable, you can use one of the following examples:
 
 Two variables are added on top of the allow list, whatever `environments` says:
 
-`UPDATECLI_PIPELINE_STAGE`:: The stage running the command — `source`, `condition` or `target`. Useful for a single script shared between stages.
+`UPDATECLI_PIPELINE_STAGE`:: The stage running the command - `source`, `condition` or `target`. Useful for a single script shared between stages.
 `DRY_RUN`:: `true` under `updatecli diff`, `false` under `updatecli apply`.
 +
 [IMPORTANT]
 ====
-`DRY_RUN` is injected for **targets only**. It is absent from the environment of a source or a condition, so `$DRY_RUN` there expands to the empty string — not to `false`. A script guarding on `if [ "$DRY_RUN" = "false" ]` therefore never takes that branch when used as a source.
+`DRY_RUN` is injected for **targets only**. It is absent from the environment of a source or a condition, so `$DRY_RUN` there expands to the empty string - not to `false`. A script guarding on `if [ "$DRY_RUN" = "false" ]` therefore never takes that branch when used as a source.
 ====
 
 

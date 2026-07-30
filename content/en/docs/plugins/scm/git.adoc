@@ -32,7 +32,7 @@ The changes are committed and pushed. *By default they go straight to `branch`*,
 
 [NOTE]
 ====
-Prefer the dedicated plugin when one exists — link:/docs/plugins/scm/github/[GitHub], link:/docs/plugins/scm/gitlab/[GitLab], link:/docs/plugins/scm/gitea/[Gitea], link:/docs/plugins/scm/bitbucket/[Bitbucket], link:/docs/plugins/scm/stash/[Stash], link:/docs/plugins/scm/azuredevops/[Azure DevOps]. They default to a working branch and can be paired with an action that opens a pull request. The `git` plugin can only push; no pull request will ever be opened from it.
+Prefer the dedicated plugin when one exists - link:/docs/plugins/scm/github/[GitHub], link:/docs/plugins/scm/gitlab/[GitLab], link:/docs/plugins/scm/gitea/[Gitea], link:/docs/plugins/scm/bitbucket/[Bitbucket], link:/docs/plugins/scm/stash/[Stash], link:/docs/plugins/scm/azuredevops/[Azure DevOps]. They default to a working branch and can be paired with an action that opens a pull request. The `git` plugin can only push; no pull request will ever be opened from it.
 ====
 
 == Parameters
@@ -47,7 +47,7 @@ url: "https://github.com/updatecli/updatecli.git"   # HTTP(S)
 url: "git@github.com:updatecli/updatecli.git"       # SSH
 ----
 
-NOTE: The table above is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter — currently `singleBranch`, which restricts clone and fetch to the configured branch — may work in the binary before it shows up here.
+NOTE: The table above is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter (currently `singleBranch`, which restricts clone and fetch to the configured branch) may work in the binary before it shows up here.
 
 === Authentication
 
@@ -63,7 +63,7 @@ password: '{{ requiredEnv "GIT_TOKEN" }}'
 ----
 
 SSH::
-`username` and `password` are ignored. Updatecli relies on your local ssh-agent, so the key must already be loaded — `ssh-add -l` should list it — and the agent reachable through `SSH_AUTH_SOCK`. There is no parameter to point at a private key file.
+`username` and `password` are ignored. Updatecli relies on your local ssh-agent, so the key must already be loaded (`ssh-add -l` should list it) and the agent reachable through `SSH_AUTH_SOCK`. There is no parameter to point at a private key file.
 
 Anonymous access works for public repositories over HTTPS when both fields are left empty, which is enough for a source or a condition.
 
@@ -85,7 +85,7 @@ With the defaults (`updatecli` and `_`), a pipeline based on `main` produces `up
 
 `force` runs `git push --force`, and also makes Updatecli recreate working branches that diverged from their base branch. It defaults to `false` here.
 
-Because force-pushing straight onto a shared branch is destructive, and because some targets — the `shell` one, for instance — stage every change in the working tree, combining `force: true` with an unset `workingBranch` is refused:
+Because force-pushing straight onto a shared branch is destructive, and because some targets (the `shell` one, for instance) stage every change in the working tree, combining `force: true` with an unset `workingBranch` is refused:
 
 [source,text]
 ----
@@ -94,7 +94,7 @@ Better safe than sorry.
 The scm force option set to true means that Updatecli is going to run "git push --force"
 ----
 
-Set `workingBranch` explicitly — to `true` to force-push a dedicated branch, or to `false` to confirm you really mean the shared one.
+Set `workingBranch` explicitly (to `true` to force-push a dedicated branch, or to `false` to confirm you really mean the shared one).
 
 === Commit message
 
@@ -114,7 +114,7 @@ Date:   Tue May 4 15:41:44 2021 +0200
     Made with ❤️️  by updatecli
 ----
 
-Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits added on the working branch into one — set `body` when you use it, since the individual messages are lost.
+Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits added on the working branch into one (set `body` when you use it, since the individual messages are lost).
 
 [WARNING]
 ====
@@ -125,7 +125,7 @@ NOTE: `commitMessage` applies to every target linked to the same scm.
 
 === Commit signing
 
-`gpg.signingkey` takes an *armored private* GPG key — not the public half — and `gpg.passphrase` its passphrase. Both are secrets and belong in an environment variable or a SOPS file:
+`gpg.signingkey` takes an *armored private* GPG key (not the public half) and `gpg.passphrase` its passphrase. Both are secrets and belong in an environment variable or a SOPS file:
 
 [source,yaml]
 ----
@@ -136,7 +136,7 @@ gpg:
 
 === Clone behavior
 
-Left unset, `directory` is derived from the URL under your system temporary directory — `/tmp/updatecli/github_com_updatecli_updatecli_git` on Linux for `https://github.com/updatecli/updatecli.git`, with the protocol dropped and separators replaced. Overriding it is rarely useful, as Updatecli may clean that directory up after a run.
+Left unset, `directory` is derived from the URL under your system temporary directory - `/tmp/updatecli/github_com_updatecli_updatecli_git` on Linux for `https://github.com/updatecli/updatecli.git`, with the protocol dropped and separators replaced. Overriding it is rarely useful, as Updatecli may clean that directory up after a run.
 
 `submodules`:: Defaults to `true`; set it to `false` to skip submodule checkout.
 `depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves Updatecli with an incomplete history, which can break pushes; `force: true` is often needed alongside.

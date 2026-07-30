@@ -71,7 +71,7 @@ spec:
 
 The supported terms are `*` (any run of non-separator characters), `?` (a single one), and `[...]` character classes; `\` escapes the next character.
 
-Unlike the link:/docs/plugins/resource/yaml/["Yaml" resource], which rejects `searchpattern` in a source, the `file` resource accepts it everywhere — and that is a trap:
+Unlike the link:/docs/plugins/resource/yaml/["Yaml" resource], which rejects `searchpattern` in a source, the `file` resource accepts it everywhere, and that is a trap:
 
 [WARNING]
 ====
@@ -124,12 +124,12 @@ It retrieves the content of the file at the location `file` and use it as the so
 
 ⚠️ A file source rejects the following attributes with a validation error:
 
-* `content` — "only supported for conditions and targets"
-* `forcecreate` — "only supported for targets"
-* `replacepattern` — "only supported for targets"
-* `files` holding more than one entry — "can't contain more than one element for sources"
+* `content` - "only supported for conditions and targets"
+* `forcecreate` - "only supported for targets"
+* `replacepattern` - "only supported for targets"
+* `files` holding more than one entry - "can't contain more than one element for sources"
 
-NOTE: `template` is a target-only attribute, but a source neither uses nor rejects it — it is silently ignored, and the source still returns the raw file content.
+NOTE: `template` is a target-only attribute, but a source neither uses nor rejects it (it is silently ignored, and the source still returns the raw file content).
 
 === Filtering File Source Content
 
@@ -296,8 +296,8 @@ or fails the pipeline (and never run the pipeline's targets).
 
 ⚠️ A file condition rejects the following attributes with a validation error:
 
-* `forcecreate` — "only supported for targets"
-* `replacepattern` — "only supported for targets"
+* `forcecreate` - "only supported for targets"
+* `replacepattern` - "only supported for targets"
 
 NOTE: As with a source, `template` is silently ignored in a condition rather than rejected.
 

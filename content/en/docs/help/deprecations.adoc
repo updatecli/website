@@ -25,16 +25,16 @@ this page breaks a pipeline today, and everything on it may break one eventually
 
 Entries are grouped by area, newest deprecation first within each group. The `Since` column is the
 first release that emitted the warning, established from the Git history rather than from the
-release notes — see the link:/changelogs/updatecli[changelogs] for what shipped in each release.
+release notes (see the link:/changelogs/updatecli[changelogs] for what shipped in each release).
 
 TIP: To find out whether your own manifests are affected, run `updatecli pipeline diff` and read the
-warnings. Nothing needs to be applied — a `diff` parses and validates the whole manifest, which is
+warnings. Nothing needs to be applied, a `diff` parses and validates the whole manifest, which is
 where the deprecation warnings come from.
 
 Two cases on this page are *not* simple renames, and both are easy to miss:
 
-* `commitmessage.title` is **ignored**, not translated — see <<_commit_messages>>.
-* Moving a `json`, `toml`, or `csv` resource to `dasel/v3` turns `query` into a **hard error** — see <<_dasel_engines>>.
+* `commitmessage.title` is **ignored**, not translated - see <<_commit_messages>>.
+* Moving a `json`, `toml`, or `csv` resource to `dasel/v3` turns `query` into a **hard error** - see <<_dasel_engines>>.
 
 == Commands
 
@@ -108,7 +108,7 @@ targets:
 ----
 
 Updatecli performs that translation itself and, in doing so, also sets `disableconditions: true` on
-the target — the conditions named in `dependson` are the only ones that gate it.
+the target (the conditions named in `dependson` are the only ones that gate it).
 
 IMPORTANT: Setting the old key *and* the new key together is not a warning. `conditionids` combined
 with `dependson` makes Updatecli ignore `conditionids`; `conditionids` combined with
@@ -126,7 +126,7 @@ Resource `kind` values must also be lowercase. A capitalised kind is accepted an
 
 | `pullrequests`
 | `actions`
-| Mutually exclusive — using both is an error, not a warning
+| Mutually exclusive - using both is an error, not a warning
 | v0.40.0
 
 | `title`
@@ -136,7 +136,7 @@ Resource `kind` values must also be lowercase. A capitalised kind is accepted an
 
 | `autodiscovery.pullrequestid`
 | `autodiscovery.actionid`
-| Mutually exclusive — using both is an error
+| Mutually exclusive - using both is an error
 | v0.40.0
 |===
 
@@ -222,7 +222,7 @@ actions:
 ----
 |===
 
-`automerge: false` is not a no-op — it translates to `merge.strategy: manual`:
+`automerge: false` is not a no-op, it translates to `merge.strategy: manual`:
 
 [cols="1,1,3", options="header"]
 |===
@@ -236,7 +236,7 @@ actions:
 | `merge.strategy: manual`
 | Leave the pull request open for a human. This is also the default when `merge` is unset.
 
-| — (no equivalent)
+| - (no equivalent)
 | `merge.strategy: client`
 | Updatecli merges the pull request itself, after `merge.after` has elapsed (`24h` by default).
 |===
@@ -334,7 +334,7 @@ So rename `query` to `key` in the same edit.
 
 [WARNING]
 ====
-`commitmessage.title` is **ignored**, not renamed — deprecated in v0.114.0. The commit title is now
+`commitmessage.title` is **ignored**, not renamed (deprecated in v0.114.0). The commit title is now
 always generated from the target `name` (or its `description`), so a manifest that sets it sees no
 effect at all beyond the warning:
 
@@ -343,8 +343,8 @@ effect at all beyond the warning:
 commitMessage.title is deprecated and will be ignored. The commit title is now always generated from the target name or description.
 ----
 
-To control the commit title, rename the target. Everything else under `commitmessage` — `type`,
-`scope`, `body`, `footers`, `hidecredit` — still applies.
+To control the commit title, rename the target. Everything else under `commitmessage` (`type`,
+`scope`, `body`, `footers`, `hidecredit`) still applies.
 ====
 
 == YAML key syntax
@@ -422,6 +422,6 @@ link:/docs/core/compose/["Compose"] for the file format.
 
 == Go Further
 
-* link:/changelogs/updatecli[Changelogs] — what shipped in each release.
-* link:/docs/help/troubleshooting/[Troubleshooting] — error messages and what causes them.
-* link:/docs/commands/[Commands] — the current command reference.
+* link:/changelogs/updatecli[Changelogs] - what shipped in each release.
+* link:/docs/help/troubleshooting/[Troubleshooting] - error messages and what causes them.
+* link:/docs/commands/[Commands] - the current command reference.

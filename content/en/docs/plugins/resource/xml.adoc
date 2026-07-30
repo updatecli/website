@@ -44,9 +44,9 @@ Writes the value into the node. A document already holding it is reported as up 
 
 {{< resourceparameters "sources" "xml" >}}
 
-Both `file` and `path` are mandatory. Omitting either aborts the run with `wrong spec content`, preceded by the specific reason — `xml file not specified` or `xml path undefined`.
+Both `file` and `path` are mandatory. Omitting either aborts the run with `wrong spec content`, preceded by the specific reason (`xml file not specified` or `xml path undefined`).
 
-IMPORTANT: This resource takes a single `file` only. There is no `files` attribute, unlike the `yaml`, `json`, `toml`, `csv` and `hcl` resources — update several documents with one target each.
+IMPORTANT: This resource takes a single `file` only. There is no `files` attribute, unlike the `yaml`, `json`, `toml`, `csv` and `hcl` resources (update several documents with one target each).
 
 == XPath
 

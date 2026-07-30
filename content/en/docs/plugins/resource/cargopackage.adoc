@@ -28,7 +28,7 @@ plugins:
 
 == Description
 
-The `cargopackage` resource queries a cargo registry — link:https://crates.io[crates.io] by default — for the versions of a crate.
+The `cargopackage` resource queries a cargo registry (link:https://crates.io[crates.io] by default) for the versions of a crate.
 
 **source**::
 Returns the version matching `versionfilter`.
@@ -37,19 +37,19 @@ Returns the version matching `versionfilter`.
 Checks that `version` is published for the crate.
 
 **target**::
-Not supported — a target fails with `Target not supported for the plugin Cargo Package`. To bump a dependency *in a file*, use the link:/docs/plugins/resource/toml/["TOML" resource] against `Cargo.toml`, or the link:/docs/plugins/autodiscovery/cargo/[cargo autodiscovery crawler].
+Not supported - a target fails with `Target not supported for the plugin Cargo Package`. To bump a dependency *in a file*, use the link:/docs/plugins/resource/toml/["TOML" resource] against `Cargo.toml`, or the link:/docs/plugins/autodiscovery/cargo/[cargo autodiscovery crawler].
 
 == Parameters
 
 {{< resourceparameters "sources" "cargopackage" >}}
 
-`package` is mandatory. `version` is condition-only — the version whose existence is being checked.
+`package` is mandatory. `version` is condition-only (the version whose existence is being checked).
 
 NOTE: `indexurl` is deprecated and hidden from the table above. Use `registry.url`.
 
 === Registry
 
-`registry` describes where to look, and its three location fields are mutually exclusive — setting more than one is rejected before the run, naming the field that would be overridden:
+`registry` describes where to look, and its three location fields are mutually exclusive, setting more than one is rejected before the run, naming the field that would be overridden:
 
 [cols="1,3",options=header]
 |===

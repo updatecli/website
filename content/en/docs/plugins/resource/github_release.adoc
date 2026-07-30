@@ -37,7 +37,7 @@ Returns the latest release, sorted by release date.
 Checks that `tag` corresponds to a published release.
 
 **target**::
-Not supported — a target fails with `target not supported for the plugin GitHub Release`. Updatecli does not publish releases; to create a tag, use link:/docs/plugins/resource/gitTag/[`gittag`].
+Not supported - a target fails with `target not supported for the plugin GitHub Release`. Updatecli does not publish releases; to create a tag, use link:/docs/plugins/resource/gitTag/[`gittag`].
 
 NOTE: An `scm` attached to a condition is ignored, with the warning `condition not supported for plugin GitHub Release used with scm`.
 
@@ -81,7 +81,7 @@ spec:
     latest: false
 ----
 
-**When `draft`, `prerelease` and `release` are all left unset, `release` is turned on** — so out of the box only stable releases are considered, and pre-releases are ignored. Set `prerelease: true` to include them.
+**When `draft`, `prerelease` and `release` are all left unset, `release` is turned on** - so out of the box only stable releases are considered, and pre-releases are ignored. Set `prerelease: true` to include them.
 
 `latest: true` narrows the result to the single release GitHub itself flags as "Latest", which is not necessarily the most recent one by date.
 
@@ -115,6 +115,6 @@ include::content/en/docs/plugins/_versionFilter.adoc[]
 
 == Links
 
-* link:/docs/plugins/scm/github/[The `github` scm] — to clone and push
+* link:/docs/plugins/scm/github/[The `github` scm] - to clone and push
 * link:/docs/plugins/actions/github/[The `github/pullrequest` action]
 * link:/docs/core/versionfilter/["Version Filtering" page]

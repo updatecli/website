@@ -22,7 +22,7 @@ toc: true
 A command line tool that applies update strategies described in a manifest. The manifest declares
 what to update, where, and under which conditions; Updatecli reads it and does the work.
 
-It needs no server and no database — the manifest and the files it updates are the only state.
+It needs no server and no database (the manifest and the files it updates are the only state).
 The link:/docs/prologue/introduction/["Introduction" page] covers the model in full.
 
 == Is Updatecli pull or push based?
@@ -43,7 +43,7 @@ of the `pipeline` subcommands. See the link:/docs/help/deprecations/["Deprecatio
 
 == Does `diff` ever change anything on disk?
 
-Almost never — but there is one exception worth knowing.
+Almost never (but there is one exception worth knowing).
 
 A `shell` target runs your command in both modes. Updatecli cannot know what a script does, so it
 exports `DRY_RUN=true` and leaves the decision to the script. A script that ignores `DRY_RUN` will
@@ -67,7 +67,7 @@ The link:/docs/help/environment/["Environment variables" page] lists all of them
 
 == Why did the run finish cleanly but open no pull request?
 
-Usually because nothing needed changing — which is the expected outcome most of the time. The other
+Usually because nothing needed changing, which is the expected outcome most of the time. The other
 common causes are a condition that did not pass, `--commit=false` or `--push=false`, or a filter such
 as `--pipeline-ids` narrowing the run.
 
@@ -104,7 +104,7 @@ the end of a run.
 
 == Go Further
 
-* link:/docs/help/troubleshooting/[Troubleshooting] — error messages, what causes them, and what to do.
-* link:/docs/help/environment/[Environment variables] — every variable Updatecli reads.
-* link:/docs/help/deprecations/[Deprecations] — what changed and how to migrate.
-* link:/support/[Support] — community channels, and how to report a bug.
+* link:/docs/help/troubleshooting/[Troubleshooting] - error messages, what causes them, and what to do.
+* link:/docs/help/environment/[Environment variables] - every variable Updatecli reads.
+* link:/docs/help/deprecations/[Deprecations] - what changed and how to migrate.
+* link:/support/[Support] - community channels, and how to report a bug.

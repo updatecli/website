@@ -22,7 +22,7 @@ plugins:
 
 The `bitbucket` scm plugin clones a repository hosted on *Bitbucket Cloud* (bitbucket.org) and pushes changes back to it. It is referenced by a resource through its `scmid`, as described on the link:/docs/core/scm/["SCM" page].
 
-For a self-hosted Bitbucket Data Center or Server instance, use the link:/docs/plugins/scm/stash/[`stash`] plugin instead — this one always talks to `https://bitbucket.org` and has no `url` parameter.
+For a self-hosted Bitbucket Data Center or Server instance, use the link:/docs/plugins/scm/stash/[`stash`] plugin instead (this one always talks to `https://bitbucket.org` and has no `url` parameter).
 
 Its behavior depends on the stage referencing it:
 
@@ -38,16 +38,16 @@ IMPORTANT: This plugin does not open pull requests. Pushing a working branch and
 
 {{< resourceparameters "scms" "bitbucket" >}}
 
-`owner` and `repository` identify the repository — `https://bitbucket.org/<owner>/<repository>`.
+`owner` and `repository` identify the repository, `https://bitbucket.org/<owner>/<repository>`.
 
-NOTE: The table is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter — currently `singleBranch`, which restricts clone and fetch to the configured branch — may work in the binary before it appears there.
+NOTE: The table is generated from the Updatecli JSON schema, refreshed by a bot after each release. A recently added parameter (currently `singleBranch`, which restricts clone and fetch to the configured branch) may work in the binary before it appears there.
 
 === Authentication
 
 Two mutually exclusive credentials are supported, and `token` wins when both are given.
 
 `token`::
-A repository or project access token, needing the `pullrequest:write` scope when an action opens pull requests. Updatecli sends it as a bearer token to the API, and for git operations it authenticates as the literal user `x-token-auth` with the token as password — you do not set `username` alongside it.
+A repository or project access token, needing the `pullrequest:write` scope when an action opens pull requests. Updatecli sends it as a bearer token to the API, and for git operations it authenticates as the literal user `x-token-auth` with the token as password (you do not set `username` alongside it).
 +
 [source,yaml]
 ----
@@ -74,13 +74,13 @@ For a target, the working branch is derived from three components joined by a se
 <workingBranchPrefix><workingBranchSeparator><branch><workingBranchSeparator><pipelineID>
 ----
 
-With the defaults (`updatecli` and `_`), a pipeline based on `main` produces `updatecli_main_<pipelineID>`, where `pipelineID` is a hash derived from the manifest — so the same pipeline reuses the same branch instead of piling up new ones. Characters git refuses in a ref are stripped, and the name is truncated to 255 characters. Setting `workingBranchPrefix: ""` gives `<branch>_<pipelineID>`.
+With the defaults (`updatecli` and `_`), a pipeline based on `main` produces `updatecli_main_<pipelineID>`, where `pipelineID` is a hash derived from the manifest - so the same pipeline reuses the same branch instead of piling up new ones. Characters git refuses in a ref are stripped, and the name is truncated to 255 characters. Setting `workingBranchPrefix: ""` gives `<branch>_<pipelineID>`.
 
 `branch` defaults to `main`, with a warning in the logs when it is left unset.
 
 ==== Disabling the working branch
 
-`workingBranch: false` makes Updatecli commit and push straight to `branch`. Since `force` defaults to `true` — meaning `git push --force` — that combination is refused unless `force` is also set explicitly:
+`workingBranch: false` makes Updatecli commit and push straight to `branch`. Since `force` defaults to `true` (meaning `git push --force`), that combination is refused unless `force` is also set explicitly:
 
 [source,text]
 ----
@@ -91,7 +91,7 @@ Updatecli may be pushing unwanted changes to the branch "main".
 
 Set `force: false` to push without forcing, or `force: true` to acknowledge the force push. When `force` is `true`, Updatecli also recreates working branches that diverged from their base branch.
 
-TIP: `updatecli apply --clean-git-branches` deletes, at the end of a run, the working branches that ended up identical to their base branch — those left behind by pipelines that had nothing to change.
+TIP: `updatecli apply --clean-git-branches` deletes, at the end of a run, the working branches that ended up identical to their base branch (those left behind by pipelines that had nothing to change).
 
 === Commit message
 
@@ -111,7 +111,7 @@ Date:   Tue May 4 15:41:44 2021 +0200
     Made with ❤️️  by updatecli
 ----
 
-Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits of the working branch into one — set `body` when you use it, since the individual messages are lost.
+Setting `body` replaces the generated body entirely, including that overflow. `hideCredit: true` drops the credit line. `squash: true` collapses the commits of the working branch into one (set `body` when you use it, since the individual messages are lost).
 
 [WARNING]
 ====
@@ -139,7 +139,7 @@ Left unset, `directory` defaults to `<tmp>/updatecli/bitbucket/<owner>/<reposito
 
 `submodules`:: Defaults to `true`; set it to `false` to skip submodule checkout.
 `depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves an incomplete history, which can break pushes; `force: true` is often needed alongside.
-`singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. `true` fetches only `branch` — much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch and opening a duplicate pull request.
+`singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. `true` fetches only `branch` (much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch and opening a duplicate pull request).
 
 == Example
 

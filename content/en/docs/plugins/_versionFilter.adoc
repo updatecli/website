@@ -133,7 +133,7 @@ sources:
 ```
 => The `replaceall` converts `curl-8_11_1` to `curl-8.11.1`, and the newest tag matching `pattern` is returned as `curl-8.11.1`
 
-IMPORTANT: With `kind: regex`, the returned value is the whole transformed version, not a capture group — the `regex` key is ignored, only `pattern` is read. Use `kind: regex/semver` when you need to extract `8.11.1` out of `curl-8.11.1`, and add a `trimprefix` transformer otherwise.
+IMPORTANT: With `kind: regex`, the returned value is the whole transformed version, not a capture group - the `regex` key is ignored, only `pattern` is read. Use `kind: regex/semver` when you need to extract `8.11.1` out of `curl-8.11.1`, and add a `trimprefix` transformer otherwise.
 
 ==== semver
 
@@ -205,7 +205,7 @@ Extracted values that do not respect semantic versioning are ignored.
 It accepts a `pattern` (regex) and a `replacement` string, similar to a find-and-replace operation.
 See the link:#_regex[regex section] for an example.
 
-IMPORTANT: The regular expression must define at least one capture group; a version without one is skipped. `pattern` filters the extracted value, `regex` extracts it — the two are not interchangeable.
+IMPORTANT: The regular expression must define at least one capture group; a version without one is skipped. `pattern` filters the extracted value, `regex` extracts it (the two are not interchangeable).
 
 ===== Example
 

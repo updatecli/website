@@ -42,7 +42,7 @@ Each base image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source
 
 `digest` defaults to **true**. Set `digest: false` to track the tag only.
 
-TIP: Base images are commonly pinned to a non-version tag such as `nonroot` or `debug`. There is no newer version to find for those, so the generated manifest tracks only the digest — which is usually what you want, since it still picks up rebuilds of the same tag.
+TIP: Base images are commonly pinned to a non-version tag such as `nonroot` or `debug`. There is no newer version to find for those, so the generated manifest tracks only the digest (which is usually what you want, since it still picks up rebuilds of the same tag).
 
 == Authentication
 

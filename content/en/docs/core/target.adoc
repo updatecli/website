@@ -24,9 +24,9 @@ It is the only stage allowed to modify something, and it runs only once every li
 
 A target reports one of three outcomes:
 
-* **success** — the resource already holds the expected value, nothing to do
-* **attention** — the resource is out of date. In `diff` mode Updatecli only reports the change, in `apply` mode it writes it
-* **failure** — the target could not be evaluated
+* **success** - the resource already holds the expected value, nothing to do
+* **attention** - the resource is out of date. In `diff` mode Updatecli only reports the change, in `apply` mode it writes it
+* **failure** - the target could not be evaluated
 
 When a target is attached to an `scmid`, applying a change also commits it and pushes it to the configured branch,
 which in turn triggers the link:/docs/core/action/[actions] depending on that scm.

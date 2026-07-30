@@ -31,13 +31,13 @@ plugins:
 The `gitea/branch` resource queries the branches of a repository hosted on Gitea, through the Gitea API rather than over the git protocol.
 
 **source**::
-Returns the branch matching `versionfilter` — typically the highest `release/x.y`.
+Returns the branch matching `versionfilter` (typically the highest `release/x.y`).
 
 **condition**::
 Tests that `branch` exists in the repository.
 
 **target**::
-Not supported — a target fails with `target not supported for the plugin Gitea branch`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
+Not supported - a target fails with `target not supported for the plugin Gitea branch`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
 
 NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the Gitea API.
 
@@ -49,7 +49,7 @@ TIP: To work with branches over the git protocol instead, on any host, use link:
 
 `owner` and `repository` are mandatory. `url` points at your Gitea instance, e.g. `try.gitea.io`. There is no default.
 
-`branch`:: Condition only — the branch being checked.
+`branch`:: Condition only - the branch being checked.
 `versionfilter`:: Source only. See the link:/docs/core/versionfilter/["Version Filtering" page].
 
 == Authentication
@@ -79,4 +79,4 @@ Reading a public repository works without any credential.
 
 * link:/docs/plugins/resource/giteatag/[The `gitea/tag` resource]
 * link:/docs/plugins/resource/gitearelease/[The `gitea/release` resource]
-* link:/docs/plugins/scm/gitea/[The `gitea` scm] — to clone and push
+* link:/docs/plugins/scm/gitea/[The `gitea` scm] - to clone and push

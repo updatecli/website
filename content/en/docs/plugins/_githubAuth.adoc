@@ -36,7 +36,7 @@ export UPDATECLI_GITHUB_APP_INSTALLATION_ID="789012"
 ====
 When these variables are set and `UPDATECLI_GITHUB_TOKEN` is not, Updatecli uses GitHub App authentication for all GitHub operations, ignoring any credential set in the manifest.
 
-If the four variables do not form a valid configuration — a missing private key, an installation ID that is not an integer, an expiration below 600 seconds — the whole set is silently ignored and Updatecli moves on to the next method. Run with `--debug` to see which credential was selected.
+If the four variables do not form a valid configuration (a missing private key, an installation ID that is not an integer, an expiration below 600 seconds), the whole set is silently ignored and Updatecli moves on to the next method. Run with `--debug` to see which credential was selected.
 ====
 
 '''

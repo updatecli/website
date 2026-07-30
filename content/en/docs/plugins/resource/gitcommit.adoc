@@ -28,16 +28,16 @@ plugins:
 
 == Description
 
-The `gitcommit` resource works with commit hashes rather than versions — useful for pinning an action, a submodule, or a base image to an exact commit instead of a moving branch.
+The `gitcommit` resource works with commit hashes rather than versions (useful for pinning an action, a submodule, or a base image to an exact commit instead of a moving branch).
 
 **source**::
 Returns the latest commit hash of `branch`, or of the repository's current `HEAD` when `branch` is unset.
 
 **condition**::
-Checks that a commit exists in the repository — `hash` when set, otherwise the source output.
+Checks that a commit exists in the repository (`hash` when set, otherwise the source output).
 
 **target**::
-Not supported — a target fails with `target not supported for the Git Commit resource`. Updatecli commits through an link:/docs/core/scm/[scm], not through this resource.
+Not supported - a target fails with `target not supported for the Git Commit resource`. Updatecli commits through an link:/docs/core/scm/[scm], not through this resource.
 
 NOTE: This resource is newer than the JSON schema bundled with the website, so the parameter table below may be empty until the schema is regenerated. The parameters are listed in full underneath.
 
@@ -58,7 +58,7 @@ NOTE: This resource is newer than the JSON schema bundled with the website, so t
 
 == Choosing the repository
 
-Three things can say where the repository is, and they override each other in a fixed order — `url`, then `path`, then the `scmid`:
+Three things can say where the repository is, and they override each other in a fixed order, `url`, then `path`, then the `scmid`:
 
 [cols="1,3",options=header]
 |===
@@ -109,5 +109,5 @@ targets:
 
 == Links
 
-* link:/docs/plugins/resource/gitBranch/[The `gitbranch` resource] — to find a branch name
-* link:/docs/plugins/resource/gitTag/[The `gittag` resource] — to find a tag
+* link:/docs/plugins/resource/gitBranch/[The `gitbranch` resource] - to find a branch name
+* link:/docs/plugins/resource/gitTag/[The `gittag` resource] - to find a tag

@@ -29,10 +29,10 @@ plugins:
 
 == Description
 
-The `gitbranch` resource works with the branches of a git repository directly, over the git protocol — no forge API involved, so it works with any host.
+The `gitbranch` resource works with the branches of a git repository directly, over the git protocol (no forge API involved, so it works with any host).
 
 **source**::
-Returns the branch matching `versionfilter` — typically the highest `release/x.y`.
+Returns the branch matching `versionfilter` (typically the highest `release/x.y`).
 
 **condition**::
 Tests that a matching branch exists.
@@ -44,16 +44,16 @@ Tests that a matching branch exists.
 
 {{< resourceparameters "sources" "gitbranch" >}}
 
-`url`:: The repository. Over SSH — `git@github.com:updatecli/updatecli.git` — access depends on your local SSH configuration; over HTTPS, on `username` and `password`.
+`url`:: The repository. Over SSH (`git@github.com:updatecli/updatecli.git`), access depends on your local SSH configuration; over HTTPS, on `username` and `password`.
 `path`:: A local repository to read instead of cloning.
 `branch`:: The branch name.
-`sourcebranch`:: Target only — the branch the new one is created from. **Required when no `scmid` is set.**
+`sourcebranch`:: Target only - the branch the new one is created from. **Required when no `scmid` is set.**
 `key`:: Source only. `name`, the default, returns the branch name; `hash` returns the commit hash. Any other value is rejected with `The only valid values for Key are 'name', 'hash', or empty.`
 `depth`:: Limits how many commits are fetched. A branch outside the fetched history is invisible, so a condition can report an existing branch as missing.
 
 [NOTE]
 ====
-The generated table above may describe `sourcebranch` and `url` the wrong way round — the two doc comments were swapped in the Updatecli source. The fix is merged upstream; this page's descriptions are the correct ones, and the table will catch up once the JSON schema is regenerated.
+The generated table above may describe `sourcebranch` and `url` the wrong way round - the two doc comments were swapped in the Updatecli source. The fix is merged upstream; this page's descriptions are the correct ones, and the table will catch up once the JSON schema is regenerated.
 ====
 
 === Version Filter

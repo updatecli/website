@@ -17,7 +17,7 @@ toc: true
 
 == Description
 
-An Updatecli action defines what happens after a change is detected and validated. While Updatecli's sources find changes (like a new version), and targets define where to apply them (like a file), actions describe what to do next—such as creating a pull request.
+An Updatecli action defines what happens after a change is detected and validated. While Updatecli's sources find changes (like a new version), and targets define where to apply them (like a file), actions describe what to do next, such as creating a pull request.
 
 An action is bound to an link:/docs/core/scm/[scm] through its `scmid`, and runs when a
 link:/docs/core/target/[target] using that same scm pushed a change.

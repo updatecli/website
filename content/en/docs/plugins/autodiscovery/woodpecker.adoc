@@ -41,7 +41,7 @@ steps:
   - name: build
     image: golang:1.21
 
-# Not supported — this file yields no manifest
+# Not supported, this file yields no manifest
 steps:
   build:
     image: golang:1.21

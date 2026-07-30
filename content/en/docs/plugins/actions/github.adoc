@@ -21,7 +21,7 @@ plugins:
 
 == Description
 
-The `github/pullrequest` action opens — or updates — a link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub pull request] once a target linked to the same scm has changed something and the change has been pushed.
+The `github/pullrequest` action opens (or updates) a link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[GitHub pull request] once a target linked to the same scm has changed something and the change has been pushed.
 
 It is the second half of the GitHub workflow: the link:/docs/plugins/scm/github/[`github` scm] commits to a working branch and pushes it, this action turns that branch into a pull request. Without it, the branch is pushed and nothing else happens.
 
@@ -45,7 +45,7 @@ The credential the scm uses must also be allowed to open pull requests. Requesti
 The default, also the behaviour when `merge` is omitted entirely. Updatecli opens the pull request and stops there.
 
 `auto`::
-Enables GitHub's own link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request[auto-merge], so GitHub merges once the required checks pass. This needs *"Allow auto-merge" enabled on the repository* and *branch protection rules on the target branch* — without them the API refuses and Updatecli logs which of the two is missing:
+Enables GitHub's own link:https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request[auto-merge], so GitHub merges once the required checks pass. This needs *"Allow auto-merge" enabled on the repository* and *branch protection rules on the target branch*, without them the API refuses and Updatecli logs which of the two is missing:
 +
 [source,text]
 ----
@@ -56,7 +56,7 @@ Automerge can't be enabled. Make sure to have branch protection rules enabled on
 `client`::
 Updatecli merges the pull request itself through the API, with no repository configuration required. Useful where auto-merge is unavailable, but note that it does not wait for checks the way `auto` does.
 
-`merge.after` sets a minimum age before a `client` merge happens, as a Go duration (`30m`, `24h`, `168h`). *It defaults to `24h` when `merge.strategy: client` and `after` is unset* — a pull request younger than that is left alone, with a message saying how long it still has to wait, and merged on a later run:
+`merge.after` sets a minimum age before a `client` merge happens, as a Go duration (`30m`, `24h`, `168h`). *It defaults to `24h` when `merge.strategy: client` and `after` is unset*, a pull request younger than that is left alone, with a message saying how long it still has to wait, and merged on a later run:
 
 [source,text]
 ----
@@ -75,12 +75,12 @@ spec:
 
 WARNING: `automerge: true` is deprecated. It is silently translated to `merge.strategy: auto` (and `automerge: false` to `manual`) with a warning in the logs. Use `merge` instead.
 
-`mergemethod` selects how the merge is performed — `merge`, `squash`, `rebase`, or empty to use the repository default. Any other value is rejected with `wrong merge method defined`. `usetitleforautomerge: true` then uses the pull request title as the resulting commit message, which GitHub only honours for `squash` and `rebase`.
+`mergemethod` selects how the merge is performed - `merge`, `squash`, `rebase`, or empty to use the repository default. Any other value is rejected with `wrong merge method defined`. `usetitleforautomerge: true` then uses the pull request title as the resulting commit message, which GitHub only honours for `squash` and `rebase`.
 
 === Reviewers, assignees, and labels
 
 `reviewers`:: GitHub usernames, or `organization/team` to request a review from a team. A team entry needs a token with organization read permission.
-`assignees`:: GitHub usernames only — the `organization/team` form is not accepted here.
+`assignees`:: GitHub usernames only - the `organization/team` form is not accepted here.
 `labels`:: *Must already exist on the repository.* GitHub does not create them on the fly, unlike GitLab.
 
 === Other options
@@ -92,7 +92,7 @@ WARNING: `automerge: true` is deprecated. It is silently translated to `merge.st
 
 === Cleanup
 
-Unlike most other action plugins, this one implements cleanup. On `updatecli apply`, an existing pull request that turns out to have *no changed files* — because the change was applied by other means in the meantime — is closed automatically, and the report records `Pull request closed as no changed file detected`.
+Unlike most other action plugins, this one implements cleanup. On `updatecli apply`, an existing pull request that turns out to have *no changed files* (because the change was applied by other means in the meantime) is closed automatically, and the report records `Pull request closed as no changed file detected`.
 
 With `merge.strategy: client`, cleanup is also where a pull request that has now reached its `merge.after` age gets merged.
 

@@ -33,7 +33,7 @@ Updatecli creates a *working branch* based on `branch`, commits the changes to i
 
 IMPORTANT: This plugin does not open pull requests. Pushing a working branch and opening a pull request are two distinct steps: the pull request is created by an `actions` block of kind `github/pullrequest`, documented on the link:/docs/plugins/actions/github/["GitHub Pull Request" page]. Without such an action, the working branch is pushed and nothing else happens.
 
-If you only need to read from GitHub without cloning a repository — for instance the latest release of a project — use a resource such as `githubrelease` instead of an scm.
+If you only need to read from GitHub without cloning a repository (for instance the latest release of a project), use a resource such as `githubrelease` instead of an scm.
 
 == Requirements
 
@@ -54,7 +54,7 @@ The credential needs read access to the repository for a source or a condition, 
 
 `owner` and `repository` are the only mandatory parameters. Everything else has a default or is optional.
 
-NOTE: The table above is generated from the Updatecli JSON schema, which is refreshed by a bot after each Updatecli release. A parameter added very recently — currently `singleBranch`, which restricts clone and fetch to the configured branch — may be usable by the binary before it appears here.
+NOTE: The table above is generated from the Updatecli JSON schema, which is refreshed by a bot after each Updatecli release. A parameter added very recently (currently `singleBranch`, which restricts clone and fetch to the configured branch) may be usable by the binary before it appears here.
 
 === Authentication
 
@@ -77,7 +77,7 @@ Setting `workingBranchPrefix` to an empty string drops the prefix, giving `<bran
 
 ==== Disabling the working branch
 
-Setting `workingBranch: false` makes Updatecli commit and push directly to `branch`. Because `force` defaults to `true` — meaning `git push --force` — this combination is refused unless you also set `force` explicitly:
+Setting `workingBranch: false` makes Updatecli commit and push directly to `branch`. Because `force` defaults to `true` (meaning `git push --force`), this combination is refused unless you also set `force` explicitly:
 
 [source,text]
 ----
@@ -90,7 +90,7 @@ Set `force: false` to push without forcing, or `force: true` to acknowledge the 
 
 ==== Cleaning up working branches
 
-`updatecli apply --clean-git-branches` deletes, at the end of the run, every working branch that ended up identical to its base branch — the branches left behind by pipelines that turned out to have nothing to change. Branches carrying actual commits are kept. The flag has no effect on a dry run (`updatecli diff`) or when pushing is disabled.
+`updatecli apply --clean-git-branches` deletes, at the end of the run, every working branch that ended up identical to its base branch - the branches left behind by pipelines that turned out to have nothing to change. Branches carrying actual commits are kept. The flag has no effect on a dry run (`updatecli diff`) or when pushing is disabled.
 
 === Commit message
 
@@ -114,7 +114,7 @@ Setting `body` replaces the generated body entirely, including the truncated rem
 
 [WARNING]
 ====
-`commitMessage.title` is deprecated and ignored. Rename the target instead — the commit title now always comes from the target `name`. Updatecli logs a warning when the field is present.
+`commitMessage.title` is deprecated and ignored. Rename the target instead - the commit title now always comes from the target `name`. Updatecli logs a warning when the field is present.
 ====
 
 `squash: true` rewrites the commits added on the working branch into a single commit. Since all intermediate commit information is lost, set `body` to something meaningful when squashing.
@@ -129,7 +129,7 @@ Two independent mechanisms are available.
 `signingkey` takes an armored private GPG key and `passphrase` its password. Updatecli signs the commit locally with that key.
 
 `commitUsingApi`::
-When set to `true`, the commit is created through the GitHub GraphQL API rather than by the local git client. GitHub then signs the commit itself with its own key — this is how a workflow running under `GITHUB_TOKEN` produces a verified commit without managing a GPG key. Updatecli creates the working branch through the API when it does not exist yet, then pulls the resulting commit back into the local clone.
+When set to `true`, the commit is created through the GitHub GraphQL API rather than by the local git client. GitHub then signs the commit itself with its own key - this is how a workflow running under `GITHUB_TOKEN` produces a verified commit without managing a GPG key. Updatecli creates the working branch through the API when it does not exist yet, then pulls the resulting commit back into the local clone.
 
 [NOTE]
 ====
@@ -138,7 +138,7 @@ When set to `true`, the commit is created through the GitHub GraphQL API rather 
 
 === Clone behavior
 
-By default the repository is cloned under your system temporary directory, at `<tmp>/updatecli/github/<owner>/<repository>` — for example `/tmp/updatecli/github/updatecli/updatecli` on Linux. Overriding `directory` is rarely useful, as Updatecli may clean that directory up after a run.
+By default the repository is cloned under your system temporary directory, at `<tmp>/updatecli/github/<owner>/<repository>` - for example `/tmp/updatecli/github/updatecli/updatecli` on Linux. Overriding `directory` is rarely useful, as Updatecli may clean that directory up after a run.
 
 Three parameters control how much is fetched, all of them trade-offs on large repositories:
 

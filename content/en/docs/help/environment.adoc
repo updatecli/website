@@ -57,7 +57,7 @@ configuration, since the runner provides it.
 |===
 
 GitHub App authentication is used when all three required variables are set. Any of them missing and
-the whole App path is skipped silently — no error, Updatecli simply moves on to `GITHUB_TOKEN`.
+the whole App path is skipped silently (no error, Updatecli simply moves on to `GITHUB_TOKEN`).
 
 [cols="1,3", options="header"]
 |===
@@ -130,7 +130,7 @@ CI job rather than on every invocation. An unparsable value is ignored and logge
 == The `local` scm
 
 When a stage refers to `scmid: local` without that scm being defined, Updatecli guesses it from the
-Git repository in the current directory — the `origin` remote gives the URL, owner, and repository.
+Git repository in the current directory (the `origin` remote gives the URL, owner, and repository).
 
 These variables override individual fields of that guess:
 
@@ -157,13 +157,13 @@ These variables override individual fields of that guess:
 | `username` used to authenticate
 
 | `UPDATECLI_SCM_LOCAL_OWNER`
-| `owner` — GitHub remotes only
+| `owner` - GitHub remotes only
 
 | `UPDATECLI_SCM_LOCAL_REPOSITORY`
-| `repository` — GitHub remotes only
+| `repository` - GitHub remotes only
 
 | `UPDATECLI_SCM_LOCAL_TOKEN`
-| `token` — GitHub remotes only
+| `token` - GitHub remotes only
 |===
 
 Only non-empty values are applied, so exporting one variable leaves the rest of the guess intact. This
@@ -189,7 +189,7 @@ The `shell` plugin exports two variables into the environment of the command it 
 | Variable | Value
 
 | `DRY_RUN`
-| `true` during a `diff`, `false` during an `apply`. **The script is run either way** — honouring this is
+| `true` during a `diff`, `false` during an `apply`. **The script is run either way** - honouring this is
 the script's responsibility.
 
 | `UPDATECLI_PIPELINE_STAGE`
@@ -234,7 +234,7 @@ Updatecli's HTTP clients honour the standard variables through Go's own proxy re
 
 The lowercase spellings are equally valid, and are what Go checks first.
 
-NOTE: This covers HTTP traffic. A plugin that shells out to another tool — `helm`, `mvn`, `npm` — leaves
+NOTE: This covers HTTP traffic. A plugin that shells out to another tool (`helm`, `mvn`, `npm`) leaves
 that tool to read the environment for itself, which it usually does.
 
 === Telemetry
@@ -266,7 +266,7 @@ mirrors you already have keep working.
 | `npm`
 
 | `DOCKER_CONFIG`, `~/.docker/config.json`
-| `dockerimage`, `dockerdigest`, `helm` — the standard Docker credential store, so `docker login` is
+| `dockerimage`, `dockerdigest`, `helm` - the standard Docker credential store, so `docker login` is
 enough to authenticate. See link:/docs/help/docker_hub_rate_limit/["Docker Hub rate limit"].
 |===
 
@@ -281,7 +281,7 @@ a build URL.
 
 | `JENKINS_URL`
 | Jenkins
-| —
+| -
 
 | `GITLAB_CI`
 | GitLab CI
@@ -301,7 +301,7 @@ CI pipeline detected in Debug Mode - hence enabling debug mode
 ----
 
 That is why a re-run with debug enabled in your CI system produces far more Updatecli output than the
-same manifest did before — nothing changed in the manifest.
+same manifest did before (nothing changed in the manifest).
 
 Build URLs are assembled from `BUILD_URL` (Jenkins), `CI_SERVER_URL` + `CI_PROJECT_PATH` + `CI_JOB_ID`
 (GitLab), and `GITHUB_SERVER_URL` + `GITHUB_REPOSITORY` + `GITHUB_RUN_ID` (GitHub Actions).
@@ -324,6 +324,6 @@ returns an empty string instead. See the link:/docs/core/configuration/["Manifes
 
 == Go Further
 
-* link:/docs/help/troubleshooting/[Troubleshooting] — what to do when a credential is not picked up.
-* link:/docs/help/experimental/[Experimental features] — what `--experimental` unlocks.
-* link:/docs/commands/[Commands] — every flag, including those with an environment default.
+* link:/docs/help/troubleshooting/[Troubleshooting] - what to do when a credential is not picked up.
+* link:/docs/help/experimental/[Experimental features] - what `--experimental` unlocks.
+* link:/docs/commands/[Commands] - every flag, including those with an environment default.

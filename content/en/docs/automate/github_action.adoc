@@ -62,8 +62,8 @@ The action `v1` was a GitHub Action of type docker. While it was easier to start
 type of action runs inside a container, in a fully isolated environment.
 Updatecli shells out to many other tools, so switching to a JavaScript action allows installing
 Updatecli directly on the runner, next to those tools.
-From `v2` onwards the purpose of the action is to *install* Updatecli, not to run it — running it
-is a separate `run:` step, as in the example below.
+From `v2` onwards the purpose of the action is to *install* Updatecli, not to run it (running it
+is a separate `run:` step, as in the example below).
 
 == Parameter
 

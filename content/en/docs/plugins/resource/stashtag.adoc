@@ -28,7 +28,7 @@ plugins:
 
 == Description
 
-The `stash/tag` resource queries the tags of a repository hosted on Bitbucket Server — the product formerly called Stash and now Bitbucket Data Center. It is the usual way to track releases of an internally hosted dependency.
+The `stash/tag` resource queries the tags of a repository hosted on Bitbucket Server - the product formerly called Stash and now Bitbucket Data Center. It is the usual way to track releases of an internally hosted dependency.
 
 **source**::
 Returns the tag matching `versionfilter`.
@@ -37,7 +37,7 @@ Returns the tag matching `versionfilter`.
 Tests that `tag` exists in the repository.
 
 **target**::
-Not supported — a target fails with `target not supported for the plugin Stash Tags`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
+Not supported - a target fails with `target not supported for the plugin Stash Tags`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
 
 NOTE: An `scm` is accepted but ignored, logging `scm not supported, ignored`. The lookup always goes to the Bitbucket Server API.
 
@@ -49,12 +49,12 @@ NOTE: An `scm` is accepted but ignored, logging `scm not supported, ignored`. Th
 
 `url`:: The Bitbucket Server instance, e.g. `https://stash.example.com`. This is a self-hosted product, so there is no default.
 `owner`:: The project key or user the repository belongs to.
-`tag`:: Condition only — the tag being checked.
+`tag`:: Condition only - the tag being checked.
 `versionfilter`:: Source only. `kind: semver` is the usual choice for release tags. See the link:/docs/core/versionfilter/["Version Filtering" page].
 
 == Authentication
 
-Credentials are either a token or a username and password pair — both sensitive, so read them from the environment or a link:https://github.com/getsops/sops[SOPS] file:
+Credentials are either a token or a username and password pair, both sensitive, so read them from the environment or a link:https://github.com/getsops/sops[SOPS] file:
 
 [source,yaml]
 ----
@@ -88,5 +88,5 @@ sources:
 == Links
 
 * link:/docs/plugins/resource/stashbranch/[The `stash/branch` resource]
-* link:/docs/plugins/scm/stash/[The `stash` scm] — to clone and push
+* link:/docs/plugins/scm/stash/[The `stash` scm] - to clone and push
 * link:/docs/plugins/actions/stash/[The `stash/pullrequest` action]

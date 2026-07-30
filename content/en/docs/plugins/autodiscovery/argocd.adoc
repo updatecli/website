@@ -23,8 +23,8 @@ The `argocd` crawler looks recursively for every `*.yaml` and `*.yml` file from 
 
 A source is picked up when `repoURL`, `chart`, and `targetRevision` are all set. It is read from any of:
 
-* `spec.source` and `spec.sources[]` — ArgoCD `Application`
-* `spec.template.spec.source` and `spec.template.spec.sources[]` — ArgoCD `ApplicationSet`
+* `spec.source` and `spec.sources[]` - ArgoCD `Application`
+* `spec.template.spec.source` and `spec.template.spec.sources[]` - ArgoCD `ApplicationSet`
 
 Multi-document YAML files are supported; each document is addressed by index in the generated manifest.
 
@@ -37,9 +37,9 @@ IMPORTANT: Matching is structural, not by resource kind. `apiVersion` and `kind`
 
 Each discovered chart produces a link:{{< ref "helm_chart" >}}[`helmchart`] source, two link:{{< ref "yaml" >}}[`yaml`] conditions, and one `yaml` target:
 
-* **Source** — the latest chart version from the repository declared by `repoURL`.
-* **Conditions** — assert that `.chart` and `.repoURL` still hold the expected values, so the target is skipped if the application has been edited in the meantime.
-* **Target** — writes the new version to `.targetRevision`.
+* **Source** - the latest chart version from the repository declared by `repoURL`.
+* **Conditions** - assert that `.chart` and `.repoURL` still hold the expected values, so the target is skipped if the application has been edited in the meantime.
+* **Target** - writes the new version to `.targetRevision`.
 
 A `repoURL` with no URL scheme is treated as an OCI registry and rewritten to `oci://<repoURL>`, matching ArgoCD's own behaviour.
 

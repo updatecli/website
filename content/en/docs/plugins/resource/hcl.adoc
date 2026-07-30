@@ -29,7 +29,7 @@ plugins:
 
 == Description
 
-The `hcl` resource reads and writes a single attribute in an link:https://github.com/hashicorp/hcl[HCL] document, addressed by its dotted path. It handles any HCL file — Terraform, Packer, Consul, Nomad — through link:https://github.com/minamijoyo/hcledit[hcledit], which edits the file in place and preserves comments and formatting.
+The `hcl` resource reads and writes a single attribute in an link:https://github.com/hashicorp/hcl[HCL] document, addressed by its dotted path. It handles any HCL file (Terraform, Packer, Consul, Nomad) through link:https://github.com/minamijoyo/hcledit[hcledit], which edits the file in place and preserves comments and formatting.
 
 **source**::
 Returns the attribute value. A source accepts only one file.
@@ -40,7 +40,7 @@ Checks that the attribute holds `value`, or the source output when `value` is un
 **target**::
 Writes the value at that path. Files already holding it are reported as up to date and left untouched.
 
-NOTE: `kind: terraform/file` is an alias for this resource — same spec, same implementation, documented on the link:/docs/plugins/resource/terraform/file/["Terraform File" page].
+NOTE: `kind: terraform/file` is an alias for this resource (same spec, same implementation, documented on the link:/docs/plugins/resource/terraform/file/["Terraform File" page]).
 
 == Parameters
 
@@ -64,7 +64,7 @@ is addressed as `resource.aws_instance.app_server.ami`. Other common shapes:
 * `resource.helm_release.prometheus.version`
 * `plugin.aws.version`
 
-The path points at an *attribute*, not a block — there is no syntax for adding a block or for iterating over several.
+The path points at an *attribute*, not a block (there is no syntax for adding a block or for iterating over several).
 
 == Remote files
 
@@ -85,6 +85,6 @@ URL scheme is not supported for HCL target
 
 == Links
 
-* link:https://github.com/minamijoyo/hcledit[hcledit] — the library doing the editing
-* link:/docs/plugins/resource/terraform/file/["Terraform File" page] — the alias
+* link:https://github.com/minamijoyo/hcledit[hcledit] - the library doing the editing
+* link:/docs/plugins/resource/terraform/file/["Terraform File" page] - the alias
 * link:/docs/plugins/resource/terraform/lock/["Terraform Lock" page] and link:/docs/plugins/resource/terraform/provider/["Terraform Provider" page] for the Terraform-specific resources

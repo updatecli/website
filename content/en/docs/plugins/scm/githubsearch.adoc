@@ -21,9 +21,9 @@ weight: 10
 
 == Description
 
-`githubsearch` is not an scm you clone from — it is a *generator*. Before anything else runs, Updatecli sends your query to the link:https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories[GitHub repository search API], lists the branches of every repository it finds, keeps the branches matching `branch`, and turns each surviving repository/branch pair into a regular link:/docs/plugins/scm/github/[`github` scm].
+`githubsearch` is not an scm you clone from - it is a *generator*. Before anything else runs, Updatecli sends your query to the link:https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories[GitHub repository search API], lists the branches of every repository it finds, keeps the branches matching `branch`, and turns each surviving repository/branch pair into a regular link:/docs/plugins/scm/github/[`github` scm].
 
-Your manifest is then duplicated once per pair, each copy pinned to one repository and one branch. Ten matches mean ten pipelines, ten working branches, and — if the manifest declares a `github/pullrequest` action — ten pull requests. Everything the `github` scm documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
+Your manifest is then duplicated once per pair, each copy pinned to one repository and one branch. Ten matches mean ten pipelines, ten working branches, and (if the manifest declares a `github/pullrequest` action) ten pull requests. Everything the `github` scm documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
 
 This makes `githubsearch` the way to roll one change across an organisation without listing its repositories by hand.
 
@@ -39,7 +39,7 @@ IMPORTANT: Like the `github` scm, this plugin does not open pull requests. That 
 
 == Requirements
 
-A GitHub credential is required, including for public repositories — see <<_authentication>>. On top of the permissions each discovered repository needs, the credential must be allowed to use the repository search API, since discovery happens before any repository is cloned.
+A GitHub credential is required, including for public repositories - see <<_authentication>>. On top of the permissions each discovered repository needs, the credential must be allowed to use the repository search API, since discovery happens before any repository is cloned.
 
 == Parameters
 
@@ -74,7 +74,7 @@ Archived repositories are returned like any other, and Updatecli will try to pus
 
 Updatecli paginates through *all* search results before applying `limit`, so a broad query costs the same number of API calls whatever the limit. Keep queries narrow.
 
-If the query matches nothing, the entire run stops with `no scm discovered for githubsearch scm "<id>"` — this is a fatal error, not a skipped pipeline.
+If the query matches nothing, the entire run stops with `no scm discovered for githubsearch scm "<id>"` (this is a fatal error, not a skipped pipeline).
 
 === Branch selection
 
@@ -91,7 +91,7 @@ Anchors matter. An unanchored expression such as `main` also matches `maintenanc
 
 === Limit
 
-`limit` caps the number of *generated pipelines*, that is repository/branch pairs — not the number of repositories. It defaults to `10`; `0` means no cap.
+`limit` caps the number of *generated pipelines*, that is repository/branch pairs - not the number of repositories. It defaults to `10`; `0` means no cap.
 
 A repository with three matching branches consumes three slots. With a permissive `branch` expression, `limit: 3` can therefore expand into three pipelines all targeting the same repository on different branches, and never reach the second repository:
 
@@ -113,13 +113,13 @@ include::content/en/docs/plugins/_githubAuth.adoc[]
 
 Both work exactly as on the link:/docs/plugins/scm/github/["GitHub" page]: a working branch named `<workingBranchPrefix><separator><branch><separator><pipelineID>` and link:https://www.conventionalcommits.org/[conventional commit] messages driven by `commitMessage`.
 
-The `pipelineID` component is derived from the manifest, not from the repository, so all copies of the manifest share it. Every discovered repository therefore ends up with an identically named working branch — convenient when you later need to find or clean up the branches an org-wide run created.
+The `pipelineID` component is derived from the manifest, not from the repository, so all copies of the manifest share it. Every discovered repository therefore ends up with an identically named working branch (convenient when you later need to find or clean up the branches an org-wide run created).
 
 NOTE: `commitMessage.title` is deprecated and ignored. The commit title comes from the target `name`.
 
 == Example
 
-This manifest bumps the Golang version across the repositories of the `MyOrg` organisation. `githubsearch` discovers them and keeps their `main` and `v2` branches; autodiscovery then finds where Golang versions are declared — Go modules, Dockerfiles — while an explicit target covers GitHub Actions workflows.
+This manifest bumps the Golang version across the repositories of the `MyOrg` organisation. `githubsearch` discovers them and keeps their `main` and `v2` branches; autodiscovery then finds where Golang versions are declared (Go modules, Dockerfiles) while an explicit target covers GitHub Actions workflows.
 
 Each discovered repository/branch pair gets its own working branch, its own squashed commit, and its own labelled pull request. With `limit: 3`, at most three of them are processed.
 

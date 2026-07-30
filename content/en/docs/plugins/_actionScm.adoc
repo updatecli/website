@@ -13,10 +13,10 @@ The action then reuses that scm rather than being configured twice. From it, it 
 | Field | Inherited value
 
 | `sourcebranch`
-| The *working branch* the scm created and pushed — the branch carrying the changes.
+| The *working branch* the scm created and pushed - the branch carrying the changes.
 
 | `targetbranch`
-| The scm's `branch` — the branch the pull request is opened against.
+| The scm's `branch` - the branch the pull request is opened against.
 
 | `owner`, `repository`
 | The repository the scm points at.
@@ -49,12 +49,12 @@ actions:
 
 *Create or update*
 
-Updatecli looks for a request already open between the same two branches before creating one, so running the same pipeline repeatedly gives you one long-lived request per pipeline and repository rather than one per run. Whether that existing request is then *refreshed* with the latest title and description differs by plugin — each page says which.
+Updatecli looks for a request already open between the same two branches before creating one, so running the same pipeline repeatedly gives you one long-lived request per pipeline and repository rather than one per run. Whether that existing request is then *refreshed* with the latest title and description differs by plugin (each page says which).
 
 Creation is also skipped, without failing the pipeline, when either branch is missing from the remote. Updatecli attempts it on every run regardless, so that a request closed by hand or lost to an earlier failure gets reopened on the next one.
 
 *Pipeline URL*
 
-When Updatecli detects that it runs inside a CI job, it appends a link to that job in the request description. Set `disablepipelineurl: true` on the action — next to `kind` and `scmid`, not inside `spec` — to leave it out.
+When Updatecli detects that it runs inside a CI job, it appends a link to that job in the request description. Set `disablepipelineurl: true` on the action (next to `kind` and `scmid`, not inside `spec`) to leave it out.
 
 Detection is limited to three engines, each recognised by one environment variable: Jenkins (`JENKINS_URL`), GitLab CI (`GITLAB_CI`), and GitHub Actions (`GITHUB_ACTION`), checked in that order. Anywhere else no link is added, whatever this setting says.

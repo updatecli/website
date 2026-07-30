@@ -29,7 +29,7 @@ plugins:
 
 == Description
 
-The `toolversions` resource reads and writes one entry in a `.tool-versions` file — the version manifest used by link:https://asdf-vm.com/[asdf] and link:https://mise.jdx.dev/[mise], where each line pairs a tool name with one or more versions:
+The `toolversions` resource reads and writes one entry in a `.tool-versions` file, the version manifest used by link:https://asdf-vm.com/[asdf] and link:https://mise.jdx.dev/[mise], where each line pairs a tool name with one or more versions:
 
 [source,text]
 ----
@@ -53,7 +53,7 @@ Updates that entry. Files already holding the value are reported as up to date a
 
 `file` or `files` is mandatory, as is `key`; missing either aborts the run with `wrong spec content`, preceded by `.tool-versions file undefined` or `tool-versions key undefined`. `file` and `files` are mutually exclusive.
 
-`key`:: The tool name as it appears at the start of the line — `golang`, not a path expression.
+`key`:: The tool name as it appears at the start of the line (`golang`, not a path expression).
 `value`:: Defaults to the source output.
 `createmissingkey`:: Target only. Appends the tool when the file does not mention it yet, instead of failing. Unlike the link:/docs/plugins/resource/toml/["TOML" resource], there is no engine restriction on it.
 

@@ -38,7 +38,7 @@ actions:
 
 These labels can be used for two main purposes:
 
-1. **Filtering pipeline execution** — Use labels to run only specific pipelines matching given criteria.
+1. **Filtering pipeline execution** - Use labels to run only specific pipelines matching given criteria.
 +
 For example, only apply pipelines tagged with `ecosystem: go`:
 +
@@ -318,11 +318,11 @@ labels:
 
 === Too generic to be useful
 
-update, dependency, pipeline — these describe what Updatecli does by definition; they add no filtering value.
+update, dependency, pipeline - these describe what Updatecli does by definition; they add no filtering value.
 
 === Free-form / inconsistent spellings
 
-Mixing github-actions, GithubActions, github_actions — pick one convention (kebab-case is common) and stick to it. Inconsistency breaks filtering.
+Mixing github-actions, GithubActions, github_actions - pick one convention (kebab-case is common) and stick to it. Inconsistency breaks filtering.
 
 === Mixed casing
 
@@ -330,23 +330,23 @@ Mixing github-actions, GithubActions, github_actions — pick one convention (ke
 
 === Labels that repeat the spec
 
-`kind:dockerfile`, `file:/path/to/go.mod` — Updatecli already knows the resource kinds and the files a pipeline touches. Duplicating them into labels adds another thing to keep in sync, for no filtering value that reports do not already provide.
+`kind:dockerfile`, `file:/path/to/go.mod` - Updatecli already knows the resource kinds and the files a pipeline touches. Duplicating them into labels adds another thing to keep in sync, for no filtering value that reports do not already provide.
 
 === Status-like labels
 
-done, pending, failed — Updatecli and Udash already track state natively; encoding status in labels leads to stale metadata.
+done, pending, failed - Updatecli and Udash already track state natively; encoding status in labels leads to stale metadata.
 
 === Highly volatile values
 
-version:1.2.3 — versions change constantly; labels should be stable identifiers, not point-in-time values.
+version:1.2.3 - versions change constantly; labels should be stable identifiers, not point-in-time values.
 
 === Overly broad owner labels without structure
 
-john, alice — person names become stale when teams change. Prefer `team:` or `squad:` prefixes.
+john, alice - person names become stale when teams change. Prefer `team:` or `squad:` prefixes.
 
 === Pull request labels in pipeline labels
 
-`dependencies`, `automerge`, `bug` — these are pull request labels and belong in `action.spec.labels`, not in the pipeline `labels` field.
+`dependencies`, `automerge`, `bug` - these are pull request labels and belong in `action.spec.labels`, not in the pipeline `labels` field.
 They are applied to the SCM pull request (GitHub, GitLab, etc.) and have no effect on pipeline filtering or Udash dashboards.
 See link:/docs/core/action/[Actions] for the correct location.
 

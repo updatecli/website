@@ -38,17 +38,17 @@ Returns the version matching `versionfilter`.
 Checks that `version` is published for the module.
 
 **target**::
-Not supported — a target fails with `Target not supported for the plugin GO module`. To write the version into a `go.mod`, use link:/docs/plugins/resource/gomod/[`golang/gomod`].
+Not supported - a target fails with `Target not supported for the plugin GO module`. To write the version into a `go.mod`, use link:/docs/plugins/resource/gomod/[`golang/gomod`].
 
 == Parameters
 
 {{< resourceparameters "sources" "golang/module" >}}
 
-`module`:: Mandatory — the full module path, e.g. `github.com/updatecli/updatecli`.
+`module`:: Mandatory - the full module path, e.g. `github.com/updatecli/updatecli`.
 `proxy`:: Overrides the proxy, the same way `GOPROXY` does. `https` and `http` schemes are accepted, and a URL without a scheme is assumed to be `https`. **`file://` proxies are not supported.**
 `version`:: Condition only.
 
-Pseudo-versions — the `v0.0.0-20230101120000-abcdef123456` form Go generates for untagged commits — are understood.
+Pseudo-versions (the `v0.0.0-20230101120000-abcdef123456` form Go generates for untagged commits) are understood.
 
 == Filtering by release age
 
@@ -68,7 +68,7 @@ spec:
 ====
 `age` is not free here either. The proxy returns the version list without dates, so Updatecli issues **one additional request per version** to fetch each release date. On a module with a long history that is a lot of round trips, and the whole list is walked before any filtering happens.
 
-Versions whose date cannot be fetched or parsed are skipped silently — visible only with `--debug`, as `ignoring version "x" from proxy "y" due to ...`. A proxy that rate-limits you therefore shows up as versions quietly disappearing rather than as an error.
+Versions whose date cannot be fetched or parsed are skipped silently - visible only with `--debug`, as `ignoring version "x" from proxy "y" due to ...`. A proxy that rate-limits you therefore shows up as versions quietly disappearing rather than as an error.
 ====
 
 == Example

@@ -39,7 +39,7 @@ Returns the AMI ID of the first image in the sorted result set.
 Tests that at least one AMI matches the filters.
 
 **target**::
-Not supported — an AMI is not something Updatecli publishes. A target fails with `Target not supported for the plugin AWS/AMI`.
+Not supported - an AMI is not something Updatecli publishes. A target fails with `Target not supported for the plugin AWS/AMI`.
 
 [IMPORTANT]
 ====
@@ -211,7 +211,7 @@ spec:
 ====
 The names are `accesskey` and `secretkey`, with no underscore. Earlier versions of this page showed `access_key` and `secret_key`, which do not match any field.
 
-Unknown keys in a `spec` are **silently ignored** rather than rejected, so a misspelled credential does not raise an error — Updatecli simply falls back to the environment or the shared credentials file, and you get an `AuthFailure` from AWS that looks like a permissions problem:
+Unknown keys in a `spec` are **silently ignored** rather than rejected, so a misspelled credential does not raise an error, Updatecli simply falls back to the environment or the shared credentials file, and you get an `AuthFailure` from AWS that looks like a permissions problem:
 
 [source,text]
 ----

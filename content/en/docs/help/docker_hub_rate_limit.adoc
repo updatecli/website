@@ -27,7 +27,7 @@ Hub's.
 
 == Rate limits
 
-Docker Hub introduced pull rate limiting in November 2020. The allowance depends on how — and whether —
+Docker Hub introduced pull rate limiting in November 2020. The allowance depends on how, and whether,
 you authenticate:
 
 [cols="2,2,1", options="header"]
@@ -44,7 +44,7 @@ you authenticate:
 
 | Pro, Team, Business (paid)
 | Unlimited
-| —
+| -
 |===
 
 The window is a rolling one, and for unauthenticated requests the counter is keyed to your *network*,
@@ -57,7 +57,7 @@ disagrees with this one.
 
 == Why Updatecli consumes quota
 
-Docker counts *manifest* requests, not layer downloads, and it counts them by HTTP method — from
+Docker counts *manifest* requests, not layer downloads, and it counts them by HTTP method, from
 link:https://docs.docker.com/docker-hub/usage/pulls/#pull-definition[Docker's own definition]:
 
 * A `GET` on a manifest emulates a real pull and **counts**.
@@ -91,7 +91,7 @@ its manifest. Which method gets used depends on the plugin and the stage:
 | No
 |===
 
-TIP: A `dockerdigest` condition is the cheapest way to ask "does this tag still exist?" — it is the one
+TIP: A `dockerdigest` condition is the cheapest way to ask "does this tag still exist?". It is the one
 combination above that costs nothing. Reach for it in preference to a `dockerimage` condition when all
 you need is existence.
 
@@ -101,7 +101,7 @@ Narrowing a `tagfilter` or a `versionfilter` does **not** reduce quota consumpti
 the full tag list from the registry and filters it locally, so a tighter filter returns fewer results
 from the same number of requests.
 
-To spend less quota, reduce how many *resources* query the registry, or how often the pipeline runs —
+To spend less quota, reduce how many *resources* query the registry, or how often the pipeline runs,
 not how much each one matches.
 ====
 
@@ -126,8 +126,8 @@ docker login
 That writes `~/.docker/config.json`; `DOCKER_CONFIG` relocates it. See
 link:/docs/help/environment/#_ecosystem_tools["Environment variables"].
 
-**An `auths` block**, supported by the autodiscovery crawlers that resolve images — `dockerfile`,
-`dockercompose`, `kubernetes`, `helm`, `helmfile`, `flux`, `argocd`, and others. Keys are registry URLs
+**An `auths` block**, supported by the autodiscovery crawlers that resolve images (`dockerfile`,
+`dockercompose`, `kubernetes`, `helm`, `helmfile`, `flux`, `argocd`, and others). Keys are registry URLs
 without a scheme, and each accepts either a `token` or a `username`/`password` pair:
 
 [source,yaml]
@@ -142,7 +142,7 @@ autodiscovery:
 ----
 
 When `auths` is empty, those crawlers fall back to the ambient credentials as well. Each crawler page
-lists what it accepts — see link:/docs/plugins/autodiscovery/dockerfile/#_authentication["Dockerfile
+lists what it accepts, see link:/docs/plugins/autodiscovery/dockerfile/#_authentication["Dockerfile
 crawler"] for an example.
 
 === Put a cache or proxy in front
@@ -200,12 +200,12 @@ curl -4 --head -H "Authorization: Bearer $TOKEN" \
 
 Three headers matter:
 
-`ratelimit-limit`:: Your allowance and its window, as `100;w=21600` — 100 requests per 21600 seconds.
+`ratelimit-limit`:: Your allowance and its window, as `100;w=21600` (100 requests per 21600 seconds).
 `ratelimit-remaining`:: What is left in the current window.
 `docker-ratelimit-source`:: The address or account the counter is keyed to. This is how to confirm
 whether you are being counted per network or per account.
 
-Repeat with `curl -6` to check IPv6 — the two are metered independently, so a host with both may show
+Repeat with `curl -6` to check IPv6, the two are metered independently, so a host with both may show
 plenty of quota on one and none on the other.
 
 If you authenticated with `docker login`, Docker's documentation covers retrieving the figures for the
@@ -213,7 +213,7 @@ account rather than the address.
 
 == Go Further
 
-* link:/docs/help/troubleshooting/#_rate_limiting[Troubleshooting] — the GitHub API equivalent, which pauses rather than fails.
-* link:/docs/help/environment/[Environment variables] — proxy settings and credential stores.
-* link:/docs/plugins/resource/docker_digest/["Docker Digest" page] — the cheaper of the two image resources.
+* link:/docs/help/troubleshooting/#_rate_limiting[Troubleshooting] - the GitHub API equivalent, which pauses rather than fails.
+* link:/docs/help/environment/[Environment variables] - proxy settings and credential stores.
+* link:/docs/plugins/resource/docker_digest/["Docker Digest" page] - the cheaper of the two image resources.
 * link:/docs/plugins/resource/docker_image/["Docker Image" page].

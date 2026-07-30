@@ -19,7 +19,7 @@ plugins:
 
 == Description
 
-The `gitlab/mergerequest` action opens — or updates — a link:https://docs.gitlab.com/ee/user/project/merge_requests/[GitLab merge request] once a target linked to the same scm has changed something and the change has been pushed.
+The `gitlab/mergerequest` action opens (or updates) a link:https://docs.gitlab.com/ee/user/project/merge_requests/[GitLab merge request] once a target linked to the same scm has changed something and the change has been pushed.
 
 It is the second half of the GitLab workflow: the link:/docs/plugins/scm/gitlab/[`gitlab` scm] commits to a working branch and pushes it, this action turns that branch into a merge request. Without it, the branch is pushed and nothing else happens.
 
@@ -35,7 +35,7 @@ include::content/en/docs/plugins/_actionScm.adoc[]
 
 === Assignees and reviewers
 
-`assignees` and `reviewers` take *numeric GitLab user IDs*, not usernames — a list of integers. To find one, open the user's profile page, then *Actions* (or ⋮) in the upper-right corner, and *Copy user ID*.
+`assignees` and `reviewers` take *numeric GitLab user IDs*, not usernames - a list of integers. To find one, open the user's profile page, then *Actions* (or ⋮) in the upper-right corner, and *Copy user ID*.
 
 [source,yaml]
 ----
@@ -52,7 +52,7 @@ spec:
 
 === Merge behavior
 
-`automerge: true` turns on GitLab's auto-merge, so the merge request merges by itself once its conditions are met — pipeline succeeded, required approvals given. It is a single boolean: there is no equivalent of the GitHub plugin's `merge.strategy`, and Updatecli never merges client-side here.
+`automerge: true` turns on GitLab's auto-merge, so the merge request merges by itself once its conditions are met - pipeline succeeded, required approvals given. It is a single boolean: there is no equivalent of the GitHub plugin's `merge.strategy`, and Updatecli never merges client-side here.
 
 The following options shape what merging produces, and the project's own settings may override them:
 
@@ -63,9 +63,9 @@ The following options shape what merging produces, and the project's own setting
 
 === Cleanup
 
-Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branches` removes working branches that ended up with no changes, but a merge request already opened for one of them is not closed automatically — that stays a manual step.
+Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branches` removes working branches that ended up with no changes, but a merge request already opened for one of them is not closed automatically (that stays a manual step).
 
-The same goes for the options this plugin does not expose. If closing stale merge requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] — these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised.
+The same goes for the options this plugin does not expose. If closing stale merge requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] (these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised).
 
 == Example
 

@@ -31,13 +31,13 @@ plugins:
 The `gitlab/branch` resource queries the branches of a repository hosted on GitLab, through the GitLab API rather than over the git protocol.
 
 **source**::
-Returns the branch matching `versionfilter` — typically the highest `release/x.y`.
+Returns the branch matching `versionfilter` (typically the highest `release/x.y`).
 
 **condition**::
 Tests that `branch` exists in the repository.
 
 **target**::
-Not supported — a target fails with `target not supported for the plugin GitLab branch`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
+Not supported - a target fails with `target not supported for the plugin GitLab branch`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
 
 [IMPORTANT]
 ====
@@ -59,7 +59,7 @@ TIP: To work with branches over the git protocol instead, on any host, use link:
 
 `owner` and `repository` are mandatory. `url` defaults to `gitlab.com`. Set it for a self-managed instance.
 
-`branch`:: Condition only — the branch being checked.
+`branch`:: Condition only - the branch being checked.
 `versionfilter`:: Source only. See the link:/docs/core/versionfilter/["Version Filtering" page].
 
 == Authentication
@@ -89,4 +89,4 @@ Reading a public repository works without any credential.
 
 * link:/docs/plugins/resource/gitlabtag/[The `gitlab/tag` resource]
 * link:/docs/plugins/resource/gitlabrelease/[The `gitlab/release` resource]
-* link:/docs/plugins/scm/gitlab/[The `gitlab` scm] — to clone and push
+* link:/docs/plugins/scm/gitlab/[The `gitlab` scm] - to clone and push

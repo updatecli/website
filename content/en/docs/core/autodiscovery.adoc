@@ -52,7 +52,7 @@ one of the following commands from the directory to scan:
 
 [IMPORTANT]
 ====
-The default crawlers only run when Updatecli finds **no manifest at all** — that is, no `--config`
+The default crawlers only run when Updatecli finds **no manifest at all**, that is, no `--config`
 flag, no `updatecli.yaml` file, and no `updatecli.d` directory in the current directory.
 
 As soon as one manifest is loaded, Updatecli runs that manifest and nothing else.

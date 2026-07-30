@@ -51,7 +51,7 @@ The spec has two mutually exclusive pairs, and breaking either aborts the run be
 
 Several parameters work in only one stage, which the table above does not make obvious:
 
-`keys`:: **Target only.** Updates several keys with the same value in one go — useful for an image tag repeated across a chart. A source or condition must use `key`.
+`keys`:: **Target only.** Updates several keys with the same value in one go - useful for an image tag repeated across a chart. A source or condition must use `key`.
 `keyonly`:: **Condition only.** Passes when the key exists, whatever its value.
 `comment`:: **Target only.** Appended inline after the value, and only when Updatecli actually changes it.
 `searchpattern`:: **Not supported in a source.** It turns `file`/`files` into glob patterns rather than exact names. A source using it fails with `validation error in sources of type 'yaml': the attribute 'spec.searchpattern' is not supported for source`.
@@ -70,7 +70,7 @@ Several parameters work in only one stage, which the table above does not make o
 
 == Key syntax
 
-Arrays are indexed with `key[x]`, counting from zero, and can be chained with dots — `key.array[3].key`:
+Arrays are indexed with `key[x]`, counting from zero, and can be chained with dots, `key.array[3].key`:
 
 [source,yaml]
 ----
@@ -116,9 +116,9 @@ targets:
 
 `documentindex` selects one document in a `---`-separated file, counting from zero. Its default is not "the first document" but something different per stage:
 
-* **source** — the value is taken from the first document matching the query.
-* **condition** — every document is evaluated.
-* **target** — **every document is updated.**
+* **source** - the value is taken from the first document matching the query.
+* **condition** - every document is evaluated.
+* **target** - **every document is updated.**
 
 That last one surprises people. Given this file:
 
@@ -174,4 +174,4 @@ Update that first element to the source value in the GitHub repository `olblak/c
 == Links
 
 * link:/docs/core/versionfilter/["Version Filtering" page]
-* link:https://github.com/goccy/go-yaml/issues/290[goccy/go-yaml#290] — why field paths matching on key/value are not supported
+* link:https://github.com/goccy/go-yaml/issues/290[goccy/go-yaml#290] - why field paths matching on key/value are not supported

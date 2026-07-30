@@ -11,8 +11,8 @@
 // our mostly-AsciiDoc docs.
 //
 // However doks-core 1.9.3 only styles the copy button when it lives *inside*
-// `.expressive-code` (the Markdown-only render hook). Bare `.highlight` blocks —
-// i.e. all our AsciiDoc code — therefore get an unstyled, icon-less button.
+// `.expressive-code` (the Markdown-only render hook). Bare `.highlight` blocks
+// (i.e. all our AsciiDoc code) therefore get an unstyled, icon-less button.
 // Re-create the icon here for the `.highlight .copy` structure. `.highlight` is
 // already positioned `relative` by the theme, and `--ec-frm-inlBtnFg` is defined
 // on `:root`, so the icon colour adapts to light/dark automatically.
@@ -106,7 +106,7 @@
 }
 
 // Asciidoctor renders an admonition ([NOTE], [WARNING], …) as a two-cell table
-// with no colgroup, so the icon column needs a width of its own — otherwise the
+// with no colgroup, so the icon column needs a width of its own, otherwise the
 // label and the body split the block evenly.
 .admonitionblock > table td.icon {
   width: 6rem;

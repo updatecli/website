@@ -20,9 +20,9 @@ plugins:
 
 == Description
 
-`azuredevopssearch` is not an scm you clone from — it is a *generator*. Before anything else runs, Updatecli lists every project of the configured organization, then the repositories of the matching projects, then the branches of the matching repositories, and turns each surviving project/repository/branch triplet into a regular link:/docs/plugins/scm/azuredevops/[`azuredevops` scm].
+`azuredevopssearch` is not an scm you clone from - it is a *generator*. Before anything else runs, Updatecli lists every project of the configured organization, then the repositories of the matching projects, then the branches of the matching repositories, and turns each surviving project/repository/branch triplet into a regular link:/docs/plugins/scm/azuredevops/[`azuredevops` scm].
 
-Your manifest is then duplicated once per triplet, each copy pinned to one repository and one branch. Ten matches mean ten pipelines, ten working branches, and — if the manifest declares an `azuredevops/pullrequest` action — ten pull requests. Everything the `azuredevops` documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
+Your manifest is then duplicated once per triplet, each copy pinned to one repository and one branch. Ten matches mean ten pipelines, ten working branches, and (if the manifest declares an `azuredevops/pullrequest` action) ten pull requests. Everything the `azuredevops` documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
 
 Its behavior depends on the stage referencing it:
 
@@ -32,7 +32,7 @@ Each discovered repository is cloned and the resource works on the files from th
 **target**::
 Updatecli creates a working branch in each discovered repository, commits the changes there, and pushes it.
 
-IMPORTANT: Like the `azuredevops` scm, this plugin does not open pull requests — that is the job of an `actions` block of kind `azuredevops/pullrequest`, documented on the link:/docs/plugins/actions/azuredevops/["Azure DevOps Pull Request" page].
+IMPORTANT: Like the `azuredevops` scm, this plugin does not open pull requests (that is the job of an `actions` block of kind `azuredevops/pullrequest`, documented on the link:/docs/plugins/actions/azuredevops/["Azure DevOps Pull Request" page]).
 
 == Parameters
 
@@ -44,7 +44,7 @@ Apart from `organization`, `project`, `repository`, `branch`, and `limit`, every
 
 === Matching repositories
 
-`project`, `repository`, and `branch` are *regular expressions*, not names. `project` and `repository` default to `.*` — every project, every repository — and `branch` defaults to `^main$`.
+`project`, `repository`, and `branch` are *regular expressions*, not names. `project` and `repository` default to `.*` (every project, every repository) and `branch` defaults to `^main$`.
 
 [source,yaml]
 ----
@@ -59,7 +59,7 @@ Repositories flagged as disabled in Azure DevOps are skipped, as are repositorie
 
 === Limit
 
-`limit` caps the number of *generated pipelines*, that is project/repository/branch triplets — not the number of repositories. It defaults to `10`; `0` means no cap.
+`limit` caps the number of *generated pipelines*, that is project/repository/branch triplets - not the number of repositories. It defaults to `10`; `0` means no cap.
 
 A repository with three matching branches therefore consumes three slots. Projects, repositories, and branches are consumed in the order the API returns them, so a `limit` that truncates the set gives you an arbitrary subset rather than a chosen one. Tighten the three patterns instead of relying on `limit` to keep a run small.
 
@@ -73,7 +73,7 @@ include::content/en/docs/plugins/_azuredevopsAuth.adoc[]
 
 Both work exactly as on the link:/docs/plugins/scm/azuredevops/["Azure DevOps" page]: a working branch named `<workingBranchPrefix><separator><branch><separator><pipelineID>`, `force` defaulting to `true` with its "better safe than sorry" safeguard, and link:https://www.conventionalcommits.org/[conventional commit] messages driven by `commitMessage`.
 
-The `pipelineID` component is derived from the manifest, not from the repository, so all copies share it and every discovered repository ends up with an identically named working branch — convenient when you later need to find or clean up the branches an organization-wide run created.
+The `pipelineID` component is derived from the manifest, not from the repository, so all copies share it and every discovered repository ends up with an identically named working branch (convenient when you later need to find or clean up the branches an organization-wide run created).
 
 NOTE: `commitMessage.title` is deprecated and ignored. The commit title comes from the target `name`.
 

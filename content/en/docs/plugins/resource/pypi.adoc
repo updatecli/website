@@ -37,9 +37,9 @@ Returns the version matching `versionfilter`.
 Checks that `version` exists on the registry.
 
 **target**::
-Not supported — a target fails with `target not supported for the pypi plugin`. To bump a pinned version *in a file*, use the link:/docs/plugins/resource/file/["File" resource] or the link:/docs/plugins/autodiscovery/pyproject/[pyproject autodiscovery crawler].
+Not supported - a target fails with `target not supported for the pypi plugin`. To bump a pinned version *in a file*, use the link:/docs/plugins/resource/file/["File" resource] or the link:/docs/plugins/autodiscovery/pyproject/[pyproject autodiscovery crawler].
 
-NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup always goes to the registry.
+NOTE: An `scm` attached to a condition is ignored, with a warning (the lookup always goes to the registry).
 
 == Parameters
 
@@ -48,13 +48,13 @@ NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup
 `name`:: The project name as published, e.g. `requests`.
 `url`:: Defaults to `https://pypi.org/`. Point it at a private index that speaks the same JSON API.
 `token`:: Bearer token for a private registry. Keep it out of the manifest with `'{{ requiredEnv "PYPI_TOKEN" }}'`.
-`version`:: Condition only — the version whose existence is being checked.
+`version`:: Condition only - the version whose existence is being checked.
 
 == Versions, PEP 440 and yanked releases
 
 **Yanked releases are always excluded**, whatever the filter. A version withdrawn by its maintainer is never returned by a source, matching what `pip` does by default.
 
-PEP 440 and semver disagree about how a pre-release is written — `1.2.3rc1` against `1.2.3-rc1` — so the resource handles them differently depending on the filter:
+PEP 440 and semver disagree about how a pre-release is written (`1.2.3rc1` against `1.2.3-rc1`), so the resource handles them differently depending on the filter:
 
 `kind: pep440`:: Versions are compared as raw PEP 440 strings, untouched.
 any other kind:: Versions are normalised to a semver-compatible form for matching, then the **original PEP 440 string is returned**. So a `semver` filter can match `1.2.3-rc1` internally while the source still yields `1.2.3rc1`, which is what a requirements file needs.
@@ -71,6 +71,6 @@ A version that cannot be normalised is skipped rather than failing the run. See 
 
 == Links
 
-* link:https://peps.python.org/pep-0440/[PEP 440 — version identification]
-* link:https://peps.python.org/pep-0592/[PEP 592 — yanked releases]
+* link:https://peps.python.org/pep-0440/[PEP 440 - version identification]
+* link:https://peps.python.org/pep-0592/[PEP 592 - yanked releases]
 * link:/docs/core/versionfilter/["Version Filtering" page]

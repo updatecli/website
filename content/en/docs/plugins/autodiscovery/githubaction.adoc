@@ -23,8 +23,8 @@ The `github/action` crawler looks recursively for workflow files and Composite A
 
 It scans two kinds of file:
 
-* **Workflows** — files matching `*.yaml` or `*.yml` located directly inside a `workflows` directory whose parent is `.github`, `.gitea`, or `.forgejo`.
-* **Composite Actions** — files named `action.yaml` or `action.yml`, in any directory.
+* **Workflows** - files matching `*.yaml` or `*.yml` located directly inside a `workflows` directory whose parent is `.github`, `.gitea`, or `.forgejo`.
+* **Composite Actions** - files named `action.yaml` or `action.yml`, in any directory.
 
 Despite its name, the crawler is not GitHub-only: `.gitea/workflows` and `.forgejo/workflows` are scanned as well, and the provider is detected from each action reference.
 
@@ -51,7 +51,7 @@ Action references are updated in place with a link:{{< ref "yaml" >}}[`yaml`] ta
 | link:{{< ref "docker_image" >}}[`dockerimage`], link:{{< ref "docker_digest" >}}[`dockerdigest`]
 
 | `./local-action`
-| Skipped — local actions have no upstream to track.
+| Skipped - local actions have no upstream to track.
 |===
 
 === Digest pinning

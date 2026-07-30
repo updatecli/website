@@ -73,8 +73,8 @@ Both flavours write through the link:{{< ref "helm_chart" >}}[`helmchart`] targe
 
 Two parameters control what the target does to the chart itself:
 
-* `skippackaging` — when `true`, the chart is not repackaged.
-* `versionincrement` — how the chart's own version in `Chart.yaml` is bumped in response to the change. Accepts a comma-separated list of `none`, `major`, `minor`, `patch`. Empty by default, meaning the chart version is left alone.
+* `skippackaging` - when `true`, the chart is not repackaged.
+* `versionincrement` - how the chart's own version in `Chart.yaml` is bumped in response to the change. Accepts a comma-separated list of `none`, `major`, `minor`, `patch`. Empty by default, meaning the chart version is left alone.
 
 === Digest pinning
 

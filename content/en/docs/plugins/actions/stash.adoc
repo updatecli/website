@@ -19,7 +19,7 @@ plugins:
 
 == Description
 
-The `stash/pullrequest` action opens — or updates — a pull request on a self-managed *Bitbucket Data Center / Server* instance, historically named Stash, once a target linked to the same scm has changed something and the change has been pushed.
+The `stash/pullrequest` action opens (or updates) a pull request on a self-managed *Bitbucket Data Center / Server* instance, historically named Stash, once a target linked to the same scm has changed something and the change has been pushed.
 
 It is the second half of the Stash workflow: the link:/docs/plugins/scm/stash/[`stash` scm] commits to a working branch and pushes it, this action turns that branch into a pull request. Without it, the branch is pushed and nothing else happens.
 
@@ -29,13 +29,13 @@ For repositories on bitbucket.org, use link:/docs/plugins/actions/bitbucket/[`bi
 
 include::content/en/docs/plugins/_actionScm.adoc[]
 
-The credential comes from the scm's `token`. As on the link:/docs/plugins/scm/stash/[`stash` scm], the `password` field is not used — put the HTTP access token in `token`.
+The credential comes from the scm's `token`. As on the link:/docs/plugins/scm/stash/[`stash` scm], the `password` field is not used (put the HTTP access token in `token`).
 
 == Parameters
 
 {{< resourceparameters "actions" "stash/pullrequest" >}}
 
-The spec is deliberately small — `title` and `body`, on top of the identity fields inherited from the scm. Reviewers, labels, and merge automation are not exposed by this plugin.
+The spec is deliberately small - `title` and `body`, on top of the identity fields inherited from the scm. Reviewers, labels, and merge automation are not exposed by this plugin.
 
 `body`:: Replaces the description Updatecli generates from the pipeline run.
 `owner`:: The Bitbucket Server *project key*, inherited from the scm.
@@ -43,13 +43,13 @@ The spec is deliberately small — `title` and `body`, on top of the identity fi
 
 === Updating an existing pull request
 
-When a pull request is already open between the two branches, this plugin *leaves it untouched* — it does not refresh the title or the description with the latest run, unlike the GitHub, GitLab, Bitbucket Cloud, and Azure DevOps plugins. The report still links to it.
+When a pull request is already open between the two branches, this plugin *leaves it untouched* - it does not refresh the title or the description with the latest run, unlike the GitHub, GitLab, Bitbucket Cloud, and Azure DevOps plugins. The report still links to it.
 
 === Cleanup
 
-Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branches` removes working branches that ended up with no changes, but a pull request already opened for one of them is not closed automatically — that stays a manual step.
+Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branches` removes working branches that ended up with no changes, but a pull request already opened for one of them is not closed automatically (that stays a manual step).
 
-The same goes for the options this plugin does not expose, such as reviewers and labels. If closing stale pull requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] — these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised.
+The same goes for the options this plugin does not expose, such as reviewers and labels. If closing stale pull requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] (these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised).
 
 == Example
 

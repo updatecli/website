@@ -32,7 +32,7 @@ plugins:
 
 The `golang/gomod` resource reads and writes a version inside a `go.mod` file. It works in two modes depending on whether `module` is set:
 
-`module` unset:: The **Go language version** — the `go` directive.
+`module` unset:: The **Go language version** - the `go` directive.
 `module` set:: The version of that **dependency** in the `require` block.
 
 **source**::
@@ -62,13 +62,13 @@ Writes the version. A file already holding it is reported as `go.mod already set
 replace moduleA v1.2.3 => moduleB v1.0.0
 ----
 
-set `module: moduleA` — the module being *replaced*, on the left — and `replaceversion: v1.2.3` to pin which replace instruction is meant. Leaving `replaceversion` unset matches any version of that module.
+set `module: moduleA` (the module being *replaced*, on the left) and `replaceversion: v1.2.3` to pin which replace instruction is meant. Leaving `replaceversion` unset matches any version of that module.
 
 == Limitations
 
 [IMPORTANT]
 ====
-A `golang/gomod` target updates `go.mod` and **does not touch `go.sum`**. The repository is left in a state where `go build` fails until the checksums are refreshed, so pair the target with a `shell` target running `go mod tidy` — as the example below does.
+A `golang/gomod` target updates `go.mod` and **does not touch `go.sum`**. The repository is left in a state where `go build` fails until the checksums are refreshed, so pair the target with a `shell` target running `go mod tidy` (as the example below does).
 ====
 
 == Remote files
@@ -86,5 +86,5 @@ For a source and a condition, `file` accepts `https://`, `http://` and `file://`
 == Links
 
 * link:https://go.dev/ref/mod#go-mod-file[The go.mod file reference]
-* link:/docs/plugins/resource/golang/[The `golang` resource] — to find the language version to write here
-* link:/docs/plugins/resource/gomodule/[The `golang/module` resource] — to find a module version
+* link:/docs/plugins/resource/golang/[The `golang` resource] - to find the language version to write here
+* link:/docs/plugins/resource/gomodule/[The `golang/module` resource] - to find a module version

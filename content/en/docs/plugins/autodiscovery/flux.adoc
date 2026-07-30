@@ -21,8 +21,8 @@ plugins:
 
 The `flux` crawler looks recursively for every `*.yaml` and `*.yml` file from a root directory, and updates two kinds of Flux resource:
 
-* **`HelmRelease`** — the chart version is updated when a `HelmRepository` matching the release's `sourceRef` is found **in the same namespace**. Disable with `helmrelease: false`.
-* **`OCIRepository`** — the artifact tag is updated. Disable with `ocirepository: false`.
+* **`HelmRelease`** - the chart version is updated when a `HelmRepository` matching the release's `sourceRef` is found **in the same namespace**. Disable with `helmrelease: false`.
+* **`OCIRepository`** - the artifact tag is updated. Disable with `ocirepository: false`.
 
 Both are enabled by default. Override the scanned file names with the `files` parameter.
 

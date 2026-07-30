@@ -21,9 +21,9 @@ weight: 20
 
 == Description
 
-`gitlabsearch` is not an scm you clone from — it is a *generator*. Before anything else runs, Updatecli lists the projects of the configured GitLab group, lists the branches of each of them, keeps the branches matching `branch`, and turns each surviving project/branch pair into a regular link:/docs/plugins/scm/gitlab/[`gitlab` scm].
+`gitlabsearch` is not an scm you clone from - it is a *generator*. Before anything else runs, Updatecli lists the projects of the configured GitLab group, lists the branches of each of them, keeps the branches matching `branch`, and turns each surviving project/branch pair into a regular link:/docs/plugins/scm/gitlab/[`gitlab` scm].
 
-Your manifest is then duplicated once per pair, each copy pinned to one project and one branch. Ten matches mean ten pipelines, ten working branches, and — if the manifest declares a `gitlab/mergerequest` action — ten merge requests. Everything the `gitlab` documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
+Your manifest is then duplicated once per pair, each copy pinned to one project and one branch. Ten matches mean ten pipelines, ten working branches, and (if the manifest declares a `gitlab/mergerequest` action) ten merge requests. Everything the `gitlab` documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
 
 Its behavior depends on the stage referencing it:
 
@@ -33,7 +33,7 @@ Each discovered project is cloned and the resource works on the files from the m
 **target**::
 Updatecli creates a working branch in each discovered project, commits the changes there, and pushes it.
 
-IMPORTANT: Like the `gitlab` scm, this plugin does not open merge requests — that is the job of an `actions` block of kind `gitlab/mergerequest`, documented on the link:/docs/plugins/actions/gitlab/["GitLab Merge Request" page].
+IMPORTANT: Like the `gitlab` scm, this plugin does not open merge requests (that is the job of an `actions` block of kind `gitlab/mergerequest`, documented on the link:/docs/plugins/actions/gitlab/["GitLab Merge Request" page]).
 
 == Parameters
 
@@ -57,7 +57,7 @@ group: "myorg/myteam"
 Defaults to `true`, so projects of nested subgroups are discovered too. Set it to `false` to stay in the group itself.
 
 `search`::
-An optional GitLab project-name filter, passed to the API as-is. Omitted, every project of the group is returned. It is a substring search, not a regular expression — unlike `branch`.
+An optional GitLab project-name filter, passed to the API as-is. Omitted, every project of the group is returned. It is a substring search, not a regular expression, unlike `branch`.
 
 Each discovered project's full path is split at the last slash: `myorg/myteam/myproject` becomes `owner: myorg/myteam` and `repository: myproject` on the generated scm.
 
@@ -76,7 +76,7 @@ Anchors matter. An unanchored expression such as `main` also matches `maintenanc
 
 === Limit
 
-`limit` caps the number of *generated pipelines*, that is project/branch pairs — not the number of projects. It defaults to `10`; `0` means no cap.
+`limit` caps the number of *generated pipelines*, that is project/branch pairs - not the number of projects. It defaults to `10`; `0` means no cap.
 
 A project with three matching branches therefore consumes three slots, and can exhaust the limit before the second project is reached. Projects and branches are consumed in the order the API returns them, so a `limit` that truncates the set gives you an arbitrary subset rather than a chosen one. Tighten `branch` and `search` instead of relying on `limit` to keep a run small.
 
@@ -91,13 +91,13 @@ username: '{{ requiredEnv "GITLAB_USERNAME" }}'
 token: '{{ requiredEnv "GITLAB_TOKEN" }}'
 ----
 
-The token must be able to list the group's projects, on top of the permissions each project needs. As with the `gitlab` scm, a group or project access token has no user identity of its own — set `user` and `email` accordingly, or the merge requests can stay stuck in the *"Your merge request is almost ready!"* state.
+The token must be able to list the group's projects, on top of the permissions each project needs. As with the `gitlab` scm, a group or project access token has no user identity of its own (set `user` and `email` accordingly, or the merge requests can stay stuck in the *"Your merge request is almost ready!"* state).
 
 === Working branch and commit message
 
 Both work exactly as on the link:/docs/plugins/scm/gitlab/["GitLab" page]: a working branch named `<workingBranchPrefix><separator><branch><separator><pipelineID>`, `force` defaulting to `true` with its "better safe than sorry" safeguard, and link:https://www.conventionalcommits.org/[conventional commit] messages driven by `commitMessage`.
 
-The `pipelineID` component is derived from the manifest, not from the project, so all copies share it and every discovered project ends up with an identically named working branch — convenient when you later need to find or clean up the branches a group-wide run created.
+The `pipelineID` component is derived from the manifest, not from the project, so all copies share it and every discovered project ends up with an identically named working branch (convenient when you later need to find or clean up the branches a group-wide run created).
 
 NOTE: `commitMessage.title` is deprecated and ignored. The commit title comes from the target `name`.
 

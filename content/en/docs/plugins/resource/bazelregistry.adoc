@@ -28,7 +28,7 @@ plugins:
 
 == Description
 
-The `bazelregistry` resource reads a module's `metadata.json` from a Bazel registry — the link:https://registry.bazel.build/[Bazel Central Registry] by default — and returns a published version.
+The `bazelregistry` resource reads a module's `metadata.json` from a Bazel registry (the link:https://registry.bazel.build/[Bazel Central Registry] by default) and returns a published version.
 
 **source**::
 Returns the version matching `versionfilter`.
@@ -37,9 +37,9 @@ Returns the version matching `versionfilter`.
 Checks that the version exists in the registry.
 
 **target**::
-Not supported — a target fails with `target not supported for the plugin bazelregistry`. To write the version into a `MODULE.bazel`, use link:/docs/plugins/resource/bazelmod/[`bazelmod`].
+Not supported - a target fails with `target not supported for the plugin bazelregistry`. To write the version into a `MODULE.bazel`, use link:/docs/plugins/resource/bazelmod/[`bazelmod`].
 
-NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup is always remote.
+NOTE: An `scm` attached to a condition is ignored, with a warning (the lookup is always remote).
 
 == Parameters
 
@@ -51,7 +51,7 @@ NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup
 
 === Custom registries
 
-`url` points at a private registry. It is a **template, not a base URL** — it must contain the `{module}` placeholder, which is replaced with the module name:
+`url` points at a private registry. It is a **template, not a base URL**, it must contain the `{module}` placeholder, which is replaced with the module name:
 
 [source,yaml]
 ----

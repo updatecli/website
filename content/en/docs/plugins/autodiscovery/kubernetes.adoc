@@ -30,9 +30,9 @@ The automatic discovery behavior can be tuned by providing a YAML manifest with 
 
 Images are read from `containers` and `initContainers` at any of these locations:
 
-* `spec.containers` / `spec.initContainers` — bare `Pod`
-* `spec.template.spec.…` — `Deployment`, `DaemonSet`, `StatefulSet`, `Job`, and anything else built on a pod template
-* `spec.jobTemplate.spec.template.spec.…` — `CronJob`
+* `spec.containers` / `spec.initContainers` - bare `Pod`
+* `spec.template.spec.…` - `Deployment`, `DaemonSet`, `StatefulSet`, `Job`, and anything else built on a pod template
+* `spec.jobTemplate.spec.template.spec.…` - `CronJob`
 
 Matching is structural: `apiVersion` and `kind` are not checked, so any document exposing one of those paths is processed.
 
@@ -58,7 +58,7 @@ More details on the link:/docs/core/versionfilter/["Version Filtering" page].
 
 * Kustomize `images:` transformers in a `kustomization.yaml` are **not** supported. Plain Kubernetes manifests living inside a kustomize tree are picked up normally, because they carry a standard pod specification.
 * `files` patterns are matched against the file name only, not against the path. Use `*.yaml`, not `manifests/*.yaml`.
-* An image whose value contains a template expression, such as `"{{ .Values.image.repository }}:{{ .Values.image.tag }}"`, cannot be resolved to a tag. A digest-only manifest is generated for it, which is rarely actionable — use `ignore` to exclude these.
+* An image whose value contains a template expression, such as `"{{ .Values.image.repository }}:{{ .Values.image.tag }}"`, cannot be resolved to a tag. A digest-only manifest is generated for it, which is rarely actionable (use `ignore` to exclude these).
 
 == Manifest
 === Parameters
