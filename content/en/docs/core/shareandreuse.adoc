@@ -1,13 +1,13 @@
 ---
 title: "Updatecli Policy"
-description: "Sharing and reusing Updatecli policies"
+description: "Package an Updatecli manifest as a versioned policy, publish it to an OCI registry, and reuse it anywhere"
 date: 2023-10-01T12:21:01+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "core"
-weight: 130 
+weight: 120
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -92,7 +92,7 @@ Using OCI registries for other things than docker/container isn't a new concept,
 To reuse this policy, run:
 
 ```
-updatecli diff ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
+updatecli pipeline diff ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
 ```
 
 **Show**
@@ -102,6 +102,16 @@ To show the content of this policy, run:
 ```
 updatecli manifest show ghcr.io/updatecli/policies/policies/npm/autodiscovery:latest
 ```
+
+Every command accepting a manifest also accepts a single policy reference as a positional argument,
+in the form `NAME[:TAG|@DIGEST]`.
+
+**Compose**
+
+A command only accepts one policy reference at a time.
+Once more than one policy is involved, declare them in an
+link:/docs/core/compose/[updatecli-compose.yaml] file instead, which also lets you attach values,
+secrets, and environment variables to each of them.
 
 == Remarks
 

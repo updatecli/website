@@ -1,13 +1,13 @@
 ---
 title: "Action"
-description: "Action is a follow up action after a target is changed"
+description: "An action is what Updatecli does once a target changed, typically opening a pull request"
 date: 2025-04-11T15:21:01+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 50
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -19,9 +19,33 @@ toc: true
 
 An Updatecli action defines what happens after a change is detected and validated. While Updatecli's sources find changes (like a new version), and targets define where to apply them (like a file), actions describe what to do next—such as creating a pull request.
 
+An action is bound to an link:/docs/core/scm/[scm] through its `scmid`, and runs when a
+link:/docs/core/target/[target] using that same scm pushed a change.
+Targets working on the local directory, or on another scm, do not trigger it.
+
+An action is only carried out in `apply` mode with push enabled.
+`updatecli pipeline diff`, and `updatecli pipeline apply --push=false`, describe the action that
+*would* be taken, including its title and body, without contacting the forge.
+
+NOTE: When none of the related targets changed, Updatecli does not simply skip the action: it still looks for a pull request opened by a previous run, so that an update which became obsolete is reported rather than left dangling.
+
 == Parameters
 
 {{< coreparameters "actions" >}}
+
+=== Title
+
+An action title is optional.
+When it is empty, Updatecli falls back to the manifest `name`, which is why a stable `name` matters:
+a title built from a source output would rewrite the pull request title on every run.
+
+See link:/docs/core/autodiscovery/[autodiscovery] for how this default applies to generated pipelines.
+
+=== Grouping changes
+
+Actions are grouped by branch, and the branch is derived from the manifest `pipelineid`.
+Giving several manifests the same `pipelineid` therefore collects all their changes into a single
+branch and a single pull request. See link:/docs/core/configuration/[configuration].
 
 == Examples
 

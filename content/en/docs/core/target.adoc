@@ -1,6 +1,6 @@
 ---
 title: "Target"
-description: "Target update our targeted information if needed"
+description: "The target stage applies the value retrieved by a source to a file, and commits the change when needed"
 lead: "Target defines the 'where' your want to update"
 date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 40
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -19,10 +19,135 @@ toc: true
 
 == Description
 
-The "target" stage is updated if the necessary "resource", like a file based on information retrieved from a source. This happens provided all condition checks succeed.
+The "target" stage applies the value retrieved by a link:/docs/core/source/[source] to a "resource", such as a file in a Git repository.
+It is the only stage allowed to modify something, and it runs only once every link:/docs/core/condition/[condition] succeeded.
+
+A target reports one of three outcomes:
+
+* **success** — the resource already holds the expected value, nothing to do
+* **attention** — the resource is out of date. In `diff` mode Updatecli only reports the change, in `apply` mode it writes it
+* **failure** — the target could not be evaluated
+
+When a target is attached to an `scmid`, applying a change also commits it and pushes it to the configured branch,
+which in turn triggers the link:/docs/core/action/[actions] depending on that scm.
 
 == Parameters
 
 {{< coreparameters "targets" >}}
 
+=== Source input
+
+By default, a target consumes the output of a source:
+
+* when the manifest defines exactly one source, that source is used automatically
+* when the manifest defines more than one source, `sourceid` becomes mandatory
+* setting `disablesourceinput: true` runs the target without a source value. The target spec must then carry its own value, typically built with `{{ source "id" }}` templating
+
+NOTE: `disablesourceinput: true` also hides source information, such as the changelog, from the actions that follow. A `github/pullrequest` action will not be able to render the changelog of a target whose source input is disabled.
+
+=== Conditions
+
+A target waits for all the conditions of the manifest and is skipped as soon as one of them does not succeed.
+To narrow that down, set `disableconditions: true` and declare the relevant conditions explicitly:
+
+[source,yaml]
+----
+targets:
+  default:
+    kind: yaml
+    disableconditions: true
+    dependson:
+      - condition#dockerImageExists
+    spec:
+      file: values.yaml
+      key: $.image.tag
+----
+
+=== Chaining targets with `dependsonchange`
+
+`dependson` only requires the depended-on resource to *succeed*.
+Adding `dependsonchange: true` narrows it further: the target runs only if the targets it depends on
+actually **changed** something.
+
+This is how you express "only bump the changelog if the version file was really updated":
+
+[source,yaml]
+----
+targets:
+  version:
+    name: Update the version file
+    kind: file
+    spec:
+      file: VERSION
+
+  changelog:
+    name: Add a changelog entry
+    kind: file
+    # Only run when the "version" target modified something
+    dependson:
+      - version
+    dependsonchange: true
+    spec:
+      file: CHANGELOG.md
+----
+
+NOTE: Inside `dependson`, an entry without a `<category>#` prefix refers to a resource of the same category, so `version` above means `target#version`.
+
 == Examples
+
+=== Update a YAML key from a GitHub release
+
+[source,yaml]
+----
+name: "deps: bump Updatecli version"
+
+sources:
+  updatecli:
+    name: Get the latest Updatecli version
+    kind: githubrelease
+    spec:
+      owner: updatecli
+      repository: updatecli
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      versionfilter:
+        kind: semver
+    transformers:
+      - trimprefix: "v"
+
+targets:
+  chart:
+    name: 'deps: bump Updatecli version to {{ source "updatecli" }}'
+    kind: yaml
+    sourceid: updatecli
+    scmid: default
+    spec:
+      file: charts/updatecli/values.yaml
+      key: $.image.tag
+----
+
+=== Update several files with the same value
+
+A target `kind` that accepts a `files` key updates every listed file in one go, and reports a single change.
+
+[source,yaml]
+----
+targets:
+  dockerfiles:
+    name: 'deps: bump Golang version to {{ source "golang" }}'
+    kind: dockerfile
+    scmid: default
+    spec:
+      files:
+        - Dockerfile
+        - test/Dockerfile
+      instruction:
+        keyword: ARG
+        matcher: GOLANG_VERSION
+----
+
+== Go Further
+
+* To know more about the value a target receives **link:/docs/core/source/[source]**
+* To know more about gating targets **link:/docs/core/condition/[condition]**
+* To know more about execution order **link:/docs/core/order/[manifest order]**
+* To know more about what happens after a change **link:/docs/core/action/[action]**

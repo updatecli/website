@@ -1,6 +1,6 @@
 ---
 title: "Autodiscovery"
-description: "Autodiscovery is the mechanism where we let Updatecli identify available pipeline based on a directory"
+description: "Let Updatecli find available updates by itself, by crawling a repository instead of writing a manifest per dependency"
 lead: "Autodiscovery, auto pilot mode on"
 date: 2022-01-09T15:21:01+02:00
 lastmod: 2022-01-09T15:21:01+02:00
@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 110
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -37,15 +37,77 @@ This helps us maintain our Dockerfile images without having to write manifests.
 Each autodiscovery scenario is handled by a crawler.
 The goal of the crawler is to recursively parse all files in a directory, looking for the pattern and then try to generate as many updatecli manifests as possible.
 Once all manifests have been generated, we run them as we would do with custom manifests, by running updatecli diff or updatecli apply.
-This autodiscovery is enabled by default and should work out of the box just by running one of the following commands.
-
-* `updatecli diff`
-* `updatecli show`
-* `updatecli apply`
 
 As with any opinionated way of working, a bit of adaptability is required.
 The next part of this document covers the different kinds of customization that can be used with autodiscovery.
 
+=== Default crawlers
+
+Autodiscovery works out of the box, with no configuration and no `--experimental` flag, by running
+one of the following commands from the directory to scan:
+
+* `updatecli pipeline diff`
+* `updatecli manifest show`
+* `updatecli pipeline apply`
+
+[IMPORTANT]
+====
+The default crawlers only run when Updatecli finds **no manifest at all** — that is, no `--config`
+flag, no `updatecli.yaml` file, and no `updatecli.d` directory in the current directory.
+
+As soon as one manifest is loaded, Updatecli runs that manifest and nothing else.
+To combine your own manifests with autodiscovery, declare the `autodiscovery` root key inside a
+manifest, as described below.
+====
+
+For example, in a directory holding a single `Dockerfile` with `FROM golang:1.21`,
+`updatecli manifest show` generates:
+
+[source,yaml]
+----
+name: 'deps(dockerfile): bump "golang" digest'
+sources:
+    golang:
+        name: get latest image tag for "golang"
+        kind: dockerimage
+        spec:
+            image: golang
+            tagfilter: ^\d*(\.\d*){1}$
+            versionfilter:
+                kind: semver
+                pattern: '>=1.21'
+    golang-digest:
+        dependson:
+            - golang
+        name: get latest image "golang" digest
+        kind: dockerdigest
+        spec:
+            image: golang
+            tag: '{{ source "golang" }}'
+targets:
+    golang:
+        name: 'deps: update Docker image "golang" to "{{ source "golang" }}"'
+        kind: dockerfile
+        spec:
+            file: Dockerfile
+            instruction:
+                keyword: FROM
+                matcher: golang
+        sourceid: golang-digest
+----
+
+The crawlers enabled by default are:
+
+`argocd`, `bazel`, `cargo`, `dockercompose`, `dockerfile`, `flux`, `github/action`, `golang`,
+`helm`, `helmfile`, `ko`, `kubernetes`, `maven`, `nomad`, `npm`, `precommit`, `prow`, `pyproject`,
+`rancher/fleet`, `terraform`, `terragrunt`, `updatecli`, `woodpecker`.
+
+Some crawlers accept aliases, which behave exactly like the canonical key: `go` and `golang/gomod`
+for `golang`, `python/uv` for `pyproject`.
+
+Two crawlers are never enabled by default and must be requested explicitly:
+`gitea/action`, which currently behaves like `github/action`, and `plugin`, used for
+`.wasm` crawlers, which requires the `--experimental` flag.
 
 == Parameters
 
@@ -56,8 +118,10 @@ The next part of this document covers the different kinds of customization that 
 Autodiscovery could benefit from some customization, such as providing SCM configuration or defining pull request information.
 Some parameters are crawler specific and others apply to all crawlers.
 
-If a updatecli manifest specifies the root key "autodiscovery", such as in the following example, then on top of the default autodiscovery, it enables an additional autodiscovery feature.
-Here we clone the epinio/helm-chart repository in a temporary location and then look in that location for all Helm charts that specify dependencies and we try to update them.
+A manifest can drive autodiscovery itself, through the root key "autodiscovery", which is what makes
+it possible to point crawlers at a remote repository, to attach a pull request action, or to run only
+a subset of the crawlers.
+In the following example, we clone the epinio/helm-chart repository in a temporary location and then look in that location for all Helm charts that specify dependencies and we try to update them.
 
 ++++
 <details><summary>Example</summary>
@@ -80,9 +144,34 @@ autodiscovery:
 By default, autodiscovery looks for patterns from the local directory.
 We can also specify manifests from remote git repositories.
 
+TIP: Declaring an `autodiscovery` key selects exactly the crawlers listed under `crawlers`. The default list is not merged in, so a manifest with `crawlers: {golang:}` only runs the Golang crawler. Conversely, listing a crawler with an empty value, such as `helm:` above, runs it with its default settings.
+
 === SCM
 
 We assume that each crawler relies on the same SCM configuration and we can add more autodiscovery manifests to handle more repositories.
+
+=== Inherited manifest settings
+
+Pipelines generated by a crawler are not fully independent: they inherit part of the parent manifest.
+
+[cols="1,3",options=header]
+|===
+| Key | Inherited behavior
+
+| `labels`
+| Every label of the autodiscovery manifest is copied onto each generated pipeline, so `--labels` filters them just like handwritten ones. Crawlers do not add labels of their own, so a generated pipeline carries exactly the labels of its parent manifest. See link:/docs/core/label/[labels].
+
+| `id` / `dependson`
+| Generated pipelines reuse the parent `id`, and their `dependson` is the union of the crawler's own dependencies and the parent's. Ordering constraints therefore apply to the whole discovered set. See link:/docs/core/order/[manifest order].
+
+| `scms`
+| All the scms of the parent manifest are made available to the generated pipelines.
+
+| `actions`
+| The action referenced by `actionid` is copied into each generated pipeline. Fields you set on that action take precedence, and the crawler only fills in the ones you left empty.
+|===
+
+NOTE: When `groupby` is `all` and the action has no `title`, Updatecli reuses the manifest `name` as the pull request title. This matters, because leaving it empty would give each discovered pipeline a different title and rewrite the pull request title on every run. When the manifest has no `name` either, Updatecli falls back to the generic `deps: bumping various version`.
 
 === Pull Request
 
@@ -127,8 +216,20 @@ scms:
 ==== One Pull request or many
 
 The attribute `autodiscovery.groupby` can have the values:
-- `all` (default) to create one pull request with all changes
-- `individual` to create one pull request per change
+
+* `all` (default) to create one pull request with all changes.
+All the generated pipelines reuse the `pipelineid` of the autodiscovery manifest, so they share
+one Git branch and one pull request.
+* `individual` to create one pull request per change.
+Each generated pipeline gets its own `pipelineid`, derived from the autodiscovery `pipelineid` and
+the pipeline name, hence its own branch and pull request.
+
+IMPORTANT: `all` is the deliberate default: it avoids accidentally opening dozens of pull requests in a single Updatecli run. Switch to `individual` only when you are ready for that volume.
+
+==== Deprecated keys
+
+`autodiscovery.pullrequestid` is deprecated in favor of `autodiscovery.actionid`.
+Updatecli still translates it, with a warning, but fails when both are set.
 
 
 === Crawlers

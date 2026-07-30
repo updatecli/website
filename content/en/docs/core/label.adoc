@@ -1,12 +1,12 @@
 ---
 title: "Labels"
-description: "Label Updatecli policies"
+description: "Labels are key/value pairs attached to a pipeline, used to filter which pipelines run and to organize reports"
 draft: false
 images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 100
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -25,7 +25,7 @@ name: "docs: update Golang version throughout the documentation"
 
 # Pipeline labels: key/value pairs used to filter and organize pipelines in Updatecli and Udash.
 labels:
-  ecosystem: golang
+  ecosystem: go
 
 actions:
   default:
@@ -40,89 +40,278 @@ These labels can be used for two main purposes:
 
 1. **Filtering pipeline execution** — Use labels to run only specific pipelines matching given criteria.
 +
-For example, only apply pipelines tagged with `ecosystem: golang`:
+For example, only apply pipelines tagged with `ecosystem: go`:
 +
 [source,bash]
 ----
-updatecli compose apply --labels="ecosystem:golang"
+updatecli compose apply --labels="ecosystem:go"
 ----
 +
 Pipelines matching the filter will execute. Pipelines without the label or with a different value will be skipped.
 
 2. **Filtering pipeline reports** in link:https://github.com/updatecli/udash/[Udash]
 
-== Naming Suggestion
+== Filtering with `--labels`
 
-Use descriptive, lowercase keys that identify a dimension. Here are common patterns:
+The `--labels` flag is available on every command that runs or renders pipelines:
+`updatecli pipeline apply|diff|prepare`, `updatecli compose apply|diff|show`,
+`updatecli manifest show|upgrade`, and their deprecated top-level aliases.
 
-=== By Ecosystem or Dependency
+Each entry is a `key:value` pair. Entries can be comma separated, and the flag can be repeated:
+
+[source,bash]
+----
+# Equivalent forms
+updatecli pipeline diff --labels="team:backend,environment:staging"
+updatecli pipeline diff --labels="team:backend" --labels="environment:staging"
+----
+
+[cols="1,3",options=header]
+|===
+| Form | Matches
+
+| `--labels="ecosystem:go"`
+| Pipelines whose `ecosystem` label is exactly `go`.
+
+| `--labels="ecosystem:"` or `--labels="ecosystem"`
+| Pipelines that define an `ecosystem` label, whatever its value.
+
+| several entries
+| Only pipelines matching **all** of them. Filters are combined with a logical AND, there is no OR form.
+|===
+
+Passing no `--labels` at all runs every pipeline, including the ones that define labels.
+
+IMPORTANT: A filter is a subset check, not an equality check. A pipeline labelled `ecosystem: go` **and** `team: backend` matches `--labels="ecosystem:go"`. There is no way to require a pipeline to carry *only* the labels you listed.
+
+== Labels and autodiscovery
+
+Labels set on a manifest declaring the `autodiscovery` key are copied onto every pipeline that the
+crawlers generate. That is the practical way to label discovered updates, since those pipelines are
+never written by hand:
 
 [source,yaml]
 ----
+name: Discover Golang module updates
 labels:
-  ecosystem: golang
+  ecosystem: go
+  monitor: passive
+
+autodiscovery:
+  crawlers:
+    golang:
 ----
 
-Pipelines with `--labels="ecosystem:golang"` will match. Pipelines without that label or with a different value will be skipped.
+Crawlers do not generate labels of their own, so every pipeline a crawler produces carries exactly
+the labels of the autodiscovery manifest, and nothing else.
 
-Pipelines with `--labels="ecosystem:"` will match all pipelines with an `ecosystem` label, regardless of its value. Pipelines without that label or with a different value will be skipped.
-
-=== By Team or Domain
+That has a practical consequence for the conventions below: labels are uniform across a single
+crawler's output. A value that varies per dependency, such as `update.channel`, cannot come from one
+manifest. Express the distinction by writing one autodiscovery manifest per channel, each with its
+own labels:
 
 [source,yaml]
 ----
+# patch-only.yaml
 labels:
-  team: backend
-  domain: infrastructure
+  ecosystem: go
+  update.channel: patch
+
+autodiscovery:
+  crawlers:
+    golang:
+      versionfilter:
+        kind: semver
+        pattern: patch
 ----
 
-=== By Policy Type
+== Recommended conventions
 
+IMPORTANT: The conventions below are recommendations, not rules. Updatecli accepts any key/value pair, never validates or rewrites them, and never generates them for you. Nothing here is enforced. It exists so that pipelines written by different people, in different repositories, line up in `--labels` filters and in Udash dashboards.
+
+=== Design principles
+
+* **Labels group, `pipelineid` identifies.** A label puts a pipeline into a bucket shared with others. Keep labels low-cardinality and stable over time.
+* **One key, one question.** Each key should answer a single independent question, so that any combination of them can be filtered or grouped on.
+* **Prefer an existing value over a new one.** A small closed set of values is what makes filters work across repositories. Inventing a value per repository defeats the purpose.
+* **Never encode high-cardinality data.** The dependency name, the version number, and the file path belong to the `pipelineid` and to the target, never to a label.
+
+=== Formatting
+
+[cols="1,3",options=header]
+|===
+| Rule | Convention
+
+| Key
+| lowercase, one word, or dotted `group.attribute` when the bare word would be ambiguous
+
+| Value
+| lowercase `kebab-case`
+
+| Booleans
+| the strings `"true"` / `"false"`
+
+| Unknown or not applicable
+| omit the label entirely, rather than setting an empty value
+|===
+
+IMPORTANT: Label matching is exact and case-sensitive. A pipeline labelled `Ecosystem: Go` never matches `--labels="ecosystem:go"`, and Updatecli does not warn about it. Pick one casing and keep to it.
+
+Omitting a label is better than giving it an empty value: `--labels="ecosystem:"` is an existence check rather than a match on the empty string, and Udash rejects labels with an empty value when it stores a report.
+
+=== Suggested vocabulary
+
+==== `ecosystem`
+
+Which package universe the pipeline belongs to.
+
+[cols="1,3",options=header]
+|===
+| Value | Covers
+
+| `go` | Go modules and toolchain
+| `npm` | Node, npm, yarn, pnpm
+| `maven` | JVM build dependencies, Maven
+| `gradle` | JVM build dependencies, Gradle
+| `pypi` | Python packages
+| `cargo` | Rust crates
+| `nuget` | .NET
+| `rubygems` | Ruby
+| `composer` | PHP
+| `hex` | Elixir and Erlang
+| `docker` | container images, Dockerfiles, compose files
+| `helm` | Helm charts and values
+| `kubernetes` | Kubernetes manifests, kustomize
+| `github-actions` | GitHub Actions
+| `gitea-actions` | Gitea Actions
+| `terraform` | Terraform and OpenTofu
+| `jvm` | Java, Temurin, JDK runtimes
+| `os` | OS packages: apt/deb, rpm, apk
+| `updatecli` | Updatecli policies
+| `generic` | file, http, or shell resources with no specific ecosystem
+|===
+
+NOTE: These values name the packaging universe rather than the language, which is why the list has `go` and `npm` instead of `golang` and `javascript`. Language names work just as well as long as everyone in your organisation uses the same ones. Consistency matters more than which list you pick.
+
+==== `kind`
+
+What the updated thing is, independent of the technology.
+
+[cols="1,3",options=header]
+|===
+| Value | Use for
+
+| `module` | a library or package dependency: Go module, npm dependency, Maven artifact, Cargo crate, pip package
+| `toolchain` | a language or runtime version: Go, Node, Java, Python, Rust
+| `base-image` | a container base image, the `FROM` of a Dockerfile
+| `image` | a referenced container image that is not a base image: compose, Kubernetes manifest, Helm values
+| `chart` | a Helm chart
+| `action` | a CI action or step: GitHub Actions, Gitea Actions
+| `provider` | a Terraform or OpenTofu provider or module
+| `plugin` | a plugin of a host application, such as a Jenkins plugin
+| `policy` | an Updatecli policy
+| `binary` | a standalone downloaded tool or binary
+| `app` | an application or service version pin, the deployed thing itself
+| `file` | arbitrary file or value updates not covered above
+|===
+
+TIP: `kind` describes the nature of the dependency, never the reference format. Whether a version is a tag or a digest belongs to `update.channel`.
+
+==== `update.channel`
+
+The track a pipeline is allowed to follow. This is the axis to group on to answer "show me every patch update, everywhere".
+
+[cols="1,3",options=header]
+|===
+| Value | Meaning
+
+| `latest` | always move to the newest available version, with no semver constraint
+| `major` | major bumps
+| `minor` | minor bumps
+| `patch` | patch bumps
+| `digest` | re-pin an immutable digest for the same tag, with no version change
+| `prerelease` | alpha, beta, and release candidate track
+| `stable` | explicitly the stable channel, for projects shipping both stable and edge
+| `edge` | rolling, unstable track
+| `nightly` | nightly builds
+| `lts` | long-term-support track
+|===
+
+The channel describes what the manifest allows, not the size of a bump that happened. A pipeline labelled `update.channel: patch` keeps that label whether it finds a new version or not.
+
+==== `update.strategy`
+
+How the version was selected. Mirrors the resource's `versionfilter.kind`. See link:/docs/core/versionFilter/[versionFilter].
+
+Common values: `semver`, `latest`, `regex`, `lexical`, `time`.
+
+NOTE: This label is only useful if it stays a faithful mirror of the spec. If you cannot keep it in sync, omit it rather than ship a misleading one.
+
+`update.channel` and `update.strategy` answer different questions, which is why they are separate keys. `versionfilter.kind: latest` is a selection strategy, "take whatever is newest"; `update.channel: latest` is a track, "this pipeline follows the newest release". A pipeline can perfectly well be `update.channel: patch` with `update.strategy: semver`.
+
+==== `monitor`
+
+How urgently a pipeline should run.
+
+[cols="1,3",options=header]
+|===
+| Value | Meaning
+
+| `active` | always run, detect updates as soon as possible
+| `passive` | run periodically, some drift is acceptable
+| `pinned` | intentionally frozen, assert this version stays locked
+| `manual` | human-triggered only, never run in automated CI
+|===
+
+This is the axis most often wired into CI, for example a scheduled workflow running `updatecli apply --labels="monitor:active"` and a slower one for `monitor:passive`.
+
+==== `team`, `owner`, `component`
+
+Ownership and routing. `team` or `owner` should hold a team slug rather than a person's name, and `component` the service or application a dependency belongs to in a monorepo. Keep all three low-cardinality.
+
+=== Examples
+
+Not every pipeline is a dependency update, and `ecosystem` and `kind` simply do not apply to some of them. Use the axes that make sense and omit the rest.
+
+.Go module, patch track
 [source,yaml]
 ----
 labels:
-  policy: autodiscovery
-----
-
-=== By Environment
-
-[source,yaml]
-----
-labels:
-  environment: staging
-  approval: required
-----
-
-=== By Monitor Mode
-
-Use `monitor` to signal how urgently a pipeline should be executed.
-
-[source,yaml]
-----
-# Always run — detect updates as soon as possible
-labels:
-  monitor: active
-----
-
-[source,yaml]
-----
-# Run periodically — some drift is acceptable
-labels:
+  ecosystem: go
+  kind: module
+  update.channel: patch
+  update.strategy: semver
   monitor: passive
 ----
 
+.Dockerfile base image, digest re-pin
 [source,yaml]
 ----
-# Intentionally frozen — assert this version stays locked
 labels:
-  monitor: pinned
+  ecosystem: docker
+  kind: base-image
+  update.channel: digest
+  update.strategy: digest
+  monitor: active
 ----
 
+.Helm chart, minor track
 [source,yaml]
 ----
-# Human-triggered only — never run in automated CI
 labels:
-  monitor: manual
+  ecosystem: helm
+  kind: chart
+  update.channel: minor
+  update.strategy: semver
+  team: platform
+----
+
+.A pipeline that is not a dependency update, here regenerating documentation
+[source,yaml]
+----
+labels:
+  release: updatecli
+  monitor: active
 ----
 
 == To avoid
@@ -134,6 +323,14 @@ update, dependency, pipeline — these describe what Updatecli does by definitio
 === Free-form / inconsistent spellings
 
 Mixing github-actions, GithubActions, github_actions — pick one convention (kebab-case is common) and stick to it. Inconsistency breaks filtering.
+
+=== Mixed casing
+
+`Ecosystem: Go` and `ecosystem: go` are two different labels. Since matching is exact and case-sensitive, and Updatecli never normalises keys or values, a mistyped capital silently excludes the pipeline from every filter that was meant to catch it. Stay lowercase.
+
+=== Labels that repeat the spec
+
+`kind:dockerfile`, `file:/path/to/go.mod` — Updatecli already knows the resource kinds and the files a pipeline touches. Duplicating them into labels adds another thing to keep in sync, for no filtering value that reports do not already provide.
 
 === Status-like labels
 
@@ -151,7 +348,7 @@ john, alice — person names become stale when teams change. Prefer `team:` or `
 
 `dependencies`, `automerge`, `bug` — these are pull request labels and belong in `action.spec.labels`, not in the pipeline `labels` field.
 They are applied to the SCM pull request (GitHub, GitLab, etc.) and have no effect on pipeline filtering or Udash dashboards.
-See link:/docs/core/action[Actions] for the correct location.
+See link:/docs/core/action/[Actions] for the correct location.
 
 === By CI/CD platform or integration
 
@@ -162,4 +359,9 @@ If needed, this information can be detected at runtime. Feel free to open an iss
 
 Labels are a powerful tool for organizing and filtering pipelines, but they require thoughtful design to be effective.
 Use clear, consistent naming conventions that reflect stable dimensions of your projects, teams, and policies.
+
+The vocabulary in link:#_recommended_conventions[Recommended conventions] is a starting point, not a
+requirement. Updatecli enforces none of it. Adopting it simply means your pipelines group the same
+way as everyone else's, which is what makes a shared dashboard readable. Where it does not fit,
+define your own keys and stay consistent with them.
 

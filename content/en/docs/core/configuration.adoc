@@ -1,6 +1,6 @@
 ---
 title: "Configuration"
-description: "Updatecli must be fed!"
+description: "How an Updatecli manifest is structured, templated, and split across files"
 lead: "Updatecli must be fed!"
 date: 2020-10-13T15:21:01+02:00
 lastmod: 2020-10-13T15:21:01+02:00
@@ -9,7 +9,7 @@ images: []
 menu: 
   docs:
     parent: "core"
-weight: 130
+weight: 10
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -35,6 +35,66 @@ The "where" is the "target" and defines where we want to update a piece of infor
 
 == Manifest
 
+=== Root keys
+
+A manifest accepts the following root keys. All of them are optional except `name`.
+
+[cols="1,1,3",options=header]
+|===
+| Key | Type | Description
+
+| `name`
+| string
+| A short sentence describing the pipeline. It is reused as a default value elsewhere, such as the pull request title, so it should not embed dynamic information like a source output.
+
+| `pipelineid`
+| string
+| Identifies a full pipeline run, and groups manifests into the same Git branch and pull request. See <<_pipeline_id,Pipeline ID>>.
+
+| `id`
+| string
+| Declares a manifest identifier other manifests can depend on. See link:/docs/core/order/[manifest order].
+
+| `dependson`
+| list of string
+| Lists the manifest `id` values that must run before this manifest. See link:/docs/core/order/[manifest order].
+
+| `labels`
+| map of string
+| Arbitrary key/value pairs used to filter pipelines at runtime and in reports. See link:/docs/core/label/[labels].
+
+| `version`
+| string
+| The minimum Updatecli version required by the manifest. Updatecli skips the manifest, with an error, when its own version is lower.
+
+| `sources`
+| map
+| See link:/docs/core/source/[source].
+
+| `conditions`
+| map
+| See link:/docs/core/condition/[condition].
+
+| `targets`
+| map
+| See link:/docs/core/target/[target].
+
+| `scms`
+| map
+| Git repository configurations shared by the resources of the manifest. See link:/docs/core/scm/[scm].
+
+| `actions`
+| map
+| What to do once a target changed, typically opening a pull request. See link:/docs/core/action/[action].
+
+| `autodiscovery`
+| object
+| Generates pipelines automatically instead of writing them. See link:/docs/core/autodiscovery/[autodiscovery].
+|===
+
+NOTE: `title` and `pullrequests` are deprecated in favor of `name` and `actions`. Updatecli still accepts them but logs a warning, and `pullrequests` and `actions` are mutually exclusive.
+
+[#_pipeline_id]
 === Pipeline ID
 
 By default, Updatecli treats each manifest file as an independent update pipeline.
@@ -69,7 +129,11 @@ pipelineid: go/version
 
 [IMPORTANT]
 ====
-* By default, The generated pipelineID is a hash based on the content of the manifest file so this ID may change if the content of the manifest is changed.
+* When `pipelineid` is not set, Updatecli generates one:
+** from a hash of the manifest `name`, when a `name` is defined.
+** from a checksum of the whole manifest file, when no `name` is defined. In that case the ID changes every time the file content changes, and so does the temporary branch name.
++
+Defining a `name` (or better, an explicit `pipelineid`) is therefore the recommended way to keep a stable branch across runs.
 * Since the pipelineid is used in the name of the temporary Git branch, avoid using / in the ID.
 In Git, / is treated as a directory separator in branch names, which can make branch management confusing.
 ====
@@ -81,19 +145,71 @@ When running multiple manifests, Updatecli can order them explicitly with the ro
 Use `id` to declare a manifest identifier, and `dependson` to list which manifest IDs must run first.
 This affects manifest execution order only and does not replace `pipelineid`.
 
-To learn more, see **link:/docs/core/order[manifest order]**.
+To learn more, see **link:/docs/core/order/[manifest order]**.
 
 === File
 
 Each Updatecli pipeline is defined in its own manifest file.
-The manifest is split into different stages, "source", "conditions", "targets",
+The manifest is split into different stages, "sources", "conditions", "targets",
 where every stage relies on a plugin to adapt the behavior.
 
-A file can be of type "yaml" or "Go Template" using file extensions ".yaml",".yml", or ".tpl").
+Every manifest is parsed as a Go template first, then as YAML.
+The following file extensions are accepted:
 
-Manifests are given to the updatecli command using the global flag `--config <go_template_file>` and `--values <yaml_file>`.
+[cols="1,3",options=header]
+|===
+| Extension | Remark
+| `.yaml`, `.yml` | The most common choice.
+| `.tpl`, `.tmpl` | Same content as a YAML manifest, the extension only signals the templating intent.
+| `.json` | JSON is a subset of YAML, so JSON manifests are accepted too.
+| `.cue` | https://cuelang.org[CUE] manifests, **experimental**: requires the `--experimental` flag.
+|===
+
+Any other extension is silently ignored, which allows keeping unrelated files next to your manifests in the same directory.
+
+==== Passing manifests to Updatecli
+
+Manifests are given to the updatecli command using the flag `--config` (`-c`).
 It accepts either a single file or a directory.
-If a directory is specified, then it runs recursively on all the go templates (or yaml files) in the directory.
+If a directory is specified, then Updatecli runs recursively on all supported files in that directory.
+
+When `--config` is not specified, Updatecli looks, in the current directory, for:
+
+. a file named `updatecli.yaml` (plus `updatecli.cue` in experimental mode)
+. a directory named `updatecli.d`
+
+Both are used if both exist. If neither is found, Updatecli falls back to the default
+link:/docs/core/autodiscovery/[autodiscovery] crawlers.
+
+Templating values are provided with the following flags:
+
+[cols="1,3",options=header]
+|===
+| Flag | Description
+| `--values`, `-v` | A YAML or JSON file containing key/values, repeatable.
+| `--values-inline`, `-i` | An inline YAML or JSON string containing key/values, repeatable.
+| `--secrets` | A https://github.com/getsops/sops[SOPS] encrypted YAML or JSON file, repeatable.
+|===
+
+When the same key is defined more than once, the last one wins: values files are merged in order,
+then secrets files override them, then inline values override everything.
+The merge is recursive, so two values files can contribute different keys to the same nested object.
+
+==== Multiple pipelines in a single file
+
+A manifest file may contain several YAML documents separated by `---`.
+Updatecli loads each document as an independent pipeline.
+
+[source,yaml]
+----
+name: Update Golang version in the Dockerfile
+sources:
+  # ...
+---
+name: Update Golang version in go.mod
+sources:
+  # ...
+----
 
 IMPORTANT: Manifest files starting with an underscore `_` are considered as partial files and are not executed. More information on the partial section below.
 
@@ -108,9 +224,19 @@ Partials are named, reusable fragments of an Updatecli manifest, typically used 
 
 These fragments are automatically available to pipelines within the same directory, helping keep your main manifests DRY (Don't Repeat Yourself) and maintainable.
 
-A partial file must have a filename that starts with an underscore (`_`). Updatecli never loads these as standalone manifest files.
+A partial file must:
 
-IMPORTANT: Partial files are concatenated into the main manifest during execution. If a `---` YAML document separator is present, the partial feature will be disabled, as the resulting content would be treated as multiple separate YAML documents.
+* have a filename that starts with an underscore (`_`)
+* use the `.yaml` or `.yml` extension
+* live in the *same directory* as the manifest that uses it. Partials from other directories are ignored, even when Updatecli walks a directory tree.
+
+Updatecli never loads a partial as a standalone manifest.
+
+[IMPORTANT]
+====
+* Partial files are prepended to the main manifest before templating, and the result is parsed as a single YAML document. A partial can therefore only define root keys that the main manifest does not already define — a duplicated root key is a YAML error.
+* If a `---` YAML document separator is present, the partial feature is effectively disabled, as the resulting content would be treated as multiple separate YAML documents.
+====
 
 ++++
 <details><summary>updatecli.yaml</summary>
@@ -169,10 +295,41 @@ scms:
 
 Using go templates allows us to specify generic values in a different YAML file, using `--values`.
 We then reference those values from each go template.
-Updatecli also provides a custom function called `requiredEnv` to inject an environment variable into the template example, `{{ requiredEnv "PATH" }}`. +
-Additionally, all functions from the https://masterminds.github.io/sprig/[Sprig template library] are available.
 
 More information on Go templates is https://golang.org/pkg/text/template/[here].
+
+==== Template functions
+
+On top of the standard Go template functions, a manifest can use:
+
+* all functions from the https://masterminds.github.io/sprig/[Sprig template library]
+* the Helm-flavored `toYaml`, `fromYaml`, and `fromYamlArray` functions
+* the Updatecli specific functions described below
+
+[cols="1,3",options=header]
+|===
+| Function | Description
+
+| `requiredEnv`
+| Injects an environment variable, and fails the run when the variable is empty or undefined, for example `{{ requiredEnv "GITHUB_TOKEN" }}`.
+
+| `source`
+| Injects the output of another source of the same pipeline, for example `{{ source "latestVersion" }}`.
+
+| `pipeline`
+| Injects any value from the running pipeline configuration, using a dot separated path, for example `{{ pipeline "Sources.latestVersion.Output" }}` or `{{ pipeline "Name" }}`.
+|===
+
+[IMPORTANT]
+====
+`source` and `pipeline` are *not* evaluated when the manifest is loaded — at that point the values do not exist yet.
+They are re-evaluated during the pipeline run, each time a resource completes, and only then replaced by their value.
+
+As a side effect, `{{ source "id" }}` also declares an execution dependency: a resource referencing it
+automatically waits for the source `id` to run first. See link:/docs/core/order/[manifest order] for details.
+
+Sprig's `env` function, on the contrary, is evaluated at load time like the rest of the template.
+====
 
 An example values file can contain:
 
@@ -197,10 +354,11 @@ That can used in a pipeline manifest as:
 
 == Go Further
 
-* To know more about Condition syntax **link:/docs/core/condition[condition]**
-* To know more about Source syntax **link:/docs/core/source[source]**
-* To know more about Target syntax **link:/docs/core/target[target]**
-* To know more about manifest ordering **link:/docs/core/order[manifest order]**
+* To know more about Condition syntax **link:/docs/core/condition/[condition]**
+* To know more about Source syntax **link:/docs/core/source/[source]**
+* To know more about Target syntax **link:/docs/core/target/[target]**
+* To know more about manifest and resource ordering **link:/docs/core/order/[manifest order]**
+* To know more about pipeline filtering **link:/docs/core/label/[labels]**
 * To know more about **link:/plugins/[Plugins]**
 ** More specifically about the **link:/plugins/source[source]**
 ** More specifically about the **link:/plugins/condition[condition]**

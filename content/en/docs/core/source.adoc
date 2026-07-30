@@ -1,6 +1,6 @@
 ---
 title: "Source"
-description: "Source retrieve an information for later stages"
+description: "The source stage retrieves the value an update is based on, such as the latest release of a dependency"
 lead: "Source define the 'what' you want to update"
 date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 20
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -20,6 +20,14 @@ toc: true
 == Description
 
 The "source" stage retrieves information from a third "resource" like a file, or an API and then uses that information in later stages.
+
+A source is the only stage that never modifies anything: it just reads a value, optionally reshapes it with
+link:/docs/core/transformer/[transformers], and hands it over to the conditions and targets of the manifest.
+
+Most sources return a list of candidate versions and pick one according to their `versionfilter`.
+See link:/docs/core/versionfilter/[version filter] for the available strategies.
+
+TIP: Within a single Updatecli run, sources sharing the same `kind`, `spec`, and resolved repository are executed only once, and the result is reused. Naming them differently, or attaching different transformers, does not trigger a second call — which keeps API rate limits under control when many pipelines track the same dependency.
 
 == Parameters
 
@@ -34,22 +42,21 @@ The "source" stage retrieves information from a third "resource" like a file, or
 sources:
   latestVersion:
     name: Get latest Venom release
-    kind: githubRelease
+    kind: githubrelease
     spec:
       owner: ovh
       repository: venom
       # Value from environment variable '$UPDATECLI_GITHUB_TOKEN'
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-      # Value from environment variable '$UPDATECLI_GITHUB_ACTOR'
-      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-      versioning:
+      versionfilter:
         kind: semver
     transformers:
-      - addPrefix: "v"
+      - trimprefix: "v"
 ```
 
-In this example we're looking for the latest release tag from https://github.com/jenkinsci/jenkins which is 'jenkins-2.75'.
-Unfortunately, it contains the prefix "jenkins" which is not required for later stages, so we remove 'jenkins-' so the output of the source becomes "jenkins/jenkins:2.275-jdk" which is a valid docker image name This can now be used in the later stages.
+The https://github.com/ovh/venom[ovh/venom] releases are tagged like `v1.2.0`, while the value we want to
+write in a target is `1.2.0`.
+The `trimprefix` transformer removes the leading `v`, so the output of this source becomes `1.2.0`.
 
 === Combine multiple sources
 
