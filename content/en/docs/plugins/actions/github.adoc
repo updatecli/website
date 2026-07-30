@@ -63,7 +63,7 @@ Updatecli merges the pull request itself through the API, with no repository con
 Pull request is only 3h0m0s old — waiting for merge.after duration of 24h
 ----
 
-An unparseable value fails with `invalid merge.after duration`.
+An unparsable value fails with `invalid merge.after duration`.
 
 [source,yaml]
 ----

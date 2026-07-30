@@ -60,7 +60,7 @@ spec:
     minimum: "2w"    # only versions released at least two weeks ago
 ----
 
-`minimum` and `maximum` accept `h` (hours), `d` (days), `w` (weeks), `mo` (months) and `y` (years). A bare number means hours. An unparseable value fails with `invalid MinimumReleaseAge "<value>"`.
+`minimum` and `maximum` accept `h` (hours), `d` (days), `w` (weeks), `mo` (months) and `y` (years). A bare number means hours. An unparsable value fails with `invalid MinimumReleaseAge "<value>"`.
 
 [WARNING]
 ====

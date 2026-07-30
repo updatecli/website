@@ -62,7 +62,7 @@ spec:
     minimum: "7d"
 ----
 
-`minimum` and `maximum` accept `h`, `d`, `w`, `mo` and `y`; a bare number means hours. An unparseable value fails with `invalid MinimumReleaseAge "<value>"`.
+`minimum` and `maximum` accept `h`, `d`, `w`, `mo` and `y`; a bare number means hours. An unparsable value fails with `invalid MinimumReleaseAge "<value>"`.
 
 [WARNING]
 ====
