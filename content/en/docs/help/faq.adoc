@@ -1,0 +1,110 @@
+---
+title: "FAQ"
+description: "Short answers to the questions that come up most often when running Updatecli, each linking to the page that owns the detail."
+lead: "Short answers, with pointers to the detail"
+date: 2020-10-06T08:49:31+00:00
+lastmod: 2026-07-30T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "help"
+weight: 610
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== What is Updatecli?
+
+A command line tool that applies update strategies described in a manifest. The manifest declares
+what to update, where, and under which conditions; Updatecli reads it and does the work.
+
+It needs no server and no database — the manifest and the files it updates are the only state.
+The link:/docs/prologue/introduction/["Introduction" page] covers the model in full.
+
+== Is Updatecli pull or push based?
+
+Both, in sequence. Each pipeline pulls a value from somewhere (a registry, a Git repository, an
+API), checks the conditions you declared, and only then writes that value where it belongs.
+
+== What is the difference between `diff` and `apply`?
+
+`updatecli pipeline diff`:: Reports what *would* change. Targets run in dry-run mode, and committing
+and pushing are switched off.
+
+`updatecli pipeline apply`:: Applies the changes, then commits, pushes, and opens the action you
+declared. Use `--commit=false` or `--push=false` to stop short of either.
+
+NOTE: The bare `updatecli diff` and `updatecli apply` forms still work but are deprecated in favour
+of the `pipeline` subcommands. See the link:/docs/help/deprecations/["Deprecations" page].
+
+== Does `diff` ever change anything on disk?
+
+Almost never — but there is one exception worth knowing.
+
+A `shell` target runs your command in both modes. Updatecli cannot know what a script does, so it
+exports `DRY_RUN=true` and leaves the decision to the script. A script that ignores `DRY_RUN` will
+write during a `diff`.
+
+TIP: Guard the write with `if test "$DRY_RUN" == "false"`. The
+link:/docs/plugins/resource/shell/["Shell" page] shows the full pattern.
+
+== Do I need a GitHub token, and which variable holds it?
+
+Anything that reads from GitHub needs a token, and anything that writes needs one with write access.
+Updatecli looks in this order:
+
+. `spec.token` in the manifest
+. `UPDATECLI_GITHUB_TOKEN` (with `UPDATECLI_GITHUB_USERNAME`)
+. the GitHub App variables
+. `GITHUB_TOKEN`
+
+The link:/docs/help/environment/["Environment variables" page] lists all of them. If you get
+`no access token found`, see the link:/docs/help/troubleshooting/["Troubleshooting" page].
+
+== Why did the run finish cleanly but open no pull request?
+
+Usually because nothing needed changing — which is the expected outcome most of the time. The other
+common causes are a condition that did not pass, `--commit=false` or `--push=false`, or a filter such
+as `--pipeline-ids` narrowing the run.
+
+Run again with `--debug` to see which. The
+link:/docs/help/troubleshooting/#_nothing_happened["Nothing happened" section] walks through each case.
+
+== Why does Updatecli seem to hang?
+
+Most likely it is waiting out a GitHub rate limit rather than hanging. When the limit is reached
+Updatecli retries, then sleeps until the window resets, logging:
+
+[source,text]
+----
+GitHub API rate limit reached, on hold for 45 minute(s) until 2026-07-30 11:15:00 UTC. The process will resume automatically.
+----
+
+See link:/docs/help/troubleshooting/#_rate_limiting["Rate limiting"].
+
+== Am I hitting a Docker Hub rate limit?
+
+Docker Hub limits how many manifests you may pull, and an unauthenticated run burns through that
+allowance quickly. The link:/docs/help/docker_hub_rate_limit/["Docker Hub rate limit" page] explains
+the limits and how to stay under them.
+
+== Can I run several Updatecli instances in parallel?
+
+Yes, but pass `--unique-tmp-dir`. By default every instance shares `$TMPDIR/updatecli`, so two runs
+cloning the same repository will fight over the same directory. The flag gives each run its own.
+
+== Where does Updatecli write temporary files?
+
+Under `$TMPDIR/updatecli`, with `bin/` and `report/` beneath it. `--clean` removes the directory at
+the end of a run.
+
+== Go Further
+
+* link:/docs/help/troubleshooting/[Troubleshooting] — error messages, what causes them, and what to do.
+* link:/docs/help/environment/[Environment variables] — every variable Updatecli reads.
+* link:/docs/help/deprecations/[Deprecations] — what changed and how to migrate.
+* link:/support/[Support] — community channels, and how to report a bug.

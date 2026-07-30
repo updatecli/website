@@ -1,0 +1,329 @@
+---
+title: "Environment variables"
+description: "Every environment variable Updatecli reads: credentials, flag defaults, proxy settings, CI detection, and the variables it passes to shell scripts."
+lead: "What Updatecli reads from the environment"
+date: 2026-07-30T10:00:00+02:00
+lastmod: 2026-07-30T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "help"
+weight: 640
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Updatecli reads configuration from three places, in decreasing priority: the manifest, command line
+flags, and the environment. This page covers the last one.
+
+Environment variables exist mostly so credentials never have to be written into a manifest. Anything
+a manifest can set is documented on the plugin's own page; what follows is only what has no home in a
+manifest, or what changes a default.
+
+TIP: Run with `--debug` to see which variable was actually used. Credential lookups log the variable
+they picked, for example `using GitHub token from environment variable UPDATECLI_GITHUB_TOKEN`.
+
+== Credentials
+
+=== GitHub
+
+Updatecli tries these in order and stops at the first that yields a token:
+
+. `spec.token` in the manifest
+. `UPDATECLI_GITHUB_TOKEN`
+. the GitHub App variables below
+. `GITHUB_TOKEN`
+
+[cols="1,3", options="header"]
+|===
+| Variable | Purpose
+
+| `UPDATECLI_GITHUB_TOKEN`
+| Personal access token. The preferred variable.
+
+| `UPDATECLI_GITHUB_USERNAME`
+| Username paired with the token. Defaults to `oauth2`, which is what the GitHub API expects for token
+authentication, so it rarely needs setting.
+
+| `GITHUB_TOKEN`
+| Fallback, checked last. This is what makes Updatecli work inside GitHub Actions with no extra
+configuration, since the runner provides it.
+|===
+
+GitHub App authentication is used when all three required variables are set. Any of them missing and
+the whole App path is skipped silently — no error, Updatecli simply moves on to `GITHUB_TOKEN`.
+
+[cols="1,3", options="header"]
+|===
+| Variable | Purpose
+
+| `UPDATECLI_GITHUB_APP_CLIENT_ID`
+| App client ID. Required.
+
+| `UPDATECLI_GITHUB_APP_PRIVATE_KEY`
+| The private key itself. Required, unless `_PATH` is used.
+
+| `UPDATECLI_GITHUB_APP_PRIVATE_KEY_PATH`
+| Path to the private key file. Alternative to the above.
+
+| `UPDATECLI_GITHUB_APP_INSTALLATION_ID`
+| Installation ID. Required.
+
+| `UPDATECLI_GITHUB_APP_EXPIRATION_TIME`
+| Token lifetime in seconds. Optional.
+|===
+
+IMPORTANT: A token and an App are alternatives. Setting both `token` and `app` on the same GitHub spec
+fails with `you cannot use both token and app authentication methods`.
+
+=== Gitea
+
+`UPDATECLI_GITEA_TOKEN`, falling back to `GITEA_TOKEN`.
+
+=== Azure DevOps
+
+`UPDATECLI_AZURE_DEVOPS_TOKEN` and `UPDATECLI_AZURE_DEVOPS_USERNAME`.
+
+=== Udash
+
+[cols="1,3", options="header"]
+|===
+| Variable | Purpose
+
+| `UPDATECLI_UDASH_URL`
+| Udash instance URL.
+
+| `UPDATECLI_UDASH_API_URL`
+| Udash API URL.
+
+| `UPDATECLI_UDASH_ACCESS_TOKEN`
+| Access token. `updatecli udash login` writes one to the local config file instead.
+|===
+
+NOTE: Reporting to Udash requires `--experimental`. Without it the step is skipped silently, whatever
+these variables say. See link:/docs/help/experimental/["Experimental features" page].
+
+== Flag defaults
+
+Two flags read a default from the environment, which is the practical way to set them once for a whole
+CI job rather than on every invocation. An unparsable value is ignored and logged at debug level.
+
+[cols="1,1,2", options="header"]
+|===
+| Variable | Flag | Effect
+
+| `UPDATECLI_DISABLE_CHANGELOG`
+| `--disable-changelog`
+| Skip changelog retrieval. Saves API calls.
+
+| `UPDATECLI_DISABLE_VERSION_CHECK`
+| `--disable-version-check`
+| Skip the check for a newer Updatecli release, which runs after the command completes.
+|===
+
+== The `local` scm
+
+When a stage refers to `scmid: local` without that scm being defined, Updatecli guesses it from the
+Git repository in the current directory — the `origin` remote gives the URL, owner, and repository.
+
+These variables override individual fields of that guess:
+
+[cols="1,3", options="header"]
+|===
+| Variable | Overrides
+
+| `UPDATECLI_SCM_LOCAL_BRANCH`
+| `branch`
+
+| `UPDATECLI_SCM_LOCAL_DIRECTORY`
+| `directory`
+
+| `UPDATECLI_SCM_LOCAL_EMAIL`
+| `email` used for commits
+
+| `UPDATECLI_SCM_LOCAL_URL`
+| repository URL
+
+| `UPDATECLI_SCM_LOCAL_USER`
+| `user` used for commits
+
+| `UPDATECLI_SCM_LOCAL_USERNAME`
+| `username` used to authenticate
+
+| `UPDATECLI_SCM_LOCAL_OWNER`
+| `owner` — GitHub remotes only
+
+| `UPDATECLI_SCM_LOCAL_REPOSITORY`
+| `repository` — GitHub remotes only
+
+| `UPDATECLI_SCM_LOCAL_TOKEN`
+| `token` — GitHub remotes only
+|===
+
+Only non-empty values are applied, so exporting one variable leaves the rest of the guess intact. This
+is the tidiest way to change the commit author from CI without touching the manifest:
+
+[source,shell]
+----
+export UPDATECLI_SCM_LOCAL_EMAIL="bot@example.com"
+export UPDATECLI_SCM_LOCAL_USER="example-bot"
+updatecli pipeline apply
+----
+
+NOTE: These apply *only* to the auto-guessed `local` scm. An scm you declared yourself is configured in
+the manifest, not through the environment, and the guess itself can be turned off with
+`scms.local.disabled: true`.
+
+== Shell scripts
+
+The `shell` plugin exports two variables into the environment of the command it runs:
+
+[cols="1,3", options="header"]
+|===
+| Variable | Value
+
+| `DRY_RUN`
+| `true` during a `diff`, `false` during an `apply`. **The script is run either way** — honouring this is
+the script's responsibility.
+
+| `UPDATECLI_PIPELINE_STAGE`
+| `source`, `condition`, or `target`, so one script can serve several stages.
+|===
+
+[WARNING]
+====
+A `shell` target whose script ignores `DRY_RUN` will write to disk during `updatecli pipeline diff`,
+which otherwise changes nothing. Guard the write:
+
+[source,shell]
+----
+if test "$DRY_RUN" == "false"; then
+  echo "$1" > version.txt
+fi
+echo "$1"
+----
+
+The link:/docs/plugins/resource/shell/["Shell" page] has the complete pattern.
+====
+
+== Network
+
+=== Proxies
+
+Updatecli's HTTP clients honour the standard variables through Go's own proxy resolution:
+
+[cols="1,3", options="header"]
+|===
+| Variable | Purpose
+
+| `HTTP_PROXY`
+| Proxy for plain HTTP requests.
+
+| `HTTPS_PROXY`
+| Proxy for HTTPS requests.
+
+| `NO_PROXY`
+| Hosts to reach directly. Accepts a comma-separated list.
+|===
+
+The lowercase spellings are equally valid, and are what Go checks first.
+
+NOTE: This covers HTTP traffic. A plugin that shells out to another tool — `helm`, `mvn`, `npm` — leaves
+that tool to read the environment for itself, which it usually does.
+
+=== Telemetry
+
+Tracing is off unless it is configured, and it is configured entirely through the OpenTelemetry
+variables: `OTEL_TRACES_EXPORTER`, `OTEL_EXPORTER_OTLP_ENDPOINT`, and
+`OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`.
+
+There is no `--disable-telemetry` flag, because nothing is sent in the first place until one of these is
+set. Setting an endpoint without naming an exporter implies `otlp`. The
+link:/docs/core/telemetry/["Telemetry" page] documents the exporters and the spans emitted.
+
+== Ecosystem tools
+
+Plugins that work with a language ecosystem read that ecosystem's own configuration, so credentials and
+mirrors you already have keep working.
+
+[cols="1,3", options="header"]
+|===
+| Variable or file | Used by
+
+| `GOPROXY`
+| `go/module`
+
+| `MAVEN_MIRROR_URL`, `MAVEN_HOME`, `M2_HOME`, `~/.m2/settings.xml`
+| `maven` and the Maven crawler. `${env.NAME}` inside `settings.xml` is expanded.
+
+| `~/.npmrc`
+| `npm`
+
+| `DOCKER_CONFIG`, `~/.docker/config.json`
+| `dockerimage`, `dockerdigest`, `helm` — the standard Docker credential store, so `docker login` is
+enough to authenticate. See link:/docs/help/docker_hub_rate_limit/["Docker Hub rate limit"].
+|===
+
+== CI detection
+
+Updatecli identifies its CI environment from a single variable each, and uses it to enrich reports with
+a build URL.
+
+[cols="1,1,2", options="header"]
+|===
+| Detected by | System | Debug triggered by
+
+| `JENKINS_URL`
+| Jenkins
+| —
+
+| `GITLAB_CI`
+| GitLab CI
+| `CI_DEBUG_TRACE`
+
+| `GITHUB_ACTION`
+| GitHub Actions
+| `ACTIONS_RUNNER_DEBUG`, `ACTIONS_STEP_DEBUG`
+|===
+
+When the detected system reports being in debug mode, Updatecli enables its own debug logging and says
+so:
+
+[source,text]
+----
+CI pipeline detected in Debug Mode - hence enabling debug mode
+----
+
+That is why a re-run with debug enabled in your CI system produces far more Updatecli output than the
+same manifest did before — nothing changed in the manifest.
+
+Build URLs are assembled from `BUILD_URL` (Jenkins), `CI_SERVER_URL` + `CI_PROJECT_PATH` + `CI_JOB_ID`
+(GitLab), and `GITHUB_SERVER_URL` + `GITHUB_REPOSITORY` + `GITHUB_RUN_ID` (GitHub Actions).
+
+== Using variables inside a manifest
+
+Reading a variable in a manifest is templating, not configuration:
+
+[source,yaml]
+----
+scms:
+  default:
+    kind: github
+    spec:
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+----
+
+`requiredEnv` fails the run when the variable is unset, which is what you want for a credential. `env`
+returns an empty string instead. See the link:/docs/core/configuration/["Manifest" page].
+
+== Go Further
+
+* link:/docs/help/troubleshooting/[Troubleshooting] — what to do when a credential is not picked up.
+* link:/docs/help/experimental/[Experimental features] — what `--experimental` unlocks.
+* link:/docs/commands/[Commands] — every flag, including those with an environment default.
