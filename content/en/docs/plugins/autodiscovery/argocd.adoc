@@ -1,6 +1,6 @@
 ---
 title: "ArgoCD"
-description: "Discover ArgoCD update"
+description: "Discover ArgoCD Helm chart update"
 lead: "kind: argocd"
 draft: false
 images: []
@@ -12,23 +12,65 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `argocd` Autodiscovery plugin allows to automatically search and update content in ArgoCD configuration file.
+The `argocd` crawler looks recursively for every `*.yaml` and `*.yml` file from a root directory, and proposes an update for each Helm chart it finds declared in an ArgoCD application.
 
-Updatecli proposes Helm Chart update when it identifies both a Helm chart with a targetRevision.
+A source is picked up when `repoURL`, `chart`, and `targetRevision` are all set. It is read from any of:
 
-=== Manifests
-==== Parameters
+* `spec.source` and `spec.sources[]` — ArgoCD `Application`
+* `spec.template.spec.source` and `spec.template.spec.sources[]` — ArgoCD `ApplicationSet`
+
+Multi-document YAML files are supported; each document is addressed by index in the generated manifest.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with an `argocd` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+IMPORTANT: Matching is structural, not by resource kind. `apiVersion` and `kind` are not checked, so **any** YAML document exposing `spec.source.repoURL`, `.chart`, and `.targetRevision` is treated as an ArgoCD application. Use `only` or `ignore` to narrow the scan when that is too broad.
+
+== Generated manifests
+
+Each discovered chart produces a link:{{< ref "helm_chart" >}}[`helmchart`] source, two link:{{< ref "yaml" >}}[`yaml`] conditions, and one `yaml` target:
+
+* **Source** — the latest chart version from the repository declared by `repoURL`.
+* **Conditions** — assert that `.chart` and `.repoURL` still hold the expected values, so the target is skipped if the application has been edited in the meantime.
+* **Target** — writes the new version to `.targetRevision`.
+
+A `repoURL` with no URL scheme is treated as an OCI registry and rewritten to `oci://<repoURL>`, matching ArgoCD's own behaviour.
+
+== Authentication
+
+Use `auths` to reach private chart repositories. Entries are keyed by registry host, `domain[:port]` without a scheme, and accept either a `token` or a `username`/`password` pair. Credentials are propagated into every generated source spec.
+
+WARNING: Only the host part of the URL is used for the credential lookup, so one entry applies to every chart served by that host.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`, since Helm charts are expected to follow semantic versioning.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* Only Helm chart sources are handled. Git, Kustomize, and directory sources have no `chart` field and are ignored.
+* Sources missing any of `repoURL`, `chart`, or `targetRevision` are skipped.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "argocd" >}}
 
-==== Example
+NOTE: `only` and `ignore` rules accept `path` (a file path pattern that must match the whole path), `charts` (a map of chart name to version), and `repositories` (a list of chart repository URLs). Conditions within a rule are combined, and rules are evaluated independently.
+
+=== Example
 
 [source,yaml]
 ----
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/argocd/updatecli.d/updatecli.yaml">}}
 ----
-

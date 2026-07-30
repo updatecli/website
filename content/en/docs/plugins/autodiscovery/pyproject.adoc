@@ -7,29 +7,121 @@ images: []
 menu:
   docs:
     parent: "plugin-autodiscovery"
-weight: 131
+weight: 130
 toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The pyproject crawler looks recursively for all Python dependencies from `pyproject.toml` files.
-It detects the package manager in use via lock files (currently `uv.lock` is supported) and generates manifests to update dependencies using the appropriate tool.
+The pyproject crawler looks recursively for all `pyproject.toml` files from a specific root directory.
+Then for each of them, it tries to update the Python dependencies declared in the `[project]` table.
 
-Dependencies are discovered from both `[project.dependencies]` and `[project.optional-dependencies]` sections. PEP 508 dependency strings are parsed to extract package names and version constraints. Environment markers are stripped.
+Dependencies are read from:
 
-Generated manifests use the `pypi` resource as a source and `uv add` as a shell target, which atomically updates both `pyproject.toml` and `uv.lock`.
+* `[project.dependencies]`
+* `[project.optional-dependencies]` (one manifest per package, per group)
+
+Directories named `.venv`, `__pycache__`, `.git`, `node_modules`, `.tox`, `.nox`, and `.eggs` are never walked.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `pyproject` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Requirements
+
+The crawler detects the package manager from the lock file sitting next to `pyproject.toml`.
+Only `uv` is supported today, via `uv.lock`.
+
+The result depends on what Updatecli finds next to each `pyproject.toml`:
+
+[cols="1,1,2",options=header]
+|===
+| `uv.lock` | `uv` command on `PATH` | Result
+
+| present | yes
+| Full manifests: a `pypi` source **and** a `shell` target that refreshes `uv.lock`.
+
+| present | no
+| The `pyproject.toml` is **skipped entirely**, with a warning. Updatecli refuses to bump a dependency it cannot re-lock.
+
+| absent | –
+| **Source-only** manifests. Updatecli reports the latest published version but generates no target, so nothing is modified.
+|===
+
+TIP: If a project produces no manifest at all, check that `uv` is installed and reachable from the environment running Updatecli.
+
+== Generated manifests
+
+One manifest is generated per dependency, using the link:/docs/plugins/resource/pypi/[`pypi` resource] as a source and a `shell` target:
+
+[source,yaml]
+----
+name: 'deps(pypi): bump "requests" for "myproject" project'
+sources:
+  requests:
+    name: 'Get latest "requests" package version'
+    kind: 'pypi'
+    spec:
+      name: 'requests'
+      versionfilter:
+        kind: 'pep440'
+        pattern: '>=2.28'
+targets:
+  requests:
+    name: 'deps(pypi): bump "requests" to {{ source "requests" }}'
+    kind: 'shell'
+    spec:
+      command: 'uv lock --upgrade-package requests=={{ source "requests" }}'
+      changedif:
+        kind: file/checksum
+        spec:
+          files:
+            - "uv.lock"
+      environments:
+        - name: PATH
+      workdir: '.'
+    disablesourceinput: true
+----
+
+`workdir` points at the directory holding the `pyproject.toml`, so nested projects are updated in place.
+
+IMPORTANT: `uv lock --upgrade-package` only updates `uv.lock`. The version constraints declared in `pyproject.toml` are deliberately left untouched, so a dependency is only bumped as far as its own constraint allows. Widening a constraint such as `requests>=2.28,<3` remains a manual change.
+
+The shell target only exposes the `PATH` environment variable to `uv`. Variables such as `UV_INDEX_URL`, `NETRC`, or `HOME` are not inherited.
+
+== Version filtering
+
+If no `versionfilter` is specified, the crawler falls back to `kind: pep440` and reuses **each dependency's own constraint** as the pattern, for example `>=2.28` for `requests>=2.28`.
+Dependencies declared without a constraint get the pattern `*`.
+
+If a `versionfilter` is specified, its `kind` is used for every generated source, and relative semver patterns are resolved against the version currently declared by each dependency.
+For example `kind: semver` with `pattern: minor` generates `pattern: '2.x'` for `requests>=2.28`.
+Explicit constraint patterns such as `>=1.0.0` are used as-is.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* Only the `[project]` table is read. `[dependency-groups]` (PEP 735), `[tool.poetry]`, `[tool.uv]`, and `[build-system].requires` are ignored, so Poetry and PDM projects yield no manifest.
+* PEP 508 direct references such as `mypkg @ https://...` or `mypkg @ git+https://...`, and local path dependencies, are skipped with a warning.
+* Extras are dropped from the tracked name: `black[jupyter]>=24.0` is tracked as `black`.
+* Environment markers are stripped, not evaluated. `pywin32>=300; sys_platform == 'win32'` is updated unconditionally.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "pyproject" >}}
 
-==== Example
+NOTE: Within a single `only`/`ignore` rule, `path` and `packages` must both match (AND); separate rules are combined with OR. A package version in a rule is a PEP 440 specifier evaluated against the version number extracted from the dependency's constraint, for example `2.28` for `requests>=2.28`. An empty value matches any version.
 
-===== Basic Example
+=== Example
+
+==== Basic Example
 
 [source,yaml]
 ----
@@ -43,7 +135,7 @@ autodiscovery:
         pattern: minor
 ----
 
-===== Filter to Specific Packages
+==== Filter to Specific Packages
 
 [source,yaml]
 ----
@@ -57,7 +149,7 @@ autodiscovery:
             "flask": ""
 ----
 
-===== Private PyPI Registry
+==== Private PyPI Registry
 
 [source,yaml]
 ----
@@ -68,11 +160,8 @@ autodiscovery:
       rootdir: "."
       # Custom PyPI index URL propagated to all generated pypi source specs
       indexurl: "https://pypi.example.com/"
-      versionfilter:
-        kind: semver
-        pattern: ">=1.0.0"
 ----
 
-NOTE: The `indexurl` parameter is propagated to all generated pypi resource specs, allowing consistent registry configuration across all discovered dependencies. For private registry authentication, the `pypi` resource supports a `token` field for Bearer token auth.
+NOTE: The `indexurl` parameter is propagated as the `url` field of every generated `pypi` source, allowing consistent registry configuration across all discovered dependencies. It does not carry credentials: the crawler has no token parameter, so an authenticated registry requires adding the `pypi` resource `token` field to the generated manifests by hand. The `uv lock` target relies on `uv`'s own index configuration.
 
 NOTE: The alias `python/uv` can also be used instead of `pyproject`.

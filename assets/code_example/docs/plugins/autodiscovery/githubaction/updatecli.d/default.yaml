@@ -9,7 +9,6 @@ scms:
 autodiscovery:
   scmid: default
   crawlers:
-    githubaction:
-      spec:
-        digest: true
-        rootdir: ".github"
+    github/action:
+      digest: true
+      rootdir: ".github"

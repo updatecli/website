@@ -1,7 +1,7 @@
 ---
 title: "Github Action"
-description: "Discover github action update"
-lead: "kind: githubaction"
+description: "Discover GitHub, Gitea and Forgejo action updates"
+lead: "kind: github/action"
 draft: false
 images: []
 menu:
@@ -12,32 +12,117 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The Github Action crawler looks recursively for all Github Action workflows.
-Then for each of them, it tries to automate its update.
+The `github/action` crawler looks recursively for workflow files and Composite Actions, then tries to update every action reference found in them.
 
-It currently support the following sources:
+It scans two kinds of file:
 
-- link:{{< ref "docker_image" >}}[`dockerimage`]
+* **Workflows** — files matching `*.yaml` or `*.yml` located directly inside a `workflows` directory whose parent is `.github`, `.gitea`, or `.forgejo`.
+* **Composite Actions** — files named `action.yaml` or `action.yml`, in any directory.
 
-- link:{{< ref "github_release" >}}[`githubrelease`]
+Despite its name, the crawler is not GitHub-only: `.gitea/workflows` and `.forgejo/workflows` are scanned as well, and the provider is detected from each action reference.
 
-- link:{{< ref "gittag" >}}[`gittag`]
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `github/action` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
 
-- link:{{< ref "gitbranch" >}}[`gitbranch`]
+NOTE: The crawler key is `github/action`. The alias `gitea/action` maps to the same implementation, but it is **not** part of the default crawlers, so it only runs when explicitly declared.
 
+== Generated manifests
+
+Action references are updated in place with a link:{{< ref "yaml" >}}[`yaml`] target. The source depends on the provider and on the shape of the reference:
+
+[cols="2,3",options=header]
+|===
+| Reference | Sources used
+
+| `owner/repo@v4` on GitHub
+| link:{{< ref "github_release" >}}[`githubrelease`], link:{{< ref "gitTag" >}}[`gittag`], link:{{< ref "gitBranch" >}}[`gitbranch`]
+
+| `owner/repo@v3` on Gitea or Forgejo
+| link:{{< ref "gitearelease" >}}[`gitea/release`], link:{{< ref "gitTag" >}}[`gittag`], link:{{< ref "gitBranch" >}}[`gitbranch`]
+
+| `docker://image:tag`
+| link:{{< ref "docker_image" >}}[`dockerimage`], link:{{< ref "docker_digest" >}}[`dockerdigest`]
+
+| `./local-action`
+| Skipped — local actions have no upstream to track.
+|===
+
+=== Digest pinning
+
+`digest` defaults to **true**, so generated manifests pin references to an immutable digest and keep the human-readable version as a trailing comment:
+
+[source,yaml]
+----
+- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+----
+
+Set `digest: false` to write the tag or branch directly instead.
+
+IMPORTANT: Digest pinning is only implemented for GitHub Actions and Docker image references. Gitea and Forgejo actions are always updated to a tag or branch.
+
+== Authentication
+
+Discovery queries the provider's API, so unauthenticated runs are rate limited and private repositories are invisible.
+
+Tokens are resolved per hostname, from `credentials`, from a GitHub App configuration, or from the environment:
+
+* GitHub: `UPDATECLI_GITHUB_TOKEN`, then `GITHUB_TOKEN`
+* Gitea and Forgejo: `UPDATECLI_GITEA_TOKEN`, then `GITEA_TOKEN`
+
+`gitea.com`, `codeberg.org`, and `code.forgejo.org` are recognised as Gitea automatically. Any other unknown hostname falls back to GitHub.
+
+Use `credentialsdocker` to authenticate against a private registry when resolving `docker://` references.
+
+== Limitations
+
+* `files` matches the **file name only**, not a path. Patterns such as `.github/workflows/*.yaml` match nothing; use `*.yaml` or `ci.yaml`. The directory is constrained separately, to `.github`, `.gitea`, or `.forgejo` workflow directories.
+* `actions` filters Composite Actions by the name of the **directory containing** `action.yaml`, not by the file path.
+* Workflow files that are not directly inside a `workflows` directory are ignored.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "github/action" >}}
 
-==== Example
+NOTE: Each entry of `credentials` is keyed by the git provider hostname, and accepts `kind` (`github`, `gitea`, or `forgejo`) along with a `token` or a GitHub App configuration.
+
+=== Example
+
+==== Basic Example
 
 [source,yaml]
 ----
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/githubaction/updatecli.d/default.yaml">}}
 ----
+
+==== Multiple providers
+
+[source,yaml]
+----
+# updatecli.d/github-action-providers.yaml
+autodiscovery:
+  crawlers:
+    github/action:
+      # Pin to a tag or branch rather than a digest
+      digest: false
+      credentials:
+        "github.com":
+          kind: github
+          token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+        "codeberg.org":
+          kind: forgejo
+          token: '{{ requiredEnv "FORGEJO_TOKEN" }}'
+      versionfilter:
+        kind: semver
+        pattern: minor
+----
+
+IMPORTANT: Crawler settings are declared directly under the crawler key. An extra `spec:` level is accepted by the parser but silently ignored, leaving every setting at its default.

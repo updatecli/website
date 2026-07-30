@@ -12,25 +12,63 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `kubernetes` Autodiscovery plugin allows to automatically search and update container tags defined in Kubernetes.yaml files.
+The `kubernetes` crawler looks recursively for every `*.yaml` and `*.yml` file from a root directory, and updates the container images declared in any Kubernetes pod specification it recognises.
 
-=== Manifests
-==== Parameters
+Multi-document YAML files are supported, and each document is addressed by index in the generated manifest.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `kubernetes` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+=== Supported resources
+
+Images are read from `containers` and `initContainers` at any of these locations:
+
+* `spec.containers` / `spec.initContainers` — bare `Pod`
+* `spec.template.spec.…` — `Deployment`, `DaemonSet`, `StatefulSet`, `Job`, and anything else built on a pod template
+* `spec.jobTemplate.spec.template.spec.…` — `CronJob`
+
+Matching is structural: `apiVersion` and `kind` are not checked, so any document exposing one of those paths is processed.
+
+== Generated manifests
+
+Each image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a link:{{< ref "yaml" >}}[`yaml`] target that rewrites the image reference in place. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written alongside the tag.
+
+`digest` defaults to **true**. Set `digest: false` to track the tag only.
+
+== Authentication
+
+Use `auths` to reach private registries, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`.
+
+The pattern is then narrowed per image using the tag currently in the file: an image on `3.18` is filtered with `>=3.18`, and a `tagfilter` regex derived from the shape of that tag is added so unrelated tag conventions are not considered.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* Kustomize `images:` transformers in a `kustomization.yaml` are **not** supported. Plain Kubernetes manifests living inside a kustomize tree are picked up normally, because they carry a standard pod specification.
+* `files` patterns are matched against the file name only, not against the path. Use `*.yaml`, not `manifests/*.yaml`.
+* An image whose value contains a template expression, such as `"{{ .Values.image.repository }}:{{ .Values.image.tag }}"`, cannot be resolved to a tag. A digest-only manifest is generated for it, which is rarely actionable — use `ignore` to exclude these.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "kubernetes" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/kubernetes/updatecli.d/updatecli.yaml">}}
 ----
-
-==== Supported Kubernetes Resources
-- Standard Kubernetes Pod Spec (`Pod`, `Deployment`, `DaemonSet`, ...)
-- [Kustomize](https://kustomize.io/)
-- Templated files

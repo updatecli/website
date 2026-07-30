@@ -7,23 +7,65 @@ images: []
 menu:
   docs:
     parent: "plugin-autodiscovery"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The Maven crawler looks recursively for all Maven dependencies updates from a specific root directory.
-Then for each of them, it tries to automate them.
+The Maven crawler looks recursively for all `pom.xml` files from a specific root directory, and tries to update the dependencies declared in each one.
+
+Two things are updated per POM:
+
+* every entry under `<dependencies>`
+* the `<parent>` POM, when one is declared
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `maven` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+Each dependency produces a link:{{< ref "maven" >}}[`maven`] source resolving the latest version, two link:{{< ref "xml" >}}[`xml`] conditions asserting that the `groupId` and `artifactId` still match, and an `xml` target writing the new version into the POM.
+
+== Repositories, mirrors, and credentials
+
+The repository used to look up a dependency is taken from the `<repositories>` declared in the POM, falling back to Maven Central.
+
+Updatecli also reads `settings.xml`, looked up in this order:
+
+. `settings.xml` next to the POM
+. `$HOME/.m2/settings.xml`
+
+From it, Updatecli applies:
+
+* **mirrors** — a repository whose `id` or URL matches a `<mirrorOf>` rule is replaced by the mirror, including the `central` shorthand,
+* **server credentials** — the `<username>` and `<password>` of the `<server>` whose `id` matches the repository.
+
+The `MAVEN_MIRROR_URL` environment variable is honoured, and `${env.VARIABLE}` expressions inside `settings.xml` are interpolated.
+
+== Version filtering
+
+Unlike most crawlers, the version filter defaults to kind `latest`, because Maven coordinates do not reliably follow semantic versioning. Set an explicit `versionfilter` to constrain updates.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* A dependency whose `<version>` is a property reference, such as `${junit.version}`, is skipped. Updatecli does not resolve the property to find the literal it should rewrite.
+* Only files named exactly `pom.xml` are scanned.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "maven" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

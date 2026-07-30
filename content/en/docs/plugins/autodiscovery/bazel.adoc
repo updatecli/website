@@ -1,6 +1,6 @@
 ---
 title: "Bazel"
-description: "Discover Bazel update"
+description: "Discover Bazel module dependency update"
 lead: "kind: bazel"
 draft: false
 images: []
@@ -12,22 +12,45 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `bazel` Autodiscovery plugin allows to automatically search and update content in Bazel configuration file.
+The `bazel` crawler looks recursively for every `MODULE.bazel` file from a root directory, and updates each `bazel_dep()` declaration it contains.
 
-=== Manifests
-==== Parameters
+[source,python]
+----
+# MODULE.bazel
+bazel_dep(name = "rules_go", version = "0.46.0")
+bazel_dep(name = "gazelle", version = "0.35.0", dev_dependency = True)
+----
+
+Both regular and `dev_dependency` declarations are updated.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `bazel` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+Each dependency produces a link:{{< ref "bazelregistry" >}}[`bazelregistry`] source resolving the latest module version from the Bazel Central Registry, and a link:{{< ref "bazelmod" >}}[`bazelmod`] target writing it back into `MODULE.bazel`.
+
+== Limitations
+
+* Only the module system is covered. Legacy `WORKSPACE` files and their `http_archive` or `git_repository` rules are not scanned.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "bazel" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----
 autodiscovery:
   crawlers:
-    bazel:    
+    bazel: {}
 ----
-
