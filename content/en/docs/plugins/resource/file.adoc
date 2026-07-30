@@ -80,8 +80,8 @@ A **source** whose pattern matches more than one file picks one of them *arbitra
 [source,shell]
 ----
 $ for i in $(seq 6); do updatecli diff --config source-glob.yaml; done   # file: "ch/*/values.yaml"
-✔ content: found from file "ch/b/values.yaml"      # 5 runs
-✔ content: found from file "ch/a/values.yaml"      # 1 run
+✔ content: found from file "ch/b/values.yaml"                            # 5 runs
+✔ content: found from file "ch/a/values.yaml"                            # 1 run
 ----
 
 Use `searchpattern` for conditions and targets, where every match is processed, and name the exact file in a source.
