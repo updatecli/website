@@ -1,4 +1,4 @@
-Updatecli supports multiple authentication methods for interacting with GitHub. You can authenticate using either a *Personal Access Token (PAT)* or a *GitHub App*. Below are the supported methods, in order of precedence.
+Updatecli supports multiple authentication methods for interacting with GitHub. You can authenticate using either a *Personal Access Token (PAT)* or a *GitHub App*. Below are the supported methods; the order in which Updatecli picks one is described under *Precedence and Fallback* at the end of this section.
 
 '''
 
@@ -10,6 +10,7 @@ Set the following environment variables to enable GitHub App authentication:
 - `UPDATECLI_GITHUB_APP_PRIVATE_KEY`: The private key for your GitHub App (PEM format, as a string)
 - `UPDATECLI_GITHUB_APP_PRIVATE_KEY_PATH`: The path to your GitHub App's private key file (PEM format)
 - `UPDATECLI_GITHUB_APP_INSTALLATION_ID`: The installation ID for your GitHub App
+- `UPDATECLI_GITHUB_APP_EXPIRATION_TIME`: Optional token lifetime in seconds. Defaults to `3600` (one hour), the minimum accepted value is `600`
 
 You can use either `UPDATECLI_GITHUB_APP_PRIVATE_KEY` **or** `UPDATECLI_GITHUB_APP_PRIVATE_KEY_PATH` to provide the private key.
 
@@ -33,7 +34,9 @@ export UPDATECLI_GITHUB_APP_INSTALLATION_ID="789012"
 
 [NOTE]
 ====
-When these variables are set, Updatecli will use GitHub App authentication for all GitHub operations.
+When these variables are set and `UPDATECLI_GITHUB_TOKEN` is not, Updatecli uses GitHub App authentication for all GitHub operations, ignoring any credential set in the manifest.
+
+If the four variables do not form a valid configuration — a missing private key, an installation ID that is not an integer, an expiration below 600 seconds — the whole set is silently ignored and Updatecli moves on to the next method. Run with `--debug` to see which credential was selected.
 ====
 
 '''
@@ -43,7 +46,7 @@ When these variables are set, Updatecli will use GitHub App authentication for a
 Set the following environment variable to use a Personal Access Token:
 
 - `UPDATECLI_GITHUB_TOKEN`: Your GitHub Personal Access Token
-- `UPDATECLI_GITHUB_USERNAME`: Your GitHub username, if required by certain operations like scm operation.
+- `UPDATECLI_GITHUB_USERNAME`: Your GitHub username. Optional; Updatecli uses `oauth2` when it is unset.
 
 Example:
 
@@ -51,6 +54,8 @@ Example:
 ----
 export UPDATECLI_GITHUB_TOKEN="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ----
+
+This is the credential Updatecli looks at first. When it is set, every other method below is ignored, including the ones declared in the manifest.
 
 '''
 
@@ -114,14 +119,29 @@ scms:
 
 *Precedence and Fallback*
 
-Updatecli will use the first valid authentication method it finds, in the following order:
+Updatecli uses the first credential it finds, in the following order:
 
-. Personal Access Token via environment variable
-. GitHub App via environment variables
-. Personal Access Token via manifest
-. GitHub App via manifest
+. `UPDATECLI_GITHUB_TOKEN` environment variable
+. `UPDATECLI_GITHUB_APP_*` environment variables
+. `spec.token` in the manifest
+. `spec.app` in the manifest
+. `GITHUB_TOKEN` environment variable
 
-If no valid authentication is found, Updatecli will fail with an error.
+The environment always wins over the manifest: a `spec.token` is dead weight as soon as `UPDATECLI_GITHUB_TOKEN` is exported, which is a common surprise when a manifest behaves differently on a workstation and in CI.
+
+`GITHUB_TOKEN` is a last-resort fallback, meant for GitHub Actions where the runner exports it automatically. It is only consulted once every other method has come up empty.
+
+[WARNING]
+====
+`spec.token` and `spec.app` cannot be combined in the same manifest. Doing so fails at load time with `you cannot use both token and app authentication methods`.
+====
+
+If no credential is found at all, Updatecli builds an unauthenticated GraphQL client instead of stopping immediately. Read-only resources may still work against public repositories, but every scm operation fails as soon as it needs the credential:
+
+[source,text]
+----
+failed to get access token: no access token found
+----
 
 '''
 

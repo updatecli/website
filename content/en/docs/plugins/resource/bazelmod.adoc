@@ -1,13 +1,15 @@
 ---
-title: Bazelmod
-description: "Manipulate bazelmod information"
+title: "Bazelmod"
+description: "Read and update a module version in a MODULE.bazel file"
 lead: "kind: bazelmod"
 date: 2026-02-02T12:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
-    parent: "plugin-resource"    
+    parent: "plugin-resource"
+weight: 20
 toc: true
 plugins:
   - source
@@ -27,31 +29,56 @@ plugins:
 
 == Description
 
-**source**
+The `bazelmod` resource reads and writes the version of one dependency in a `MODULE.bazel` file — the `bazel_dep` entries of link:https://bazel.build/external/module[Bzlmod]:
 
-The Bazelmod "source" retrieves an information from a bazelmod file.
+[source,python]
+----
+bazel_dep(name = "rules_python", version = "0.27.0")
+bazel_dep(name = "gazelle", version = "0.35.0")
+----
 
-**condition**
+**source**::
+Returns the version currently pinned for `module`.
 
-The Bazelmod "condition" tests that an information exist in a bazelmod file.
+**condition**::
+Checks that the file pins the expected version.
 
-**target**
+**target**::
+Updates that version. A file already holding it is left untouched.
 
-The Bazelmod "target" ensures that a bazelmod file content a specific value at
+It is the local half of the pair: link:/docs/plugins/resource/bazelregistry/[`bazelregistry`] finds the version available upstream, `bazelmod` writes it into your repository.
 
 == Parameters
 
 {{< resourceparameters "sources" "bazelmod" >}}
 
+Both `file` and `module` are mandatory — missing either aborts the run with `wrong spec content`, preceded by `bazelmod file undefined` or `bazelmod module undefined`.
+
+`file`:: The path to the `MODULE.bazel` file, e.g. `MODULE.bazel` or `path/to/MODULE.bazel`. There is no default, and no `files` list — use one target per file.
+`module`:: The module name as it appears in `bazel_dep(name = ...)`, e.g. `rules_go`.
+
 == Example
 
 [source,yaml]
 ----
+sources:
+  latest:
+    name: Get the latest version of rules_python
+    kind: bazelregistry
+    spec:
+      module: rules_python
 targets:
-    rules_python:
-        name: Bump Bazel module rules_python
-        kind: bazelmod
-        spec:
-            file: project2/MODULE.bazel
-            module: rules_python
+  rules_python:
+    name: Bump Bazel module rules_python
+    kind: bazelmod
+    sourceid: latest
+    spec:
+      file: project2/MODULE.bazel
+      module: rules_python
 ----
+
+== Links
+
+* link:https://bazel.build/external/module[Bazel modules (Bzlmod)]
+* link:/docs/plugins/resource/bazelregistry/[The `bazelregistry` resource]
+* link:/docs/plugins/autodiscovery/bazel/[The bazel autodiscovery crawler] — generates these manifests for you

@@ -1,14 +1,15 @@
 ---
 title: "File"
-description: "Read and write file content"
+description: "Read and write file content, by line, regexp match or Go template"
 lead: "kind: file"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 90
 toc: true
 plugins:
   - source
@@ -54,18 +55,81 @@ Links :
 
 The location of the file (attribute `file`) can be specified as an URL (prefixed with `https://` or `http://`) or as a local filesystem path (optional prefix `file://` or any relative or absolute path of the current operating system: Unix or Windows)
 
+=== Searching For Files By Pattern
+
+`searchpattern: true` turns `file` and `files` from exact names into glob patterns, matched against the whole name rather than a substring:
+
+[source,yaml]
+----
+spec:
+  files:
+    - "charts/*/values.yaml"
+  searchpattern: true
+  matchpattern: 'tag: .*'
+  replacepattern: 'tag: {{ source "default" }}'
+----
+
+The supported terms are `*` (any run of non-separator characters), `?` (a single one), and `[...]` character classes; `\` escapes the next character.
+
+Unlike the link:/docs/plugins/resource/yaml/["Yaml" resource], which rejects `searchpattern` in a source, the `file` resource accepts it everywhere — and that is a trap:
+
+[WARNING]
+====
+A **source** whose pattern matches more than one file picks one of them *arbitrarily*. The validation that limits a source to a single file only counts the entries written in `files`, not the files a glob expands to, and the matches are held in a map, so the winner varies between runs of the same manifest:
+
+[source,shell]
+----
+$ for i in $(seq 6); do updatecli diff --config source-glob.yaml; done   # file: "ch/*/values.yaml"
+✔ content: found from file "ch/b/values.yaml"      # 5 runs
+✔ content: found from file "ch/a/values.yaml"      # 1 run
+----
+
+Use `searchpattern` for conditions and targets, where every match is processed, and name the exact file in a source.
+====
+
+=== Mutually Exclusive Attributes
+
+The combinations below are rejected before the pipeline runs, with a message listing every problem at once:
+
+[cols="2,3",options=header]
+|===
+| Combination | Reason
+| `file` + `files` | Pick one.
+| duplicate entries in `files` | Rejected outright.
+| `files` (more than one) + `line` | A line number is meaningless across several files.
+| `line` + `forcecreate` | Writing a line into a file that does not exist makes no sense.
+| `line` + `matchpattern` | Two different ways of locating the content.
+| `line` + `replacepattern` | As above.
+| `content` + `replacepattern` | Two different sources for the new value.
+| `template` + `content` / `matchpattern` / `replacepattern` / `line` | The template owns the whole output.
+| `templateData` without `template` | Nothing to pass the data to.
+| negative `line` | "Line cannot be negative for a file resource."
+|===
+
+=== Changelogs From Capture Groups
+
+For a target, a `matchpattern` containing a capture group also feeds the changelog: the group captures the value being replaced, so the report shows a real transition instead of `unknown`.
+
+[source,yaml]
+----
+matchpattern: '"version":\s*"([\d\.]+)"'    # reports 1.24.5 → 1.25.1
+matchpattern: '"version":\s*"[\d\.]+"'      # reports unknown → 1.25.1
+----
+
 == File Source
 
 It retrieves the content of the file at the location `file` and use it as the source value.
 
 :bulb: Please note that the source value might be a multiline string with endline characters.
 
-⚠️ A file source does not support the following attributes (and is expected to error):
+⚠️ A file source rejects the following attributes with a validation error:
 
-* `content`
-* `forcecreate`
-* `replacepattern`
-* `template`
+* `content` — "only supported for conditions and targets"
+* `forcecreate` — "only supported for targets"
+* `replacepattern` — "only supported for targets"
+* `files` holding more than one entry — "can't contain more than one element for sources"
+
+NOTE: `template` is a target-only attribute, but a source neither uses nor rejects it — it is silently ignored, and the source still returns the raw file content.
 
 === Filtering File Source Content
 
@@ -230,11 +294,12 @@ It checks that the content of the file matches the specified content and continu
 or fails the pipeline (and never run the pipeline's targets).
 
 
-⚠️ A file condition does not support the following attributes (and is expected to error):
+⚠️ A file condition rejects the following attributes with a validation error:
 
-* `forcecreate`
-* `replacepattern`
-* `template`
+* `forcecreate` — "only supported for targets"
+* `replacepattern` — "only supported for targets"
+
+NOTE: As with a source, `template` is silently ignored in a condition rather than rejected.
 
 === Condition Input Value
 
@@ -618,7 +683,6 @@ target: useTemplate
 Creating a new file at "version-info.txt"
 "version-info.txt" updated with content "Application Version Information\n================================\n\nCurrent Version: 1.25.1\nUpdated: 2026-01-21\nRelease Notes: https://example.com/releases/1.25.1\n"
 
-```
 --- version-info.txt
 +++ version-info.txt
 @@ -1 +1,6 @@
@@ -628,6 +692,7 @@ Creating a new file at "version-info.txt"
 +Current Version: 1.25.1
 +Updated: 2026-01-21
 +Release Notes: https://example.com/releases/1.25.1
+--
 
 == Reference
 

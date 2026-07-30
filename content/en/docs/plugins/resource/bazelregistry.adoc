@@ -1,13 +1,15 @@
 ---
-title: Bazelregistry
-description: "Manipulate bazelregistry information"
+title: "Bazelregistry"
+description: "Look up the latest version of a module in the Bazel Central Registry"
 lead: "kind: bazelregistry"
 date: 2026-02-02T12:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
-    parent: "plugin-resource"    
+    parent: "plugin-resource"
+weight: 30
 toc: true
 plugins:
   - source
@@ -26,33 +28,62 @@ plugins:
 
 == Description
 
-**source**
+The `bazelregistry` resource reads a module's `metadata.json` from a Bazel registry — the link:https://registry.bazel.build/[Bazel Central Registry] by default — and returns a published version.
 
-The Bazelregistry "source" retrieves an information from a bazelregistry file.
+**source**::
+Returns the version matching `versionfilter`.
 
-**condition**
+**condition**::
+Checks that the version exists in the registry.
 
-The Bazelregistry "condition" tests that an information exist in a bazelregistry file.
+**target**::
+Not supported — a target fails with `target not supported for the plugin bazelregistry`. To write the version into a `MODULE.bazel`, use link:/docs/plugins/resource/bazelmod/[`bazelmod`].
 
-**target**
-
-Not supported. Feel free to open an issue if you want to see this implemented.
+NOTE: An `scm` attached to a condition is ignored, with a warning — the lookup is always remote.
 
 == Parameters
 
 {{< resourceparameters "sources" "bazelregistry" >}}
+
+`module` is mandatory; omitting it aborts the run with `wrong spec content`, preceded by `bazelregistry module undefined`.
+
+`versionfilter`:: Defaults to `kind: latest`. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+=== Custom registries
+
+`url` points at a private registry. It is a **template, not a base URL** — it must contain the `{module}` placeholder, which is replaced with the module name:
+
+[source,yaml]
+----
+spec:
+  module: rules_python
+  url: https://mycompany.example.com/bazel-registry/modules/{module}/metadata.json
+----
+
+The default is the Bazel Central Registry:
+
+[source,text]
+----
+https://raw.githubusercontent.com/bazelbuild/bazel-central-registry/main/modules/{module}/metadata.json
+----
 
 == Example
 
 [source,yaml]
 ----
 sources:
-    rules_python:
-        name: Get latest version of Bazel module rules_python
-        kind: bazelregistry
-        spec:
-            module: rules_python
-            versionfilter:
-                kind: semver
-                pattern: '>=0.25.0'
+  rules_python:
+    name: Get latest version of Bazel module rules_python
+    kind: bazelregistry
+    spec:
+      module: rules_python
+      versionfilter:
+        kind: semver
+        pattern: '>=0.25.0'
 ----
+
+== Links
+
+* link:https://registry.bazel.build/[Bazel Central Registry]
+* link:/docs/plugins/resource/bazelmod/[The `bazelmod` resource]
+* link:/docs/core/versionfilter/["Version Filtering" page]

@@ -1,13 +1,15 @@
 ---
 title: "Gitea Tag"
-description: "Manipulate Gitea repository Tag"
+description: "Find a tag of a Gitea repository through the Gitea API"
 lead: "kind: gitea/tag"
 date: 2022-07-28T11:42:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 150
 toc: true
 plugins:
   - source
@@ -26,23 +28,44 @@ plugins:
 
 == Description
 
-The Gitea "tag" plugin allows to manipulate Gitea repository tags.
+The `gitea/tag` resource queries the tags of a repository hosted on Gitea, through the Gitea API rather than over the git protocol.
 
-**source**
+**source**::
+Returns the tag matching `versionfilter`.
 
-When used as a "source", the Gitea tag plugin allows to get a Gitea repository tag according the version filter rule provided.
+**condition**::
+Tests that `tag` exists in the repository.
 
-**condition**
+**target**::
+Not supported — a target fails with `target not supported for the plugin Gitea Tags`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
 
-When used as a "condition". the Gitea tag plugin allows to test that specific Gitea tag exist.
+NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the Gitea API.
 
-**target** 
-
-Target is not supported, feel free to manifest your interest by opening an issue on link:https://github.com/updatecli/updatecli/issues[updatecil/updatecli/issues], or highlighting an existing one.
+TIP: To work with tags over the git protocol instead, on any host — and to *create* one — use link:/docs/plugins/resource/gitTag/[`gittag`].
 
 == Parameters
 
 {{< resourceparameters "sources" "gitea/tag" >}}
+
+`owner` and `repository` are mandatory. `url` points at your Gitea instance, e.g. `try.gitea.io`. There is no default.
+
+`tag`:: Condition only — the tag being checked.
+`versionfilter`:: Source only. `kind: semver` is the usual choice for release tags. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Authentication
+
+`token` authenticates against the Gitea API. It is sensitive, so read it from the environment or a link:https://github.com/getsops/sops[SOPS] file rather than writing it into the manifest:
+
+[source,yaml]
+----
+spec:
+  url: try.gitea.io
+  token: '{{ requiredEnv "GITEA_TOKEN" }}'
+  owner: updatecli
+  repository: updatecli
+----
+
+Reading a public repository works without any credential.
 
 == Example
 
@@ -52,3 +75,8 @@ Target is not supported, feel free to manifest your interest by opening an issue
 {{<include "assets/code_example/docs/plugins/resources/gitea/tag/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:/docs/plugins/resource/giteabranch/[The `gitea/branch` resource]
+* link:/docs/plugins/resource/gitearelease/[The `gitea/release` resource]
+* link:/docs/plugins/scm/gitea/[The `gitea` scm] — to clone and push

@@ -1,14 +1,15 @@
 ---
 title: "Helm Chart"
-description: "Manipulate Helm Chart information"
-lead: "kind: helmChart"
+description: "Look up a Helm chart version, or bump a chart's own metadata and values"
+lead: "kind: helmchart"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 240
 toc: true
 plugins:
   - source
@@ -20,29 +21,60 @@ plugins:
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-
-
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
 | &#10004; | &#10004; | &#10004;
 |===
 
-**source**
+== Description
 
-The Helm chart "source" retrieves the latest version of a Helm package.
+The `helmchart` resource works at two levels, and which one applies depends on the stage:
 
-**condition**
+**source** and **condition**::
+Talk to a *chart repository*. The source returns the latest version of a published chart; the condition checks that `version` exists there.
 
-The Helm chart "condition" tests if a helm chart release exist.
+**target**::
+Works on a chart *in your repository*. It updates a value in the chart's `values.yaml`, then maintains the chart's own metadata — bumping `version`, optionally `appVersion`, and refreshing `requirements.lock`.
 
-**target**
+That asymmetry is the thing to keep in mind: `url` addresses the remote repository and is read-only, while `name` and `key` address the local chart the target rewrites.
 
-The Helm chart "target" updates a helmchart and bump the chart metadata. It handle AppVersion, incremental version update and requirements.lock. It both works with helm chart located locally or on a git repository. If the helm chart is located locally, then chart name must be an absolute path to the chart.
-
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "helmchart" >}}
+
+`name`:: The chart, as `stable/chart`. With an `scm`, it is the path to the chart relative to the repository root.
+`file`:: Defaults to `values.yaml`, resolved relative to the chart root — not to the repository root.
+`key`:: Target only. The yamlpath of the value to update, e.g. `$.image.tag`.
+`url`:: Source and condition only. Accepts a repository index, a git URL, or an OCI registry:
++
+[source,text]
+----
+index.yaml
+file://./index.yaml
+https://github.com/updatecli/charts.git
+oci://ghcr.io/olblak/charts/
+----
+`version`:: Condition only.
+
+Credentials for an OCI registry are given inline on the spec, next to the other fields, rather than under a nested key.
+
+== Version bumping
+
+`versionincrement` controls what happens to the chart's *own* version when a target changes something. It defaults to `minor`, and accepts a comma-separated list of `none`, `major`, `minor`, `patch` and `auto`.
+
+[WARNING]
+====
+The increment is applied *per target*. When several targets in the same pipeline update the same chart, the chart version is bumped once for each of them — three targets with the default `minor` move a chart from 1.0.0 to 1.3.0. Use `versionincrement: none` on all but one of them, and see link:https://github.com/updatecli/updatecli/issues/693[updatecli#693].
+====
+
+`appversion: true` also writes the source value into the chart's `appVersion` field — the usual choice when the chart ships one application whose image tag you are bumping.
+
+`skippackaging: true` updates the files without packaging the chart afterwards.
+
+== Version filtering
+
+Unlike most resources, `versionfilter` defaults to **semver** here rather than to the generic filter, since charts are required to carry semantic versions. See the link:/docs/core/versionfilter/["Version Filtering" page].
 
 == Example
 
@@ -54,15 +86,16 @@ The Helm chart "target" updates a helmchart and bump the chart metadata. It hand
 
 What it says:
 
-**Source**
+**Source**::
+Retrieve the version of the Jenkins chart from `https://charts.jenkins.io` — 2.7.1.
 
-Retrieve the version from the Jenkins helm chart repository located on "https://charts.jenkins.io"
-  => 2.7.1
+**Condition**::
+Check that version 11.16.5 of the prometheus chart is available from `https://prometheus-community.github.io/helm-charts`. If not, the pipeline stops.
 
-**Conditions**
+**Target**::
+Bump the upstream version into the local chart, drop `requirements.lock` if present, increment the chart version, then commit and open a pull request on GitHub.
 
-Then there is an `helmchart` condition: "Is the prometheus helm chart version "11.16.5" is available from https://prometheus-community.github.io/helm-charts?
-  => Yes, proceed, No then abort
+== Links
 
-**Targets**
-If all conditions are met, we bump the Jenkins upstream version into our local one. We remove the requirements.lock if it exists.  We bump the chart version using the incremental version (patch,minor,major). Finally we commit our changes and then open a pull request on Github.
+* link:https://helm.sh/docs/topics/charts/[Helm charts]
+* link:/docs/core/versionfilter/["Version Filtering" page]

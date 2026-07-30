@@ -1,13 +1,15 @@
 ---
 title: "Tool Versions"
-description: "Manipulate .tool-versions information"
+description: "Read and update a tool version pinned in a .tool-versions file"
 lead: "kind: toolversions"
 date: 2024-07-05T19:19:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 410
 toc: true
 plugins:
   - source
@@ -27,21 +29,37 @@ plugins:
 
 == Description
 
-**source**
+The `toolversions` resource reads and writes one entry in a `.tool-versions` file — the version manifest used by link:https://asdf-vm.com/[asdf] and link:https://mise.jdx.dev/[mise], where each line pairs a tool name with one or more versions:
 
-The ToolVersions "source" retrieves an information from a .tool-versions file.
+[source,text]
+----
+nodejs 20.11.0
+golang 1.22.0
+terraform 1.7.4
+----
 
-**condition**
+**source**::
+Returns the version recorded for `key`.
 
-The ToolVersions "condition" tests that an information exist in a .tool-versions file.
+**condition**::
+Checks that the entry holds `value`, or the source output when `value` is unset.
 
-**target**
-
-The ToolVersions "target" ensures that a .tool-versions file content a specific value at specific location.
+**target**::
+Updates that entry. Files already holding the value are reported as up to date and left untouched.
 
 == Parameters
 
 {{< resourceparameters "sources" "toolversions" >}}
+
+`file` or `files` is mandatory, as is `key`; missing either aborts the run with `wrong spec content`, preceded by `.tool-versions file undefined` or `tool-versions key undefined`. `file` and `files` are mutually exclusive.
+
+`key`:: The tool name as it appears at the start of the line — `golang`, not a path expression.
+`value`:: Defaults to the source output.
+`createmissingkey`:: Target only. Appends the tool when the file does not mention it yet, instead of failing. Unlike the link:/docs/plugins/resource/toml/["TOML" resource], there is no engine restriction on it.
+
+== Remote files
+
+For a source and a condition, `file` accepts `https://`, `http://` and `file://`. A target must write locally and refuses a URL.
 
 == Example
 
@@ -50,3 +68,7 @@ The ToolVersions "target" ensures that a .tool-versions file content a specific 
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/toolversions/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://asdf-vm.com/manage/configuration.html#tool-versions[The `.tool-versions` file format]

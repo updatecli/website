@@ -1,13 +1,15 @@
 ---
 title: "Golang module"
-description: "Manipulate Golang Module version"
+description: "Look up the latest version of a Go module from a module proxy"
 lead: "kind: golang/module"
 date: 2023-04-17T17:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 220
 toc: true
 plugins:
   - source
@@ -25,21 +27,49 @@ plugins:
 | &#10004; | &#10004; | &#10007;
 |===
 
-**source**
+== Description
 
-The Golang module "source" retrieves the Golang module version matching then versioning rule.
+The `golang/module` resource queries a Go module proxy for the published versions of a module.
 
-**condition**
+**source**::
+Returns the version matching `versionfilter`.
 
-The Golang module "condition" checks if the Golang module version matching then versioning rule exist.
+**condition**::
+Checks that `version` is published for the module.
 
-**target**
+**target**::
+Not supported — a target fails with `Target not supported for the plugin GO module`. To write the version into a `go.mod`, use link:/docs/plugins/resource/gomod/[`golang/gomod`].
 
-the Golang module "target" is not supported.
-
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "golang/module" >}}
+
+`module`:: Mandatory — the full module path, e.g. `github.com/updatecli/updatecli`.
+`proxy`:: Overrides the proxy, the same way `GOPROXY` does. `https` and `http` schemes are accepted, and a URL without a scheme is assumed to be `https`. **`file://` proxies are not supported.**
+`version`:: Condition only.
+
+Pseudo-versions — the `v0.0.0-20230101120000-abcdef123456` form Go generates for untagged commits — are understood.
+
+== Filtering by release age
+
+`age` restricts which releases count as valid, which is the usual way to let a release settle before adopting it:
+
+[source,yaml]
+----
+spec:
+  module: github.com/sirupsen/logrus
+  age:
+    minimum: "7d"
+----
+
+`minimum` and `maximum` accept `h`, `d`, `w`, `mo` and `y`; a bare number means hours. An unparseable value fails with `invalid MinimumReleaseAge "<value>"`.
+
+[WARNING]
+====
+`age` is not free here either. The proxy returns the version list without dates, so Updatecli issues **one additional request per version** to fetch each release date. On a module with a long history that is a lot of round trips, and the whole list is walked before any filtering happens.
+
+Versions whose date cannot be fetched or parsed are skipped silently — visible only with `--debug`, as `ignoring version "x" from proxy "y" due to ...`. A proxy that rate-limits you therefore shows up as versions quietly disappearing rather than as an error.
+====
 
 == Example
 
@@ -49,3 +79,7 @@ the Golang module "target" is not supported.
 {{<include "assets/code_example/docs/plugins/resources/golang/module/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:https://go.dev/ref/mod#module-proxy[Go module proxy protocol]
+* link:/docs/core/versionfilter/["Version Filtering" page]

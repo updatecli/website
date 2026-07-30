@@ -1,14 +1,15 @@
 ---
 title: "Maven Repository"
-description: "Manipulate version from a maven repository"
+description: "Look up an artifact version from one or several Maven repositories"
 lead: "kind: maven"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-04-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 280
 toc: true
 plugins:
   - source
@@ -27,19 +28,51 @@ plugins:
 
 == Description
 
-**source**
+The `maven` resource reads the `maven-metadata.xml` of an artifact and returns a version from it.
 
-The maven "source" retrieves the latest version from a maven repository
+**source**::
+Returns the version matching `versionfilter`.
 
-**condition**
+**condition**::
+Checks that `version` exists for the artifact.
 
-The maven "condition" tests if a version exist on a maven repository.
+**target**::
+Not supported — a target fails with `Target not supported for the plugin Maven`. To write a version *into* a `pom.xml`, use the link:/docs/plugins/resource/xml/["XML" resource], or the link:/docs/plugins/autodiscovery/maven/[maven autodiscovery crawler].
+
+NOTE: An `scm` attached to a condition is not supported and aborts it with `SCM configuration is not supported for maven condition, aborting`.
 
 == Parameters
 
 {{< resourceparameters "sources" "maven" >}}
 
-NOTE: `repository` can contain Basic Auth credentials following the standard notation: `username:password@hostname`
+`groupid` and `artifactid` identify the artifact; the group's dots become path separators when the metadata URL is built. `version` is condition-only.
+
+`repository` and `repositories` are mutually exclusive — setting both is rejected with `parameter "repository" and "repositories" are mutually exclusive`.
+
+NOTE: `url` is deprecated. It is prepended to `repository` and logs `Parameter "URL" is deprecate, please prefix its content to parameter "repository"`. Put the whole URL in `repository` instead.
+
+== Repositories
+
+[IMPORTANT]
+====
+**Maven Central is always consulted.** Unless `https://repo.maven.apache.org/maven2` already appears in `repositories`, Updatecli appends it as the last repository to try.
+
+A lookup against a private repository therefore falls through to Maven Central rather than failing when the artifact is missing — which is convenient for public dependencies, and surprising if you expected an internal-only artifact to be resolved internally or not at all.
+====
+
+`repositories` is ordered: the first repository that answers wins, with Maven Central last. Use it when an artifact may live in either a snapshot or a release repository:
+
+[source,yaml]
+----
+spec:
+  repositories:
+    - https://repo.jenkins-ci.org/releases
+    - https://repo.jenkins-ci.org/public
+  groupid: org.jenkins-ci.main
+  artifactid: jenkins-war
+----
+
+NOTE: `repository` can carry Basic Auth credentials in the standard notation, `username:password@hostname`. Use link:/docs/core/templating/[templating] to keep the password out of the manifest.
 
 == Example
 
@@ -51,25 +84,16 @@ NOTE: `repository` can contain Basic Auth credentials following the standard not
 
 What it says:
 
-**Sources**
+**Sources**::
+Retrieve the version of the artifact `jenkins-war` from the group `org.jenkins-ci.main` in the `releases` repository on `repo.jenkins-ci.org` — 2.264 — then append `jdk11`, giving `2.264-jdk11`.
 
-Retrieve the version from a Maven source for the artifactID "jenkins-war" from the group "org.jenkins-ci.org"
-in the repository "releases" located on "repo.jenkins-ci.org"
-  => 2.264
-Append "jdk11" to it
-  => 2.264-jdk11
+**Conditions**::
+Check that a Docker image `jenkins/jenkins:2.264-jdk11` is published on DockerHub, and that the key `jenkins.master.image` in `charts/jenkins/values.yaml` is set to `jenkins/jenkins`. Either failing stops the pipeline.
 
-**Conditions**
+**Targets**::
+Update `jenkins.master.imageTag` to `2.264-jdk11` in that file and commit the change.
 
-Then it tests two conditions:
+== Links
 
-. Do we have a docker image published on Dockerhub for the "jenkins/jenkins" using the tag "2.264-jdk11"? Yes, proceed, No then abort
-. Do we have a the key jenkins.master.image set to the value "jenkins/jenkins" from the file "charts/jenkins/values.yaml" located on the git repository "git@github.com:olblak/charts.git"?
-      => Yes, proceed, No then abort
-
-**Targets**
-
-If conditions are all met then updatecli updates, if necessary, the key
-"jenkins.master.imageTag" to "2.264-jdk11" for the file "charts/jenkins/values.yaml"
-from the git repository "git@github.com:olblak/charts.git" then commit the change to the
-branch master.
+* link:https://maven.apache.org/repositories/metadata.html[Maven repository metadata]
+* link:/docs/core/versionfilter/["Version Filtering" page]

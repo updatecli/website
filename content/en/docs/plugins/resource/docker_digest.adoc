@@ -1,17 +1,19 @@
 ---
 title: "Docker Digest"
-description: "Manipulate Docker Image digest"
+description: "Resolve a container image tag to its immutable digest"
 lead: "kind: dockerdigest"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 60
 toc: true
 plugins:
   - source
+  - condition
 ---
 // <!-- Required for asciidoctor -->
 :toc:
@@ -20,53 +22,81 @@ plugins:
 
 [cols="1^,1^,1^",options=header]
 |===
-| source | condition | target | scm
-| &#10004; | &#10007; | &#10007; | &#10007;
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
 |===
 
 == Description
 
-**source**
+The `dockerdigest` resource resolves a container image tag to the digest it currently points at, so deployments can pin an immutable reference instead of a mutable tag.
 
-The Docker Digest "source" retrieves the Docker image digest for a specific Docker image tag.
+**source**::
+Returns the digest for `image` and `tag`, in the form `jenkins/jenkins:lts-jdk11@sha256:...`.
+
+**condition**::
+Checks that an image exists in the registry for the given digest — `digest` when set, otherwise the source output. A missing image reports `the Docker image <ref> doesn't exist.` rather than erroring.
+
+**target**::
+Not supported — a target fails with `Target not supported for the plugin Docker Digest`. Write the digest into a file with the link:/docs/plugins/resource/yaml/["Yaml"] or link:/docs/plugins/resource/file/["File"] resources.
+
+NOTE: An `scm` is accepted but ignored, logging `scm is not supported, ignoring`. The lookup always goes to the registry.
 
 == Parameters
 
 {{< resourceparameters "sources" "dockerdigest" >}}
 
-**Remark**:
+`image`:: Mandatory, e.g. `updatecli/updatecli`.
+`tag`:: Defaults to `latest`. It must not already contain a digest — a value starting with `@` is rejected with `invalid tag <image>: only contain a digest`.
+`architecture`:: Defaults to `amd64`. Unset, the digest returned is that of the **image index**, valid on any platform; set, it is the digest of that one platform's image. The two are different values for the same tag.
+`digest`:: Condition only, defaulting to the source output.
+`hidetag`:: Source only. Changes the shape of the returned value.
 
-It's considered a very bad practice to store credentials in an unencrypted file.
-Consider using an environment variable to store the token.
+=== hidetag
+
+By default the source keeps the tag alongside the digest, which stays readable in a diff while still pinning the exact image:
+
+[source,text]
+----
+index.docker.io/jenkins/jenkins:lts-jdk11@sha256:ce782db15ab...
+----
+
+With `hidetag: true` the tag is dropped:
+
+[source,text]
+----
+index.docker.io/jenkins/jenkins@sha256:ce782db15ab...
+----
 
 == Authentication
 
-Depending on the Docker Registry, authentication may be required. The way to retrieve the token depends on the registry.
+Credentials are given inline on the spec. Depending on the registry, how you obtain a token differs.
+
+IMPORTANT: Storing credentials in an unencrypted manifest is a bad practice. Read them from the environment with `'{{ requiredEnv "TOKEN" }}'`.
 
 === GHCR
 
-Github uses personal access token. How to retrieve one, is explained https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token[here]
+GitHub uses a personal access token — see link:https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token[Creating a personal access token].
 
 === DockerHub
 
-To retrieve a token, it's easier to run `docker login` and then retrieve the token stored in '~/.docker/config.json'
+The simplest route is to run `docker login` and read the token from `~/.docker/config.json`:
 
-.~/.docker/config.json
-```
-        "auths": {
-                "https://index.docker.io/v1/": {
-                        "auth": "token"
-                }
-        },
-```
+[source,json]
+----
+"auths": {
+        "https://index.docker.io/v1/": {
+                "auth": "token"
+        }
+},
+----
 
 == Example
 
-Please note that in this example we are using a go template `updatecli.tpl` with values from `values.yaml`
-The main motivation is to use {{ requiredEnv ENV_VARIABLE }} to read the github token from a environment variable.
+This example uses a Go template, `updatecli.tpl`, with values from `values.yaml`, so that `{{ requiredEnv "..." }}` can read the GitHub token from the environment.
 
-updatecli.tpl
-```
+[source,yaml]
+----
+# updatecli.tpl
 sources:
   lastDockerDigest:
     kind: dockerdigest
@@ -89,10 +119,11 @@ targets:
         token: "{{ requiredEnv .github.token }}"
         username: "{{ .github.username }}"
         branch: "master"
-```
+----
 
-.values.yaml
-```
+[source,yaml]
+----
+# values.yaml
 github:
   user: "updatebot"
   email: "updatebot@olblak.com"
@@ -101,15 +132,16 @@ github:
   branch: "master"
   owner: "olblak"
   repository: "charts"
-```
+----
 
 What it says:
 
-**Source**
-Retrieve the Docker image digest for the image `jenkins/jenkins` with the tag `lts-jdk11` from DockerHub
+**Source**::
+Retrieve the digest of `jenkins/jenkins:lts-jdk11` from DockerHub.
 
-**Conditions**
-No condition specified
+**Target**::
+Update the YAML key `jenkins.master.imageTag` in `config/default/jenkins-release.yaml` in the GitHub repository `jenkins-infra/charts`.
 
-**Targets**
-Update the yaml key `jenkins.master.imageTag` in the file `config/default/jenkins-release.yaml` located on the Github repository `olblak/charts`
+== Links
+
+* link:/docs/plugins/resource/docker_image/[The `dockerimage` resource] — to find a tag rather than resolve one

@@ -1,18 +1,19 @@
 ---
 title: "HTTP"
-description: "Run HTML request"
+description: "Run an HTTP request and use its response body, a header, or its status code"
 lead: "kind: http"
 date: 2024-02-26T09:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 250
 toc: true
 plugins:
   - source
   - condition
-  - target
 ---
 // <!-- Required for asciidoctor -->
 :toc:
@@ -22,28 +23,104 @@ plugins:
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10004; | &#10004; | &#10004;
+| &#10004; | &#10004; | &#10007;
 |===
 
 == Description
 
-**source**
+The `http` resource performs an HTTP request and uses the response.
 
-The HTML "source" retrieves an information from a HTTP request.
+**source**::
+Returns the response body, or one response header when `returnresponseheader` is set.
 
-**condition**
+**condition**::
+Asserts on the response — its status code, its headers, or simply that the request succeeded.
 
-The HTML "condition" tests that an information exist in a HTTP response.
+**target**::
+Not supported. A target fails with:
++
+[source,text]
+----
+Target not supported for the plugin http
+----
++
+Updatecli does not treat an HTTP endpoint as something it can write to. To act on a remote system, use the link:/docs/plugins/resource/shell/["Shell" resource] with `curl` and a `changedif` rule.
 
-**target**
+== When to use it
 
-The HTML "target" updates a HTTP response.
+Most resources that manipulate files already accept an `http://` or `https://` path for a source or a condition, and reach for it directly. Use the `http` resource when you need control the others do not give you: a custom verb, request headers, a request body, assertions on the response status, or a value that lives in a response *header* rather than in the body.
 
 == Parameters
 
 {{< resourceparameters "sources" "http" >}}
 
-== Example
+`url`:: The URL to request.
+`returnresponseheader`:: Source only. Returns the named response header instead of the body — how you read a `Location` header without following the redirect.
+`request`:: Customises the request that is sent.
+`responseasserts`:: Condition only. Assertions on the response.
+
+=== request
+
+[cols="1,3",options=header]
+|===
+| Field | Behaviour
+| `verb` | The HTTP method. Defaults to `GET`.
+| `body` | The request body. Required with `POST`, `PUT` and `PATCH`.
+| `headers` | Request headers, as a map. Empty by default.
+| `nofollowredirects` | Stops at the first response instead of following redirects.
+|===
+
+=== responseasserts
+
+[cols="1,3",options=header]
+|===
+| Field | Behaviour
+| `statuscode` | The exact status code expected.
+| `headers` | Response headers that must match, as a map.
+|===
+
+== How a condition decides
+
+With `statuscode` set, the check is an exact comparison — anything else is a failure.
+
+Without it, the outcome depends on the class of the response, and the distinction between *failing* and *erroring* matters:
+
+[cols="1,3",options=header]
+|===
+| Status | Outcome
+| 1xx, 2xx, 3xx | The condition passes.
+| 4xx | The condition **fails** — the pipeline stops, but this is not an error. A 404 is a legitimate "not published yet".
+| 5xx | The condition **errors**. A broken server is not evidence about your assertion.
+|===
+
+That is why checking whether an artifact exists needs no `statuscode`: a 404 already reports a clean failure.
+
+== Reading a redirect target
+
+`nofollowredirects` combined with `returnresponseheader` reads where a "latest" URL points without downloading anything — the usual way to turn a GitHub `/releases/latest` URL into a version:
+
+[source,yaml]
+----
+sources:
+  latest:
+    kind: http
+    spec:
+      url: https://github.com/updatecli/updatecli/releases/latest
+      returnresponseheader: Location
+      request:
+        nofollowredirects: true
+----
+
+The 302 response is used as-is, and the source value is the redirect target:
+
+[source,text]
+----
+https://github.com/updatecli/updatecli/releases/tag/v0.119.0
+----
+
+Add a `transformers` block with `find` or `trimprefix` to reduce it to the version. For GitHub specifically, link:/docs/plugins/resource/github_release/[`githubrelease`] is the better tool — this pattern is for hosts with no API.
+
+== Examples
 
 [source,yaml]
 ----
@@ -51,12 +128,12 @@ The HTML "target" updates a HTTP response.
 {{<include "assets/code_example/docs/plugins/resources/http/updatecli.d/default.yaml">}}
 ----
 
-== Important
-
-Most of the Updatecli plugins that manipulate files can usually specify the http scheme in the file path to retrieve the file from a remote location to be used in a source or a condition. But the HTTP plugin is designed to provide more flexibility when working with HTTP requests via additional settings like custom headers, or custom http verbs. Also worth mentioning the http  plugin also works for targets.
-
 [source,yaml]
 ----
-# updatecli.yaml
+# json.yaml
 {{<include "assets/code_example/docs/plugins/resources/http/updatecli.d/json.yaml">}}
 ----
+
+== Links
+
+* link:/docs/plugins/resource/shell/["Shell" resource] — for requests that must change something

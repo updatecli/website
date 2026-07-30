@@ -1,13 +1,15 @@
 ---
-title: "Gitlab Release"
-description: "Manipulate Gitlab Release"
+title: "GitLab Release"
+description: "Find a release published on a GitLab repository, or publish one"
 lead: "kind: gitlab/release"
-date: 2022-07-28T11:42:01+02:00
+date: 2023-03-13T11:42:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 180
 toc: true
 plugins:
   - source
@@ -27,23 +29,56 @@ plugins:
 
 == Description
 
-The Gitlab "release" plugin allows to manipulate Gitlab releases.
+The `gitlab/release` resource works with the releases published on a GitLab repository.
 
-**source**
+**source**::
+Returns the release matching `versionfilter`.
 
-When used as a "source", the Gitlab release plugin allows to get a Gitlab Release tag according the version filter rule provided.
+**condition**::
+Tests that a release exists for the repository.
 
-**condition**
+**target**::
+**Creates the release** when one does not already exist for the tag. This is one of the few resources that publish something rather than edit a file.
 
-When used as a "condition". the Gitlab release plugin allows to test that specific Gitlab Release tag exist.
-
-**target** 
-
-When used a "target", the Gitlab release plugin Using the gitlab/release as a "target" ensures that a Gitlab release exists.
+NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the GitLab API.
 
 == Parameters
 
 {{< resourceparameters "sources" "gitlab/release" >}}
+
+`owner` and `repository` are mandatory. `url` defaults to `gitlab.com`. Set it for a self-managed instance.
+
+=== Creating a release
+
+These fields apply to a target, and two of them have defaults that are easy to trip over:
+
+[cols="1,3",options=header]
+|===
+| Field | Behaviour
+| `tag` | The tag the release points at. **Defaults to the source output.**
+| `title` | The release title. **Defaults to the tag**, so an untitled release is named after its version.
+| `commitish` | The branch or commit the tag is created from. **Defaults to `main`**, with the warning `No commitish provided, fallback to branch "main"` — wrong on any repository whose default branch is `master` or `develop`, so set it explicitly.
+| `description` | The release body.
+| `draft` | Publish as a draft.
+| `prerelease` | Flag the release as a pre-release.
+|===
+
+A release that already exists is left untouched — the target neither updates its title nor its description.
+
+== Authentication
+
+`token` authenticates against the GitLab API. It is sensitive, so read it from the environment or a link:https://github.com/getsops/sops[SOPS] file rather than writing it into the manifest:
+
+[source,yaml]
+----
+spec:
+  url: gitlab.com
+  token: '{{ requiredEnv "GITLAB_TOKEN" }}'
+  owner: updatecli
+  repository: updatecli
+----
+
+A source or condition on a public repository needs no credential. Creating a release needs write access.
 
 == Example
 
@@ -53,3 +88,8 @@ When used a "target", the Gitlab release plugin Using the gitlab/release as a "t
 {{<include "assets/code_example/docs/plugins/resources/gitlab/release/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:/docs/plugins/resource/gitlabbranch/[The `gitlab/branch` resource]
+* link:/docs/plugins/resource/gitlabtag/[The `gitlab/tag` resource]
+* link:/docs/plugins/scm/gitlab/[The `gitlab` scm] — to clone and push

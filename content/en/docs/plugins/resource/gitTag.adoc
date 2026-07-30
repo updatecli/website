@@ -1,14 +1,15 @@
 ---
 title: "Git Tag"
-description: "Manipulate Git Tag information"
+description: "Find a git tag matching a pattern over the git protocol, or create one"
 lead: "kind: gittag"
 date: 2021-04-08T15:21:01+02:00
-lastmod: 2022-03-04T09:57:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 120
 toc: true
 plugins:
   - source
@@ -26,24 +27,40 @@ plugins:
 | &#10004; | &#10004; | &#10004;
 |===
 
-**source**
+== Description
 
-The Git Tag "source" retrieves the latest git Tag matching a pattern.
+The `gittag` resource works with the tags of a git repository directly, over the git protocol — no forge API involved, so it works with any host.
 
-**condition**
+**source**::
+Returns the tag matching `versionfilter`, or its hash when `key: hash`.
 
-The Git Tag "condition" tests if git Tag matching a pattern exist.
+**condition**::
+Tests that a matching tag exists. With `tag` set, the check is an exact match instead of a pattern match.
 
-**target**
+**target**::
+**Creates** the tag when no matching one exists. This is the one resource in this family that writes to a repository.
 
-The Git Tag "target" ensures a git Tag matching a pattern exist otherwise it creates it.
-
-== Parameter
-
-The gittag resource is a resource designed to be used with the scmID
+== Parameters
 
 {{< resourceparameters "sources" "gittag" >}}
 
+`url`:: The repository. Over SSH — `git@github.com:updatecli/updatecli.git` — access depends on your local SSH configuration; over HTTPS, on `username` and `password`.
+`path`:: A local repository to read instead of cloning.
+`key`:: Source only. `name`, the default, returns the tag name; `hash` returns the commit hash it points at. Any other value is rejected with `The only valid values for Key are 'name', 'hash', or empty.`
+`tag`:: Condition only — an exact tag, bypassing `versionfilter`.
+`message`:: Target only — the annotation message of the tag being created.
+`sourcebranch`:: Target only, and required when no `scmid` is set.
+
+=== Avoiding a clone
+
+`lsremote: true` lists the tags straight from the remote with `git ls-remote`, without cloning. On a large repository that is the difference between a second and a minute, and it is enough for any source or condition that only needs tag names.
+
+`depth` limits how many commits are fetched when a clone does happen.
+
+[WARNING]
+====
+`lsremote` and `depth` both mean an incomplete local repository. A `key: hash` lookup or a target creating a tag needs real objects, so leave them off there.
+====
 
 === Version Filter
 
@@ -57,3 +74,8 @@ include::content/en/docs/plugins/_versionFilter.adoc[]
 {{<include "assets/code_example/docs/plugins/resources/gittag/updatecli.yaml">}}
 ----
 
+== Links
+
+* link:/docs/plugins/resource/gitBranch/[The `gitbranch` resource]
+* link:/docs/plugins/resource/gitcommit/[The `gitcommit` resource]
+* link:/docs/core/versionfilter/["Version Filtering" page]

@@ -1,13 +1,15 @@
 ---
 title: "Gitea Release"
-description: "Manipulate Gitea Release"
+description: "Find a release published on a Gitea repository, or publish one"
 lead: "kind: gitea/release"
 date: 2022-07-28T11:42:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 140
 toc: true
 plugins:
   - source
@@ -27,23 +29,56 @@ plugins:
 
 == Description
 
-The Gitea "release" plugin allows to manipulate Gitea releases.
+The `gitea/release` resource works with the releases published on a Gitea repository.
 
-**source**
+**source**::
+Returns the release matching `versionfilter`.
 
-When used as a "source", the Gitea release plugin allows to get a Gitea Release tag according the version filter rule provided.
+**condition**::
+Tests that a release exists for the repository.
 
-**condition**
+**target**::
+**Creates the release** when one does not already exist for the tag. This is one of the few resources that publish something rather than edit a file.
 
-When used as a "condition". the Gitea release plugin allows to test that specific Gitea Release tag exist.
-
-**target** 
-
-When used a "target", the Gitea release plugin Using the gitea/release as a "target" ensures that a Gitea release exists.
+NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the Gitea API.
 
 == Parameters
 
 {{< resourceparameters "sources" "gitea/release" >}}
+
+`owner` and `repository` are mandatory. `url` points at your Gitea instance, e.g. `try.gitea.io`. There is no default.
+
+=== Creating a release
+
+These fields apply to a target, and two of them have defaults that are easy to trip over:
+
+[cols="1,3",options=header]
+|===
+| Field | Behaviour
+| `tag` | The tag the release points at. **Defaults to the source output.**
+| `title` | The release title. **Defaults to the tag**, so an untitled release is named after its version.
+| `commitish` | The branch or commit the tag is created from. **Defaults to `main`**, with the warning `No commitish provided, fallback to branch "main"` — wrong on any repository whose default branch is `master` or `develop`, so set it explicitly.
+| `description` | The release body.
+| `draft` | Publish as a draft.
+| `prerelease` | Flag the release as a pre-release.
+|===
+
+A release that already exists is left untouched — the target neither updates its title nor its description.
+
+== Authentication
+
+`token` authenticates against the Gitea API. It is sensitive, so read it from the environment or a link:https://github.com/getsops/sops[SOPS] file rather than writing it into the manifest:
+
+[source,yaml]
+----
+spec:
+  url: try.gitea.io
+  token: '{{ requiredEnv "GITEA_TOKEN" }}'
+  owner: updatecli
+  repository: updatecli
+----
+
+A source or condition on a public repository needs no credential. Creating a release needs write access.
 
 == Example
 
@@ -53,3 +88,8 @@ When used a "target", the Gitea release plugin Using the gitea/release as a "tar
 {{<include "assets/code_example/docs/plugins/resources/gitea/release/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:/docs/plugins/resource/giteabranch/[The `gitea/branch` resource]
+* link:/docs/plugins/resource/giteatag/[The `gitea/tag` resource]
+* link:/docs/plugins/scm/gitea/[The `gitea` scm] — to clone and push

@@ -19,7 +19,7 @@ export UPDATECLI_AZURE_DEVOPS_USERNAME="your-username"
 
 [NOTE]
 ====
-When these variables are set, Updatecli will use them for all Azure DevOps operations.
+These variables are read per field: exporting only `UPDATECLI_AZURE_DEVOPS_TOKEN` is enough to supply the token while the username comes from elsewhere.
 ====
 
 '''
@@ -50,12 +50,15 @@ For security reasons, it is recommended to use environment variables or secret m
 
 **Precedence and Fallback**
 
-Updatecli will use the first valid authentication method it finds, in the following order:
+Which of the two wins depends on the plugin:
 
-. Personal Access Token via environment variables
-. Personal Access Token via manifest
+`azuredevops`::
+The manifest wins. `UPDATECLI_AZURE_DEVOPS_TOKEN` and `UPDATECLI_AZURE_DEVOPS_USERNAME` only fill in the fields the manifest leaves empty.
 
-If no valid authentication is found, Updatecli will fail with an error.
+`azuredevopssearch`::
+The environment wins. When either variable is set, it overrides the matching manifest field.
+
+Nothing validates that a credential was found at all: only `organization` is checked when the manifest loads. A missing or wrong token surfaces later, when Updatecli calls the API or clones the repository.
 
 '''
 

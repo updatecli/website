@@ -1,0 +1,93 @@
+---
+title: "Stash Branch"
+description: "Find a branch of a Bitbucket Server (Stash) repository"
+lead: "kind: stash/branch"
+date: 2026-07-29T10:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+weight: 320
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+The `stash/branch` resource queries the branches of a repository hosted on Bitbucket Server — the product formerly called Stash and now Bitbucket Data Center.
+
+**source**::
+Returns the branch matching `versionfilter`, which is how you follow a release branch such as the highest `release/x.y`.
+
+**condition**::
+Tests that `branch` exists in the repository.
+
+**target**::
+Not supported — a target fails with `target not supported for the plugin stash branch`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
+
+NOTE: An `scm` is accepted but ignored, logging `scm not supported, ignoring`. The lookup always goes to the Bitbucket Server API.
+
+== Parameters
+
+{{< resourceparameters "sources" "stash/branch" >}}
+
+`url`, `owner` and `repository` are mandatory.
+
+`url`:: The Bitbucket Server instance, e.g. `https://stash.example.com`. This is a self-hosted product, so there is no default.
+`owner`:: The project key or user the repository belongs to.
+`branch`:: Condition only — the branch being checked.
+`versionfilter`:: Source only. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Authentication
+
+Credentials are either a token or a username and password pair — both sensitive, so read them from the environment or a link:https://github.com/getsops/sops[SOPS] file rather than writing them into the manifest:
+
+[source,yaml]
+----
+spec:
+  url: https://stash.example.com
+  token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
+  owner: PROJECTKEY
+  repository: myrepo
+----
+
+`password` must be combined with `username`. Reading a public repository needs no credential at all.
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+sources:
+  latestReleaseBranch:
+    name: Get the latest release branch
+    kind: stash/branch
+    spec:
+      url: https://stash.example.com
+      token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
+      owner: PROJECTKEY
+      repository: myrepo
+      versionfilter:
+        kind: regex
+        pattern: 'release/.*'
+----
+
+== Links
+
+* link:/docs/plugins/resource/stashtag/[The `stash/tag` resource]
+* link:/docs/plugins/scm/stash/[The `stash` scm] — to clone and push
+* link:/docs/plugins/actions/stash/[The `stash/pullrequest` action]

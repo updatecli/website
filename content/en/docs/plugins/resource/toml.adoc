@@ -1,13 +1,15 @@
 ---
 title: "TOML"
-description: "Manipulate Toml information"
+description: "Read and update a value in a TOML file addressed by a Dasel selector"
 lead: "kind: toml"
 date: 2021-09-24T19:19:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 400
 toc: true
 plugins:
   - source
@@ -27,25 +29,57 @@ plugins:
 
 == Description
 
-**source**
+The `toml` resource reads and writes a single value in a TOML document, addressed by a link:https://daseldocs.tomwright.me/[Dasel] selector.
 
-The TOML "source" retrieves an information from a TOML file.
+**source**::
+Reads one value out of one file. Only a single file is accepted.
 
-**condition**
+**condition**::
+Compares the value to `value`, or to the source output when `value` is unset.
 
-The TOML "condition" tests that an information exist in a TOML file.
-
-**target**
-
-The TOML "target" ensures that a TOML file content a specific value at specific location.
+**target**::
+Writes the value at the given key. Files already holding it are reported as up to date and left untouched.
 
 == Parameters
 
 {{< resourceparameters "sources" "toml" >}}
 
-=== Query
+`file` or `files` is mandatory, as is `key` or `query`; missing either aborts the run with `wrong spec content`. `file` and `files` are mutually exclusive.
 
-The TOML resource relies on link:https://daseldocs.tomwright.me/[Dasel] to query toml files.
+`createmissingkey`:: Target only. Creates the key when it does not exist instead of failing. Only works together with `key`, and **not** with the `dasel/v3` engine — that combination is rejected at validation time with `engine "dasel/v3" does not support the parameter "createmissingkey"`, because the v3 API resolves the key before setting a value.
+
+NOTE: `multiple` is deprecated and hidden from the table above. Use a selector returning several values instead.
+
+== Engines
+
+`engine` selects which version of Dasel parses the file, and the selector syntax is not portable between versions.
+
+[cols="1,3",options=header]
+|===
+| Value | Behaviour
+| `dasel/v1` | Default when `engine` is unset. Deprecated — every run logs a warning.
+| `dasel/v2` | Deprecated — every run logs a warning.
+| `dasel/v3` | Current engine. Rejects the leading dot: use `package.version`, not `.package.version`. Incompatible with `createmissingkey`.
+| `dasel` | Alias resolving to the latest engine, currently `dasel/v3`.
+|===
+
+WARNING: `query` is a `dasel/v1` parameter. On `dasel/v2` and `dasel/v3`, a `query` without a `key` fails validation with `engine "dasel/v3" requires the parameter "key" over "query"`. On `dasel/v1`, `query` is the multi-value form and must be paired with `versionfilter` in a source.
+
+== Remote files
+
+`file` accepts `https://`, `http://` and `file://` for a source and a condition. A target refuses a URL outright with `URL scheme is not supported for TOML target`.
+
+== Limitations
+
+Dasel rewrites the file from its parsed representation, so **comments are dropped** on any target that changes something — see link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. This bites hardest on hand-maintained files such as `netlify.toml` or `Cargo.toml`.
+
+The workaround is to drive the edit with the link:/docs/plugins/resource/file/["File" resource], matching the line with a regular expression so only those bytes are rewritten:
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/resources/toml/updatecli.d/fallback.yaml">}}
+----
 
 == Example
 
@@ -55,13 +89,7 @@ The TOML resource relies on link:https://daseldocs.tomwright.me/[Dasel] to query
 {{<include "assets/code_example/docs/plugins/resources/toml/updatecli.d/default.yaml">}}
 ----
 
-== Important
+== Links
 
-The library used to manipulate TOML files, drops comments. More information is available on
-link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Until we find a solution, a potential workaround is to use the resource `file` like in the following example:
-
-[source,yaml]
-----
-# updatecli.yaml
-{{<include "assets/code_example/docs/plugins/resources/toml/updatecli.d/fallback.yaml">}}
-----
+* link:https://daseldocs.tomwright.me/[Dasel documentation]
+* link:/docs/core/versionfilter/["Version Filtering" page]

@@ -1,13 +1,15 @@
 ---
 title: "Terraform File"
-description: "Manipulate Terraform files"
+description: "Read and update an attribute in a Terraform file — an alias for the hcl resource"
 lead: "kind: terraform/file"
 date: 2023-07-28T15:00:00+01:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 360
 toc: true
 plugins:
   - source
@@ -27,23 +29,39 @@ plugins:
 
 == Description
 
-`terraform/file` is an alias for link:{{< ref "hcl" >}}[`hcl`].
+`terraform/file` is an **alias** for link:{{< ref "hcl" >}}[`hcl`] — the same spec, backed by the same implementation. Use whichever name reads better in your manifest; there is no behavioural difference.
 
-**source**
+**source**::
+Retrieves an attribute from a Terraform file at the configured path. A source accepts only one file.
 
-The Terraform file "source" retrieves an attribute from a Terraform file at configured path.
+**condition**::
+Tests that the attribute at that path matches the value.
 
-**condition**
+**target**::
+Ensures the attribute is set to a specific value, editing in place so comments and formatting survive.
 
-The Terraform file "condition" tests that attribute at configured path matches the value in a Terraform file.
-
-**target**
-
-The Terraform file "target" ensures that an attribute at configured path in a Terraform file is set to a specific value.
-
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "terraform/file" >}}
+
+`file` or `files` is mandatory, as is `path`; missing either aborts the run with `wrong spec content`. `file` and `files` are mutually exclusive.
+
+`path` walks the block labels joined with dots, so
+
+[source,hcl]
+----
+resource "aws_instance" "app_server" {
+  ami = "ami-830c94e3"
+}
+----
+
+is addressed as `resource.aws_instance.app_server.ami`. It points at an attribute, never at a block.
+
+TIP: To bump a provider version, reach for link:{{< ref "provider" >}}[`terraform/provider`] instead — it understands `required_providers` blocks directly, rather than needing the exact attribute path.
+
+== Remote files
+
+For a source and a condition, `file` accepts `https://`, `http://` and `file://`. A target refuses a URL with `URL scheme is not supported for HCL target`.
 
 == Example
 
@@ -54,3 +72,8 @@ The example uses an additional resource plugin: link:{{< ref "registry" >}}[`ter
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/terraform/file/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:{{< ref "hcl" >}}[The `hcl` resource] — the same plugin under its generic name
+* link:https://github.com/minamijoyo/hcledit[hcledit] — the library doing the editing

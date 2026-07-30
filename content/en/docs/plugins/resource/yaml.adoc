@@ -1,14 +1,15 @@
 ---
 title: "Yaml"
-description: "Manipulate Yaml information"
+description: "Read and update a key in one or several YAML files, including multi-document ones"
 lead: "kind: yaml"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 430
 toc: true
 plugins:
   - source
@@ -28,64 +29,78 @@ plugins:
 
 == Description
 
-**source**
+The `yaml` resource reads and writes a key in a YAML file, addressed by a yamlpath expression.
 
-The Yaml "source" retrieve a key value from a yaml file.
+**source**::
+Returns the value of one key from one file.
 
-**condition**
+**condition**::
+Checks that the key holds `value`, or the source output when `value` is unset. With `keyonly`, checks only that the key exists.
 
-The Yaml "condition" test if an association of key/value match in the defined file.
-
-**target**
-
-The Yaml "target" test if an association of key/value match in the defined file and update it if necessary.
+**target**::
+Writes the value at the key. Keys already holding it are reported as up to date and left untouched, so a target that changes nothing does not create a commit.
 
 == Parameters
 
 {{< resourceparameters "sources" "yaml" >}}
 
-=== File
-When used from a source or condition, `file` can accept different value
-If the value start with `https://` or `http://` then it will read the file from a http location
-If the value start with `file://` then it means that we explicitly want to read a file
-Otherwise any other file name is accepted.
+The spec has two mutually exclusive pairs, and breaking either aborts the run before the pipeline starts:
 
-=== Key
+`file` / `files`:: One is mandatory. Setting both gives `the attributes 'spec.file' and 'spec.files' are mutually exclusive`; duplicates inside `files` are rejected too.
+`key` / `keys`:: One is mandatory. Setting both gives `'key' and 'keys' are mutually exclusive`; duplicates inside `keys` are rejected.
 
-==== Array
+Several parameters work in only one stage, which the table above does not make obvious:
 
-When we need to reference a specific position inside a YAML array, using the parameter `key`, we use the a custom syntax which is `key[x]` where the `key` represents a YAML key of type array and `[x]` represents the position inside that array starting from zero.
+`keys`:: **Target only.** Updates several keys with the same value in one go — useful for an image tag repeated across a chart. A source or condition must use `key`.
+`keyonly`:: **Condition only.** Passes when the key exists, whatever its value.
+`comment`:: **Target only.** Appended inline after the value, and only when Updatecli actually changes it.
+`searchpattern`:: **Not supported in a source.** It turns `file`/`files` into glob patterns rather than exact names. A source using it fails with `validation error in sources of type 'yaml': the attribute 'spec.searchpattern' is not supported for source`.
 
-example_array.yaml
-```
+== Engines
+
+`engine` picks the YAML library, because none of them handles every case well:
+
+[cols="1,3",options=header]
+|===
+| Value | Behaviour
+| `default` | Default when unset. Equivalent to `go-yaml` and to an empty value.
+| `go-yaml` | Same as `default`.
+| `yamlpath` | Required for filter expressions such as `$.repos[?(@.repository == 'website')].owner`.
+|===
+
+== Key syntax
+
+Arrays are indexed with `key[x]`, counting from zero, and can be chained with dots — `key.array[3].key`:
+
+[source,yaml]
+----
 COUNTRY_CODE:
 - BE
 - FR
 - LU
-```
+----
 
-The key `COUNTRY_CODE[1]` equal `FR`
+Here `COUNTRY_CODE[1]` is `FR`.
 
-NOTE: Arrays can also be grouped with dots like `key.array[3].key`
+=== Escaping dots
 
-==== Escaping
+A dot separates path elements, so a key that itself contains dots is escaped with a backslash. These two files are different:
 
-In yaml keys, the dots character can be escaped using "/" to identify a key containing dots, such as the following example.
+[source,yaml]
+----
+image.tag: latest     # one key named "image.tag"  -> image\.tag
+----
 
-.`image\.tag`
-```
-image.tag: latest
-```
-
-.`image.tag`
-```
-# Is different than
-image:
+[source,yaml]
+----
+image:                # a key "tag" nested under "image" -> image.tag
     tag: latest
-```
+----
 
-data.yaml
-```
+The escaped form must be written in **single quotes**, otherwise YAML consumes the backslash before Updatecli sees it:
+
+[source,yaml]
+----
 targets:
   helm-chart-label:
     name: bump chart dependencies
@@ -95,10 +110,47 @@ targets:
       file: "/tmp/gateway.yaml"
       key: 'spec\.values\.labels\.service\.istio\.io/canonical-revision'
       value: "test"
-```
+----
 
-Please note that for the escaping to work in Updatecli, the YAML value must be single quote otherwise the escaping character is used to escape YAML special characters
+== Multi-document files
 
+`documentindex` selects one document in a `---`-separated file, counting from zero. Its default is not "the first document" but something different per stage:
+
+* **source** — the value is taken from the first document matching the query.
+* **condition** — every document is evaluated.
+* **target** — **every document is updated.**
+
+That last one surprises people. Given this file:
+
+[source,yaml]
+----
+kind: Deployment
+image:
+  tag: 1.0.0
+---
+kind: Service
+image:
+  tag: 2.0.0
+----
+
+a target on `$.image.tag` with no `documentindex` rewrites both, even though the run report mentions a single key:
+
+[source,yaml]
+----
+kind: Deployment
+image:
+  tag: 9.9.9 # updated by updatecli
+---
+kind: Service
+image:
+  tag: 9.9.9 # updated by updatecli
+----
+
+Set `documentindex: 0` to touch only the first one.
+
+== Remote files
+
+For a source and a condition, `file` accepts `https://`, `http://` and `file://`. A target cannot write back to a URL and fails with `URL scheme is not supported for YAML target`.
 
 == Example
 
@@ -110,18 +162,16 @@ Please note that for the escaping to work in Updatecli, the YAML value must be s
 
 What it says:
 
-**Source**
+**Source**::
+Retrieve the version of the Jenkins helm chart from `https://charts.jenkins.io`.
 
-Retrieve the version from the Jenkins helm chart repository located on "https://charts.jenkins.io"
-  => 2.7.1
+**Condition**::
+Check that `charts/jenkins/requirements.yaml` has a `dependencies` array whose first element is `jenkins`. If not, the pipeline stops here.
 
-**Conditions**
+**Target**::
+Update that first element to the source value in the GitHub repository `olblak/chart`, then publish the change as a pull request against `master` from a working branch.
 
-Then there is a YAML condition: "Do we have a YAML file named "charts/jenkins/requirements.yaml" with the key dependencies that contains an array where the first element is set to "jenkins" ?"
-  => Yes, proceed, No then abort
+== Links
 
-**Targets**
-
-If conditions are all met, then updatecli will update (if needed) the first element of the key
-"dependencies" to "2.7.1" for the file "charts/jenkins/requirements.yaml"
-from the github repository olblak/chart then publish changes using a Github Pull Request targeting the master from a temporary branch.
+* link:/docs/core/versionfilter/["Version Filtering" page]
+* link:https://github.com/goccy/go-yaml/issues/290[goccy/go-yaml#290] — why field paths matching on key/value are not supported

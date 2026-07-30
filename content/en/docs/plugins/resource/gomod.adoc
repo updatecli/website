@@ -1,17 +1,20 @@
 ---
-title: "Golang go.mod "
-description: "Manipulate Golang go.mod file"
+title: "Golang go.mod"
+description: "Read and update the Go version or a dependency version inside a go.mod file"
 lead: "kind: golang/gomod"
 date: 2023-04-17T17:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 210
 toc: true
 plugins:
   - source
   - condition
+  - target
 ---
 
 // <!-- Required for asciidoctor -->
@@ -25,23 +28,52 @@ plugins:
 | &#10004; | &#10004; | &#10004;
 |===
 
-**source**
+== Description
 
-The Golang "gomod" "source" retrieves the Golang module version matching the versioning rule or the Golang version specified in the go.mod file.
+The `golang/gomod` resource reads and writes a version inside a `go.mod` file. It works in two modes depending on whether `module` is set:
 
-**condition**
+`module` unset:: The **Go language version** — the `go` directive.
+`module` set:: The version of that **dependency** in the `require` block.
 
-The Golang "gomod" "condition" checks if the Golang module version matching the versioning rule exist or the Golang version exists in the go.mod file.
+**source**::
+Returns the version found.
 
-**target**
+**condition**::
+Checks that the file records the expected version.
 
-The Golang "gomod" "target" ensures the Golang module version matching the versioning rule or the Golang version is correctly set in the go.mod file.
+**target**::
+Writes the version. A file already holding it is reported as `go.mod already set Golang version to "x"` (or `go.mod already has Module "m" set to version "v"`) and left untouched.
 
-IMPORTANT: The gomod target doesn't clean and update the file `go.sum`. It needs to be handled separately by running `go mod tidy` such as in the example below.
+== Parameters
 
-== Parameter
+{{< resourceparameters "sources" "golang/gomod" >}}
 
-{{< resourceparameters "sources" "golang/gomod" >}} 
+`file`:: Defaults to `go.mod`.
+`module`:: The module path, e.g. `github.com/sirupsen/logrus`. Leave unset to act on the `go` directive.
+`indirect`:: Set it to act on a dependency marked `// indirect`.
+`version`:: Overrides the source output.
+
+=== Replace directives
+
+`replace` and `replaceversion` address a `replace` instruction rather than a `require` one. Given:
+
+[source,go]
+----
+replace moduleA v1.2.3 => moduleB v1.0.0
+----
+
+set `module: moduleA` — the module being *replaced*, on the left — and `replaceversion: v1.2.3` to pin which replace instruction is meant. Leaving `replaceversion` unset matches any version of that module.
+
+== Limitations
+
+[IMPORTANT]
+====
+A `golang/gomod` target updates `go.mod` and **does not touch `go.sum`**. The repository is left in a state where `go build` fails until the checksums are refreshed, so pair the target with a `shell` target running `go mod tidy` — as the example below does.
+====
+
+== Remote files
+
+For a source and a condition, `file` accepts `https://`, `http://` and `file://`. A target must write locally.
 
 == Example
 
@@ -51,3 +83,8 @@ IMPORTANT: The gomod target doesn't clean and update the file `go.sum`. It needs
 {{<include "assets/code_example/docs/plugins/resources/golang/gomod/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:https://go.dev/ref/mod#go-mod-file[The go.mod file reference]
+* link:/docs/plugins/resource/golang/[The `golang` resource] — to find the language version to write here
+* link:/docs/plugins/resource/gomodule/[The `golang/module` resource] — to find a module version

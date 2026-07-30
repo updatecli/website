@@ -5,12 +5,15 @@ scms:
   stash:
     kind: stash
     spec:
-      url: "https://bitbucket.exmaple.com"
+      # the "/scm/" path segment is added by Updatecli, don't include it here
+      url: "https://bitbucket.example.com"
+      # "owner" is the Bitbucket Server project key
       owner: "olblak"
       repository: "updatecli-mirror"
       branch: "main"
-      username: "user" 
-      token: "123456789ABCDEFGHI"
+      # the credential goes in "token", "password" is not used by this plugin
+      username: '{{ requiredEnv "BITBUCKET_USERNAME" }}'
+      token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
 
 sources:
   license:
@@ -19,5 +22,3 @@ sources:
     scmid: stash
     spec:
       file: LICENSE
-
-

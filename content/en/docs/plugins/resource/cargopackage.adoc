@@ -1,13 +1,15 @@
 ---
-title: "cargopackage"
-description: "Interact with the cargo registry"
+title: "Cargo Package"
+description: "Look up the latest version of a crate on crates.io or a private cargo registry"
 lead: "kind: cargopackage"
 date: 2022-12-03T20:49:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 40
 toc: true
 plugins:
   - source
@@ -24,21 +26,50 @@ plugins:
 | &#10004; | &#10004; | &#10007;
 |===
 
-**source**
+== Description
 
-The cargopackage "source" retrieves the latest version of a cargo package matching a specific version filter.
+The `cargopackage` resource queries a cargo registry — link:https://crates.io[crates.io] by default — for the versions of a crate.
 
-**condition**
+**source**::
+Returns the version matching `versionfilter`.
 
-The cargopackage "condition" test that a specific version is published on a cargo registry.
+**condition**::
+Checks that `version` is published for the crate.
 
-**target**
+**target**::
+Not supported — a target fails with `Target not supported for the plugin Cargo Package`. To bump a dependency *in a file*, use the link:/docs/plugins/resource/toml/["TOML" resource] against `Cargo.toml`, or the link:/docs/plugins/autodiscovery/cargo/[cargo autodiscovery crawler].
 
-The cargopackage "target" is not supported as we couldn't think about a useful usecase. Feel free to open an issue suggesting one.
-
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "cargopackage" >}}
+
+`package` is mandatory. `version` is condition-only — the version whose existence is being checked.
+
+NOTE: `indexurl` is deprecated and hidden from the table above. Use `registry.url`.
+
+=== Registry
+
+`registry` describes where to look, and its three location fields are mutually exclusive — setting more than one is rejected before the run, naming the field that would be overridden:
+
+[cols="1,3",options=header]
+|===
+| Field | Meaning
+| `url` | A registry HTTP index. Unset means crates.io.
+| `rootdir` | A local directory holding a filesystem index, instead of an HTTP one.
+| `scmid` | The id of an `scm` whose clone holds the index. Overrides `rootdir` and `url`.
+|===
+
+`registry.auth` carries the credentials for a private registry:
+
+[source,yaml]
+----
+spec:
+  package: serde
+  registry:
+    url: https://cargo.acme.example.com
+    auth:
+      token: '{{ requiredEnv "CARGO_TOKEN" }}'
+----
 
 == Example
 
@@ -47,3 +78,8 @@ The cargopackage "target" is not supported as we couldn't think about a useful u
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/cargopackage/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://doc.rust-lang.org/cargo/reference/registries.html[Cargo registries]
+* link:/docs/core/versionfilter/["Version Filtering" page]

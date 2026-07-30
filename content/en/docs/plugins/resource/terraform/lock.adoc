@@ -1,13 +1,15 @@
 ---
 title: "Terraform Lock"
-description: "Manipulate Terraform lock files"
+description: "Keep .terraform.lock.hcl provider versions and checksums up to date"
 lead: "kind: terraform/lock"
 date: 2023-08-04T09:00:00+01:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 370
 toc: true
 plugins:
   - condition
@@ -26,17 +28,34 @@ plugins:
 
 == Description
 
-**condition**
+The `terraform/lock` resource maintains a `.terraform.lock.hcl` dependency lock file: for a given provider it updates the version, the version constraint, and the package checksums — without running `terraform init`. The checksums are fetched from the registry for the platforms you list.
 
-The terraform/lock "condition" tests that lock file version and hashes match the value for a given provider.
+**condition**::
+Tests that the lock file already records that version and its hashes for the provider.
 
-**target**
+**target**::
+Rewrites the provider's `version`, `constraints` and `hashes` entries.
 
-The terraform/lock "target" ensures that an the lock file version and hashes are update to date for given provider.
+**source**::
+Not supported — a source fails with `Source not supported for the plugin terraform/lock`. Pair this resource with link:{{< ref "registry" >}}[`terraform/registry`], which supplies the version.
 
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "terraform/lock" >}}
+
+`file` or `files`, `provider` and `platforms` are all mandatory — missing any of them aborts the run with `wrong spec content`, preceded by `terraform/lock file undefined`, `terraform/lock provider undefined` or `terraform/lock platforms undefined`. `file` and `files` are mutually exclusive, and a condition accepts only one file.
+
+`provider`:: Accepts the short form or the fully qualified one — `hashicorp/kubernetes` and `registry.terraform.io/hashicorp/kubernetes` both work.
+`platforms`:: The platforms to request checksums for, such as `linux_amd64` or `darwin_arm64`. **Only the platforms listed here end up in the lock file**, exactly as with `terraform providers lock -platform=...`. Omitting the platform your CI runs on will make `terraform init` fail there.
+
+[WARNING]
+====
+`skipconstraints: true` updates the version and the hashes but leaves the `constraints` line alone. That produces a lock file Terraform rejects whenever the new version falls outside the existing constraint. Leave it unset unless the constraint is managed elsewhere — for example by a link:{{< ref "provider" >}}[`terraform/provider`] target in the same pipeline.
+====
+
+== Remote files
+
+For a condition, `file` accepts `https://`, `http://` and `file://`. A target must write locally and refuses a URL.
 
 == Example
 
@@ -47,3 +66,8 @@ The example uses an additional resource plugin: link:{{< ref "registry" >}}[`ter
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/terraform/lock/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://developer.hashicorp.com/terraform/language/files/dependency-lock[Terraform dependency lock file]
+* link:{{< ref "provider" >}}[The `terraform/provider` resource] — for the `required_providers` block
