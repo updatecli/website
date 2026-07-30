@@ -48,3 +48,38 @@ targets:
       replacepattern: https://github.com/updatecli/updatecli/releases/download/{{ source "updatecli" }}/
     scmid: default
     sourceid: updatecli
+
+  container-image-tag:
+    name: 'docs: update the example container image tag to {{ source "updatecli" }}'
+    kind: file
+    spec:
+      file: content/en/docs/prologue/installation.adoc
+      matchpattern: 'ghcr.io/updatecli/updatecli:v\d+\.\d+\.\d+'
+      replacepattern: 'ghcr.io/updatecli/updatecli:{{ source "updatecli" }}'
+    scmid: default
+    sourceid: updatecli
+
+  # The "version" input of updatecli/updatecli-action selects which Updatecli release to
+  # install, so this example tracks updatecli/updatecli, not the action itself.
+  # The action's own version is handled by github_action.yaml.
+  updatecli-version-input-example:
+    name: 'docs: update the Updatecli version input example to {{ source "updatecli" }}'
+    kind: file
+    spec:
+      file: content/en/docs/automate/github_action.adoc
+      matchpattern: 'such as `v\d+\.\d+\.\d+`'
+      replacepattern: 'such as `{{ source "updatecli" }}`'
+    scmid: default
+    sourceid: updatecli
+
+  # The "http" resource page shows the redirect target returned by
+  # https://github.com/updatecli/updatecli/releases/latest as sample output.
+  http-redirect-example:
+    name: 'docs: update the http redirect example to {{ source "updatecli" }}'
+    kind: file
+    spec:
+      file: content/en/docs/plugins/resource/http.adoc
+      matchpattern: 'https://github.com/updatecli/updatecli/releases/tag/v\d+\.\d+\.\d+'
+      replacepattern: 'https://github.com/updatecli/updatecli/releases/tag/{{ source "updatecli" }}'
+    scmid: default
+    sourceid: updatecli
