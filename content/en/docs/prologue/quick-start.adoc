@@ -1,15 +1,15 @@
 ---
 title: "Quick Start"
-description: "One page summary of how to apply a strategy update."
-lead: "Introducing a very basic updatecli workflow."
+description: "Write a first Updatecli manifest and run it to keep a YAML file in sync with the latest Jenkins release"
+lead: "Your first update pipeline, in two files and two commands"
 date: 2020-11-16T13:59:39+01:00
-lastmod: 2022-01-22T13:34:39+01:00
+lastmod: 2026-07-30T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "prologue"
-weight: 110
+weight: 120
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -17,128 +17,139 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
+== Description
 
-Updatecli is a command-line tool to update your files.
-You specify in a manifest how you expect your files to be updated and then you run updatecli to apply the update.
+Updatecli applies update strategies described in a manifest.
+This guide builds the smallest useful one: a data file pinning a Docker image tag, and a
+manifest that keeps that tag in sync with the latest Jenkins weekly release.
 
-This quickstart requires three components:
+Everything happens in a single directory, and nothing is pushed anywhere.
 
-. Updatecli binary installed.
-. The test data file to update is in this guide.
-. The updatecli manifest is also in this guide.
+== Requirements
 
-== Installation
+The `updatecli` binary must be installed.
+If it is not, follow the link:/docs/prologue/installation/[Installation guide] first, then
+check it is reachable:
 
-Updatecli is a standalone binary available on link:https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux, and OSX.
-
-If you don't have a local installation, please follow the installation guide at link:{{< ref "installation/#_packages" >}}[Installation →]
+[source,shell]
+----
+updatecli version
+----
 
 == Scenario
 
-We will update a data file, if an update is needed according to our specified condition.
+Create an empty directory and work from there.
+Two files are needed: the data file to update, and the manifest describing how to update it.
 
-=== Data file
+.The three stages of a pipeline
+image::/images/diagrams/pipeline.png["Updatecli Pipeline"]
 
-We need a sample data file that we want to update (if needed).
-We are using a YAML file defining the "latest" Jenkins Docker image tag running in our infrastructure.
+=== The data file
 
+This is the file Updatecli will keep up to date.
+It declares the "latest" Jenkins Docker image tag running in our infrastructure.
+
+.data.yaml
 [source,yaml]
 ----
-# data.yaml
 {{<include "assets/code_example/docs/prologue/quickstart/data.yaml">}}
 ----
 
-=== Updatecli Pipeline
+=== The manifest
 
-Updatecli needs at least one manifest to know what update pipeline to apply.
+The manifest declares the update strategy.
+It introduces the three stages Updatecli runs, in the order it runs them:
 
-In this manifest, we introduce three important concepts of an updatecli manifest.
+**Source**::
+Where a piece of information comes from.
+Here, the latest Jenkins weekly version.
 
-. A **Source** definition describes where a piece of information is coming from. In the current example, we're looking for the latest Jenkins weekly version.
-. A **Target** definition describes what we want to update based on a *source* output. In our example, we want to update the key "$.container.tag" in the file "data.yaml" to the version retrieved from the source, the latest Jenkins weekly version.
-. A **Condition** definition defined conditions required to update the target. In this example, we want to test that the docker image "jenkinsci/jenkins:<latest Jenkins weekly version>" exists on DockerHub.
+**Condition**::
+What must be true before anything is written.
+Here, the Docker image `jenkins/jenkins:<latest weekly version>` must exist on DockerHub.
 
-{{< btn-copy text="touch ./updatecli/updatecli.d/jenkins.yaml" >}}
+**Target**::
+What to update with the source value.
+Here, the key `$.container.tag` of `data.yaml`.
 
----
-image::/images/diagrams/pipeline.png["Updatecli Pipeline"]
----
-
+.updatecli.yaml
 [source,yaml]
 ----
-# manifest.yaml
 {{<include "assets/code_example/docs/prologue/quickstart/updatecli.yaml">}}
 ----
 
-Source, Condition, and Target behave differently based on the plugin used, which is defined by the key "kind".
+Each stage behaves differently depending on the plugin it uses, which is what the `kind` key
+selects. The same `yaml` kind used here as a target can also be used as a source or a condition.
 
-=== Updatecli Execution
+TIP: Neither the condition nor the target names a source explicitly.
+When a manifest declares exactly one source, Updatecli wires it up on its own.
+With more than one, use `sourceid` to say which value to use.
 
-Now that we have a data file and an updatecli manifest, describing how to update our file, let's see how to use updatecli.
+== Run it
 
-So for doing so, please execute the following commands:
+Updatecli looks for a file named `updatecli.yaml`, or a directory named `updatecli.d`, in the
+current directory. Since the manifest above is named `updatecli.yaml`, no flag is needed.
 
-. To see what would change:
-+
-[source,shell]
-----
-updatecli diff --config manifest.yaml
-----
-
-. To apply the change:
-+
-[source,shell]
-----
-updatecli apply --config manifest.yaml
-----
-
-. To see that nothing needs to be changed anymore:
-+
-[source,shell]
-----
-updatecli apply --config manifest.yaml
-----
-
-Alternatively, you can copy all commands at once:
+First, see what would change:
 
 [source,shell]
 ----
-updatecli diff --config manifest.yaml
-updatecli apply --config manifest.yaml
-updatecli apply --config manifest.yaml
+updatecli diff
 ----
 
-== Video
+[source,text]
+----
+{{<include "assets/code_example/docs/prologue/quickstart/output.txt">}}
+----
 
-{{<asciinema "CR5DIxyTLnvtt8NllEeYAx83U">}}
+Nothing has been written yet: `diff` is read-only.
 
-INFO: You can improve this video by contributing to link:https://github.com/updatecli/demo-terminal/tree/main/quickstart[updatecli/demo-terminal]
+Now apply the change:
 
+[source,shell]
+----
+updatecli apply
+----
+
+`data.yaml` is updated in place, and the target line reads
+`key "$.container.tag" updated from "2.475" to "2.575", in file "data.yaml"`.
+
+Run the same command again:
+
+[source,shell]
+----
+updatecli apply
+----
+
+[source,text]
+----
+✔ - no change detected:
+	* key "$.container.tag" already set to "2.575", from file "data.yaml"
+----
+
+The second run changes nothing. Updatecli is idempotent: it describes the state a file should
+be in, not a sequence of edits, so running it repeatedly is safe and is exactly what makes it
+usable from a scheduled CI job.
+
+NOTE: The versions in the output above are whatever the latest Jenkins weekly was when this
+page was written. Yours will differ.
 
 == Conclusion
 
-Using this example, we saw how updatecli works with a simple pipeline. There are many improvements possible for this pipeline, such as automatically publishing updated files to a git repository, using the GitHub pull-request workflow, transforming the source value, not retrieving the latest version, and others.
+This pipeline is deliberately small. From here it can grow in every direction: committing the
+result to a Git repository, opening a pull request instead of writing in place, reshaping the
+source value with link:/docs/core/transformer/[transformers], or pinning to a release range
+with a link:/docs/core/versionfilter/[version filter].
 
-The real power of updatecli is to combine different plugins to easily implement a customized update pipeline.
+The real power of Updatecli is combining plugins so the update workflow matches your project,
+rather than the other way round.
 
 == Go Further
 
-=== Core
-
-Understand how the different core concepts work. link:/docs/core/[Core →]
-
-=== Plugins
-
-Understand how to combine the different plugins. link:/plugins/[Plugins →]
-
-=== Continuously Update Everything
-
-Learn how to continuously run updatecli to apply updates. link:/docs/automate/[CI →]
-
-== Contributing
-
-Find out how to contribute to Updatecli. link:/docs/help/contributing/[Contributing →]
-
-== Help
-
-Get some help. link:{{< ref "help" >}}[Help →]
+* link:/docs/core/[Core] — the concepts behind a manifest, stage by stage.
+* link:/docs/core/scm/[SCM] and link:/docs/core/action/[Action] — commit the result and open a pull request.
+* link:/docs/core/autodiscovery/[Autodiscovery] — let Updatecli write the manifests for you.
+* link:/docs/plugins/[Plugins] — every source, condition, target, scm, action, and crawler available.
+* link:/docs/automate/[Automate] — run this continuously from your CI environment.
+* link:/docs/commands/[Commands] — the full command line reference.
+* link:/docs/help/[Help] — FAQ, deprecations, and where to ask questions.
