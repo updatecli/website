@@ -1,18 +1,20 @@
 ---
 title: "Guide: docker compose"
-description: "Automate docker compose files update"
+description: "Keep a docker-compose file on the latest image tag or digest, then push the change through GitHub"
 lead: "Automate docker compose files update"
 date: 2021-08-01T22:10:01+02:00
-lastmod: 2023-02-10T08:10:00+02:00
+lastmod: 2026-07-31T10:00:00+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "guide"
-weight: 130 
+weight: 110
 toc: true
 ---
+// <!-- Required for asciidoctor -->
 :toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
 == Docker Compose
@@ -69,75 +71,80 @@ Considering again, the example of regularly updating the Jenkins version.
 We know that a release is published every week on a maven repository, then a docker image build is published on DockerHub.
 Considering the build strategy, it would seem to be fine to use a docker image tag.
 
-Let's consider this docker compose file:
+Let's consider this docker compose file, which the three examples below all share:
 
-**docker-compose.yaml**
-```
+.docker-compose.yaml
+[source,yaml]
+----
 {{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
-```
+----
 
 Now we write an updatecli configuration with a source, conditions, and one target
 
-**updatecli.1.yaml**
-```
+.updatecli.1.yaml
+[source,yaml]
+----
 {{< include "assets/code_example/docs/guides/docker-compose/updatecli.1.yaml" >}}
-```
+----
 
-`updatecli diff --config updatecli.1.yaml`
+`updatecli pipeline diff --config updatecli.1.yaml`
 
-Updatecli queries the maven repository 'releases' located on `repo.jenkins-ci.org`, to determine the latest version. If it finds one, then we add to the value retrieved, the prefix `jenkins/jenkins:` and the suffix `-jdk11` as we are looking specifically for the java 11 version.
+Updatecli queries the maven repository 'releases' located on `repo.jenkins-ci.org`, to determine the latest version.
+If it finds one, a source transformer appends the suffix `-jdk11`, as we are looking specifically for the java 11 version, and a target transformer prepends the prefix `jenkins/jenkins:` to build the full image reference.
 We validate that the docker image exists on DockerHub and then we test that the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct. If not then we bump it.
 
 If happy with the changes then we apply them by using `apply` instead of `diff`.
 
-`updatecli apply --config ./updatecli.1.yaml`
+`updatecli pipeline apply --config ./updatecli.1.yaml`
 
 === Docker Image Digest
 
 As explained earlier, sometimes it's preferable to use the docker image digest, if we need to rely on a specific version, or if we want to easily rollback.
-Most of the configuration remains the same as the previous example. This time the source is `dockerhub` and we don't test if an image exists on DockerHub as we're already asking DockerHub for the latest image.
+Most of the configuration remains the same as the previous example. This time the source is of kind `dockerdigest` and we don't test if an image exists on DockerHub as we're already asking DockerHub for the latest image.
 
-**docker-compose.yaml**
-```
-{{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
-```
+We start from the same `docker-compose.yaml` shown above.
 
-**updatecli.2.yaml**
-```
+.updatecli.2.yaml
+[source,yaml]
+----
 {{< include "assets/code_example/docs/guides/docker-compose/updatecli.2.yaml" >}}
-```
+----
 
 This time updatecli queries DockerHub to retrieve the digest for the docker image `jenkins/jenkins:lts-jdk11`. If it finds one, then we test that the value in the file 'docker-compose.yaml' for the key `services.jenkins.image` is correct, otherwise we change it.
 
 Again, if the changes are acceptable then we apply them by using `apply` instead of `diff`.
 
-* `updatecli diff --config updatecli.2.yaml`
-* `updatecli apply --config updatecli.2.yaml`
+* `updatecli pipeline diff --config updatecli.2.yaml`
+* `updatecli pipeline apply --config updatecli.2.yaml`
 
 === Git/GitHub
 
-Now that we have an easy way to update docker image version, we are missing a way to save, review, rollback those changes. For this, git is a excellent tool.
-Either, we directly commit and push to a git repository, or we use the GitHub workflow by pushing to a temporary branch.
+Now that we have an easy way to update docker image versions, we are missing a way to save, review, and rollback those changes. For this, git is an excellent tool.
+Either we directly commit and push to a git repository, or we use the GitHub workflow by pushing to a temporary branch.
 If using GitHub we can also submit our changes via a pull request.
 
-**docker-compose.yaml**
-```
-{{< include "assets/code_example/docs/guides/docker-compose/docker-compose.yaml" >}}
-```
+We keep the same `docker-compose.yaml` as before, and extend the manifest.
 
-While the configuration remains similar to the earlier example, this time, a new element is introduced.
-We can define generic values in the file or read values from an environment variable like `{{ requiredEnv  "GITHUB_TOKEN" }}`.
-The second major change is the 'scms' block which defines the github repository configuration.
+While the configuration remains similar to the earlier example, this time two new elements are introduced.
+We can define generic values in the file or read values from an environment variable like `{{ requiredEnv  "UPDATECLI_GITHUB_TOKEN" }}`.
+The `scms` block defines the github repository configuration, and the `actions` block turns the pushed branch into a pull request.
 
-**updatecli.3.yaml**
-```
+.updatecli.3.yaml
+[source,yaml]
+----
 {{< include "assets/code_example/docs/guides/docker-compose/updatecli.3.yaml" >}}
-```
+----
 
-And now you can use the same command than before
+And now you can use the same commands as before, with the credentials the manifest expects:
 
-* `updatecli diff --config updatecli.3.yaml`
-* `updatecli apply --config updatecli.3.yaml`
+[source,shell]
+----
+export UPDATECLI_GITHUB_TOKEN=<your_PAT>
+export UPDATECLI_GITHUB_ACTOR=<your GH username>
+
+updatecli pipeline diff --config updatecli.3.yaml
+updatecli pipeline apply --config updatecli.3.yaml
+----
 
 
 === Conclusion
