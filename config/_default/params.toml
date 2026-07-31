@@ -3,118 +3,17 @@ title = "Updatecli"
 titleAddition = "Continuously update everything"
 description = "Automatically open a PR on your GitOps repository when a third service publishes an updates"
 
-# Theme options (Doks / Thulite)
-[doks]
-  # Color mode
-  colorMode = "auto"
-  colorModeToggler = true
-
-  # Navbar
-  navbarSticky = true
-  containerBreakpoint = "fluid"
-  navBarButton = false
-  navBarButtonUrl = "/docs/prologue/introduction/"
-  navBarButtonText = "Get started"
-
-  # FlexSearch
-  flexSearch = true
-  searchExclKinds = []
-  searchExclTypes = []
-  showSearch = []
-  indexSummary = false
-  showDate = false
-  showSummary = true
-  searchLimit = 99
-
-  # Global alert
-  alert = true
-  alertDismissable = true
-
-  # Bootstrap
-  bootstrapJavascript = true
-
-  # Nav
-  sectionSwitcher = false
-  sectionNav = ["docs", "guides"]
-  toTopButton = true
-  breadcrumbTrail = false
-  headlineHash = true
-  scrollSpy = true
-
-  # Multilingual
-  multilingualMode = false
-  showMissingLanguages = true
-
-  # Versioning
-  docsVersioning = false
-  docsVersion = "1.0"
-
-  # UX
-  headerBar = false
-  backgroundDots = true
-  aiButtons = false
-
-  # Homepage
-  sectionFooter = false
-
-  # Blog
-  relatedPosts = false
-  imageList = true
-  imageSingle = true
-
-  # Repository
-  editPage = true
-  lastMod = true
-  repoHost = "GitHub"
-  docsRepo = "https://github.com/updatecli/website"
-  docsRepoBranch = "master"
-  docsRepoSubPath = ""
-
-  krokiURL = "https://kroki.io"
-
 # Alert banner
+# The theme reads these from site.Params.*, not site.Params.doks.*, so they must
+# stay above the [doks] table header below.
 alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!</a>"
 
 # Footer
 footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
 copyRight = "Copyright (c) Updatecli Project"
 
-# SEO (@thulite/seo)
-[seo]
-  [seo.title]
-    separator = "-"
-    suffix = "Updatecli"
-  [seo.description]
-    [seo.description.length]
-      errorLevel = "warning"
-      min = 50
-      max = 160
-  [seo.favicons]
-    icon = "favicon.png"
-    svgIcon = "favicon.svg"
-  [seo.schemas]
-    type = "Organization"
-    name = "Updatecli"
-    logo = "images/updatecli_512x512.png"
-    images = ["twitter_cards.png"]
-    sameAs = [
-      "https://twitter.com/updatecliio",
-      "https://github.com/updatecli",
-    ]
-
-# Social (used by SEO + social menu)
-[social]
-  twitter = "updatecliio"
-
-# Image processing (@thulite/images)
-[thulite_images.defaults]
-  loading = "lazy"
-  decoding = "async"
-  fetchpriority = "auto"
-  widths = [480, 576, 768, 1025, 1200, 1440]
-  lqip = "16x webp q20"
-
-# Legacy image params consumed by the custom img/img-simple shortcodes
+# Legacy image params consumed by the custom img/img-simple shortcodes.
+# Also read as site.Params.*, so they belong here rather than under a table.
 imageResponsive = true
 imageConvertTo = "webp"
 imageImageSizes = ["480", "720", "1080", "1280", "1600", "2048"]
@@ -128,3 +27,102 @@ lqipWidth = "20x"
 smallLimit = "300"
 defaultImage = "default-image.png"
 fillImage = "1270x740 Center"
+
+# Theme options (Doks / Thulite)
+[doks]
+# Color mode
+colorMode = "auto"
+colorModeToggler = true
+
+# Navbar
+navbarSticky = true
+containerBreakpoint = "fluid"
+navBarButton = false
+navBarButtonUrl = "/docs/prologue/introduction/"
+navBarButtonText = "Get started"
+
+# FlexSearch
+flexSearch = true
+searchExclKinds = []
+searchExclTypes = []
+showSearch = []
+indexSummary = false
+showDate = false
+showSummary = true
+searchLimit = 99
+
+# Global alert
+alert = true
+alertDismissable = true
+
+# Bootstrap
+bootstrapJavascript = true
+
+# Nav
+sectionSwitcher = false
+sectionNav = ["docs", "guides"]
+toTopButton = true
+breadcrumbTrail = false
+headlineHash = true
+scrollSpy = true
+
+# Multilingual
+multilingualMode = false
+showMissingLanguages = true
+
+# Versioning
+docsVersioning = false
+docsVersion = "1.0"
+
+# UX
+headerBar = false
+backgroundDots = true
+aiButtons = false
+
+# Homepage
+sectionFooter = false
+
+# Blog
+relatedPosts = false
+imageList = true
+imageSingle = true
+
+# Repository
+editPage = false
+lastMod = true
+repoHost = "GitHub"
+docsRepo = "https://github.com/updatecli/website"
+docsRepoBranch = "master"
+docsRepoSubPath = ""
+
+# SEO (@thulite/seo)
+[seo]
+[seo.title]
+separator = "-"
+suffix = "Updatecli"
+[seo.description]
+[seo.description.length]
+errorLevel = "warning"
+min = 50
+max = 160
+[seo.favicons]
+icon = "favicon.png"
+svgIcon = "favicon.svg"
+[seo.schemas]
+type = "Organization"
+name = "Updatecli"
+logo = "images/updatecli_512x512.png"
+images = ["twitter_cards.png"]
+sameAs = ["https://twitter.com/updatecliio", "https://github.com/updatecli"]
+
+# Social (used by SEO + social menu)
+[social]
+twitter = "updatecliio"
+
+# Image processing (@thulite/images)
+[thulite_images.defaults]
+loading = "lazy"
+decoding = "async"
+fetchpriority = "auto"
+widths = [480, 576, 768, 1025, 1200, 1440]
+lqip = "16x webp q20"
