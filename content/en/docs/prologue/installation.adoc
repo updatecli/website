@@ -3,7 +3,7 @@ title: "Installation"
 description: "Install Updatecli on Linux, macOS, or Windows, from a package manager, a container image, or a release archive"
 lead: "Every way to get the updatecli binary"
 date: 2020-10-13T15:21:01+02:00
-lastmod: 2026-07-30T10:00:00+02:00
+lastmod: 2026-07-31T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -26,8 +26,9 @@ common Linux distributions, and container images.
 
 All assets are attached to the https://github.com/updatecli/updatecli/releases/latest[GitHub release page].
 
-NOTE: Only Linux ships native packages (`.deb`, `.rpm`, `.apk`) and an AUR entry.
+NOTE: Of the assets the project publishes itself, only Linux gets native packages (`.deb`, `.rpm`, `.apk`).
 macOS is covered by Homebrew or a `.tar.gz` archive, Windows by a `.zip` archive.
+Several distributions and package managers carry Updatecli on their own, see link:#_community_packages[Community packages].
 
 == Homebrew
 
@@ -91,6 +92,9 @@ sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.119
 
 === openSUSE
 
+Tumbleweed and Leap 16.0 carry Updatecli in the distribution itself, see link:#_opensuse_zypper[Community packages].
+To install a specific release, or on a version that does not package it, use the `.rpm` from the release page:
+
 [source,shell]
 ----
 # amd64
@@ -118,10 +122,14 @@ Replace `amd64` with `arm64` or `armv6` as needed.
 
 === Arch Linux (AUR)
 
-[source,shell]
 ----
 yay -S updatecli-bin
 ----
+
+NOTE: Two further entries, `updatecli` and `updatecli-git`, build from source but are currently orphaned and far behind, so prefer `updatecli-bin`.
+
+The package installs the bash, zsh, and fish completions.
+
 
 === Archive
 
@@ -162,10 +170,10 @@ Gatekeeper may quarantine the binary on first run; clear the flag with
 
 == Windows
 
-Updatecli is distributed for Windows as a `.zip` archive.
-There is no `winget`, Scoop, or Chocolatey package at this time.
+The project publishes Windows builds as a `.zip` archive.
+A community-maintained link:#_scoop[Scoop package] is also available; there is no `winget` or Chocolatey package at this time.
 
-From PowerShell:
+To install from the archive, in PowerShell:
 
 [source,shell]
 ----
@@ -179,6 +187,76 @@ Expand-Archive -Path updatecli.zip -DestinationPath $env:LOCALAPPDATA\Updatecli
 ----
 
 Then add `%LOCALAPPDATA%\Updatecli` to your `PATH` so `updatecli.exe` is found from any directory.
+
+== Community packages
+
+Updatecli is also packaged by several communities outside the project.
+These entries are maintained by the distribution or bucket they belong to, not by Updatecli, so they can lag behind the latest release.
+For the newest version, use one of the routes above or the https://github.com/updatecli/updatecli/releases/latest[GitHub release page].
+
+=== openSUSE (zypper)
+
+Tumbleweed and Leap 16.0 ship `updatecli` in the distribution, so no extra repository is needed:
+
+[source,shell]
+----
+sudo zypper install updatecli
+----
+
+Leap 15.x does not package it, install the link:#_opensuse[`.rpm` from the release page] there instead.
+
+Shell completions come as separate `updatecli-bash-completion`, `updatecli-zsh-completion`, and `updatecli-fish-completion` subpackages, which zypper pulls in on its own once the matching shell is installed.
+
+See https://software.opensuse.org/package/updatecli[the openSUSE package page] for the versions available per distribution.
+
+=== Scoop
+
+link:https://scoop.sh/[Scoop] is a command line installer for Windows.
+Updatecli lives in the `main` bucket, which Scoop configures by default, so there is nothing to add first:
+
+[source,shell]
+----
+scoop install updatecli
+----
+
+To upgrade later, use `scoop update updatecli`.
+
+The manifest tracks the GitHub releases automatically, so it usually follows a new version within a day.
+It installs the same `.zip` archive as the link:#_windows[Windows section] and does not set up shell completions, see link:#_shell_completion[Shell completion] if you want those.
+
+See https://scoop.sh/#/apps?q=updatecli[the Scoop app list] for the packaged version.
+
+=== Nix
+
+`updatecli` is in https://search.nixos.org/packages?channel=26.05&query=updatecli[nixpkgs] and builds on both Linux and macOS.
+
+[source,shell]
+----
+# Run it once, without installing
+nix shell nixpkgs#updatecli
+
+# Install it into your profile
+nix profile install nixpkgs#updatecli
+----
+
+On NixOS, add it to your configuration instead:
+
+[source,nix]
+----
+environment.systemPackages = with pkgs; [
+  updatecli
+];
+----
+
+Without flakes enabled, the older command still works:
+
+[source,shell]
+----
+nix-env -iA nixpkgs.updatecli
+----
+
+The package is built from source with the release metadata injected, so `updatecli version` reports the real version rather than `dev`.
+It also installs the bash, zsh, and fish completions and the man page.
 
 == Docker
 
@@ -310,7 +388,7 @@ both release tags and `latest` verify.
 
 == Shell completion
 
-The `.deb`, `.rpm`, `.apk`, and AUR packages install completions for bash, zsh, and fish
+The `.deb`, `.rpm`, `.apk`, AUR, openSUSE, and Nix packages install completions for bash, zsh, and fish
 automatically. For any other installation method, generate them yourself:
 
 [source,shell]
