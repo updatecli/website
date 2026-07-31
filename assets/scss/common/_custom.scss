@@ -378,3 +378,30 @@
     width: 68.75%; // 11 of 16 columns, the sidebar takes the other 5
   }
 }
+
+// -----------------------------------------------------------------------------
+// Navbar "Community" dropdown
+//
+// The social-menu block in `layouts/_partials/header/header.html` groups the
+// entries tagged `params.group = "community"` behind one trigger, so the navbar
+// carries a few distinguishable icons rather than a row of near-identical ones.
+//
+// Only the menu items need styling: the theme already hides Bootstrap's caret
+// (`.dropdown-toggle::after { display: none }` in `components/_buttons.scss`)
+// and already makes dropdowns render inline below lg, and the trigger reuses
+// `.social-link` so it lines up with the icons beside it.
+//
+// Inside the dropdown the entry names are visible text rather than the
+// `visually-hidden` labels the flat list uses, so lay the icon out beside them.
+// -----------------------------------------------------------------------------
+
+.dropdown-item.social-dropdown-item {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+
+  // The icons are inline SVGs from the menu config, sized 20x20 there.
+  > svg {
+    flex: 0 0 auto;
+  }
+}
