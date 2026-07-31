@@ -405,3 +405,29 @@
     flex: 0 0 auto;
   }
 }
+
+// -----------------------------------------------------------------------------
+// Footer columns below the lg breakpoint
+//
+// `layouts/_partials/footer/footer.html` overrides the theme's footer to split
+// the row three ways (col-lg-5 / col-lg-6 / col-lg-5 of the 16-column grid) so
+// the copyright is centred between the menu and the "powered by" credit.
+//
+// doks-core gives the columns their vertical rhythm once they stack, but keys the
+// rule to the class its own markup uses (`layouts/_footer.scss`):
+//
+//   @include media-breakpoint-down(lg) {
+//       .footer .col-lg-8 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+//   }
+//
+// That no longer matches, so re-apply it for the classes we do use, otherwise the
+// three rows butt together on a phone.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-down(lg) {
+  .footer .col-lg-5,
+  .footer .col-lg-6 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+}
