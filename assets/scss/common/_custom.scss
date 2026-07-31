@@ -13,9 +13,13 @@
 // However doks-core 1.9.3 only styles the copy button when it lives *inside*
 // `.expressive-code` (the Markdown-only render hook). Bare `.highlight` blocks
 // (i.e. all our AsciiDoc code) therefore get an unstyled, icon-less button.
-// Re-create the icon here for the `.highlight .copy` structure. `.highlight` is
-// already positioned `relative` by the theme, and `--ec-frm-inlBtnFg` is defined
-// on `:root`, so the icon colour adapts to light/dark automatically.
+// Re-create the icon here for the `.highlight .copy` structure. `--ec-frm-inlBtnFg`
+// is defined on `:root`, so the icon colour adapts to light/dark automatically.
+//
+// The button needs a positioned ancestor. For Chroma that is `.highlight` itself,
+// which the theme's `_buttons.scss` already sets to `relative`. For AsciiDoc the
+// "AsciiDoc code blocks" section below moves it to `.listingblock > .content`, so
+// the button no longer scrolls away with a long line.
 // -----------------------------------------------------------------------------
 
 .highlight .copy {
@@ -80,6 +84,205 @@
 .highlight .copy .btn-copy:active > div {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
+}
+
+// -----------------------------------------------------------------------------
+// AsciiDoc code blocks
+//
+// Hugo render hooks only fire for Goldmark, so the theme's `render-codeblock.html`
+// (which wraps Markdown fences in the Expressive Code frame) never runs for our
+// AsciiDoc pages. Hugo shells out to asciidoctor instead and drops its HTML in
+// verbatim:
+//
+//   <div class="listingblock">
+//     <div class="title">updatecli/values.yaml</div>        <!-- optional -->
+//     <div class="content">
+//       <pre class="highlight"><code class="language-yaml" data-lang="yaml">…
+//
+// Every code-block rule in doks-core is written for the Markdown shape and misses
+// this one: `.highlight > pre` and `.highlight > .chroma` both assume `.highlight`
+// is a *wrapper*, whereas asciidoctor puts the class on the `pre` itself. So the
+// block gets no padding, no border and no scroll container.
+//
+// The rule that does match is the one that should not: the inline-code pill in
+// `components/_code.scss`,
+//
+//   code:not(:where(.not-content *)) { background-color: …; padding: …; }
+//
+// Markdown escapes it because the render hook adds `not-content` to its wrapping
+// <figure>; AsciiDoc has no such ancestor. `<code>` is an inline box, so that
+// background hugs the text run on each line and the block reads as selected text
+// rather than as a code block.
+//
+// Rebuild the frame here from the theme's own `--ec-*` custom properties, so the
+// result matches the Markdown blocks and follows light/dark without duplicating
+// any colour. Use `--ec-frm-edBg`/`--ec-frm-trmBg` rather than `--ec-codeBg`: the
+// latter is Expressive Code's raw upstream value, which doks overrides.
+// -----------------------------------------------------------------------------
+
+.listingblock,
+.literalblock {
+  position: relative;
+  margin: 1.5rem 0;
+
+  --code-background: var(--ec-frm-edBg);
+
+  // Height of the synthesised terminal title bar, mirroring the padding and line
+  // height doks gives `.expressive-code .frame.is-terminal .header`.
+  --terminal-bar-height: calc(
+    var(--ec-uiFontSize) * var(--ec-uiLineHt) + 2 * var(--ec-uiPadBlk) + var(--ec-brdWd)
+  );
+}
+
+// Shell blocks get the terminal treatment, matching the language list in
+// doks-core's `render-codeblock.html`. A block that carries a title is excluded so
+// it gets the filename tab instead of both chrome styles at once.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) {
+  --code-background: var(--ec-frm-trmBg);
+}
+
+// The inner wrapper becomes the positioning context for the copy button, which
+// keeps it pinned while the `pre` scrolls. `padding: 0` undoes `.blog .content`,
+// `.page .content` and friends from the theme's `common/_global.scss`: those are
+// meant for the page-level `.content` wrapper but also match this one.
+.listingblock > .content,
+.literalblock > .content {
+  position: relative;
+  padding: 0;
+}
+
+.listingblock > .content > pre,
+.literalblock > .content > pre {
+  position: static; // override `.highlight { position: relative }` (_buttons.scss)
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  background: var(--code-background);
+  border: var(--ec-brdWd) solid var(--ec-brdCol);
+  border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd));
+  font-size: var(--ec-codeFontSize);
+  line-height: var(--ec-codeLineHt);
+}
+
+// Cancel the inline-code pill and move the padding onto the `code`, which is the
+// element that grows with the content. `width: max-content` with `min-width: 100%`
+// is what keeps the trailing inline padding visible once the block scrolls.
+.listingblock > .content > pre > code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  padding: 0.75rem var(--ec-codePadInl);
+  margin-block: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+// A literal block (`....` or an indented paragraph) has no inner `<code>`, so the
+// `pre` carries the padding itself.
+.literalblock > .content > pre {
+  padding: 0.75rem var(--ec-codePadInl);
+}
+
+// -----------------------------------------------------------------------------
+// Filename tab, from an AsciiDoc block title (`.updatecli/values.yaml`)
+//
+// Expressive Code also paints a darker full-width strip behind its tab, using a
+// `.header` element asciidoctor does not emit. The tab is drawn flush on the frame
+// instead. `--ec-frm-edActTabBg` and `--ec-frm-edBg` are both `--sl-color-gray-6`,
+// so tab and body share a colour either way and still read as one component.
+// -----------------------------------------------------------------------------
+
+.listingblock > .title,
+.literalblock > .title {
+  position: relative;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: hidden;
+  padding: calc(var(--ec-uiPadBlk) + var(--ec-frm-edActTabIndHt)) var(--ec-uiPadInl);
+  color: var(--ec-frm-edActTabFg);
+  background: var(--ec-frm-edActTabBg);
+  background-clip: padding-box;
+  border: var(--ec-brdWd) solid var(--ec-frm-edActTabBrdCol);
+  border-bottom: none;
+  border-radius: calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd))
+    calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd)) 0 0;
+  font-family: var(--ec-uiFontFml);
+  font-size: var(--ec-uiFontSize);
+  font-weight: var(--ec-uiFontWg);
+  font-style: normal;
+  line-height: var(--ec-uiLineHt);
+  text-align: start;
+}
+
+// Accent line along the top of the tab, as on the active editor tab.
+.listingblock > .title::after,
+.literalblock > .title::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  border-top: var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndTopCol);
+  border-bottom: var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndBtmCol);
+}
+
+// -----------------------------------------------------------------------------
+// Terminal chrome for shell blocks
+// -----------------------------------------------------------------------------
+
+// The title bar. In flow, so it stacks above the `pre` without needing a height
+// on the wrapper.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) > .content::before {
+  content: "";
+  display: block;
+  height: var(--terminal-bar-height);
+  background: var(--ec-frm-trmTtbBg);
+  border: var(--ec-brdWd) solid var(--ec-brdCol);
+  border-bottom: var(--ec-brdWd) solid var(--ec-frm-trmTtbBrdBtmCol);
+  border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd))
+    calc(var(--ec-brdRad) + var(--ec-brdWd)) 0 0;
+}
+
+// The three dots, same mask and metrics as `.frame.is-terminal .header::before`.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) > .content::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset-block-start: calc((var(--terminal-bar-height) - 0.56rem) / 2);
+  inset-inline-start: var(--ec-uiPadInl);
+  width: 2.1rem;
+  height: 0.56rem;
+  line-height: 0;
+  background-color: var(--ec-frm-trmTtbDotsFg);
+  opacity: var(--ec-frm-trmTtbDotsOpa);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 16' preserveAspectRatio='xMidYMid meet'%3E%3Ccircle cx='8' cy='8' r='8'/%3E%3Ccircle cx='30' cy='8' r='8'/%3E%3Ccircle cx='52' cy='8' r='8'/%3E%3C/svg%3E") no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 16' preserveAspectRatio='xMidYMid meet'%3E%3Ccircle cx='8' cy='8' r='8'/%3E%3Ccircle cx='30' cy='8' r='8'/%3E%3Ccircle cx='52' cy='8' r='8'/%3E%3C/svg%3E") no-repeat;
+}
+
+// Square off the top of the code box wherever a tab or a title bar sits on it.
+.listingblock:has(> .title) > .content > pre,
+.literalblock:has(> .title) > .content > pre,
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) > .content > pre {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Copy button placement inside the new frame
+// -----------------------------------------------------------------------------
+
+// A titled block needs no offset: the tab is a sibling of `.content`, so the
+// button already sits inside the code box.
+.listingblock .copy {
+  inset-block-start: calc(var(--ec-brdWd) + 0.4rem);
+  inset-inline-end: calc(var(--ec-brdWd) + var(--ec-uiPadInl) / 2);
+}
+
+// A terminal block does need one: its title bar is drawn inside `.content`.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) .copy {
+  inset-block-start: calc(var(--terminal-bar-height) + 0.4rem);
 }
 
 // -----------------------------------------------------------------------------
