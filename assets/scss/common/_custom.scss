@@ -338,3 +338,43 @@
     min-width: 34rem;
   }
 }
+
+// -----------------------------------------------------------------------------
+// Docs layout between the lg and xl breakpoints (992px to 1199px)
+//
+// doks-core's `layouts/single.html` picks the width of <main class="docs-content">
+// with one condition and emits the flex wrapper it depends on with another:
+//
+//   line 11:  if containerBreakpoint == "fluid" AND .Type in mainSections
+//             -> <div class="col container-fw …">      (the wrapper)
+//   line 19:  if containerBreakpoint == "fluid" AND .Params.toc
+//             -> class="docs-content col-lg-16 col-xl-9"
+//   line 22:  else
+//             -> class="docs-content col-lg-11 col-xl-9 mx-xl-auto"
+//
+// `col-lg-16` means "full width" only because it is meant to sit *inside* that
+// wrapper, which takes the space left by the sidebar. We set
+// `containerBreakpoint = "fluid"` in params.toml but never set `mainSections`,
+// so the wrapper is emitted on no page at all while every page with a toc still
+// gets `col-lg-16`, as a direct child of the row.
+//
+// The grid here is 16 columns ($grid-columns in the theme's variable overrides),
+// so the sidebar's `col-lg-5` is 31.25% and the content is 100%: 131.25% in a
+// row that is only `flex-xl-nowrap`, i.e. still wrapping at lg. The content is
+// pushed onto a second row below a sidebar that is `height: calc(100vh - 4.25rem)`,
+// and because that sidebar is `position: sticky; z-index: 1000` with no
+// background of its own, the content then scrolls underneath it and shows
+// through. Above 1200px `col-xl-9` takes over and the row stops wrapping, which
+// is why this only appears at around half a wide screen.
+//
+// Give the content the 11 of 16 columns it should have had, so it sits beside
+// the sidebar instead of below it. Scoped to a direct child of `.row` so that it
+// does not apply if the `container-fw` wrapper is ever emitted, and to the lg
+// range only so `col-xl-9` keeps the desktop layout untouched.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-only(lg) {
+  .row > .docs-content.col-lg-16 {
+    width: 68.75%; // 11 of 16 columns, the sidebar takes the other 5
+  }
+}
