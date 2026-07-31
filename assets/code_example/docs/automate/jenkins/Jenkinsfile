@@ -17,14 +17,14 @@ pipeline {
     stage('Check Configuration Update') {
       steps {
         container('updatecli') {
-          sh 'updatecli diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
+          sh 'updatecli pipeline diff --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
         }
       }
     }
     stage('Apply Configuration Update') {
       steps {
         container('updatecli') {
-          sh 'updatecli apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
+          sh 'updatecli pipeline apply --config ./updatecli/updatecli.d --values ./updatecli/values.yaml'
         }
       }
     }
