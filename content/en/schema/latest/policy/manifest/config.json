@@ -496,7 +496,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "FileMatch allows to override default docker-compose.yaml file matching. Default `[\"compose.yaml\", \"compose.yml\", \"compose.*.yaml\", \"compose.*.yml\", \"docker-compose.yaml\",\"docker-compose.yml\",\"docker-compose.*.yaml\",\"docker-compose.*.yml\"]`"
+                                    "description": "FileMatch allows to override default Docker Compose file matching.\nThe pattern is matched against the file name only, not against its path.\nDefault `[\"docker-compose*.y*ml\", \"compose*.y*ml\"]`"
                                 },
                                 "versionfilter": {
                                     "properties": {
@@ -638,7 +638,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "FileMatch allows to override default Dockerfile file matching. Default `[\"Dockerfile\"]`"
+                                    "description": "FileMatch allows to override default Dockerfile file matching.\nThe pattern is matched against the file name only, not against its path.\nDefault `[\"Dockerfile\", \"Dockerfile.*\"]`"
                                 },
                                 "versionfilter": {
                                     "properties": {
@@ -841,14 +841,14 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n```\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\",\n```"
+                                    "description": "files allows to specify the accepted Action workflow file name\n\nThe pattern is matched against the file name only, not against its path, so a\npattern such as \".github/workflows/*.yaml\" never matches. The directory is\nconstrained separately: a workflow file must sit directly inside a \"workflows\"\ndirectory whose parent is \".github\", \".gitea\", or \".forgejo\".\n\ndefault:\n```\n  - \"*.yaml\",\n  - \"*.yml\",\n```"
                                 },
                                 "actions": {
                                     "items": {
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "actions allows to specify the accepted Composite Action names\n\ndefault:\n```\n  - \"*\",\n```"
+                                    "description": "actions allows to specify the accepted Composite Action names\n\nA Composite Action is identified by an \"action.yaml\" or \"action.yml\" file, and the\npattern is matched against the name of the directory containing it.\n\ndefault:\n```\n  - \"*\",\n```"
                                 },
                                 "ignore": {
                                     "items": {
@@ -1018,14 +1018,14 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n```\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\",\n```"
+                                    "description": "files allows to specify the accepted Action workflow file name\n\nThe pattern is matched against the file name only, not against its path, so a\npattern such as \".github/workflows/*.yaml\" never matches. The directory is\nconstrained separately: a workflow file must sit directly inside a \"workflows\"\ndirectory whose parent is \".github\", \".gitea\", or \".forgejo\".\n\ndefault:\n```\n  - \"*.yaml\",\n  - \"*.yml\",\n```"
                                 },
                                 "actions": {
                                     "items": {
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "actions allows to specify the accepted Composite Action names\n\ndefault:\n```\n  - \"*\",\n```"
+                                    "description": "actions allows to specify the accepted Composite Action names\n\nA Composite Action is identified by an \"action.yaml\" or \"action.yml\" file, and the\npattern is matched against the name of the directory containing it.\n\ndefault:\n```\n  - \"*\",\n```"
                                 },
                                 "ignore": {
                                     "items": {
@@ -7352,23 +7352,23 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "sourcebranch defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
+                                        "description": "url specifies the git url to use for fetching Git Branches.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "username specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "description": "\"password\" specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "password specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
+                                        "description": "key of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -16882,23 +16882,23 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "sourcebranch defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
+                                        "description": "url specifies the git url to use for fetching Git Branches.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "username specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "description": "\"password\" specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "password specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
+                                        "description": "key of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -26790,23 +26790,23 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "sourcebranch defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
+                                        "description": "url specifies the git url to use for fetching Git Branches.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "username specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "description": "\"password\" specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "password specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
+                                        "description": "key of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
                                     }
                                 },
                                 "additionalProperties": false,
