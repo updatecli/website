@@ -1,13 +1,16 @@
 ---
-title: "NPM "
-description: "Interact with the NPM registry"
+title: "NPM"
+description: "Look up the latest version of a package published on an npm registry"
 lead: "kind: npm"
 date: 2022-12-03T20:49:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
+    identifier: "resource-npm"
     parent: "plugin-resource"
+weight: 290
 toc: true
 plugins:
   - source
@@ -24,21 +27,60 @@ plugins:
 | &#10004; | &#10004; | &#10007;
 |===
 
-**source**
+== Description
 
-The NPM "source" retrieves the latest version of a npm package matching a specific version filter.
+The `npm` resource queries an npm registry for the versions of a package.
 
-**condition**
+**source**::
+Returns the version of the package matching `versionfilter`.
 
-The NPM "condition" test that a specific version is published on a NPM registry.
+**condition**::
+Checks that `version` is published for the package.
 
-**target**
+**target**::
+Not supported - a registry is not something Updatecli publishes to. A target fails with `Target not supported for the plugin Npm`. To bump a dependency *in a file*, use the link:/docs/plugins/resource/json/["JSON" resource] against `package.json`, or the link:/docs/plugins/autodiscovery/npm/[npm autodiscovery crawler].
 
-The NPM "target" is not supported as we couldn't think about a useful usecase. Feel free to open an issue suggesting one.
+NOTE: An `scm` attached to a condition is ignored, with a warning (the lookup always goes to the registry).
 
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "npm" >}}
+
+`name`:: The package name, scope included: `@updatecli/updatecli` as well as `express`.
+`url`:: Defaults to `https://registry.npmjs.org/`.
+`version`:: Condition only - the version whose existence is being checked.
+
+== Version selection
+
+`versionfilter` behaves differently here than on most resources: with `kind: latest`, the value is taken from the registry's own `dist-tags.latest`, which is what `npm install <pkg>` would give you (*not* the highest version number).
+
+Every other filter kind sorts the full version list and applies the pattern. That distinction matters for packages that publish patches for older majors after a new major: `latest` follows the maintainer's tag, `semver` follows the numbering. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Authentication
+
+Private registries are reached in one of two ways.
+
+`registrytoken` sets the bearer token directly, keep it out of the manifest:
+
+[source,yaml]
+----
+spec:
+  name: "@acme/widget"
+  url: "https://npm.acme.example.com"
+  registrytoken: '{{ requiredEnv "NPM_TOKEN" }}'
+----
+
+`npmrcpath` points at an `.npmrc` file instead. Its handling has a fallback worth knowing about:
+
+[IMPORTANT]
+====
+When `npmrcpath` is empty *or the file it names does not exist*, Updatecli falls back to `$HOME/.npmrc`. A typo in the path therefore does not raise an error (it silently reads the user's own configuration, which is easy to miss when it works locally and fails in CI where that file is absent).
+====
+
+From an `.npmrc`, Updatecli reads two kinds of entry:
+
+* `//registry.example.com/:_authToken=xxx` - a token per registry
+* `@scope:registry=https://registry.example.com` - a registry per scope
 
 == Example
 
@@ -47,3 +89,8 @@ The NPM "target" is not supported as we couldn't think about a useful usecase. F
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/npm/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://docs.npmjs.com/cli/v10/configuring-npm/npmrc[npmrc reference]
+* link:/docs/core/versionfilter/["Version Filtering" page]

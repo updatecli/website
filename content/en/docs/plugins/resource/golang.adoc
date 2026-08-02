@@ -1,13 +1,16 @@
 ---
-title: "Golang "
-description: "Manipulate Golang version"
+title: "Golang"
+description: "Look up a released version of the Go programming language"
 lead: "kind: golang"
 date: 2023-04-17T17:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
+    identifier: "resource-golang"
     parent: "plugin-resource"
+weight: 200
 toc: true
 plugins:
   - source
@@ -25,21 +28,44 @@ plugins:
 | &#10004; | &#10004; | &#10007;
 |===
 
-**source**
+== Description
 
-The Golang "source" retrieves the Golang version matching then versioning rule.
+The `golang` resource returns a released version of the Go language itself - not of a module. It is the resource to use for bumping the toolchain version in a Dockerfile, a CI workflow, or a `go.mod`.
 
-**condition**
+**source**::
+Returns the Go version matching `versionfilter`.
 
-The Golang "condition" checks if the Golang version matching then versioning rule exist.
+**condition**::
+Checks that `version` is a released Go version.
 
-**target**
+**target**::
+Not supported - a target fails with `Target not supported for the plugin Go`. To write the version into a file, pair this source with link:/docs/plugins/resource/gomod/[`golang/gomod`], link:/docs/plugins/resource/dockerfile/[`dockerfile`], or link:/docs/plugins/resource/file/[`file`].
 
-the Golang "target" is not supported.
+NOTE: An `scm` attached to a condition is ignored - the lookup is remote. Unlike most plugins this is logged at debug level only, so nothing appears in a normal run.
 
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "golang" >}}
+
+`version` is condition-only. For related resources see link:/docs/plugins/resource/gomodule/[`golang/module`], which looks up a module version, and link:/docs/plugins/resource/gomod/[`golang/gomod`], which reads and writes a `go.mod` file.
+
+== Filtering by release age
+
+`age` restricts which releases count as valid, which is how you avoid adopting a version the day it ships:
+
+[source,yaml]
+----
+spec:
+  age:
+    minimum: "2w"    # only versions released at least two weeks ago
+----
+
+`minimum` and `maximum` accept `h` (hours), `d` (days), `w` (weeks), `mo` (months) and `y` (years). A bare number means hours. An unparsable value fails with `invalid MinimumReleaseAge "<value>"`.
+
+[WARNING]
+====
+Setting `age` changes how the resource works. To learn a release date, Updatecli fetches the git tags of the Go repository and reads their commit dates - considerably slower than the plain version lookup. Use it where the delay is worth it, not by default.
+====
 
 == Example
 
@@ -49,3 +75,7 @@ the Golang "target" is not supported.
 {{<include "assets/code_example/docs/plugins/resources/golang/language/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:https://go.dev/dl/[Go releases]
+* link:/docs/core/versionfilter/["Version Filtering" page]

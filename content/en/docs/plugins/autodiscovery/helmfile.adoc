@@ -7,23 +7,67 @@ images: []
 menu:
   docs:
     parent: "plugin-autodiscovery"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The Helmfile crawler looks recursively for all Helmfile manifests from a specific root directory.
-Then for each of them, it tries to update each Helm Chart version found.
+The Helmfile crawler looks recursively for every `*.yaml` and `*.yml` file from a specific root directory, and tries to update the Helm chart version of each release it finds.
+
+A release is picked up when its `chart` is written as `<repository>/<chart>` and that repository is declared in the same file:
+
+[source,yaml]
+----
+repositories:
+  - name: jetstack
+    url: https://charts.jetstack.io
+releases:
+  - name: cert-manager
+    chart: jetstack/cert-manager
+    version: 1.14.0
+----
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `helmfile` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+NOTE: Every YAML file is inspected, not only files named `helmfile.yaml`, since Helmfile splits its releases across arbitrary file names. Files without a usable `releases` list simply yield nothing.
+
+== Generated manifests
+
+Each release produces one manifest containing:
+
+* a link:{{< ref "helm_chart" >}}[`helmchart`] source resolving the latest chart version from the repository URL,
+* a link:{{< ref "yaml" >}}[`yaml`] condition asserting `$.releases[i].chart` still holds the discovered value,
+* a `yaml` target writing the new version to `$.releases[i].version`.
+
+=== OCI registries
+
+A repository declared with `oci: true` is rewritten to an `oci://` URL, dropping any `http://` or `https://` scheme first, matching how Helmfile itself resolves it. Credentials can be supplied inline on the repository entry with `username` and `password`, or through the crawler's `auths` parameter.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`, since Helm charts are expected to follow semantic versioning.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* A release whose `chart` cannot be matched to a declared repository is skipped. In particular, a direct chart URL such as `chart: oci://registry-1.docker.io/bitnamicharts/nginx` produces nothing, because there is no repository entry to resolve it against.
+* Releases pinned through Helmfile templating or environment values are not resolved.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "helmfile" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

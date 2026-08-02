@@ -1,0 +1,91 @@
+name: "Update the GitHub action versions used by the documentation"
+pipelineid: "updatecli_gha_docs"
+
+# The "Update githubactions" autodiscovery policy declared in updatecli-compose.yaml only
+# crawls ".github/workflows/*.yaml", so the workflow shipped as a documentation example, and
+# the action version quoted on the GitHub action page, are not covered by it.
+
+labels:
+  monitor: active
+  release: updatecli
+  kind: documentation
+
+actions:
+  default:
+    title: 'docs: update the GitHub action versions used by the documentation'
+    kind: github/pullrequest
+    spec:
+      merge:
+        strategy: auto
+      mergemethod: squash
+      reviewers:
+        - updatecli/core
+      labels:
+        - chore
+        - documentation
+    scmid: default
+
+scms:
+  default:
+    kind: github
+    spec:
+      branch: "{{ .scm.branch }}"
+      email: "{{ .scm.email }}"
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      user: "{{ .scm.user }}"
+      force: true
+      commitusingapi: {{ .scm.commitusingapi }}
+    disabled: false
+
+sources:
+  version-updatecli-action:
+    name: Get latest updatecli/updatecli-action version
+    kind: githubrelease
+    spec:
+      owner: updatecli
+      repository: updatecli-action
+      versionfilter:
+        kind: semver
+
+  version-actions-checkout:
+    name: Get latest actions/checkout version
+    kind: githubrelease
+    spec:
+      owner: actions
+      repository: checkout
+      versionfilter:
+        kind: semver
+
+targets:
+  # The example workflow readers are told to copy.
+  workflow-updatecli-action:
+    name: 'docs: update the example workflow with updatecli-action {{ source "version-updatecli-action" }}'
+    disablesourceinput: true
+    kind: file
+    spec:
+      file: assets/code_example/docs/automate/github_action/updatecli.yaml
+      matchpattern: 'uses: updatecli/updatecli-action@v\d+\.\d+\.\d+'
+      replacepattern: 'uses: updatecli/updatecli-action@{{ source "version-updatecli-action" }}'
+    scmid: default
+
+  workflow-actions-checkout:
+    name: 'docs: update the example workflow with actions/checkout {{ source "version-actions-checkout" }}'
+    disablesourceinput: true
+    kind: file
+    spec:
+      file: assets/code_example/docs/automate/github_action/updatecli.yaml
+      matchpattern: 'uses: actions/checkout@v\d+\.\d+\.\d+'
+      replacepattern: 'uses: actions/checkout@{{ source "version-actions-checkout" }}'
+    scmid: default
+
+  # The migration section of the GitHub action page names a release to pin to.
+  migration-updatecli-action:
+    name: 'docs: update the updatecli-action pin example to {{ source "version-updatecli-action" }}'
+    disablesourceinput: true
+    kind: file
+    spec:
+      file: content/en/docs/automate/github_action.adoc
+      matchpattern: 'updatecli/updatecli-action@v\d+\.\d+\.\d+'
+      replacepattern: 'updatecli/updatecli-action@{{ source "version-updatecli-action" }}'
+    scmid: default

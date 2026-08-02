@@ -1,8 +1,9 @@
 ---
 title: "Github Search"
-description: "Use GitHub search to interact with multiple github repositories"
+description: "Run the same manifest against every GitHub repository matching a search query"
 lead: "kind: githubsearch"
 date: 2025-10-23T20:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,53 +21,107 @@ weight: 10
 
 == Description
 
-The GitHub Search SCM block allows you to interact with multiple GitHub repositories — either by fetching files or by pushing updates to them.
+`githubsearch` is not an scm you clone from - it is a *generator*. Before anything else runs, Updatecli sends your query to the link:https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories[GitHub repository search API], lists the branches of every repository it finds, keeps the branches matching `branch`, and turns each surviving repository/branch pair into a regular link:/docs/plugins/scm/github/[`github` scm].
 
-**condition**
+Your manifest is then duplicated once per pair, each copy pinned to one repository and one branch. Ten matches mean ten pipelines, ten working branches, and (if the manifest declares a `github/pullrequest` action) ten pull requests. Everything the `github` scm documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
 
-When used in a condition, the SCM block typically fetches files or metadata from the specified repository
+This makes `githubsearch` the way to roll one change across an organisation without listing its repositories by hand.
 
-**target**
+Its behavior depends on the stage referencing it:
 
-When used in a target, the SCM block usually pushes changes to that repository.
+**source** and **condition**::
+Each discovered repository is cloned and the resource works on the files from the matched branch. Nothing is pushed.
 
-By default, the GitHub Search SCM uses the standard GitHub workflow: it creates a temporary branch, commits the changes, and opens a pull request targeting the branch defined in the configuration.
+**target**::
+Updatecli creates a working branch in each discovered repository, commits the changes there, and pushes it.
+
+IMPORTANT: Like the `github` scm, this plugin does not open pull requests. That is the job of an `actions` block of kind `github/pullrequest`, documented on the link:/docs/plugins/actions/github/["GitHub Pull Request" page].
+
+== Requirements
+
+A GitHub credential is required, including for public repositories - see <<_authentication>>. On top of the permissions each discovered repository needs, the credential must be allowed to use the repository search API, since discovery happens before any repository is cloned.
 
 == Parameters
 
 {{< resourceparameters "scms" "githubsearch" >}}
 
+`search` is the only mandatory parameter. An empty query aborts the run with `GitHub search query is required`.
+
+Apart from `search`, `limit`, and `branch`, every parameter above is passed through untouched to each generated `github` scm; refer to the link:/docs/plugins/scm/github/["GitHub" page] for what they do. Two consequences are worth spelling out:
+
+* `directory` is copied verbatim, so every discovered repository would be cloned into the *same* path. Leave it unset and let Updatecli derive one path per repository.
+* `singleBranch`, available on the `github` scm, has no equivalent here.
+
+=== Search query
+
+`search` is passed as-is to GitHub's repository search. Useful qualifiers:
+
+[source,yaml]
+----
+search: "org:myorg"                        # every repository in an organisation
+search: "user:myuser"                      # every repository of a user
+search: "topic:mytopic"                    # every repository carrying a topic
+search: "org:myorg language:go"            # narrowed by language
+search: "myrepo in:name"                   # by repository name
+----
+
+The full qualifier list is on link:https://github.com/search/advanced[GitHub Advanced Search].
+
+[WARNING]
+====
+Archived repositories are returned like any other, and Updatecli will try to push to them. Add `archived:false` to your query to leave them alone.
+====
+
+Updatecli paginates through *all* search results before applying `limit`, so a broad query costs the same number of API calls whatever the limit. Keep queries narrow.
+
+If the query matches nothing, the entire run stops with `no scm discovered for githubsearch scm "<id>"` (this is a fatal error, not a skipped pipeline).
+
+=== Branch selection
+
+`branch` is a *regular expression* matched against every branch name of every discovered repository, not a branch name. It defaults to `^main$`.
+
+[source,yaml]
+----
+branch: "^main$"          # main only (default)
+branch: "^main$|^v2$"     # main or v2
+branch: "^release/"       # every release branch
+----
+
+Anchors matter. An unanchored expression such as `main` also matches `maintenance`, and `.` matches every branch in the repository, including every open `dependabot/*` branch.
+
+=== Limit
+
+`limit` caps the number of *generated pipelines*, that is repository/branch pairs - not the number of repositories. It defaults to `10`; `0` means no cap.
+
+A repository with three matching branches consumes three slots. With a permissive `branch` expression, `limit: 3` can therefore expand into three pipelines all targeting the same repository on different branches, and never reach the second repository:
+
+[source,text]
+----
+DEBUG: Processing GitHub repository: myorg/myrepo
+* Repository: https://github.com/myorg/myrepo.git (branch: dependabot/github_actions/…)
+* Repository: https://github.com/myorg/myrepo.git (branch: main)
+* Repository: https://github.com/myorg/myrepo.git (branch: update-readme-references)
+----
+
+Repositories are consumed in the order GitHub returns them and branches in the order they are listed, so a `limit` that truncates the set gives you an arbitrary subset rather than a chosen one. Tighten `branch` and `search` instead of relying on `limit` to keep a run small.
+
 === Authentication
 
 include::content/en/docs/plugins/_githubAuth.adoc[]
 
-=== CommitMessage
+=== Working branch and commit message
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+Both work exactly as on the link:/docs/plugins/scm/github/["GitHub" page]: a working branch named `<workingBranchPrefix><separator><branch><separator><pipelineID>` and link:https://www.conventionalcommits.org/[conventional commit] messages driven by `commitMessage`.
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+The `pipelineID` component is derived from the manifest, not from the repository, so all copies of the manifest share it. Every discovered repository therefore ends up with an identically named working branch (convenient when you later need to find or clean up the branches an org-wide run created).
 
----
-```
-Author: olblak <updatecli@updatecli.io>
-Date:   Tue May 4 15:41:44 2021 +0200
-
-    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
-
-    ... equirements.yaml"
-
-    Made with ❤️️  by updatecli
-```
----
+NOTE: `commitMessage.title` is deprecated and ignored. The commit title comes from the target `name`.
 
 == Example
 
-This pipeline automatically updates the Golang version across multiple GitHub repositories within the MyOrg organization.
-Using the githubsearch SCM, it discovers repositories that match specific branch patterns (e.g., main or v2) and identifies where Golang versions are defined — such as in Go modules, Dockerfiles, or GitHub Actions workflows.
+This manifest bumps the Golang version across the repositories of the `MyOrg` organisation. `githubsearch` discovers them and keeps their `main` and `v2` branches; autodiscovery then finds where Golang versions are declared (Go modules, Dockerfiles) while an explicit target covers GitHub Actions workflows.
 
-Updatecli then retrieves the latest matching Golang version (for example, any 1.24.x release) and opens pull requests that update these files accordingly. It will create one pull request on a temporary branch, following the GitHub workflow, and includes a consistent commit message and label for easy tracking and automated merging.
-It will squash all the changes into one commit.
+Each discovered repository/branch pair gets its own working branch, its own squashed commit, and its own labelled pull request. With `limit: 3`, at most three of them are processed.
 
 [source,yaml]
 ----

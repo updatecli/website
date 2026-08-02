@@ -1,46 +1,39 @@
 name: "Example with Git SCM"
 
 scms:
+  # HTTP(S) authentication, the password is usually a personal access token
   scenario-source:
     kind: git
     spec:
-      username: "git username used for authentication"
-      password: 'git password used for authentication'
       url: "https://github.com/updatecli/experiment.git"
       branch: "main"
+      username: '{{ requiredEnv "GIT_USERNAME" }}'
+      password: '{{ requiredEnv "GIT_TOKEN" }}'
 
+  # anonymous access, enough to read from a public repository
   scenario-condition:
     kind: git
     spec:
       url: "https://github.com/updatecli/updatecli.git"
       branch: "main"
 
+  # SSH authentication, the key is provided by the local ssh-agent
   scenario-target:
     kind: git
     spec:
       url: "git@github.com:updatecli/updatecli.git"
       branch: "main"
-      user: "git user to push from changes"
-      email: "git user email to push from change"
+      user: "updatecli-bot"
+      email: "updatecli-bot@updatecli.io"
+      # commit to a dedicated branch instead of pushing straight to "main"
+      workingbranch: true
       commitmessage:
         type: "chore"
-        scope: "(deps)"
+        scope: "deps"
+      # signingkey expects the armored *private* key
       gpg:
-        signingkey: |
-          -----BEGIN PGP PUBLIC KEY BLOCK-----
-          mDMEYitSPBYJKwYBBAHaRw8BAQdAR3mMGagDsa1P2HziXehsurCBw5ak58aNnfPP
-          uRQtcq60SlVwZGF0ZWNsaSBUZXN0aW5nIEtleSAoVXNlIGZvciB0ZXN0aW5nIGNv
-          bW1pdCBzaWduaW5nKSA8aW5mb0B1cGRhdGVjbGkuaW8+iI8EExYKADcWIQSfbrE/
-          jBl2/jyNP1zp/q0C4DwCsAUCYitSPAIbAwULCQgHAwQVCgkIBRYDAgEAAh4FAheA
-          AAoJEOn+rQLgPAKwbFwBALgzusdciqTZVvzTT/MG9Rtba6FPUUR/3pZn0t5mYrT4
-          AQDQjBipUNWOwQ6T7teBJuqZS2hFU6oMDv9cSzjNjrxQArg4BGIrUjwSCisGAQQB
-          l1UBBQEBB0CAKp9rGdo2JojPTnq/I2ZqPx8YydCTPDKQzRGv54bSDgMBCAeIeAQY
-          FgoAIBYhBJ9usT+MGXb+PI0/XOn+rQLgPAKwBQJiK1I8AhsMAAoJEOn+rQLgPAKw
-          fH0A/2ZmCpmuGN4grG8UJwAbCHzrbTuWV456R2k6+MxKMiDmAQD5pOgx+Xs0PXyz
-          rxOShppuh5wlhB0xMsx4iZJmRczPDQ==
-          =FiJF
-          -----END PGP PUBLIC KEY BLOCK-----
-        passphrase: updatecli
+        signingkey: '{{ requiredEnv "GPG_SIGNING_KEY" }}'
+        passphrase: '{{ requiredEnv "GPG_PASSPHRASE" }}'
 
 sources:
   source-1:

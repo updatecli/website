@@ -1,6 +1,6 @@
 ---
 title: "Flux"
-description: "Discover Flux update"
+description: "Discover Flux HelmRelease and OCIRepository update"
 lead: "kind: flux"
 draft: false
 images: []
@@ -12,26 +12,62 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `flux` Autodiscovery plugin allows to automatically search and update content in Flux configuration file.
+The `flux` crawler looks recursively for every `*.yaml` and `*.yml` file from a root directory, and updates two kinds of Flux resource:
 
-Updatecli proposes Helm Chart update when it identifies both a `helmrelease` and a `helmrepository` in the same namespace.
-Updatecli proposes version update when it detects OCIRepository
+* **`HelmRelease`** - the chart version is updated when a `HelmRepository` matching the release's `sourceRef` is found **in the same namespace**. Disable with `helmrelease: false`.
+* **`OCIRepository`** - the artifact tag is updated. Disable with `ocirepository: false`.
 
-Please note that Updatecli doesn't support yet GitRepository update, feel free to open an issue.
+Both are enabled by default. Override the scanned file names with the `files` parameter.
 
-=== Manifests
-==== Parameters
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `flux` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+[cols="1,3",options=header]
+|===
+| Resource | Manifest shape
+
+| `HelmRelease`
+| A link:{{< ref "helm_chart" >}}[`helmchart`] source resolving the latest chart version from the `HelmRepository` URL, link:{{< ref "yaml" >}}[`yaml`] conditions asserting the chart and its source reference still match, and a `yaml` target writing the chart version.
+
+| `OCIRepository`
+| A link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a `yaml` target writing `spec.ref.tag`. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written too.
+|===
+
+`digest` defaults to **true** for OCI repositories. Set `digest: false` to track the tag only.
+
+== Authentication
+
+Use `auths` to reach private registries and chart repositories, keyed by URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* `GitRepository` sources are not updated yet. Feel free to link:https://github.com/updatecli/updatecli/issues/new/choose[open an issue] if you need it.
+* A `HelmRelease` whose `HelmRepository` lives in a different namespace, or is not present in the scanned tree, is skipped.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "flux" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/flux/updatecli.d/updatecli.yaml">}}
 ----
-

@@ -11,8 +11,8 @@ sources:
         pattern: ^1.0.0
 
 targets:
-  npn:
-    name: Ensure package.json and package-lock.json is up to date
+  npm:
+    name: Ensure package.json and package-lock.json are up to date
     kind: shell
 
     # The default behavior for a target is to have one of its spec fields defaulting to the source resource output.
@@ -36,8 +36,8 @@ targets:
     spec:
 
       # The DRY_RUN environment variable is set and used by Updatecli to identify:
-      #   1. If we are in "dry-run" mode by running `updatecli diff --config manifest.yaml`
-      #   2. If we are in "apply" mode by running `updatecli apply --config manifest.yaml`
+      #   1. If we are in "dry-run" mode by running `updatecli pipeline diff --config manifest.yaml`
+      #   2. If we are in "apply" mode by running `updatecli pipeline apply --config manifest.yaml`
       command: npm install --package-lock-only --dry-run=$DRY_RUN axios@{{ source "npm" }}
 
       # By default, shell command only have access to the DRY_RUN environment variable.

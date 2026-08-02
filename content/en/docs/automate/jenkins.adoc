@@ -29,15 +29,16 @@ The current example is inspired by the repository https://github.com/jenkins-inf
 * We assume having access to credentials needed by your updatecli configurations which is "updatecli-github-token" in this case.
 
 The Jenkins agent uses the updatecli docker image to execute updatecli every 30 minutes.
-It applies the configurations found under the directory "./updateCli/updateCli.d" using the parameters in "./updateCli/values.yaml".
+It applies the configurations found under the directory "./updatecli/updatecli.d" using the parameters in "./updatecli/values.yaml".
 
-**Jenkinsfile**
-```
+.Jenkinsfile
+[source,groovy]
+----
 {{< include "assets/code_example/docs/automate/jenkins/Jenkinsfile" >}}
+----
 
-```
-
-**PodTemplates.yaml**
-```
+.PodTemplates.yaml
+[source,yaml]
+----
 {{< include "assets/code_example/docs/automate/jenkins/podtemplates.yaml" >}}
-```
+----

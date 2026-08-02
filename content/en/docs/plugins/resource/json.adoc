@@ -1,13 +1,15 @@
 ---
 title: "JSON"
-description: "Manipulate Json information"
+description: "Read and update a value in a JSON file, locally or over HTTP"
 lead: "kind: json"
 date: 2021-09-24T19:19:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 270
 toc: true
 plugins:
   - source
@@ -27,25 +29,74 @@ plugins:
 
 == Description
 
-**source**
+The `json` resource reads and writes a single value in a JSON document, addressed by a link:https://daseldocs.tomwright.me/[Dasel] selector.
 
-The JSON "source" retrieves an information from a JSON file.
+**source**::
+Reads one value out of one file and returns it. Only a single file is accepted (`files` with more than one entry fails with `source only supports one file`).
 
-**condition**
+**condition**::
+Reads the same value and compares it to `value`, or to the source output when `value` is unset. With `files`, every file must match for the condition to pass.
 
-The JSON "condition" tests that an information exist in a JSON file.
-
-**target**
-
-The JSON "target" ensures that a JSON file content a specific value at specific location.
+**target**::
+Writes `value` (or the source output) at the given key. Files already holding that value are reported as up to date and left untouched, so a target that changes nothing does not create a commit.
 
 == Parameters
 
 {{< resourceparameters "sources" "json" >}}
 
-=== Query
+`file` or `files` is mandatory, as is `key` or `query`; missing either aborts the run with `wrong spec content`. The two are mutually exclusive (setting both fails with `parameter "file" and "files" are mutually exclusive`).
 
-The JSON plugin relies on link:https://daseldocs.tomwright.me/[Dasel] to query json files
+`value`:: Defaults to the source output. Setting it explicitly makes the condition or target independent of any source.
+`versionfilter`:: Only meaningful for a source, and only when the selector returns several values - it picks one out of the list. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+NOTE: `multiple` is deprecated and hidden from the table above. It still works, logging a warning, and a `key` used together with it is silently rewritten into `query`. Use a selector that returns several values instead.
+
+== Engines
+
+`engine` selects which version of Dasel parses the file. It matters more than it looks: **the selector syntax is not portable between versions.**
+
+[cols="1,3",options=header]
+|===
+| Value | Behaviour
+| `dasel/v1` | Default when `engine` is unset. Deprecated - every run logs a warning.
+| `dasel/v2` | Deprecated - every run logs a warning.
+| `dasel/v3` | Current engine.
+| `dasel` | Alias resolving to the latest engine, currently `dasel/v3`.
+|===
+
+The leading dot is the trap when migrating:
+
+[cols="1,1,1,1",options=header]
+|===
+| Selector | `dasel/v1` | `dasel/v2` | `dasel/v3`
+| `.version` | &#10004; | &#10004; | &#10007; parse error
+| `version` | &#10004; | &#10004; | &#10004;
+|===
+
+On `dasel/v3` a leading dot fails with `error parsing selector: failed to parse: unexpected token 29 "." at position 0`. Multi-value selectors differ too (`.deps.[*].version` on `dasel/v1` is written `.deps.all().version` on `dasel/v2`).
+
+[WARNING]
+====
+`query` is a `dasel/v1` parameter. On `dasel/v2` and `dasel/v3` a `query` without a `key` is a validation error:
+
+[source,text]
+----
+engine "dasel/v3" requires the parameter "key" over "query"
+----
+
+On `dasel/v1` the split is the other way round: `query` is the multi-value form and pairs with `versionfilter`, while `key` returns exactly one value. Using `query` without `versionfilter`, or `versionfilter` without `query`, fails a source with `in the context of a source, parameter "versionfilter" and "query" must be used together`. That rule does not apply to `dasel/v2` and `dasel/v3`, where `key` covers both cases.
+====
+
+== Remote files
+
+`file` accepts `https://`, `http://` and `file://` schemes for a source and a condition, which is how the example below reads the Node.js release index straight from nodejs.org.
+
+A target cannot write to a URL, and refuses rather than silently skipping:
+
+[source,text]
+----
+URL scheme is not supported for Json target: "https://nodejs.org/dist/index.json"
+----
 
 == Examples
 
@@ -64,3 +115,8 @@ The JSON plugin relies on link:https://daseldocs.tomwright.me/[Dasel] to query j
 # jenkins-old-versions.yaml
 {{<include "assets/code_example/docs/plugins/resources/json/updatecli.d/jenkins-old-versions.yaml">}}
 ----
+
+== Links
+
+* link:https://daseldocs.tomwright.me/[Dasel documentation]
+* link:/docs/core/versionfilter/["Version Filtering" page]

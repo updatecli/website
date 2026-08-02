@@ -12,17 +12,69 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `prow` Autodiscovery plugin allows to automatically search and update container tags defined in Prow.yaml test files.
+The `prow` crawler looks recursively for every `*.yaml` and `*.yml` file from a root directory, and updates the container images declared in Prow job definitions.
 
-=== Manifests
-==== Parameters
+It shares its implementation with the link:/docs/plugins/autodiscovery/kubernetes/[`kubernetes`] crawler, and differs only in the document shapes it recognises.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `prow` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+=== Supported job types
+
+Images are read from `containers` and `initContainers` under each job's `spec`:
+
+[cols="1,2",options=header]
+|===
+| Key | Shape
+
+| `presubmits`
+| A map of repository name to a list of jobs
+
+| `postsubmits`
+| A map of repository name to a list of jobs
+
+| `periodics`
+| A list of jobs
+|===
+
+The repository and job name are included in the generated manifest name, for example `deps: bump container image "gcr.io/k8s-prow/test" for repo "org/repo" and presubmit test "test-job"`.
+
+== Generated manifests
+
+Each image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a link:{{< ref "yaml" >}}[`yaml`] target that rewrites the image reference in place. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written alongside the tag.
+
+`digest` defaults to **true**. Set `digest: false` to track the tag only.
+
+== Authentication
+
+Use `auths` to reach private registries, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`.
+
+The pattern is then narrowed per image using the tag currently in the file: an image on `3.17` is filtered with `>=3.17`, and a `tagfilter` regex derived from the shape of that tag is added so unrelated tag conventions are not considered.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Limitations
+
+* `files` patterns are matched against the file name only, not against the path. Use `*.yaml`, not `config/*.yaml`.
+* Prow configuration keys other than `presubmits`, `postsubmits`, and `periodics` are not inspected.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "prow" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

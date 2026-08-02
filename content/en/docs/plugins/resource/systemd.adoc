@@ -1,12 +1,15 @@
 ---
 title: "Systemd"
-description: "Manipulate systemd configuration file"
+description: "Read and update an option inside a section of a systemd unit file"
 lead: "kind: systemd"
+date: 2026-07-12T09:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 340
 toc: true
 plugins:
   - source
@@ -26,24 +29,46 @@ plugins:
 
 == Description
 
-**source**
+The `systemd` resource reads and writes a single option inside a section of a systemd unit file, addressed by section name and option name rather than by line:
 
-The Systemd "source" retrieves information from a systemd configuration file.
+[source,ini]
+----
+[Service]
+ExecStart=/usr/bin/myapp --version=1.2.3
+Restart=always
+----
 
-**condition**
+Here `section: Service` and `option: ExecStart` address the first line.
 
-The Systemd "condition" tests that an information exist in a systemd configuration file.
+**source**::
+Returns the option's value.
 
-**target**
+**condition**::
+Checks that the option holds `value`, or the source output when `value` is unset.
 
-The Systemd "target" ensures that a systemd configuration file contains a specific value at a location.
-
-IMPORTANT: Updatecli will drop all comments in the system configuration file. Feel free to report an issue if you need to keep comments in the systemd configuration file.
+**target**::
+Updates the option.
 
 == Parameters
 
 {{< resourceparameters "sources" "systemd" >}}
 
+`file`, `section` and `option` are all mandatory - each missing one is reported as `the attribute 'spec.<name>' is required.`. `file` takes an absolute or relative path.
+
+`index`:: systemd allows the same option to appear several times in a section, and `index` picks one, counting from zero. A negative value is rejected with `the attribute 'spec.index' must be greater than or equal to 0.`
++
+Its default differs by stage: a **source** reads the first occurrence, while a **condition** and a **target** with `index` unset match *every* occurrence. Set it explicitly when a unit file repeats an option (`ExecStartPre` and `Environment` commonly do) and you only mean one of them.
+
+`value`:: Defaults to the source output.
+
+== Limitations
+
+[IMPORTANT]
+====
+The unit file is rewritten from its parsed form, so **all comments are dropped** when a target changes something. If you need them preserved, drive the edit with the link:/docs/plugins/resource/file/["File" resource] and a `matchpattern`/`replacepattern` pair, or say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker].
+====
+
+This resource edits unit files as text. It does not reload the daemon or restart units (no `systemctl daemon-reload` is issued, so a change applied by Updatecli takes effect only once something else reloads systemd).
 
 == Example
 
@@ -53,3 +78,6 @@ IMPORTANT: Updatecli will drop all comments in the system configuration file. Fe
 {{<include "assets/code_example/docs/plugins/resources/systemd/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html[systemd.unit(5)] - unit file sections and options

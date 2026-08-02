@@ -41,5 +41,13 @@ scms:
       owner: "updatecli"
       repository: "website"
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-      username: "johnDoe"
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
       branch: "master"
+
+actions:
+  default:
+    kind: "github/pullrequest"
+    scmid: "updatecli/website"
+    spec:
+      labels:
+        - "dependencies"

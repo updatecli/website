@@ -1,0 +1,43 @@
+{{/*
+  Based on @thulite/doks-core 1.9.3 layouts/_partials/footer/footer.html, with
+  two deliberate changes:
+
+  1. site.Params.copyRight is rendered again. Upstream dropped the copyright slot
+     its older releases had, and exposes no hook for that block, so overriding the
+     whole partial is the only way to get it back.
+  2. The row is split three ways (5 / 6 / 5 of the theme's 16-column grid, see
+     $grid-columns in doks-core common/_variables-overrides.scss) instead of
+     upstream's 8 / 8, so the copyright sits centred between the footer menu and
+     the "powered by" credit. The flanking columns are equal width, which is what
+     puts the middle one on the footer's midpoint.
+
+  Keep the rest of this file identical to upstream: on a doks upgrade, diff the new
+  upstream file against this one and re-apply both changes above. The stacked
+  spacing below the lg breakpoint comes from a rule in assets/scss/common/_custom.scss,
+  since doks-core's own rule is keyed to the col-lg-8 class we no longer use.
+*/ -}}
+<footer class="footer text-muted">
+  <div class="container-{{ site.Params.doks.containerBreakpoint | default "lg" }}">
+    <div class="row">
+      <div class="col-lg-5 text-lg-start">
+        <ul class="list-inline">
+          {{ range .Site.Menus.footer -}}
+            <li class="list-inline-item"><a class="text-muted" href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+          {{- end }}
+        </ul>
+      </div>
+      <div class="col-lg-6 text-lg-center">
+        <ul class="list-inline">
+          {{ with site.Params.copyRight -}}
+            <li class="list-inline-item">{{ . | safeHTML }}</li>
+          {{- end }}
+        </ul>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <ul class="list-inline">
+          <li class="list-inline-item">{{ site.Params.footer | safeHTML }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

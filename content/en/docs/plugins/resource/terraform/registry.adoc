@@ -1,13 +1,15 @@
 ---
 title: "Terraform Registry"
-description: "Manipulate Terraform Registry information"
+description: "Look up the latest version of a Terraform provider or module in a registry"
 lead: "kind: terraform/registry"
 date: 2023-08-04T09:00:00+01:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 390
 toc: true
 plugins:
   - source
@@ -26,17 +28,68 @@ plugins:
 
 == Description
 
-**source**
+The `terraform/registry` resource queries a Terraform registry for the versions of a provider or a module. It is the read half of the Terraform workflow: this resource finds the version, and link:{{< ref "provider" >}}[`terraform/provider`], link:{{< ref "lock" >}}[`terraform/lock`] or link:{{< ref "file" >}}[`terraform/file`] write it into your configuration.
 
-The terraform/registry "source" retrieves the Terraform registry provider or module version matching then versioning rule.
+**source**::
+Returns the version matching `versionfilter`.
 
-**condition**
+**condition**::
+Checks that `version` exists in the registry.
 
-The terraform/registry "condition" checks if the Terraform registry provider or module version matching then versioning rule exist.
+**target**::
+Not supported - a registry is read-only. A target fails with `Target not supported for the plugin terraform/registry`.
 
-== Parameter
+NOTE: An `scm` attached to a condition is ignored; the lookup always goes to the registry over HTTP.
+
+== Parameters
 
 {{< resourceparameters "sources" "terraform/registry" >}}
+
+`type` is mandatory and must be `provider` or `module`. The address of what to look up is then given in one of two mutually exclusive styles.
+
+=== Addressing by rawstring
+
+`rawstring` is the whole address in one string, in the form Terraform itself uses:
+
+[source,yaml]
+----
+spec:
+  type: provider
+  rawstring: hashicorp/kubernetes                          # or registry.terraform.io/hashicorp/kubernetes
+----
+
+[source,yaml]
+----
+spec:
+  type: module
+  rawstring: terraform-aws-modules/vpc/aws                 # or app.terraform.io/terraform-aws-modules/vpc/aws
+----
+
+`rawstring` cannot be combined with `hostname`, `namespace`, `name` or `targetsystem`.
+
+=== Addressing by components
+
+[cols="1,1,3",options=header]
+|===
+| Field | Required | Notes
+| `namespace` | yes | The organisation publishing it, e.g. `hashicorp`.
+| `name` | yes | The provider or module name, e.g. `kubernetes`.
+| `targetsystem` | modules only | The target system, e.g. `aws`. **Providers must not set it.**
+| `hostname` | no | Defaults to the public registry. Set it for a private one such as `app.terraform.io`.
+|===
+
+A module address must resolve to three or four slash-separated components. Getting it wrong is reported by the address parser rather than by a field-level message:
+
+[source,text]
+----
+failed to create resource terraform/registry: a module registry source address must have either three or four slash-separated components
+----
+
+=== Version selection
+
+`versionfilter` defaults to `kind: semver` with pattern `*` when it is not set - unlike most resources, which default to the generic filter. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+`version` is condition-only: it names the version whose existence is being checked.
 
 == Example
 
@@ -45,3 +98,8 @@ The terraform/registry "condition" checks if the Terraform registry provider or 
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/terraform/registry/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://developer.hashicorp.com/terraform/registry[Terraform Registry]
+* link:/docs/core/versionfilter/["Version Filtering" page]

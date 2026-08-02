@@ -1,9 +1,9 @@
 ---
 title: "Guide: helm chart"
-description: "Automate Helm Chart update"
+description: "Gate a Helm chart version bump behind two conditions before opening a pull request"
 lead: "Automate Helm Chart update"
 date: 2022-02-27T22:10:01+02:00
-lastmod: 2022-02-10T08:00:00+02:00
+lastmod: 2026-07-31T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -12,14 +12,16 @@ menu:
 weight: 130
 toc: true
 ---
-
-:toc: right
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Helm Chart
 
 Helm is a popular package manager for deploying applications on Kubernetes.
 But, those packages can be outdated quickly.
-In this guide we explore how we can automatically update Helm charts based on third dependencies.
+In this guide we explore how we can automatically update Helm charts based on third-party dependencies.
 
 === Requirement
 
@@ -53,41 +55,43 @@ More information on the GitHub documentation link:https://docs.github.com/en/aut
 ==== Manifest
 
 Updatecli expects one or more pipeline manifests to know what to do.
-We use the command `updatecli diff --config manifest.yaml` to use the manifests.
-The `diff` allows us to run updatecli in dry-mode, identifying what updatecli would change. Then we to execute `updatecli apply --config manifest.yaml` to apply our updatecli pipeline
+We use the command `updatecli pipeline diff --config updatecli.yaml` to load the manifest.
+The `diff` allows us to run updatecli in dry-mode, identifying what updatecli would change. Then we execute `updatecli pipeline apply --config updatecli.yaml` to apply our updatecli pipeline.
 
 As you'll see in our updatecli manifest, we define:
 
-1. One "source" resource of a kind "githubRelease" which describes, where to retrieve the latest version of our application, jenkins-wiki-exporter, published on GitHub Release.
-2. Two "condition" "resources which need to be satisfied before updating our Helm chart.
-In the first condition, we want to ensure that our Helm chart uses the right container name, "jenkinsciinfra/jenkins-wiki-exporter". The second condition of a kind "dockerimage", ensures that a Docker image "jenkinsciinfra/jenkins-wiki-exporter" exists on DockerHub where the tag is the same as the source output, the latest jenkins-wiki-exporter version.
-3. A "target" resource of the kind "helmChart", has a chart name "charts/jenkins-wiki-exporter" with a file "values.yaml" where the key "image.tag" is set to the latest jenkins-wiki-exporter version.
-If it's not the case then bump the path version of the chart.
-4. A "scms" resource of kind "github", that describes which GitHub repository stores the Helm chart "code".
-5. A "pullrequest" resource of kind "github", that describes pull-request parameters such as the label assigned to the pull request created by updatecli, and the auto-merge flag.
+1. One "source" of kind "githubrelease" which describes where to retrieve the latest version of our application, jenkins-wiki-exporter, published on GitHub Release.
+2. Two "conditions" which need to be satisfied before updating our Helm chart.
+The first one, "DockerImagePublished" of kind "dockerimage", ensures that a Docker image "jenkinsciinfra/jenkins-wiki-exporter" exists on DockerHub where the tag is the same as the source output, the latest jenkins-wiki-exporter version.
+The second one, "DockerContainerUsed" of kind "yaml", ensures that our Helm chart uses the right container name, "jenkinsciinfra/jenkins-wiki-exporter".
+3. A "target" of kind "helmchart", with a chart name "charts/jenkins-wiki-exporter" and a file "values.yaml" where the key "image.tag" is set to the latest jenkins-wiki-exporter version.
+If it's not the case then bump the patch version of the chart, as requested by `versionincrement: "patch"`.
+4. An "scms" entry of kind "github", that describes which GitHub repository stores the Helm chart "code".
+5. An "actions" entry of kind "github/pullrequest", that describes pull request parameters such as the labels assigned to the pull request created by updatecli, and the auto-merge strategy.
 
+.updatecli.yaml
 [source,yaml]
 ----
-# updatecli.yaml
 {{<include "assets/code_example/docs/guides/helm-chart/updatecli.yaml">}}
 ----
 
 Now we run our updatecli pipeline using the following commands:
 
-```
-export GITHUB_TOKEN=xxx
-export GITHUB_ACTOR=yyy
-updatecli diff --config updatecli.yaml
-```
+[source,shell]
+----
+export UPDATECLI_GITHUB_TOKEN=xxx
+export UPDATECLI_GITHUB_ACTOR=yyy
+updatecli pipeline diff --config updatecli.yaml
+----
 
 WARNING: Using environment variables to store credentials is convenient for running updatecli from a CI environment.
 Another option is to use link:https://github.com/mozilla/sops[sops] but in either case, you should not leave your credentials unprotected.
 
 
 **Spoiler Alert**: Command output
-[source,yaml]
+
+[source,text]
 ----
-# data.yaml
 {{<include "assets/code_example/docs/guides/helm-chart/updatecli.output">}}
 ----
 
@@ -103,20 +107,20 @@ To extend this pipeline, you can find more customization on the updatecli docume
 
 In this pipeline we used the following resources:
 
-* link:https://www.updatecli.io/docs/plugins/yaml/[YAML]
-* link:https://www.updatecli.io/docs/plugins/github_release/[GitHub Release]
-* link:https://www.updatecli.io/docs/plugins/helm_chart/[Helm Chart]
-* link:https://www.updatecli.io/docs/plugins/github/[GitHub Repository]
-* link:https://www.updatecli.io/docs/plugins/github_pullrequest/[GitHub Pullrequest]
-* link:https://www.updatecli.io/docs/plugins/docker_image/[Docker Image]
+* link:/docs/plugins/resource/yaml/[YAML] - the `yaml` resource used by the second condition.
+* link:/docs/plugins/resource/github_release/[GitHub Release] - the `githubrelease` source.
+* link:/docs/plugins/resource/helm_chart/[Helm Chart] - the `helmchart` target.
+* link:/docs/plugins/scm/github/[GitHub] - the `github` scm.
+* link:/docs/plugins/actions/github/[GitHub Pull Request] - the `github/pullrequest` action.
+* link:/docs/plugins/resource/docker_image/[Docker Image] - the `dockerimage` resource used by the first condition.
 
 ==== Additional Workflows
 
 Updatecli shines and saves us time in many other situations such as:
 
-* Automatically updating any YAML
-* Automatically updating Dockerfile
-* Automatically updating raw File
+* link:/docs/guides/docker-compose/[Docker Compose] - keeping a `docker-compose.yaml` on the latest image tag or digest.
+* link:/docs/guides/dockerfile/[Dockerfile] - how the Jenkins project keeps its Dockerfiles on the latest JDK.
+* link:/docs/guides/npm/[npm] - tracking an npm dependency and refreshing the lock file.
 
 ==== Contributing
 

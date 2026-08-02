@@ -29,10 +29,10 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7.0.1
 
       - name: Install Updatecli in the runner
-        uses: updatecli/updatecli-action@v2
+        uses: updatecli/updatecli-action@v3.4.0
 
       - name: Run Updatecli in Dry Run mode
         run: "updatecli diff --config ./updatecli/updatecli.d --values updatecli/values.yaml"

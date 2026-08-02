@@ -1,6 +1,19 @@
 {{ $pluginName := .Get 0 }}
 
+{{- /* The colgroup below is what keeps this table inside the .docs-content
+     column: `.docs-content table` is laid out with `table-layout: fixed`, which
+     sizes columns from the colgroup and ignores content, so a description
+     holding a fenced code block can no longer stretch the table over the table
+     of contents. See the table sizing block in assets/scss/common/_custom.scss
+     for the whole story, and for what `.table-scroll` does. */ -}}
+<div class="table-scroll">
 <table>
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 12%;">
+      <col style="width: 54%;">
+      <col style="width: 14%;">
+    </colgroup>
     <tr>
       <th>Name</th>
       <th>Type</th>
@@ -14,7 +27,7 @@
     <tr>
         <td><b>{{ $key }}</b></td>
         <td>{{ $value.type }}</td>
-        <td>{{ $value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $value.description }}</td>
         <td>{{ $value.required }}</td>
     </tr>
                         <!-- Handle object with properties -->
@@ -23,7 +36,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
         <td>{{ $level1value.type }}</td>
-        <td>{{ $level1value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level1value.description }}</td>
         <td>{{ $level1value.required }}</td>
     </tr>
                             <!-- Level 2: object with properties -->
@@ -32,7 +45,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -43,7 +56,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -54,7 +67,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -65,7 +78,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -78,7 +91,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
         <td>{{ $level1value.type }}</td>
-        <td>{{ $level1value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level1value.description }}</td>
         <td>{{ $level1value.required }}</td>
     </tr>
                             <!-- Level 2: object with properties -->
@@ -87,7 +100,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -98,7 +111,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -109,7 +122,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -120,7 +133,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -133,7 +146,7 @@
     <tr>
       <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
       <td>{{ $level1value.type }}</td>
-      <td>{{ $level1value.description | markdownify }}</td>
+      <td>{{ partial "schema-description.html" $level1value.description }}</td>
       <td>{{ $level1value.required }}</td>
     </tr>
                             <!-- Level 2: object with properties -->
@@ -142,7 +155,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -153,7 +166,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -164,7 +177,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -175,7 +188,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -188,7 +201,7 @@
     <tr>
       <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
       <td>{{ $level1value.type }}</td>
-      <td>{{ $level1value.description | markdownify }}</td>
+      <td>{{ partial "schema-description.html" $level1value.description }}</td>
       <td>{{ $level1value.required }}</td>
     </tr>
                             <!-- Level 2: object with properties -->
@@ -197,7 +210,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -208,7 +221,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -219,7 +232,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -230,7 +243,7 @@
     <tr>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
         <td>{{ $level2value.type }}</td>
-        <td>{{ $level2value.description | markdownify }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
         <td>{{ $level2value.required }}</td>
     </tr>
                               {{ end }}
@@ -242,5 +255,6 @@
     {{ end }}
 
 </table>
+</div>
 
 <small>&#9888; This table is generated from the Updatecli codebase and may contain inaccurate data. Feel free to report them on <a href="https://github.com/updatecli/updatecli/issues">github.com/updatecli/updatecli</a></small>

@@ -1,6 +1,6 @@
 ---
 title: "Transformer"
-description: "Transform information"
+description: "Transformers reshape a value between the stage that retrieves it and the stage that uses it"
 lead: "Transform information before using it"
 date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-05-04T21:02:01+02:00
@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 70
 toc: true
 ---
 
@@ -37,25 +37,48 @@ A target receives information from the source then modifies that value with the 
 
 == Parameters
 
+[cols="1,1,4",options=header]
 |===
 | Name | Default |Description
+| addprefix |-| Add a prefix to the value
+| addsuffix |-| Add a suffix to the value
+| trimprefix |-| Remove a prefix from the value, if present
+| trimsuffix |-| Remove a suffix from the value, if present
+| replacers |-| A list of Replacer, applied as a single pass, more link:#_replacer[here]
 | replacer |-| Replace a string with another one, more link:#_replacer[here]
-| replacers |-| A list of Replacer
-| addprefix |-| Add prefix to the value
-| addsuffix |-| Add suffix to the value
-| trimprefix |-| Remove prefix to the value
-| trimsuffix |-| Remove suffix to the value
-| find |-| Search for a string value using regular expression and then return its value exist
-| findsubmatch |-| Search for a substring using a regular expression and return its content, more link:#_FindSubMatch[here]
-| semverinc| - | Bump semantic version, accept a comma separated list of ["major","minor","patch"]
+| find |-| Return the first substring matching a regular expression, or an empty string when there is no match
+| findsubmatch |-| Search for a substring using a regular expression and return a capture group, more link:#_findsubmatch[here]
+| semverinc| - | Bump a semantic version, accepts a comma separated list of "major", "minor", "patch"
 | quote | false | Add quotes around the value
 | unquote | false | Remove quotes around the value
+| jsonmatch |-| Query a JSON value with a https://daseldocs.tomwright.me/[dasel] selector, more link:#_jsonmatch[here]
 |===
 
+[IMPORTANT]
+====
+A single list entry may hold several of those keys, and they are then applied in the *fixed order of
+the table above*, not in the order they are written in the manifest.
+
+To control the order, use one list entry per operation:
+
+[source,yaml]
+----
+transformers:
+  # Applied first
+  - trimprefix: "v"
+  # Applied second
+  - addprefix: "release-"
+----
+====
+
+NOTE: Transformer keys are lowercase. The camelCase spellings `addPrefix`, `addSuffix`, `trimPrefix`, `trimSuffix`, `semverInc`, `findSubMatch`, and `captureIndex` are deprecated: they still work but log a warning, and are ignored when the lowercase form is also present.
+
+Transformers never receive an empty value: an empty input aborts the transformation with a validation error.
 
 === Replacer
 
-A replacer rule modifies the information by replacing the "from" value by the "to" value.
+A replacer rule modifies the information by replacing every occurrence of the "from" value by the "to" value.
+`from` and `to` are plain strings, not regular expressions.
 
 [cols="1,1,1,4",options=header]
 |===
@@ -64,54 +87,132 @@ A replacer rule modifies the information by replacing the "from" value by the "t
 | to | &#10004;|-| "to" value defines the string that we want to have
 |===
 
+`replacers` accepts a list of those rules and applies them in a **single pass**, so a replacement
+never rewrites the output of an earlier one:
+
+[source,yaml]
+----
+transformers:
+  - replacers:
+      - from: "alpha"
+        to: "beta"
+      # "beta" produced by the previous rule is left untouched
+      - from: "beta"
+        to: "gamma"
+----
+
 
 === FindSubMatch
 
-A `findsubmatch` rule captures the desired information by applying `pattern` as a regexp and using `captureindex` value as the index for the capture to return (defaults to 0 which returns all submatches).
+A `findsubmatch` rule captures the desired information by applying `pattern` as a regular expression
+and returning one of its capture groups.
 
 [cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
 | pattern | &#10004;|-| `pattern` value defines the regular expression to apply
-| captureindex |-|-| `captureindex` value defines the index of the capture to return. Note that the default value `0` returns all submatches, and individual submatch indexes start at `1`.
+| captureindex |-|`0`| Index of the group to return. `0` returns the whole match of the expression, and the capture groups start at `1`.
+| capturepattern |-|-| A template used to build the output from several groups at once, referencing them with `\0`, `\1`, `\2`, and so on. When set, `captureindex` is ignored.
 |===
 
+When the regular expression does not match at all, or when `captureindex` points past the last group,
+the transformer returns an empty string rather than failing.
 
-== Example
+[source,yaml]
+----
+transformers:
+  # "jenkins-2.375.1" -> "2.375.1"
+  - findsubmatch:
+      pattern: 'jenkins-(\d+\.\d+\.\d+)'
+      captureindex: 1
+----
 
-The `findsubmatch` below returns the submatch captured with `(.*?)`:
+[source,yaml]
+----
+transformers:
+  # "1.2.3" -> "major=1 minor=2 patch=3"
+  - findsubmatch:
+      pattern: '(\d+)\.(\d+)\.(\d+)'
+      capturepattern: 'major=\1 minor=\2 patch=\3'
+----
+
+=== JsonMatch
+
+A `jsonmatch` rule parses the incoming value as JSON and extracts a value using a
+https://daseldocs.tomwright.me/[dasel] selector.
+It is typically used behind a source returning a raw JSON payload, such as an HTTP response.
+
+[cols="1,1,1,4",options=header]
+|===
+| Name | Required | Default |Description
+| key | &#10004;|-| The dasel selector to evaluate, for example `.tag_name` or `.assets.[0].name`
+| nomatchresult |-|-| What to return when the selector matches nothing. Use the literal `<input>` to return the value unchanged, `<blank>` to return an empty string, or any other string to return it as is. When unset, no match is an error.
+| joinmultiplematches |-|-| When the selector matches several values, join them with this separator
+| multiplematchselector |-|-| When the selector matches several values, pick one: `first`, `last`, or an index such as `[0]` or `[-1]` counting from the end
+|===
+
+IMPORTANT: When the selector matches several values and neither `joinmultiplematches` nor `multiplematchselector` is set, the transformer fails.
+
+[source,yaml]
+----
+sources:
+  latestRelease:
+    kind: http
+    spec:
+      # The "http" source returns the raw response body
+      url: https://api.github.com/repos/updatecli/updatecli/releases/latest
+    transformers:
+      - jsonmatch:
+          key: .tag_name
+      - trimprefix: "v"
+----
+
+== Examples
+
+=== Chaining transformers
+
+Each list entry receives the output of the previous one.
+Given a source returning `jenkins-2.375.1`:
 
 .updatecli.yaml
-```
+[source,yaml]
+----
 sources:
   default:
-    name: "Get latest jenkins weekly version"
+    name: "Get latest Jenkins weekly version"
     kind: jenkins
-    transformers:
-      - addprefix: "alpha-"
-      - addsuffix: "-jdk11"
-      - trimsuffix: "-jdk11"
-      - trimprefix: "alpha-"
-      - replacer:
-          from: "-jdk11"
-          to: "-jdk15"
-      - replacers:
-          - from: "-jdk15"
-            to: "-jdk17"
-      - findsubmatch:
-          pattern: '"(.*?):(.*)'
-          captureindex: 1
-      - findsubmatch:
-          pattern: '(\d*).(\d*).(\d*)'
-          capturepattern: "major: \\3, minor: \\2, patch: \\1"
-      - semverinc: "major,minor"
-      - find: "2.234.(.*)$"
     spec:
       release: weekly
-targets:
-  targetID:
-    name: "Update file file"
-    kind: file
+    transformers:
+      # "jenkins-2.375.1" -> "2.375.1"
+      - trimprefix: "jenkins-"
+      # "2.375.1" -> "2.376.0"
+      - semverinc: "minor"
+      # "2.376.0" -> "jenkins/jenkins:2.376.0-jdk17"
+      - addprefix: "jenkins/jenkins:"
+      - addsuffix: "-jdk17"
+----
+
+The output, `jenkins/jenkins:2.376.0-jdk17`, is a valid Docker image name usable by the later stages.
+
+=== Preparing a value for a Docker tag
+
+`quote` and `unquote` are convenient when the target file expects a quoted string:
+
+[source,yaml]
+----
+sources:
+  version:
+    kind: shell
     spec:
-      file: TODO
-```
+      command: echo 1.2.3
+    transformers:
+      - addprefix: "v"
+      # -> "v1.2.3" including the double quotes
+      - quote: true
+----
+
+== Go Further
+
+* To know more about how a source produces the value being transformed **link:/docs/core/source/[source]**
+* To know more about selecting a version before transforming it **link:/docs/core/versionfilter/[version filter]**

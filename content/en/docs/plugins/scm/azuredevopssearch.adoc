@@ -1,8 +1,9 @@
 ---
 title: "Azure DevOps Search"
-description: "Use Azure DevOps search to interact with multiple repositories"
+description: "Run the same manifest against every Azure DevOps repository matching a set of patterns"
 lead: "kind: azuredevopssearch"
 date: 2025-05-12T00:00:00+00:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -19,51 +20,66 @@ plugins:
 
 == Description
 
-The Azure DevOps Search SCM plugin allows you to interact with multiple Azure DevOps repositories at once — either by fetching files or by pushing updates to them. Repositories are discovered dynamically using regex patterns for project name, repository name, and branch name.
+`azuredevopssearch` is not an scm you clone from - it is a *generator*. Before anything else runs, Updatecli lists every project of the configured organization, then the repositories of the matching projects, then the branches of the matching repositories, and turns each surviving project/repository/branch triplet into a regular link:/docs/plugins/scm/azuredevops/[`azuredevops` scm].
 
-**condition**
+Your manifest is then duplicated once per triplet, each copy pinned to one repository and one branch. Ten matches mean ten pipelines, ten working branches, and (if the manifest declares an `azuredevops/pullrequest` action) ten pull requests. Everything the `azuredevops` documentation says about cloning, working branches, commits, and signing applies unchanged to each copy.
 
-When used in a condition, the SCM block typically fetches files or metadata from the matching repositories.
+Its behavior depends on the stage referencing it:
 
-**target**
+**source** and **condition**::
+Each discovered repository is cloned and the resource works on the files from the matched branch. Nothing is pushed.
 
-When used in a target, the SCM block pushes changes to all matching repositories.
+**target**::
+Updatecli creates a working branch in each discovered repository, commits the changes there, and pushes it.
 
-By default, the Azure DevOps Search SCM uses a working branch workflow: it creates a temporary branch, commits the changes, and opens a pull request targeting the branch defined in the configuration for each matching repository.
+IMPORTANT: Like the `azuredevops` scm, this plugin does not open pull requests (that is the job of an `actions` block of kind `azuredevops/pullrequest`, documented on the link:/docs/plugins/actions/azuredevops/["Azure DevOps Pull Request" page]).
 
 == Parameters
 
 {{< resourceparameters "scms" "azuredevopssearch" >}}
 
+`organization` is the only mandatory parameter; without it the run aborts with `azure DevOps organization is required for azuredevopssearch SCM`.
+
+Apart from `organization`, `project`, `repository`, `branch`, and `limit`, every parameter is passed through untouched to each generated `azuredevops` scm; see the link:/docs/plugins/scm/azuredevops/["Azure DevOps" page] for what they do. One consequence is worth spelling out: `directory` is copied verbatim, so every discovered repository would be cloned into the *same* path. Leave it unset and let Updatecli derive one path per repository.
+
+=== Matching repositories
+
+`project`, `repository`, and `branch` are *regular expressions*, not names. `project` and `repository` default to `.*` (every project, every repository) and `branch` defaults to `^main$`.
+
+[source,yaml]
+----
+project: "^platform-.*$"    # projects whose name starts with platform-
+repository: "^.*-service$"  # repositories whose name ends with -service
+branch: "^main$|^v2$"       # the main or v2 branch
+----
+
+Anchors matter: an unanchored `main` also matches `maintenance`. An expression that does not compile is rejected at load time with `invalid project regex`, `invalid repository regex`, or `invalid branch regex`, naming the offending pattern.
+
+Repositories flagged as disabled in Azure DevOps are skipped, as are repositories the API returns without a name or an ID.
+
+=== Limit
+
+`limit` caps the number of *generated pipelines*, that is project/repository/branch triplets - not the number of repositories. It defaults to `10`; `0` means no cap.
+
+A repository with three matching branches therefore consumes three slots. Projects, repositories, and branches are consumed in the order the API returns them, so a `limit` that truncates the set gives you an arbitrary subset rather than a chosen one. Tighten the three patterns instead of relying on `limit` to keep a run small.
+
 === Authentication
+
+`url` defaults to `https://dev.azure.com`; for Azure DevOps Server, give the base URL of your instance.
 
 include::content/en/docs/plugins/_azuredevopsAuth.adoc[]
 
-=== CommitMessage
+=== Working branch and commit message
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+Both work exactly as on the link:/docs/plugins/scm/azuredevops/["Azure DevOps" page]: a working branch named `<workingBranchPrefix><separator><branch><separator><pipelineID>`, `force` defaulting to `true` with its "better safe than sorry" safeguard, and link:https://www.conventionalcommits.org/[conventional commit] messages driven by `commitMessage`.
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+The `pipelineID` component is derived from the manifest, not from the repository, so all copies share it and every discovered repository ends up with an identically named working branch (convenient when you later need to find or clean up the branches an organization-wide run created).
 
----
-```
-Author: olblak <updatecli@updatecli.io>
-Date:   Tue May 4 15:41:44 2021 +0200
-
-    chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
-
-    ... equirements.yaml"
-
-    Made with ❤️️  by updatecli
-```
----
+NOTE: `commitMessage.title` is deprecated and ignored. The commit title comes from the target `name`.
 
 == Example
 
-This pipeline automatically updates the Golang version across multiple Azure DevOps repositories within the `myorg` organization.
-Using the `azuredevopssearch` SCM, it discovers all repositories within projects and branches matching the configured regex patterns, and opens pull requests that update the Golang version in the build workflows accordingly.
-All changes are squashed into one commit per repository.
+This manifest bumps the Golang version across the repositories of the `myorg` organization: `azuredevopssearch` discovers them, each discovered repository/branch pair gets its own working branch and squashed commit, and the action opens one pull request per pair.
 
 [source,yaml]
 ----

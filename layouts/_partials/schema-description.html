@@ -1,0 +1,38 @@
+{{- /*
+  Render a JSON-schema `description` (as generated from the Updatecli Go struct
+  doc comments) as Markdown, after neutralising its leading indentation.
+
+  Those comments carry an indented block of `compatible:` / `remarks:` /
+  `example:` sections. gofmt indents some of them with a tab, which Markdown
+  reads as an *indented code block*: the whole block ends up in a `<pre>`, whose
+  `white-space: pre` lines cannot wrap. Inside the parameter tables that sets a
+  minimum table width far wider than the `.docs-content` column, and since the
+  tables have no overflow wrapper the excess paints over the sticky right-hand
+  table of contents.
+
+  Only the first line of a block decides whether Markdown sees code, because an
+  indented code block cannot interrupt a paragraph. So it is enough to strip the
+  indentation of every line that opens a block (the first line, or one following
+  a blank line) and leave the rest untouched: the sections then render as
+  paragraphs, exactly like the space-indented comments already do.
+
+  Fenced code blocks (```) are indentation-independent and stay intact.
+
+  Accepts the description string, returns rendered HTML.
+*/ -}}
+{{- $lines := split (. | default "") "\n" -}}
+{{- $out := slice -}}
+{{- $blockStart := true -}}
+{{- range $lines -}}
+  {{- $line := . -}}
+  {{- if eq (trim $line " \t") "" -}}
+    {{- $blockStart = true -}}
+  {{- else -}}
+    {{- if $blockStart -}}
+      {{- $line = strings.TrimLeft " \t" $line -}}
+    {{- end -}}
+    {{- $blockStart = false -}}
+  {{- end -}}
+  {{- $out = $out | append $line -}}
+{{- end -}}
+{{- delimit $out "\n" | markdownify -}}

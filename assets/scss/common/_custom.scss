@@ -11,11 +11,15 @@
 // our mostly-AsciiDoc docs.
 //
 // However doks-core 1.9.3 only styles the copy button when it lives *inside*
-// `.expressive-code` (the Markdown-only render hook). Bare `.highlight` blocks —
-// i.e. all our AsciiDoc code — therefore get an unstyled, icon-less button.
-// Re-create the icon here for the `.highlight .copy` structure. `.highlight` is
-// already positioned `relative` by the theme, and `--ec-frm-inlBtnFg` is defined
-// on `:root`, so the icon colour adapts to light/dark automatically.
+// `.expressive-code` (the Markdown-only render hook). Bare `.highlight` blocks
+// (i.e. all our AsciiDoc code) therefore get an unstyled, icon-less button.
+// Re-create the icon here for the `.highlight .copy` structure. `--ec-frm-inlBtnFg`
+// is defined on `:root`, so the icon colour adapts to light/dark automatically.
+//
+// The button needs a positioned ancestor. For Chroma that is `.highlight` itself,
+// which the theme's `_buttons.scss` already sets to `relative`. For AsciiDoc the
+// "AsciiDoc code blocks" section below moves it to `.listingblock > .content`, so
+// the button no longer scrolls away with a long line.
 // -----------------------------------------------------------------------------
 
 .highlight .copy {
@@ -80,4 +84,350 @@
 .highlight .copy .btn-copy:active > div {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' stroke-width='1.25' stroke='black' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
+}
+
+// -----------------------------------------------------------------------------
+// AsciiDoc code blocks
+//
+// Hugo render hooks only fire for Goldmark, so the theme's `render-codeblock.html`
+// (which wraps Markdown fences in the Expressive Code frame) never runs for our
+// AsciiDoc pages. Hugo shells out to asciidoctor instead and drops its HTML in
+// verbatim:
+//
+//   <div class="listingblock">
+//     <div class="title">updatecli/values.yaml</div>        <!-- optional -->
+//     <div class="content">
+//       <pre class="highlight"><code class="language-yaml" data-lang="yaml">…
+//
+// Every code-block rule in doks-core is written for the Markdown shape and misses
+// this one: `.highlight > pre` and `.highlight > .chroma` both assume `.highlight`
+// is a *wrapper*, whereas asciidoctor puts the class on the `pre` itself. So the
+// block gets no padding, no border and no scroll container.
+//
+// The rule that does match is the one that should not: the inline-code pill in
+// `components/_code.scss`,
+//
+//   code:not(:where(.not-content *)) { background-color: …; padding: …; }
+//
+// Markdown escapes it because the render hook adds `not-content` to its wrapping
+// <figure>; AsciiDoc has no such ancestor. `<code>` is an inline box, so that
+// background hugs the text run on each line and the block reads as selected text
+// rather than as a code block.
+//
+// Rebuild the frame here from the theme's own `--ec-*` custom properties, so the
+// result matches the Markdown blocks and follows light/dark without duplicating
+// any colour. Use `--ec-frm-edBg`/`--ec-frm-trmBg` rather than `--ec-codeBg`: the
+// latter is Expressive Code's raw upstream value, which doks overrides.
+// -----------------------------------------------------------------------------
+
+.listingblock,
+.literalblock {
+  position: relative;
+  margin: 1.5rem 0;
+
+  --code-background: var(--ec-frm-edBg);
+
+  // Height of the synthesised terminal title bar, mirroring the padding and line
+  // height doks gives `.expressive-code .frame.is-terminal .header`.
+  --terminal-bar-height: calc(
+    var(--ec-uiFontSize) * var(--ec-uiLineHt) + 2 * var(--ec-uiPadBlk) + var(--ec-brdWd)
+  );
+}
+
+// Shell blocks get the terminal treatment, matching the language list in
+// doks-core's `render-codeblock.html`. A block that carries a title is excluded so
+// it gets the filename tab instead of both chrome styles at once.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) {
+  --code-background: var(--ec-frm-trmBg);
+}
+
+// The inner wrapper becomes the positioning context for the copy button, which
+// keeps it pinned while the `pre` scrolls. `padding: 0` undoes `.blog .content`,
+// `.page .content` and friends from the theme's `common/_global.scss`: those are
+// meant for the page-level `.content` wrapper but also match this one.
+.listingblock > .content,
+.literalblock > .content {
+  position: relative;
+  padding: 0;
+}
+
+.listingblock > .content > pre,
+.literalblock > .content > pre {
+  position: static; // override `.highlight { position: relative }` (_buttons.scss)
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  background: var(--code-background);
+  border: var(--ec-brdWd) solid var(--ec-brdCol);
+  border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd));
+  font-size: var(--ec-codeFontSize);
+  line-height: var(--ec-codeLineHt);
+}
+
+// Cancel the inline-code pill and move the padding onto the `code`, which is the
+// element that grows with the content. `width: max-content` with `min-width: 100%`
+// is what keeps the trailing inline padding visible once the block scrolls.
+.listingblock > .content > pre > code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  padding: 0.75rem var(--ec-codePadInl);
+  margin-block: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+// A literal block (`....` or an indented paragraph) has no inner `<code>`, so the
+// `pre` carries the padding itself.
+.literalblock > .content > pre {
+  padding: 0.75rem var(--ec-codePadInl);
+}
+
+// -----------------------------------------------------------------------------
+// Filename tab, from an AsciiDoc block title (`.updatecli/values.yaml`)
+//
+// Expressive Code also paints a darker full-width strip behind its tab, using a
+// `.header` element asciidoctor does not emit. The tab is drawn flush on the frame
+// instead. `--ec-frm-edActTabBg` and `--ec-frm-edBg` are both `--sl-color-gray-6`,
+// so tab and body share a colour either way and still read as one component.
+// -----------------------------------------------------------------------------
+
+.listingblock > .title,
+.literalblock > .title {
+  position: relative;
+  z-index: 1; // paint over the top border of the box below
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: hidden;
+  // Overlap the box by exactly its border, so the code box keeps a top border
+  // everywhere except under the tab. That is what makes the two read as one
+  // component instead of a label floating above a closed rectangle.
+  margin-block-end: calc(-1 * var(--ec-brdWd));
+  padding: calc(var(--ec-uiPadBlk) + var(--ec-frm-edActTabIndHt)) var(--ec-uiPadInl);
+  color: var(--ec-frm-edActTabFg);
+  background: var(--ec-frm-edActTabBg);
+  background-clip: padding-box;
+  border: var(--ec-brdWd) solid var(--ec-frm-edActTabBrdCol);
+  border-bottom: none;
+  border-radius: calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd))
+    calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd)) 0 0;
+  font-family: var(--ec-uiFontFml);
+  font-size: var(--ec-uiFontSize);
+  font-weight: var(--ec-uiFontWg);
+  font-style: normal;
+  line-height: var(--ec-uiLineHt);
+  text-align: start;
+}
+
+// Accent line along the top of the tab, as on the active editor tab.
+.listingblock > .title::after,
+.literalblock > .title::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  border-top: var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndTopCol);
+  border-bottom: var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndBtmCol);
+}
+
+// -----------------------------------------------------------------------------
+// Terminal chrome for shell blocks
+// -----------------------------------------------------------------------------
+
+// The title bar. In flow, so it stacks above the `pre` without needing a height
+// on the wrapper.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) > .content::before {
+  content: "";
+  display: block;
+  height: var(--terminal-bar-height);
+  background: var(--ec-frm-trmTtbBg);
+  border: var(--ec-brdWd) solid var(--ec-brdCol);
+  border-bottom: var(--ec-brdWd) solid var(--ec-frm-trmTtbBrdBtmCol);
+  border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd))
+    calc(var(--ec-brdRad) + var(--ec-brdWd)) 0 0;
+}
+
+// The three dots, same mask and metrics as `.frame.is-terminal .header::before`.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) > .content::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset-block-start: calc((var(--terminal-bar-height) - 0.56rem) / 2);
+  inset-inline-start: var(--ec-uiPadInl);
+  width: 2.1rem;
+  height: 0.56rem;
+  line-height: 0;
+  background-color: var(--ec-frm-trmTtbDotsFg);
+  opacity: var(--ec-frm-trmTtbDotsOpa);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 16' preserveAspectRatio='xMidYMid meet'%3E%3Ccircle cx='8' cy='8' r='8'/%3E%3Ccircle cx='30' cy='8' r='8'/%3E%3Ccircle cx='52' cy='8' r='8'/%3E%3C/svg%3E") no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 16' preserveAspectRatio='xMidYMid meet'%3E%3Ccircle cx='8' cy='8' r='8'/%3E%3Ccircle cx='30' cy='8' r='8'/%3E%3Ccircle cx='52' cy='8' r='8'/%3E%3C/svg%3E") no-repeat;
+}
+
+// Square off the top of the code box wherever a tab or a title bar sits on it.
+// The terminal bar draws its own border and butts against the box, so there the
+// box drops its top border; under a tab the border stays and the tab covers the
+// segment it sits on.
+.listingblock:has(> .title) > .content > pre,
+.literalblock:has(> .title) > .content > pre {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) > .content > pre {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Copy button placement inside the new frame
+// -----------------------------------------------------------------------------
+
+// A titled block needs no offset: the tab is a sibling of `.content`, so the
+// button already sits inside the code box.
+.listingblock .copy {
+  inset-block-start: calc(var(--ec-brdWd) + 0.4rem);
+  inset-inline-end: calc(var(--ec-brdWd) + var(--ec-uiPadInl) / 2);
+}
+
+// A terminal block does need one: its title bar is drawn inside `.content`.
+.listingblock:not(:has(> .title)):has(> .content > pre > code:is([data-lang="shell"], [data-lang="bash"], [data-lang="sh"], [data-lang="powershell"])) .copy {
+  inset-block-start: calc(var(--terminal-bar-height) + 0.4rem);
+}
+
+// -----------------------------------------------------------------------------
+// Table sizing inside the docs
+//
+// doks-core's `_tables.scss` extends Bootstrap's `.table` onto every bare
+// <table>, which leaves them at `table-layout: auto`. A table can never render
+// narrower than its min-content width, and a code block sets that width to its
+// longest line: `pre` scrolls, but a scroll container still contributes its
+// content's min-content width to table sizing. One long line therefore pushes
+// the whole table out of `.docs-content` and over the sticky table of contents
+// on the right.
+//
+// `fixed` sizes the columns from the colgroup (or, lacking one, evenly) and
+// ignores content, so cells wrap and a code block scrolls inside its own cell.
+// Every table we render already declares its columns: Asciidoctor emits a
+// <colgroup> from the `cols=` attribute, and the `*parameters` shortcodes in
+// `layouts/_shortcodes/` write one by hand.
+// -----------------------------------------------------------------------------
+
+.docs-content table {
+  table-layout: fixed;
+  overflow-wrap: break-word;
+}
+
+// Asciidoctor renders an admonition ([NOTE], [WARNING], …) as a two-cell table
+// with no colgroup, so the icon column needs a width of its own, otherwise the
+// label and the body split the block evenly.
+.admonitionblock > table td.icon {
+  width: 6rem;
+}
+
+// Wrapper the `*parameters` shortcodes put around their table. The min-width
+// keeps the four columns readable on a phone by scrolling the table instead of
+// squeezing every cell down to broken words; the scroll stays inside this box,
+// so the page itself never scrolls sideways.
+.table-scroll {
+  overflow-x: auto;
+
+  > table {
+    min-width: 34rem;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Docs layout between the lg and xl breakpoints (992px to 1199px)
+//
+// doks-core's `layouts/single.html` picks the width of <main class="docs-content">
+// with one condition and emits the flex wrapper it depends on with another:
+//
+//   line 11:  if containerBreakpoint == "fluid" AND .Type in mainSections
+//             -> <div class="col container-fw …">      (the wrapper)
+//   line 19:  if containerBreakpoint == "fluid" AND .Params.toc
+//             -> class="docs-content col-lg-16 col-xl-9"
+//   line 22:  else
+//             -> class="docs-content col-lg-11 col-xl-9 mx-xl-auto"
+//
+// `col-lg-16` means "full width" only because it is meant to sit *inside* that
+// wrapper, which takes the space left by the sidebar. We set
+// `containerBreakpoint = "fluid"` in params.toml but never set `mainSections`,
+// so the wrapper is emitted on no page at all while every page with a toc still
+// gets `col-lg-16`, as a direct child of the row.
+//
+// The grid here is 16 columns ($grid-columns in the theme's variable overrides),
+// so the sidebar's `col-lg-5` is 31.25% and the content is 100%: 131.25% in a
+// row that is only `flex-xl-nowrap`, i.e. still wrapping at lg. The content is
+// pushed onto a second row below a sidebar that is `height: calc(100vh - 4.25rem)`,
+// and because that sidebar is `position: sticky; z-index: 1000` with no
+// background of its own, the content then scrolls underneath it and shows
+// through. Above 1200px `col-xl-9` takes over and the row stops wrapping, which
+// is why this only appears at around half a wide screen.
+//
+// Give the content the 11 of 16 columns it should have had, so it sits beside
+// the sidebar instead of below it. Scoped to a direct child of `.row` so that it
+// does not apply if the `container-fw` wrapper is ever emitted, and to the lg
+// range only so `col-xl-9` keeps the desktop layout untouched.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-only(lg) {
+  .row > .docs-content.col-lg-16 {
+    width: 68.75%; // 11 of 16 columns, the sidebar takes the other 5
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Navbar "Community" dropdown
+//
+// The social-menu block in `layouts/_partials/header/header.html` groups the
+// entries tagged `params.group = "community"` behind one trigger, so the navbar
+// carries a few distinguishable icons rather than a row of near-identical ones.
+//
+// Only the menu items need styling: the theme already hides Bootstrap's caret
+// (`.dropdown-toggle::after { display: none }` in `components/_buttons.scss`)
+// and already makes dropdowns render inline below lg, and the trigger reuses
+// `.social-link` so it lines up with the icons beside it.
+//
+// Inside the dropdown the entry names are visible text rather than the
+// `visually-hidden` labels the flat list uses, so lay the icon out beside them.
+// -----------------------------------------------------------------------------
+
+.dropdown-item.social-dropdown-item {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+
+  // The icons are inline SVGs from the menu config, sized 20x20 there.
+  > svg {
+    flex: 0 0 auto;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Footer columns below the lg breakpoint
+//
+// `layouts/_partials/footer/footer.html` overrides the theme's footer to split
+// the row three ways (col-lg-5 / col-lg-6 / col-lg-5 of the 16-column grid) so
+// the copyright is centred between the menu and the "powered by" credit.
+//
+// doks-core gives the columns their vertical rhythm once they stack, but keys the
+// rule to the class its own markup uses (`layouts/_footer.scss`):
+//
+//   @include media-breakpoint-down(lg) {
+//       .footer .col-lg-8 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+//   }
+//
+// That no longer matches, so re-apply it for the classes we do use, otherwise the
+// three rows butt together on a phone.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-down(lg) {
+  .footer .col-lg-5,
+  .footer .col-lg-6 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
 }

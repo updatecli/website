@@ -1,13 +1,15 @@
 ---
 title: "HCL"
-description: "Manipulate HCL information"
+description: "Read and update an attribute in an HCL file such as a Terraform configuration"
 lead: "kind: hcl"
 date: 2023-07-28T15:00:00+01:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 230
 toc: true
 plugins:
   - source
@@ -27,21 +29,51 @@ plugins:
 
 == Description
 
-**source**
+The `hcl` resource reads and writes a single attribute in an link:https://github.com/hashicorp/hcl[HCL] document, addressed by its dotted path. It handles any HCL file (Terraform, Packer, Consul, Nomad) through link:https://github.com/minamijoyo/hcledit[hcledit], which edits the file in place and preserves comments and formatting.
 
-The HCL "source" retrieves an attribute from a HCL file at configured path.
+**source**::
+Returns the attribute value. A source accepts only one file.
 
-**condition**
+**condition**::
+Checks that the attribute holds `value`, or the source output when `value` is unset.
 
-The HCL "condition" tests that attribute at configured path matches the value in a HCL file.
+**target**::
+Writes the value at that path. Files already holding it are reported as up to date and left untouched.
 
-**target**
+NOTE: `kind: terraform/file` is an alias for this resource (same spec, same implementation, documented on the link:/docs/plugins/resource/terraform/file/["Terraform File" page]).
 
-The HCL "target" ensures that an attribute at configured path in a HCL file is set to a specific value.
-
-== Parameter
+== Parameters
 
 {{< resourceparameters "sources" "hcl" >}}
+
+`file` or `files` is mandatory, as is `path`; missing either aborts the run with `wrong spec content`, preceded by `hcl file undefined` or `hcl path undefined`. `file` and `files` are mutually exclusive.
+
+== Attribute paths
+
+`path` addresses an attribute by walking the block labels, joined with dots:
+
+[source,hcl]
+----
+resource "aws_instance" "app_server" {
+  ami = "ami-830c94e3"
+}
+----
+
+is addressed as `resource.aws_instance.app_server.ami`. Other common shapes:
+
+* `resource.helm_release.prometheus.version`
+* `plugin.aws.version`
+
+The path points at an *attribute*, not a block (there is no syntax for adding a block or for iterating over several).
+
+== Remote files
+
+`file` accepts `https://`, `http://` and `file://` for a source and a condition. A target refuses a URL:
+
+[source,text]
+----
+URL scheme is not supported for HCL target
+----
 
 == Example
 
@@ -50,3 +82,9 @@ The HCL "target" ensures that an attribute at configured path in a HCL file is s
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/hcl/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://github.com/minamijoyo/hcledit[hcledit] - the library doing the editing
+* link:/docs/plugins/resource/terraform/file/["Terraform File" page] - the alias
+* link:/docs/plugins/resource/terraform/lock/["Terraform Lock" page] and link:/docs/plugins/resource/terraform/provider/["Terraform Provider" page] for the Terraform-specific resources

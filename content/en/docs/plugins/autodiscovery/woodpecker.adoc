@@ -1,6 +1,6 @@
 ---
 title: "Woodpecker"
-description: "Woodpecker CI/CD autodiscovery "
+description: "Discover Woodpecker CI container image update"
 lead: "kind: woodpecker"
 draft: false
 images: []
@@ -12,22 +12,61 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `woodpecker` Autodiscovery plugin allows to automatically search and update content in Woodpecker CI/CD configuration file.
+The `woodpecker` crawler looks for Woodpecker CI workflow files and updates the container images used by their steps and services.
 
-=== Manifests
-==== Parameters
+The following file patterns are scanned by default:
+
+* `.woodpecker.yml` and `.woodpecker.yaml`
+* `.woodpecker/*.yml` and `.woodpecker/*.yaml`
+* `.woodpecker/**/*.yml` and `.woodpecker/**/*.yaml`
+
+Override them with the `filematch` parameter.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `woodpecker` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+IMPORTANT: Only the **list** form of `steps` and `services` is understood. A workflow using the map form is skipped, and the reason is only visible with `--debug`.
+
+[source,yaml]
+----
+# Supported
+steps:
+  - name: build
+    image: golang:1.21
+
+# Not supported, this file yields no manifest
+steps:
+  build:
+    image: golang:1.21
+----
+
+== Generated manifests
+
+Each image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a link:{{< ref "yaml" >}}[`yaml`] target that rewrites the image reference in place. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written alongside the tag.
+
+`digest` defaults to **true**. Set `digest: false` to track the tag only.
+
+== Authentication
+
+Use `auths` to reach private registries, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "woodpecker" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----
 autodiscovery:
   crawlers:
-    woodpecker:    
+    woodpecker: {}
 ----
-
