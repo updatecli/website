@@ -4,7 +4,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "\"name\" defines a pipeline name\n\nexample:\n\t* \"name: 'deps: update nodejs version to latest stable'\"\n\nremark:\n\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t* using conventional commits convention is a good way to name your pipeline.\n\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t* \"name\" shouldn't contain any dynamic information such as source output."
+            "description": "\"name\" defines a pipeline name\n\nexample:\n\t* \"name: 'deps: update nodejs version to latest stable'\"\n\nremark:\n\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t* using conventional commits convention is a good way to name your pipeline.\n\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t* \"name\" shouldn't contain any dynamic information such as source output.\n\t* \"name\" defaults to the manifest filename when not specified."
         },
         "id": {
             "type": "string",
@@ -9348,7 +9348,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it.\n\n   remark:\n     * \"url\" is not needed when the repository is provided by \"path\" or by a \"scmid\"."
                                     },
                                     "username": {
                                         "type": "string",
@@ -18950,7 +18950,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it.\n\n   remark:\n     * \"url\" is not needed when the repository is provided by \"path\" or by a \"scmid\"."
                                     },
                                     "username": {
                                         "type": "string",
@@ -28930,7 +28930,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it.\n\n   remark:\n     * \"url\" is not needed when the repository is provided by \"path\" or by a \"scmid\"."
                                     },
                                     "username": {
                                         "type": "string",
