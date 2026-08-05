@@ -1,6 +1,6 @@
 ---
 title: "Condition"
-description: "Condition run test which have to succeed to proceed"
+description: "The condition stage runs the checks that must succeed before Updatecli is allowed to change a target"
 lead: "Condition is the 'when' you want to update"
 date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 30
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -20,13 +20,27 @@ toc: true
 == Description
 
 A "condition" stage defines whether to run the link:../target["Target" stage] stage of a pipeline.
-It runs a check (depending on the resource kind) that returns a boolean indicating its success (`true`) or failure (`true`).
+It runs a check (depending on the resource kind) that returns a boolean indicating its success (`true`) or failure (`false`).
 
 Please look at each kind of resource (shell, file, etc.) for details about "how is the success/failure determined?".
+
+By default, **every target of a manifest waits for **every** condition to succeed**.
+A single failing condition is enough to skip all the targets.
+That default can be changed per target, see <<_scoping_conditions_to_specific_targets,Scoping conditions to specific targets>>.
 
 == Parameters
 
 {{< coreparameters "conditions" >}}
+
+=== Source input
+
+Like a target, a condition receives the output of a source as its default input value:
+
+* when the manifest defines exactly one source, that source is used automatically
+* when the manifest defines more than one source, `sourceid` becomes mandatory
+* setting `disablesourceinput: true` runs the condition standalone, without any source value
+
+Setting `sourceid` (or letting Updatecli guess it) also makes the condition wait for that source to run first.
 
 === Using `failwhen`
 
@@ -36,6 +50,44 @@ The `failwhen` parameter allows you to **invert the result of a condition**:
 * `failwhen: true` → Inverted behavior: success is treated as failure, failure is treated as success.
 
 This is particularly useful for testing or enforcing negative checks.
+
+[#_scoping_conditions_to_specific_targets]
+=== Scoping conditions to specific targets
+
+Because a target waits for all conditions by default, a manifest holding several unrelated
+targets and conditions may skip more than intended.
+To scope conditions, set `disableconditions: true` on the target and list only the relevant
+conditions with `dependson`, using the `condition#` prefix:
+
+[source,yaml]
+----
+conditions:
+  dockerImageExists:
+    kind: dockerimage
+    spec:
+      image: updatecli/updatecli
+
+  chartExists:
+    kind: helmchart
+    spec:
+      url: https://updatecli.github.io/charts
+      name: updatecli
+
+targets:
+  dockerfile:
+    kind: dockerfile
+    # Only "dockerImageExists" gates this target
+    disableconditions: true
+    dependson:
+      - condition#dockerImageExists
+    spec:
+      file: Dockerfile
+      instruction:
+        keyword: FROM
+        matcher: updatecli/updatecli
+----
+
+IMPORTANT: The older `conditionids` target keyword is deprecated in favor of `dependson` with `condition#` keys, and cannot be combined with `disableconditions`.
 
 == Examples
 
@@ -52,7 +104,7 @@ conditions:
   checkIfFileExistsWithName:
     kind: shell
     # Implicit instruction (only source)
-    # sourceID: printsName
+    # sourceid: printsName
     spec:
       # Should execute the command ""test -f Ada"" (e.g. tests if the file "Ada" exists)
       command: test -f
@@ -94,7 +146,7 @@ conditions:
       'jenkinsciinfra/plugin-site-api:{{ source `tagVersion` }}
       published on the registry?
     kind: dockerimage
-    sourceID: tagVersion
+    sourceid: tagVersion
     spec:
       image: "jenkinsciinfra/plugin-site-api"
 

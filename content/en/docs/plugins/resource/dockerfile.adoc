@@ -1,16 +1,19 @@
 ---
-title: "Dockerfile "
-description: "Manipulate Dockerfile information"
+title: "Dockerfile"
+description: "Read and update instructions in a Dockerfile, by text matching or by coordinates"
 lead: "kind: dockerfile"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
+    identifier: "resource-dockerfile"
     parent: "plugin-resource"
+weight: 80
 toc: true
 plugins:
+  - source
   - condition
   - target
 ---
@@ -23,10 +26,14 @@ plugins:
 [cols="1^,1^,1^",options=header]
 |===
 | source | condition | target
-| &#10007; | &#10004; | &#10004;
+| &#10004; | &#10004; | &#10004;
 |===
 
 == Description
+
+**source**
+
+The Dockerfile "source" reads the value of a Dockerfile instruction and returns it, so one Dockerfile can drive updates elsewhere.
 
 **condition**
 
@@ -35,6 +42,46 @@ The Dockerfile "condition" tests that a Dockerfile instruction is correctly set 
 **target**
 
 The Dockerfile "target" updates if needed the Dockerfile
+
+=== Reading a value with a source
+
+A source takes exactly one file. More than one entry in `files` fails with `the attributes 'spec.files' can't contain more than one element for sources`, and an empty spec with `no dockerfile specified`.
+
+[source,yaml]
+----
+sources:
+  goVersion:
+    kind: dockerfile
+    spec:
+      file: Dockerfile.webapp
+      instruction:
+        keyword: "ARG"
+        matcher: "GO_VERSION"
+----
+
+[source,shell]
+----
+$ updatecli diff --config source.yaml
+✔ value "1.15.8" found for last stage in the dockerfile file "Dockerfile.webapp"
+----
+
+`stage` narrows the search to one named build stage; without it the **last** stage is used, which the report states explicitly:
+
+[source,yaml]
+----
+spec:
+  file: Dockerfile.webapp
+  stage: build
+  instruction:
+    keyword: "FROM"
+    matcher: "golang"
+----
+
+[source,shell]
+----
+$ updatecli diff --config source-stage.yaml
+✔ value "golang:${GO_VERSION}-alpine" found for stage "build" in the dockerfile file "Dockerfile.webapp"
+----
 
 == Methods
 
@@ -144,10 +191,11 @@ Please look at <<Supported Keywords>> to see more specific examples.
 [cols="2,1,1,3",options=header]
 |===
 | Name | Required | Default |Description
-| file  | &#10004; (if `files` is not set)  | - | Specifies the dockerimage file path to use and is incompatible with `files`
-| files  | &#10004; (if `file` is not set) | - | Specifies the dockerimage file path to use and is incompatible with `files`
+| file  | &#10004; (if `files` is not set)  | - | Specifies the Dockerfile path to use and is incompatible with `files`
+| files  | &#10004; (if `file` is not set) | - | Specifies the Dockerfile paths to use and is incompatible with `file`. A source accepts only one entry.
 | instruction.keyword | &#10004; | - | Set the <<Supported Keywords>> to be matched.
 | instruction.matcher | &#10004; | - | Set the text to be matched.
+| stage | &#10007; | last stage | Restricts matching to one named build stage (the name after `AS`). Unset means the last stage.
 |===
 
 === Supported Keywords

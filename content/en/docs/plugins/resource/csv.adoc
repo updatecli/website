@@ -1,13 +1,15 @@
 ---
 title: "CSV"
-description: "Manipulate csv information"
+description: "Read and update a cell in a CSV file addressed by a Dasel selector"
 lead: "kind: csv"
 date: 2021-09-27T19:19:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 50
 toc: true
 plugins:
   - source
@@ -27,25 +29,76 @@ plugins:
 
 == Description
 
-**source**
+The `csv` resource reads and writes a single cell in a CSV file. Rows are addressed by index and columns by header name through a link:https://daseldocs.tomwright.me/[Dasel] selector, so `.[0].firstname` is the `firstname` column of the first data row.
 
-The CSV "source" retrieves an information from a CSV file.
+**source**::
+Reads one cell out of one file. Only a single file is accepted.
 
-**condition**
+**condition**::
+Compares the cell to `value`, or to the source output when `value` is unset.
 
-The CSV "condition" tests that an information exist in a CSV file.
-
-**target**
-
-The CSV "target" ensures that a CSV file content a specific value at specific location.
+**target**::
+Writes the value into the cell. Files already holding it are reported as up to date and left untouched.
 
 == Parameters
 
 {{< resourceparameters "sources" "csv" >}}
 
-=== Query
+`file` or `files` is mandatory, as is `key` or `query`; missing either aborts the run with `wrong spec content`. `file` and `files` are mutually exclusive.
 
-The csv resource benefits from the Dasel library https://daseldocs.tomwright.me/
+NOTE: `multiple` is deprecated and hidden from the table above. Use a selector returning several values instead.
+
+=== Separator and comment characters
+
+`comma` and `comment` are Go runes, not strings. They must be given as the **decimal code point** of the character, so a semicolon-separated file is `comma: 59`, not `comma: ";"`:
+
+[source,yaml]
+----
+spec:
+  file: data.csv
+  key: .[0].version
+  comma: 59      # ";" - 44 is "," (the default), 9 is a tab
+----
+
+Passing the character itself aborts the run before the pipeline starts:
+
+[source,text]
+----
+error while cleaning config: failed to create resource csv: decoding failed due to the following error(s):
+'Comma' expected type 'int32', got unconvertible type 'string'
+----
+
+`comment` works the same way and defaults to `#`, which is code point 35.
+
+== Engines
+
+`engine` selects which version of Dasel parses the file, and the selector syntax is not portable between versions.
+
+[cols="1,3",options=header]
+|===
+| Value | Behaviour
+| `dasel/v1` | Default when `engine` is unset. Deprecated - every run logs a warning.
+| `dasel/v2` | Deprecated - every run logs a warning.
+| `dasel/v3` | Current engine. Rejects the leading dot: use `[0].firstname`, not `.[0].firstname`.
+| `dasel` | Alias resolving to the latest engine, currently `dasel/v3`.
+|===
+
+WARNING: `query` is a `dasel/v1` parameter. On `dasel/v2` and `dasel/v3`, a `query` without a `key` fails validation with `engine "dasel/v3" requires the parameter "key" over "query"`. On `dasel/v1`, `query` is the multi-value form and must be paired with `versionfilter` in a source.
+
+== Remote files
+
+`file` accepts `https://`, `http://` and `file://` for a source and a condition. A target refuses a URL outright:
+
+[source,text]
+----
+URL scheme is not supported for CSV target: "https://example.com/data.csv"
+----
+
+== Limitations
+
+Dasel rewrites the file from its parsed representation, so **comments are dropped** on any target that changes something - see link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Formatting details such as quoting style are normalised the same way.
+
+When that matters, drive the edit with the link:/docs/plugins/resource/file/["File" resource] and a `matchpattern`/`replacepattern` pair instead, which rewrites only the bytes that changed.
 
 == Example
 
@@ -55,8 +108,7 @@ The csv resource benefits from the Dasel library https://daseldocs.tomwright.me/
 {{<include "assets/code_example/docs/plugins/resources/csv/updatecli.d/default.yaml">}}
 ----
 
-== Important
+== Links
 
-The library used to manipulate CSV files, drops comments. More information is available on
-link:https://github.com/TomWright/dasel/issues/178[tomwright/dasel#178]. Until we find a solution, a potential workaround is to use the resource `file` like in the following example:
-
+* link:https://daseldocs.tomwright.me/[Dasel documentation]
+* link:/docs/core/versionfilter/["Version Filtering" page]

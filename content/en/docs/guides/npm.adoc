@@ -1,14 +1,15 @@
 ---
 title: "Guide: Npm"
-description: "Automate based on a npm package"
+description: "Track an npm dependency and refresh both package.json and package-lock.json in one pipeline"
 lead: "Automate based on a npm package"
 date: 2023-02-07T22:10:01+02:00
+lastmod: 2026-07-31T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "guide"
-weight: 130
+weight: 120
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -52,53 +53,67 @@ link:https://docs.github.com/en/authentication/keeping-your-account-and-data-sec
 ==== Description
 
 Updatecli relies on one or more pipeline manifests to describe the expected update pipeline.
-In this guide, we use the two following components
+In this guide, we use the four following components
 
 . A source of kind `npm` to monitor the npm dependency
 . A target of kind `shell` to run a command for updating both the 'package-lock.json' and 'package.json'
+. An scm of kind `github`, referenced by the target through `scmid: default`, so the update happens on a clone of the repository
+. An action of kind `github/pullrequest`, bound to the same scm, to submit the change
 
-[source,yaml]
+The project we update holds the two files npm keeps in sync:
+
+.package.json
+[source,json]
 ----
-#package.json
 {{< include "assets/code_example/docs/guides/npm/package.json" >}}
 ----
 
+.package-lock.json
+[%collapsible]
+====
+[source,json]
+----
+{{< include "assets/code_example/docs/guides/npm/package-lock.json" >}}
+----
+====
+
 ==== Manifest
 
+.updatecli.d/manifest.yaml
 [source,yaml]
 ----
-#updatecli.d/manifest.yaml
 {{< include "assets/code_example/docs/guides/npm/updatecli.d/manifest.yaml" >}}
 ----
 
 Then you can run:
 
-```
+[source,shell]
+----
 export UPDATECLI_GITHUB_TOKEN=<your_PAT>
 export UPDATECLI_GITHUB_ACTOR=<your GH username>
-updatecli diff --config updatecli.d/manifest.yaml`
-```
+updatecli pipeline diff --config updatecli.d/manifest.yaml
+----
 
 === Going further
 
 Once you're happy with the Update pipeline, you can use your CI environment to run it regularly.
 You'll need updatecli installed in your CI environment, and the right credentials.
-More information link:https://www.updatecli.io/docs/automate/github_action/[in the corresponding GitHub Action documentation]
+More information link:/docs/automate/github_action/[in the corresponding GitHub Action documentation]
 
 This guide demonstrated a simple update pipeline, but real-world situations usually require either updating all dependencies specified in a package.json, or updating additional resources such as documentation, CI environment, etc.
 
-For updating all dependencies from a package.json at once, the Autodiscovery feature is currently being experimented with.
-
-Feel free to provide input for this feature, it's still active development.
-To see what it looks like, you can run `updatecli diff --experimental` from a repository containing package.json
+For updating all dependencies from a package.json at once, you do not need to write a manifest at all.
+The npm crawler is enabled by default, so running `updatecli pipeline diff` from a repository containing a `package.json` discovers the dependencies and generates the pipeline for you.
+It also refreshes `package-lock.json` or `yarn.lock` when the matching package manager is available.
+The link:/docs/plugins/autodiscovery/npm/["npm autodiscovery" page] covers what it detects and how to tune it.
 
 In the situation of a more tailored update scenario, you may need to extend the current pipeline using additional resources such as:
 
 **Dockerfile**
-Adding a target of kind `dockerfile`, updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
+Adding a target of kind link:/docs/plugins/resource/dockerfile/[`dockerfile`], updatecli could update the npm dependency used within a Dockerfile as part of the same operation.
 
 **Yaml**
-Adding a target of kind `yaml`, updatecli could also update the npm dependency used in any yaml as part of the same operation.
+Adding a target of kind link:/docs/plugins/resource/yaml/[`yaml`], updatecli could also update the npm dependency used in any yaml as part of the same operation.
 
 Feel free to chat on the Updatecli link:https://matrix.to/#/#Updatecli_community:gitter.im[Matrix] channel.
 

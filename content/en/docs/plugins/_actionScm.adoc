@@ -1,0 +1,60 @@
+An action never runs on its own: it needs an `scmid` pointing at an scm declared in the same manifest, and that scm must be of the matching kind. Both are checked when the manifest loads:
+
+[source,text]
+----
+missing value for parameter(s) ["scmid"]
+scm of kind "git" is not compatible with action of kind "github/pullrequest"
+----
+
+The action then reuses that scm rather than being configured twice. From it, it inherits:
+
+[cols="1,3",options=header]
+|===
+| Field | Inherited value
+
+| `sourcebranch`
+| The *working branch* the scm created and pushed - the branch carrying the changes.
+
+| `targetbranch`
+| The scm's `branch` - the branch the pull request is opened against.
+
+| `owner`, `repository`
+| The repository the scm points at.
+
+| credentials, URL
+| Whatever the scm was given, when the action does not set its own.
+|===
+
+Every one of these can be overridden in the action `spec`, but there is rarely a good reason to: a mismatch between the branch the scm pushed and the branch the action opens the request from produces a request with no changes in it.
+
+*Where the title comes from*
+
+The title is resolved from the first of these that is set:
+
+. `spec.title` on the action
+. `title` on the action itself, one level above `spec`
+. the name of the associated target, when there is exactly one
+. the pipeline name
+
+The second form is the usual one:
+
+[source,yaml]
+----
+actions:
+  default:
+    kind: <the action kind>
+    scmid: default
+    title: 'deps: bump axios version'
+----
+
+*Create or update*
+
+Updatecli looks for a request already open between the same two branches before creating one, so running the same pipeline repeatedly gives you one long-lived request per pipeline and repository rather than one per run. Whether that existing request is then *refreshed* with the latest title and description differs by plugin (each page says which).
+
+Creation is also skipped, without failing the pipeline, when either branch is missing from the remote. Updatecli attempts it on every run regardless, so that a request closed by hand or lost to an earlier failure gets reopened on the next one.
+
+*Pipeline URL*
+
+When Updatecli detects that it runs inside a CI job, it appends a link to that job in the request description. Set `disablepipelineurl: true` on the action (next to `kind` and `scmid`, not inside `spec`) to leave it out.
+
+Detection is limited to three engines, each recognised by one environment variable: Jenkins (`JENKINS_URL`), GitLab CI (`GITLAB_CI`), and GitHub Actions (`GITHUB_ACTION`), checked in that order. Anywhere else no link is added, whatever this setting says.

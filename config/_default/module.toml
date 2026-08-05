@@ -1,68 +1,99 @@
-[hugoVersion]
-  extended = true
-  min = "0.80.0"
-  max = ""
+# Module Configuration File
+#
+# Mounts map npm-provided Thulite/Doks packages (under node_modules) plus this
+# project's local directories into Hugo's build. Local sources are mounted last
+# so they override the theme defaults.
 
+## content
+# Single-language (en) site: mount the en content at the content root so pages
+# are served from "/" rather than "/en/".
 [[mounts]]
-  source = "node_modules/@hyas/doks/archetypes"
-  target = "archetypes"
+  source = "content/en"
+  target = "content"
 
-#  [[mounts]]
-#    source = "node_modules/@hyas/doks/assets"
-#    target = "assets"
-
-#  [[mounts]]
-#    source = "node_modules/@hyas/doks/content"
-#    target = "content"
-
+## data
 [[mounts]]
-  source = "node_modules/@hyas/doks/data"
+  source = "node_modules/@thulite/doks-core/data"
   target = "data"
-
-[[mounts]]
-  source = "node_modules/@hyas/doks/layouts"
-  target = "layouts"
-
-[[mounts]]
-  source = "node_modules/@hyas/doks/static"
-  target = "static"
-
-[[mounts]]
-  source = "node_modules/flexsearch"
-  target = "assets/js/vendor/flexsearch"
-
-[[mounts]]
-  source = "node_modules/katex"
-  target = "assets/js/vendor/katex"
-
-[[mounts]]
-  source = "node_modules/mermaid"
-  target = "assets/js/vendor/mermaid"
-
-[[mounts]]
-  source = "assets"
-  target = "assets"
-
-[[mounts]]
-  source = "static"
-  target = "static"
-
-#  [[mounts]]
-#    source = "content"
-#    target = "content"
-
-[[mounts]]
-  source = "layouts"
-  target = "layouts"
-
-[[mounts]]
-  source = "archetypes"
-  target = "archetypes"
 
 [[mounts]]
   source = "data"
   target = "data"
 
+## layouts
 [[mounts]]
-  source = "node_modules/@hyas/images/layouts"
+  source = "layouts"
   target = "layouts"
+
+[[mounts]]
+  files = ['! home.html']
+  source = "node_modules/@thulite/doks-core/layouts"
+  target = "layouts"
+
+[[mounts]]
+  source = "node_modules/@thulite/core/layouts"
+  target = "layouts"
+
+[[mounts]]
+  source = "node_modules/@thulite/seo/layouts"
+  target = "layouts"
+
+[[mounts]]
+  source = "node_modules/@thulite/images/layouts"
+  target = "layouts"
+
+[[mounts]]
+  source = "node_modules/@thulite/inline-svg/layouts"
+  target = "layouts"
+
+## i18n
+[[mounts]]
+  source = "node_modules/@thulite/doks-core/i18n"
+  target = "i18n"
+
+[[mounts]]
+  source = "i18n"
+  target = "i18n"
+
+## archetypes
+[[mounts]]
+  source = "node_modules/@thulite/doks-core/archetypes"
+  target = "archetypes"
+
+[[mounts]]
+  source = "archetypes"
+  target = "archetypes"
+
+## assets
+[[mounts]]
+  source = "node_modules/@thulite/core/assets"
+  target = "assets"
+
+[[mounts]]
+  source = "node_modules/@thulite/doks-core/assets"
+  target = "assets"
+
+[[mounts]]
+  source = "node_modules/@tabler/icons/icons"
+  target = "assets/svgs/tabler-icons"
+
+[[mounts]]
+  source = "node_modules/@thulite/images/assets"
+  target = "assets"
+
+[[mounts]]
+  source = "hugo_stats.json"
+  target = "assets/watching/hugo_stats.json"
+
+[[mounts]]
+  source = "assets"
+  target = "assets"
+
+## static
+[[mounts]]
+  source = "node_modules/@thulite/doks-core/static"
+  target = "static"
+
+[[mounts]]
+  source = "static"
+  target = "static"

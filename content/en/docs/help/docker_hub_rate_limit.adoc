@@ -1,0 +1,219 @@
+---
+title: "Docker Hub rate limit"
+description: "Why Updatecli consumes Docker Hub pull quota, how much each account type gets, and the concrete ways to stay under the limit."
+lead: "Why Updatecli consumes pull quota, and how to spend less of it"
+date: 2025-06-12T17:00:00+00:00
+lastmod: 2026-07-30T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "help"
+weight: 630
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Updatecli never downloads an image, yet it still consumes Docker Hub pull quota. This page explains
+why, and what to do about it.
+
+The same mechanics apply to any registry that meters manifest requests; the numbers below are Docker
+Hub's.
+
+== Rate limits
+
+Docker Hub introduced pull rate limiting in November 2020. The allowance depends on how, and whether,
+you authenticate:
+
+[cols="2,2,1", options="header"]
+|===
+| Account | Pull limit | Window
+
+| Unauthenticated
+| 100, per IPv4 address or IPv6 `/64` subnet
+| 6 hours
+
+| Personal (authenticated, free)
+| 200
+| 6 hours
+
+| Pro, Team, Business (paid)
+| Unlimited
+| -
+|===
+
+The window is a rolling one, and for unauthenticated requests the counter is keyed to your *network*,
+not to you. A shared CI runner or an office NAT therefore pools everyone's usage into one allowance of
+100, which is why the limit is often reached far sooner than the number suggests.
+
+NOTE: Verified against link:https://docs.docker.com/docker-hub/usage/pulls/[Docker's pull documentation]
+in July 2026. Docker has revised these limits before; treat the linked page as authoritative if it
+disagrees with this one.
+
+== Why Updatecli consumes quota
+
+Docker counts *manifest* requests, not layer downloads, and it counts them by HTTP method, from
+link:https://docs.docker.com/docker-hub/usage/pulls/#pull-definition[Docker's own definition]:
+
+* A `GET` on a manifest emulates a real pull and **counts**.
+* A `HEAD` on a manifest does **not** count.
+
+So Updatecli consumes quota without ever transferring an image, because checking a tag means asking for
+its manifest. Which method gets used depends on the plugin and the stage:
+
+[cols="1,1,1,2", options="header"]
+|===
+| Plugin | Stage | Request | Counts?
+
+| `dockerimage`
+| source
+| tag listing
+| Not a manifest request
+
+| `dockerimage`
+| condition
+| `GET`
+| Yes
+
+| `dockerdigest`
+| source
+| `GET`
+| Yes
+
+| `dockerdigest`
+| condition
+| `HEAD`
+| No
+|===
+
+TIP: A `dockerdigest` condition is the cheapest way to ask "does this tag still exist?". It is the one
+combination above that costs nothing. Reach for it in preference to a `dockerimage` condition when all
+you need is existence.
+
+[WARNING]
+====
+Narrowing a `tagfilter` or a `versionfilter` does **not** reduce quota consumption. Updatecli fetches
+the full tag list from the registry and filters it locally, so a tighter filter returns fewer results
+from the same number of requests.
+
+To spend less quota, reduce how many *resources* query the registry, or how often the pipeline runs,
+not how much each one matches.
+====
+
+== Staying under the limit
+
+=== Authenticate
+
+Authenticating doubles a free allowance from 100 to 200, and more importantly moves the counter from
+your shared network address to your account.
+
+link:https://docs.docker.com/accounts/create-account/[Create an account], then make the credentials
+available in one of two ways.
+
+**Ambient credentials**, used by the `dockerimage`, `dockerdigest`, and `helm` resources. They read the
+standard Docker credential store, so a login is all that is needed:
+
+[source,shell]
+----
+docker login
+----
+
+That writes `~/.docker/config.json`; `DOCKER_CONFIG` relocates it. See
+link:/docs/help/environment/#_ecosystem_tools["Environment variables"].
+
+**An `auths` block**, supported by the autodiscovery crawlers that resolve images (`dockerfile`,
+`dockercompose`, `kubernetes`, `helm`, `helmfile`, `flux`, `argocd`, and others). Keys are registry URLs
+without a scheme, and each accepts either a `token` or a `username`/`password` pair:
+
+[source,yaml]
+----
+autodiscovery:
+  crawlers:
+    dockerfile:
+      auths:
+        index.docker.io:
+          username: '{{ requiredEnv "DOCKERHUB_USERNAME" }}'
+          password: '{{ requiredEnv "DOCKERHUB_TOKEN" }}'
+----
+
+When `auths` is empty, those crawlers fall back to the ambient credentials as well. Each crawler page
+lists what it accepts, see link:/docs/plugins/autodiscovery/dockerfile/#_authentication["Dockerfile
+crawler"] for an example.
+
+=== Put a cache or proxy in front
+
+A pull-through cache serves repeated requests without touching Docker Hub. Updatecli's registry client
+honours the standard proxy variables, so `HTTPS_PROXY` and `NO_PROXY` apply to registry traffic as well
+as to plain HTTP:
+
+[source,shell]
+----
+export HTTPS_PROXY="http://proxy.example.com:3128"
+export NO_PROXY="ghcr.io,internal.example.com"
+----
+
+GitLab's
+link:https://about.gitlab.com/blog/2025/03/24/prepare-now-docker-hub-rate-limits-will-impact-gitlab-ci-cd/[dependency
+proxy write-up] is a worked example of the pattern. The alternative is to point manifests at a mirror
+registry directly, which costs no Docker Hub quota at all.
+
+=== Do not retry on failure
+
+When Updatecli runs as a Kubernetes `CronJob`, a retry after a rate-limit failure spends quota it does
+not have and pushes the reset further away. Turn retries off:
+
+[source,yaml]
+----
+spec:
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+----
+
+The same reasoning applies to any scheduler: a rate-limit failure is not transient within the window, so
+retrying inside it cannot succeed.
+
+== Checking your current usage
+
+Docker returns the quota state in response headers, described under
+link:https://docs.docker.com/docker-hub/usage/pulls/#view-pull-rate-and-limit[View pull rate and limit].
+
+To read it as an *anonymous* consumer over IPv4:
+
+[source,shell]
+----
+# Retrieve an authentication token for the API.
+TOKEN=$(curl -s "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
+
+# Retrieve the quota state using that token.
+curl -4 --head -H "Authorization: Bearer $TOKEN" \
+  https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+----
+
+Three headers matter:
+
+`ratelimit-limit`:: Your allowance and its window, as `100;w=21600` (100 requests per 21600 seconds).
+`ratelimit-remaining`:: What is left in the current window.
+`docker-ratelimit-source`:: The address or account the counter is keyed to. This is how to confirm
+whether you are being counted per network or per account.
+
+Repeat with `curl -6` to check IPv6, the two are metered independently, so a host with both may show
+plenty of quota on one and none on the other.
+
+If you authenticated with `docker login`, Docker's documentation covers retrieving the figures for the
+account rather than the address.
+
+== Go Further
+
+* link:/docs/help/troubleshooting/#_rate_limiting[Troubleshooting] - the GitHub API equivalent, which pauses rather than fails.
+* link:/docs/help/environment/[Environment variables] - proxy settings and credential stores.
+* link:/docs/plugins/resource/docker_digest/["Docker Digest" page] - the cheaper of the two image resources.
+* link:/docs/plugins/resource/docker_image/["Docker Image" page].

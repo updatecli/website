@@ -1,0 +1,77 @@
+{{ $stage := .Get 0 }}
+{{- /* The colgroup below is what keeps this table inside the .docs-content
+     column: `.docs-content table` is laid out with `table-layout: fixed`, which
+     sizes columns from the colgroup and ignores content, so a description
+     holding a fenced code block can no longer stretch the table over the table
+     of contents. See the table sizing block in assets/scss/common/_custom.scss
+     for the whole story, and for what `.table-scroll` does. */ -}}
+<div class="table-scroll">
+<table>
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 12%;">
+      <col style="width: 54%;">
+      <col style="width: 14%;">
+    </colgroup>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+{{ $dataJ := os.ReadFile "content/en/schema/latest/policy/manifest/config.json" | transform.Unmarshal }}
+  {{ range $k, $v := $dataJ.properties }}
+    {{ if eq $k $stage }}
+      {{ $core := ( index $v.additionalProperties.oneOf 0 )}}
+          {{ range $paramName, $paramValue := $core.properties }}
+            {{ if eq $paramName "kind" }}
+    <tr>
+        <td><b>kind</b></td>
+        <td>string</td>
+        <td>kind specifies the {{ $stage }} resource kind</td>
+        <td></td>
+    </tr>
+            {{ else if  eq $paramName "spec" }}
+    <tr>
+        <td><b>spec</b></td>
+        <td>object</td>
+        <td>spec specifies parameters for a specific {{ $stage }} kind</td>
+        <td></td>
+    </tr>
+            {{ else }}
+    <tr>
+        <td><b>{{ $paramName }}</b></td>
+        <td>{{ $paramValue.type }}</td>
+        <td>{{ partial "schema-description.html" $paramValue.description }}</td>
+        <td>{{ $paramValue.required }}</td>
+    </tr>
+              {{ if eq $paramValue.type "object" }}
+                {{ if ne $paramName "spec" }}
+                  {{ range $objectKey, $objectValue := $paramValue.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $objectKey }}</b></td>
+        <td>{{ $objectValue.type }}</td>
+        <td>{{ partial "schema-description.html" $objectValue.description }}</td>
+        <td>{{ $objectValue.required }}</td>
+    </tr>
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+              {{ if eq $paramValue.type "array" }}
+                {{ range $itemKey, $item := $paramValue.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $itemKey }}</b></td>
+        <td>{{ $item.type }}</td>
+        <td>{{ partial "schema-description.html" $item.description }}</td>
+        <td>{{ $item.required }}</td>
+    </tr>
+              {{ end }}
+            {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+</table>
+</div>
+

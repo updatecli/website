@@ -12,22 +12,39 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The Precommit crawler looks recursively for all precommit repository updates.
+The Precommit crawler looks recursively for every `.pre-commit-config.yaml` file from a root directory, and updates the `rev` pinned by each hook repository.
 
-It currently support the following sources:
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `precommit` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
 
-- link:{{< ref "gittag" >}}[`gittag`]
+== Generated manifests
 
+Each repository produces a link:{{< ref "gittag" >}}[`gittag`] source resolving the latest tag, and a target writing the new value to the repository's `rev`.
+
+The version filter is narrowed per repository from the currently pinned revision, so a hook on `v4.5.0` is filtered with `>=4.5.0`.
+
+=== Digest pinning
+
+Unlike most crawlers, `digest` defaults to **false**, so hooks are pinned to a tag. Set `digest: true` to resolve and write the commit SHA behind that tag instead, which is the form pre-commit itself recommends for untrusted repositories.
+
+== Limitations
+
+* A `repo: local` entry declares hooks that live in the repository itself, so it has no upstream revision and is skipped.
+* Only files named exactly `.pre-commit-config.yaml` are scanned.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "precommit" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

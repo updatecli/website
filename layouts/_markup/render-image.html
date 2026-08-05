@@ -1,0 +1,26 @@
+{{- /*
+  Local override of the Thulite images render hook.
+  The Updatecli site references most images either as remote URLs or as
+  absolute paths into static/ (e.g. /images/...), which the upstream hook
+  (built for page/asset resources) cannot process. This version emits a plain
+  responsive-friendly <img> for remote/absolute images and still processes
+  local Hugo resources when they resolve.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $u := urls.Parse $dest -}}
+{{- $alt := .PlainText -}}
+{{- $title := .Title -}}
+{{- $isRemote := or (eq $u.Scheme "http") (eq $u.Scheme "https") -}}
+{{- $isAbs := strings.HasPrefix $dest "/" -}}
+{{- if or $isRemote $isAbs -}}
+  <img src="{{ $dest | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} class="img-fluid" loading="lazy" decoding="async">
+{{- else -}}
+  {{- $r := "" -}}
+  {{- with .Page.Resources.GetMatch $dest }}{{ $r = . }}{{ end -}}
+  {{- if not $r }}{{ with resources.Get $dest }}{{ $r = . }}{{ end }}{{ end -}}
+  {{- if $r -}}
+    <img src="{{ $r.RelPermalink }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} width="{{ $r.Width }}" height="{{ $r.Height }}" class="img-fluid" loading="lazy" decoding="async">
+  {{- else -}}
+    <img src="{{ $dest | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} class="img-fluid" loading="lazy" decoding="async">
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,6 @@
+{{- /* Nil-safe override: .Fragments is nil for non-Markdown (e.g. AsciiDoc) pages. */ -}}
+{{- $has := false -}}
+{{- with .Fragments -}}
+  {{- $has = gt (len .Headings) 0 -}}
+{{- end -}}
+{{- return $has -}}

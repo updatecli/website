@@ -1,1 +1,38 @@
-✔ Version 2.331 found for the weekly release
+######################
+# QUICKSTART EXAMPLE #
+######################
+
+source: jenkinsVersion
+----------------------
+
+✔ version "2.575" found for the Jenkins weekly release
+
+condition: dockerimage
+----------------------
+
+✔ docker image jenkins/jenkins:2.575 found
+
+target: dataFile
+----------------
+
+⚠ - change detected:
+	* key "$.container.tag" should be updated from "2.475" to "2.575", in file "data.yaml"
+
+SUMMARY:
+
+⚠ QuickStart example:
+	Source:
+		✔ [jenkinsVersion] Get the latest Jenkins weekly version
+	Condition:
+		✔ [dockerimage] Is the Jenkins weekly tag published on DockerHub
+	Target:
+		⚠ [dataFile] Bump the Jenkins Docker image tag
+
+Run Summary
+===========
+Pipeline(s) run:
+  * Changed:	1
+  * Failed:	0
+  * Skipped:	0
+  * Succeeded:	0
+  * Total:	1

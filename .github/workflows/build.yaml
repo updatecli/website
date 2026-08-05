@@ -20,9 +20,9 @@ jobs:
           hugo-version: 0.164.0
           extended: true
       - name: Install Bundler
-        uses: ruby/setup-ruby@7372622e62b60b3cb750dcd2b9e32c247ffec26a # v1
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
         with:
-          ruby-version: 2.7
+          ruby-version: 4.0
           bundler-cache: true
       - name: Install asciidoctor
         run: gem install asciidoctor
@@ -30,7 +30,5 @@ jobs:
         run: hugo version
       - name: Install dependencies
         run: npm install
-      - name: Run Hyas test script
-        run: npm test
       - name: Build production website
         run: npm run build

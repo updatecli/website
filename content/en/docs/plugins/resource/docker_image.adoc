@@ -1,16 +1,18 @@
 ---
 title: "Docker Image"
-description: "Manipulate information from docker image"
+description: "Look up a container image tag or digest in a registry"
 lead: "kind: dockerimage"
 date: 2020-10-13T15:21:01+02:00
-lastmod: 2020-10-13T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 70
 toc: true
 plugins:
+  - source
   - condition
 ---
 // <!-- Required for asciidoctor -->
@@ -27,13 +29,20 @@ plugins:
 
 == Description
 
-**source**
+The `dockerimage` resource queries a container registry about an image.
 
-The Docker Image "source" retrieves a docker image tag from a Docker Registry
+**source**::
+Returns the image tag matching `versionfilter`.
 
-**condition**
+**condition**::
+Tests that a tag exists for the image, optionally for a set of architectures.
 
-The Docker Image "condition" tests if a docker image tag exist on a Docker Registry
+**target**::
+Not supported - a target fails with `target not supported for the plugin Docker Image`. To write a tag into a file, use the link:/docs/plugins/resource/yaml/["Yaml"] or link:/docs/plugins/resource/dockerfile/["Dockerfile"] resources.
+
+NOTE: An `scm` attached to a condition is ignored, with a warning (the lookup always goes to the registry).
+
+To pin an image by digest rather than by tag, see the link:/docs/plugins/resource/docker_digest/["Docker Digest" resource].
 
 == Parameters
 
@@ -46,17 +55,24 @@ Consider using an environment variable to store the token.
 
 == Architectures
 
-When the parameter `architecture` or `architectures` the registry will be checked to see if they are present.
+`architecture` names one platform; `architectures` takes a list, and the condition passes only when the tag exists for all of them.
+
+[IMPORTANT]
+====
+Leaving both unset is not the same as asking for the default platform. With no architecture, Updatecli retrieves the digest of the **image index** - the multi-architecture manifest list, valid whichever platform pulls it. Naming an architecture retrieves the digest of that **specific image** instead.
+
+The two digests are different values for the same tag, so switching between them changes what a source returns. See link:https://github.com/updatecli/updatecli/issues/1603[updatecli#1603].
+====
 
 Remarks:
 
-* The default operating system is `linux`.
-* When query variant `v7` for `arm` the operating system must also be defined.
-* Checking architectures is not supported for v1 registries
+* The default operating system is `linux`, so `amd64` means `linux/amd64`.
+* When querying the `v7` variant of `arm`, the operating system must be spelled out: `linux/arm/v7`.
+* Checking architectures is not supported on v1 registries.
 
-Here are some examples:
+Accepted forms:
 
-* `amd64` - will check for `linux/amd64`
+* `amd64` - checks `linux/amd64`
 * `linux/amd64`
 * `windows/amd64`
 * `linux/arm/v7`

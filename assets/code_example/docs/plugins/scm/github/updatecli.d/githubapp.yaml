@@ -1,0 +1,27 @@
+name: Example of a GitHub SCM authenticated with a GitHub App
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: updatecli
+      repository: updatecli
+      branch: main
+      # "app" and "token" are mutually exclusive
+      app:
+        clientid: '{{ requiredEnv "GITHUB_APP_CLIENT_ID" }}'
+        installationid: '{{ requiredEnv "GITHUB_APP_INSTALLATION_ID" }}'
+        # privatekey and privatekeypath are both accepted,
+        # privatekey takes precedence when both are set
+        privatekeypath: '{{ requiredEnv "GITHUB_APP_PRIVATE_KEY_PATH" }}'
+        # token lifetime in seconds, 3600 by default, 600 minimum
+        expirationtime: "3600"
+
+targets:
+  updateChartVersion:
+    name: 'deps: bump chart dependency version'
+    kind: yaml
+    scmid: default
+    spec:
+      file: charts/jenkins/Chart.yaml
+      key: $.version

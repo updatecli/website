@@ -3,7 +3,6 @@ title: "Updatecli on HackerNews"
 description: "Thanks for your support"
 lead: "Thank you"
 date: 2022-02-14T09:19:42+01:00
-date: 2022-02-14T09:19:42+01:00
 draft: false
 weight: 50
 images: [""]

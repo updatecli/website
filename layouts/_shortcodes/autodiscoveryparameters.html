@@ -1,0 +1,260 @@
+{{ $pluginName := .Get 0 }}
+
+{{- /* The colgroup below is what keeps this table inside the .docs-content
+     column: `.docs-content table` is laid out with `table-layout: fixed`, which
+     sizes columns from the colgroup and ignores content, so a description
+     holding a fenced code block can no longer stretch the table over the table
+     of contents. See the table sizing block in assets/scss/common/_custom.scss
+     for the whole story, and for what `.table-scroll` does. */ -}}
+<div class="table-scroll">
+<table>
+    <colgroup>
+      <col style="width: 20%;">
+      <col style="width: 12%;">
+      <col style="width: 54%;">
+      <col style="width: 14%;">
+    </colgroup>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Required</th>
+    </tr>
+{{ $dataJ := os.ReadFile "content/en/schema/latest/policy/manifest/config.json" | transform.Unmarshal }}
+    {{ range $k, $v := $dataJ.properties.autodiscovery.properties.crawlers.properties }}
+      {{ if eq $k $pluginName }}
+                    {{ range $key, $value := $v.properties }}
+    <tr>
+        <td><b>{{ $key }}</b></td>
+        <td>{{ $value.type }}</td>
+        <td>{{ partial "schema-description.html" $value.description }}</td>
+        <td>{{ $value.required }}</td>
+    </tr>
+                        <!-- Handle object with properties -->
+                        {{ if and (eq $value.type "object") $value.properties }}
+                          {{ range $level1key, $level1value := $value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+        <td>{{ $level1value.type }}</td>
+        <td>{{ partial "schema-description.html" $level1value.description }}</td>
+        <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                        <!-- Handle object with additionalProperties -->
+                        {{ if and (eq $value.type "object") $value.additionalProperties $value.additionalProperties.properties }}
+                          {{ range $level1key, $level1value := $value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+        <td>{{ $level1value.type }}</td>
+        <td>{{ partial "schema-description.html" $level1value.description }}</td>
+        <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                        <!-- Handle array with properties -->
+                        {{ if and (eq $value.type "array") $value.items.properties }}
+                          {{ range $level1key, $level1value := $value.items.properties }}
+    <tr>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+      <td>{{ $level1value.type }}</td>
+      <td>{{ partial "schema-description.html" $level1value.description }}</td>
+      <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                        <!-- Handle array with additionalProperties -->
+                        {{ if and (eq $value.type "array") $value.items.additionalProperties $value.items.additionalProperties.properties }}
+                          {{ range $level1key, $level1value := $value.items.additionalProperties.properties }}
+    <tr>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level1key }}</b></td>
+      <td>{{ $level1value.type }}</td>
+      <td>{{ partial "schema-description.html" $level1value.description }}</td>
+      <td>{{ $level1value.required }}</td>
+    </tr>
+                            <!-- Level 2: object with properties -->
+                            {{ if and (eq $level1value.type "object") $level1value.properties }}
+                              {{ range $level2key, $level2value := $level1value.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: object with additionalProperties -->
+                            {{ if and (eq $level1value.type "object") $level1value.additionalProperties $level1value.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with properties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                            <!-- Level 2: array with additionalProperties -->
+                            {{ if and (eq $level1value.type "array") $level1value.items.additionalProperties $level1value.items.additionalProperties.properties }}
+                              {{ range $level2key, $level2value := $level1value.items.additionalProperties.properties }}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ $level2key }}</b></td>
+        <td>{{ $level2value.type }}</td>
+        <td>{{ partial "schema-description.html" $level2value.description }}</td>
+        <td>{{ $level2value.required }}</td>
+    </tr>
+                              {{ end }}
+                            {{ end }}
+                          {{ end }}
+                        {{ end }}
+                    {{ end }}
+      {{ end }}
+    {{ end }}
+
+</table>
+</div>
+
+<small>&#9888; This table is generated from the Updatecli codebase and may contain inaccurate data. Feel free to report them on <a href="https://github.com/updatecli/updatecli/issues">github.com/updatecli/updatecli</a></small>

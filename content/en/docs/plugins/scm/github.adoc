@@ -1,9 +1,9 @@
 ---
-title: "Github "
-description: "Interact with github repositories"
+title: "Github"
+description: "Clone a GitHub repository, commit changes to a working branch, and push them back"
 lead: "kind: github"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -12,6 +12,7 @@ menu:
 toc: true
 plugins:
   - scm
+weight: 10
 ---
 // <!-- Required for asciidoctor -->
 :toc:
@@ -20,36 +21,86 @@ plugins:
 
 == Description
 
-Depending on the situation a specific SCM block can be provided to manipulate information from a Github SCM repository by either fetching files from a repository or pushing files to them
+The `github` scm plugin clones a GitHub repository locally so that other resources can read from it, and pushes changes back to it. It is referenced by a resource through its `scmid`, as described on the link:/docs/core/scm/["SCM" page].
 
-**condition**
+Its behavior depends on the stage referencing it:
 
-When the SCM block is used in a condition, it usually means fetching a file from that repository.
+**source** and **condition**::
+The repository is cloned and the resource works on the files from the branch defined by `branch`. Nothing is pushed.
 
-**target**
+**target**::
+Updatecli creates a *working branch* based on `branch`, commits the changes to it, and pushes that branch to the remote. The `branch` value itself is never modified.
 
-When the SCM block is used in a target, it usually means pushing a file to that repository.
+IMPORTANT: This plugin does not open pull requests. Pushing a working branch and opening a pull request are two distinct steps: the pull request is created by an `actions` block of kind `github/pullrequest`, documented on the link:/docs/plugins/actions/github/["GitHub Pull Request" page]. Without such an action, the working branch is pushed and nothing else happens.
 
-It's important to notice that the Github SCM implements the Github workflow and therefore will push changes to a temporary branch then open a pull request targeting the branch defined in the configuration.
+If you only need to read from GitHub without cloning a repository (for instance the latest release of a project), use a resource such as `githubrelease` instead of an scm.
+
+== Requirements
+
+A GitHub credential is required, *including for public repositories*. The scm authenticates every git operation, so without a usable credential the pipeline fails at clone time with:
+
+[source,text]
+----
+failed to get access token: no access token found
+----
+
+See <<_authentication>> below for the accepted credentials and the order in which they are tried.
+
+The credential needs read access to the repository for a source or a condition, and write access to the repository contents for a target. A `github/pullrequest` action additionally needs permission to open pull requests.
 
 == Parameters
 
 {{< resourceparameters "scms" "github" >}}
 
+`owner` and `repository` are the only mandatory parameters. Everything else has a default or is optional.
+
+NOTE: The table above is generated from the Updatecli JSON schema, which is refreshed by a bot after each Updatecli release. A parameter added very recently (currently `singleBranch`, which restricts clone and fetch to the configured branch) may be usable by the binary before it appears here.
+
 === Authentication
 
 include::content/en/docs/plugins/_githubAuth.adoc[]
 
-=== CommitMessage
+=== Branch and working branch
 
-Updatecli uses conventional commits as describe on link:https://www.conventionalcommits.org/[www.conventionnalcommits.org]. +
-The goal is to add human and machine readable meaning to commit messages
+`branch` is the branch resources read from, and the branch a target's changes are ultimately meant for. Updatecli never commits directly to it unless you explicitly opt out of the working branch.
 
-By default, Updatecli generates a commit message using the default type "chore" and split long title message into the body like:
+For a target, the working branch is derived from three components joined by a separator:
 
----
-```
-Author: olblak <updatecli@updatecli.io>
+[source,text]
+----
+<workingBranchPrefix><workingBranchSeparator><branch><workingBranchSeparator><pipelineID>
+----
+
+With the defaults (`workingBranchPrefix: updatecli`, `workingBranchSeparator: _`), a pipeline updating `main` produces a branch such as `updatecli_main_6f3c...`. The `pipelineID` component is a hash derived from the pipeline, so the same pipeline always reuses the same working branch instead of piling up new ones. Characters GitHub does not accept in a ref are stripped or replaced, and the result is truncated to 255 characters.
+
+Setting `workingBranchPrefix` to an empty string drops the prefix, giving `<branch>_<pipelineID>`.
+
+==== Disabling the working branch
+
+Setting `workingBranch: false` makes Updatecli commit and push directly to `branch`. Because `force` defaults to `true` (meaning `git push --force`), this combination is refused unless you also set `force` explicitly:
+
+[source,text]
+----
+Better safe than sorry.
+
+Updatecli may be pushing unwanted changes to the branch "main".
+----
+
+Set `force: false` to push without forcing, or `force: true` to acknowledge the force push. Note that when `force` is `true`, Updatecli also recreates working branches that have diverged from their base branch.
+
+==== Cleaning up working branches
+
+`updatecli apply --clean-git-branches` deletes, at the end of the run, every working branch that ended up identical to its base branch - the branches left behind by pipelines that turned out to have nothing to change. Branches carrying actual commits are kept. The flag has no effect on a dry run (`updatecli diff`) or when pushing is disabled.
+
+=== Commit message
+
+Updatecli generates link:https://www.conventionalcommits.org/[conventional commits], to give commit messages a meaning that is readable by both humans and machines. The `commitMessage` parameters (`type`, `scope`, `body`, `footers`, `hideCredit`, `squash`) shape the generated message.
+
+The commit title is always generated from the target's `name`, or from its description when `name` is unset. The title is capped at 72 characters, minus the room taken by `type` and `scope`; anything longer is truncated with an ellipsis and the remainder is moved into the commit body. With the default type `chore`, this produces:
+
+[source,text]
+----
+Author: olblak <updatecli-bot@updatecli.io>
 Date:   Tue May 4 15:41:44 2021 +0200
 
     chore: Update key "dependencies[0].version" from file "charts/jenkins/r...
@@ -57,8 +108,51 @@ Date:   Tue May 4 15:41:44 2021 +0200
     ... equirements.yaml"
 
     Made with ❤️️  by updatecli
-```
----
+----
+
+Setting `body` replaces the generated body entirely, including the truncated remainder shown above. `hideCredit: true` removes the "Made with ❤️️ by updatecli" line.
+
+[WARNING]
+====
+`commitMessage.title` is deprecated and ignored. Rename the target instead - the commit title now always comes from the target `name`. Updatecli logs a warning when the field is present.
+====
+
+`squash: true` rewrites the commits added on the working branch into a single commit. Since all intermediate commit information is lost, set `body` to something meaningful when squashing.
+
+NOTE: The `commitMessage` settings apply to every target linked to the same scm.
+
+=== Commit signing
+
+Two independent mechanisms are available.
+
+`gpg`::
+`signingkey` takes an armored private GPG key and `passphrase` its password. Updatecli signs the commit locally with that key.
+
+`commitUsingApi`::
+When set to `true`, the commit is created through the GitHub GraphQL API rather than by the local git client. GitHub then signs the commit itself with its own key - this is how a workflow running under `GITHUB_TOKEN` produces a verified commit without managing a GPG key. Updatecli creates the working branch through the API when it does not exist yet, then pulls the resulting commit back into the local clone.
+
+[NOTE]
+====
+`squash` is not supported together with `commitUsingApi`. The option is ignored and a warning is logged.
+====
+
+=== Clone behavior
+
+By default the repository is cloned under your system temporary directory, at `<tmp>/updatecli/github/<owner>/<repository>` - for example `/tmp/updatecli/github/updatecli/updatecli` on Linux. Overriding `directory` is rarely useful, as Updatecli may clean that directory up after a run.
+
+Three parameters control how much is fetched, all of them trade-offs on large repositories:
+
+`submodules`:: Defaults to `true`. Set it to `false` to skip submodule checkout.
+`depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone gives Updatecli an incomplete history, which can break pushes; setting `force: true` is often necessary alongside it.
+`singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. Set it to `true` to fetch only `branch`, which is significantly faster on repositories with many refs. In return, Updatecli may fail to notice an already published working branch in some edge cases, and open a duplicate pull request.
+
+=== GitHub Enterprise
+
+Point `url` at your instance, for example `github.example.com`. The scheme is optional and defaults to `https://`. Updatecli then talks to the GraphQL API at `<url>/api/graphql` and clones from `<url>/<owner>/<repository>.git`. Left unset, `url` defaults to `github.com`.
+
+=== API rate limits
+
+Updatecli checks the remaining GitHub API quota before its GraphQL calls. When the limit is exceeded, it pauses until the quota resets and retries, up to three times, before failing the pipeline. Run with `--debug` to see the quota reported at each call.
 
 == Example
 
@@ -78,3 +172,10 @@ Date:   Tue May 4 15:41:44 2021 +0200
 {{<include "assets/code_example/docs/plugins/scm/github/updatecli.d/commitmessage.yaml">}}
 ----
 
+=== GitHub App
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/github/updatecli.d/githubapp.yaml">}}
+----

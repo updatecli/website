@@ -12,20 +12,73 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The npm crawler looks recursively for all npm dependencies updates from a specific root directory.
-Then for each of them, it tries to update them.
+The npm crawler looks recursively for every `package.json` file from a specific root directory, and tries to update the dependencies declared in `dependencies` and `devDependencies`.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with an `npm` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Requirements
+
+What the crawler generates depends on which lock file sits next to `package.json`, and on which package manager is installed where Updatecli runs.
+
+[cols="1,1,2",options=header]
+|===
+| Lock file | Command available | Result
+
+| none
+| -
+| `package.json` is updated on its own. Nothing refreshes a lock file, because there is none.
+
+| `package-lock.json`
+| `npm`
+| A shell target runs `npm install --package-lock-only` to refresh the lock file.
+
+| `yarn.lock`
+| `yarn`
+| A shell target refreshes `yarn.lock`. See the note on npm 8 below.
+
+| `pnpm-lock.yaml`
+| `pnpm`
+| A shell target runs `pnpm add --lockfile-only`.
+
+| any of the above
+| its command missing
+| The whole `package.json` is **skipped**, with a warning. Updatecli will not bump a dependency it cannot re-lock.
+|===
+
+IMPORTANT: The lock file decides which command is required, not what is installed. A project with a `yarn.lock` is skipped when `yarn` is absent, even when `npm` is available.
+
+=== Dry-run support
+
+`npm` version 8 and later can update a `yarn.lock`, and unlike `yarn` it supports a dry run. So when a `yarn.lock` is found and npm is recent enough, Updatecli generates the npm command in preference to the yarn one.
+
+WARNING: When Updatecli has to fall back to `yarn add --mode update-lockfile` or `pnpm add --lockfile-only`, neither supports a dry run. `updatecli diff` will then modify the lock file on disk rather than only reporting the change. Installing npm 8 or later avoids this for yarn projects.
+
+== Generated manifests
+
+Each dependency produces an link:{{< ref "npm" >}}[`npm`] source resolving the latest published version and a link:{{< ref "json" >}}[`json`] target writing it back into `package.json`, plus the lock-file shell target described above when one applies.
+
+== Version constraints
+
+A dependency declared with a range, such as `^4.18.0` or `~29.7.0`, keeps that constraint by default: the range is respected when looking for a newer version.
+
+Set `ignoreversionconstraints: true` to disregard the declared range and offer the latest published version instead.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "npm" >}}
 
-==== Example
+=== Example
 
-===== Basic Example
+==== Basic Example
 
 [source,yaml]
 ----
@@ -39,7 +92,7 @@ autodiscovery:
         pattern: minor
 ----
 
-===== Private Registry Example
+==== Private Registry Example
 
 The following example shows how to configure npm autodiscovery to work with a private npm registry:
 
