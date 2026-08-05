@@ -16,6 +16,11 @@ __ (github-actions[bot]) released this 2026-08-05 12:13:06 +0000 UTC - v0.120.0_
 ++++
 
 <h2>Changes</h2>
+<h2>⚠ Security</h2>
+<ul>
+<li>fix: file target does not confine writes to the working directory <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/ihopenre-eng/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/ihopenre-eng">@ihopenre-eng</a> (<a title="GHSA-hj4x-hm4v-7wpw" href="https://github.com/updatecli/updatecli/security/advisories/GHSA-hj4x-hm4v-7wpw">GHSA-hj4x-hm4v-7wpw</a>)</li>
+<li>fix: Credential-bearing URLs written to console <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/ihopenre-eng/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/ihopenre-eng">@ihopenre-eng</a> (<a title="GHSA-gc47-hwcc-8qp4" href="https://github.com/updatecli/updatecli/security/advisories/GHSA-gc47-hwcc-8qp4">GHSA-gc47-hwcc-8qp4</a>)</li>
+</ul>
 <h2>🚀 Features</h2>
 <ul>
 <li>feat(core): add function to validate manifest <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/olblak/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/olblak">@olblak</a> (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4995782559" data-permission-text="Title is private" data-url="https://github.com/updatecli/updatecli/issues/9721" data-hovercard-type="pull_request" data-hovercard-url="/updatecli/updatecli/pull/9721/hovercard" href="https://github.com/updatecli/updatecli/pull/9721">#9721</a>)</li>
