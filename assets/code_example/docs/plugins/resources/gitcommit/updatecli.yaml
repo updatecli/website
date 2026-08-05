@@ -1,0 +1,43 @@
+scms:
+  application:
+    kind: git
+    spec:
+      branch: main
+      url: https://github.com/example/application.git
+
+sources:
+  from-scm:
+    name: Get the latest commit from the configured SCM
+    kind: gitcommit
+    scmid: application
+    spec:
+      branch: main
+
+  from-url:
+    name: Get the latest commit from a Git URL
+    kind: gitcommit
+    spec:
+      branch: main
+      depth: 1
+      url: https://github.com/example/application.git
+
+  from-path:
+    name: Get the latest commit from a local repository
+    kind: gitcommit
+    spec:
+      path: ./application
+
+conditions:
+  exists-in-scm:
+    name: Check that the source commit exists in the configured SCM
+    kind: gitcommit
+    scmid: application
+    sourceid: from-scm
+
+  pinned-commit:
+    name: Check that a pinned commit exists in the repository
+    kind: gitcommit
+    disablesourceinput: true
+    spec:
+      url: https://github.com/example/application.git
+      hash: 69619610a3fac402931709dfbe89d113041c8776
