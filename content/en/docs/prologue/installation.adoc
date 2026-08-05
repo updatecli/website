@@ -277,7 +277,7 @@ Debian-based. Includes `git` and the common tooling some plugins shell out to.
 Minimal image. Smaller, but without the extra tooling, so plugins that rely on an external
 command will not work.
 
-Both are also published per release, for example `ghcr.io/updatecli/updatecli:v0.119.0`.
+Both are also published per release, for example `ghcr.io/updatecli/updatecli:v0.120.0`.
 
 === Usage
 
