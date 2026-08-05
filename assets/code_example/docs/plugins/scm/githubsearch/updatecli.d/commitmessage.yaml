@@ -5,15 +5,17 @@ scms:
   default:
     kind: githubsearch
     spec:
-      search: "org:MyOrg"
+      # exclude archived repositories, Updatecli would otherwise try to push to them
+      search: "org:MyOrg archived:false"
+      # maximum number of repository/branch pairs to process
       limit: 3
+      # "branch" is a regular expression matched against every branch name
       branch: "^main$|^v2$"
       commitusingapi: true
       commitmessage:
         squash: true
         type: chore
         scope: deps
-        title: "update Golang version"
       user: myGitCommitUsername
       email: myGitCommitEmail
 

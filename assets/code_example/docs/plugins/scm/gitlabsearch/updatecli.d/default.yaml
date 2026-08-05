@@ -1,0 +1,56 @@
+name: "Updatecli Golang - GitLab group"
+pipelineid: "golang/version"
+
+scms:
+  default:
+    kind: gitlabsearch
+    spec:
+      # url defaults to gitlab.com
+      # url: gitlab.example.com
+      group: "myorg/myteam"
+      # optional project name filter, every project of the group otherwise
+      search: "service"
+      # discover projects of nested subgroups too, true by default
+      includesubgroups: true
+      # maximum number of project/branch pairs to process
+      limit: 3
+      # "branch" is a regular expression matched against every branch name
+      branch: "^main$"
+      username: '{{ requiredEnv "GITLAB_USERNAME" }}'
+      token: '{{ requiredEnv "GITLAB_TOKEN" }}'
+      # a group or project access token has no identity of its own,
+      # name the bot user explicitly so GitLab can attribute the commits
+      user: updatecli-bot
+      email: updatecli-bot@updatecli.io
+      commitmessage:
+        squash: true
+        type: chore
+        scope: deps
+
+actions:
+  default:
+    kind: gitlab/mergerequest
+    scmid: default
+    spec:
+      title: 'deps(golang): Bump Golang version'
+      labels:
+        - dependencies
+
+sources:
+  golang:
+    name: Get the latest Golang version
+    kind: golang
+    spec:
+      versionfilter:
+        kind: semver
+        pattern: "1.24.x"
+
+targets:
+  gitlab-ci:
+    # the commit title is generated from this name
+    name: 'deps(golang): Bump Golang version to {{ source "golang" }}'
+    kind: yaml
+    scmid: default
+    spec:
+      file: .gitlab-ci.yml
+      key: $.variables.GOLANG_VERSION

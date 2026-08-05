@@ -1,14 +1,15 @@
 ---
 title: "Jenkins"
-description: "Manipulate Jenkins information"
+description: "Look up the latest Jenkins weekly or stable (LTS) release version"
 lead: "kind: jenkins"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 260
 toc: true
 plugins:
   - source
@@ -28,32 +29,53 @@ plugins:
 
 == Description
 
-**source**
+The `jenkins` resource reads the Jenkins release metadata from `https://repo.jenkins-ci.org/releases/org/jenkins-ci/main/jenkins-war/maven-metadata.xml` and returns a version from it.
 
-The jenkins "source" retrieves the latest version for a specific Jenkins release
+**source**::
+Returns the latest version of the requested release line.
 
-**condition**
+**condition**::
+Checks that `version` exists *and* that it belongs to the release line named by `release`.
 
-The jenkins "condition" test that a version exists and also that the version corresponds to a specific release type
+**target**::
+Not supported - a target fails with `Target not supported for the plugin Jenkins`.
 
+NOTE: An `scm` attached to a condition is ignored, with the warning `SCM configuration is not supported for Jenkins condition`.
 
 == Parameters
 
 {{< resourceparameters "sources" "jenkins" >}}
 
-How to create a Github Personal Access Token https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token[Doc]
+`release`:: Either `stable` or `weekly`.
+`version`:: Condition only - the version being checked.
+
+== Release lines
+
+The release line is derived from the *shape* of the version number, by counting dot-separated components:
+
+[cols="1,1,2",options=header]
+|===
+| Components | Release | Example
+| 2 | `weekly` | `2.426`
+| 3 | `stable` (LTS) | `2.426.1`
+|===
+
+Anything else is rejected (a non-numeric component gives `in version '<v>', component '<c>' is not a valid integer`, and any other count gives `version <v> contains <n> component(s) which doesn't correspond to any valid release type`).
+
+This is what makes the condition useful: it does not merely check that a version was published, it checks that you are not about to install a weekly where you meant an LTS.
 
 == Example
 
-In the following example, we want to update a valid Jenkins Docker Image tag inside a yaml each time a new jenkins weekly release is published. But before we do, we need to validate few assumptions:
+In the following example we want to update a Jenkins Docker image tag inside a YAML file each time a new Jenkins weekly release is published, but only after validating that:
 
-. A valid docker image has been published
-. Our infrastructure uses the correct docker image name
-. A that the version we are going to install a weekly release
+. a matching Docker image has been published;
+. the infrastructure uses the expected image name;
+. the version really is a weekly release.
 
-To apply this update strategy, we can run the following command
-
-`updatecli --config updatecli.yaml --values values.yaml`
+[source,shell]
+----
+updatecli apply --config updatecli.yaml --values values.yaml
+----
 
 [source,yaml]
 ----
@@ -63,6 +85,10 @@ To apply this update strategy, we can run the following command
 
 [source,yaml]
 ----
-# updatecli.yaml
+# values.yaml
 {{<include "assets/code_example/docs/plugins/resources/jenkins/values.yaml">}}
 ----
+
+== Links
+
+* link:https://www.jenkins.io/download/lts/[Jenkins LTS release line]

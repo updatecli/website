@@ -1,14 +1,15 @@
 ---
 title: "Guide: dockerfile"
-description: "Maintain Dockerfile project update"
+description: "How the Jenkins project keeps its Dockerfiles, YAML, and HCL files on the same JDK version"
 lead: "Maintain Dockerfile project update"
 date: 2024-09-20T22:10:01+02:00
+lastmod: 2026-07-31T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "guide"
-weight: 130
+weight: 140
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -50,7 +51,7 @@ This guide requires:
 
 ==== GitHub PAT
 
-The GitHub Personal Access Token is the token used to interact with the GitHub API. 
+The GitHub Personal Access Token is the token used to interact with the GitHub API.
 
 In this guide, we use it to clone the repository, create a branch, and open a pull request.
 
@@ -66,13 +67,13 @@ image::/images/diagrams/guide-dockerfile.svg[]
 
 The schema was generated using the following command:
 
-* `updatecli manifest show --config updatecli.d/manifest.yaml --values updatecli/values.yaml --experimental --graph --graph-flavor=mermaid`
+* `updatecli manifest show --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml --experimental --graph --graph-flavor=mermaid`
 
 ==== Manifest
 
 The Updatecli manifest used to generate this pipeline is:
 
-.updatecli.d/manifest.yaml
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 
@@ -83,7 +84,7 @@ The Updatecli manifest used to generate this pipeline is:
 
 ====
 
-.values.yaml
+.updatecli/values.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -94,11 +95,11 @@ The Updatecli manifest used to generate this pipeline is:
 
 Then you can run:
 
-```
+[source,shell]
+----
 export UPDATECLI_GITHUB_TOKEN=<your_PAT>
-export UPDATECLI_GITHUB_ACTOR=<your GH username>
-updatecli diff --config updatecli.d/manifest.yaml --values values.yaml`
-```
+updatecli pipeline diff --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml
+----
 
 This manifest named `Bump JDK17 version` can be split into five sections:
 
@@ -110,20 +111,20 @@ This manifest named `Bump JDK17 version` can be split into five sections:
 
 ===== SCMS
 
-.updatecli.d/manifest.yaml
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
 ----
-
-  It’s one thing to publish a Docker image, but it’s another one to maintain it over time, like the Jenkins project does.
-  
+scms:
+  default:
+    kind: github
     spec:
       user: "{{ .github.user }}"
       email: "{{ .github.email }}"
       owner: "{{ .github.owner }}"
       repository: "{{ .github.repository }}"
-      token: "{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}"
+      token: "{{ requiredEnv .github.token }}"
       username: "{{ .github.username }}"
       branch: "{{ .github.branch }}"
 ----
@@ -131,22 +132,22 @@ This manifest named `Bump JDK17 version` can be split into five sections:
 
 The `scm` section defines the git repositories to interact with, either to retrieve information or to update them.
 
-The `scm` section accepts different kind of configuration such as `git`, `gitea`, `gitlab`, etc.
+The `scm` section accepts different kinds of configuration such as `git`, `gitea`, `gitlab`, etc.
 
 In the current scenario, we need to update files on a GitHub repository so we use the scm of kind `github`.
-We could also have used the kind `git`, but as you'll discover later in this guide, we need to leverage specific GitHub behavior such as GitHub pull request.
+We could also have used the kind `git`, but as you'll discover later in this guide, we need to leverage specific GitHub behaviour such as GitHub pull request.
 
 
-Worth to mention, most of the time we keep the scm settings parametrized so we can easily override all pipelines values. For example, to test the workflow toward a different Git repository.
+Worth mentioning, most of the time we keep the scm settings parametrised so we can easily override all pipeline values. For example, to test the workflow against a different Git repository.
 
 For that we use a file named `values.yaml` with different settings.
+The `token` key holds the *name* of the environment variable to read, which is why the manifest uses `requiredEnv .github.token` rather than a hardcoded variable name.
 
 .updatecli/values.yaml
 [%collapsible]
 ====
 [source,yaml]
 ----
-#updatecli.d/manifest.yaml
 {{< include "assets/code_example/docs/guides/dockerfile/values.yaml" >}}
 ----
 ====
@@ -155,13 +156,13 @@ You could easily replace in the file `values.yaml` the `owner` and `repository` 
 
 Then you can run:
 
-* Dry run mode: `updatecli diff --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml`
-* Apply mode: `updatecli apply --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml`
+* Dry run mode: `updatecli pipeline diff --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml`
+* Apply mode: `updatecli pipeline apply --config updatecli/updatecli.d/jdk17.yaml --values updatecli/values.yaml`
 
 
 ===== Sources
 
-.updatecli/manifest.yaml
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -177,16 +178,17 @@ sources:
 ----
 ====
 
-The `sources` section defines how to retrieve `source` information. There are many different kind of `source` like `dockerimage`, `dockerdigest`, etc, where each plugin relies on different parameters specified within  the `spec` section.
-In this case we decide to use a source of kind `temurin` which allow use to retrieve specific Temurin version.
+The `sources` section defines how to retrieve `source` information. There are many different kinds of `source` like `dockerimage`, `dockerdigest`, etc, where each plugin relies on different parameters specified within the `spec` section.
+In this case we decide to use a source of kind `temurin` which allows us to retrieve a specific Temurin version.
 
-The first step here is to identify the "latest" version for Java 1.17.
+The first step here is to identify the "latest" version for Java 17.
 
 Then to get the information we are looking for, we have to "transform" the retrieved version, using a set of `transformers` rules, in this example we don't need the prefix "jdk-" as all we need is the version number.
 
 
 ===== Conditions
 
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -207,24 +209,24 @@ conditions:
 ----
 ====
 
-Quite often, before updating a file, we want to run early checks to ensure that the updates are relevant.  
-Dockerfile is no exception. We want to be sure that we'll still be able to build our Docker image after the updates, otherwise it makes no sense to update our Dockerfile...
+Quite often, before updating a file, we want to run early checks to ensure that the updates are relevant.
+Dockerfile is no exception. We want to be sure that we'll still be able to build our Docker image after the updates, otherwise it makes no sense to update our Dockerfile.
 
-Once again, there are many things we would like to test, in this case we want to be sure that the Temurin version is available for all the architecture we need to build a Docker image for.
+Once again, there are many things we would like to test, in this case we want to be sure that the Temurin version is available for all the architectures we need to build a Docker image for.
 
-
-This example relies on the parameter `sourceid` to define what source output will be used to fetch the default Temurin version we need to check. 
+This example relies on the parameter `sourceid` to define what source output will be used to fetch the default Temurin version we need to check.
 
 ===== Targets
 
 The `targets` section defines the files to monitor for update.
 
-We can have as many target as we want. Our manifest contains five targets, but only three of them are shown here
+We can have as many targets as we want. Our manifest contains six targets, but only three of them are detailed here.
 
-Each target with the same scmid will create one Git commit, and then targeting the same pull request as defined later by our action.
+Each target with the same scmid will create one Git commit, all of them landing in the same pull request as defined later by our action.
 
 ====== Dockerfile
 
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -246,7 +248,7 @@ targets:
 ----
 ====
 
-The first target is to update the Dockerfile ARG JAVA_VERSION for the Windows Server Core image.
+The `setJDK17VersionWindowsDockerImage` target updates the Dockerfile ARG JAVA_VERSION for the Windows Server Core image.
 Since we only defined one source in the manifest, Updatecli uses that source output as the default entry for this target.
 
 The only subtlety here is that our source output contains "+" in the version number, and we need to replace it by "_", so we use a transformer of kind `replacer` to do so.
@@ -257,6 +259,7 @@ The scmid is set to `default` so we know that this target will monitor the file 
 
 ====== YAML
 
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -277,11 +280,12 @@ targets:
 ----
 ====
 
-The second target is to update the JDK17 version in the `build-windows.yaml` file. Instead of using the plugin `dockerfile`, we use the plugin `yaml` to update the version number in the `build-windows.yaml` file.
+The `setJDK17VersionWindowsDockerCompose` target updates the JDK17 version in the `build-windows.yaml` file. Instead of using the plugin `dockerfile`, we use the plugin `yaml` to update the version number in the `build-windows.yaml` file.
 Once again, we need to replace the "+" character by "_" in the version number.
 
 ====== HCL
 
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -302,10 +306,11 @@ targets:
 ----
 ====
 
-The third target is to update the JDK17 version in the `docker-bake.hcl` file used by Packer. Instead of using the plugin `dockerfile`, we use the plugin `hcl` to update the version number in the `docker-bake.hcl` file.
+The `setJDK17VersionDockerBake` target updates the JDK17 version in the `docker-bake.hcl` file consumed by Docker Buildx Bake. Instead of using the plugin `dockerfile`, we use the plugin `hcl` to update the version number in the `docker-bake.hcl` file.
 
 ===== Actions
 
+.updatecli/updatecli.d/jdk17.yaml
 [%collapsible]
 ====
 [source,yaml]
@@ -323,11 +328,10 @@ actions:
 ====
 
 An action is executed when at least one target is modified.
-Once again there are many different kind of actions but in this case we are leveraging the action of kind `github/pullrequest` that must be bound to a scm using the parameter `scmid`.
-So we are telling Updatecli to open a pullrequest on the GitHub repository  https://https://github.com/jenkinsci/docker and to assign labels `dependencies` and `jdk17`
+Once again there are many different kinds of action but in this case we are leveraging the action of kind `github/pullrequest` that must be bound to a scm using the parameter `scmid`.
+So we are telling Updatecli to open a pull request on the GitHub repository link:https://github.com/jenkinsci/docker[jenkinsci/docker] and to assign the labels `dependencies` and `jdk17`.
 
-
-It worth mentioning that by default, the GitHub scm will do all its operation from a temporary  Git branch named `updatecli_main_xxx` so the pullrequest will be opened from this branch.
+It is worth mentioning that by default, the GitHub scm will do all its operations from a temporary Git branch named `updatecli_main_xxx`, so the pull request will be opened from this branch.
 
 === Going further
 
@@ -337,10 +341,10 @@ That's what we do on the Jenkins project where we run this pipeline every Monday
 You'll need updatecli installed in your CI environment, and the right credentials.
 More information:
 
-* link:https://www.updatecli.io/docs/automate/jenkins/[in the corresponding Jenkins documentation]
-* link:https://www.updatecli.io/docs/automate/github_action/[in the corresponding GitHub Action documentation]
+* link:/docs/automate/jenkins/[in the corresponding Jenkins documentation]
+* link:/docs/automate/github_action/[in the corresponding GitHub Action documentation]
 
-This guide demonstrated a more advanced update pipeline. You can find similar Updatecli pipelines on the Jenkins project 
+This guide demonstrated a more advanced update pipeline. You can find similar Updatecli pipelines on the Jenkins project
 link:https://github.com/jenkinsci/docker/tree/master/updatecli/updatecli.d[github.com/jenkinsci/docker]
 
 We are curious about your advanced pipelines, so feel free to share them with us.

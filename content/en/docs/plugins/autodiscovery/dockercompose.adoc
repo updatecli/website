@@ -12,6 +12,10 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
@@ -20,20 +24,20 @@ Then, for each of them, it tries to update each Docker image tag found.
 
 Updatecli looks for the following file patterns:
 
-* `docker-compose.yaml`
-* `docker-compose.yml`
-* `docker-compose.*.yaml`
-* `docker-compose.*.yml`
+* `docker-compose*.y*ml`
+* `compose*.y*ml`
 
-The automatic discovery behavior can be tuned by providing a YAML manifest with a `docker-compose` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+Those cover `docker-compose.yaml`, `docker-compose.override.yml`, and the Compose Specification's `compose.yaml`. Override them with the `filematch` parameter.
+
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `dockercompose` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
 
 === Usage
 
-The docker-compose autodiscovery can use with or without manifest.
+The dockercompose autodiscovery can be used with or without manifest.
 
 **Without manifest**
 
-Without manifest available, Updatecli will enable all default crawlers, including docker-compose.
+Without manifest available, Updatecli will enable all default crawlers, including dockercompose.
 
 `updatecli diff` to run updatecli in dryrun
 `updatecli apply` to apply the changes locally
@@ -41,7 +45,6 @@ Without manifest available, Updatecli will enable all default crawlers, includin
 **With a manifest**
 
 If a manifest is provided, Updatecli will only execute crawlers specified in the manifest such as in the following example
-
 
 * `updatecli diff --config updatecli.d/default.yaml` to run updatecli in dryrun
 * `updatecli apply --config updatecli.d/default.yaml` to apply the changes
@@ -52,11 +55,23 @@ If a manifest is provided, Updatecli will only execute crawlers specified in the
 {{<include "assets/code_example/docs/plugins/autodiscovery/dockercompose/updatecli.d/default.yaml">}}
 ----
 
+== Generated manifests
+
+Each service image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a link:{{< ref "yaml" >}}[`yaml`] target that rewrites the image reference in place. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written alongside the tag.
+
+`digest` defaults to **true**. Set `digest: false` to track the tag only.
+
+== Authentication
+
+Use `auths` to reach private registries, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
 == Manifest
 
 === Parameters
 
 {{< autodiscoveryparameters "dockercompose" >}}
+
+NOTE: The crawler key is `dockercompose`, without a hyphen.
 
 === Docker Image Tag
 
@@ -72,7 +87,7 @@ In the Docker ecosystem, many tags look like semver but are not.
 For instance, `node:18.12.1-alpine` would match the semver regular expression but the prerelease `-alpine` is not a prerelease information as per semver convention but a variant of `node:18.12.1-buster` or `node:18.12.1`.
 This means that we would expect a newer version with the `-alpine` such as `node:19.0.0-alpine`.
 
-The docker-compose autodiscovery will handle the following scenarios
+The dockercompose autodiscovery will handle the following scenarios
 
 * `1` will suggest a version such `2` otherwise stick to `1`
 * `1-alpine` will suggest a version such `2-alpine` otherwise stick to `1-alpine`

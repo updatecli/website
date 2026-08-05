@@ -12,6 +12,10 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
@@ -22,6 +26,8 @@ Updatecli looks for the following file patterns:
 
 * `Dockerfile`
 * `Dockerfile.*`
+
+Override them with the `filematch` parameter.
 
 The automatic discovery behavior can be tuned by providing a YAML manifest with a `dockerfile` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
 
@@ -49,6 +55,22 @@ If a manifest is provided, Updatecli will only execute crawlers specified in the
 # updatecli.d/default.yaml
 {{<include "assets/code_example/docs/plugins/autodiscovery/dockerfile/updatecli.d/default.yaml">}}
 ----
+
+== Generated manifests
+
+Each image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a link:{{< ref "dockerfile" >}}[`dockerfile`] target that rewrites the instruction in place. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written alongside the tag.
+
+`digest` defaults to **true**. Set `digest: false` to track the tag only.
+
+Three details of how `FROM` instructions are read:
+
+* **Build arguments are followed.** For `ARG GOVERSION=1.21` used as `FROM golang:${GOVERSION}`, the target writes to the `ARG` instruction rather than the `FROM` line, so the default stays authoritative.
+* **Stage aliases are skipped.** A `FROM builder AS final` referring to an earlier stage is not an external image and yields no manifest.
+* **Flags are ignored.** `FROM --platform=linux/amd64 alpine:3.18` is handled normally.
+
+== Authentication
+
+Use `auths` to reach private registries, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
 
 == Manifest
 

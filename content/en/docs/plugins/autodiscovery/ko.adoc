@@ -1,9 +1,9 @@
 ---
 title: "Ko"
-description: "Discover Ko container update"
+description: "Discover Ko base image update"
 lead: "kind: ko"
 draft: false
-images: [] 
+images: []
 menu:
     docs:
         parent: "plugin-autodiscovery"
@@ -12,17 +12,54 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `ko` Autodiscovery plugin allows to automatically search and update container tags defined in ko.yaml files.
+The `ko` crawler looks recursively for every `.ko.yaml` file from a root directory, and updates the base images it declares.
 
-=== Manifests
-==== Parameters
+Two keys are read:
+
+[source,yaml]
+----
+# .ko.yaml
+defaultBaseImage: gcr.io/distroless/static:nonroot
+baseImageOverrides:
+  github.com/example/cmd/app: gcr.io/distroless/base:debug
+----
+
+Override the file name with the `files` parameter. Note the leading dot in the default: `ko.yaml` without it is not matched.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `ko` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+Each base image produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest tag and a link:{{< ref "yaml" >}}[`yaml`] target that rewrites the reference in place. When digest pinning is enabled, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source is added and the digest is written alongside the tag.
+
+`digest` defaults to **true**. Set `digest: false` to track the tag only.
+
+TIP: Base images are commonly pinned to a non-version tag such as `nonroot` or `debug`. There is no newer version to find for those, so the generated manifest tracks only the digest (which is usually what you want, since it still picks up rebuilds of the same tag).
+
+== Authentication
+
+Use `auths` to reach private registries, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "ko" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

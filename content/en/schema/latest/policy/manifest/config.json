@@ -4,7 +4,7 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "\"name\" defines a pipeline name\n\nexample:\n\t* \"name: 'deps: update nodejs version to latest stable'\"\n\nremark:\n\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t* using conventional commits convention is a good way to name your pipeline.\n\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t* \"name\" shouldn't contain any dynamic information such as source output."
+            "description": "\"name\" defines a pipeline name\n\nexample:\n\t* \"name: 'deps: update nodejs version to latest stable'\"\n\nremark:\n\t* using a short sentence describing the pipeline is a good way to name your pipeline.\n\t* using conventional commits convention is a good way to name your pipeline.\n\t* \"name\" is often used a default values for other configuration such as pullrequest title.\n\t* \"name\" shouldn't contain any dynamic information such as source output.\n\t* \"name\" defaults to the manifest filename when not specified."
         },
         "id": {
             "type": "string",
@@ -496,7 +496,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "FileMatch allows to override default docker-compose.yaml file matching. Default `[\"compose.yaml\", \"compose.yml\", \"compose.*.yaml\", \"compose.*.yml\", \"docker-compose.yaml\",\"docker-compose.yml\",\"docker-compose.*.yaml\",\"docker-compose.*.yml\"]`"
+                                    "description": "FileMatch allows to override default Docker Compose file matching.\nThe pattern is matched against the file name only, not against its path.\nDefault `[\"docker-compose*.y*ml\", \"compose*.y*ml\"]`"
                                 },
                                 "versionfilter": {
                                     "properties": {
@@ -638,7 +638,7 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "FileMatch allows to override default Dockerfile file matching. Default `[\"Dockerfile\"]`"
+                                    "description": "FileMatch allows to override default Dockerfile file matching.\nThe pattern is matched against the file name only, not against its path.\nDefault `[\"Dockerfile\", \"Dockerfile.*\"]`"
                                 },
                                 "versionfilter": {
                                     "properties": {
@@ -841,14 +841,14 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n```\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\",\n```"
+                                    "description": "files allows to specify the accepted Action workflow file name\n\nThe pattern is matched against the file name only, not against its path, so a\npattern such as \".github/workflows/*.yaml\" never matches. The directory is\nconstrained separately: a workflow file must sit directly inside a \"workflows\"\ndirectory whose parent is \".github\", \".gitea\", or \".forgejo\".\n\ndefault:\n```\n  - \"*.yaml\",\n  - \"*.yml\",\n```"
                                 },
                                 "actions": {
                                     "items": {
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "actions allows to specify the accepted Composite Action names\n\ndefault:\n```\n  - \"*\",\n```"
+                                    "description": "actions allows to specify the accepted Composite Action names\n\nA Composite Action is identified by an \"action.yaml\" or \"action.yml\" file, and the\npattern is matched against the name of the directory containing it.\n\ndefault:\n```\n  - \"*\",\n```"
                                 },
                                 "ignore": {
                                     "items": {
@@ -1018,14 +1018,14 @@
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "files allows to specify the accepted Action workflow file name\n\ndefault:\n```\n  - \".github/workflows/*.yaml\",\n  - \".github/workflows/*.yml\",\n  - \".gitea/workflows/*.yaml\",\n  - \".gitea/workflows/*.yml\",\n  - \".forgejo/workflows/*.yaml\",\n  - \".forgejo/workflows/*.yml\",\n```"
+                                    "description": "files allows to specify the accepted Action workflow file name\n\nThe pattern is matched against the file name only, not against its path, so a\npattern such as \".github/workflows/*.yaml\" never matches. The directory is\nconstrained separately: a workflow file must sit directly inside a \"workflows\"\ndirectory whose parent is \".github\", \".gitea\", or \".forgejo\".\n\ndefault:\n```\n  - \"*.yaml\",\n  - \"*.yml\",\n```"
                                 },
                                 "actions": {
                                     "items": {
                                         "type": "string"
                                     },
                                     "type": "array",
-                                    "description": "actions allows to specify the accepted Composite Action names\n\ndefault:\n```\n  - \"*\",\n```"
+                                    "description": "actions allows to specify the accepted Composite Action names\n\nA Composite Action is identified by an \"action.yaml\" or \"action.yml\" file, and the\npattern is matched against the name of the directory containing it.\n\ndefault:\n```\n  - \"*\",\n```"
                                 },
                                 "ignore": {
                                     "items": {
@@ -2568,11 +2568,11 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "`versionfilter` provides parameters to specify the version pattern used when generating manifest.\n\n kind - semver\n   versionfilter of kind `semver` uses semantic versioning as version filtering\n   pattern accepts one of:\n     `prerelease` - Updatecli tries to identify the latest prerelease whatever it means\n     `patch` - Updatecli only handles patch version update\n     `minor` - Updatecli handles patch AND minor version update\n     `minoronly` - Updatecli handles minor version only\n     `major` - Updatecli handles patch, minor, AND major version update\n     `majoronly` - Updatecli only handles major version update\n     `a version constraint` such as `\u003e= 1.0.0`\n\n kind - regex\n   versionfilter of kind `regex` uses regular expression as version filtering\n   pattern accepts a valid regular expression\n\n example:\n ```\n   versionfilter:\n     kind: semver\n     pattern: minor\n ```\n\n and its type like regex, semver, or just latest.\n\n More examples can be found at https://www.updatecli.io/docs/core/versionfilter/"
+                                    "description": "`versionfilter` provides parameters to specify the version pattern used when generating manifest.\n\n If unspecified, Updatecli falls back to kind `pep440` and reuses each dependency's own\n constraint as the pattern, such as `\u003e=2.28` for `requests\u003e=2.28`, or `*` when the\n dependency is declared without a constraint.\n\n kind - pep440 (default)\n   versionfilter of kind `pep440` uses PEP 440 version specifiers natively\n   pattern accepts a PEP 440 version specifier such as `\u003e=2.28`, `\u003e=1.0,\u003c3.0`, or `*` (any)\n\n kind - semver\n   versionfilter of kind `semver` uses semantic versioning as version filtering\n   pattern accepts one of:\n     `prerelease` - Updatecli tries to identify the latest prerelease whatever it means\n     `patch` - Updatecli only handles patch version update\n     `minor` - Updatecli handles patch AND minor version update\n     `minoronly` - Updatecli handles minor version only\n     `major` - Updatecli handles patch, minor, AND major version update\n     `majoronly` - Updatecli only handles major version update\n     `a version constraint` such as `\u003e= 1.0.0`\n   relative patterns such as `minor` are resolved against the version currently declared\n   by each dependency, so `minor` generates the pattern `2.x` for `requests\u003e=2.28`\n\n kind - regex\n   versionfilter of kind `regex` uses regular expression as version filtering\n   pattern accepts a valid regular expression\n\n example:\n ```\n   versionfilter:\n     kind: pep440\n     pattern: \"\u003e=2.28\"\n ```\n\n More examples can be found at https://www.updatecli.io/docs/core/versionfilter/"
                                 },
                                 "indexurl": {
                                     "type": "string",
-                                    "description": "IndexURL specifies a custom PyPI index URL propagated to all generated source specs."
+                                    "description": "IndexURL specifies a custom PyPI index URL propagated to all generated source specs.\nIt carries no credentials: authenticating against a private registry requires setting the\npypi resource `token` field on the generated manifests."
                                 }
                             },
                             "additionalProperties": false,
@@ -7352,23 +7352,23 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "sourcebranch defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
+                                        "description": "url specifies the git url to use for fetching Git Branches.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "username specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "description": "\"password\" specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "password specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
+                                        "description": "key of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -9348,7 +9348,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it.\n\n   remark:\n     * \"url\" is not needed when the repository is provided by \"path\" or by a \"scmid\"."
                                     },
                                     "username": {
                                         "type": "string",
@@ -16882,23 +16882,23 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "sourcebranch defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
+                                        "description": "url specifies the git url to use for fetching Git Branches.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "username specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "description": "\"password\" specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "password specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
+                                        "description": "key of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -18950,7 +18950,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it.\n\n   remark:\n     * \"url\" is not needed when the repository is provided by \"path\" or by a \"scmid\"."
                                     },
                                     "username": {
                                         "type": "string",
@@ -26790,23 +26790,23 @@
                                     },
                                     "sourcebranch": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
+                                        "description": "sourcebranch defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"sourcebranch\" defines the branch name used as a source to create the new Git branch.\n\ncompatible:\n * target\n\nremark:\n * sourcebranch is required when the scmid is not defined."
+                                        "description": "url specifies the git url to use for fetching Git Branches.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t\twhen using the ssh protocol, the user must have the right to clone the repository\n\t\tbased on its local ssh configuration"
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "username specifies the username when using the HTTP protocol\n\n\tcompatible\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "description": "\"password\" specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
+                                        "description": "password specifies the password when using the HTTP protocol\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target"
                                     },
                                     "key": {
                                         "type": "string",
-                                        "description": "\"key\" of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
+                                        "description": "key of the tag object to retrieve.\n\n Accepted values: ['name','hash'].\n\n Default: 'name'\n Compatible:\n   * source"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -28930,7 +28930,7 @@
                                     },
                                     "url": {
                                         "type": "string",
-                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it."
+                                        "description": "\"url\" specifies the git url to use for fetching Git Tags.\n\n\tcompatible:\n\t  * source\n\t  * condition\n\t  * target\n\n\texample:\n\t  * git@github.com:updatecli/updatecli.git\n\t  * https://github.com/updatecli/updatecli.git\n\n\tremarks:\n\t  when using the ssh protocol, the user must have the right to clone the repository\n\t  based on its local ssh configuration\n\n   it's possible to specify git tags without cloning the repository by using the `lsremote` option,\n   in that case the URL is required and the tags will be retrieved from the remote repository directly without cloning it.\n\n   remark:\n     * \"url\" is not needed when the repository is provided by \"path\" or by a \"scmid\"."
                                     },
                                     "username": {
                                         "type": "string",

@@ -1,13 +1,15 @@
 ---
 title: "Git Branch"
-description: "Manipulate Git Branch information"
+description: "Find a git branch matching a pattern, or create one"
 lead: "kind: gitbranch"
 date: 2023-02-03T15:36:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 100
 toc: true
 plugins:
   - source
@@ -25,23 +27,34 @@ plugins:
 | &#10004; | &#10004; | &#10004;
 |===
 
-**source**
+== Description
 
-The Git Branch "source" retrieves the latest git branch matching a pattern.
+The `gitbranch` resource works with the branches of a git repository directly, over the git protocol (no forge API involved, so it works with any host).
 
-**condition**
+**source**::
+Returns the branch matching `versionfilter` (typically the highest `release/x.y`).
 
-The Git branch "condition" tests if git branch matching a pattern exist.
+**condition**::
+Tests that a matching branch exists.
 
-**target**
+**target**::
+**Creates** the branch when no matching one exists, based on `sourcebranch`.
 
-The Git branch "target" ensures a git branch matching a pattern exist otherwise it creates it.
-
-== Parameter
-
-The git branch resource is a resource designed to be used with the scmID
+== Parameters
 
 {{< resourceparameters "sources" "gitbranch" >}}
+
+`url`:: The repository. Over SSH (`git@github.com:updatecli/updatecli.git`), access depends on your local SSH configuration; over HTTPS, on `username` and `password`.
+`path`:: A local repository to read instead of cloning.
+`branch`:: The branch name.
+`sourcebranch`:: Target only - the branch the new one is created from. **Required when no `scmid` is set.**
+`key`:: Source only. `name`, the default, returns the branch name; `hash` returns the commit hash. Any other value is rejected with `The only valid values for Key are 'name', 'hash', or empty.`
+`depth`:: Limits how many commits are fetched. A branch outside the fetched history is invisible, so a condition can report an existing branch as missing.
+
+[NOTE]
+====
+The generated table above may describe `sourcebranch` and `url` the wrong way round - the two doc comments were swapped in the Updatecli source. The fix is merged upstream; this page's descriptions are the correct ones, and the table will catch up once the JSON schema is regenerated.
+====
 
 === Version Filter
 
@@ -54,3 +67,9 @@ include::content/en/docs/plugins/_versionFilter.adoc[]
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/gitbranch/updatecli.yaml">}}
 ----
+
+== Links
+
+* link:/docs/plugins/resource/gitTag/[The `gittag` resource]
+* link:/docs/plugins/resource/gitcommit/[The `gitcommit` resource]
+* link:/docs/core/versionfilter/["Version Filtering" page]

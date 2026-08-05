@@ -1,0 +1,105 @@
+---
+title: "Introduction"
+description: "Updatecli is a declarative dependency manager that reads a manifest and keeps your files up to date"
+lead: "What Updatecli is, and the problem it solves"
+date: 2020-10-06T08:48:57+00:00
+lastmod: 2026-07-30T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "prologue"
+weight: 100
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Updatecli is a command line tool that applies update strategies described in a manifest.
+It runs the same way on a local machine and from a CI environment, and it needs no server
+and no database: the manifest and the files it updates are the only state.
+
+A *manifest* is a YAML file declaring what to update, where, and under which conditions.
+Updatecli reads it and executes each pipeline in three stages, always in this order:
+
+**Source**::
+Retrieves the value an update is based on, such as the latest release of a dependency.
+A source never modifies anything.
+
+**Condition**::
+Checks that everything required to apply the update holds true.
+If a condition is not met, the targets of that pipeline are skipped.
+
+**Target**::
+Writes the source value where it belongs, such as a key in a YAML file or a line in a `Dockerfile`.
+
+Two more building blocks turn that into a complete workflow:
+
+**SCM**::
+Describes the repository the files live in, so Updatecli can clone it, create a working branch,
+and commit what it changed. See link:/docs/core/scm/["SCM" page].
+
+**Action**::
+Describes how the change is proposed once it is committed, typically a pull request or a
+merge request. See link:/docs/core/action/["Action" page].
+
+TIP: Stages run per pipeline, and pipelines can be ordered relative to each other.
+The link:/docs/core/order/["Execution order" page] explains exactly what runs when.
+
+== Why?
+
+Deciding **how**, **when**, and **where** to update information is hard.
+
+Many tools apply continuous delivery or continuous deployment.
+We configure our infrastructure with Ansible playbooks, Puppet manifests, Helm charts, and others,
+and we rely on configuration files to specify the version we want to install.
+Unfortunately, too often those files are updated by hand, because it is hard to detect
+automatically what needs updating, and when.
+
+The logic that manipulates a value in a configuration file lives outside that configuration file.
+The value itself comes from somewhere else again: a Maven repository, a Docker registry, a Git
+repository, an API. And before changing anything, we should validate our assumptions.
+
+Updatecli combines blocks, called plugins, to express what needs to be updated, when, and where,
+so the workflow that suits your project can be written down and replayed.
+
+== Beyond a single manifest
+
+Writing manifests by hand is only the entry point.
+
+=== Autodiscovery
+
+Updatecli can scan a repository and generate the manifests itself, for Helm charts, Dockerfiles,
+`go.mod`, GitHub Actions workflows, Terraform providers, and around twenty other ecosystems.
+See the link:/docs/core/autodiscovery/["Autodiscovery" page].
+
+=== Policies
+
+A manifest can be packaged as an OCI artifact, pushed to a registry, and reused across
+repositories, so a team maintains one update strategy instead of one per project.
+See the link:/docs/core/shareandreuse/["Updatecli Policy" page].
+
+=== Compose
+
+`updatecli compose` runs several policies together from a single `updatecli-compose.yaml` file.
+See the link:/docs/core/compose/["Compose" page].
+
+== Get started
+
+TIP: New to Updatecli? Install it, then follow the Quick Start.
+
+. link:/docs/prologue/installation/[Install Updatecli →]
+. link:/docs/prologue/quick-start/[Run your first update pipeline →]
+
+== Go Further
+
+* link:/docs/core/[Core] - the concepts behind a manifest, stage by stage.
+* link:/docs/plugins/[Plugins] - every source, condition, target, scm, action, and crawler available.
+* link:/docs/automate/[Automate] - run Updatecli continuously from your CI environment.
+* link:/docs/commands/[Commands] - the full command line reference.
+* link:/docs/help/contributing/[Contributing] - how to contribute to Updatecli.
+* link:/docs/help/[Help] - FAQ, deprecations, and where to ask questions.

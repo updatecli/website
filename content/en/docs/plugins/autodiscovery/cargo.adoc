@@ -12,22 +12,56 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
 The cargo crawler looks recursively for all cargo crates from a specific root directory. Then for each of them, it tries to update dependencies specified in `Cargo.toml`.
 
-This crawler can be enabled either automatically with default behavior by running `updatecli diff --experimental` from a directory containing the files to update.
-Or by providing a manifest.
+Dependencies are read from:
 
-=== Manifests
-==== Parameters
+* `[dependencies]`
+* `[dev-dependencies]`
+* `[build-dependencies]`
+* the `[workspace.dependencies]` equivalents
+
+This crawler can be enabled either automatically with default behavior by running `updatecli diff` from a directory containing the files to update.
+Or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `cargo` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Requirements
+
+Updates are applied by running `cargo`, so the toolchain has to be reachable from the environment running Updatecli.
+
+IMPORTANT: If a `Cargo.lock` sits next to `Cargo.toml` and **neither** the `cargo` command nor `cargo upgrade` can be found, the whole crate is skipped with a warning. Updatecli will not bump a dependency it cannot re-lock.
+
+`cargo upgrade` comes from link:https://github.com/killercup/cargo-edit[cargo-edit]. When it is available, both `Cargo.toml` and `Cargo.lock` are updated. When only plain `cargo` is available, a reduced command is generated that refreshes the lock file alone.
+
+== Generated manifests
+
+Each dependency produces:
+
+* a link:{{< ref "cargopackage" >}}[`cargopackage`] source resolving the latest crate version,
+* a link:{{< ref "shell" >}}[`shell`] condition that stops the pipeline when the discovered version already matches what is declared,
+* a `shell` target invoking `cargo upgrade` and `cargo update`, guarded by a `file/checksum` over `Cargo.toml` and `Cargo.lock`.
+
+The generated command honours Updatecli's dry-run mode by passing `--dry-run` to cargo when `$DRY_RUN` is set, so `updatecli diff` does not modify the crate.
+
+== Private registries
+
+Use `registries` to describe a non-default crate registry, so generated sources resolve versions against it rather than crates.io.
+
+== Manifests
+=== Parameters
 
 The crawler `cargo` supports the following parameters:
 
 {{< autodiscoveryparameters "cargo" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

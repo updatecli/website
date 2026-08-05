@@ -1,8 +1,9 @@
 ---
 title: "Gitea Pull Request"
-description: "Open a Gitea Pull Request"
+description: "Open or update a Gitea pull request once a target changed a file"
 lead: "kind: gitea/pullrequest"
 date: 2022-07-25T21:09:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,11 +21,44 @@ plugins:
 
 == Description
 
-The `actions` section describes the link:https://docs.gitea.io/en-us/pull-request/[Gitea Pull Requests] that updatecli is expected to open (or update) when the manifest is applied.
+The `gitea/pullrequest` action opens (or updates) a link:https://docs.gitea.com/usage/pull-request[Gitea pull request] once a target linked to the same scm has changed something and the change has been pushed.
+
+It is the second half of the Gitea workflow: the link:/docs/plugins/scm/gitea/[`gitea` scm] commits to a working branch and pushes it, this action turns that branch into a pull request. Without it, the branch is pushed and nothing else happens.
+
+NOTE: `kind: gitea` is a deprecated alias for `kind: gitea/pullrequest`. It still works and logs a warning.
+
+== Requirements
+
+include::content/en/docs/plugins/_actionScm.adoc[]
 
 == Parameters
 
 {{< resourceparameters "actions" "gitea/pullrequest" >}}
+
+The spec is small - `title`, `body`, and `assignees`, on top of the identity fields inherited from the scm. Labels, reviewers, and merge automation are not exposed by this plugin.
+
+`body`:: Replaces the description Updatecli generates from the pipeline run. Useful to add context a reviewer needs, such as a changelog URL.
+`assignees`:: Gitea usernames, who must have access to the repository. They are set when the pull request is created and not reapplied afterwards.
+
+=== Updating an existing pull request
+
+When a pull request is already open between the two branches, this plugin *leaves it untouched* - it does not refresh the title or the description with the latest run, unlike the GitHub, GitLab, Bitbucket Cloud, and Azure DevOps plugins. The report still links to it.
+
+[WARNING]
+====
+If the API call creating the pull request fails, for any reason, Updatecli logs `Gitea pullrequest not created, skipping` and the pipeline still reports success. Run with `--debug` to see the response body when a pull request you expected does not appear. The other action plugins only swallow a "not found" response this way.
+====
+
+[WARNING]
+====
+The `sourcebranch` and `targetbranch` descriptions in the table above have their defaults *swapped*: `sourcebranch` inherits the scm's **working** branch (the one carrying the commits) and `targetbranch` inherits the scm's `branch`, the one the pull request is opened against. Leave both unset and the inheritance is correct regardless.
+====
+
+=== Cleanup
+
+Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branches` removes working branches that ended up with no changes, but a pull request already opened for one of them is not closed automatically (that stays a manual step).
+
+The same goes for the options this plugin does not expose, such as labels and reviewers. If closing stale pull requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] (these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised).
 
 == Example
 
@@ -33,3 +67,7 @@ The `actions` section describes the link:https://docs.gitea.io/en-us/pull-reques
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/actions/gitea_pullrequest/updatecli.yaml">}}
 ----
+
+== Links
+
+* link:https://docs.gitea.com/usage/pull-request[Documentation: Gitea pull requests]

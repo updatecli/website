@@ -1,9 +1,41 @@
 `versionFilter` allows to specify the kind of version retrieved from a resource and its version pattern.
 Default value is "latest" as we want to retrieve the newest version from a resource.
 
+A version filter accepts the following keys:
+
+[cols="1,1,3",options=header]
+|===
+| Name | Default | Description
+
+| `kind`
+| `latest`
+| One of `latest`, `lex`, `regex`, `semver`, `regex/semver`, `time`, `regex/time`, `pep440`. An unsupported value stops the run with an error.
+
+| `pattern`
+| depends on `kind`
+| The constraint applied to the versions, interpreted according to `kind`. Defaults to `.*` for `regex`, `*` for `semver` and `pep440`, and `2006-01-02` for `time` and `regex/time`.
+
+| `regex`
+| -
+| Used by `regex/semver` and `regex/time` only, to extract the version from a longer string. The **first capture group** is the value being filtered.
+
+| `replaceall`
+| -
+| An optional find-and-replace applied to each version *before* the filter, with the sub-keys `pattern` (a regular expression) and `replacement` (which may reference capture groups with `$1`, `$2`, …).
+
+| `strict`
+| `false`
+| Used by `semver` and `regex/semver` only. When `true`, only strictly formatted `MAJOR.MINOR.PATCH` versions are considered, so a lenient version such as `1.2` is dropped instead of being read as `1.2.0`.
+|===
+
+NOTE: Versions that cannot be parsed for the selected kind are silently skipped, not treated as errors. When nothing is left after filtering, the resource fails with "no version found".
+
 ==== latest
 
-If kind is set to `latest` then no need to specify the patter as we gonna retrieve the newest version from the resource.
+If kind is set to `latest` then there is no need to specify a pattern, as Updatecli returns the last
+version provided by the resource, in the order the resource returned them.
+
+IMPORTANT: `latest` does not compare versions, it trusts the ordering of the resource. For a Docker registry, that is the most recently pushed tag, which is not necessarily the highest version number. Use `semver` when you need the highest version.
 
 ===== Example
 
@@ -57,6 +89,8 @@ If `versionFilter.kind` is set to `regex` then we can use `versionFilter.pattern
 return the newest version returned from a resource matching the regex
 If no versionFilter.pattern is provided then it uses '.*' which return the newest version
 
+NOTE: Like `latest`, `regex` walks the versions in the order the resource returned them and stops on the first match, starting from the end. It filters, it does not sort. To compare version numbers, use `regex/semver`.
+
 `versionFilter.replaceall` can optionally be used to transform version strings before the regex is applied.
 It accepts a `pattern` (regex) and a `replacement` string, similar to a find-and-replace operation.
 
@@ -92,22 +126,56 @@ sources:
       repository: "curl"
       versionFilter:
         kind: regex
-        regex: 'curl-(\d+\.\d+\.\d+)'
+        pattern: 'curl-\d+\.\d+\.\d+'
         replaceall:
           pattern: "_"
           replacement: "."
 ```
-=> The `replaceall` converts `curl-8_11_1` to `curl-8.11.1` before matching, then the regex extracts `8.11.1`
+=> The `replaceall` converts `curl-8_11_1` to `curl-8.11.1`, and the newest tag matching `pattern` is returned as `curl-8.11.1`
+
+IMPORTANT: With `kind: regex`, the returned value is the whole transformed version, not a capture group - the `regex` key is ignored, only `pattern` is read. Use `kind: regex/semver` when you need to extract `8.11.1` out of `curl-8.11.1`, and add a `trimprefix` transformer otherwise.
 
 ==== semver
 
 If `versionFilter.kind` is set to `semver` then we can use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
-If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
-If a version doesn't respect semantic versioning, then it's not the value is just ignored.
+If no `versionFilter.pattern` is provided then it falls back to '*' which returns the newest version.
+Versions that do not respect semantic versioning are ignored.
+
+Setting `versionFilter.strict` to `true` additionally rejects versions that are only loosely
+semantic, such as `1.2` or `v1`, instead of completing them with zeros.
 
 **Remark**
 
-In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can added it back using `transformers`.
+In the process we drop any characters not respecting semantic version like in this version "v1.0.0", we drop the "v" but we can add it back using `transformers`.
+
+===== Autodiscovery patterns
+
+On top of the standard constraints, `semver` accepts the following keywords, which are resolved
+against the version currently in use. They are what the link:/docs/core/autodiscovery/[autodiscovery]
+crawlers use to restrict the scope of an update.
+
+[cols="1,3",options=header]
+|===
+| Pattern | Meaning
+
+| `patch`
+| Only patch updates, keeping the same major and minor.
+
+| `minor`
+| Minor and patch updates, keeping the same major.
+
+| `minoronly`
+| Minor updates only, excluding patch updates within the current minor.
+
+| `major`
+| Any update from the current major upwards.
+
+| `majoronly`
+| Major updates only.
+
+| `prerelease`
+| Pre-releases of the current version.
+|===
 
 ===== Example
 
@@ -130,12 +198,14 @@ In the process we drop any characters not respecting semantic version like in th
 If `versionFilter.kind` is set to `regex/semver` then we can use `versionFilter.regex` to specify a regular expression to extract version numbers.
 The regular expression should return the semantic version in the first capturing group.
 We can then use `versionFilter.pattern` to specify version pattern as explained link:https://github.com/Masterminds/semver#checking-version-constraints[here]. In the process we also sort.
-If no `versionFilter.pattern` is provided then it fallback to '*' which return the newest version.
-If a extracted version doesn't respect semantic versioning, then it's not the value is just ignored.
+If no `versionFilter.pattern` is provided then it falls back to '*' which returns the newest version.
+Extracted values that do not respect semantic versioning are ignored.
 
 `versionFilter.replaceall` can optionally be used to transform version strings before the regex is applied.
 It accepts a `pattern` (regex) and a `replacement` string, similar to a find-and-replace operation.
-See the [regex section](#_regexp) for an example.
+See the link:#_regex[regex section] for an example.
+
+IMPORTANT: The regular expression must define at least one capture group; a version without one is skipped. `pattern` filters the extracted value, `regex` extracts it (the two are not interchangeable).
 
 ===== Example
 
@@ -159,8 +229,8 @@ sources:
 If `versionFilter.kind` is set to `regex/time` then we can use `versionFilter.regex` to specify a regular expression to extract dates.
 The regular expression should return the date in the first capturing group.
 We can then use `versionFilter.pattern` to specify date pattern as explained link:https://golang.org/pkg/time/#Time.Format[here]. In the process we also sort.
-If no `versionFilter.pattern` is provided then it fallback to '2006-01-02' which return the newest version using date format YYYY-MM-DD.
-If a extracted date doesn't match the date pattern, then it's not the value is just ignored.
+If no `versionFilter.pattern` is provided then it falls back to '2006-01-02' which returns the newest version using date format YYYY-MM-DD.
+Extracted values that do not match the date pattern are ignored.
 
 To define your own format/pattern, write down what the reference time would look like formatted your way; The model is to demonstrate what the reference time looks like so that the Format and Parse methods can apply the same transformation to a general time value.
 
@@ -246,4 +316,32 @@ sources:
       versionfilter:
         kind: 'time'
         pattern: "06.01"
+```
+
+==== pep440
+
+If `versionFilter.kind` is set to `pep440` then versions are parsed and sorted according to the
+Python https://peps.python.org/pep-0440/[PEP 440] specification, and `versionFilter.pattern` is a
+PEP 440 specifier such as `>=1.0,<2.0`.
+Versions that are not valid PEP 440 versions are ignored.
+
+This is the right choice for Python packages, whose versions are not semantic versions: PEP 440
+understands epochs (`1!2.0`), post-releases (`1.0.post1`), development releases (`1.0.dev1`), and
+pre-release spellings such as `1.0rc1` or `1.0a1`, which `semver` rejects or misorders.
+
+If no `versionFilter.pattern` is provided then it falls back to `*`.
+
+IMPORTANT: With `*`, or with no pattern at all, Updatecli returns the newest **stable** version and only falls back to a pre-release when no stable version exists. An explicit specifier does not apply that preference: it returns the newest version satisfying it, pre-release or not.
+
+===== Example
+
+```yaml
+sources:
+  ansible:
+    name: Get the latest stable Ansible release
+    kind: pypi
+    spec:
+      name: ansible
+      versionfilter:
+        kind: pep440
 ```

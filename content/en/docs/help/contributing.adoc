@@ -1,195 +1,348 @@
 ---
 title: "Contributing"
-description: "Contributing to updatecli"
-lead: "Contributing to updatecli"
+description: "How to contribute to Updatecli: giving feedback, improving the documentation, and writing a new resource plugin against the current Go interfaces."
+lead: "Ways to help, and how to add a plugin"
 date: 2020-10-06T08:49:31+00:00
-lastmod: 2020-10-06T08:49:31+00:00
+lastmod: 2026-07-30T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "help"
-weight: 630
+weight: 670
 toc: true
 ---
+// <!-- Required for asciidoctor -->
 :toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-Instead of rewriting the "almost" same script over and over, this project has been created to easily implement update pipelines. The project is open to contributions.
+== Description
 
-Thanks for your interest in this project, feel free to ask any questions you may have.
+Updatecli exists because the alternative was rewriting almost the same update script over and over.
+It is open to contributions, and plenty of them involve no Go at all.
 
-== CONTRIBUTE
+NOTE: This page is the canonical contributor guide, verified against Updatecli `v0.119.0`. The
+`CONTRIBUTING.adoc` file in the repository covers building and testing locally and points here for
+everything else. If the two disagree, the Go source decides, see <<_the_source_is_the_source_of_truth>>.
 
-There are many ways to contribute which don't necessarily involve coding. Providing feedback, improving documentation, processes.
+Please read the link:/code-of-conduct/[Code of Conduct] before taking part.
 
-=== FEEDBACK
+== Ways to contribute
 
-It's significantly harder to build a solution that could be used by different people. It involves many different skills that are hard to master and it's easy to get stuck working on a local optimum. So we welcome any feedback you may have.
+**Feedback**::
+Building something several different people can use is genuinely hard, and it is easy to get stuck in a
+local optimum. Saying what does not work for you is useful on its own. Open an
+link:https://github.com/updatecli/updatecli/issues[issue], or use one of the channels on the
+link:/support/[support page].
 
-=== CODE
+**Documentation**::
+Phrasing, gaps, examples that no longer match reality. See <<_contributing_documentation>>.
 
-==== REQUIREMENTS
+**Triage**::
+Confirming bugs, spotting duplicates, and reproducing reports.
 
-To build the project, just ensure to have access to the correct golang version then just run `make build` which should return something like:
+**Code**::
+Plugins are the easiest place to start, because a plugin can be added without touching the core. See
+<<_writing_a_resource_plugin>>.
 
-```
-echo v0.0.15-6-g1e24f1d
-v0.0.15-6-g1e24f1d
-go build \
-	-ldflags "-w -s \
-        -X \"github.com/olblak/updateCli/pkg/version.BuildTime=`date -R`\" \
-        -X \"github.com/olblak/updateCli/pkg/version.GoVersion=go version go1.15.2 linux/amd64\" \
-        -X \"github.com/olblak/updateCli/pkg/version.Version=v0.0.15-6-g1e24f1d\""\
-        -o bin/updatecli
-```
+**Financially**::
+link:https://github.com/sponsors/updatecli[GitHub Sponsors] and
+link:https://opencollective.com/updatecli[OpenCollective].
 
-or using docker
+== Building and testing
 
-```
-docker run --rm -v "$PWD":/usr/src/updatecli -w /usr/src/updatecli -e GOOS=windows -e GOARCH=386 golang:1.15 go build -v
-```
+Building needs Go, the version in
+link:https://github.com/updatecli/updatecli/blob/main/go.mod[`go.mod`] is authoritative, plus GNU Make
+and link:https://goreleaser.com/install/[goreleaser].
 
-The code is divided into two categories, core, and plugins.
-Core is designed to be independent and to provide the skeleton for the updatecli, while plugins define specific third party behaviors.
-Working on plugins is a little easier as it allows contributions independently of core development.
+[source,shell]
+----
+make build
+----
 
-==== CORE
+Three tiers of tests, all driven by `make`:
 
-This section is still evolving. There are many areas that need attention.
+`make test-short`:: Unit tests. Run with `-short`, so they must have no external dependencies, avoid
+network requests, and finish in a couple of seconds. Use mocks.
 
-==== PLUGINS
+`make test`:: Unit *and* integration tests. Integration tests are ordinary Go tests that skip
+themselves when `testing.Short()` is true.
 
-Plugins can be easily added following this workflow:
+`make test-e2e`:: End-to-end tests, driven by link:https://github.com/ovh/venom[OVH's Venom]. These
+need Venom installed, plus `GITHUB_TOKEN` (a personal access token with read access to public
+repositories) and `GITHUB_ACTOR` set to the matching username. The `make` target tells you which
+variable is missing. Venom writes its log to `./e2e/venom.log`.
 
-===== 1. Define Package name
+[source,shell]
+----
+make lint
+----
 
-Creating a new directory using your "packageName" under the directory `pkg/plugins` that will contain your go package similar to:
+TIP: `make help` lists every target.
 
-```
+=== Commits and pull requests
+
+Commits carry a `Signed-off-by:` trailer, `git commit --signoff`. Nothing in CI rejects a commit
+without one, but every recent commit has it, so please follow suit.
+
+The repository has a pull request template; filling it in is the fastest route to a review.
+
+== Writing a resource plugin
+
+A *resource* is a `kind` usable in a manifest's `sources`, `conditions`, or `targets` block. Adding one
+touches four places, none of them in the core's logic.
+
+[#_the_source_is_the_source_of_truth]
+=== The source is the source of truth
+
+Before copying anything from this page into an editor, read an existing plugin. The interfaces here are
+current as of `v0.119.0`, but a plugin in the tree cannot drift (this page can).
+
+link:https://github.com/updatecli/updatecli/tree/main/pkg/plugins/resources/gitcommit[`pkg/plugins/resources/gitcommit`]
+is a good model: it is recent, small, implements a source and a condition, and explicitly refuses a
+target.
+
+=== 1. Create the package
+
+Resource plugins live under `pkg/plugins/resources/<name>/`, note **`resources`**, plural:
+
+[source,text]
+----
 pkg
-├── plugins
-│   └── packageName
-│       ├── source_test.go
-│       ├── source.go
-│       ├── condition_test.go
-│       ├── condition.go
-│       ├── target_test.go
-│       ├── target.go
-│       ├── main_test.go
-│       └── main.go
-└── main_test.go
+└── plugins
+    └── resources
+        └── <name>
+            ├── main.go        # Spec, the resource struct, New(), Changelog(), ReportConfig()
+            ├── main_test.go
+            ├── source.go
+            ├── source_test.go
+            ├── condition.go
+            ├── condition_test.go
+            ├── target.go
+            └── target_test.go
+----
 
-```
+Splitting `Spec` into its own `spec.go`, with `Validate()` beside it, is common once the spec grows.
 
-===== 2. Define configuration
+=== 2. Define the Spec
 
-In the `main.go`, you need to define the `struct` that you'll use to configure your workflow where the capitalized fields are set when unmarshalling from your configuration.yaml
+`Spec` holds every parameter the manifest can set. Exported fields are populated when the manifest is
+decoded:
 
-```
-type Capitalized_package_name struct {
-	Field1        string
-	Field2        string
-	Field3        string
-	Field4        string
+[source,go]
+----
+// Spec defines a specification for a "<name>" resource.
+type Spec struct {
+	// Path specifies a local Git repository path.
+	//
+	// compatible:
+	//   * source
+	//   * condition
+	//
+	// remarks:
+	//   * Path overrides the working directory provided by an SCM configuration.
+	Path string `yaml:",omitempty"`
 }
-```
+----
 
-===== 3. Respect the contract
+**Tags** come from two modules: link:https://github.com/go-yaml/yaml[go-yaml] for `yaml:` and
+link:https://github.com/invopop/jsonschema[invopop/jsonschema] for `jsonschema:`. Use
+`yaml:",omitempty"` on optional fields, `jsonschema:"required"` on mandatory ones, and
+`jsonschema:"-"` to hide a field (which is how deprecated aliases stay out of the schema).
 
-Your 'packageName' must respect at least one of the following interface contracts by defining appropriate functions.
+[IMPORTANT]
+====
+**The field comments are not decoration.** They are extracted into
+`content/en/schema/latest/policy/manifest/config.json`, which is what generates both the parameter
+tables on this website and the completions your editor offers. A parameter documented wrongly is fixed
+in the Go comment, not on the website.
 
-[cols="1,2a,2", options="header"]
-.Rules
-|===
-| Stage
-| Interface
-| Description
+The recognised sections are:
 
-| Source
-| ```
-type Spec interface {
-    Source() (string, error)
+[source,text]
+----
+A short one-line description of the parameter
+
+  compatible:
+    * source
+    * condition
+    * target
+
+  default:
+    What happens when the field is unset, including whether the value is inherited
+    from the source output.
+
+  remarks:
+    * Things to be aware of when using the parameter
+
+  example:
+    * A short, realistic value
+----
+====
+
+=== 3. Implement the interface
+
+The resource struct must satisfy `Resource`, defined in
+`pkg/core/pipeline/resource/main.go`:
+
+[source,go]
+----
+type Resource interface {
+	// Source returns the resource value
+	Source(ctx context.Context, workingDir string, sourceResult *result.Source) error
+	// Condition checks if the resource is in the expected state
+	Condition(ctx context.Context, version string, scm scm.ScmHandler) (pass bool, message string, err error)
+	// Target updates the resource with the given value
+	Target(ctx context.Context, source string, scm scm.ScmHandler, dryRun bool, targetResult *result.Target) (err error)
+	// Changelog returns the changelog for this resource, or an empty string if not supported
+	Changelog(from, to string) *result.Changelogs
+	// ReportConfig returns a new resource configuration
+	// with only the necessary configuration fields without any sensitive information
+	// or context specific data.
+	ReportConfig() interface{}
 }
-```
-| Defines how a version is retrieved then in the following stages
+----
 
-| Changelog
-| ```
-type Changelog interface {
-    Changelog(release string) (string, error)
+All five methods are required, even when a stage makes no sense for the resource. Four points that are
+not obvious from the signatures:
+
+**Results are written, not returned.** `Source` and `Target` report through `*result.Source` and
+`*result.Target`, set `Result` to one of the `result` constants, plus `Information` and `Description`:
+
+[source,go]
+----
+resultSource.Result = result.SUCCESS
+resultSource.Information = hash
+resultSource.Description = fmt.Sprintf("Git commit %q found for branch %q", hash, branch)
+----
+
+**An unsupported stage returns an error, and that error string is documentation.** It is what a user
+sees and searches for, so make it name the resource:
+
+[source,go]
+----
+// Target is not supported for the Git Commit resource.
+func (gc *GitCommit) Target(_ context.Context, source string, scm scm.ScmHandler, dryRun bool, resultTarget *result.Target) error {
+	return fmt.Errorf("target not supported for the Git Commit resource")
 }
-```
-| Retrieve the changelog for a specific source.
+----
 
-| Condition
-| ```
-type Spec interface {
-    Condition(version string) (bool, error)
-    ConditionFromSCM(version string, scm scm.Scm) (bool, error)
+**`Target` must honour `dryRun`.** `updatecli pipeline diff` sets it, and users rely on a `diff`
+changing nothing on disk.
+
+**`ReportConfig` must redact.** It is what ends up in reports, so return a copy of the `Spec` carrying
+only what is safe, no tokens, no passwords, no absolute paths from the runner. `redact.URL()` strips
+credentials out of a URL.
+
+Return `nil` from `Changelog` when the resource has no changelog to offer.
+
+=== 4. Register the kind
+
+Two entries, both in `pkg/core/pipeline/resource/main.go`, and both are needed:
+
+[source,go]
+----
+// The registry. This map is the gate: a kind missing from it is rejected
+// before the switch below is ever reached.
+func GetResourceMapping() map[string]interface{} {
+	return map[string]interface{}{
+		...
+		"<name>": &<name>.Spec{},
+	}
 }
-```
-| Define a condition which has to pass to proceed
+----
 
-| Target
-| ```
-type Spec interface {
-    Target(source string, dryRun bool) (bool, error)
-    TargetFromSCM(source string, scm scm.Scm, dryRun bool) (changed bool, files []string, message string, err error)
+[source,go]
+----
+// The constructor.
+switch kind {
+...
+case "<name>":
 
-```
-| Define how a target file will be updated
+	return <name>.New(rs.Spec)
+}
+----
 
-|===
+A kind absent from `GetResourceMapping()` fails with `⚠ Don't support resource kind: <name>` no matter
+what the switch says, because the map is checked first. It is also what the JSON schema is generated
+from, so a kind registered only in the switch gets no parameter table and no editor completion.
 
-===== 4. Claim your name
+The map is the authoritative list of kinds, and the place to look up the exact spelling of an existing
+one (note the aliases, such as `terraform/file` for `hcl`).
 
-Each stage to be configured using a yaml/go template has to bind a plugin name and a package name, this is done in the "Unmarshal" function
+=== 5. Test it
 
-```
-  import "github.com/olblak/updateCli/pkg/plugins/packageName"
-  ...
+Unit tests belong beside the code. Beyond those, add an end-to-end manifest under
+`e2e/updatecli.d/success.d/`, named after your kind, `e2e/updatecli.d/success.d/gitCommit.yaml`, for
+instance.
 
-	case "packageName":
-		p := packageName.PackageName{}
-		err := mapstructure.Decode(s.Spec, &p)
+The bar for `success.d` is strict, and it is asserted in
+`e2e/venom.d/test_pipeline.yaml`: a `updatecli pipeline diff` across those manifests must exit `0` and
+its output must contain **neither** `WARNING:` **nor** `ERROR:`. A manifest that works but warns will
+fail the suite.
 
-		if err != nil {
-			return err
-		}
+Sibling directories cover the other outcomes, `warning.d`, `deprecated.d`, and `skipped.targets.d`,
+each with its own Venom suite in `e2e/venom.d/`.
 
-		spec = &p
-```
+=== 6. Document it
 
-Now, something like this, should work:
+A plugin with no page is invisible. Add `content/en/docs/plugins/resource/<name>.adoc` in the website
+repository, modelled on an existing page. The parameter table comes from a shortcode rather than from
+hand-written prose:
 
-config.value
-```
-# updatecli diff --config config.value
+[source,text]
+----
+{{</* resourceparameters "sources" "<name>" */>}}
+----
 
-sources:
-  lastPackage:
-    kind: packageName
-    spec:
-      field1: "value"
-      field3: "value"
-targets:
-  idName:
-    name: "updatecli"
-    kind: "yaml"
-    prefix: "olblak/polls@256:"
-    spec:
-      file: "..."
-      key:  "..."
-```
+NOTE: That table stays empty until the JSON schema is regenerated by the
+`chore: update Updatecli jsonschema` bot, so a brand-new kind renders nothing at first. Say so on the
+page and add a temporary hand-written table if the gap matters.
 
-===== 5. Testing
+== Contributing to the core
 
-Add a manifest to `e2e/updatecli.d/success.d/crate.yaml`
+The core provides the skeleton: manifest parsing, the pipeline stages, ordering, reporting, and the SCM
+and action abstractions. It changes less often than plugins do and has no equivalent step-by-step
+recipe, start from an link:https://github.com/updatecli/updatecli/issues[issue] so the design can be
+discussed before the code exists.
 
-The manifest can't return any error or warning message as define on https://github.com/updatecli/updatecli/blob/main/e2e/venom.d/test_diff.yaml
+== Contributing documentation
 
+The website lives in its own repository, link:https://github.com/updatecli/website[updatecli/website].
+`npm run dev` serves it locally.
 
-=== DOCUMENTATION
+Pages are AsciiDoc. Two conventions matter more than the rest:
 
-If you spot phrasing issues or just a lack of documentation, feel free to open an issue and/or a pull request with your contribution.
+* Behaviour is verified against the Go source or a real run, never inferred from a plugin's name. The
+  support matrix at the top of a plugin page is what rots worst.
+* Exact error strings are quoted verbatim, because that is what users paste into a search box.
+
+Three things are generated and must not be hand-edited:
+
+`content/en/docs/commands/`:: Produced by `npm run docs`, from the CLI's own help output.
+`content/en/schema/latest/policy/manifest/config.json`:: Bot-owned, generated from the Go `Spec`
+comments. Fix a wrong parameter description in the Go source.
+`content/en/changelogs/`:: Synchronised from releases.
+
+WARNING: Hugo shells out to `asciidoctor` for every `.adoc` file, so the build fails wholesale if it is
+not on `PATH`. Because `security.exec.osEnv` strips most environment variables before spawning it, a
+`asciidoctor` installed through a Ruby version manager may need a small wrapper script on `PATH`.
+
+A few conventions worth knowing before opening a documentation pull request:
+
+* A cross-page link is `link:/docs/core/versionfilter/["Version Filtering" page]` - root-relative, so it
+  survives deploy previews. `xref:` is for anchors within the same page.
+* Examples live under `assets/code_example/` and are pulled in with an `include` shortcode inside the
+  listing block. A missing path fails the build.
+* Shared prose fragments (version filtering, GitHub authentication) are included from
+  `content/en/docs/plugins/_*.adoc` rather than repeated.
+* Front matter descriptions are checked at build time and must be between 50 and 160 characters.
+
+== Go Further
+
+* link:https://github.com/updatecli/updatecli[updatecli/updatecli] - the CLI, plugins, and e2e tests.
+* link:https://github.com/updatecli/website[updatecli/website] - this documentation.
+* link:/docs/help/troubleshooting/[Troubleshooting] - error messages and their causes.
+* link:/support/[Support] - where to ask, and how to report a bug.
+* link:/code-of-conduct/[Code of Conduct].

@@ -1,14 +1,15 @@
 ---
 title: "Amazon AMI"
-description: "Manipulate AWS EC2 AMI information"
+description: "Look up an AWS EC2 AMI ID matching a set of filters"
 lead: "kind: aws/ami"
 date: 2021-10-01T10:39:00+02:00
-lastmod: 2021-10-01T10:39:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 10
 toc: true
 plugins:
   - source
@@ -29,17 +30,37 @@ plugins:
 
 == Description
 
-**source**
+The `aws/ami` resource queries the EC2 API for Amazon Machine Images matching a set of filters.
 
-The `aws/ami` "source" retrieves the latest AWS AMI ID for specific filters.
+**source**::
+Returns the AMI ID of the first image in the sorted result set.
 
-**condition**
+**condition**::
+Tests that at least one AMI matches the filters.
 
-The `aws/ami` "condition" test that an AWS AMI exist based on specific filters.
+**target**::
+Not supported - an AMI is not something Updatecli publishes. A target fails with `Target not supported for the plugin AWS/AMI`.
+
+[IMPORTANT]
+====
+Unlike most resources, which merely ignore an `scm`, this one *aborts* a condition that has one attached:
+
+[source,text]
+----
+condition with SCM is not supported
+----
+
+Drop the `scmid` from the condition; the lookup is always against the EC2 API.
+====
 
 == Parameters
 
 {{< resourceparameters "sources" "aws/ami" >}}
+
+`region`:: The AWS region to query. AMI IDs are region-specific, so the same filters return different IDs per region.
+`endpoint`:: Overrides the EC2 endpoint, for a non-AWS or private deployment.
+`accesskey` / `secretkey`:: Credentials. Prefer `'{{ requiredEnv "AWS_ACCESS_KEY_ID" }}'` over literals in the manifest, or leave them unset to fall back to the ambient AWS configuration.
+`dryrun`:: Passes the EC2 `DryRun` flag, which checks permissions without running the query.
 
 === SortBy
 
@@ -51,9 +72,9 @@ Considering that the AMI resource is designed to manipulate the latest AMI found
 
 AMI are identified based on different filters such as platform, name, etc.
 
+[cols="1,1,1,4",options=header]
 |===
 | Name | Required | Default |Description
-[cols="1,1,1,4",options=header]
 | Name | &#10004; | - | Define the filter xref:_name[Name].
 | Values | &#10004; | - | Define the filter value associated to the filter name.
 |===
@@ -171,19 +192,32 @@ The AWS "profile" used is defined by the environment variable `AWS_PROFILE` and 
 
 === Updatecli configuration
 
-We can provide credentials directly from a updatecli configuration by using the two following settings `access_key` and `secret_key` as in the following example.
+Credentials can be provided directly in the manifest with `accesskey` and `secretkey`:
 
 .updatecli configuration
-```
+[source,yaml]
+----
 kind: aws/ami
 name: resource to manipulate aws ami id
 spec:
-  access_key: "insert AWS access key"
-  secret_key: "insert AWS secret key"
+  accesskey: '{{ requiredEnv "AWS_ACCESS_KEY_ID" }}'
+  secretkey: '{{ requiredEnv "AWS_SECRET_ACCESS_KEY" }}'
   filters:
     - name: "name"
-      values: "image name "
-```
+      values: "image name"
+----
+
+[WARNING]
+====
+The names are `accesskey` and `secretkey`, with no underscore. Earlier versions of this page showed `access_key` and `secret_key`, which do not match any field.
+
+Unknown keys in a `spec` are **silently ignored** rather than rejected, so a misspelled credential does not raise an error, Updatecli simply falls back to the environment or the shared credentials file, and you get an `AuthFailure` from AWS that looks like a permissions problem:
+
+[source,text]
+----
+AWS API Error - Code: AuthFailure, Message: AWS was not able to validate the provided access credentials
+----
+====
 
 === IAM Policy
 

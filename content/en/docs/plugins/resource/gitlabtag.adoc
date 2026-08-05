@@ -1,13 +1,15 @@
 ---
-title: "Gitlab Tag"
-description: "Manipulate Gitlab repository Tag"
+title: "GitLab Tag"
+description: "Find a tag of a GitLab repository through the GitLab API"
 lead: "kind: gitlab/tag"
-date: 2022-07-28T11:42:01+02:00
+date: 2023-03-13T11:42:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 190
 toc: true
 plugins:
   - source
@@ -26,23 +28,44 @@ plugins:
 
 == Description
 
-The Gitlab "tag" plugin allows to manipulate Gitlab repository tags.
+The `gitlab/tag` resource queries the tags of a repository hosted on GitLab, through the GitLab API rather than over the git protocol.
 
-**source**
+**source**::
+Returns the tag matching `versionfilter`.
 
-When used as a "source", the Gitlab tag plugin allows to get a Gitlab repository tag according the version filter rule provided.
+**condition**::
+Tests that `tag` exists in the repository.
 
-**condition**
+**target**::
+Not supported - a target fails with `target not supported for the plugin GitLab Tags`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
 
-When used as a "condition". the Gitlab tag plugin allows to test that specific Gitlab tag exist.
+NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the GitLab API.
 
-**target** 
-
-Target is not supported, feel free to manifest your interest by opening an issue on link:https://github.com/updatecli/updatecli/issues[updatecil/updatecli/issues], or highlighting an existing one.
+TIP: To work with tags over the git protocol instead, on any host (and to *create* one), use link:/docs/plugins/resource/gitTag/[`gittag`].
 
 == Parameters
 
 {{< resourceparameters "sources" "gitlab/tag" >}}
+
+`owner` and `repository` are mandatory. `url` defaults to `gitlab.com`. Set it for a self-managed instance.
+
+`tag`:: Condition only - the tag being checked.
+`versionfilter`:: Source only. `kind: semver` is the usual choice for release tags. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Authentication
+
+`token` authenticates against the GitLab API. It is sensitive, so read it from the environment or a link:https://github.com/getsops/sops[SOPS] file rather than writing it into the manifest:
+
+[source,yaml]
+----
+spec:
+  url: gitlab.com
+  token: '{{ requiredEnv "GITLAB_TOKEN" }}'
+  owner: updatecli
+  repository: updatecli
+----
+
+Reading a public repository works without any credential.
 
 == Example
 
@@ -52,3 +75,8 @@ Target is not supported, feel free to manifest your interest by opening an issue
 {{<include "assets/code_example/docs/plugins/resources/gitlab/tag/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:/docs/plugins/resource/gitlabbranch/[The `gitlab/branch` resource]
+* link:/docs/plugins/resource/gitlabrelease/[The `gitlab/release` resource]
+* link:/docs/plugins/scm/gitlab/[The `gitlab` scm] - to clone and push

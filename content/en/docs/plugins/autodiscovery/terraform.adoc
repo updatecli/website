@@ -12,21 +12,41 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The Terraform crawler looks recursively for all Terraform provider updates from a specific root directory.
-Then for each of them, it tries to automate them.
+The Terraform crawler looks recursively for every `.terraform.lock.hcl` file from a root directory, and updates each provider pinned in it.
 
-Automation is done by using two resources link:{{< ref "registry" >}}[`terraform/registry`] as the source and
-link:{{< ref "registry" >}}[`terraform/lock`] as the target.
+Providers are read from the lock file rather than from `required_providers` blocks, so a module with no lock file yields nothing. Run `terraform init` first if that is the case.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `terraform` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+Automation is done by using two resources: link:{{< ref "registry" >}}[`terraform/registry`] as the source and
+link:{{< ref "lock" >}}[`terraform/lock`] as the target.
+
+The version filter is narrowed per provider from the version currently locked, so a provider on `5.30.0` is filtered with `>=5.30.0`.
+
+=== Platforms
+
+A Terraform lock file records a checksum per target platform, and the target has to refresh all of them or `terraform init` will fail on the platforms left behind.
+
+Use `platforms` to declare which ones to request. When unset, Updatecli falls back to `linux_amd64`, `linux_arm64`, `darwin_amd64`, and `darwin_arm64`.
+
+IMPORTANT: The checksums written back cover exactly the platforms requested. If your lock file needs a platform outside the fallback list, such as `windows_amd64`, list every platform you require explicitly.
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "terraform" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----

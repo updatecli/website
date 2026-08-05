@@ -1,13 +1,15 @@
 ---
 title: "Terraform Provider"
-description: "Manipulate Terraform provider files"
+description: "Read and update a provider version inside a required_providers block"
 lead: "kind: terraform/provider"
 date: 2023-08-04T09:00:00+01:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 380
 toc: true
 plugins:
   - condition
@@ -26,17 +28,45 @@ plugins:
 
 == Description
 
-**condition**
+The `terraform/provider` resource updates the `version` of one provider inside a `required_providers` block, so you name the provider rather than working out its attribute path:
 
-The terraform/provider "condition" tests that a version in the `required_provider` block matches the value for a given provider.
+[source,hcl]
+----
+terraform {
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.23.0"
+    }
+  }
+}
+----
 
-**target**
+**condition**::
+Tests that the block records the expected version for the provider.
 
-The terraform/provider "target" ensures that a version is the `required_provider` block is update to date for given provider.
+**target**::
+Updates that version.
 
-== Parameter
+**source**::
+Not supported - a source fails with `Source not supported for the plugin terraform/provider`. Get the version from link:{{< ref "registry" >}}[`terraform/registry`].
+
+== Parameters
 
 {{< resourceparameters "sources" "terraform/provider" >}}
+
+`file` or `files` and `provider` are mandatory; missing either aborts the run with `wrong spec content`, preceded by `terraform/provider file undefined` or `terraform/provider provider undefined`. `file` and `files` are mutually exclusive, and a condition accepts only one file.
+
+`provider`:: The key inside `required_providers` - `kubernetes` in the example above, not `hashicorp/kubernetes`. Unlike link:{{< ref "lock" >}}[`terraform/lock`], this resource matches on the block key rather than the registry address.
+`value`:: Defaults to the source output.
+
+TIP: Updating a provider usually means touching two files. Pair this resource with a link:{{< ref "lock" >}}[`terraform/lock`] target in the same pipeline so `required_providers` and `.terraform.lock.hcl` stay consistent.
+
+For any attribute that is not a provider version, use link:{{< ref "file" >}}[`terraform/file`], which addresses attributes by path.
+
+== Remote files
+
+For a condition, `file` accepts `https://`, `http://` and `file://`. A target must write locally and refuses a URL.
 
 == Example
 
@@ -47,3 +77,7 @@ The example uses an additional resource plugin: link:{{< ref "registry" >}}[`ter
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/terraform/provider/updatecli.d/default.yaml">}}
 ----
+
+== Links
+
+* link:https://developer.hashicorp.com/terraform/language/providers/requirements[Terraform provider requirements]

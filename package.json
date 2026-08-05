@@ -16,7 +16,7 @@
     "docs": "updatecli docs -d ./content/en/docs/commands"
   },
   "dependencies": {
-    "@tabler/icons": "^3.36.1",
+    "@tabler/icons": "^3.46.0",
     "@thulite/doks-core": "^1.9.3",
     "@thulite/images": "^3.3.4",
     "@thulite/inline-svg": "^1.2.2",
@@ -24,7 +24,7 @@
     "thulite": "^2.6.5"
   },
   "devDependencies": {
-    "prettier": "^3.8.1",
-    "vite": "^7.3.1"
+    "prettier": "^3.9.6",
+    "vite": "^8.2.0"
   }
 }

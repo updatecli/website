@@ -12,6 +12,10 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
@@ -47,12 +51,28 @@ terraform {
 }
 ----
 
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `terragrunt` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+The source kind is inferred from the module source:
+
+* a `tfr://` source resolves through link:{{< ref "registry" >}}[`terraform/registry`],
+* a `git::` source resolves through link:{{< ref "gittag" >}}[`gittag`], reading tags from the remote repository.
+
+In both cases the version is written back with the link:{{< ref "hcl" >}}[`hcl`] target.
+
+== Authentication
+
+Git-hosted modules are queried over the network, so private repositories need credentials. Set `username` and `token` to authenticate against the git provider.
+
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "terragrunt" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----
