@@ -3,7 +3,7 @@ title: "Deprecations"
 description: "Every deprecated Updatecli command, manifest key, transformer, and plugin parameter, with the release it was deprecated in and how to migrate."
 lead: "What changed, since when, and what to write instead"
 date: 2026-04-11T13:37:00+00:00
-lastmod: 2026-07-30T10:00:00+02:00
+lastmod: 2026-08-05T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -34,7 +34,8 @@ where the deprecation warnings come from.
 Two cases on this page are *not* simple renames, and both are easy to miss:
 
 * `commitmessage.title` is **ignored**, not translated - see <<_commit_messages>>.
-* Moving a `json`, `toml`, or `csv` resource to `dasel/v3` turns `query` into a **hard error** - see <<_dasel_engines>>.
+* Moving a `json`, `toml`, or `csv` resource to `dasel/v3` turns `query` into a **hard error** and
+changes the selector syntax - see <<_dasel_engines>>.
 
 == Commands
 
@@ -249,12 +250,34 @@ link:/docs/plugins/actions/github/["GitHub Pull Request" page].
 === Dasel engines
 
 `json`, `toml`, and `csv` read and write through Dasel, selected by the `engine` parameter.
-`dasel/v1` and `dasel/v2` are deprecated in favour of `dasel/v3` (since v0.105.0):
+`dasel/v3` arrives in v0.120.0 and, from that release, both `dasel/v1` and `dasel/v2` are deprecated
+in favour of it:
 
 [source,text]
 ----
 Engine "dasel/v1" is deprecated and will be removed in a future updatecli version. Please use "dasel/v3" instead.
 ----
+
+The history differs per plugin. `json` has warned about `dasel/v1` since v0.105.0, where the warning
+pointed at `dasel/v2` instead. `toml` and `csv` had no `engine` parameter at all before v0.120.0, so
+that release is where their first warning appears.
+
+[cols="1,1,1", options="header"]
+|===
+| Plugin | Deprecated engines | Since
+
+| `json`
+| `dasel/v1`
+| v0.105.0 (retargeted at `dasel/v3` in v0.120.0)
+
+| `json`
+| `dasel/v2`
+| v0.120.0
+
+| `toml`, `csv`
+| `dasel/v1`, `dasel/v2`
+| v0.120.0
+|===
 
 [WARNING]
 ====
@@ -270,7 +293,7 @@ sources:
     spec:
       engine: dasel/v3
       file: package.json
-      key: .version
+      key: version
 ----
 
 `engine: dasel` is an alias that always resolves to the newest engine, currently `dasel/v3`. It is
@@ -287,17 +310,58 @@ engine "dasel/v3" requires the parameter "key" over "query"
 
 So rename `query` to `key` in the same edit.
 
+Setting `engine: dasel/v3` is not a flag flip either. The Dasel v3 selector syntax is richer than the
+v1 and v2 one, and it is not backward compatible with it, so the keys themselves have to be rewritten.
+The leading dot is the usual casualty, `.version` is a parse error under `dasel/v3`:
+
+[cols="1,1", options="header"]
+|===
+| Before | After
+
+a|
+[source,yaml]
+----
+sources:
+  default:
+    kind: json
+    spec:
+      file: package.json
+      key: .version
+----
+
+a|
+[source,yaml]
+----
+sources:
+  default:
+    kind: json
+    spec:
+      engine: dasel/v3
+      file: package.json
+      key: version
+----
+|===
+
+The link:/docs/plugins/resource/json/["JSON" page] compares the selectors engine by engine, and the
+link:https://daseldocs.tomwright.me/[Dasel documentation] covers the v3 syntax in full.
+
 === Deprecated parameters
 
 [cols="1,1,1,2,1", options="header"]
 |===
 | Plugin | Deprecated | Use instead | Notes | Since
 
-| `json`, `toml`, `csv`
+| `json`
 | `query`
 | `key`
-| Warning under `dasel/v1`, hard error under `dasel/v2` and `dasel/v3`
+| Accepted under `dasel/v1`, hard error under `dasel/v2` and `dasel/v3`
 | v0.105.0
+
+| `toml`, `csv`
+| `query`
+| `key`
+| Same rule, these plugins only gained `engine` in v0.120.0
+| v0.120.0
 
 | `json`, `toml`, `csv`
 | `multiple`
