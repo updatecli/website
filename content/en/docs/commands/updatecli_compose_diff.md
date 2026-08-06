@@ -25,6 +25,8 @@ updatecli compose diff [flags]
       --clean                            Remove updatecli working directory like '--clean=true'
       --disable-changelog                Disable changelog retrieval to avoid unnecessary requests (env: UPDATECLI_DISABLE_CHANGELOG)
       --disable-tls                      Disable TLS verification like '--disable-tls=true'
+      --disable-udash-report             Disable publishing pipeline reports to Udash
+      --export-report-to-yaml            Export pipeline reports to YAML files
   -f, --file string                      Define the Updatecli compose file name (default "updatecli-compose.yaml")
   -h, --help                             help for diff
       --ignored-policy-ids stringArray   Filter policies to ignore by their policy IDs, accepted as a comma separated list
@@ -32,6 +34,7 @@ updatecli compose diff [flags]
       --only-policy-ids stringArray      Filter policies to apply by their policy IDs, accepted as a comma separated list
       --pipeline-ids stringArray         Filter pipelines to apply by their IDs, accepted a comma separated list
       --reportAPI string                 Set the report API URL where to publish pipeline reports
+      --validate-schema                  Report manifest keys not matching the Updatecli schema as warnings (env: UPDATECLI_VALIDATE_SCHEMA)
 ```
 
 ### Options inherited from parent commands
