@@ -38,4 +38,5 @@ manifest executes specific manifest task such as upgrade
 * [updatecli manifest push](/docs/commands/updatecli_manifest_push)	 - push manifest(s) to an OCI registry
 * [updatecli manifest show](/docs/commands/updatecli_manifest_show)	 - show manifest(s) which will be executed
 * [updatecli manifest upgrade](/docs/commands/updatecli_manifest_upgrade)	 - upgrade executes manifest upgrade task
+* [updatecli manifest validate](/docs/commands/updatecli_manifest_validate)	 - **Experimental** validate manifest(s) against the Updatecli schema
 
