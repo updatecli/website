@@ -1,17 +1,19 @@
 ---
 title: "Github Release"
-description: "Manipulate Github release information"
-lead: "kind: githubRelease"
+description: "Find the latest release published on a GitHub repository"
+lead: "kind: githubrelease"
 date: 2021-01-09T15:21:01+02:00
-lastmod: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 160
 toc: true
 plugins:
   - source
+  - condition
 ---
 // <!-- Required for asciidoctor -->
 :toc:
@@ -26,29 +28,74 @@ plugins:
 
 == Description
 
-**source**
+The `githubrelease` resource reads the releases published on a GitHub repository.
 
-The GitHub Release "source" retrieves the latest release version sorted by release date.
-If no release can be found then we fallback to release tags sorted on tag date creation.
-It's important to notice that both information are mutually exclusive.
+**source**::
+Returns the latest release, sorted by release date.
 
-== Parameter
+**condition**::
+Checks that `tag` corresponds to a published release.
+
+**target**::
+Not supported - a target fails with `target not supported for the plugin GitHub Release`. Updatecli does not publish releases; to create a tag, use link:/docs/plugins/resource/gitTag/[`gittag`].
+
+NOTE: An `scm` attached to a condition is ignored, with the warning `condition not supported for plugin GitHub Release used with scm`.
+
+=== Releases and tags are not the same list
+
+When a repository has no releases, Updatecli falls back to its **tags**, sorted by tag creation date.
+
+The two lists are mutually exclusive: a repository that publishes releases is read through the release list only, so a tag without a matching release is invisible. This is the usual explanation for a version that exists on GitHub but that a source will not return.
+
+== Parameters
 
 {{< resourceparameters "sources" "githubrelease" >}}
+
+`owner` and `repository` are mandatory. `tag` is condition-only.
+
+=== key
+
+`key` chooses what the source returns:
+
+[cols="1,3",options=header]
+|===
+| Value | Returns
+| `tagname` | The tag name. The default.
+| `taghash` | The commit hash the tag points at.
+| `title` | The release title.
+|===
+
+`name` and `hash` are deprecated aliases for `tagname` and `taghash`; they still work and log a warning. Anything else is a validation error listing the accepted values.
+
+=== typefilter
+
+`typefilter` selects which kinds of release count. Its default is the important part:
+
+[source,yaml]
+----
+spec:
+  typefilter:
+    draft: false
+    prerelease: false
+    release: true
+    latest: false
+----
+
+**When `draft`, `prerelease` and `release` are all left unset, `release` is turned on** - so out of the box only stable releases are considered, and pre-releases are ignored. Set `prerelease: true` to include them.
+
+`latest: true` narrows the result to the single release GitHub itself flags as "Latest", which is not necessarily the most recent one by date.
 
 === Authentication
 
 include::content/en/docs/plugins/_githubAuth.adoc[]
 
+`app` configures GitHub App authentication and is **not compatible with `token` and `username`**. It is the better option where it is available: scoped permissions and short-lived credentials.
+
+IMPORTANT: Storing credentials in an unencrypted file is a bad practice. Read the token from an environment variable with `'{{ requiredEnv "GITHUB_TOKEN" }}'`.
+
 === Version Filter
 
 include::content/en/docs/plugins/_versionFilter.adoc[]
-
-**Remark**:
-
-It's considered a very bad practice to store credentials in an un-encrypted file.
-Consider using an environment variable to store the token.
-
 
 [source,yaml]
 ----
@@ -56,7 +103,7 @@ Consider using an environment variable to store the token.
 {{<include "assets/code_example/docs/plugins/resources/github/release/updatecli.d/source.yaml">}}
 ----
 
-=> Return v1.10.3
+=> Returns v1.10.3
 
 == Example
 
@@ -65,3 +112,9 @@ Consider using an environment variable to store the token.
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/resources/github/release/updatecli.d/updatecli.yaml">}}
 ----
+
+== Links
+
+* link:/docs/plugins/scm/github/[The `github` scm] - to clone and push
+* link:/docs/plugins/actions/github/[The `github/pullrequest` action]
+* link:/docs/core/versionfilter/["Version Filtering" page]

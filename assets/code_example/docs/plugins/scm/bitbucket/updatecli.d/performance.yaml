@@ -8,7 +8,6 @@ scms:
       owner: "updatecli"
       repository: "updatecli"
       branch: main
-      depth: 1
       singleBranch: true
       # {{ if (env "BITBUCKET_TOKEN") }}
       token: '{{ env "BITBUCKET_TOKEN" }}'

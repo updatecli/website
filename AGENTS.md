@@ -1,70 +1,156 @@
 # AGENTS.md
 
+Guidance for AI coding agents working in this repository.
+
 ## Repository overview
 
-This repository contains the **Updatecli website**. It is a **Hugo** site using the
-**Doks** theme and is deployed on **Netlify**.
+This is the **Updatecli website**: a **Hugo** site using the **Doks (Thulite)** theme,
+deployed on **Netlify** from the generated `public/` directory.
 
-- Local development runs through `npm run start`
-- Production builds run through `npm run build`
-- Netlify publishes the generated `public/` directory
+Netlify pins the toolchain in `netlify.toml`: Hugo `0.164.0`, Node `24.16.0`.
+`package.json` requires Node `>=24.13.0`.
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Local dev server (`hugo server --disableFastRender --noHTTPCache`) |
+| `npm run build` | Production build (`hugo --minify --gc`), what Netlify runs |
+| `npm run format` | Format with Prettier |
+| `npm run docs` | Regenerate the CLI command reference (needs `updatecli` on `PATH`) |
+| `npm run create` | `hugo new` |
+
+There is no lint or test script. `.eslintrc.json`, `.stylelintrc.json`, and
+`.markdownlint-cli2.jsonc` are present but not wired to any npm script, so run those
+tools directly if you need them.
+
+### Spell checking with typos
+
+[`typos`](https://github.com/crate-ci/typos) is the spell checker for this
+repository. It is configured by `_typos.toml` and enforced in CI by
+`.github/workflows/typos.yaml`, so a misspelling fails the pull request.
+
+**Run it whenever it is available**, from the repository root, after editing any prose:
+
+```sh
+typos              # report findings, exit 0 when clean
+typos --write-changes   # apply the unambiguous corrections
+```
+
+If the binary is not installed, say so rather than skipping the check silently, since
+CI will still run it. Add a genuine false positive to `extend-ignore-identifiers-re`
+in `_typos.toml` instead of rewording correct text.
+
+### AsciiDoc requires asciidoctor on PATH
+
+Most documentation is AsciiDoc, and Hugo shells out to the `asciidoctor` binary
+(see `Gemfile`). Without it on `PATH`, any build fails with:
+
+```
+asciidoctor not found in $PATH, cannot render "..."
+```
+
+A shell *alias* is not enough, because Hugo spawns a subprocess. If `asciidoctor`
+resolves to an alias (for example `asciidoctor.ruby4.0`), put a real executable or a
+symlink on `PATH` before building.
+
+To syntax-check pages without a full build:
+
+```
+asciidoctor --safe-mode=safe -o /dev/null <file>.adoc
+```
+
+Partials such as `content/en/docs/plugins/_versionFilter.adoc` warn about section
+levels when checked standalone. That is expected, they are meant to be included.
 
 ## Key paths
 
-- `content/en/` - English site content
-- `content/en/docs/` - product documentation pages
+- `content/en/docs/` - product documentation: `prologue`, `core`, `plugins`,
+  `automate`, `guides`, `help`, `commands`
 - `content/en/blog/<year>/` - blog posts
-- `assets/js/` - custom JavaScript bundled into the site
-- `assets/scss/` - SCSS overrides and site styling
-- `layouts/` - Hugo layout overrides
-- `config/_default/` - shared Hugo configuration
-- `config/production/`, `config/next/` - environment-specific Hugo config
+- `content/en/changelogs/` - generated release changelogs
+- `assets/code_example/docs/...` - runnable manifest examples embedded in pages
+- `assets/scss/` - SCSS overrides, `assets/js/` - custom JavaScript
+- `layouts/_shortcodes/` - site shortcodes, `layouts/_partials/` - partials
+- `layouts/_markup/` - render hooks
+- `config/_default/` - shared Hugo config, `config/production/` and `config/next/` -
+  environment overrides
 - `functions/` - Netlify functions
-- `static/` - static assets copied as-is at build time
-
-## Common commands
-
-1. Install dependencies: `npm install`
-2. Start local dev server: `npm run start`
-3. Build the site: `npm run build`
-4. Run all lint checks: `npm run lint`
-5. Run repository tests: `npm test`
-6. Lint only Markdown: `npm run lint:markdown`
-7. Regenerate command docs: `npm run docs`
+- `static/` - assets copied as-is
 
 ## Content conventions
 
-- Content files use Hugo front matter at the top of each document.
-- Documentation and blog content primarily live under `content/en/`.
-- Blog posts are organized by year under `content/en/blog/`.
-- The repo includes Markdown content and may also include AsciiDoc content.
-- Keep root Markdown files lint-friendly because `*.md` is covered by the
-  markdown lint command.
+- Every page starts with Hugo front matter (`title`, `description`, `lead`, `date`,
+  `lastmod`, `draft`, `images`, `menu.docs.parent`, `toc`).
+- AsciiDoc pages then repeat the toc settings for asciidoctor:
 
-## Frontend conventions
+  ```
+  // <!-- Required for asciidoctor -->
+  :toc:
+  // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+  :toclevels: 4
+  ```
 
-- JavaScript in `assets/js/`, `config/`, and `functions/` is linted with ESLint.
-- SCSS changes should follow the structure already used in `assets/scss/common/`,
-  `assets/scss/components/`, and `assets/scss/layouts/`.
-- Site-specific style overrides belong in the existing custom SCSS files when
-  appropriate instead of introducing parallel styling patterns.
+  `endLevel` is `3` in `config/_default/markup.toml`.
+- Do not paste example manifests inline. Put them under `assets/code_example/` and
+  pull them in:
 
-## Configuration notes
+  ```
+  {{<include "assets/code_example/docs/plugins/actions/github_pullrequest/updatecli.yaml">}}
+  ```
 
-- Hugo configuration is split across multiple TOML files under `config/_default/`.
-- Language configuration currently points English content to `content/en`.
-- The site enables Git info, Netlify redirects/headers outputs, and Hugo image
-  processing through existing config.
-- Netlify development proxies the Hugo server on port `1313` through port `8888`.
+- Parameter tables are generated from the Updatecli JSON schema by shortcodes
+  (`resourceparameters`, `coreparameters`, `autodiscoveryparameters`,
+  `autodiscoverycoreparameters`, `composeparameters`, `policymetadataparameters`).
+  Do not hand-write those tables. The schema is refreshed by a bot after each
+  Updatecli release, so a very new parameter may be missing, note it in prose instead.
+- `content/en/docs/commands/` is generated by `npm run docs`. Do not edit it by hand.
+- Behaviour documented here must match the Updatecli source. When the two disagree,
+  the Go source in `updatecli/updatecli` wins.
+
+## Writing style
+
+**Never use em dashes (`—`) or en dashes (`–`) in documentation, prose, or comments.**
+Use a comma, parentheses, or a standard hyphen (`-`):
+
+- **Comma** for an appositive or a short trailing clause:
+  `the crawlers only run when Updatecli finds no manifest at all, that is, no --config`
+- **Parentheses** for an aside inside a sentence, or an explanation that closes it:
+  `Outgoing HTTP requests (to registries, GitHub, and other external APIs) are instrumented`
+  Remember the comma after the closing parenthesis when it ends an introductory clause:
+  `Since force defaults to true (meaning git push --force), that combination is refused`
+- **Standard hyphen** for a label followed by its definition: list items, table cells,
+  and "Go Further" link lists:
+  `* link:/docs/commands/[Commands] - the full command line reference.`
+
+The one exception is text quoted verbatim from Updatecli's own output. Log lines and
+error messages reproduced inside a `[source,text]` block must match what the binary
+prints, dashes included. `content/en/docs/plugins/actions/github.adoc` keeps one em
+dash for this reason.
+
+Other conventions:
+
+- British spelling is used throughout (`behaviour`, `prioritised`, `normalised`).
+- Prose is hard-wrapped in some files and single-line in others. Match the file you
+  are editing rather than reflowing it.
+
+## Frontend and configuration notes
+
+- Site-specific style overrides belong in the existing files under
+  `assets/scss/common/`, `assets/scss/components/`, and `assets/scss/layouts/`,
+  not in new parallel stylesheets.
+- Hugo configuration is split across TOML files in `config/_default/`. English content
+  is mapped to `content/en`.
+- Netlify redirects, headers, and Hugo image processing are configured through the
+  existing config, and the dev proxy exposes Hugo's port `1313` on port `8888`.
 
 ## When making changes
 
-- Prefer small, targeted edits that match existing Hugo, Doks, and content
+- Prefer small, targeted edits that match the surrounding Hugo, Doks, and content
   patterns.
-- Update the relevant content, layout, assets, and config together when a change
-  spans multiple site surfaces.
-- Run the narrowest relevant command first, then broader validation as needed:
-  Markdown lint for docs-only changes, full lint for frontend/config changes,
-  and a Hugo build for rendering-sensitive changes.
-- If updating CLI command reference pages, check whether `npm run docs` should be
-  used instead of editing generated command docs manually.
+- Update content, layouts, assets, and config together when a change spans several
+  surfaces.
+- Validate at the narrowest useful level first: `typos` and `asciidoctor` on the
+  changed pages for docs-only edits, then `npm run build` for anything that affects
+  rendering.

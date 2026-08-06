@@ -1,29 +1,68 @@
 ---
 title: "Rancher Fleet"
-description: "Discover Rancher Fleet dependencies"
+description: "Discover Rancher Fleet Helm chart updates"
 lead: "kind: rancher/fleet"
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-autodiscovery"
-weight: 130 
+weight: 130
 toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The Rancher Fleet crawler looks recursively for all Rancher Fleet bundle from a specific root directory.
-Then for each of them, it tries to update each Helm Chart version found.
+The Rancher Fleet crawler looks recursively for every `fleet.yaml` or `fleet.yml` bundle from a specific root directory, and tries to update the Helm chart version each one pins.
+
+A bundle is picked up when both `helm.chart` and `helm.repo` are set:
+
+[source,yaml]
+----
+defaultNamespace: cert-manager
+helm:
+  chart: cert-manager
+  repo: https://charts.jetstack.io
+  version: 1.14.0
+----
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `rancher/fleet` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+Each bundle produces one manifest containing:
+
+* a link:{{< ref "helm_chart" >}}[`helmchart`] source resolving the latest chart version from `helm.repo`,
+* two link:{{< ref "yaml" >}}[`yaml`] conditions asserting that `helm.chart` and `helm.repo` still hold the discovered values,
+* a `yaml` target writing the new version to `helm.version`.
+
+Only the version is rewritten; the rest of the bundle is left untouched.
+
+== Authentication
+
+Use `auths` to reach private chart repositories. Entries are keyed by repository host and accept either a `token` or a `username`/`password` pair.
+
+== Version filtering
+
+If unspecified, the version filter defaults to kind `semver` with pattern `*`, since Helm charts are expected to follow semantic versioning.
+
+More details on the link:/docs/core/versionfilter/["Version Filtering" page].
 
 == Manifest
 === Parameters
 
 {{< autodiscoveryparameters "rancher/fleet" >}}
 
-==== Example
+NOTE: `only` and `ignore` rules accept `path` (a bundle path pattern that must match the whole path), `charts` (a map of chart name to version), and `repositories` (a list of chart repository URLs).
+
+=== Example
 
 [source,yaml]
 ----

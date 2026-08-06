@@ -1,0 +1,491 @@
+---
+title: "Deprecations"
+description: "Every deprecated Updatecli command, manifest key, transformer, and plugin parameter, with the release it was deprecated in and how to migrate."
+lead: "What changed, since when, and what to write instead"
+date: 2026-04-11T13:37:00+00:00
+lastmod: 2026-08-05T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "help"
+weight: 660
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Deprecated settings still work. Updatecli accepts the old form, logs a warning, and translates it to
+the new one, so a manifest written years ago keeps running. The warning is the notice: nothing on
+this page breaks a pipeline today, and everything on it may break one eventually.
+
+Entries are grouped by area, newest deprecation first within each group. The `Since` column is the
+first release that emitted the warning, established from the Git history rather than from the
+release notes (see the link:/changelogs/updatecli[changelogs] for what shipped in each release).
+
+TIP: To find out whether your own manifests are affected, run `updatecli pipeline diff` and read the
+warnings. Nothing needs to be applied, a `diff` parses and validates the whole manifest, which is
+where the deprecation warnings come from.
+
+Two cases on this page are *not* simple renames, and both are easy to miss:
+
+* `commitmessage.title` is **ignored**, not translated - see <<_commit_messages>>.
+* Moving a `json`, `toml`, or `csv` resource to `dasel/v3` turns `query` into a **hard error** and
+changes the selector syntax - see <<_dasel_engines>>.
+
+== Commands
+
+The four original top-level commands moved under `pipeline` and `manifest`. All four still run and
+log `Deprecated command, please instead use ...`.
+
+[cols="1,1,1", options="header"]
+|===
+| Deprecated | Use instead | Since
+
+| `updatecli apply`
+| `updatecli pipeline apply`
+| v0.114.0
+
+| `updatecli diff`
+| `updatecli pipeline diff`
+| v0.114.0
+
+| `updatecli prepare`
+| `updatecli pipeline prepare`
+| v0.114.0
+
+| `updatecli show`
+| `updatecli manifest show`
+| v0.31.0
+|===
+
+See the link:/docs/commands/[Commands] reference for the current command tree.
+
+== Manifest keys
+
+=== Stage identifiers
+
+Mixed-case and snake_case keys were normalised to lowercase. The old spelling is copied onto the new
+key and cleared.
+
+[cols="1,1,2,1", options="header"]
+|===
+| Deprecated | Use instead | Applies to | Since
+
+| `scmID`
+| `scmid`
+| sources, conditions, targets, actions
+| v0.23.0
+
+| `sourceID`
+| `sourceid`
+| conditions, targets
+| v0.23.0
+
+| `depends_on`
+| `dependson`
+| sources, conditions, targets
+| v0.34.0
+
+| `conditionids`
+| `dependson`, with each entry prefixed `condition#`
+| targets
+| v0.86.0
+|===
+
+`conditionids` is the one that changes shape rather than spelling. A target listing
+`conditionids: [check]` becomes:
+
+[source,yaml]
+----
+targets:
+  default:
+    dependson:
+      - condition#check
+----
+
+Updatecli performs that translation itself and, in doing so, also sets `disableconditions: true` on
+the target (the conditions named in `dependson` are the only ones that gate it).
+
+IMPORTANT: Setting the old key *and* the new key together is not a warning. `conditionids` combined
+with `dependson` makes Updatecli ignore `conditionids`; `conditionids` combined with
+`disableconditions: true` is an outright error, because disabling conditions while naming conditions
+is contradictory. The same applies to `scmID` alongside `scmid` on an action.
+
+Resource `kind` values must also be lowercase. A capitalised kind is accepted and lowercased with
+`kind value "..." must be lowercase`.
+
+=== Top-level keys
+
+[cols="1,1,2,1", options="header"]
+|===
+| Deprecated | Use instead | Notes | Since
+
+| `pullrequests`
+| `actions`
+| Mutually exclusive - using both is an error, not a warning
+| v0.40.0
+
+| `title`
+| `name`
+| Names the manifest
+| v0.64.1
+
+| `autodiscovery.pullrequestid`
+| `autodiscovery.actionid`
+| Mutually exclusive - using both is an error
+| v0.40.0
+|===
+
+=== Action kinds
+
+Both were renamed when actions grew beyond pull requests. Deprecated since v0.40.0.
+
+[cols="1,1", options="header"]
+|===
+| Deprecated | Use instead
+
+| `kind: github`
+| `kind: github/pullrequest`
+
+| `kind: gitea`
+| `kind: gitea/pullrequest`
+|===
+
+== Transformers
+
+Every camelCase transformer was renamed to lowercase in v0.25.0. The behaviour is unchanged.
+
+[cols="1,1", options="header"]
+|===
+| Deprecated | Use instead
+
+| `addPrefix`
+| `addprefix`
+
+| `addSuffix`
+| `addsuffix`
+
+| `trimPrefix`
+| `trimprefix`
+
+| `trimSuffix`
+| `trimsuffix`
+
+| `semverInc`
+| `semverinc`
+
+| `findSubMatch`
+| `findsubmatch`
+
+| `findSubMatch.captureIndex`
+| `findsubmatch.captureindex`
+|===
+
+The deprecated spellings are hidden from the JSON schema, so an editor completing from the schema
+will only ever offer the lowercase form. See the
+link:/docs/core/transformer/["Transformer" page].
+
+== Actions
+
+=== `github/pullrequest`: `automerge`
+
+Deprecated in v0.116.0 in favour of `merge.strategy`, which offers three behaviours where
+`automerge` had two.
+
+[cols="1,1", options="header"]
+|===
+| Before | After
+
+a|
+[source,yaml]
+----
+actions:
+  default:
+    kind: github/pullrequest
+    spec:
+      automerge: true
+----
+
+a|
+[source,yaml]
+----
+actions:
+  default:
+    kind: github/pullrequest
+    spec:
+      merge:
+        strategy: auto
+----
+|===
+
+`automerge: false` is not a no-op, it translates to `merge.strategy: manual`:
+
+[cols="1,1,3", options="header"]
+|===
+| Old value | Translates to | Meaning
+
+| `automerge: true`
+| `merge.strategy: auto`
+| Hand the pull request to GitHub's auto-merge, which merges it once the required checks pass.
+
+| `automerge: false`
+| `merge.strategy: manual`
+| Leave the pull request open for a human. This is also the default when `merge` is unset.
+
+| - (no equivalent)
+| `merge.strategy: client`
+| Updatecli merges the pull request itself, after `merge.after` has elapsed (`24h` by default).
+|===
+
+`client` has no `automerge` equivalent, so it is only reachable after migrating. See the
+link:/docs/plugins/actions/github/["GitHub Pull Request" page].
+
+== Resource plugins
+
+=== Dasel engines
+
+`json`, `toml`, and `csv` read and write through Dasel, selected by the `engine` parameter.
+`dasel/v3` arrives in v0.120.0 and, from that release, both `dasel/v1` and `dasel/v2` are deprecated
+in favour of it:
+
+[source,text]
+----
+Engine "dasel/v1" is deprecated and will be removed in a future updatecli version. Please use "dasel/v3" instead.
+----
+
+The history differs per plugin. `json` has warned about `dasel/v1` since v0.105.0, where the warning
+pointed at `dasel/v2` instead. `toml` and `csv` had no `engine` parameter at all before v0.120.0, so
+that release is where their first warning appears.
+
+[cols="1,1,1", options="header"]
+|===
+| Plugin | Deprecated engines | Since
+
+| `json`
+| `dasel/v1`
+| v0.105.0 (retargeted at `dasel/v3` in v0.120.0)
+
+| `json`
+| `dasel/v2`
+| v0.120.0
+
+| `toml`, `csv`
+| `dasel/v1`, `dasel/v2`
+| v0.120.0
+|===
+
+[WARNING]
+====
+`dasel/v1` is still the **default**. A `json`, `toml`, or `csv` resource that never mentions `engine`
+runs on the deprecated engine and emits that warning on every run. Set the engine explicitly to
+silence it:
+
+[source,yaml]
+----
+sources:
+  default:
+    kind: json
+    spec:
+      engine: dasel/v3
+      file: package.json
+      key: version
+----
+
+`engine: dasel` is an alias that always resolves to the newest engine, currently `dasel/v3`. It is
+not deprecated, but it does mean the behaviour of your manifest changes when a new engine lands.
+====
+
+Migrating the engine forces a second change. Under `dasel/v2` and `dasel/v3`, `query` is rejected
+rather than warned about:
+
+[source,text]
+----
+engine "dasel/v3" requires the parameter "key" over "query"
+----
+
+So rename `query` to `key` in the same edit.
+
+Setting `engine: dasel/v3` is not a flag flip either. The Dasel v3 selector syntax is richer than the
+v1 and v2 one, and it is not backward compatible with it, so the keys themselves have to be rewritten.
+The leading dot is the usual casualty, `.version` is a parse error under `dasel/v3`:
+
+[cols="1,1", options="header"]
+|===
+| Before | After
+
+a|
+[source,yaml]
+----
+sources:
+  default:
+    kind: json
+    spec:
+      file: package.json
+      key: .version
+----
+
+a|
+[source,yaml]
+----
+sources:
+  default:
+    kind: json
+    spec:
+      engine: dasel/v3
+      file: package.json
+      key: version
+----
+|===
+
+The link:/docs/plugins/resource/json/["JSON" page] compares the selectors engine by engine, and the
+link:https://daseldocs.tomwright.me/[Dasel documentation] covers the v3 syntax in full.
+
+=== Deprecated parameters
+
+[cols="1,1,1,2,1", options="header"]
+|===
+| Plugin | Deprecated | Use instead | Notes | Since
+
+| `json`
+| `query`
+| `key`
+| Accepted under `dasel/v1`, hard error under `dasel/v2` and `dasel/v3`
+| v0.105.0
+
+| `toml`, `csv`
+| `query`
+| `key`
+| Same rule, these plugins only gained `engine` in v0.120.0
+| v0.120.0
+
+| `json`, `toml`, `csv`
+| `multiple`
+| `query`
+| `key` + `multiple` is rewritten to `query`
+| v0.37.0
+
+| `maven`
+| `url`
+| `repository`
+| Prefix the old URL onto the repository name
+| v0.33.0
+
+| `cargopackage`
+| `indexurl`
+| `registry.url`
+| Copied across automatically
+| v0.44.0
+
+| `githubrelease`
+| `key: name`
+| `key: tagname`
+|
+| v0.97.0
+
+| `githubrelease`
+| `key: hash`
+| `key: taghash`
+|
+| v0.97.0
+|===
+
+== Commit messages
+
+[WARNING]
+====
+`commitmessage.title` is **ignored**, not renamed (deprecated in v0.114.0). The commit title is now
+always generated from the target `name` (or its `description`), so a manifest that sets it sees no
+effect at all beyond the warning:
+
+[source,text]
+----
+commitMessage.title is deprecated and will be ignored. The commit title is now always generated from the target name or description.
+----
+
+To control the commit title, rename the target. Everything else under `commitmessage` (`type`,
+`scope`, `body`, `footers`, `hidecredit`) still applies.
+====
+
+== YAML key syntax
+
+[WARNING]
+====
+`yaml` keys are expected to be JSONPath expressions beginning with `$.`. A key written in the older
+dotted form is rewritten automatically and warned about, since v0.51.0:
+
+[source,text]
+----
+current yaml key is "spec.version" and should be updated to "$.spec.version"
+----
+
+The rewrite is **scheduled to become an error**. Update the keys now:
+
+[cols="1,1", options="header"]
+|===
+| Deprecated | Use instead
+
+| `key: spec.version`
+| `key: $.spec.version`
+
+| `key: metadata.annotations.example\.com/version`
+| `key: $.metadata.annotations.'example.com/version'`
+|===
+
+This applies to `key` and to every entry in `keys`, on sources, conditions, and targets alike.
+====
+
+== Compose file name
+
+The default compose file was renamed from `update-compose.yaml` to `updatecli-compose.yaml` in
+v0.80.0. The old name is still picked up, with a warning:
+
+[source,text]
+----
+Deprecated default compose file "update-compose.yaml" detected. Please rename it to "updatecli-compose.yaml"
+----
+
+If both files exist, Updatecli uses the deprecated one and says so:
+
+[source,text]
+----
+Both default compose files "update-compose.yaml" and "updatecli-compose.yaml" detected. Please remove "update-compose.yaml" to start using "updatecli-compose.yaml"
+----
+
+Renaming the file is the whole migration. See the link:/docs/core/compose/["Compose" page].
+
+== updatecli-action
+
+=== Branches `v1` and `v2`
+
+The `v1` and `v2` branches of `updatecli/updatecli-action` are deprecated. Pin a released version
+instead, or track `main` if you deliberately want the branch tip.
+
+Across a whole organization, an Updatecli policy does the migration for you:
+
+.updatecli-compose.yaml
+[source,yaml]
+----
+{{<include "assets/code_example/docs/help/deprecations/updatecli-compose.yaml">}}
+----
+
+Then:
+
+[source,shell]
+----
+updatecli compose diff
+updatecli compose apply
+----
+
+See the link:/docs/automate/github_action/["GitHub Action" page] for how to pin the action, and
+link:/docs/core/compose/["Compose"] for the file format.
+
+== Go Further
+
+* link:/changelogs/updatecli[Changelogs] - what shipped in each release.
+* link:/docs/help/troubleshooting/[Troubleshooting] - error messages and what causes them.
+* link:/docs/commands/[Commands] - the current command reference.

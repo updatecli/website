@@ -1,15 +1,15 @@
 ---
 title: "Installation"
-description: "Give a try to updatecli !"
-lead: "Give a try to updatecli !"
+description: "Install Updatecli on Linux, macOS, or Windows, from a package manager, a container image, or a release archive"
+lead: "Every way to get the updatecli binary"
 date: 2020-10-13T15:21:01+02:00
-lastmod: 2022-01-22T08:16:01+02:00
+lastmod: 2026-07-31T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "prologue"
-weight: 119
+weight: 110
 toc: true
 ---
 
@@ -18,148 +18,399 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
-== Packages
+== Description
 
-Updatecli is a standalone binary available at https://github.com/updatecli/updatecli/releases/latest[GitHub] with packages for Windows, Linux and OSX.
+Updatecli is a single, statically linked binary with no runtime dependency.
+Every release publishes archives for Linux, macOS, and Windows, native packages for the
+common Linux distributions, and container images.
 
-== macOS via Homebrew
+All assets are attached to the https://github.com/updatecli/updatecli/releases/latest[GitHub release page].
 
-link:https://brew.sh/[Homebrew] is the easiest way to install `updatecli` on macOS.
-See the link:https://brew.sh/[Homebrew documentation] for installation and usage explanations.
+NOTE: Of the assets the project publishes itself, only Linux gets native packages (`.deb`, `.rpm`, `.apk`).
+macOS is covered by Homebrew or a `.tar.gz` archive, Windows by a `.zip` archive.
+Several distributions and package managers carry Updatecli on their own, see link:#_community_packages[Community packages].
 
-First configure the `updatecli` third-party repository (called a link:https://docs.brew.sh/Taps["tap"]) with:
+== Homebrew
+
+link:https://brew.sh/[Homebrew] works on both macOS and Linux and is the quickest way in.
+
+Updatecli is published from its own third-party repository, called a
+link:https://docs.brew.sh/Taps[tap], so add it first:
 
 [source,shell]
 ----
 brew tap updatecli/updatecli
 ----
 
-Then proceed with the actual installation with:
+Then install:
 
 [source,shell]
 ----
 brew install updatecli
 ----
 
-To check for newer versions, use `brew outdated updatecli`.
-To upgrade to the latest version, use `brew upgrade updatecli`.
+To check for a newer version, use `brew outdated updatecli`; to upgrade, `brew upgrade updatecli`.
 
 == Linux
 
-**Opensuse**
-[source,shell]
-```
-# amd64
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_amd64.rpm
-# arm64
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_arm64.rpm
-# armv6
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_armv6.rpm
-```
+=== Debian and Ubuntu
 
-**Debian/Ubuntu**
-[source,shell]
-```
-# amd64
-curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_amd64.deb
-# arm64
-curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_arm64.deb
-# armv6
-curl -sL -o/var/cache/apt/archives/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_armv6.deb
-```
+Download the package matching your architecture, then install it:
 
-**Fedora/Centos/RedHat**
 [source,shell]
-```
+----
 # amd64
-dnf install https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_amd64.rpm
-# arm64
-dnf install https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_arm64.rpm
-# armv6
-dnf install https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_armv6.rpm
-```
+curl -sSL -o /tmp/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.deb
+sudo apt install /tmp/updatecli_amd64.deb
 
-**Arch Linux (AUR)**
+# arm64
+curl -sSL -o /tmp/updatecli_arm64.deb https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_arm64.deb
+sudo apt install /tmp/updatecli_arm64.deb
+
+# armv6
+curl -sSL -o /tmp/updatecli_armv6.deb https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_armv6.deb
+sudo apt install /tmp/updatecli_armv6.deb
+----
+
+NOTE: `apt install` needs a path, not a bare filename, to recognise a local file.
+A name without `/` is treated as a package name and the command fails with
+`Unable to locate package`.
+
+=== Fedora, CentOS, and RHEL
+
 [source,shell]
-```
+----
+# amd64
+sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.rpm
+
+# arm64
+sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_arm64.rpm
+
+# armv6
+sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_armv6.rpm
+----
+
+=== openSUSE
+
+Tumbleweed and Leap 16.0 carry Updatecli in the distribution itself, see link:#_opensuse_zypper[Community packages].
+To install a specific release, or on a version that does not package it, use the `.rpm` from the release page:
+
+[source,shell]
+----
+# amd64
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.rpm
+
+# arm64
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_arm64.rpm
+
+# armv6
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_armv6.rpm
+----
+
+=== Alpine
+
+The `.apk` packages are not signed by an Alpine key, so `--allow-untrusted` is required:
+
+[source,shell]
+----
+# amd64
+curl -sSL -o /tmp/updatecli_amd64.apk https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.apk
+sudo apk add --allow-untrusted /tmp/updatecli_amd64.apk
+----
+
+Replace `amd64` with `arm64` or `armv6` as needed.
+
+=== Arch Linux (AUR)
+
+----
 yay -S updatecli-bin
-```
+----
 
-**Tgz**
+NOTE: Two further entries, `updatecli` and `updatecli-git`, build from source but are currently orphaned and far behind, so prefer `updatecli-bin`.
+
+The package installs the bash, zsh, and fish completions.
+
+
+=== Archive
+
 [source,shell]
-```
+----
 # amd64
-curl -sL -o/tmp/updatecli_amd64.tgz https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_Linux_x86_64.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Linux_x86_64.tar.gz
 
 # arm64
-curl -sL -o/tmp/updatecli_arm64.tgz https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_Linux_arm64.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Linux_arm64.tar.gz
 
 # armv6
-curl -sL -o/tmp/updatecli_arm.tgz https://github.com/updatecli/updatecli/releases/download/v0.119.0/updatecli_Linux_arm.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Linux_arm.tar.gz
 
-```
+tar -xzf /tmp/updatecli.tar.gz -C /tmp updatecli
+sudo install -m 755 /tmp/updatecli /usr/local/bin/updatecli
+----
+
+== macOS
+
+link:#_homebrew[Homebrew] is the recommended route. To install from an archive instead:
+
+[source,shell]
+----
+# Apple silicon
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Darwin_arm64.tar.gz
+
+# Intel
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Darwin_x86_64.tar.gz
+
+tar -xzf /tmp/updatecli.tar.gz -C /tmp updatecli
+sudo install -m 755 /tmp/updatecli /usr/local/bin/updatecli
+----
+
+IMPORTANT: The archives are not notarized by Apple.
+Gatekeeper may quarantine the binary on first run; clear the flag with
+`xattr -d com.apple.quarantine /usr/local/bin/updatecli`.
+
+== Windows
+
+The project publishes Windows builds as a `.zip` archive.
+A community-maintained link:#_scoop[Scoop package] is also available; there is no `winget` or Chocolatey package at this time.
+
+To install from the archive, in PowerShell:
+
+[source,shell]
+----
+# amd64
+Invoke-WebRequest -Uri https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Windows_x86_64.zip -OutFile updatecli.zip
+
+# arm64
+Invoke-WebRequest -Uri https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Windows_arm64.zip -OutFile updatecli.zip
+
+Expand-Archive -Path updatecli.zip -DestinationPath $env:LOCALAPPDATA\Updatecli
+----
+
+Then add `%LOCALAPPDATA%\Updatecli` to your `PATH` so `updatecli.exe` is found from any directory.
+
+== Community packages
+
+Updatecli is also packaged by several communities outside the project.
+These entries are maintained by the distribution or bucket they belong to, not by Updatecli, so they can lag behind the latest release.
+For the newest version, use one of the routes above or the https://github.com/updatecli/updatecli/releases/latest[GitHub release page].
+
+=== openSUSE (zypper)
+
+Tumbleweed and Leap 16.0 ship `updatecli` in the distribution, so no extra repository is needed:
+
+[source,shell]
+----
+sudo zypper install updatecli
+----
+
+Leap 15.x does not package it, install the link:#_opensuse[`.rpm` from the release page] there instead.
+
+Shell completions come as separate `updatecli-bash-completion`, `updatecli-zsh-completion`, and `updatecli-fish-completion` subpackages, which zypper pulls in on its own once the matching shell is installed.
+
+See https://software.opensuse.org/package/updatecli[the openSUSE package page] for the versions available per distribution.
+
+=== Scoop
+
+link:https://scoop.sh/[Scoop] is a command line installer for Windows.
+Updatecli lives in the `main` bucket, which Scoop configures by default, so there is nothing to add first:
+
+[source,shell]
+----
+scoop install updatecli
+----
+
+To upgrade later, use `scoop update updatecli`.
+
+The manifest tracks the GitHub releases automatically, so it usually follows a new version within a day.
+It installs the same `.zip` archive as the link:#_windows[Windows section] and does not set up shell completions, see link:#_shell_completion[Shell completion] if you want those.
+
+See https://scoop.sh/#/apps?q=updatecli[the Scoop app list] for the packaged version.
+
+=== Nix
+
+`updatecli` is in https://search.nixos.org/packages?channel=26.05&query=updatecli[nixpkgs] and builds on both Linux and macOS.
+
+[source,shell]
+----
+# Run it once, without installing
+nix shell nixpkgs#updatecli
+
+# Install it into your profile
+nix profile install nixpkgs#updatecli
+----
+
+On NixOS, add it to your configuration instead:
+
+[source,nix]
+----
+environment.systemPackages = with pkgs; [
+  updatecli
+];
+----
+
+Without flakes enabled, the older command still works:
+
+[source,shell]
+----
+nix-env -iA nixpkgs.updatecli
+----
+
+The package is built from source with the release metadata injected, so `updatecli version` reports the real version rather than `dev`.
+It also installs the bash, zsh, and fish completions and the man page.
 
 == Docker
-A docker image is also available at:
+
+Container images are published to two registries:
 
 * https://github.com/users/updatecli/packages/container/package/updatecli[ghcr.io/updatecli/updatecli]
 * https://hub.docker.com/r/updatecli/updatecli[updatecli/updatecli]
 
-Remark: Because of limitations on a DockerHub free account, it's better to use the ghcr.io image.
+TIP: Prefer the `ghcr.io` image. DockerHub applies pull rate limits to free accounts, which
+is a common cause of failures in CI. See link:/docs/help/docker_hub_rate_limit/["DockerHub rate limit" page].
+
+=== Image variants
+
+`ghcr.io/updatecli/updatecli:latest`::
+Debian-based. Includes `git` and the common tooling some plugins shell out to.
+
+`ghcr.io/updatecli/updatecli:latest-slim`::
+Minimal image. Smaller, but without the extra tooling, so plugins that rely on an external
+command will not work.
+
+Both are also published per release, for example `ghcr.io/updatecli/updatecli:v0.120.0`.
 
 === Usage
 
-```
- docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/updatecli/updatecli:latest diff --config /updatecli/updateCli.yaml
+The image sets `/home/updatecli` as its working directory and `updatecli` as its entrypoint,
+so mounting your project there lets Updatecli discover `updatecli.yaml` or `updatecli.d/`
+on its own:
 
- docker run -i -t -v "$PWD/updateCli.yaml":/updatecli/updateCli.yaml:ro ghcr.io/updatecli/updatecli:latest apply --config /updatecli/updateCli.yaml
+[source,shell]
+----
+# See what would change
+docker run --rm -v "$PWD":/home/updatecli:ro ghcr.io/updatecli/updatecli:latest diff
 
- docker run -i -t ghcr.io/updatecli/updatecli:latest help
-```
+# Apply the change (the mount must be writable)
+docker run --rm -v "$PWD":/home/updatecli ghcr.io/updatecli/updatecli:latest apply
+----
+
+== Go
+
+[source,shell]
+----
+go install github.com/updatecli/updatecli@latest
+----
+
+NOTE: A binary built this way reports `dev` as its version, because the release metadata is
+injected at release time rather than by `go install`.
 
 == asdf
 
-link:https://asdf-vm.com/[asdf] is a multi-platform tool version manager.
-Review the link:https://asdf-vm.com/guide/getting-started.html[Getting Started documentation] for installation and usage explanations.
-
-First add the updatecli asdf plugin:
+link:https://asdf-vm.com/[asdf] is a multi-platform version manager.
+Add the plugin, then install:
 
 [source,shell]
 ----
 asdf plugin add updatecli
-----
-
-Then, install updatecli latest version with:
-
-[source,shell]
-----
 asdf install updatecli latest
 ----
 
-or an specific version with:
+To install a specific version, and to list what is available:
 
 [source,shell]
 ----
-asdf install updatecli $version
+asdf install updatecli <version>
+asdf list all updatecli
 ----
 
-You can list all available versions with:
-
-[source,shell]
-----
-asdf list-all updatecli
-----
-
-Once `updatecli` is installed, do not forget to set the version you want to use with:
+Once installed, select the version to use:
 
 [source,shell]
 ----
-asdf global updatecli latest
+asdf set updatecli latest
 ----
 
-or
+NOTE: `asdf set` replaced `asdf global` and `asdf local` in asdf 0.16.
+On older releases, use `asdf global updatecli latest` and `asdf list-all updatecli` instead.
+
+== Verify the installation
 
 [source,shell]
 ----
-asdf global updatecli $version
+updatecli version
 ----
+
+[source,text]
+----
+VERSION
+
+Application:	0.119.0
+Golang     :	1.26.5 linux/amd64
+Build Time :	2026-07-09T15:27:02Z
+----
+
+== Verify the release integrity
+
+Rather than signing every asset, Updatecli signs the `checksums.txt` file that lists the
+checksum of each one. Download `checksums.txt` and `checksums.txt.sig` from the
+https://github.com/updatecli/updatecli/releases/latest[release page].
+
+Verify that the checksum file is genuine, using link:https://docs.sigstore.dev/system_config/installation/[cosign]:
+
+[source,shell]
+----
+cosign verify-blob \
+  --certificate-identity-regexp "https://github.com/updatecli/updatecli" \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  --bundle checksums.txt.sig \
+  checksums.txt
+----
+
+Then verify the asset you downloaded against it:
+
+[source,shell]
+----
+sha256sum --ignore-missing -c checksums.txt
+----
+
+Container images are signed directly:
+
+[source,shell]
+----
+cosign verify \
+  --certificate-identity-regexp "https://github.com/updatecli/updatecli" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  ghcr.io/updatecli/updatecli:<version>
+----
+
+Replace `<version>` with the tag you pulled. Signatures are attached per manifest digest, so
+both release tags and `latest` verify.
+
+== Shell completion
+
+The `.deb`, `.rpm`, `.apk`, AUR, openSUSE, and Nix packages install completions for bash, zsh, and fish
+automatically. For any other installation method, generate them yourself:
+
+[source,shell]
+----
+# bash
+updatecli completion bash > /etc/bash_completion.d/updatecli
+
+# zsh
+updatecli completion zsh > "${fpath[1]}/_updatecli"
+
+# fish
+updatecli completion fish > ~/.config/fish/completions/updatecli.fish
+
+# powershell
+updatecli completion powershell | Out-String | Invoke-Expression
+----
+
+See link:/docs/commands/updatecli_completion/["updatecli completion" reference] for per-shell details.
+
+== Go Further
+
+* link:/docs/prologue/quick-start/[Quick Start] - run your first update pipeline.
+* link:/docs/automate/github_action/[GitHub Action] - install and run Updatecli from a workflow.
+* link:/docs/automate/jenkins/[Jenkins] - run Updatecli from a Jenkins pipeline.
+* link:/docs/commands/[Commands] - the full command line reference.

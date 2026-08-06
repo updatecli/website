@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
-weight: 190
+weight: 140
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -21,7 +21,7 @@ toc: true
 
 Updatecli supports distributed tracing via OpenTelemetry. When enabled, every pipeline run emits spans that show exactly where time is spent and which resources succeeded or failed.
 
-Tracing is opt-in and disabled by default. When tracing initialization fails, Updatecli continues normally — tracing never blocks execution.
+Tracing is opt-in and disabled by default. When tracing initialization fails, Updatecli continues normally (tracing never blocks execution).
 
 == Enabling Tracing
 
@@ -39,11 +39,27 @@ Configuration is done entirely via standard OpenTelemetry environment variables.
 
 | `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`
 | Override the endpoint specifically for traces.
+
+| `OTEL_EXPORTER_OTLP_HEADERS`
+| Extra headers sent to the collector, as a comma separated list of `key=value` pairs. This is how authenticated backends such as Honeycomb or Grafana Cloud are configured. `OTEL_EXPORTER_OTLP_TRACES_HEADERS` overrides it for traces only.
+
+| `OTEL_EXPORTER_OTLP_INSECURE`
+| Set to `true` to talk to a collector over plaintext gRPC.
 |===
+
+Only `OTEL_TRACES_EXPORTER` and the endpoint variables are read by Updatecli itself.
+The others are interpreted by the OpenTelemetry Go SDK, so the full set documented in the
+https://opentelemetry.io/docs/specs/otel/protocol/exporter/[OTLP exporter specification] applies,
+including timeouts, compression, and TLS certificates.
 
 When neither `OTEL_TRACES_EXPORTER` nor any endpoint variable is set, tracing is fully disabled (noop). When only an endpoint is set with no exporter name, Updatecli infers `otlp` (gRPC).
 
-NOTE: The `console` and `stdout` exporter values are aliases — both print spans to stdout. This is useful for verifying that tracing works, but the output is very verbose (one JSON block per span). For day-to-day use, prefer sending traces to a backend like Jaeger or Grafana Tempo.
+[NOTE]
+====
+* The `console` and `stdout` exporter values are aliases - both print spans to stdout. This is useful for verifying that tracing works, but the output is very verbose (one JSON block per span). For day-to-day use, prefer sending traces to a backend like Jaeger or Grafana Tempo.
+* An unrecognized `OTEL_TRACES_EXPORTER` value does not fail the run: Updatecli logs a warning and disables tracing.
+* The service name reported to the backend is always `updatecli`, and the service version is the Updatecli version.
+====
 
 == Span Hierarchy
 
@@ -183,7 +199,7 @@ NOTE: `updatecli.push_commits` and `updatecli.prune_scm_branches` are only emitt
 
 ==== Span Events
 
-[cols="1,3",options="header"]
+[cols="1,1,3",options="header"]
 |===
 | Event | Span | Description
 
@@ -223,7 +239,7 @@ Pipeline and resource results use the following symbols:
 | Success
 
 | `⚠`
-| Attention — a change was detected (or would be applied in dry-run mode)
+| Attention - a change was detected (or would be applied in dry-run mode)
 
 | `✗`
 | Failure
@@ -234,7 +250,7 @@ Pipeline and resource results use the following symbols:
 
 == HTTP Instrumentation
 
-Outgoing HTTP requests — to registries, GitHub, and other external APIs — are automatically instrumented via an `otelhttp` transport wrapper. HTTP spans appear as children of the pipeline span, giving full visibility into external API latency without any additional configuration.
+Outgoing HTTP requests (to registries, GitHub, and other external APIs) are automatically instrumented via an `otelhttp` transport wrapper. HTTP spans appear as children of the pipeline span, giving full visibility into external API latency without any additional configuration.
 
 == Credential Safety
 
@@ -251,7 +267,7 @@ Print spans to stdout without running a collector:
 OTEL_TRACES_EXPORTER=console updatecli pipeline diff --config manifest.yaml
 ----
 
-IMPORTANT: The `console` exporter is very verbose — it outputs a full JSON block for every span, including HTTP requests. It is best suited for one-off verification, not regular use. For a better experience, use a trace backend like Jaeger (see below).
+IMPORTANT: The `console` exporter is very verbose - it outputs a full JSON block for every span, including HTTP requests. It is best suited for one-off verification, not regular use. For a better experience, use a trace backend like Jaeger (see below).
 
 === Jaeger
 

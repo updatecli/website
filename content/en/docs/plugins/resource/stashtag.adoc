@@ -1,0 +1,92 @@
+---
+title: "Stash Tag"
+description: "Find a tag of a Bitbucket Server (Stash) repository"
+lead: "kind: stash/tag"
+date: 2026-07-29T10:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+weight: 330
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+The `stash/tag` resource queries the tags of a repository hosted on Bitbucket Server - the product formerly called Stash and now Bitbucket Data Center. It is the usual way to track releases of an internally hosted dependency.
+
+**source**::
+Returns the tag matching `versionfilter`.
+
+**condition**::
+Tests that `tag` exists in the repository.
+
+**target**::
+Not supported - a target fails with `target not supported for the plugin Stash Tags`. Say so on link:https://github.com/updatecli/updatecli/issues[the issue tracker] if you would use one.
+
+NOTE: An `scm` is accepted but ignored, logging `scm not supported, ignored`. The lookup always goes to the Bitbucket Server API.
+
+== Parameters
+
+{{< resourceparameters "sources" "stash/tag" >}}
+
+`url`, `owner` and `repository` are mandatory.
+
+`url`:: The Bitbucket Server instance, e.g. `https://stash.example.com`. This is a self-hosted product, so there is no default.
+`owner`:: The project key or user the repository belongs to.
+`tag`:: Condition only - the tag being checked.
+`versionfilter`:: Source only. `kind: semver` is the usual choice for release tags. See the link:/docs/core/versionfilter/["Version Filtering" page].
+
+== Authentication
+
+Credentials are either a token or a username and password pair, both sensitive, so read them from the environment or a link:https://github.com/getsops/sops[SOPS] file:
+
+[source,yaml]
+----
+spec:
+  url: https://stash.example.com
+  token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
+  owner: PROJECTKEY
+  repository: myrepo
+----
+
+`password` must be combined with `username`. Reading a public repository needs no credential at all.
+
+== Example
+
+[source,yaml]
+----
+# updatecli.yaml
+sources:
+  latestTag:
+    name: Get the latest release tag
+    kind: stash/tag
+    spec:
+      url: https://stash.example.com
+      token: '{{ requiredEnv "BITBUCKET_TOKEN" }}'
+      owner: PROJECTKEY
+      repository: myrepo
+      versionfilter:
+        kind: semver
+----
+
+== Links
+
+* link:/docs/plugins/resource/stashbranch/[The `stash/branch` resource]
+* link:/docs/plugins/scm/stash/[The `stash` scm] - to clone and push
+* link:/docs/plugins/actions/stash/[The `stash/pullrequest` action]

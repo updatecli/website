@@ -8,7 +8,6 @@ scms:
       project: myproject
       repository: myrepo
       branch: main
-      depth: 1
       singleBranch: true
       token: '{{ requiredEnv "UPDATECLI_AZURE_DEVOPS_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_AZURE_DEVOPS_USERNAME" }}'

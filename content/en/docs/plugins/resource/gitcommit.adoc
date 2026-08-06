@@ -1,0 +1,113 @@
+---
+title: "Git Commit"
+description: "Retrieve the latest commit hash of a Git branch, or check that a commit exists"
+lead: "kind: gitcommit"
+date: 2026-07-29T10:00:00+02:00
+lastmod: 2026-07-29T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "plugin-resource"
+weight: 110
+toc: true
+plugins:
+  - source
+  - condition
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+[cols="1^,1^,1^",options=header]
+|===
+| source | condition | target
+| &#10004; | &#10004; | &#10007;
+|===
+
+== Description
+
+The `gitcommit` resource works with commit hashes rather than versions (useful for pinning an action, a submodule, or a base image to an exact commit instead of a moving branch).
+
+**source**::
+Returns the latest commit hash of `branch`, or of the repository's current `HEAD` when `branch` is unset.
+
+**condition**::
+Checks that a commit exists in the repository (`hash` when set, otherwise the source output).
+
+**target**::
+Not supported - a target fails with `target not supported for the Git Commit resource`. Updatecli commits through an link:/docs/core/scm/[scm], not through this resource.
+
+NOTE: This resource is newer than the JSON schema bundled with the website, so the parameter table below may be empty until the schema is regenerated. The parameters are listed in full underneath.
+
+== Parameters
+
+{{< resourceparameters "sources" "gitcommit" >}}
+
+[cols="1,3",options=header]
+|===
+| Name | Description
+| `url` | The repository to clone, e.g. `git@github.com:updatecli/updatecli.git` or `https://github.com/updatecli/updatecli.git`.
+| `path` | A local repository path to read instead of cloning.
+| `branch` | Source only. The branch whose latest commit is returned. Defaults to the repository's current `HEAD`.
+| `hash` | Condition only. The commit being checked. Defaults to the source output.
+| `depth` | Limits how many commits are fetched. `0`, the default, means no limit.
+| `username` / `password` | Credentials for the HTTP protocol.
+|===
+
+== Choosing the repository
+
+Three things can say where the repository is, and they override each other in a fixed order, `url`, then `path`, then the `scmid`:
+
+[cols="1,3",options=header]
+|===
+| Set | Result
+| `url` | The repository is cloned, **overriding both `path` and any attached scm**.
+| `path` | That local directory is used, overriding the attached scm.
+| neither | The working directory of the `scmid`.
+|===
+
+Setting `url` or `path` alongside an `scmid` is allowed but logs a warning naming what was overridden, for example `URL setting value "..." is overriding the scm configuration (value "...")`.
+
+With none of the three, the run fails with a message that lists the options:
+
+[source,text]
+----
+unknown Git working directory. Did you specify one of `spec.URL`, `scmid` or `spec.path`?
+----
+
+[WARNING]
+====
+`depth` is a shallow clone. A commit older than the fetched history is simply not there, so a condition can report a perfectly real commit as missing. Leave `depth` unset when checking a hash that may be old.
+====
+
+== Example
+
+Pin a dependency to the exact commit currently at the tip of `main`:
+
+[source,yaml]
+----
+sources:
+  latestCommit:
+    name: Get the latest commit of updatecli/updatecli
+    kind: gitcommit
+    spec:
+      url: https://github.com/updatecli/updatecli.git
+      branch: main
+
+targets:
+  pin:
+    name: Pin the action to that commit
+    kind: file
+    sourceid: latestCommit
+    spec:
+      file: .github/workflows/updatecli.yaml
+      matchpattern: 'updatecli/updatecli-action@([0-9a-f]{40})'
+      replacepattern: 'updatecli/updatecli-action@{{ source "latestCommit" }}'
+----
+
+== Links
+
+* link:/docs/plugins/resource/gitBranch/[The `gitbranch` resource] - to find a branch name
+* link:/docs/plugins/resource/gitTag/[The `gittag` resource] - to find a tag

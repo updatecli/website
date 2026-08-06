@@ -1,14 +1,15 @@
 ---
 title: "GitHub Action"
-description: "Automate Updatecli with GitHub Action"
-lead: "Automate Updatecli with GitHub Action"
+description: "Run Updatecli from a GitHub Actions workflow, including the credentials and values files it needs"
+lead: "Automate Updatecli with GitHub Actions"
 date: 2021-01-09T15:21:01+02:00
+lastmod: 2026-07-30T10:00:00+02:00
 draft: false
 images: []
-menu: 
+menu:
   docs:
     parent: "automate"
-weight: 130 
+weight: 130
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -47,34 +48,83 @@ The third option is the best one but not yet supported natively by Updatecli. An
 
 == Migration
 
-=== From V1 to v2
+IMPORTANT: The `v1` and `v2` branches of the action are deprecated and will be removed.
+Use `v3` or later.
 
-The updatecli action v1 was a "GitHub Action" of type docker. While it was easier to start with, that type of GitHub Action runs in a docker container and so in a fully isolated environment.
-Updatecli uses many other tools. So switching to a Javascript GitHub action, allows installing updatecli directly on the GitHub Action runner next to those other tools.
-Now, the goal of this GitHub action evolved from running updatecli to installing updatecli.
+=== From v2 to v3
+
+Pin the action to a current release, for example `updatecli/updatecli-action@v3.4.0`.
+The inputs are unchanged, so no other edit is needed.
+
+=== From v1 to v2
+
+The action `v1` was a GitHub Action of type docker. While it was easier to start with, that
+type of action runs inside a container, in a fully isolated environment.
+Updatecli shells out to many other tools, so switching to a JavaScript action allows installing
+Updatecli directly on the runner, next to those tools.
+From `v2` onwards the purpose of the action is to *install* Updatecli, not to run it (running it
+is a separate `run:` step, as in the example below).
 
 == Parameter
 
 === Version
-`version`: specifies the Updatecli version to install. Accepted values are any valid releases such as `v0.25.0`.
-The default value corresponds to the latest Updatecli version
+
+`version`: the Updatecli version to install. Accepts any released tag, such as `v0.120.0`.
+Defaults to the latest Updatecli release.
 
 Required: false
 
 == Example
 
-The current example takes uses the repository https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra].
+This example is modelled on the https://github.com/jenkins-infra/jenkins-infra[jenkins-infra/jenkins-infra] repository.
 
-Once you have your update strategy configuration in the directory `./updatecli/updatecli.d`, you need following files in order to run updatecli from Github Action.
+Once your update strategy lives in `./updatecli/updatecli.d`, two more files are needed to run
+Updatecli from GitHub Actions.
 
-**./updatecli/values.yaml**
-```
-{{< include "assets/code_example/docs/automate/github_action/values.yaml" >}}
-```
+=== Values file
 
-**./github/workflows/updatecli.yaml**
-```
-{{< include "assets/code_example/docs/automate/github_action/updatecli.yaml" >}}
-```
+The values file holds the settings that change between environments, so the manifests
+themselves stay generic.
 
-IMPORTANT: Environment variables starting with `GITHUB_` are reserved by GitHub Actions.
+.updatecli/values.yaml
+[source,yaml]
+----
+{{<include "assets/code_example/docs/automate/github_action/values.yaml">}}
+----
+
+These keys are not read by Updatecli directly: they are made available to the manifests, which
+reference them with Go templating. A manifest declaring a `github` scm consumes them like this:
+
+[source,yaml]
+----
+scms:
+  default:
+    kind: github
+    spec:
+      user: '{{ .github.user }}'
+      email: '{{ .github.email }}'
+      username: '{{ .github.username }}'
+      token: '{{ requiredEnv .github.token }}'
+      owner: updatecli
+      repository: website
+      branch: main
+----
+
+NOTE: `token` holds the *name* of an environment variable, not the token itself.
+`requiredEnv` resolves it at run time and fails the pipeline if the variable is unset, which
+keeps the secret out of the repository. See link:/docs/core/configuration/["Configuration" page]
+for the full templating reference.
+
+Pass the file with `--values`, as the workflow below does.
+Any key your manifests do not reference can be dropped.
+
+=== Workflow
+
+.github/workflows/updatecli.yaml
+[source,yaml]
+----
+{{<include "assets/code_example/docs/automate/github_action/updatecli.yaml">}}
+----
+
+IMPORTANT: Environment variables starting with `GITHUB_` are reserved by GitHub Actions, which
+is why Updatecli reads `UPDATECLI_GITHUB_TOKEN` and `UPDATECLI_GITHUB_USERNAME` instead.

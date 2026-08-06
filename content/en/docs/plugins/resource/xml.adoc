@@ -1,13 +1,15 @@
 ---
 title: "XML"
-description: "Manipulate XML information"
+description: "Read and update a value in an XML document addressed by an XPath query"
 lead: "kind: xml"
 date: 2021-09-05T15:21:01+02:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 420
 toc: true
 plugins:
   - source
@@ -27,27 +29,47 @@ plugins:
 
 == Description
 
-**source**
+The `xml` resource reads and writes a single node in an XML document, located with an link:https://www.w3.org/TR/1999/REC-xpath-19991116/[XPath] query. It is most often used against a Maven `pom.xml`.
 
-The XML "source" retrieves an information from a XML file using a XPATH query.
+**source**::
+Returns the text content of the node matched by `path`.
 
-**condition**
+**condition**::
+Checks that the node holds `value`, or the source output when `value` is unset.
 
-The XML "condition" tests that an information exist in a XML file using a XPATH query.
-
-**target**
-
-The XML "target" ensures that a XML file content a specific value location in the XPATH location.
+**target**::
+Writes the value into the node. A document already holding it is reported as up to date and left untouched.
 
 == Parameters
 
 {{< resourceparameters "sources" "xml" >}}
 
+Both `file` and `path` are mandatory. Omitting either aborts the run with `wrong spec content`, preceded by the specific reason (`xml file not specified` or `xml path undefined`).
 
-=== Xpath
+IMPORTANT: This resource takes a single `file` only. There is no `files` attribute, unlike the `yaml`, `json`, `toml`, `csv` and `hcl` resources (update several documents with one target each).
 
-Under construction, some help would be need to document common xpath query that work with Updatecli
-https://www.w3.org/TR/1999/REC-xpath-19991116/
+== XPath
+
+`path` is a standard XPath expression, evaluated against the whole document:
+
+[cols="2,3",options=header]
+|===
+| Expression | Matches
+| `/project/parent/version` | An absolute path from the document root.
+| `//breakfast_menu/food[0]/name` | The first `food` entry, indexed from zero.
+| `//book[@category='WEB']/title` | Selected by attribute value.
+|===
+
+A `path` matching nothing makes a source fail, and a condition report a failure rather than error.
+
+== Remote files
+
+`file` accepts `https://`, `http://` and `file://` for a source and a condition. A target must write to a local file and refuses a URL:
+
+[source,text]
+----
+URL scheme is not supported for XML target: "https://example.com/pom.xml"
+----
 
 == Example
 
@@ -57,3 +79,6 @@ https://www.w3.org/TR/1999/REC-xpath-19991116/
 {{<include "assets/code_example/docs/plugins/resources/xml/updatecli.d/default.yaml">}}
 ----
 
+== Links
+
+* link:https://www.w3.org/TR/1999/REC-xpath-19991116/[XPath 1.0 specification]

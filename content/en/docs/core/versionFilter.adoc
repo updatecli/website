@@ -1,11 +1,39 @@
 ---
 title: "Version Filter"
-description: "Allows to specify the kind of version retrieved from a resource and its version pattern"
+description: "Choose which version a source retrieves, by sorting and filtering the versions a resource returns"
 menu:
   docs:
     parent: "core"
-weight: 130
+weight: 80
 toc: true
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Most link:/docs/core/source/[sources] do not return a single value: a Docker registry returns every
+tag of an image, a GitHub repository every release, a package registry every published version.
+The `versionfilter` key decides which one of them the source actually returns.
+
+Two things happen, depending on the `kind`:
+
+* **sorting** - `semver`, `regex/semver`, `time`, `regex/time`, `pep440`, and `lex` order the versions themselves, so the *highest* or *most recent* one wins whatever order the resource used.
+* **filtering** - `pattern` restricts the candidates, for instance to a major version, a release branch, or a date format.
+
+`latest` and `regex` only filter: they keep the order given by the resource, which is usually the
+publication order.
+
+The filter runs before the link:/docs/core/transformer/[transformers], so transformers reshape the
+version that the filter selected, and never influence the selection itself.
+
+=== Kinds
 
 include::content/en/docs/plugins/_versionFilter.adoc[]
+
+== Go Further
+
+* To know more about where a version filter is declared, see **link:/docs/core/source/[source]**
+* To know more about reshaping the selected version, see **link:/docs/core/transformer/[transformer]**

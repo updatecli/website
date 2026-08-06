@@ -12,20 +12,63 @@ toc: true
 plugins:
   - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `golang` autodiscovery plugin allows to automatically search and update go.mod files.
-It handles golang version update and golang module version update.
+The `golang` crawler looks recursively for every `go.mod` file from a root directory, and updates two independent things:
 
-=== Manifests
-==== Parameters
+* the **Go version** declared by the `go` directive. Restrict to this with `onlygoversion: true`.
+* the **module versions** declared in `require` and `replace` directives. Restrict to these with `onlygomodule: true`.
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with a `golang` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+NOTE: The aliases `go` and `golang/gomod` can also be used instead of `golang`.
+
+== Generated manifests
+
+[cols="1,3",options=header]
+|===
+| Update | Manifest shape
+
+| Go version
+| A link:{{< ref "golang" >}}[`golang`] source resolving the latest Go release, and a link:{{< ref "gomod" >}}[`golang/gomod`] target writing the `go` directive.
+
+| Module
+| A link:{{< ref "gomodule" >}}[`golang/module`] source resolving the latest module version, and a `golang/gomod` target writing the `require` or `replace` entry.
+|===
+
+Modules already pinned to a pseudo-version are handled as such, so a pseudo-version is not replaced by a tagged release.
+
+=== go mod tidy
+
+When a change is applied, Updatecli can run `go mod tidy` to keep `go.sum` consistent. That extra `shell` target is only added when **both** conditions hold:
+
+* a `go.sum` file sits next to the `go.mod`, and
+* the `go` binary is available on `PATH`.
+
+If a `go.sum` is present but Go is not installed, the target is omitted and a warning is logged, since `go.sum` would otherwise drift out of sync.
+
+== Release age
+
+The `age` parameter filters out releases that are too new or too old, which is useful to avoid adopting a version the day it ships. `minimum` and `maximum` accept a duration such as `24h`, `7d`, `3w`, `6mo`, or `1y`; a bare number is read as hours.
+
+== Limitations
+
+* Modules marked `// indirect` are not updated. They are expected to follow from their parent module, or from `go mod tidy`.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "golang" >}}
 
-==== Example
+=== Example
 
-===== Golang update only
+==== Golang update only
 
 In the following example, we want to automate minor version update of Golang, such as from "1.19" to "1.20"
 If Updatecli detects a change, then it opens a new pull request with the propose version update.
@@ -36,7 +79,7 @@ If Updatecli detects a change, then it opens a new pull request with the propose
 {{<include "assets/code_example/docs/plugins/autodiscovery/golang/updatecli.d/goonly.yaml">}}
 ----
 
-===== Semantic version patch update only
+==== Semantic version patch update only
 
 In this example, Updatecli is looking for all version that can have a patch version update.
 If at least one version needs to be updated, then it opens a single pull request with all the version bump.

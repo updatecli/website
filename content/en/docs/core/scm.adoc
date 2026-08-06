@@ -1,6 +1,6 @@
 ---
 title: "Scm"
-description: "scm provide git repository configuration"
+description: "An scm describes the git repository that sources, conditions, targets, and actions work on"
 lead: ""
 date: 2021-01-09T15:21:01+02:00
 lastmod: 2021-01-09T15:21:01+02:00
@@ -9,6 +9,7 @@ images: []
 menu:
   docs:
     parent: "core"
+weight: 60
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -18,13 +19,51 @@ toc: true
 
 == Description
 
-A SCM configuration, provides git repository information used by a source/condition/target
+An scm configuration provides the git repository information used by a source, a condition, a target,
+an link:/docs/core/action/[action], or link:/docs/core/autodiscovery/[autodiscovery].
 
 When an updatecli pipeline is triggered, the first thing updatecli does, is clone all referenced git repositories into a temporary directory.
+Resources referencing that scm through their `scmid` key then operate on the clone rather than on the
+current working directory, and a target that changes a file there gets its change committed and pushed
+to a branch named after the pipeline `pipelineid`.
+
+A resource without an `scmid` simply works on the current working directory, and Updatecli neither
+clones nor commits anything for it.
+
+=== The `local` scm
+
+`local` is a reserved scm identifier.
+Referencing `scmid: local` from a resource or an action, without declaring `scms.local` yourself,
+asks Updatecli to auto-detect the git repository of the current directory: its root, its remote,
+and its branch. This is how you commit changes to the repository you are already in, rather than to
+a clone.
+
+Declaring `scms.local` explicitly overrides that detection, and setting `disabled: true` on it opts
+out of the auto-detection entirely.
+
+[source,yaml]
+----
+targets:
+  version:
+    kind: file
+    # Commit the change to the repository Updatecli runs in
+    scmid: local
+    spec:
+      file: VERSION
+----
 
 == Parameters
 
 {{< coreparameters "scms" >}}
+
+=== Searching for repositories
+
+Three scm kinds do not describe a single repository but a search query:
+`githubsearch`, `gitlabsearch`, and `azuredevopssearch`.
+Updatecli resolves the query while loading the manifest and duplicates the whole pipeline once per
+discovered repository, which is how a single manifest can be applied across an organization.
+
+IMPORTANT: A search returning no repository is an error, not an empty run: Updatecli would otherwise not know how to handle the remaining configuration.
 
 == Examples
 

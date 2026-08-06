@@ -1,6 +1,6 @@
 ---
 title: "Shell"
-description: "Execute an arbitrary shell command"
+description: "Delegate a source, condition or target to an arbitrary shell command"
 lead: "kind: shell"
 date: 2021-08-30T17:43:00+02:00
 lastmod: 2021-08-30T17:43:00+02:00
@@ -9,6 +9,7 @@ images: []
 menu:
   docs:
     parent: "plugin-resource"
+weight: 310
 toc: true
 plugins:
   - source
@@ -55,7 +56,33 @@ The following parameters can be specified through the `spec` attributes map:
 | value | | | Environments variable value. If the value is empty, then we inherit the value from the updatecli process.
 |===
 
-By default the command doesn't inherit any environment variables from the updatecli process. The motivation is to avoid environment variable leak into the command.
+The command does **not** inherit the whole environment of the Updatecli process - that would leak every secret in your CI environment into every script. Instead Updatecli works from an allow list.
+
+Leaving `environments` unset does not mean an empty environment, though: a small default list is passed, which differs per operating system.
+
+[cols="1,3",options=header]
+|===
+| OS | Variables passed when `environments` is unset
+| Linux / macOS | `PATH`, `HOME`, `USER`, `LOGNAME`, `SHELL`, `LANG`, `LC_ALL`
+| Windows | `PATH`, `PATHEXT`, `TEMP`, `HOME`, `USERPROFILE`, `PROFILE`, `PSModulePath`, `PSModuleAnalysisCachePath`
+|===
+
+Setting `environments` **replaces** that default list rather than adding to it, so a script that needs both a token and `PATH` must ask for both:
+
+[source,yaml]
+----
+environments:
+  - name: PATH
+  - name: GITHUB_TOKEN
+----
+
+Verified with a script that prints its own environment, `MY_SECRET` does not reach it:
+
+[source,shell]
+----
+$ MY_SECRET=leak updatecli diff --config shell.yaml
+_ HOME LANG LC_ALL LOGNAME PATH PWD SHELL SHLVL UPDATECLI_PIPELINE_STAGE USER
+----
 
 To specify an environment variable, you can use one of the following examples:
 
@@ -78,7 +105,17 @@ To specify an environment variable, you can use one of the following examples:
           value: setmyvalue
 ```
 
-Please note the environment variable "DRY_RUN" is always defined by Updatecli to either true or false depending if we run `updatecli diff` or `updatecli apply`.
+=== Variables injected by Updatecli
+
+Two variables are added on top of the allow list, whatever `environments` says:
+
+`UPDATECLI_PIPELINE_STAGE`:: The stage running the command - `source`, `condition` or `target`. Useful for a single script shared between stages.
+`DRY_RUN`:: `true` under `updatecli diff`, `false` under `updatecli apply`.
++
+[IMPORTANT]
+====
+`DRY_RUN` is injected for **targets only**. It is absent from the environment of a source or a condition, so `$DRY_RUN` there expands to the empty string - not to `false`. A script guarding on `if [ "$DRY_RUN" = "false" ]` therefore never takes that branch when used as a source.
+====
 
 
 == Shell Source

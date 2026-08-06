@@ -5,11 +5,10 @@ scms:
   stash:
     kind: stash
     spec:
-      url: "https://bitbucket.exmaple.com"
+      url: "https://bitbucket.example.com"
       owner: "olblak"
       repository: "updatecli-mirror"
       branch: "main"
-      depth: 1
       singleBranch: true
       username: "user"
       token: "123456789ABCDEFGHI"

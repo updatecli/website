@@ -6,7 +6,6 @@ scms:
     spec:
       url: "git@github.com:updatecli/updatecli.git"
       branch: "main"
-      depth: 1
       singleBranch: true
       user: "git user to push from changes"
       email: "git user email to push from change"

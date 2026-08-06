@@ -1,8 +1,9 @@
 ---
 title: "Azure DevOps Pull Request"
-description: "Open an Azure DevOps Pull Request"
+description: "Open or update an Azure DevOps pull request once a target changed a file"
 lead: "kind: azuredevops/pullrequest"
 date: 2025-05-12T00:00:00+00:00
+lastmod: 2026-07-29T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -20,13 +21,32 @@ plugins:
 
 == Description
 
-The `actions` section describes the link:https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests[Azure DevOps Pull Requests] that Updatecli is expected to open (or update) when the manifest is applied.
+The `azuredevops/pullrequest` action opens (or updates) an link:https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests[Azure DevOps pull request] once a target linked to the same scm has changed something and the change has been pushed.
 
-The `azuredevops/pullrequest` action is typically paired with an `azuredevops` or `azuredevopssearch` SCM block. Updatecli will create or update a pull request from the working branch to the target branch whenever a target produces a change.
+It is the second half of the Azure DevOps workflow: the link:/docs/plugins/scm/azuredevops/[`azuredevops` scm] commits to a working branch and pushes it, this action turns that branch into a pull request. Without it, the branch is pushed and nothing else happens.
+
+The scm may be either `azuredevops` or link:/docs/plugins/scm/azuredevopssearch/[`azuredevopssearch`]; with the latter, one pull request is opened per discovered repository.
+
+== Requirements
+
+include::content/en/docs/plugins/_actionScm.adoc[]
+
+On top of the scm's credentials, this action also falls back to `UPDATECLI_AZURE_DEVOPS_TOKEN` and `UPDATECLI_AZURE_DEVOPS_USERNAME` when neither its own spec nor the scm provides them. See the link:/docs/plugins/scm/azuredevops/#_authentication[Azure DevOps scm authentication section].
 
 == Parameters
 
 {{< resourceparameters "actions" "azuredevops/pullrequest" >}}
+
+The spec is small - `title`, `body`, and `draft`, on top of the identity fields inherited from the scm. Reviewers, labels, and merge automation are not exposed here; link:https://learn.microsoft.com/en-us/azure/devops/repos/git/branch-policies[branch policies] on the target branch cover most of what they would do.
+
+Where they do not, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] (these fields are unimplemented rather than deliberately left out, and interest is what gets them prioritised).
+
+`draft`:: Opens the pull request as a draft, leaving it out of reviewers' queues until published.
+`body`:: Replaces the description Updatecli generates from the pipeline run.
+
+=== Cleanup
+
+This plugin implements cleanup: on `updatecli apply`, a pull request that no longer carries any change is closed automatically rather than left open. Among the action plugins, only this one and link:/docs/plugins/actions/github/[`github/pullrequest`] do so.
 
 == Example
 

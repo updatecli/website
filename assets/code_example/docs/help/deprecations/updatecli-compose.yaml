@@ -1,0 +1,25 @@
+## Migrate every repository of an organization to a released
+## version of the Updatecli GitHub Action.
+##
+##   export UPDATECLI_GITHUB_TOKEN="your PAT"
+##   export UPDATECLI_GITHUB_USERNAME="your username"
+##   updatecli compose diff
+##   updatecli compose apply
+
+valuesinline:
+  scm:
+    enabled: true
+    kind: githubsearch
+    search: |
+      org:your-github-organization
+      archived:false
+    # branch accepts a regular expression
+    branch: "^main$|^master$"
+    # the email associated with the git commits
+    email: "you@example.com"
+    # zero means no repository limit
+    limit: 0
+
+policies:
+  - name: Update Updatecli GitHub action version
+    policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.9.1@sha256:49c07d724474ff7976f7ad5ecb0db9aa46448b456d08f82717913b403a0f02d8

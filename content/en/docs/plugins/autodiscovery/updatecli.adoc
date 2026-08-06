@@ -1,9 +1,9 @@
 ---
 title: "Updatecli"
-description: "Discover Updatecli container update"
+description: "Discover Updatecli policy update"
 lead: "kind: updatecli"
 draft: false
-images: [] 
+images: []
 menu:
     docs:
         parent: "plugin-autodiscovery"
@@ -12,17 +12,48 @@ toc: true
 plugins:
     - autodiscovery
 ---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
 
 == Description
 
-The `updatecli` Autodiscovery plugin allows to automatically search and update container tags defined in Updatecli.yaml files.
+The `updatecli` crawler looks recursively for Updatecli compose files and updates the version of each policy they reference.
 
-=== Manifests
-==== Parameters
+Two file names are scanned by default:
+
+* `updatecli-compose.yaml`
+* `update-compose.yaml`, the deprecated name
+
+Override them with the `files` parameter.
+
+Policies are OCI artifacts, so a compose file such as the following has its `policy` version bumped:
+
+[source,yaml]
+----
+policies:
+  - name: Update Golang
+    policy: ghcr.io/updatecli/policies/autodiscovery/golang:0.4.0
+----
+
+This crawler is enabled by default, so it can be used either automatically by running `updatecli diff` from a directory containing the files to update, or by providing a manifest.
+The automatic discovery behavior can be tuned by providing a YAML manifest with an `updatecli` crawler in top-level directive `autodiscovery` as explained in the link:/docs/core/autodiscovery/#_parameters["Autodiscovery" page].
+
+== Generated manifests
+
+Each policy produces a link:{{< ref "docker_image" >}}[`dockerimage`] source for the latest version, a link:{{< ref "docker_digest" >}}[`dockerdigest`] source resolving the digest behind it, and a link:{{< ref "yaml" >}}[`yaml`] target writing the reference back into the compose file.
+
+== Authentication
+
+Use `auths` to reach a private policy registry, keyed by registry URL without a scheme, accepting either a `token` or a `username`/`password` pair. When it is empty Updatecli falls back to the ambient OCI credentials, such as those written by `docker login`.
+
+== Manifest
+=== Parameters
 
 {{< autodiscoveryparameters "updatecli" >}}
 
-==== Example
+=== Example
 
 [source,yaml]
 ----
