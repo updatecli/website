@@ -149,12 +149,25 @@ Left unset, `directory` defaults to `<tmp>/updatecli/gitlab/<owner>/<repository>
 `depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves an incomplete history, which can break pushes; `force: true` is often needed alongside.
 `singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. `true` fetches only `branch` (much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch and opening a duplicate merge request).
 
+On a repository with a large number of refs, `singleBranch` is the option that pays off: it skips the fetch that otherwise mirrors every branch, tag, and merge request ref from the remote. It only applies when `branch` is set. See <<_large_repositories,Large repositories>> for a full manifest.
+
 TIP: To run the same manifest against every project of a group instead of a single repository, use the link:/docs/plugins/scm/gitlabsearch/[`gitlabsearch`] scm.
 
 == Example
+
+=== Default
 
 [source,yaml]
 ----
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/gitlab/updatecli.yaml">}}
+----
+
+[#_large_repositories]
+=== Large repositories
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/gitlab/updatecli-performance.yaml">}}
 ----

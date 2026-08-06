@@ -142,11 +142,15 @@ Left unset, `directory` is derived from the URL under your system temporary dire
 `depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone leaves Updatecli with an incomplete history, which can break pushes; `force: true` is often needed alongside.
 `singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. Setting it to `true` fetches only `branch`, which is much faster on repositories with many refs, at the cost of Updatecli sometimes failing to notice an already published working branch.
 
+On a repository with a large number of refs, `singleBranch` is the option that pays off: it skips the fetch that otherwise mirrors every branch, tag, and pull request ref from the remote. It only applies when `branch` is set. See <<_large_repositories,Large repositories>> for a full manifest.
+
 === Commit identity
 
 `user` and `email` name the commit author, defaulting to `updatecli-bot` and `updatecli-bot@updatecli.io`.
 
 == Example
+
+=== Default
 
 The manifest below uses three separate scms: one to read a file, one to test a condition, and one over SSH to push a change on a working branch.
 
@@ -154,4 +158,13 @@ The manifest below uses three separate scms: one to read a file, one to test a c
 ----
 # updatecli.yaml
 {{< include "assets/code_example/docs/plugins/scm/git/updatecli.d/default.yaml" >}}
+----
+
+[#_large_repositories]
+=== Large repositories
+
+[source,yaml]
+----
+# updatecli.yaml
+{{< include "assets/code_example/docs/plugins/scm/git/updatecli.d/performance.yaml" >}}
 ----

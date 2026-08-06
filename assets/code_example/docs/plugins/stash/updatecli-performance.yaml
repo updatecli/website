@@ -1,0 +1,22 @@
+---
+name: Test Bitbucket Server (Stash) scm optimized for large repositories
+
+scms:
+  stash:
+    kind: stash
+    spec:
+      url: "https://bitbucket.example.com"
+      owner: "olblak"
+      repository: "updatecli-mirror"
+      branch: "main"
+      singleBranch: true
+      username: "user"
+      token: "123456789ABCDEFGHI"
+
+sources:
+  license:
+    name: Retrieve license file content
+    kind: file
+    scmid: stash
+    spec:
+      file: LICENSE

@@ -146,6 +146,8 @@ Three parameters control how much is fetched, all of them trade-offs on large re
 `depth`:: Number of commits to fetch. Unset means a full clone. A shallow clone gives Updatecli an incomplete history, which can break pushes; setting `force: true` is often necessary alongside it.
 `singleBranch`:: Defaults to `false`, meaning every branch, tag, and ref is fetched. Set it to `true` to fetch only `branch`, which is significantly faster on repositories with many refs. In return, Updatecli may fail to notice an already published working branch in some edge cases, and open a duplicate pull request.
 
+On a repository with a large number of refs, `singleBranch` is the option that pays off: it skips the fetch that otherwise mirrors every branch, tag, and pull request ref from the remote. It only applies when `branch` is set. See <<_large_repositories,Large repositories>> for a full manifest.
+
 === GitHub Enterprise
 
 Point `url` at your instance, for example `github.example.com`. The scheme is optional and defaults to `https://`. Updatecli then talks to the GraphQL API at `<url>/api/graphql` and clones from `<url>/<owner>/<repository>.git`. Left unset, `url` defaults to `github.com`.
@@ -178,4 +180,13 @@ Updatecli checks the remaining GitHub API quota before its GraphQL calls. When t
 ----
 # updatecli.yaml
 {{<include "assets/code_example/docs/plugins/scm/github/updatecli.d/githubapp.yaml">}}
+----
+
+[#_large_repositories]
+=== Large repositories
+
+[source,yaml]
+----
+# updatecli.yaml
+{{<include "assets/code_example/docs/plugins/scm/github/updatecli.d/performance.yaml">}}
 ----
