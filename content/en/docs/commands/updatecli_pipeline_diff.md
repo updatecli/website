@@ -26,11 +26,14 @@ updatecli pipeline diff NAME[:TAG|@DIGEST] [flags]
   -c, --config stringArray          Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
       --disable-changelog           Disable changelog retrieval to avoid unnecessary requests (env: UPDATECLI_DISABLE_CHANGELOG)
       --disable-tls                 Disable TLS verification like '--disable-tls=true'
+      --disable-udash-report        Disable publishing pipeline reports to Udash
+      --export-report-to-yaml       Export pipeline reports to YAML files
   -h, --help                        help for diff
       --labels stringArray          Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
       --pipeline-ids stringArray    Filter pipelines to apply by their pipeline IDs, accepted a comma separated list
       --reportAPI string            Set the report API URL where to publish pipeline reports
       --secrets stringArray         Sets Sops secrets file uses for templating
+      --validate-schema             Report manifest keys not matching the Updatecli schema as warnings (env: UPDATECLI_VALIDATE_SCHEMA)
   -v, --values stringArray          Sets values file uses for templating
   -i, --values-inline stringArray   Sets inline values uses for templating, accepted valid json/yaml string
 ```

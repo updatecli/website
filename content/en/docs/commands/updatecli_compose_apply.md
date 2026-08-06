@@ -27,7 +27,9 @@ updatecli compose apply [flags]
       --commit                           Record changes to the repository, '--commit=false' (default true)
       --disable-changelog                Disable changelog retrieval to avoid unnecessary requests (env: UPDATECLI_DISABLE_CHANGELOG)
       --disable-tls                      Disable TLS verification like '--disable-tls=true'
+      --disable-udash-report             Disable publishing pipeline reports to Udash
       --existing-only                    Skip targets when pipeline has no existing remote branch '--existing-only=true'
+      --export-report-to-yaml            Export pipeline reports to YAML files
   -f, --file string                      Define the update-compose file (default "updatecli-compose.yaml")
   -h, --help                             help for apply
       --ignored-policy-ids stringArray   Filter policies to ignore by their policy IDs, accepted as a comma separated list
@@ -36,6 +38,7 @@ updatecli compose apply [flags]
       --pipeline-ids stringArray         Filter pipelines to apply by their pipeline IDs, accepted as a comma separated list
       --push                             Update remote refs '--push=false' (default true)
       --reportAPI string                 Set the report API URL where to publish pipeline reports
+      --validate-schema                  Report manifest keys not matching the Updatecli schema as warnings (env: UPDATECLI_VALIDATE_SCHEMA)
 ```
 
 ### Options inherited from parent commands
