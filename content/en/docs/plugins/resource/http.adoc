@@ -115,7 +115,7 @@ The 302 response is used as-is, and the source value is the redirect target:
 
 [source,text]
 ----
-https://github.com/updatecli/updatecli/releases/tag/v0.120.0
+https://github.com/updatecli/updatecli/releases/tag/v0.120.1
 ----
 
 Add a `transformers` block with `find` or `trimprefix` to reduce it to the version. For GitHub specifically, link:/docs/plugins/resource/github_release/[`githubrelease`] is the better tool (this pattern is for hosts with no API).

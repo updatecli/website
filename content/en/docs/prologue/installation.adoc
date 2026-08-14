@@ -60,15 +60,15 @@ Download the package matching your architecture, then install it:
 [source,shell]
 ----
 # amd64
-curl -sSL -o /tmp/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.deb
+curl -sSL -o /tmp/updatecli_amd64.deb https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_amd64.deb
 sudo apt install /tmp/updatecli_amd64.deb
 
 # arm64
-curl -sSL -o /tmp/updatecli_arm64.deb https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_arm64.deb
+curl -sSL -o /tmp/updatecli_arm64.deb https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_arm64.deb
 sudo apt install /tmp/updatecli_arm64.deb
 
 # armv6
-curl -sSL -o /tmp/updatecli_armv6.deb https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_armv6.deb
+curl -sSL -o /tmp/updatecli_armv6.deb https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_armv6.deb
 sudo apt install /tmp/updatecli_armv6.deb
 ----
 
@@ -81,13 +81,13 @@ A name without `/` is treated as a package name and the command fails with
 [source,shell]
 ----
 # amd64
-sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.rpm
+sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_amd64.rpm
 
 # arm64
-sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_arm64.rpm
+sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_arm64.rpm
 
 # armv6
-sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_armv6.rpm
+sudo dnf install https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_armv6.rpm
 ----
 
 === openSUSE
@@ -98,13 +98,13 @@ To install a specific release, or on a version that does not package it, use the
 [source,shell]
 ----
 # amd64
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.rpm
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_amd64.rpm
 
 # arm64
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_arm64.rpm
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_arm64.rpm
 
 # armv6
-sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_armv6.rpm
+sudo zypper install https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_armv6.rpm
 ----
 
 === Alpine
@@ -114,7 +114,7 @@ The `.apk` packages are not signed by an Alpine key, so `--allow-untrusted` is r
 [source,shell]
 ----
 # amd64
-curl -sSL -o /tmp/updatecli_amd64.apk https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_amd64.apk
+curl -sSL -o /tmp/updatecli_amd64.apk https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_amd64.apk
 sudo apk add --allow-untrusted /tmp/updatecli_amd64.apk
 ----
 
@@ -136,13 +136,13 @@ The package installs the bash, zsh, and fish completions.
 [source,shell]
 ----
 # amd64
-curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Linux_x86_64.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Linux_x86_64.tar.gz
 
 # arm64
-curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Linux_arm64.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Linux_arm64.tar.gz
 
 # armv6
-curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Linux_arm.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Linux_arm.tar.gz
 
 tar -xzf /tmp/updatecli.tar.gz -C /tmp updatecli
 sudo install -m 755 /tmp/updatecli /usr/local/bin/updatecli
@@ -155,10 +155,10 @@ link:#_homebrew[Homebrew] is the recommended route. To install from an archive i
 [source,shell]
 ----
 # Apple silicon
-curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Darwin_arm64.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Darwin_arm64.tar.gz
 
 # Intel
-curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Darwin_x86_64.tar.gz
+curl -sSL -o /tmp/updatecli.tar.gz https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Darwin_x86_64.tar.gz
 
 tar -xzf /tmp/updatecli.tar.gz -C /tmp updatecli
 sudo install -m 755 /tmp/updatecli /usr/local/bin/updatecli
@@ -178,10 +178,10 @@ To install from the archive, in PowerShell:
 [source,shell]
 ----
 # amd64
-Invoke-WebRequest -Uri https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Windows_x86_64.zip -OutFile updatecli.zip
+Invoke-WebRequest -Uri https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Windows_x86_64.zip -OutFile updatecli.zip
 
 # arm64
-Invoke-WebRequest -Uri https://github.com/updatecli/updatecli/releases/download/v0.120.0/updatecli_Windows_arm64.zip -OutFile updatecli.zip
+Invoke-WebRequest -Uri https://github.com/updatecli/updatecli/releases/download/v0.120.1/updatecli_Windows_arm64.zip -OutFile updatecli.zip
 
 Expand-Archive -Path updatecli.zip -DestinationPath $env:LOCALAPPDATA\Updatecli
 ----
@@ -277,7 +277,7 @@ Debian-based. Includes `git` and the common tooling some plugins shell out to.
 Minimal image. Smaller, but without the extra tooling, so plugins that rely on an external
 command will not work.
 
-Both are also published per release, for example `ghcr.io/updatecli/updatecli:v0.120.0`.
+Both are also published per release, for example `ghcr.io/updatecli/updatecli:v0.120.1`.
 
 === Usage
 
