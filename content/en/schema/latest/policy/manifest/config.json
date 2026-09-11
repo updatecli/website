@@ -942,6 +942,21 @@
                                     "type": "object",
                                     "description": "`versionfilter` provides parameters to specify the version pattern used when generating manifest.\n\n kind - semver\n   versionfilter of kind `semver` uses semantic versioning as version filtering\n   pattern accepts one of:\n     `prerelease` - Updatecli tries to identify the latest prerelease whatever it means\n     `patch` - Updatecli only handles patch version update\n     `minor` - Updatecli handles patch AND minor version update\n     `minoronly` - Updatecli handles minor version only\n     `major` - Updatecli handles patch, minor, AND major version update\n     `majoronly` - Updatecli only handles major version update\n     `a version constraint` such as `\u003e= 1.0.0`\n\n kind - regex\n   versionfilter of kind `regex` uses regular expression as version filtering\n   pattern accepts a valid regular expression\n\n example:\n ```\n   versionfilter:\n     kind: semver\n     pattern: minor\n ```\n\n and its type like regex, semver, or just latest.\n\n More examples can be found at https://www.updatecli.io/docs/core/versionfilter/"
                                 },
+                                "age": {
+                                    "properties": {
+                                        "minimum": {
+                                            "type": "string",
+                                            "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        },
+                                        "maximum": {
+                                            "type": "string",
+                                            "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "age defines the minimum or maximum age of a release, tag, or branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\nIt is the \"dependency cooldown\" knob: setting `minimum` keeps Updatecli from\nsuggesting a version which has just been published.\n\ndefault: empty, no age filtering\n\nremark:\n * the age filter is not applied to the Docker images referenced by a workflow.\n\nexample:\n```\n  autodiscovery:\n    crawlers:\n      github/action:\n        age:\n          minimum: '7d'\n```"
+                                },
                                 "credentials": {
                                     "additionalProperties": {
                                         "properties": {
@@ -1118,6 +1133,21 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "`versionfilter` provides parameters to specify the version pattern used when generating manifest.\n\n kind - semver\n   versionfilter of kind `semver` uses semantic versioning as version filtering\n   pattern accepts one of:\n     `prerelease` - Updatecli tries to identify the latest prerelease whatever it means\n     `patch` - Updatecli only handles patch version update\n     `minor` - Updatecli handles patch AND minor version update\n     `minoronly` - Updatecli handles minor version only\n     `major` - Updatecli handles patch, minor, AND major version update\n     `majoronly` - Updatecli only handles major version update\n     `a version constraint` such as `\u003e= 1.0.0`\n\n kind - regex\n   versionfilter of kind `regex` uses regular expression as version filtering\n   pattern accepts a valid regular expression\n\n example:\n ```\n   versionfilter:\n     kind: semver\n     pattern: minor\n ```\n\n and its type like regex, semver, or just latest.\n\n More examples can be found at https://www.updatecli.io/docs/core/versionfilter/"
+                                },
+                                "age": {
+                                    "properties": {
+                                        "minimum": {
+                                            "type": "string",
+                                            "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        },
+                                        "maximum": {
+                                            "type": "string",
+                                            "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "age defines the minimum or maximum age of a release, tag, or branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\nIt is the \"dependency cooldown\" knob: setting `minimum` keeps Updatecli from\nsuggesting a version which has just been published.\n\ndefault: empty, no age filtering\n\nremark:\n * the age filter is not applied to the Docker images referenced by a workflow.\n\nexample:\n```\n  autodiscovery:\n    crawlers:\n      github/action:\n        age:\n          minimum: '7d'\n```"
                                 },
                                 "credentials": {
                                     "additionalProperties": {
@@ -2492,6 +2522,21 @@
                                 "registrytoken": {
                                     "type": "string",
                                     "description": "RegistryToken defines the token to use when connecting to the registry.\nThis will be propagated to all generated npm resource specs."
+                                },
+                                "age": {
+                                    "properties": {
+                                        "minimum": {
+                                            "type": "string",
+                                            "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        },
+                                        "maximum": {
+                                            "type": "string",
+                                            "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThis will be propagated to all generated npm resource specs.\n\nBy default, `minimum` is set to `3d` so Updatecli doesn't suggest a package version\npublished less than three days ago. Specifying an empty `age: {}` disables that behavior."
                                 }
                             },
                             "additionalProperties": false,
@@ -7735,6 +7780,21 @@
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a branch is the date of its latest commit.\n\n compatible:\n   * source"
+                                    },
                                     "branch": {
                                         "type": "string",
                                         "description": "branch specifies the branch name\n\n compatible:\n   * source\n   * condition\n   * target"
@@ -7942,6 +8002,21 @@
                                     "branch": {
                                         "type": "string",
                                         "description": "Branch specifies the branch whose latest commit hash is returned.\n\ncompatible:\n  * source\n\ndefault:\n  The repository's current HEAD branch."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a commit to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a commit is its committer date, and the newest commit of the branch\nfalling inside that window is returned.\n\ncompatible:\n  * source\n\nremarks:\n  * The branch history is walked from its tip until a commit matches, so Depth\n    must be large enough to reach it."
                                     },
                                     "hash": {
                                         "type": "string",
@@ -8425,6 +8500,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "[S] versionfilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\")."
                                     },
                                     "title": {
                                         "type": "string",
@@ -8918,6 +9008,21 @@
                                         "type": "object",
                                         "description": "versionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ndefault: latest\n\ncompatible:\n * source"
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\ncompatible:\n * source\n\nremark:\n * the age filter cannot be applied to the git tag fallback used when a repository\n   doesn't publish any GitHub release."
+                                    },
                                     "typefilter": {
                                         "properties": {
                                             "draft": {
@@ -9207,6 +9312,21 @@
                                         "type": "object",
                                         "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a branch is the committer date of its latest commit."
+                                    },
                                     "branch": {
                                         "type": "string",
                                         "description": "[C] Branch specifies the branch name"
@@ -9441,6 +9561,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a release is the date at which it was released, or the date at which\nit was created for a release published without one."
                                     },
                                     "title": {
                                         "type": "string",
@@ -9697,6 +9832,21 @@
                                         "type": "object",
                                         "description": "[S][C] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a tag to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a tag is its creation date, which GitLab reports as the tagger date\nof an annotated tag and as the commit date of a lightweight one."
+                                    },
                                     "tag": {
                                         "type": "string",
                                         "description": "[S] Tag defines the GitLab tag ."
@@ -9915,6 +10065,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a tag to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a tag is the commit date of the commit it points to.\n\n compatible:\n   * source\n\n remark:\n   * not compatible with `lsRemote`, which lists tags without their dates."
                                     },
                                     "tag": {
                                         "type": "string",
@@ -12141,6 +12306,21 @@
                                     "npmrcpath": {
                                         "type": "string",
                                         "description": "NpmrcPath defines the path to the .npmrc file"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\nCompatible:\n  * source\n  * condition\n\nRemarks:\n  The release dates are read from the `time` object returned by the npm registry,\n  so no extra API call is needed. Versions for which the registry doesn't report\n  a release date are ignored.\n  When `age` is combined with a `latest` versionfilter and the `latest` dist-tag is\n  too recent, Updatecli falls back to the most recently published non prerelease\n  version matching the age window, which may not be the highest semantic version.\n  Combine `age` with a `semver` versionfilter to control ordering."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -15167,6 +15347,14 @@
                                     "searchpattern": {
                                         "type": "boolean",
                                         "description": "searchpattern defines if the MatchPattern should be applied on the file(s) path\n\nIf set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\nWhen looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\nThe pattern syntax is:\n\n```\n   pattern:\n       { term }\n   term:\n       '*'         matches any sequence of non-Separator characters\n       '?'         matches any single non-Separator character\n       '[' [ '^' ] { character-range } ']'\n                   character class (must be non-empty)\n       c           matches character c (c != '*', '?', '\\\\', '[')\n       '\\\\' c      matches character c\n\n   character-range:\n       c           matches character c (c != '\\\\', '-', ']')\n       '\\\\' c      matches character c\n       lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n```\n\nremark:\n * as a target, it also relaxes the requirement that the key exists: a file\n   that does not hold it is ignored instead of failing the target, and a\n   wildcard key updates the positions holding it rather than failing on the\n   ones that do not."
+                                    },
+                                    "createmissingkey": {
+                                        "type": "boolean",
+                                        "description": "\"createmissingkey\" allows creating the key when it does not exist yet in the yaml document.\n\ncompatible:\n * target\n\ndefault:\n\tfalse\n\nremark:\n * missing intermediate keys are created as nested maps.\n * the key is only created, never removed, and existing keys are left untouched.\n * a missing sequence index such as `$.agents[0].name` cannot be created.\n * a key selecting several nodes, such as `$.agents[*].tag` or `$..tag`,\n   is rejected: the key cannot be created under each selected node.\n * not supported by the \"yamlpath\" engine.\n * the yaml file itself must already exist.\n\nexample:\n * key: $.image.tag\n   createmissingkey: true"
+                                    },
+                                    "appendtoarray": {
+                                        "type": "boolean",
+                                        "description": "\"appendtoarray\" appends the value as a new entry of the yaml sequence targeted by \"key\".\n\ncompatible:\n * target\n\ndefault:\n\tfalse\n\nremark:\n * the operation is idempotent, appending is skipped when the sequence already contains the value.\n * combined with \"createmissingkey\", a missing sequence is created holding the value as its sole entry.\n * \"key\" must target the sequence itself, not one of its entries.\n * not supported by the \"yamlpath\" engine.\n\nexample:\n * key: $.allowedTags\n   appendtoarray: true"
                                     },
                                     "comment": {
                                         "type": "string",
@@ -17425,6 +17613,21 @@
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a branch is the date of its latest commit.\n\n compatible:\n   * source"
+                                    },
                                     "branch": {
                                         "type": "string",
                                         "description": "branch specifies the branch name\n\n compatible:\n   * source\n   * condition\n   * target"
@@ -17641,6 +17844,21 @@
                                     "branch": {
                                         "type": "string",
                                         "description": "Branch specifies the branch whose latest commit hash is returned.\n\ncompatible:\n  * source\n\ndefault:\n  The repository's current HEAD branch."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a commit to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a commit is its committer date, and the newest commit of the branch\nfalling inside that window is returned.\n\ncompatible:\n  * source\n\nremarks:\n  * The branch history is walked from its tip until a commit matches, so Depth\n    must be large enough to reach it."
                                     },
                                     "hash": {
                                         "type": "string",
@@ -18142,6 +18360,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "[S] versionfilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\")."
                                     },
                                     "title": {
                                         "type": "string",
@@ -18653,6 +18886,21 @@
                                         "type": "object",
                                         "description": "versionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ndefault: latest\n\ncompatible:\n * source"
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\ncompatible:\n * source\n\nremark:\n * the age filter cannot be applied to the git tag fallback used when a repository\n   doesn't publish any GitHub release."
+                                    },
                                     "typefilter": {
                                         "properties": {
                                             "draft": {
@@ -18951,6 +19199,21 @@
                                         "type": "object",
                                         "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a branch is the committer date of its latest commit."
+                                    },
                                     "branch": {
                                         "type": "string",
                                         "description": "[C] Branch specifies the branch name"
@@ -19194,6 +19457,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a release is the date at which it was released, or the date at which\nit was created for a release published without one."
                                     },
                                     "title": {
                                         "type": "string",
@@ -19459,6 +19737,21 @@
                                         "type": "object",
                                         "description": "[S][C] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a tag to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a tag is its creation date, which GitLab reports as the tagger date\nof an annotated tag and as the commit date of a lightweight one."
+                                    },
                                     "tag": {
                                         "type": "string",
                                         "description": "[S] Tag defines the GitLab tag ."
@@ -19686,6 +19979,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a tag to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a tag is the commit date of the commit it points to.\n\n compatible:\n   * source\n\n remark:\n   * not compatible with `lsRemote`, which lists tags without their dates."
                                     },
                                     "tag": {
                                         "type": "string",
@@ -22002,6 +22310,21 @@
                                     "npmrcpath": {
                                         "type": "string",
                                         "description": "NpmrcPath defines the path to the .npmrc file"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\nCompatible:\n  * source\n  * condition\n\nRemarks:\n  The release dates are read from the `time` object returned by the npm registry,\n  so no extra API call is needed. Versions for which the registry doesn't report\n  a release date are ignored.\n  When `age` is combined with a `latest` versionfilter and the `latest` dist-tag is\n  too recent, Updatecli falls back to the most recently published non prerelease\n  version matching the age window, which may not be the highest semantic version.\n  Combine `age` with a `semver` versionfilter to control ordering."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -25154,6 +25477,14 @@
                                     "searchpattern": {
                                         "type": "boolean",
                                         "description": "searchpattern defines if the MatchPattern should be applied on the file(s) path\n\nIf set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\nWhen looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\nThe pattern syntax is:\n\n```\n   pattern:\n       { term }\n   term:\n       '*'         matches any sequence of non-Separator characters\n       '?'         matches any single non-Separator character\n       '[' [ '^' ] { character-range } ']'\n                   character class (must be non-empty)\n       c           matches character c (c != '*', '?', '\\\\', '[')\n       '\\\\' c      matches character c\n\n   character-range:\n       c           matches character c (c != '\\\\', '-', ']')\n       '\\\\' c      matches character c\n       lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n```\n\nremark:\n * as a target, it also relaxes the requirement that the key exists: a file\n   that does not hold it is ignored instead of failing the target, and a\n   wildcard key updates the positions holding it rather than failing on the\n   ones that do not."
+                                    },
+                                    "createmissingkey": {
+                                        "type": "boolean",
+                                        "description": "\"createmissingkey\" allows creating the key when it does not exist yet in the yaml document.\n\ncompatible:\n * target\n\ndefault:\n\tfalse\n\nremark:\n * missing intermediate keys are created as nested maps.\n * the key is only created, never removed, and existing keys are left untouched.\n * a missing sequence index such as `$.agents[0].name` cannot be created.\n * a key selecting several nodes, such as `$.agents[*].tag` or `$..tag`,\n   is rejected: the key cannot be created under each selected node.\n * not supported by the \"yamlpath\" engine.\n * the yaml file itself must already exist.\n\nexample:\n * key: $.image.tag\n   createmissingkey: true"
+                                    },
+                                    "appendtoarray": {
+                                        "type": "boolean",
+                                        "description": "\"appendtoarray\" appends the value as a new entry of the yaml sequence targeted by \"key\".\n\ncompatible:\n * target\n\ndefault:\n\tfalse\n\nremark:\n * the operation is idempotent, appending is skipped when the sequence already contains the value.\n * combined with \"createmissingkey\", a missing sequence is created holding the value as its sole entry.\n * \"key\" must target the sequence itself, not one of its entries.\n * not supported by the \"yamlpath\" engine.\n\nexample:\n * key: $.allowedTags\n   appendtoarray: true"
                                     },
                                     "comment": {
                                         "type": "string",
@@ -27502,6 +27833,21 @@
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a branch is the date of its latest commit.\n\n compatible:\n   * source"
+                                    },
                                     "branch": {
                                         "type": "string",
                                         "description": "branch specifies the branch name\n\n compatible:\n   * source\n   * condition\n   * target"
@@ -27727,6 +28073,21 @@
                                     "branch": {
                                         "type": "string",
                                         "description": "Branch specifies the branch whose latest commit hash is returned.\n\ncompatible:\n  * source\n\ndefault:\n  The repository's current HEAD branch."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a commit to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a commit is its committer date, and the newest commit of the branch\nfalling inside that window is returned.\n\ncompatible:\n  * source\n\nremarks:\n  * The branch history is walked from its tip until a commit matches, so Depth\n    must be large enough to reach it."
                                     },
                                     "hash": {
                                         "type": "string",
@@ -28246,6 +28607,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "[S] versionfilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\")."
                                     },
                                     "title": {
                                         "type": "string",
@@ -28775,6 +29151,21 @@
                                         "type": "object",
                                         "description": "versionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\ndefault: latest\n\ncompatible:\n * source"
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\ncompatible:\n * source\n\nremark:\n * the age filter cannot be applied to the git tag fallback used when a repository\n   doesn't publish any GitHub release."
+                                    },
                                     "typefilter": {
                                         "properties": {
                                             "draft": {
@@ -29082,6 +29473,21 @@
                                         "type": "object",
                                         "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a branch to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a branch is the committer date of its latest commit."
+                                    },
                                     "branch": {
                                         "type": "string",
                                         "description": "[C] Branch specifies the branch name"
@@ -29334,6 +29740,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "[S] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a release is the date at which it was released, or the date at which\nit was created for a release published without one."
                                     },
                                     "title": {
                                         "type": "string",
@@ -29608,6 +30029,21 @@
                                         "type": "object",
                                         "description": "[S][C] VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest."
                                     },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "[S] Age defines the minimum or maximum age of a tag to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a tag is its creation date, which GitLab reports as the tagger date\nof an annotated tag and as the commit date of a lightweight one."
+                                    },
                                     "tag": {
                                         "type": "string",
                                         "description": "[S] Tag defines the GitLab tag ."
@@ -29844,6 +30280,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "VersionFilter provides parameters to specify version pattern and its type like regex, semver, or just latest.\n\n compatible:\n   * source\n   * condition\n   * target"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a tag to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nThe age of a tag is the commit date of the commit it points to.\n\n compatible:\n   * source\n\n remark:\n   * not compatible with `lsRemote`, which lists tags without their dates."
                                     },
                                     "tag": {
                                         "type": "string",
@@ -32250,6 +32701,21 @@
                                     "npmrcpath": {
                                         "type": "string",
                                         "description": "NpmrcPath defines the path to the .npmrc file"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "Minimum defines the minimum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "Maximum defines the maximum age of a release to be considered valid. It accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\nAccepted time units are \"h\" for hours, \"d\" for days, \"w\" for weeks, \"mo\" for months, and \"y\" for years. If no unit is provided, hours are assumed."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "Age defines the minimum or maximum age of a release to be considered valid.\nIt accepts a duration string (e.g., \"24h\", \"7d\", \"3w\", \"1y\").\n\nCompatible:\n  * source\n  * condition\n\nRemarks:\n  The release dates are read from the `time` object returned by the npm registry,\n  so no extra API call is needed. Versions for which the registry doesn't report\n  a release date are ignored.\n  When `age` is combined with a `latest` versionfilter and the `latest` dist-tag is\n  too recent, Updatecli falls back to the most recently published non prerelease\n  version matching the age window, which may not be the highest semantic version.\n  Combine `age` with a `semver` versionfilter to control ordering."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -35528,6 +35994,14 @@
                                     "searchpattern": {
                                         "type": "boolean",
                                         "description": "searchpattern defines if the MatchPattern should be applied on the file(s) path\n\nIf set to true, it modifies the behavior of the `file` and `files` attributes to search for files matching the pattern instead of searching for files with the exact name.\nWhen looking for file path pattern, it requires pattern to match all of name, not just a substring.\n\nThe pattern syntax is:\n\n```\n   pattern:\n       { term }\n   term:\n       '*'         matches any sequence of non-Separator characters\n       '?'         matches any single non-Separator character\n       '[' [ '^' ] { character-range } ']'\n                   character class (must be non-empty)\n       c           matches character c (c != '*', '?', '\\\\', '[')\n       '\\\\' c      matches character c\n\n   character-range:\n       c           matches character c (c != '\\\\', '-', ']')\n       '\\\\' c      matches character c\n       lo '-' hi   matches character c for lo \u003c= c \u003c= hi\n```\n\nremark:\n * as a target, it also relaxes the requirement that the key exists: a file\n   that does not hold it is ignored instead of failing the target, and a\n   wildcard key updates the positions holding it rather than failing on the\n   ones that do not."
+                                    },
+                                    "createmissingkey": {
+                                        "type": "boolean",
+                                        "description": "\"createmissingkey\" allows creating the key when it does not exist yet in the yaml document.\n\ncompatible:\n * target\n\ndefault:\n\tfalse\n\nremark:\n * missing intermediate keys are created as nested maps.\n * the key is only created, never removed, and existing keys are left untouched.\n * a missing sequence index such as `$.agents[0].name` cannot be created.\n * a key selecting several nodes, such as `$.agents[*].tag` or `$..tag`,\n   is rejected: the key cannot be created under each selected node.\n * not supported by the \"yamlpath\" engine.\n * the yaml file itself must already exist.\n\nexample:\n * key: $.image.tag\n   createmissingkey: true"
+                                    },
+                                    "appendtoarray": {
+                                        "type": "boolean",
+                                        "description": "\"appendtoarray\" appends the value as a new entry of the yaml sequence targeted by \"key\".\n\ncompatible:\n * target\n\ndefault:\n\tfalse\n\nremark:\n * the operation is idempotent, appending is skipped when the sequence already contains the value.\n * combined with \"createmissingkey\", a missing sequence is created holding the value as its sole entry.\n * \"key\" must target the sequence itself, not one of its entries.\n * not supported by the \"yamlpath\" engine.\n\nexample:\n * key: $.allowedTags\n   appendtoarray: true"
                                     },
                                     "comment": {
                                         "type": "string",
