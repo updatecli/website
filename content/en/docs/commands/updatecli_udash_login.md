@@ -28,12 +28,9 @@ updatecli udash login app.updatecli.io
 ### Options
 
 ```
-      --api-url string              api-url defines the udash API URL
-  -h, --help                        help for login
-      --oauth-access-token string   oauth-access-token defines the Oauth access token
-      --oauth-audience string       oauth-audience defines the Oauth audience URL
-      --oauth-clientId string       oauth-clientId defines the Oauth client ID
-      --oauth-issuer string         oauth-issuer defines the Oauth authentication URL
+      --api-url string   api-url defines the udash API URL
+  -h, --help             help for login
+      --token string     token defines the Udash API token. Without it, Updatecli prompts for one
 ```
 
 ### Options inherited from parent commands
