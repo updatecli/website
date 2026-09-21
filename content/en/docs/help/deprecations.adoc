@@ -3,7 +3,6 @@ title: "Deprecations"
 description: "Every deprecated Updatecli command, manifest key, transformer, and plugin parameter, with the release it was deprecated in and how to migrate."
 lead: "What changed, since when, and what to write instead"
 date: 2026-04-11T13:37:00+00:00
-lastmod: 2026-08-05T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -17,26 +16,137 @@ toc: true
 // Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
 :toclevels: 4
 
+[#_description]
 == Description
 
 Deprecated settings still work. Updatecli accepts the old form, logs a warning, and translates it to
-the new one, so a manifest written years ago keeps running. The warning is the notice: nothing on
-this page breaks a pipeline today, and everything on it may break one eventually.
+the new one, so a manifest keeps running between releases. The warning is the notice: nothing on this
+page breaks a pipeline today, and everything on it goes away eventually.
 
-Entries are grouped by area, newest deprecation first within each group. The `Since` column is the
-first release that emitted the warning, established from the Git history rather than from the
-release notes (see the link:/changelogs/updatecli[changelogs] for what shipped in each release).
+*How long a deprecation lasts.*
+link:https://github.com/updatecli/updatecli/blob/main/COMPATIBILITY.md[COMPATIBILITY.md] sets the
+rule: an old form is only ever dropped in a major release. No patch or minor release removes
+anything on this page, so a manifest that runs today goes on running until the next major ships.
+The `Since` column is there to tell you how long a form has been on notice, not to start a clock.
 
-TIP: To find out whether your own manifests are affected, run `updatecli pipeline diff` and read the
-warnings. Nothing needs to be applied, a `diff` parses and validates the whole manifest, which is
-where the deprecation warnings come from.
+*How each entry behaves.* Not all of them are simple renames, and the exceptions are easy to miss
+while skimming. Every entry in <<_deprecations_by_release>> carries one or more of these markers:
 
-Two cases on this page are *not* simple renames, and both are easy to miss:
+* *translated* - Updatecli rewrites the old form to the new one on every run, so the pipeline
+behaves as though the manifest had already been migrated.
+* *warned* - accepted exactly as written, nothing is rewritten, so migrating is a manual edit.
+* *ignored* - the setting has no effect at all beyond the warning. `commitmessage.title` is the only
+one, see <<_commit_messages>>.
+* *error* - already refused outright under some setting or combination. `query` becomes a hard error
+as soon as the engine moves to `dasel/v2` or later, see <<_dasel_engines>>.
 
-* `commitmessage.title` is **ignored**, not translated - see <<_commit_messages>>.
-* Moving a `json`, `toml`, or `csv` resource to `dasel/v3` turns `query` into a **hard error** and
-changes the selector syntax - see <<_dasel_engines>>.
+[TIP]
+====
+Three commands answer "does any of this apply to me?":
 
+* `updatecli pipeline diff` parses and validates the whole manifest without applying anything, so
+every deprecation warning surfaces.
+* `updatecli manifest validate --experimental --strict` reports the deprecated keywords on their own
+and fails instead of only warning, which makes it the one to run in CI. It is available from
+v0.120.0 and is experimental, so it exits unless `--experimental` is set, see
+link:/docs/help/experimental/[Experimental features].
+* link:/docs/commands/updatecli_manifest_upgrade/[`updatecli manifest upgrade`] prints the
+translated manifest, and writes it back to the file with `-i`. That migrates every *translated*
+entry in one pass. It cannot help with the *warned*, *ignored*, and *error* entries, which need a
+real edit.
+====
+
+[#_deprecations_by_release]
+== Deprecations by release
+
+The same entries as the rest of this page, one row per release, newest first. Everything listed
+here still works, and goes on working until the next major release (see <<_description>>).
+
+[cols="1,1,4", options="header"]
+|===
+| Release | Released | Deprecated in this release
+
+| link:/changelogs/updatecli/changelogs/v0.120.0[v0.120.0]
+| 2026-08-05
+| <<_dasel_engines,`dasel/v1` and `dasel/v2` on `json`, `toml`, `csv`>> (*warned*) +
+<<_deprecated_parameters,`query` on `toml` and `csv`>> (*error* from `dasel/v2`)
+
+| link:/changelogs/updatecli/changelogs/v0.116.0[v0.116.0]
+| 2026-04-10
+| <<_githubpullrequest_automerge,`automerge` on `github/pullrequest`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.114.0[v0.114.0]
+| 2026-02-24
+| <<_commands,`updatecli apply`, `updatecli diff`, `updatecli prepare`>> (*translated*) +
+<<_commit_messages,`commitmessage.title`>> (*ignored*)
+
+| link:/changelogs/updatecli/changelogs/v0.105.0[v0.105.0]
+| 2025-08-01
+| <<_dasel_engines,`dasel/v1` on `json`>> (*warned*) +
+<<_deprecated_parameters,`query` on `json`>> (*error* from `dasel/v2`)
+
+| link:/changelogs/updatecli/changelogs/v0.97.0[v0.97.0]
+| 2025-03-31
+| <<_deprecated_parameters,`key: name` and `key: hash` on `githubrelease`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.86.0[v0.86.0]
+| 2024-11-04
+| <<_stage_identifiers,`conditionids` on targets>> (*translated*, *error* with `disableconditions`)
+
+| link:/changelogs/updatecli/changelogs/v0.80.0[v0.80.0]
+| 2024-07-10
+| <<_compose_file_name,`update-compose.yaml`>> (*warned*)
+
+| link:/changelogs/updatecli/changelogs/v0.64.1[v0.64.1]
+| 2023-10-19
+| <<_top_level_keys,`title` at the top level>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.51.0[v0.51.0]
+| 2023-05-26
+| <<_yaml_key_syntax,`yaml` keys without the `$.` prefix>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.44.0[v0.44.0]
+| 2023-02-09
+| <<_deprecated_parameters,`indexurl` on `cargopackage`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.40.0[v0.40.0]
+| 2022-12-12
+| <<_top_level_keys,`pullrequests`>> (*translated*, *error* with `actions`) +
+<<_top_level_keys,`autodiscovery.pullrequestid`>> (*translated*, *error* with `actionid`) +
+<<_action_kinds,`kind: github` and `kind: gitea`>> (*translated*) +
+<<_stage_identifiers,`scmID` on actions>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.37.0[v0.37.0]
+| 2022-11-07
+| <<_deprecated_parameters,`multiple` on `json`, `toml`, `csv`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.34.0[v0.34.0]
+| 2022-09-28
+| <<_stage_identifiers,`depends_on`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.33.0[v0.33.0]
+| 2022-09-03
+| <<_deprecated_parameters,`url` on `maven`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.31.0[v0.31.0]
+| 2022-08-27
+| <<_commands,`updatecli show`>> (*translated*)
+
+| link:/changelogs/updatecli/changelogs/v0.25.0[v0.25.0]
+| 2022-05-09
+| <<_transformers,camelCase transformer names>> (*translated*, *ignored* when the lowercase form is
+set too)
+
+| link:/changelogs/updatecli/changelogs/v0.23.0[v0.23.0]
+| 2022-04-06
+| <<_stage_identifiers,`scmID` and `sourceID`>> (*translated*)
+|===
+
+NOTE: The `updatecli-action` `v1` and `v2` branches are not in the table. They belong to
+`updatecli/updatecli-action`, which is versioned separately from Updatecli itself, so no Updatecli
+release deprecated them and the policy described above does not apply. See <<_branches_v1_and_v2>>.
+
+[#_commands]
 == Commands
 
 The four original top-level commands moved under `pipeline` and `manifest`. All four still run and
@@ -65,8 +175,10 @@ log `Deprecated command, please instead use ...`.
 
 See the link:/docs/commands/[Commands] reference for the current command tree.
 
+[#_manifest_keys]
 == Manifest keys
 
+[#_stage_identifiers]
 === Stage identifiers
 
 Mixed-case and snake_case keys were normalised to lowercase. The old spelling is copied onto the new
@@ -78,8 +190,13 @@ key and cleared.
 
 | `scmID`
 | `scmid`
-| sources, conditions, targets, actions
+| sources, conditions, targets
 | v0.23.0
+
+| `scmID`
+| `scmid`
+| actions, which only exist from this release on
+| v0.40.0
 
 | `sourceID`
 | `sourceid`
@@ -119,6 +236,7 @@ is contradictory. The same applies to `scmID` alongside `scmid` on an action.
 Resource `kind` values must also be lowercase. A capitalised kind is accepted and lowercased with
 `kind value "..." must be lowercase`.
 
+[#_top_level_keys]
 === Top-level keys
 
 [cols="1,1,2,1", options="header"]
@@ -141,57 +259,71 @@ Resource `kind` values must also be lowercase. A capitalised kind is accepted an
 | v0.40.0
 |===
 
+[#_action_kinds]
 === Action kinds
 
-Both were renamed when actions grew beyond pull requests. Deprecated since v0.40.0.
+Both were renamed when actions grew beyond pull requests.
 
-[cols="1,1", options="header"]
+[cols="1,1,1", options="header"]
 |===
-| Deprecated | Use instead
+| Deprecated | Use instead | Since
 
 | `kind: github`
 | `kind: github/pullrequest`
+| v0.40.0
 
 | `kind: gitea`
 | `kind: gitea/pullrequest`
+| v0.40.0
 |===
 
+[#_transformers]
 == Transformers
 
-Every camelCase transformer was renamed to lowercase in v0.25.0. The behaviour is unchanged.
+Every camelCase transformer was renamed to lowercase, all of them in the same release. The behaviour
+is unchanged.
 
-[cols="1,1", options="header"]
+[cols="1,1,1", options="header"]
 |===
-| Deprecated | Use instead
+| Deprecated | Use instead | Since
 
 | `addPrefix`
 | `addprefix`
+| v0.25.0
 
 | `addSuffix`
 | `addsuffix`
+| v0.25.0
 
 | `trimPrefix`
 | `trimprefix`
+| v0.25.0
 
 | `trimSuffix`
 | `trimsuffix`
+| v0.25.0
 
 | `semverInc`
 | `semverinc`
+| v0.25.0
 
 | `findSubMatch`
 | `findsubmatch`
+| v0.25.0
 
 | `findSubMatch.captureIndex`
 | `findsubmatch.captureindex`
+| v0.25.0
 |===
 
 The deprecated spellings are hidden from the JSON schema, so an editor completing from the schema
 will only ever offer the lowercase form. See the
 link:/docs/core/transformer/["Transformer" page].
 
+[#_actions]
 == Actions
 
+[#_githubpullrequest_automerge]
 === `github/pullrequest`: `automerge`
 
 Deprecated in v0.116.0 in favour of `merge.strategy`, which offers three behaviours where
@@ -245,8 +377,10 @@ actions:
 `client` has no `automerge` equivalent, so it is only reachable after migrating. See the
 link:/docs/plugins/actions/github/["GitHub Pull Request" page].
 
+[#_resource_plugins]
 == Resource plugins
 
+[#_dasel_engines]
 === Dasel engines
 
 `json`, `toml`, and `csv` read and write through Dasel, selected by the `engine` parameter.
@@ -345,6 +479,7 @@ sources:
 The link:/docs/plugins/resource/json/["JSON" page] compares the selectors engine by engine, and the
 link:https://daseldocs.tomwright.me/[Dasel documentation] covers the v3 syntax in full.
 
+[#_deprecated_parameters]
 === Deprecated parameters
 
 [cols="1,1,1,2,1", options="header"]
@@ -394,6 +529,7 @@ link:https://daseldocs.tomwright.me/[Dasel documentation] covers the v3 syntax i
 | v0.97.0
 |===
 
+[#_commit_messages]
 == Commit messages
 
 [WARNING]
@@ -411,6 +547,7 @@ To control the commit title, rename the target. Everything else under `commitmes
 `scope`, `body`, `footers`, `hidecredit`) still applies.
 ====
 
+[#_yaml_key_syntax]
 == YAML key syntax
 
 [WARNING]
@@ -423,7 +560,7 @@ dotted form is rewritten automatically and warned about, since v0.51.0:
 current yaml key is "spec.version" and should be updated to "$.spec.version"
 ----
 
-The rewrite is **scheduled to become an error**. Update the keys now:
+The rewrite is **scheduled to become an error** in a future major release. Update the keys now:
 
 [cols="1,1", options="header"]
 |===
@@ -439,6 +576,7 @@ The rewrite is **scheduled to become an error**. Update the keys now:
 This applies to `key` and to every entry in `keys`, on sources, conditions, and targets alike.
 ====
 
+[#_compose_file_name]
 == Compose file name
 
 The default compose file was renamed from `update-compose.yaml` to `updatecli-compose.yaml` in
@@ -458,32 +596,20 @@ Both default compose files "update-compose.yaml" and "updatecli-compose.yaml" de
 
 Renaming the file is the whole migration. See the link:/docs/core/compose/["Compose" page].
 
+[#_updatecli_action]
 == updatecli-action
 
+[#_branches_v1_and_v2]
 === Branches `v1` and `v2`
 
 The `v1` and `v2` branches of `updatecli/updatecli-action` are deprecated. Pin a released version
 instead, or track `main` if you deliberately want the branch tip.
 
-Across a whole organization, an Updatecli policy does the migration for you:
+These branches belong to the action's own repository, which is versioned separately from Updatecli,
+so this deprecation is not tied to any Updatecli release and is absent from
+<<_deprecations_by_release>>.
 
-.updatecli-compose.yaml
-[source,yaml]
-----
-{{<include "assets/code_example/docs/help/deprecations/updatecli-compose.yaml">}}
-----
-
-Then:
-
-[source,shell]
-----
-updatecli compose diff
-updatecli compose apply
-----
-
-See the link:/docs/automate/github_action/["GitHub Action" page] for how to pin the action, and
-link:/docs/core/compose/["Compose"] for the file format.
-
+[#_go_further]
 == Go Further
 
 * link:/changelogs/updatecli[Changelogs] - what shipped in each release.
