@@ -1,0 +1,203 @@
+---
+title: "API"
+description: "The Udash HTTP API: where the generated reference lives, what the endpoint groups are, and the query limits an integrator meets first."
+lead: "Talking to Udash directly"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-23T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+weight: 80
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Everything the interface does, it does through the API, so anything it shows can be pulled out
+programmatically.
+
+The authoritative reference is generated from the source and served by every instance at
+`/swagger/index.html`. This page is the orientation around it: which groups exist, which are reads
+and which are writes, and the limits that will produce your first `400`.
+
+== Base path and health
+
+Everything lives under `/api/`.
+
+[cols="1,3", options="header"]
+|===
+| Endpoint | Purpose
+
+| `GET /api/ping`
+| Returns `pong`. The liveness check.
+
+| `GET /api/about`
+| The API version, the Go version it was built with, and the build time.
+
+| `GET /swagger/index.html`
+| The generated reference for this exact instance.
+|===
+
+== Endpoint groups
+
+[cols="2,1,3", options="header"]
+|===
+| Group | Kind | Purpose
+
+| `GET /api/pipeline/reports`
+| read
+| List reports. See `latest` below.
+
+| `GET /api/pipeline/reports/{id}`
+| read
+| One report, in full.
+
+| `POST /api/pipeline/reports/search`
+| read
+| Search reports with a filter too structured for a query string. This is what the interface calls.
+
+| `POST /api/pipeline/reports/summary`
+| read
+| Aggregate reports into time buckets. Backs the activity chart.
+
+| `POST /api/pipeline/reports`
+| write
+| Create a report. This is the endpoint Updatecli publishes to.
+
+| `PUT /api/pipeline/reports/{id}`
+| write
+| Replace a report.
+
+| `DELETE /api/pipeline/reports/{id}`
+| write
+| Delete a report.
+
+| `GET /api/pipeline/labels`, `POST /api/pipeline/labels/search`
+| read
+| The labels seen across stored reports, which is what populates the label filter.
+
+| `GET /api/pipeline/scms`, `POST /api/pipeline/scms/search`
+| read
+| The Git repositories and branches seen across stored reports.
+
+| `GET /api/pipeline/config/{sources,conditions,targets}` and their `/search`
+| read
+| The resource configurations extracted from reports, so you can ask which pipelines use a given
+resource kind.
+
+| `GET /api/pipeline/config/kinds`
+| read
+| The distinct resource kinds present.
+
+| `GET /api/whoami`
+| read
+| The identity, permission, and token scopes behind the credential used. Only exists when an
+authentication mode is configured. Updatecli calls it to validate a token at login.
+
+| `GET /api/tokens`
+| read
+| List API tokens.
+
+| `POST /api/tokens`
+| write
+| Create an API token. Requires the `publisher` permission and a provider token, never an API token.
+
+| `DELETE /api/tokens/{id}`, `DELETE /api/tokens`
+| write
+| Revoke one token, or every token of an identity. The second form requires `admin`.
+|===
+
+[NOTE]
+====
+Several reads are `POST` requests, because their filters do not fit in a query string. That does not
+make them writes, and the visibility rules treat them as reads. See
+link:/docs/udash/authentication/[Authentication].
+====
+
+== Authentication
+
+Which endpoints need a token depends entirely on how the instance is configured:
+
+* no mode configured, the default: nothing requires a token, including the writes
+* `visibility: public`: reads are open, writes need a token
+* `visibility: private`: everything needs a token
+
+A token alone is not enough to write a report. The identity behind it needs the `publisher`
+permission, and an API token needs the `reports:write` scope. The `/api/tokens` endpoints always
+require authentication, whatever the visibility.
+
+Pass the token as `Authorization: Bearer <token>`. See link:/docs/udash/authentication/[Authentication] for
+obtaining one.
+
+== `latest`
+
+`GET /api/pipeline/reports` takes a `latest` parameter, defaulting to true, which returns only the
+most recent report per pipeline ID.
+
+Left alone, you get the current state, one row per pipeline, which is what a dashboard needs. Set
+to false, you get the history, every run of every pipeline, which is what a trend needs and is
+considerably more data.
+
+== Pagination
+
+List and search endpoints take `limit` and `page`, and return the total count alongside the results,
+so you can tell whether you are looking at everything.
+
+`limit` may not exceed *1000*. Beyond that the request is rejected rather than quietly truncated.
+
+== Time windows and their limits
+
+The API bounds its own queries, because the aggregations run over every matching row and an
+unbounded range means scanning most of the table.
+
+[cols="2,1,3", options="header"]
+|===
+| Rule | Limit | Error
+
+| Default search window when none is given
+| 7 days
+| n/a
+
+| Maximum span between `start_time` and `end_time`
+| 366 days
+| `requested time range exceeds the maximum allowed span`
+
+| Both boundaries required together
+| n/a
+| `both start_time and end_time must be provided`
+
+| `days` and `hours` are mutually exclusive
+| n/a
+| `days and hours cannot be combined`
+
+| Buckets a summary may return
+| 1000
+| `requested time range and granularity produce too many buckets`
+
+| Records per page
+| 1000
+| `invalid pagination parameters`
+|===
+
+The bucket limit depends on the granularity as well as the range: a year at daily granularity is
+accepted, while a year at hourly granularity is more than eight thousand buckets and is refused.
+
+== Summaries
+
+`POST /api/pipeline/reports/summary` returns counts per time bucket. Each bucket carries its start
+in UTC as RFC3339, a total, and a breakdown per Updatecli result.
+
+The only metric supported so far is `result`. Granularity and the time window are the parameters
+you vary.
+
+== Go further
+
+* `/swagger/index.html` on your instance - the complete, generated reference.
+* link:/docs/udash/authentication/[Authentication] - what a token is needed for.
+* link:/docs/udash/troubleshooting/[Troubleshooting] - the `400` responses, in one table.

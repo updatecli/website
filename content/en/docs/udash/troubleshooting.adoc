@@ -1,0 +1,190 @@
+---
+title: "Troubleshooting"
+description: "Symptoms you may hit running Udash, from reports that never arrive to tokens that are always rejected, with the cause and the fix for each."
+lead: "When Udash does not behave"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-23T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+    identifier: "udash-troubleshooting"
+weight: 90
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+One symptom per section, with what causes it. For problems with Updatecli itself rather than with
+Udash, see the link:/docs/help/troubleshooting/[Troubleshooting] page.
+
+== Nothing is published, and nothing is logged
+
+The run succeeds, the Udash section never appears, and there is no warning anywhere.
+
+`--experimental` is missing. Publishing requires it, whatever else is configured, and the skip is
+silent. See link:/docs/help/experimental/["Experimental features"].
+
+== `no Udash endpoint detected, skipping`
+
+Updatecli found no API URL, from either the configuration file or the environment.
+
+Check, in order:
+
+* `updatecli udash config` prints the configuration file path. Is there an entry, and does it carry
+  an `api` value?
+* Is `UPDATECLI_UDASH_API_URL` set in this shell or job?
+
+Run with `--debug` to see which source was used.
+
+== Every token is rejected
+
+Requests that should be authorised come back rejected, and the logs say nothing useful about why.
+
+Almost always the issuer. It is compared to the token's `iss` claim verbatim, and the trailing slash
+is part of the comparison: Auth0 issues one, Zitadel and Keycloak do not. Decode a real token from
+your provider, read its `iss`, and copy that exact string into `auth.issuer`.
+
+Against Zitadel, also check the scope. Without the project audience scope
+`urn:zitadel:iam:org:project:id:<PROJECT_ID>:aud`, the provider issues a token that the API will
+not accept. See link:/docs/udash/authentication/[Authentication].
+
+== Signed in, but publishing is refused
+
+The API answers a report upload with `403` and `token is not allowed to perform this action`.
+
+The credential cannot write reports. Either the identity behind it is only a `viewer`, or it is an
+API token without the `reports:write` scope. In `oidc` mode the first case applies to everyone when
+`roles.claim` is empty, since no role is read at all. Set the claim and map a provider role to
+`publisher`, or create a new token with the `reports:write` scope.
+
+Creating an API token on `/profile/tokens` also requires `publisher`, and a `viewer` gets
+`insufficient permission` instead. See link:/docs/udash/authentication/#_permissions[Permissions].
+
+== The server refuses to start after an upgrade
+
+`unknown authentication mode "oauth"` in the server log means the configuration still uses the
+name the generic mode had before Udash v0.17.1. Rename `mode: oauth` to `mode: oidc`, and the
+`oauth:` block holding `issuer` and `audience` to `oidc:`. The Helm chart fails with an explicit message for the same
+reason.
+
+== Anyone can delete reports
+
+Expected, if no authentication mode is configured. Unset or `none` installs no middleware at all,
+which leaves every endpoint open including the writes.
+
+Set `auth.enabled: true` with a mode, and pick a `visibility`. `public` keeps the dashboards
+readable while requiring a token for anything that writes.
+
+== The server exits right after starting
+
+Usually PostgreSQL was not accepting connections yet when the server tried to connect.
+
+On Docker Compose, `docker compose restart server`. On Kubernetes the pod restarts on its own until
+the database is ready, so a few restarts at install time are not a problem.
+
+If it persists, the URI is wrong or the database is unreachable. The connection string is logged at
+debug level.
+
+== `failed calling webhook "mcluster.cnpg.io"`
+
+[source,text]
+----
+failed calling webhook "mcluster.cnpg.io": no endpoints available for service "cnpg-webhook-service"
+----
+
+The CloudNative-PG operator is installed but its admission webhook is not serving yet, so the
+`Cluster` the chart creates cannot be admitted.
+
+Install the operator with `--wait` before installing Udash, or simply retry the install once the
+operator pod is ready. See link:/docs/udash/installation/[Installation].
+
+== Migrations fail at startup
+
+The server runs its schema migrations before serving. A failure there stops it.
+
+If you migrate out of band, or you are rolling back to an older server against a newer schema, set
+`database.migrationdisabled: true` to leave the schema alone. Be aware that a server running against
+a schema it does not expect will fail in less obvious ways.
+
+== A blank page, or 404s on the assets
+
+Nearly always a subpath mismatch. Three things have to agree:
+
+. `ingress.paths.front`, where the ingress routes the frontend
+. `front.appBasePath`, which the application uses to build its own URLs
+. a strip-prefix, so nginx receives `/` rather than `/udash/`
+
+Miss the strip-prefix and the requests reach nginx with the prefix still attached. Miss
+`appBasePath` and the application builds links from the root. See
+link:/docs/udash/installation/#_subpath[Subpath routing].
+
+== The interface loads but shows no data
+
+Open the browser console and look at where the API calls are going.
+
+* On split-domain routing, `front.apiBaseUrl` has to be an absolute URL. A relative `/api` sends the
+  calls to the frontend's own host, where nothing answers them.
+* Check CORS, and that the API hostname resolves and has a valid certificate.
+* `https://<api host>/api/ping` should return `pong`.
+
+== The API returns 400
+
+The API bounds its own queries, and an integrator usually meets one of these first:
+
+[cols="2,3", options="header"]
+|===
+| Message | Cause
+
+| `requested time range exceeds the maximum allowed span`
+| More than 366 days between `start_time` and `end_time`.
+
+| `both start_time and end_time must be provided`
+| Only one boundary was given.
+
+| `days and hours cannot be combined`
+| Pick one window unit.
+
+| `requested time range and granularity produce too many buckets`
+| More than 1000 buckets, for example an hourly granularity over a year.
+
+| `invalid pagination parameters`
+| A page size above 1000, or a malformed `limit` or `page`.
+|===
+
+See link:/docs/udash/api/[API].
+
+== Reports arrive but are hard to find
+
+The reports are stored, but nothing files them under a repository or a label.
+
+The interface is organised per Git repository and its filters are built on labels. A pipeline with
+no `scmid` does not appear on the Git dashboard, and one with no labels matches no label filter. Add
+an `scm` to the pipelines you intend to watch, and give them labels. See
+link:/docs/udash/sending-reports/#_making_reports_findable[Making reports findable].
+
+A label with an empty value is rejected outright when the report is stored. Omit the label rather
+than giving it `""`.
+
+== Agent CronJobs run but nothing appears
+
+The jobs succeed, the database stays empty.
+
+* The agent publishes to the AgentRelay, not to the Udash server. Check `udash.json` in the agent's
+  ConfigMap points at `http://agentrelay/api`.
+* The relay and the Udash server must share the same database. Compare
+  `secrets.database.stringdata.uri` in both releases.
+* The agent's arguments must include `--experimental`, which the chart's defaults do carry. A custom
+  `images.agent.args` that drops it publishes nothing, silently.
+
+See link:/docs/udash/agent/[Agent].
+
+== Go further
+
+* link:/docs/help/troubleshooting/[Updatecli troubleshooting] - for problems in the run itself.
+* link:/support/[Support] - where to ask, and how to report a bug.

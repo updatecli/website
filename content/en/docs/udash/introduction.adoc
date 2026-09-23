@@ -1,0 +1,93 @@
+---
+title: "Introduction"
+description: "What Udash is, the three pieces it is made of, what a pipeline report contains once it is stored, and how it relates to Updatecli itself."
+lead: "The Updatecli dashboard"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-23T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+    identifier: "udash-introduction"
+weight: 10
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+An Updatecli run answers one question, in one repository, at one moment: is this dependency up to
+date, and if not, what would change. The answer is printed to the console, and it is lost unless the
+CI logs happen to be kept.
+
+Udash stores that answer. Updatecli publishes its pipeline report at the end of a run, and the
+interface lets you look at every repository at once, filter by label or by result, and follow how a
+dependency moved over the past weeks.
+
+[WARNING]
+====
+Udash is experimental, on both sides. Publishing reports from Updatecli requires the
+`--experimental` flag, and the API, the stored schema, and the interface can all change without
+going through the deprecation cycle described on the
+link:/docs/help/deprecations/["Deprecations" page].
+====
+
+== Architecture
+
+Udash is three components, plus Updatecli itself as the thing that feeds it.
+
+[cols="1,3", options="header"]
+|===
+| Component | Role
+
+| `udash server`
+| The API. A Go service listening on port `8080`, serving everything under `/api/`, plus a generated
+Swagger UI at `/swagger/index.html`. Published as `ghcr.io/updatecli/udash`.
+
+| `udash-front`
+| The interface. A Vue 3 and Vuetify single-page application served by nginx on port `80`. It is
+configured entirely at runtime, so one image serves every deployment. Published as
+`ghcr.io/updatecli/udash-front`.
+
+| PostgreSQL
+| Where the reports live. The server runs its own schema migrations at startup.
+|===
+
+The frontend never talks to the database, only to the API. Updatecli never talks to the database
+either, it POSTs its report to the API like any other client.
+
+There is a fourth, optional piece: the link:/docs/udash/agent/[agent], which runs Updatecli on a
+schedule inside a Kubernetes cluster rather than from each repository's CI.
+
+== What is stored
+
+The server splits each report into parts so the interface can search across runs:
+
+* the pipeline report itself, with its name, its result, and its execution date
+* the resource configurations, split into sources, conditions, and targets, each recorded with its
+  kind and its specification
+* the scm, meaning the Git repository URL and the branch a pipeline acted on
+* the labels attached to the pipeline, which most of the filtering is built on
+
+This is why link:/docs/core/label/[labels] and an `scmid` matter more in Udash than they do in a
+plain Updatecli run. A report with neither is stored correctly, but it is hard to find again, since
+the interface is organised by Git repository and filtered by label.
+
+== Trying it
+
+The fastest path is link:/docs/udash/quick-start/[the quick start], which brings the whole stack up
+locally with Docker Compose and needs nothing besides Docker.
+
+For a real deployment, the link:/docs/udash/installation/[Helm chart] covers the database, both
+workloads, and the ingress.
+
+== Go further
+
+* link:/docs/udash/quick-start/[Quick start] - run it locally in a few minutes.
+* link:/docs/udash/sending-reports/[Sending reports] - the Updatecli side of the integration.
+* link:/docs/udash/dashboards/[Dashboards] - what the interface offers once reports arrive.
+* link:https://github.com/updatecli/udash[updatecli/udash] - the server source and issue tracker.

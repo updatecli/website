@@ -1,0 +1,32 @@
+# Credentials handed to every agent CronJob, stored in a Secret.
+secrets:
+  agent:
+    environments:
+      GITHUB_TOKEN: "ghp_xxxxxxxxxxxxxxxxxxxx"
+      GITHUB_ACTOR: "my-github-user"
+  database:
+    stringdata:
+      # The AgentRelay writes to the same database as the Udash server.
+      uri: "postgres://udash:password@udash-postgres:5432/udash?sslmode=disable"
+
+# Applies to every agent that does not set its own schedule.
+defaultSchedule: "0 * * * *"
+
+agents:
+  my-org-repos:
+    schedule: "*/30 * * * *"
+    # Each entry becomes /etc/updatecli/<name> inside the container.
+    valuesFiles:
+      scm.yaml: |
+        scm:
+          enabled: true
+          user: updatecli
+          owner: my-org
+          repository: my-repo
+          branch: main
+    composeFile: |
+      policies:
+        - name: Update Updatecli policies
+          policy: ghcr.io/updatecli/policies/autodiscovery/all
+          values:
+            - /etc/updatecli/scm.yaml

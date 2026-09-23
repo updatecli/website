@@ -1,0 +1,9 @@
+server:
+  auth:
+    # No authentication: anyone reaching this instance can read and write reports.
+    # Fine on a laptop, never on anything reachable from outside.
+    mode: "none"
+
+database:
+  uri: postgres://udash:password@db:5432/udash?sslmode=disable
+  migrationdisabled: false

@@ -67,6 +67,10 @@ A manifest accepts the following root keys. All of them are optional except `nam
 | string
 | The minimum Updatecli version required by the manifest. Updatecli skips the manifest, with an error, when its own version is lower.
 
+| `options`
+| object
+| Settings changing how Updatecli behaves for this manifest, as opposed to describing the pipeline itself. See <<_options,Options>>.
+
 | `sources`
 | map
 | See link:/docs/core/source/[source].
@@ -146,6 +150,80 @@ Use `id` to declare a manifest identifier, and `dependson` to list which manifes
 This affects manifest execution order only and does not replace `pipelineid`.
 
 To learn more, see **link:/docs/core/order/[manifest order]**.
+
+[#_options]
+=== Options
+
+The `options` root key groups the settings that change how Updatecli behaves for a manifest, as opposed to the keys describing what the pipeline is made of.
+
+[cols="1,1,3",options=header]
+|===
+| Key | Default | Description
+
+| `relativepaths`
+| `workingdirectory`
+| What the relative paths of the manifest resolve against. See <<_relative_paths,Relative paths>>.
+|===
+
+[#_relative_paths]
+==== Relative paths
+
+By default, a relative path written in a manifest resolves against the directory Updatecli was started from, not against the manifest that declares it.
+A manifest stored in `updatecli.d/nodejs.yaml` and asking for `file: package.json` therefore reads the `package.json` of whichever directory you happened to run the command in.
+
+Setting `relativepaths` to `manifest` makes those paths resolve against the directory holding the manifest instead, which is what allows a manifest, or a whole directory of them, to be moved, vendored into another repository, or distributed as a link:/docs/core/shareandreuse/[policy] without rewriting every path.
+
+[cols="1,3",options=header]
+|===
+| Value | Behaviour
+
+| `workingdirectory`
+| Relative paths resolve against the directory Updatecli was started from. This is the default, and the historical behaviour.
+
+| `manifest`
+| Relative paths resolve against the directory holding the manifest that declares them.
+|===
+
+++++
+<details><summary>updatecli.yaml</summary>
+<pre>
+{{<include "assets/code_example/docs/core/configuration/relativepaths.yaml">}}
+</pre>
+</details>
+++++
+
+The setting applies to the manifest that declares it, so a directory of manifests can be migrated one file at a time.
+It can also be set for a whole run, with the `--relative-paths` flag or the `UPDATECLI_RELATIVE_PATHS` environment variable, which is the practical way to try it on an existing repository:
+
+[source,shell]
+----
+updatecli diff --relative-paths manifest --config updatecli.d
+----
+
+A manifest declaring `options.relativepaths` wins over the flag and the environment variable.
+
+[IMPORTANT]
+====
+`relativepaths` only affects resources that are **not** attached to an link:/docs/core/scm/[scm].
+
+A source, condition, or target with an `scmid` always resolves its paths against the working directory of that scm, which is the clone Updatecli made for it. That is unchanged, and is what makes a target committed to the right repository.
+====
+
+Within a manifest that sets `relativepaths: manifest`, the manifest directory becomes the base for:
+
+* the file paths of every resource without an `scmid`, such as `spec.file` and `spec.files`
+* the working directory of the link:/docs/plugins/resource/shell/[shell] resource, `spec.workdir`
+* a relative `directory` in an `scms` entry, and the repository the `local` scm auto-detects
+* the directory the link:/docs/core/autodiscovery/[autodiscovery] crawlers scan
+
+Absolute paths are never rewritten, and `http://` or `https://` locations are always fetched over the network rather than read from disk.
+
+NOTE: The values, secrets, and manifest files passed on the command line with `--values`, `--secrets`, and `--config` are resolved against the directory Updatecli was started from, whatever `relativepaths` says. They are arguments to the command, not content of a manifest.
+
+[TIP]
+====
+The default stays `workingdirectory` on purpose. The most common layout is a `updatecli.d/` directory whose manifests reference paths from the root of the repository, and those manifests only work because paths resolve against the working directory. Changing the default would break them, so opting in per manifest is the supported path.
+====
 
 === File
 

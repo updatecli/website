@@ -52,11 +52,13 @@ set.
 
 === Reporting to Udash
 
-link:https://github.com/updatecli/udash[Udash] collects pipeline results for viewing over time.
+link:/docs/udash/[Udash] collects pipeline results for viewing over time.
 
 Without the flag, publishing is skipped **silently**, no warning, no error, and the run reports
 success. Configuring `UPDATECLI_UDASH_*` or running `updatecli udash login` is not enough on its own.
 With the flag, results are published under a section headed `Udash - Experimental`.
+
+See link:/docs/udash/sending-reports/["Sending reports"] for how to configure the endpoint.
 
 `--disable-udash-report` switches it off again without dropping the rest of the flag.
 

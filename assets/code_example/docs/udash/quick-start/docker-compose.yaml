@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      - POSTGRES_USER=udash
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=udash
+    expose:
+      - 5432
+
+  server:
+    image: ghcr.io/updatecli/udash:v0.17.1
+    command: server start
+    restart: always
+    environment:
+      - GIN_MODE=release
+    volumes:
+      - "./udash/config.yaml:/home/udash/.udash/config.yaml"
+    expose:
+      - 8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.server.rule=PathPrefix(`/api/`)"
+      - "traefik.http.routers.server.service=server"
+      - "traefik.http.services.server.loadbalancer.server.port=8080"
+
+  front:
+    image: ghcr.io/updatecli/udash-front:v0.25.0
+    restart: always
+    volumes:
+      - "./udash-front/config.json:/usr/share/nginx/html/config.json"
+    expose:
+      - 80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.front.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.front.service=front"
+      - "traefik.http.services.front.loadbalancer.server.port=80"
+
+  traefik:
+    image: traefik:v3.0
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"

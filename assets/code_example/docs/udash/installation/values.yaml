@@ -1,0 +1,27 @@
+# Same-host routing: the frontend on / and the API on /api, one hostname.
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: udash.example.com
+  tls:
+    - secretName: udash-tls
+      hosts:
+        - udash.example.com
+  paths:
+    front: "/"
+    server: "/api"
+
+front:
+  # Relative, because the API is reachable on the same host.
+  apiBaseUrl: "/api"
+  appBasePath: "/"
+  maxHistoryDays: 30
+
+cnpg:
+  enabled: true
+  instances: 1
+  database: udash
+  owner: udash
+  storage:
+    size: 10Gi

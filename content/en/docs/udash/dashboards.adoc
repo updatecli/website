@@ -1,0 +1,115 @@
+---
+title: "Dashboards"
+description: "A tour of the Udash interface: the reports view and its filters, a single pipeline report, the Git dashboard, and how to share a filtered view as a link."
+lead: "Finding things in the interface"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-23T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+weight: 70
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Most of the work in Udash happens on three screens: the reports list, a single report, and the Git
+dashboard. This page describes what each one answers and how to narrow it down.
+
+== Home
+
+The landing page carries a *pipeline activity* chart, showing report volume and results over the
+recent window, and a *Get Started* panel with the exact commands to connect a runner to this
+instance, filled in with this deployment's own URLs. If you are onboarding a colleague, sending them
+that page is faster than sending them documentation.
+
+The window the activity chart covers is bounded by `MAX_HISTORY_DAYS`, see
+link:/docs/udash/configuration/[Configuration].
+
+== Reports
+
+The main view, at `/pipeline/reports`. Three sections: the filter, a *Latest Status Overview*
+summarising the most recent reports for the current repository and branch, and the *Detailed
+Reports* list itself.
+
+=== Filtering
+
+[cols="1,3", options="header"]
+|===
+| Filter | What it does
+
+| Git repository and branch
+| Narrows to one repository, and optionally one branch. Populated from the `scm` of the reports that
+have been received, so a pipeline with no `scmid` never appears here.
+
+| Labels
+| Key and value pairs, several at a time, all of which must match. The values offered for a key are
+the ones actually present in the data. See link:/docs/udash/labels/[Organising with labels].
+
+| Pipeline result
+| Success, Changed, Failed, or Skipped. Empty means all of them.
+
+| Open pull request
+| Whether the pipeline currently carries an action left open. Orthogonal to the result: a pipeline
+can have succeeded and still be waiting on a pull request nobody merged.
+
+| Date range
+| A slider over the window allowed by `MAX_HISTORY_DAYS`. It opens on the most recent day, so a
+wider range is only ever queried when you ask for one.
+|===
+
+[TIP]
+====
+On pipeline results, `⚠` means Updatecli *applied a change*, not that something went wrong. It is
+the result you want to look at when asking what actually moved. `✔` means the run was fine and
+there was nothing to do.
+====
+
+=== Sharing a filtered view
+
+The whole filter state travels in the URL, encoded as a single blob, so a filtered view is a plain
+link. Copy the address bar once the filter is how you want it, and whoever opens it sees the same
+view.
+
+This is the practical way to hand over "every failing docker pipeline in this repository over the
+last fortnight" without writing instructions for reproducing it. An unreadable or outdated blob
+falls back to the default filter rather than breaking the page, so a stale bookmark is harmless.
+
+== A single report
+
+At `/pipeline/reports/<id>`, the full run: its sources, conditions, targets, and actions, each with
+the configuration it ran with. Alongside them, the changelog Updatecli retrieved, the console output
+of the run, and a graph of how the pipeline's stages relate.
+
+This is where a link published by a CI job lands. Updatecli prints exactly this URL at the end of a
+run that publishes, see link:/docs/udash/sending-reports/[Sending reports].
+
+== Git dashboard
+
+At `/scm/dashboard`, the same data organised the other way round: per Git repository rather than per
+run. A doughnut and a summary per repository answer "how up to date is this codebase", which is the
+question the report list is bad at.
+
+A pipeline only appears here if it declared an `scm`, so give an `scmid` to the pipelines you
+intend to watch.
+
+== About and profile
+
+`/about` describes the project and its community, and is reachable without logging in. To check
+which server version an instance runs, call `GET /api/about`, see link:/docs/udash/api/[API].
+
+`/profile` shows the signed-in identity, and `/profile/tokens` is where you create and revoke the
+API tokens Updatecli publishes with. Both only exist when authentication is enabled. See
+link:/docs/udash/authentication/#_api_tokens[API tokens].
+
+== Go further
+
+* link:/docs/udash/sending-reports/[Sending reports] - the labels and `scmid` these filters depend on.
+* link:/docs/udash/api/[API] - the same queries, programmatically.
+* link:/docs/udash/configuration/[Configuration] - `MAX_HISTORY_DAYS` and the rest.

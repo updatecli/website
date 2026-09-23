@@ -1,0 +1,29 @@
+auth:
+  # Configures the server and the frontend at once.
+  enabled: true
+  mode: oidc
+  # public leaves the read endpoints open and requires a token for writes.
+  # private requires a token everywhere.
+  visibility: public
+  # Must match the "iss" claim of your provider exactly, trailing slash included.
+  issuer: https://example.eu.auth0.com/
+  clientid: "xxxxxxxxxxxxxxxxxxxxxxxx"
+  audience:
+    - https://udash.example.com/api
+  # Empty requests "openid profile email offline_access".
+  scope: ""
+  roles:
+    # Without a claim, every signed-in user is a viewer and nobody can publish.
+    claim: "https://udash.example.com/roles"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: udash.example.com
+  paths:
+    front: "/"
+    server: "/api"
+
+front:
+  apiBaseUrl: "/api"
+  appBasePath: "/"

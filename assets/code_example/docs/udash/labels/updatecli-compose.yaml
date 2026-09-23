@@ -1,0 +1,5 @@
+policies:
+  - name: Rust dependencies
+    policy: ghcr.io/updatecli/policies/autodiscovery/cargo:latest
+    values:
+      - values.yaml

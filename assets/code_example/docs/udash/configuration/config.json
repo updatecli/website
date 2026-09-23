@@ -1,0 +1,10 @@
+{
+  "AUTH_ENABLED": true,
+  "AUTH_VISIBILITY": "public",
+  "OAUTH_DOMAIN": "https://example.eu.auth0.com/",
+  "OAUTH_CLIENTID": "xxxxxxxxxxxxxxxxxxxxxxxx",
+  "OAUTH_SCOPE": "openid profile email offline_access",
+  "API_BASE_URL": "/api",
+  "APP_BASE_PATH": "/",
+  "MAX_HISTORY_DAYS": 30
+}

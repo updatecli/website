@@ -1,0 +1,43 @@
+server:
+  auth:
+    # mode selects how incoming tokens are validated.
+    # "oidc", "zitadel", or "none". Unset behaves like "none".
+    # An unrecognised value stops the server.
+    mode: "oidc"
+    # visibility controls which endpoints require a token.
+    # "public" leaves the reads open, "private" locks everything.
+    visibility: "public"
+    oidc:
+      # Compared to the token "iss" claim verbatim, trailing slash included.
+      issuer: "https://example.eu.auth0.com/"
+      # A list: every entry is an accepted audience.
+      audience:
+        - "https://udash.example.com/api"
+    zitadel:
+      domain: "my-instance.region.zitadel.cloud"
+      keyfile: "/etc/udash/zitadel/key.json"
+    roles:
+      # Token claim holding the provider roles. Required in "oidc" mode for
+      # anyone to get more than the default permission.
+      claim: "https://udash.example.com/roles"
+      # Provider roles granting each Udash permission.
+      mapping:
+        admin: ["udash.admin"]
+        publisher: ["udash.publisher"]
+        viewer: ["udash.viewer"]
+      # Granted to an authenticated identity matching no role.
+      default: "viewer"
+      # "snapshot" or "zitadel", see the Authentication page.
+      resolver: "snapshot"
+      cachettl: "60s"
+
+database:
+  uri: "postgres://udash:password@db:5432/udash?sslmode=disable"
+  # Set to true to skip the schema migrations run at startup.
+  migrationdisabled: false
+
+gc:
+  # Days of reports to keep. 0, the default, keeps everything.
+  maxHistoryDays: 0
+  interval: "24h"
+  batchSize: 5000
