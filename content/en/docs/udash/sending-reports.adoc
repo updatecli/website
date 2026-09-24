@@ -1,15 +1,15 @@
 ---
 title: "Sending reports"
-description: "How Updatecli publishes pipeline reports to Udash: the experimental flag, udash login, the environment variables, and what makes a report findable."
-lead: "The Updatecli side of the integration"
+description: "Connect Updatecli to a Udash instance, from your laptop or from CI, and make your reports easy to find."
+lead: "Publishing pipeline reports from Updatecli"
 date: 2026-08-07T10:00:00+02:00
-lastmod: 2026-09-23T10:00:00+02:00
+lastmod: 2026-09-24T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "udash"
-weight: 60
+weight: 30
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -19,20 +19,46 @@ toc: true
 
 == Description
 
-Nothing about a manifest changes when you publish to Udash. Updatecli runs as it always did, and at
-the end of the run it POSTs each pipeline's report to the API. What you have to give it is where to
-publish, whether it needs a token, and the `--experimental` flag.
-
-== The experimental flag
+Your manifests stay the same. At the end of a run, Updatecli sends each pipeline's report to Udash.
+It needs three things from you: where to publish, a token if the instance requires one, and the
+`--experimental` flag.
 
 [WARNING]
 ====
-Without `--experimental`, publishing is skipped *silently*. Updatecli prints no warning and no
-error, and the run reports success. Configuring the endpoint, logging in, or setting every `UPDATECLI_UDASH_*` variable
-changes nothing on its own.
+Without `--experimental`, nothing is published. Updatecli prints no warning and the run reports
+success, even when an endpoint and a token are configured.
 ====
 
-With the flag, the run gains a section of its own:
+== From your laptop
+
+[source,shell]
+----
+updatecli udash login "https://udash.example.com" --experimental
+----
+
+If the instance requires authentication, the command opens its token page in a browser and asks
+you to paste an API token. Create one there, under *Profile* then *Tokens*. The command checks the
+token before saving it, so a wrong token fails immediately.
+
+If the API is not at the given URL followed by `/api`, set it with `--api-url`:
+
+[source,shell]
+----
+updatecli udash login --api-url "https://api.example.com/api" "https://udash.example.com" --experimental
+----
+
+`updatecli udash config` prints where the settings were saved, and `updatecli udash logout` removes
+them. The link:/docs/commands/updatecli_udash_login/[`updatecli udash login`] reference lists every
+flag.
+
+Then run Updatecli with `--experimental`:
+
+[source,shell]
+----
+updatecli diff --experimental
+----
+
+Each pipeline ends with a link to its stored report:
 
 [source,text]
 ----
@@ -44,69 +70,25 @@ my pipeline:
 	=> "https://udash.example.com/pipeline/reports/8f2b1c94-...."
 ----
 
-That URL is the stored report, and it is also attached to the report itself, so it can appear in
-whatever consumes Updatecli's output. See the link:/docs/help/experimental/["Experimental features"
-page] for everything else the flag turns on.
+== From CI
 
-== Telling Updatecli where to publish
-
-Two ways, and they can be mixed. The environment wins over the configuration file.
-
-=== With `udash login`
-
-[source,shell]
-----
-updatecli udash login "https://udash.example.com" --experimental
-----
-
-The command calls the API's `/whoami` endpoint first. An instance with authentication disabled
-does not have that endpoint, so the command records the endpoint and asks for nothing.
-
-`--api-url` sets the API endpoint and defaults to the given URL with `/api` appended, which is
-correct for a default deployment. Point it elsewhere when the API lives on its own hostname:
-
-[source,shell]
-----
-updatecli udash login --api-url "https://api.example.com/api" "https://udash.example.com" --experimental
-----
-
-Against an authenticated instance, the command prompts for a Udash API token, or takes it from
-`--token` or standard input, and validates it before saving it. See
-link:/docs/udash/authentication/#_authenticating_updatecli[Authenticating Updatecli].
-
-`udash login` also reads the `UPDATECLI_UDASH_*` variables below, and a flag wins over the matching
-variable.
-
-The token and endpoints land in the Updatecli configuration file. `updatecli udash config` prints
-its path, and `updatecli udash logout` removes the entry.
-
-=== With environment variables
-
-Better suited to CI, where there is no browser to redirect to.
+Use environment variables instead of `udash login`:
 
 [cols="1,3", options="header"]
 |===
 | Variable | Purpose
 
 | `UPDATECLI_UDASH_URL`
-| The Udash instance URL, used to build the report links.
+| The Udash URL, used to build the report links.
 
 | `UPDATECLI_UDASH_API_URL`
-| The API URL. This is the one that decides whether anything is published at all.
+| The API URL. Nothing is published when it is unset.
 
 | `UPDATECLI_UDASH_ACCESS_TOKEN`
 | The Udash API token, when the instance requires one.
 |===
 
-A variable that is set supersedes the corresponding value in the configuration file, and the choice
-is logged at debug level. If `UPDATECLI_UDASH_API_URL` resolves to nothing, from either source, the
-run logs `no Udash endpoint detected, skipping` and carries on.
-
-These are also listed on the link:/docs/help/environment/["Environment variables" page].
-
-== In a CI pipeline
-
-Nothing beyond the two or three variables and the flag:
+A variable wins over the value saved by `udash login`.
 
 [source,yaml]
 ----
@@ -118,26 +100,14 @@ Nothing beyond the two or three variables and the flag:
   run: updatecli apply --experimental
 ----
 
-See link:/docs/automate/github_action/[GitHub Actions] and link:/docs/automate/jenkins/[Jenkins] for
+The token needs the `reports:write` scope, which new tokens get by default. See
+link:/docs/automate/github_action/[GitHub Actions] and link:/docs/automate/jenkins/[Jenkins] for
 the surrounding job.
 
-== Making reports findable
+== Making reports easy to find
 
-A report that arrives with no context is stored correctly and is then hard to retrieve. Two things
-decide how easily you will find it again.
-
-=== An scm
-
-The interface is organised per Git repository. A pipeline that declares an `scm` and references it
-through `scmid` is filed under that repository, appears on the Git dashboard, and can be compared
-with the other pipelines touching the same code. A pipeline with none of that is only reachable
-through the report list.
-
-=== Labels
-
-link:/docs/core/label/[Labels] are what the filters are built on, in Udash exactly as in
-`--labels` locally. link:/docs/udash/labels/[Organising with labels] explains how to choose them so
-they group pipelines into useful views.
+The interface is organised per Git repository and filtered by label. A report with neither is
+stored, but you can only reach it through the full report list.
 
 .updatecli.yaml
 [source,yaml]
@@ -145,20 +115,36 @@ they group pipelines into useful views.
 {{< include "assets/code_example/docs/udash/sending-reports/updatecli.yaml" >}}
 ----
 
-[IMPORTANT]
-====
-The label vocabularies suggested on the link:/docs/core/label/[Labels] page are recommendations.
-Updatecli accepts any key and value, never validates or rewrites them, and never generates them for
-you. Following the suggestions helps pipelines written by different people in different
-repositories line up in the same filter.
-====
+* An `scm` referenced through `scmid` files the pipeline under its Git repository and puts it on
+  the Git dashboard.
+* link:/docs/core/label/[Labels] feed the filters. See
+  link:/docs/udash/dashboards/#_choosing_labels[Choosing labels].
 
-One thing Udash does enforce: a label with an empty value is rejected when the report is stored. Omit
-the label instead of giving it `""`.
+Udash rejects a label with an empty value. Leave the label out instead of setting it to `""`.
+
+== When nothing arrives
+
+[cols="1,2", options="header"]
+|===
+| Symptom | Fix
+
+| No `UDASH - EXPERIMENTAL` section, no warning
+| Add `--experimental`.
+
+| `no Udash endpoint detected, skipping`
+| Run `updatecli udash login`, or set `UPDATECLI_UDASH_API_URL`. Add `--debug` to see which
+source Updatecli read.
+
+| `403` with `token is not allowed to perform this action`
+| Your token cannot write reports. Create a token with the `reports:write` scope, or ask the
+instance administrator for the `publisher` role.
+|===
+
+Problems on the server side, such as sign-in or tokens that are always rejected, are covered in the
+link:https://github.com/updatecli/udash[updatecli/udash] repository.
 
 == Go further
 
-* link:/docs/udash/authentication/[Authentication] - publishing to an instance that requires a token.
 * link:/docs/udash/dashboards/[Dashboards] - the filters these labels feed.
-* link:/docs/commands/updatecli_udash_login/[`updatecli udash login`] - the full flag reference.
-* link:/docs/udash/troubleshooting/[Troubleshooting] - when nothing arrives.
+* link:/docs/help/environment/["Environment variables"] - every variable Updatecli reads.
+* link:/docs/help/experimental/["Experimental features"] - what else `--experimental` turns on.

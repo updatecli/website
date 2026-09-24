@@ -1,9 +1,9 @@
 ---
 title: "Quick start"
-description: "Run the whole Udash stack locally with Docker Compose, point Updatecli at it, and publish your first pipeline report."
+description: "Run Udash locally with Docker Compose, point Updatecli at it, and publish your first pipeline report."
 lead: "Udash on your laptop in five minutes"
 date: 2026-08-07T10:00:00+02:00
-lastmod: 2026-09-23T10:00:00+02:00
+lastmod: 2026-09-24T10:00:00+02:00
 draft: false
 images: []
 menu:
@@ -19,10 +19,8 @@ toc: true
 
 == Description
 
-This page brings up PostgreSQL, the Udash API, the interface, and a Traefik in front of them, then
-publishes a report into it from your own Updatecli runs. Everything runs locally and nothing is
-authenticated. That is convenient for a first look, but do not deploy this setup anywhere other
-people can reach it.
+This page runs Udash locally, then publishes a report to it from your own Updatecli runs. Nothing is
+authenticated, so do not expose this setup to anyone else.
 
 === Requirement
 
@@ -49,9 +47,6 @@ Three files in one directory:
 {{< include "assets/code_example/docs/udash/quick-start/docker-compose.yaml" >}}
 ----
 
-Traefik publishes port `80` and routes `/api/` to the server and everything else to the frontend.
-The database is not published at all, only the two services reach it.
-
 .udash/config.yaml
 [source,yaml]
 ----
@@ -64,24 +59,20 @@ The database is not published at all, only the two services reach it.
 {{< include "assets/code_example/docs/udash/quick-start/config.json" >}}
 ----
 
-`config.json` is fetched by the browser before the application bundle loads, so the same image can
-serve an open deployment like this one and an authenticated one. `AUTH_ENABLED` set to `false` is
-what removes the login flow, and `API_BASE_URL` tells the browser where the API is.
-
-== 2. Start the stack
+== 2. Start Udash
 
 [source,shell]
 ----
 docker compose up -d
 ----
 
-Then open `http://localhost`. The API answers on `http://localhost/api`, and
-`http://localhost/api/ping` is the quickest way to confirm it is up.
+Open `http://localhost`. If the page does not load, `http://localhost/api/ping` tells you whether
+the API is up.
 
 [NOTE]
 ====
-If the server exits immediately on the first start, PostgreSQL was not accepting connections yet.
-Run `docker compose restart server`.
+If the server exits on the first start, PostgreSQL was not ready yet. Run
+`docker compose restart server`.
 ====
 
 == 3. Point Updatecli at it
@@ -91,22 +82,19 @@ Run `docker compose restart server`.
 updatecli udash login "http://localhost" --experimental
 ----
 
-The instance has no authentication, so the command does not ask for a token and only records the
-endpoint in the Updatecli configuration file. `--api-url` defaults to the given URL with `/api`
-appended, which is right here.
-
-`updatecli udash config` prints where that file was written.
+The instance has no authentication, so the command does not ask for a token. It only records the
+endpoint.
 
 == 4. Publish a report
 
-Run Updatecli as you normally would, with `--experimental` added:
+Run Updatecli as usual, with `--experimental` added:
 
 [source,shell]
 ----
 updatecli diff --experimental
 ----
 
-The run ends with a section of its own, and one URL per pipeline:
+The run ends with one link per pipeline:
 
 [source,text]
 ----
@@ -120,17 +108,14 @@ my pipeline:
 
 [WARNING]
 ====
-Without `--experimental` nothing is published, no warning is printed, and the run reports success.
-Configuring the endpoint is not enough on its own. See the
+Without `--experimental`, nothing is published and nothing warns you. See the
 link:/docs/help/experimental/["Experimental features" page].
 ====
 
 Refresh `http://localhost` and the report is there.
 
-== Nothing to publish yet?
-
-If you have no manifest at hand, a published policy will do. Drop an `updatecli-compose.yaml` next
-to a repository you care about:
+If you have no manifest at hand, a published policy works too. Put this `updatecli-compose.yaml`
+in a repository you care about:
 
 .updatecli-compose.yaml
 [source,yaml]
@@ -138,22 +123,8 @@ to a repository you care about:
 {{< include "assets/code_example/docs/udash/quick-start/updatecli-compose.yaml" >}}
 ----
 
-then run it, still without changing anything:
-
-[source,shell]
-----
-updatecli compose diff --experimental
-----
-
-Pulling a policy from the GitHub Container Registry may require `docker login ghcr.io` first. See
-link:/docs/core/compose/[Compose] for what else the file can express.
-
-== A note on discoverability
-
-The interface is organised per Git repository, and its filters are built on
-link:/docs/core/label/[labels]. A pipeline that declares neither an `scmid` nor any label is stored
-correctly but is awkward to find again. Add an `scm` to the pipelines you intend to watch before
-you load a lot of reports.
+and run `updatecli compose diff --experimental`. Pulling a policy may require
+`docker login ghcr.io` first.
 
 == Cleaning up
 
@@ -164,6 +135,6 @@ docker compose down --volumes
 
 == Go further
 
-* link:/docs/udash/installation/[Installation] - the same thing, deployed properly, with the Helm chart.
-* link:/docs/udash/sending-reports/[Sending reports] - authentication, CI, and what a report carries.
+* link:/docs/udash/sending-reports/[Sending reports] - connect Updatecli to a shared instance and to CI.
 * link:/docs/udash/dashboards/[Dashboards] - what to do with the reports once they are in.
+* link:https://github.com/updatecli/udash[updatecli/udash] - deploying a shared instance.

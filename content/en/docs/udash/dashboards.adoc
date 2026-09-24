@@ -1,15 +1,15 @@
 ---
 title: "Dashboards"
-description: "A tour of the Udash interface: the reports view and its filters, a single pipeline report, the Git dashboard, and how to share a filtered view as a link."
+description: "Find your pipelines in Udash, group them with labels, and share a filtered view as a link."
 lead: "Finding things in the interface"
 date: 2026-08-07T10:00:00+02:00
-lastmod: 2026-09-23T10:00:00+02:00
+lastmod: 2026-09-24T10:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "udash"
-weight: 70
+weight: 40
 toc: true
 ---
 // <!-- Required for asciidoctor -->
@@ -19,97 +19,150 @@ toc: true
 
 == Description
 
-Most of the work in Udash happens on three screens: the reports list, a single report, and the Git
-dashboard. This page describes what each one answers and how to narrow it down.
+Udash has three main screens: the reports list, a single report, and the Git dashboard. Labels
+from your Updatecli manifests drive the filters on all of them.
 
-== Home
-
-The landing page carries a *pipeline activity* chart, showing report volume and results over the
-recent window, and a *Get Started* panel with the exact commands to connect a runner to this
-instance, filled in with this deployment's own URLs. If you are onboarding a colleague, sending them
-that page is faster than sending them documentation.
-
-The window the activity chart covers is bounded by `MAX_HISTORY_DAYS`, see
-link:/docs/udash/configuration/[Configuration].
+The home page also has a *Get Started* panel with the commands to connect Updatecli to this
+instance, filled in with its own URLs. Send that page to a colleague you are onboarding.
 
 == Reports
 
-The main view, at `/pipeline/reports`. Three sections: the filter, a *Latest Status Overview*
-summarising the most recent reports for the current repository and branch, and the *Detailed
-Reports* list itself.
-
-=== Filtering
+At `/pipeline/reports`, the reports for one Git repository and branch, with a summary of their
+latest status.
 
 [cols="1,3", options="header"]
 |===
 | Filter | What it does
 
 | Git repository and branch
-| Narrows to one repository, and optionally one branch. Populated from the `scm` of the reports that
-have been received, so a pipeline with no `scmid` never appears here.
+| Narrows to one repository, and optionally one branch. Only pipelines with an `scm` are listed.
 
 | Labels
-| Key and value pairs, several at a time, all of which must match. The values offered for a key are
-the ones actually present in the data. See link:/docs/udash/labels/[Organising with labels].
+| Key and value pairs. See <<_filtering_by_label,Filtering by label>>.
 
 | Pipeline result
 | Success, Changed, Failed, or Skipped. Empty means all of them.
 
 | Open pull request
-| Whether the pipeline currently carries an action left open. Orthogonal to the result: a pipeline
-can have succeeded and still be waiting on a pull request nobody merged.
+| Whether the pipeline left a pull request open. A successful pipeline can still be waiting on a
+pull request nobody merged.
 
 | Date range
-| A slider over the window allowed by `MAX_HISTORY_DAYS`. It opens on the most recent day, so a
-wider range is only ever queried when you ask for one.
+| Opens on the most recent day. Widen it to look further back.
 |===
 
 [TIP]
 ====
-On pipeline results, `⚠` means Updatecli *applied a change*, not that something went wrong. It is
-the result you want to look at when asking what actually moved. `✔` means the run was fine and
-there was nothing to do.
+`⚠` means Updatecli *applied a change*, not that something went wrong. `✔` means there was nothing
+to do.
 ====
-
-=== Sharing a filtered view
-
-The whole filter state travels in the URL, encoded as a single blob, so a filtered view is a plain
-link. Copy the address bar once the filter is how you want it, and whoever opens it sees the same
-view.
-
-This is the practical way to hand over "every failing docker pipeline in this repository over the
-last fortnight" without writing instructions for reproducing it. An unreadable or outdated blob
-falls back to the default filter rather than breaking the page, so a stale bookmark is harmless.
 
 == A single report
 
-At `/pipeline/reports/<id>`, the full run: its sources, conditions, targets, and actions, each with
-the configuration it ran with. Alongside them, the changelog Updatecli retrieved, the console output
-of the run, and a graph of how the pipeline's stages relate.
-
-This is where a link published by a CI job lands. Updatecli prints exactly this URL at the end of a
-run that publishes, see link:/docs/udash/sending-reports/[Sending reports].
+At `/pipeline/reports/<id>`, the full run: its sources, conditions, targets, and actions with the
+configuration each one ran with, the changelog Updatecli retrieved, and the console output. This
+is the page Updatecli links to at the end of a run.
 
 == Git dashboard
 
-At `/scm/dashboard`, the same data organised the other way round: per Git repository rather than per
-run. A doughnut and a summary per repository answer "how up to date is this codebase", which is the
-question the report list is bad at.
+At `/scm/dashboard`, the status of every Git repository and branch at once, which answers "how up
+to date is this codebase". A label filter here turns it into a dashboard for one team or one
+ecosystem across the whole organisation.
 
-A pipeline only appears here if it declared an `scm`, so give an `scmid` to the pipelines you
-intend to watch.
+Only pipelines with an `scm` appear here.
 
-== About and profile
+== Filtering by label
 
-`/about` describes the project and its community, and is reachable without logging in. To check
-which server version an instance runs, call `GET /api/about`, see link:/docs/udash/api/[API].
+Udash has no saved dashboards or groups. A group of pipelines is whatever a label filter selects,
+and the labels come from your manifests.
 
-`/profile` shows the signed-in identity, and `/profile/tokens` is where you create and revoke the
-API tokens Updatecli publishes with. Both only exist when authentication is enabled. See
-link:/docs/udash/authentication/#_api_tokens[API tokens].
+[cols="1,3", options="header"]
+|===
+| Filter | Selects
+
+| A key and a value
+| Pipelines whose label has exactly that value. Case matters.
+
+| A key with no value
+| Pipelines that carry the key, whatever its value.
+
+| Several rows
+| Pipelines matching all of them.
+|===
+
+There is no OR, so "every `docker` or `helm` pipeline" cannot be one view. The rules match the
+link:/docs/core/label/[`--labels` flag] of Updatecli.
+
+=== Choosing labels
+
+Start from the views you want, and give each question its own key:
+
+[cols="2,2", options="header"]
+|===
+| View you want | Label that produces it
+
+| Everything the platform team owns
+| `team: platform`
+
+| Every container image, in every repository
+| `ecosystem: docker`
+
+| The pipelines that must never fall behind
+| `monitor: active`
+
+| The platform team's patch updates
+| `team: platform` and `update.channel: patch`
+|===
+
+Separate keys can be combined into narrower views later. A single `group: platform-docker` label
+cannot be split back into a team and an ecosystem.
+
+Keep the values few and stable. A label holding a version number or a file path fills the filter
+with values nobody picks.
+
+These keys come from the link:/docs/core/label/#_suggested_vocabulary[suggested vocabulary]. It is a
+recommendation, and neither Updatecli nor Udash validates labels. Following it helps pipelines
+written by different people line up under the same filter.
+
+=== Labels on pipelines you do not write
+
+Labels on an `autodiscovery` manifest are copied onto every pipeline it generates, see
+link:/docs/core/label/#_labels_and_autodiscovery[Labels and autodiscovery].
+
+Many published policies take their pipeline labels from a `pipeline.labels` value:
+
+.updatecli-compose.yaml
+[source,yaml]
+----
+{{< include "assets/code_example/docs/udash/dashboards/updatecli-compose.yaml" >}}
+----
+
+.values.yaml
+[source,yaml]
+----
+{{< include "assets/code_example/docs/udash/dashboards/values.yaml" >}}
+----
+
+[IMPORTANT]
+====
+The top-level `labels` value of a policy sets the pull request labels, which Udash never sees.
+Only `pipeline.labels` reaches the report. Check the policy's own `values.yaml` to see which values
+it reads.
+====
+
+=== Renaming a label
+
+Reports keep the labels they were published with. After renaming `team: infra` to
+`team: platform`, the new value only matches reports published since the change.
+
+== Sharing a view
+
+The whole filter, labels included, is stored in the URL. Once a view shows what you want, copy the
+address and share it. A list of such links, one per team or ecosystem, is the closest Udash has to
+saved dashboards.
 
 == Go further
 
-* link:/docs/udash/sending-reports/[Sending reports] - the labels and `scmid` these filters depend on.
-* link:/docs/udash/api/[API] - the same queries, programmatically.
-* link:/docs/udash/configuration/[Configuration] - `MAX_HISTORY_DAYS` and the rest.
+* link:/docs/core/label/[Labels] - the `labels` field and the suggested vocabulary.
+* link:/docs/udash/sending-reports/[Sending reports] - the `scm` and labels these views depend on.
+* link:https://github.com/updatecli/udash[updatecli/udash] - the API, for querying reports programmatically.
