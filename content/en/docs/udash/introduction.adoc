@@ -43,9 +43,16 @@ Two things in a manifest decide how easily you find a report again:
 * an `scm`, because the interface is organised per Git repository
 * link:/docs/core/label/[labels], because the filters are built on them
 
+== See it running
+
+The Updatecli project publishes the reports of its own pipelines to a public instance,
+link:https://updatecli.uda.sh[updatecli.uda.sh]. Anyone can browse it without signing in, which
+makes it a quick way to see what Udash shows before running your own. Publishing to it is reserved
+for the Updatecli project.
+
 == Getting an instance
 
-To try Udash, the link:/docs/udash/quick-start/[quick start] runs it locally with Docker Compose.
+To try Udash on your own pipelines, the link:/docs/udash/quick-start/[quick start] runs it locally with Docker Compose.
 
 For a shared instance, Udash is published as a Helm chart:
 

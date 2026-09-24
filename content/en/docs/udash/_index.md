@@ -13,6 +13,9 @@ sidebar:
 Updatecli tells you what changed on one run, in one repository. [Udash](https://github.com/updatecli/udash)
 keeps those runs, so you can see the same information across every repository and over time.
 
+To see it in use, browse [updatecli.uda.sh](https://updatecli.uda.sh), the public instance the
+Updatecli project publishes its own pipeline reports to.
+
 {{< alert icon="⚠️" text="Udash is experimental, and so is the Updatecli side of it. Publishing reports requires the <code>--experimental</code> flag, and both the API and the interface can change without going through the usual deprecation cycle." >}}
 
 - [Introduction](/docs/udash/introduction/) - what Udash is and how Updatecli feeds it.
