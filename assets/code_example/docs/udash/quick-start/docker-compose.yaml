@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:17
+    image: postgres:18@sha256:5a5a84b19854a9ffaa54082c166ff4ec27473a361e496e5ea167f298f2da9722
     restart: always
     environment:
       - POSTGRES_USER=udash
@@ -10,7 +10,7 @@ services:
       - 5432
 
   server:
-    image: ghcr.io/updatecli/udash:v0.17.1
+    image: ghcr.io/updatecli/udash:v0.18.2@sha256:899c2e3a7bf8b4aea588ba4ca398ce4ca1626479ab96881aa69ad6a18964fae1
     command: server start
     restart: always
     environment:
@@ -26,7 +26,7 @@ services:
       - "traefik.http.services.server.loadbalancer.server.port=8080"
 
   front:
-    image: ghcr.io/updatecli/udash-front:v0.25.0
+    image: ghcr.io/updatecli/udash-front:v0.26.0@sha256:21d5c66f6872907f5a83da1a07bde6fa1b46bd74d7e56898b52f0a6b5a8e7654
     restart: always
     volumes:
       - "./udash-front/config.json:/usr/share/nginx/html/config.json"
@@ -39,7 +39,7 @@ services:
       - "traefik.http.services.front.loadbalancer.server.port=80"
 
   traefik:
-    image: traefik:v3.0
+    image: traefik:v3.7@sha256:24841fe2de7304c149343d877d2923b4c8800a38ba015dea9174c23b20e344a0
     command:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"

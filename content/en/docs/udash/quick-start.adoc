@@ -71,8 +71,8 @@ the API is up.
 
 [NOTE]
 ====
-If the server exits on the first start, PostgreSQL was not ready yet. Run
-`docker compose restart server`.
+The server may restart a few times on the first start, while PostgreSQL gets ready. It recovers
+on its own within a few seconds.
 ====
 
 == 3. Point Updatecli at it
