@@ -51,7 +51,7 @@ Condition not supported for the plugin GitLab branch
 Drop the `scmid`; the lookup always goes to the GitLab API.
 ====
 
-TIP: To work with branches over the git protocol instead, on any host, use link:/docs/plugins/resource/gitBranch/[`gitbranch`].
+TIP: To work with branches over the git protocol instead, on any host, use link:/docs/plugins/resource/gitbranch/[`gitbranch`].
 
 == Parameters
 

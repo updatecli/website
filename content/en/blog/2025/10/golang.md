@@ -459,10 +459,10 @@ Updatecli can integrate with GitHub, Gitlab, Bitbucket, Gitea, and Stash. Each S
 
 You can go deeper within the Updatecli integration with Golang project by looking specifically at:
 
-- [Golang Autodiscovery documentation](http://updatecli.io/docs/plugins/autodiscovery/golang/)
-- [Golang Plugin](http://updatecli.io/docs/plugins/resource/golang/)
-- [Go.mod Plugin](http://updatecli.io/docs/plugins/resource/gomod/)
-- [Golang module](http://updatecli.io/docs/plugins/resource/gomodule/)
+- [Golang Autodiscovery documentation](https://www.updatecli.io/docs/plugins/autodiscovery/golang/)
+- [Golang Plugin](https://www.updatecli.io/docs/plugins/resource/golang/)
+- [Go.mod Plugin](https://www.updatecli.io/docs/plugins/resource/gomod/)
+- [Golang module](https://www.updatecli.io/docs/plugins/resource/gomodule/)
 
 ### Feedback
 

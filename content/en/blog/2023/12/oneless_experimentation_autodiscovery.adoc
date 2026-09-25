@@ -19,7 +19,7 @@ And that's what we did...
 
 We decided to build a small set of plugins that would cover most of our needs:
 
-*link:/docs/plugins/autodiscovery/cargo[Cargo] - link:/docs/plugins/autodiscovery/dockercompose[Docker Compose] - link:/docs/plugins/autodiscovery/dockerfile[Dockerfile] - link:/docs/plugins/autodiscovery/golang[Golang] - link:/docs/plugins/autodiscovery/helm[Helm] - link:/docs/plugins/autodiscovery/helmfile[Helmfile] -  link:/docs/plugins/autodiscovery/maven[Maven] - link:/docs/plugins/autodiscovery/npm[npm] - link:/docs/plugins/autodiscovery/fleet[Rancher/Fleet] - link:/docs/plugins/autodiscovery/terraform[Terraform]*
+*link:/docs/plugins/autodiscovery/cargo/[Cargo] - link:/docs/plugins/autodiscovery/dockercompose/[Docker Compose] - link:/docs/plugins/autodiscovery/dockerfile/[Dockerfile] - link:/docs/plugins/autodiscovery/golang/[Golang] - link:/docs/plugins/autodiscovery/helm/[Helm] - link:/docs/plugins/autodiscovery/helmfile/[Helmfile] -  link:/docs/plugins/autodiscovery/maven/[Maven] - link:/docs/plugins/autodiscovery/npm/[npm] - link:/docs/plugins/autodiscovery/fleet/[Rancher/Fleet] - link:/docs/plugins/autodiscovery/terraform/[Terraform]*
 
 And it turned out to be a great learning experience. Combining both the Autodiscovery and the declarative approach allowed us to achieve a high level of automation across different types of git repositories like dev, gitops, or simply documentation.
 

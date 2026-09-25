@@ -88,12 +88,12 @@ To extend this pipeline, you can find more customization on Updatecli documentat
 
 In this pipeline we used the following resources:
 
-* link:https://www.updatecli.io/docs/plugins/yaml/[YAML]
-* link:https://www.updatecli.io/docs/plugins/github_release/[GitHub Release]
-* link:https://www.updatecli.io/docs/plugins/helm_chart/[Helm Chart]
-* link:https://www.updatecli.io/docs/plugins/github/[GitHub Repository]
-* link:https://www.updatecli.io/docs/plugins/github_pullrequest/[GitHub Pullrequest]
-* link:https://www.updatecli.io/docs/plugins/docker_image/[Docker Image]
+* link:/docs/plugins/resource/yaml/[YAML]
+* link:/docs/plugins/resource/github_release/[GitHub Release]
+* link:/docs/plugins/resource/helm_chart/[Helm Chart]
+* link:/docs/plugins/scm/github/[GitHub Repository]
+* link:/docs/plugins/actions/github/[GitHub Pullrequest]
+* link:/docs/plugins/resource/docker_image/[Docker Image]
 
 === Additional Workflows
 

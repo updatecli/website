@@ -41,7 +41,7 @@ Not supported - a target fails with `target not supported for the plugin Gitea b
 
 NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the Gitea API.
 
-TIP: To work with branches over the git protocol instead, on any host, use link:/docs/plugins/resource/gitBranch/[`gitbranch`].
+TIP: To work with branches over the git protocol instead, on any host, use link:/docs/plugins/resource/gitbranch/[`gitbranch`].
 
 == Parameters
 
