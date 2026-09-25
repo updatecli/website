@@ -15,7 +15,9 @@ alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https
 
 # Footer
 footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
-copyRight = "Copyright (c) Updatecli Project"
+# Rendered as "© <build year> <copyRight>" by layouts/_partials/footer/footer.html,
+# matching the Udash footer.
+copyRight = "Updatecli Project"
 
 # Legacy image params consumed by the custom img/img-simple shortcodes.
 # Also read as site.Params.*, so they belong here rather than under a table.

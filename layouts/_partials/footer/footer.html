@@ -2,9 +2,10 @@
   Based on @thulite/doks-core 1.9.3 layouts/_partials/footer/footer.html, with
   two deliberate changes:
 
-  1. site.Params.copyRight is rendered again. Upstream dropped the copyright slot
-     its older releases had, and exposes no hook for that block, so overriding the
-     whole partial is the only way to get it back.
+  1. site.Params.copyRight is rendered again, as "© <build year> <copyRight>" to
+     match the Udash footer. Upstream dropped the copyright slot its older
+     releases had, and exposes no hook for that block, so overriding the whole
+     partial is the only way to get it back.
   2. The row is split three ways (5 / 6 / 5 of the theme's 16-column grid, see
      $grid-columns in doks-core common/_variables-overrides.scss) instead of
      upstream's 8 / 8, so the copyright sits centred between the footer menu and
@@ -29,7 +30,7 @@
       <div class="col-lg-6 text-lg-center">
         <ul class="list-inline">
           {{ with site.Params.copyRight -}}
-            <li class="list-inline-item">{{ . | safeHTML }}</li>
+            <li class="list-inline-item">&copy; {{ now.Year }} {{ . | safeHTML }}</li>
           {{- end }}
         </ul>
       </div>
