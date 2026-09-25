@@ -1,0 +1,18 @@
+{{- /*
+  Copy of @thulite/seo 2.4.3 layouts/_partials/seo/title.html with one change: the " - <suffix>"
+  part is skipped when the page title already contains the suffix, so a page
+  titled "Updatecli" is not "Updatecli - Updatecli".
+  Keep the rest identical to upstream; on an upgrade, diff and re-apply.
+*/ -}}
+{{- $title := "" }}
+{{- if .Params.seo.title }}
+	{{- $title = .Params.seo.title }}
+{{- else }}
+  {{- $suffix := .Site.Params.seo.title.suffix | default .Site.Title }}
+  {{- if in .Title $suffix }}
+    {{- $title = .Title }}
+  {{- else }}
+    {{- $title = printf "%s%s%s%s%s" .Title " " (.Site.Params.seo.title.separator | default "|") " " $suffix }}
+  {{- end }}
+{{- end }}
+<title>{{ $title }}</title>
