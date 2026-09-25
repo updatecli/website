@@ -204,9 +204,11 @@ A manifest declaring `options.relativepaths` wins over the flag and the environm
 
 [IMPORTANT]
 ====
-`relativepaths` only affects resources that are **not** attached to an link:/docs/core/scm/[scm].
+`relativepaths` mostly affects resources that are **not** attached to an link:/docs/core/scm/[scm].
 
-A source, condition, or target with an `scmid` always resolves its paths against the working directory of that scm, which is the clone Updatecli made for it. That is unchanged, and is what makes a target committed to the right repository.
+A source, condition, or target with an `scmid` resolves its file paths against the working directory of that scm, which is the clone Updatecli made for it. That is unchanged, and is what makes a target committed to the right repository.
+
+The exception is the `path` of the link:/docs/plugins/resource/gittag/[gittag], link:/docs/plugins/resource/gitbranch/[gitbranch], and link:/docs/plugins/resource/gitcommit/[gitcommit] resources. With `relativepaths: manifest`, a relative `path` resolves from the manifest directory even when the resource has an `scmid`.
 ====
 
 Within a manifest that sets `relativepaths: manifest`, the manifest directory becomes the base for:

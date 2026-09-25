@@ -113,7 +113,9 @@ link:/docs/udash/sending-reports/["Sending reports"].
 == Flag defaults
 
 These flags read a default from the environment, which is the practical way to set them once for a whole
-CI job rather than on every invocation. An unparsable value is ignored and logged at debug level.
+CI job rather than on every invocation. An unparsable boolean value is ignored and logged at debug level.
+An invalid `UPDATECLI_RELATIVE_PATHS` value is not ignored: the run fails with
+`invalid manifest options: "<value>" is not a valid value for "relativepaths"`.
 
 [cols="1,1,2", options="header"]
 |===
