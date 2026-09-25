@@ -1,99 +1,65 @@
 ---
 title: "Support"
-description: "How to get help, report issues, and engage with the project community."
+description: "Where to ask a question, how to report a bug maintainers can act on, and how to disclose a security issue privately."
 lead: "Where to ask, and how to report a bug"
 date: 2020-10-06T08:49:15+00:00
-lastmod: 2026-09-25T10:00:00+02:00
+lastmod: 2026-09-25T15:00:00+02:00
 draft: false
 images: []
 menu:
   docs:
     parent: "help"
-weight: 605
+weight: 625
 toc: true
 aliases: ["/support/"]
 ---
 
-Welcome to the support page. Whether you're using Updatecli, contributing to it, or just exploring, this page outlines how to get help, report issues, and engage with the community.
+## Something failing?
 
-## Before You Ask
+Most problems have a known answer. Start here:
 
-Before opening a ticket or asking a question:
+- [Troubleshooting](/docs/help/troubleshooting/) explains the error messages Updatecli prints, from authentication to git push and manifest validation.
+- The [FAQ](/docs/help/faq/) covers the common questions, such as [why a run seems to hang](/docs/help/faq/#_why_does_updatecli_seem_to_hang) or [why no pull request was opened](/docs/help/faq/#_why_did_the_run_finish_cleanly_but_open_no_pull_request).
+- [Docker Hub rate limit](/docs/help/docker_hub_rate_limit/) explains the most frequent failure in CI.
+- Rerun with `--debug`. Several decisions, such as which token was used or why a target was skipped, are only logged at debug level.
 
-- Review the [Documentation](/docs/prologue/introduction/)
-- Browse the [FAQ](/docs/help/faq/)
-- Search existing [GitHub Issues](https://github.com/updatecli/updatecli/issues) to see if your question has already been answered
+## Ask a question
 
-## Getting Help
+- [GitHub Discussions](https://github.com/updatecli/updatecli/discussions) for questions, ideas, and anything others might search for later.
+- [Matrix](https://matrix.to/#/#Updatecli_community:gitter.im) for a quick chat. The same room is also reachable through [Gitter](https://gitter.im/Updatecli/community).
 
-You can get help in the following ways:
+Please be respectful and follow the [Code of Conduct](/code-of-conduct/).
 
-### Community Channels
+## Report a bug
 
-- **Discussions Forum**: Ask questions or start discussions on [GitHub Discussions](https://github.com/updatecli/updatecli/discussions)
-- **Chat**: Join the community on [Matrix](https://matrix.to/#/#Updatecli_community:gitter.im)
+Search the [existing issues](https://github.com/updatecli/updatecli/issues) first. If nothing matches, open a [bug report](https://github.com/updatecli/updatecli/issues/new?template=1-bug-report.yml) and include:
 
-Please be respectful and follow our [Code of Conduct](/code-of-conduct/).
+- The output of `updatecli version`.
+- The smallest manifest, and values file if you use one, that reproduces the problem.
+- The full output of the failing run, with `--debug`.
+- The pipeline graph, from:
 
-## Reporting Bugs
+  ```shell
+  updatecli manifest show --graph --graph-flavor mermaid --experimental --config <manifest>
+  ```
 
-To report a bug:
+- Where it runs: locally, or in which CI system. If it fails in CI, say whether `updatecli pipeline diff` reproduces it locally.
 
-1. Search [existing issues](https://github.com/updatecli/updatecli/issues)
-2. If not found, open a [Bug Report](https://github.com/updatecli/updatecli/issues/new?template=1-bug-report.yml) and include:
-   - Steps to reproduce the issue
-   - Expected and actual behaviour
-   - Environment details (OS, version)
-   - Relevant logs or screenshots
+Remove tokens and other secrets, such as `UPDATECLI_GITHUB_TOKEN`, from anything you paste.
 
-Well-written reports help us fix issues more efficiently.
+## Request a feature
 
-## Requesting Features
+Open a [feature request](https://github.com/updatecli/updatecli/issues/new?template=2-feature-request.yml) and describe the update you are trying to automate. The use case matters more than a proposed implementation.
 
-To suggest a new feature:
+## Report a security issue
 
-- Open a [Feature Request](https://github.com/updatecli/updatecli/issues/new?template=2-feature-request.yml)
-- Describe the feature, its purpose, and why it is useful
-- Optionally, suggest implementation ideas
+Do not report security vulnerabilities through public GitHub issues. Disclose them privately:
 
-## Supporting the Community
+- through a [GitHub security advisory](https://github.com/updatecli/updatecli/security/advisories/new)
+- or by email to [security@updatecli.io](mailto:security@updatecli.io)
 
-You can support the project in several ways:
+## Commercial support
 
-- Answer questions on GitHub Discussions or in the chat
-- Improve the documentation
-- Help triage GitHub issues (label duplicates, confirm bugs)
-- Share examples, tutorials, or blog posts about your usage
+Contact the maintainers at [consulting@updatecli.io](mailto:consulting@updatecli.io) for commercial help, such as integration work, migration, or training.
 
-See the [Contributing Guide](/docs/help/contributing/) for how to get started.
-
-## Sponsor or Donate
-
-If you'd like to support ongoing development, consider:
-
-- [Sponsoring us on GitHub](https://github.com/sponsors/updatecli)
-- [Sponsoring us on OpenCollective](https://opencollective.com/updatecli)
-
-## Consulting and Commercial Support
-
-While community support is available for free, we also offer commercial services for organizations that need:
-
-- Guaranteed response times
-- Custom development or integration work
-- Migration assistance
-- Training or workshops
-- Ongoing support contracts
-
-These services are provided by Maintainers who are actively involved in the development of the project.
-
-If you're interested in commercial support, please contact us at [consulting@updatecli.io](mailto:consulting@updatecli.io).
-
-## Reporting a Security Issue
-
-Do not report security vulnerabilities through public GitHub issues. Disclose them privately through a [GitHub security advisory](https://github.com/updatecli/updatecli/security/advisories/new) or by email at [security@updatecli.io](mailto:security@updatecli.io).
-
-For anything else, see the [Contact](/contact/) page.
-
----
-
-We appreciate your involvement and support. Thank you for helping build a stronger community around Updatecli.
+For anything else, see the [Contact](/contact/) page. To help the project, by answering questions, triaging issues, or sponsoring it, see [Contributing](/docs/help/contributing/).
