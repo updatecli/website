@@ -847,3 +847,101 @@ body.changelogs.list .wrap > .content {
         font-size: 0.9375rem;
     }
 }
+
+// -----------------------------------------------------------------------------
+// Pipeline diagram (layouts/_shortcodes/pipeline-diagram.html)
+//
+// The stages of a pipeline as square, bordered panels joined by arrows: a row on
+// wide screens, a column on narrow ones. Each panel names the manifest key in the
+// machine voice. The optional Action stage has a dashed border, and the arrow is
+// drawn with the same mask technique as the code-block copy icon.
+// -----------------------------------------------------------------------------
+
+.pipeline-diagram {
+    --pipeline-gap: 2.25rem;
+
+    margin: 2rem 0;
+
+    ol {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--pipeline-gap);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    li {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem;
+        background: var(--sl-color-black);
+        border: 1px solid var(--sl-color-gray-5);
+        font-size: 0.875rem;
+        line-height: 1.5;
+
+        > span {
+            color: var(--bs-secondary-color);
+        }
+    }
+
+    // Below each panel on narrow screens, to its right on wide ones.
+    li:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        width: 1rem;
+        height: var(--pipeline-gap);
+        transform: translateX(-50%) rotate(90deg);
+        background-color: var(--sl-color-gray-3);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+
+        @include media-breakpoint-up(md) {
+            left: 100%;
+            top: 50%;
+            width: var(--pipeline-gap);
+            height: 1rem;
+            transform: translateY(-50%);
+        }
+    }
+
+    code {
+        align-self: flex-start;
+        padding: 0;
+        background: none;
+        color: var(--bs-secondary-color);
+        font-size: 0.75rem;
+    }
+
+    strong {
+        font-size: 1rem;
+    }
+
+    .pipeline-diagram-branch {
+        margin-top: auto;
+        padding-top: 0.5rem;
+        border-top: 1px dashed var(--sl-color-gray-5);
+        font-size: 0.8125rem;
+    }
+
+    .pipeline-diagram-optional {
+        background: transparent;
+        border-style: dashed;
+    }
+
+    figcaption {
+        margin-top: 0.75rem;
+        color: var(--bs-secondary-color);
+        font-size: 0.875rem;
+    }
+}
