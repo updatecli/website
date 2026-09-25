@@ -582,3 +582,78 @@ body > .footer {
     line-height: 1.5;
     vertical-align: 0.15em;
 }
+
+// -----------------------------------------------------------------------------
+// Changelog pages
+//
+// `layouts/changelogs/` renders the generated release notes in the docs shell. The
+// release list on the index is built from the pages; the badge on the newest one
+// is a plain label in the ink colour, since "Latest" is neither a warning nor
+// something to act on.
+// -----------------------------------------------------------------------------
+
+.nav-badge-neutral {
+    border-color: color-mix(in srgb, currentColor, transparent 60%);
+    color: inherit;
+}
+
+.changelog-list {
+    margin: 0;
+
+    li {
+        display: flex;
+        gap: 0.75rem;
+        align-items: baseline;
+        padding: 0.625rem 0;
+        border-bottom: 1px solid var(--sl-color-gray-5);
+    }
+
+    time {
+        margin-inline-start: auto;
+        color: var(--bs-secondary-color);
+        font-size: 0.875rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+}
+
+.changelog-meta {
+    color: var(--bs-secondary-color);
+}
+
+// Below xl, docs pages open with the collapsible "On this page" bar, and doks-core
+// drops the title's top margin to sit under it. Release pages have no such bar, so
+// give the title the room back.
+@include media-breakpoint-down(xl) {
+    body.changelogs .docs-content {
+        padding-top: 1.5rem;
+    }
+}
+
+// The generator opens every release with an italic "(bot) released this <date>"
+// line and an empty "Description" heading followed by a rule. The meta line above
+// already gives the date, so hide them. These selectors are narrow on purpose: if
+// the generated markup changes, they stop matching and nothing else is affected.
+.changelog-body > .paragraph:first-child:has(> p > em:only-child),
+.changelog-body h3#_description,
+.changelog-body h3#_description + hr {
+    display: none;
+}
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// doks-core's baseof.html wraps every list page, and every page outside
+// `mainSections`, in a centred `.container`. Changelog pages carry their own docs
+// shell, so let that wrapper span the page and keep the release menu flush left.
+// -----------------------------------------------------------------------------
+
+body.changelogs .wrap > .content > .container {
+    max-width: none;
+}
+
+// doks-core's `.list.section .content` adds 1rem above every list page. Drop it on
+// the changelog index so its menu and title line up with the release pages.
+body.changelogs.list .wrap > .content {
+    padding-top: 0;
+}

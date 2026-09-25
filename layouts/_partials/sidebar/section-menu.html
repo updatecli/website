@@ -1,0 +1,20 @@
+{{- /*
+  Doks adapter, remove with the theme.
+
+  Copy of @thulite/doks-core 1.9.3 layouts/_partials/sidebar/section-menu.html with
+  one change: pages in the changelogs section get their own release menu
+  (sidebar/changelogs-menu.html), since the generated changelog pages have no
+  sidebar menu configuration. Every other section keeps the upstream behaviour.
+*/ -}}
+{{- if eq .Section "changelogs" }}
+  {{- partial "sidebar/changelogs-menu.html" . }}
+{{- else }}
+{{- $sidebar := printf "sidebar_%s" .Section }}
+{{- with index site.Menus $sidebar }}
+    {{ partial "sidebar/render-section-menu.html" (dict "currentPage" $ "nodes" .) }}
+{{- else }}
+  {{ with (.Site.GetPage "section" .Section).Pages }}
+    {{ partial "sidebar/render-section-menu.html" (dict "currentPage" $ "nodes" .) }}
+  {{ end }}
+{{- end }}
+{{- end }}
