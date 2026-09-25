@@ -32,6 +32,11 @@
       {{- $line = strings.TrimLeft " \t" $line -}}
     {{- end -}}
     {{- $blockStart = false -}}
+    {{- /* A line holding only "#" (the csv "comment" default) is an empty ATX
+         heading to Markdown, even mid-paragraph. Escape it so it stays text. */ -}}
+    {{- if findRE `^\s*#+\s*$` $line -}}
+      {{- $line = replace $line "#" "\\#" -}}
+    {{- end -}}
   {{- end -}}
   {{- $out = $out | append $line -}}
 {{- end -}}
