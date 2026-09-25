@@ -369,9 +369,10 @@ $updatecli-dark-selector: '[data-bs-theme="dark"]';
 
 // Asciidoctor renders an admonition ([NOTE], [WARNING], …) as a two-cell table
 // with no colgroup, so the icon column needs a width of its own, otherwise the
-// label and the body split the block evenly.
+// label and the body split the block evenly. 7.5rem fits the longest label,
+// "Important", in Space Grotesk without breaking it.
 .admonitionblock > table td.icon {
-  width: 6rem;
+  width: 7.5rem;
 }
 
 // Wrapper the `*parameters` shortcodes put around their table. The min-width
