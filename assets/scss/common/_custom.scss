@@ -390,15 +390,89 @@ $updatecli-dark-selector: '[data-bs-theme="dark"]';
   width: 7.5rem;
 }
 
-// Wrapper the `*parameters` shortcodes put around their table. The min-width
-// keeps the four columns readable on a phone by scrolling the table instead of
-// squeezing every cell down to broken words; the scroll stays inside this box,
-// so the page itself never scrolls sideways.
+// Wrapper the `*parameters` shortcodes put around their table (Name, Type,
+// Description, Required). From md up it stays a table: the min-width keeps the
+// four columns from squeezing into broken words, and any overflow scrolls inside
+// this box rather than the page.
+//
+// Below md, a 34rem table scrolled sideways hides half of every row with no hint
+// that it scrolls, so each row becomes a stacked block instead: name and type on
+// the first line, the description underneath at full width. The header row is
+// dropped, since the name/type line needs no labels, and so is an empty Required
+// cell: the schema does not set `required` per property, so the column is empty
+// in practice. If it is ever filled, it shows up labelled.
 .table-scroll {
   overflow-x: auto;
 
   > table {
     min-width: 34rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    overflow-x: visible;
+
+    > table {
+      display: block;
+      min-width: 0;
+
+      colgroup,
+      tr:has(> th) {
+        display: none;
+      }
+
+      tbody {
+        display: block;
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 0.75rem;
+        padding: 0.875rem 0;
+        border-bottom: 1px solid var(--sl-color-gray-5);
+      }
+
+      td {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      // Name. Nested properties keep the &nbsp; indent the shortcodes write.
+      td:nth-child(1) {
+        overflow-wrap: anywhere;
+      }
+
+      // Type, in the machine voice.
+      td:nth-child(2) {
+        align-self: center;
+        color: var(--bs-secondary-color);
+        font-family: var(--updatecli-font-mono);
+        font-size: 0.8125rem;
+      }
+
+      // Description.
+      td:nth-child(3) {
+        grid-column: 1 / -1;
+        margin-top: 0.375rem;
+      }
+
+      // Required.
+      td:nth-child(4):empty {
+        display: none;
+      }
+
+      td:nth-child(4):not(:empty) {
+        grid-column: 1 / -1;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+
+        &::before {
+          content: "Required: ";
+          color: var(--bs-secondary-color);
+        }
+      }
+    }
   }
 }
 
