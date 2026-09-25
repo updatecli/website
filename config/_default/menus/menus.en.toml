@@ -75,8 +75,10 @@ activePath = "/docs/udash/"
 
 [[main]]
 name = "Support"
-url = "/support/"
+url = "/docs/help/support/"
 weight = 40
+[main.params]
+activePath = "/docs/help/support/"
 
 [[main]]
 name = "Changelogs"

@@ -1,9 +1,17 @@
 ---
 title: "Support"
 description: "How to get help, report issues, and engage with the project community."
-type: docs
+lead: "Where to ask, and how to report a bug"
+date: 2020-10-06T08:49:15+00:00
+lastmod: 2026-09-25T10:00:00+02:00
 draft: false
 images: []
+menu:
+  docs:
+    parent: "help"
+weight: 605
+toc: true
+aliases: ["/support/"]
 ---
 
 Welcome to the support page. Whether you're using Updatecli, contributing to it, or just exploring, this page outlines how to get help, report issues, and engage with the community.
