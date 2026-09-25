@@ -1082,3 +1082,17 @@ body.changelogs.list .wrap > .content {
         min-height: 2.75rem;
     }
 }
+
+// -----------------------------------------------------------------------------
+// Not found page (layouts/404.html)
+// -----------------------------------------------------------------------------
+
+.notfound {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 3rem 0 4rem;
+
+    .lead {
+        margin-bottom: 2rem;
+    }
+}
