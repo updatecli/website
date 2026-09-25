@@ -8,7 +8,7 @@ contributors: ["olblak"]
 ---
 
 <p align="center">
-  <img src="/images/gopher_coffee.png" width="250"/>
+  <img src="/images/gopher_coffee.png" width="250" alt="The Go gopher holding a cup of coffee"/>
 </p>
 
 What a great way to start the week by not discovering one but two blog posts about Updatecli.

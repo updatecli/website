@@ -16,7 +16,7 @@ With that being said, let's dive in.
 ---
 
 <p align="center">
-  <img style="max-height:600px;" src="/images/blog/2025/10/golang_updatecli.png" alt="show Updatecli love Golang"/>
+  <img style="max-height:600px;" src="/images/blog/2025/10/golang_updatecli.webp" alt="show Updatecli love Golang"/>
 </p>
 
 Keeping your Go projects up to date—whether it’s module versions, replace directives, or the Go toolchain version—can be tedious and error-prone, especially as your codebase grows or you manage multiple repositories. **Updatecli** is a powerful, CI-friendly tool that helps automate these updates, ensuring your dependencies and configurations stay current with minimal manual effort.

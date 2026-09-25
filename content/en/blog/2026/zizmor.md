@@ -79,7 +79,7 @@ That is what we do [**here**](https://github.com/updatecli/.github/blob/main/upd
 Now it is time to review all my GitHub repositories.
 
 <p align="center">
-  <img style="max-height:600px;" src="/images/blog/2026/03/diagram.png" alt="show Updatecli automate update"/>
+  <img style="max-height:600px;" src="/images/blog/2026/03/diagram.webp" alt="show Updatecli automate update"/>
 </p>
 
 ## Links

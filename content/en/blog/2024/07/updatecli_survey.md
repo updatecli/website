@@ -22,5 +22,5 @@ Thanks in advance for your help.
 ---
 
 <p align="center">
-  <img src="/images/blog/2024/07/cat.jpg" />
+  <img src="/images/blog/2024/07/cat.jpg" alt="An orange cat looking up with large, pleading eyes" />
 </p>
