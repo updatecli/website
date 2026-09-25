@@ -208,7 +208,7 @@ Tactile but restrained: flat at rest, clear on interaction.
 ### Buttons
 - **Shape:** softly rounded (0.375rem; 0.5rem for `btn-lg`).
 - **Primary:** Updatecli Green with white text by day, neon green with `board-night` text at night. Padding 0.375rem 0.75rem, or 0.5rem 1rem at 1.25rem type for the large home-page call to action.
-- **Hover / Focus:** the colour steps to the deep variant. Bootstrap's focus shadow ring is switched off by the theme, so keyboard focus relies on the browser outline. Keep a visible outline.
+- **Hover / Focus:** the colour steps to the deep variant. Keyboard focus on buttons, icon buttons and navigation links is a 2px outline in Updatecli Green, offset by 2px, which follows the colour mode. Never remove it.
 - **Outline primary:** a green border and green text, filling on hover. Text flips to `board-night` at night.
 
 ### Code blocks

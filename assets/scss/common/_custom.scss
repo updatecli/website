@@ -960,3 +960,26 @@ body.changelogs.list .wrap > .content {
         font-size: 0.875rem;
     }
 }
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Keyboard focus
+//
+// doks-core turns Bootstrap's focus rings off (`$input-btn-focus-box-shadow: none`)
+// and its `components/_buttons.scss` removes the outline on `.btn-link:focus`,
+// which also wins over `.nav-link:focus-visible`. The header's icon buttons
+// (search, colour mode, menus) and the primary buttons were left with no visible
+// focus at all, and the link ring that survived was a baked-in 25% day green,
+// nearly invisible in dark mode. One outline in the accent token covers them all
+// and follows the colour mode.
+// -----------------------------------------------------------------------------
+
+.btn:focus-visible,
+.btn-link:focus-visible,
+.nav-link:focus-visible,
+.dropdown-item:focus-visible {
+    outline: 2px solid var(--updatecli-primary);
+    outline-offset: 2px;
+    box-shadow: none;
+}
