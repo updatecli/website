@@ -47,6 +47,21 @@ $updatecli-dark-selector: '[data-bs-theme="dark"]';
     --sl-color-accent-high: var(--updatecli-primary-strong);
 }
 
+// doks-core hard-codes its old purple (#5d2f86) as the accent line of code-block
+// tabs in light mode, for both the system preference and the toggle
+// (`components/_expressive-code.scss`). Point it back at the Updatecli accent. The
+// selectors match doks-core's specificity and load later, so they win.
+:root[data-bs-theme="light"],
+:root[data-bs-theme="light"] .expressive-code {
+    --ec-frm-edActTabIndTopCol: var(--sl-color-accent);
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-bs-theme="dark"]) {
+        --ec-frm-edActTabIndTopCol: var(--sl-color-accent);
+    }
+}
+
 // -----------------------------------------------------------------------------
 // Code-block "copy to clipboard" button
 //
