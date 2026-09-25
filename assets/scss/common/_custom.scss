@@ -657,3 +657,193 @@ body.changelogs .wrap > .content > .container {
 body.changelogs.list .wrap > .content {
     padding-top: 0;
 }
+
+// -----------------------------------------------------------------------------
+// Home page (layouts/home.html)
+//
+// A hero, then "How it works" with the real Quick Start manifest and output,
+// "Why Updatecli", and a documentation front door. Sections are separated by a
+// hairline and share one measure; there are no cards and no shadows. The code
+// frames are the AsciiDoc `.listingblock` frames styled earlier in this file.
+// -----------------------------------------------------------------------------
+
+.home-hero {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 2rem 0 3.5rem;
+    text-align: center;
+
+    h1 {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.home-lead {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.home-intro {
+    margin: 0 auto 2rem;
+    max-width: 38rem;
+    color: var(--bs-secondary-color);
+}
+
+.home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.home-install {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: center;
+    align-items: baseline;
+    margin: 0;
+    font-size: 0.875rem;
+
+    code {
+        user-select: all;
+    }
+}
+
+.home-licence {
+    margin: 1.5rem 0 0;
+    color: var(--bs-secondary-color);
+    font-size: 0.875rem;
+}
+
+.home-section {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--sl-color-gray-5);
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.125rem;
+    }
+}
+
+.home-heading {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+}
+
+// One explicit shrinkable column on small screens: an implicit grid column sizes
+// to the longest code line and pushes the page sideways.
+.home-how-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 4rem;
+    }
+}
+
+// The order of the stages is part of the model, so the list is numbered.
+.home-steps {
+    margin: 1.5rem 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: home-step;
+
+    li {
+        position: relative;
+        padding: 0 0 1.25rem 2.75rem;
+        counter-increment: home-step;
+
+        &::before {
+            content: counter(home-step);
+            position: absolute;
+            inset-inline-start: 0;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border: 1px solid var(--sl-color-gray-5);
+            border-radius: 50%;
+            font-family: var(--updatecli-font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.625rem;
+            text-align: center;
+        }
+
+        h3 {
+            margin: 0 0 0.25rem;
+            line-height: 1.75rem;
+        }
+
+        p {
+            margin: 0;
+            color: var(--bs-secondary-color);
+        }
+    }
+}
+
+.home-how-code .listingblock:first-child {
+    margin-top: 0;
+}
+
+// Chroma sets its own background on `.chroma`; the frame already paints one.
+.home-how-code code.chroma {
+    background: none;
+}
+
+.home-claims {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    p {
+        margin: 0;
+        color: var(--bs-secondary-color);
+    }
+}
+
+.home-compare {
+    margin: 2.5rem 0 0;
+    max-width: 48rem;
+}
+
+.home-docs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem 4rem;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.home-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--sl-color-gray-5);
+    }
+
+    a {
+        font-weight: 500;
+    }
+
+    span:not(.nav-badge) {
+        display: block;
+        color: var(--bs-secondary-color);
+        font-size: 0.9375rem;
+    }
+}

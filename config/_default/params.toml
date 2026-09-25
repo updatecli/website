@@ -11,7 +11,7 @@ mainSections = ["docs"]
 # Alert banner
 # The theme reads these from site.Params.*, not site.Params.doks.*, so they must
 # stay above the [doks] table header below.
-alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!</a>"
+alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!"
 
 # Footer
 footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"

@@ -6,7 +6,8 @@
      dropdown.
   2. The site title is the Updatecli brand: the logo plus the name in the
      wordmark face (assets/scss/updatecli/_theme.scss). The name comes from
-     site.Params.title, since the site defines no top-level title.
+     site.Params.title, since the site defines no top-level title; the mobile
+     menu title uses it too, so that menu is not left unnamed.
   3. A main menu entry can carry a `badge` param, rendered after its name, and an
      `activePath` param: on pages under that URL prefix the entry is the only
      active one, so "Docs" is not also marked active (see menus.en.toml).
@@ -106,7 +107,7 @@
         <div class="header-bar d-lg-none"></div>
       {{ end -}}
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">{{ site.Title }}</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">{{ site.Params.title | default site.Title }}</h5>
         <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
