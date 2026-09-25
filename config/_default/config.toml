@@ -2,6 +2,10 @@ baseurl = "/"
 canonifyURLs = false
 disableAliases = true
 
+# AsciiDoc fragments pulled into other pages with `include::`. asciidoctor reads
+# them from disk, so ignoring them only stops Hugo publishing them as pages.
+ignoreFiles = ['content/en/docs/plugins/_(githubAuth|azuredevopsAuth|actionScm|versionFilter)\.adoc$']
+
 disableHugoGeneratorInject = true
 enableEmoji = true
 enableGitInfo = true
