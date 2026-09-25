@@ -497,3 +497,55 @@ body {
 body > .footer {
     margin-top: auto;
 }
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Docs page columns on wide screens
+//
+// With `mainSections = ["docs"]`, doks-core's `single.html` wraps the content and
+// the "On this page" column in `.container-fw`, capped at 1200px and centred in the
+// space right of the section menu. Lift the cap so the "On this page" column sits
+// on the right edge, mirroring the menu on the left, and centre the content in the
+// space between them. The content then takes all the width between the two
+// columns, which gives wide parameter tables and code blocks room to breathe.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-up(xl) {
+    .container-fw {
+        max-width: none;
+    }
+
+    .container-fw > .docs-content {
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+    }
+
+    // doks-core puts 3rem before the column. 3.5rem makes the visible gap between
+    // the text and the column match the 4.5rem between the menu's border and the
+    // text (measured on the rendered page, the gutters do not add up on this side).
+    .container-fw .docs-toc {
+        margin-left: 3.5rem;
+    }
+}
+
+// Separate the text from the section menu: the grid gutter alone leaves 1.5rem
+// after the menu's border, which reads as cramped. With the padding below, the text
+// sits 4.5rem (72px) from the menu's border, and the xl rule further down gives the
+// "On this page" column the same 4.5rem on the other side.
+//
+// The collapsible "On this page" bar shown below xl bleeds into that padding with a
+// negative margin (doks-core `components/_toc.scss`, including a variant keyed to
+// the `#announcement` banner). Widen its bleed to cover that padding plus the
+// 1.5rem gutter of the `.container-fw` wrapper, so the bar meets the menu's border.
+@include media-breakpoint-up(lg) {
+    .docs-content {
+        padding-inline-start: 3rem;
+    }
+
+    .docs-content > .toc-mobile-sticky,
+    #announcement ~ * .docs-content > .toc-mobile-sticky {
+        margin-inline-start: -4.5rem;
+    }
+}

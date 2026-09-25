@@ -3,6 +3,11 @@ title = "Updatecli"
 titleAddition = "Continuously update everything"
 description = "Automatically open a PR on your GitOps repository when a third service publishes an updates"
 
+# Sections laid out as full-width docs pages: with containerBreakpoint = "fluid",
+# doks-core puts the section menu flush left and centres the content and table of
+# contents in the remaining space. Read by doks-core's baseof.html and single.html.
+mainSections = ["docs"]
+
 # Alert banner
 # The theme reads these from site.Params.*, not site.Params.doks.*, so they must
 # stay above the [doks] table header below.
