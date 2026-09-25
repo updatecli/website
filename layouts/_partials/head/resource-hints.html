@@ -1,3 +1,4 @@
-{{- /* Doks adapter, remove with the theme. Replaces doks-core's Jost preloads with the Updatecli body font from assets/scss/updatecli/_theme.scss. Orbitron is not preloaded: the navbar brand it styles is empty while the site has no top-level title. */ -}}
+{{- /* Doks adapter, remove with the theme. Replaces doks-core's Jost preloads with the Updatecli theme fonts from assets/scss/updatecli/_theme.scss: the body face in regular and bold, and the Orbitron wordmark shown in the navbar on every page. */ -}}
 <link rel="preload" href="{{ "fonts/space-grotesk/space-grotesk-latin-400-normal.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/space-grotesk/space-grotesk-latin-700-normal.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/orbitron/orbitron-latin-700-normal.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
