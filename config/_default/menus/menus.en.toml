@@ -60,6 +60,19 @@ name = "Docs"
 url = "/docs/prologue/introduction/"
 weight = 20
 
+# Main menu params, read by layouts/_partials/header/header.html:
+#   badge      - short label rendered after the name. Udash is experimental, and
+#                the badge keeps that visible wherever the entry shows.
+#   activePath - URL prefix this entry owns: on those pages it is the active entry
+#                and no other entry is, even "Docs" for pages under /docs/.
+[[main]]
+name = "Udash"
+url = "/docs/udash/introduction/"
+weight = 30
+[main.params]
+badge = "Experimental"
+activePath = "/docs/udash/"
+
 [[main]]
 name = "Support"
 url = "/support/"

@@ -1,12 +1,20 @@
 {{/*
-  Verbatim copy of @thulite/doks-core 1.9.3
-  layouts/_partials/header/header.html, with ONE change: the "Social menu"
-  block near the bottom groups the community links into a dropdown.
+  Copy of @thulite/doks-core 1.9.3 layouts/_partials/header/header.html, with
+  these changes:
 
-  doks exposes no hook for that block, so overriding the whole partial is the
-  only way to restructure it. Keep the rest of this file identical to upstream:
-  on a doks upgrade, diff the new upstream file against this one and re-apply
-  only the social-menu change.
+  1. The "Social menu" block near the bottom groups the community links into a
+     dropdown.
+  2. The site title is the Updatecli brand: the logo plus the name in the
+     wordmark face (assets/scss/updatecli/_theme.scss). The name comes from
+     site.Params.title, since the site defines no top-level title.
+  3. A main menu entry can carry a `badge` param, rendered after its name, and an
+     `activePath` param: on pages under that URL prefix the entry is the only
+     active one, so "Docs" is not also marked active (see menus.en.toml).
+  4. The navbar button uses the site's regular button shape instead of a pill.
+
+  doks exposes no hooks for these, so overriding the whole partial is the only
+  way. Keep the rest of this file identical to upstream: on a doks upgrade, diff
+  the new upstream file against this one and re-apply the changes above.
 */ -}}
 {{ if site.Params.doks.alert -}}
   {{ partial "header/alert.html" . }}
@@ -28,7 +36,10 @@
   {{ end -}}
 
     <!-- Site title -->
-    <a class="navbar-brand updatecli-wordmark me-auto me-lg-3" href="{{ relLangURL "" }}">{{ .Site.Title }}</a>
+    <a class="navbar-brand navbar-brand-updatecli me-auto me-lg-3" href="{{ relLangURL "" }}">
+      <img src="{{ "images/updatecli_64.png" | relURL }}" width="32" height="32" alt="">
+      <span class="updatecli-wordmark">{{ site.Params.title | default site.Title }}</span>
+    </a>
 
     <!-- FlexSearch mobile -->
     {{ partial "main/showFlexSearch" . }}
@@ -120,11 +131,18 @@
         <ul class="navbar-nav flex-grow-1">
           {{- $current := . -}}
           {{- $section := $current.Section -}}
+          {{- $claimed := "" -}}
+          {{- range .Site.Menus.main -}}
+            {{- with .Params.activePath -}}
+              {{- if hasPrefix $current.RelPermalink . }}{{ $claimed = . }}{{ end -}}
+            {{- end -}}
+          {{- end -}}
           {{ range .Site.Menus.main -}}
             {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
             {{- $active = or $active (eq .Name $current.Title) -}}
             {{- $active = or $active (eq .Name ($section | humanize)) -}}
             {{- $active = or $active (and (eq .Name "Blog") (eq $current.Section "blog" "authors")) -}}
+            {{- if $claimed }}{{ $active = eq .Params.activePath $claimed }}{{ end -}}
             {{ if .HasChildren -}}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -143,7 +161,7 @@
               </li>
             {{ else -}}
               <li class="nav-item">
-                <a class="nav-link{{ if $active }} active{{ end }}" href="{{ .URL | absURL }}"{{ if $active }} aria-current="true"{{ end }}>{{ .Name }}</a>
+                <a class="nav-link{{ if $active }} active{{ end }}" href="{{ .URL | absURL }}"{{ if $active }} aria-current="true"{{ end }}>{{ .Name }}{{ with .Params.badge }} <span class="nav-badge">{{ . }}</span>{{ end }}</a>
               </li>
             {{ end -}}
           {{ end -}}
@@ -301,14 +319,14 @@
 
         <!-- Navbar button mobile -->
         {{ if site.Params.doks.navBarButton -}}
-          <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
+          <a class="btn btn-primary mt-2 btn-block d-lg-none" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
         {{ end -}}
       </div>
     </div>
 
     <!-- Navbar button desktop -->
     {{ if site.Params.doks.navBarButton -}}
-      <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
+      <a class="btn btn-primary ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
     {{ end -}}
 
   </div>
