@@ -3,7 +3,7 @@ title: "Automating Golang Project Updates with Updatecli"
 date: 2025-10-24T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 

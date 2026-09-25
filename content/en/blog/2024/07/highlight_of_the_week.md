@@ -3,7 +3,7 @@ title: "Highlight of the week"
 date: 2024-07-29T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 

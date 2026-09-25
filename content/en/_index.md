@@ -5,7 +5,7 @@ lead: "Update anything, anywhere"
 date: 2021-01-09T08:47:36+00:00
 lastmod: 2026-09-25T10:00:00+02:00
 draft: false
-images: ["images/updatecli_512x512.png"]
+images: []
 seo:
   title: "Updatecli: update anything, anywhere"
 ---

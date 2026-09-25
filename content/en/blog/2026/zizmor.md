@@ -3,7 +3,7 @@ title: "Securing GitHub Actions Workflows with Zizmor, Scaling Using Updatecli"
 date: 2026-03-13T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 

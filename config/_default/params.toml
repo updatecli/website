@@ -8,6 +8,10 @@ description = "Automatically open a PR on your GitOps repository when a third se
 # contents in the remaining space. Read by doks-core's baseof.html and single.html.
 mainSections = ["docs"]
 
+# Default link-preview image (og:image, twitter:image) for pages without their own.
+# Hugo's get-page-images falls back to site.Params.images.
+images = ["images/updatecli-social.png"]
+
 # Alert banner
 # The theme reads these from site.Params.*, not site.Params.doks.*, so they must
 # stay above the [doks] table header below.
@@ -119,7 +123,7 @@ svgIcon = "favicon.svg"
 type = "Organization"
 name = "Updatecli"
 logo = "images/updatecli_512x512.png"
-images = ["twitter_cards.png"]
+images = ["images/updatecli-social.png"]
 sameAs = ["https://twitter.com/updatecliio", "https://github.com/updatecli"]
 
 # Social (used by SEO + social menu)

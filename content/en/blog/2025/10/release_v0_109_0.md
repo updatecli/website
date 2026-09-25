@@ -3,7 +3,7 @@ title: "Updatecli v0.109.0 Released: GitHub App Auth, Smarter NPM & Cargo Autodi
 date: 2025-10-13T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 
