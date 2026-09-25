@@ -1,6 +1,7 @@
 baseurl = "/"
 canonifyURLs = false
 disableAliases = true
+
 disableHugoGeneratorInject = true
 enableEmoji = true
 enableGitInfo = true
@@ -20,14 +21,17 @@ defaultContentLanguageInSubdir = false
     enable = true
 
 # Output formats per page kind.
+# - sitemap only on home: Hugo writes every sitemap output to /sitemap.xml, so a
+#   sitemap on sections, taxonomies or terms overwrites the site-wide one (it ended
+#   up listing only the changelogs).
 # - searchIndex is required by Doks FlexSearch.
 # - REDIRECTS/HEADERS render Netlify _redirects and _headers from the home page.
 [outputs]
 home = ["html", "rss", "sitemap", "searchIndex", "llms", "REDIRECTS", "HEADERS"]
 page = ["html", "markdown"]
-section = ["html", "rss", "sitemap"]
-taxonomy = ["html", "rss", "sitemap"]
-term = ["html", "rss", "sitemap"]
+section = ["html", "rss"]
+taxonomy = ["html", "rss"]
+term = ["html", "rss"]
 
 # remove .{ext} from text/netlify
 [mediaTypes."text/netlify"]
@@ -128,3 +132,10 @@ blog = "/blog/:title/"
     [[related.indices]]
     name = "date"
     weight = 10
+
+# Keep taxonomy listings, which duplicate the docs, out of the sitemap.
+[[cascade]]
+  [cascade.sitemap]
+    disable = true
+  [cascade.target]
+    path = "{/plugins,/plugins/**,/tags,/tags/**,/categories,/categories/**,/contributors,/contributors/**}"
