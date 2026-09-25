@@ -983,3 +983,28 @@ body.changelogs.list .wrap > .content {
     outline-offset: 2px;
     box-shadow: none;
 }
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Touch targets in the mobile menus
+//
+// Below lg the menus live in offcanvas panels, where doks-core's desktop spacing
+// leaves links about 27px tall and the colour-mode toggle a bare 24px icon.
+// Bring both up to a 44px target without changing the desktop layout.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-down(lg) {
+    .offcanvas .section-nav a {
+        margin: 0;
+        padding-block: 0.5625rem;
+    }
+
+    #buttonColorMode {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+    }
+}
