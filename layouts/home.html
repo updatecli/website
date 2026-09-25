@@ -11,6 +11,7 @@
 {{- $highlighted := transform.Highlight $manifest.Content "yaml" "hl_inline=true" -}}
 {{- $highlighted = $highlighted | replaceRE `^<code[^>]*>` "" | replaceRE `</code>\s*$` "" -}}
 
+<main class="home-main">
 <section class="home-hero">
   <h1 class="updatecli-wordmark">{{ .Title }}</h1>
   <p class="lead home-lead">{{ .Params.lead }}</p>
@@ -123,4 +124,5 @@ target: dataFile
     </div>
   </div>
 </section>
+</main>
 {{ end }}
