@@ -1,6 +1,53 @@
 // Put your custom SCSS code here
 
 // -----------------------------------------------------------------------------
+// Updatecli theme
+//
+// Fonts, colour tokens and the wordmark live in assets/scss/updatecli/ and do not
+// depend on Doks. Doks' colour-mode toggle marks dark mode with `data-bs-theme`.
+// -----------------------------------------------------------------------------
+
+$updatecli-dark-selector: '[data-bs-theme="dark"]';
+
+@import "updatecli/theme";
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Code blocks, the sidebar and the search modal read the Starlight `--sl-color-*`
+// tokens from doks-core's `common/_colors.scss`, which are a fixed blue-grey scale.
+// Point the background end of that scale and the accent at the Updatecli tokens.
+// The scale is inverted between modes: in dark mode `black` is the page, in light
+// mode `black` is white and `gray-7` is the page. Doks puts the dark values on
+// `:root` and the light ones on `:root[data-bs-theme="light"]`; these rules have the
+// same specificity and load later, so they win.
+// -----------------------------------------------------------------------------
+
+:root {
+    --sl-font: var(--updatecli-font-sans);
+    --sl-font-mono: var(--updatecli-font-mono);
+
+    --sl-color-black: var(--updatecli-bg);
+    --sl-color-gray-6: var(--updatecli-surface);
+    --sl-color-gray-5: color-mix(in srgb, var(--updatecli-surface), white 10%);
+
+    --sl-color-accent-low: color-mix(in srgb, var(--updatecli-primary), black 70%);
+    --sl-color-accent: var(--updatecli-primary-strong);
+    --sl-color-accent-high: var(--updatecli-primary);
+}
+
+:root[data-bs-theme="light"] {
+    --sl-color-black: var(--updatecli-surface);
+    --sl-color-gray-7: var(--updatecli-bg);
+    --sl-color-gray-6: color-mix(in srgb, var(--updatecli-bg), var(--updatecli-secondary) 6%);
+    --sl-color-gray-5: color-mix(in srgb, var(--updatecli-bg), var(--updatecli-secondary) 18%);
+
+    --sl-color-accent-low: color-mix(in srgb, var(--updatecli-primary), white 80%);
+    --sl-color-accent: var(--updatecli-primary);
+    --sl-color-accent-high: var(--updatecli-primary-strong);
+}
+
+// -----------------------------------------------------------------------------
 // Code-block "copy to clipboard" button
 //
 // doks-core's clipboard.js injects

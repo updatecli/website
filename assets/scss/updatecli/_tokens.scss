@@ -1,0 +1,40 @@
+// Updatecli theme tokens
+//
+// The colours and fonts shared with Udash, the Updatecli dashboard. Values come from
+// udash-front `src/plugins/vuetify.js` (colours) and `src/styles/settings.scss`,
+// `src/App.vue` (fonts). Keep them in step when either side changes.
+//
+// Plain Sass only: no Bootstrap, no Doks. `_theme.scss` turns these into CSS custom
+// properties, and the Doks adapter in `common/_variables-custom.scss` reads them too.
+
+$updatecli-light: (
+    "bg": #f4f9ff,
+    "surface": #ffffff,
+    "primary": #0b7a55,
+    "primary-strong": #095e42,
+    "secondary": #0e6e99,
+    "secondary-strong": #0a5575,
+    "error": #be2626,
+    "info": #1a6fd1,
+    "success": #2a732e,
+    "warning": #915806
+);
+
+$updatecli-dark: (
+    "bg": #070b12,
+    "surface": #0f1624,
+    "primary": #39ffb6,
+    "primary-strong": #20c98c,
+    "secondary": #5ad1ff,
+    "secondary-strong": #2e9bc9,
+    "error": #ff5d7a,
+    "info": #7ccbff,
+    "success": #3fb27a,
+    "warning": #ffc857
+);
+
+$updatecli-font-sans: "Space Grotesk", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue",
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$updatecli-font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", monospace;
+$updatecli-font-wordmark: "Orbitron", "Space Grotesk", sans-serif;
