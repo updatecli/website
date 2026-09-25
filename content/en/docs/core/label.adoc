@@ -49,7 +49,7 @@ updatecli compose apply --labels="ecosystem:go"
 +
 Pipelines matching the filter will execute. Pipelines without the label or with a different value will be skipped.
 
-2. **Filtering pipeline reports** in link:https://github.com/updatecli/udash/[Udash]
+2. **Filtering pipeline reports** in link:/docs/udash/[Udash], where labels group pipelines from many repositories into one view. See link:/docs/udash/dashboards/#_filtering_by_label[Filtering by label].
 
 == Filtering with `--labels`
 

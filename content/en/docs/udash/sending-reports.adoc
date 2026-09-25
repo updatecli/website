@@ -1,0 +1,150 @@
+---
+title: "Sending reports"
+description: "Connect Updatecli to a Udash instance, from your laptop or from CI, and make your reports easy to find."
+lead: "Publishing pipeline reports from Updatecli"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-24T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+weight: 30
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+Your manifests stay the same. At the end of a run, Updatecli sends each pipeline's report to Udash.
+It needs three things from you: where to publish, a token if the instance requires one, and the
+`--experimental` flag.
+
+[WARNING]
+====
+Without `--experimental`, nothing is published. Updatecli prints no warning and the run reports
+success, even when an endpoint and a token are configured.
+====
+
+== From your laptop
+
+[source,shell]
+----
+updatecli udash login "https://udash.example.com" --experimental
+----
+
+If the instance requires authentication, the command opens its token page in a browser and asks
+you to paste an API token. Create one there, under *Profile* then *Tokens*. The command checks the
+token before saving it, so a wrong token fails immediately.
+
+If the API is not at the given URL followed by `/api`, set it with `--api-url`:
+
+[source,shell]
+----
+updatecli udash login --api-url "https://api.example.com/api" "https://udash.example.com" --experimental
+----
+
+`updatecli udash config` prints where the settings were saved, and `updatecli udash logout` removes
+them. The link:/docs/commands/updatecli_udash_login/[`updatecli udash login`] reference lists every
+flag.
+
+Then run Updatecli with `--experimental`:
+
+[source,shell]
+----
+updatecli diff --experimental
+----
+
+Each pipeline ends with a link to its stored report:
+
+[source,text]
+----
+UDASH - EXPERIMENTAL
+=====================
+
+Publishing report to Udash
+my pipeline:
+	=> "https://udash.example.com/pipeline/reports/8f2b1c94-...."
+----
+
+== From CI
+
+Use environment variables instead of `udash login`:
+
+[cols="1,3", options="header"]
+|===
+| Variable | Purpose
+
+| `UPDATECLI_UDASH_URL`
+| The Udash URL, used to build the report links.
+
+| `UPDATECLI_UDASH_API_URL`
+| The API URL. Nothing is published when it is unset.
+
+| `UPDATECLI_UDASH_ACCESS_TOKEN`
+| The Udash API token, when the instance requires one.
+|===
+
+A variable wins over the value saved by `udash login`.
+
+[source,yaml]
+----
+- name: Run Updatecli
+  env:
+    UPDATECLI_UDASH_URL: https://udash.example.com
+    UPDATECLI_UDASH_API_URL: https://udash.example.com/api
+    UPDATECLI_UDASH_ACCESS_TOKEN: ${{ secrets.UDASH_TOKEN }}
+  run: updatecli apply --experimental
+----
+
+The token needs the `reports:write` scope, which new tokens get by default. See
+link:/docs/automate/github_action/[GitHub Actions] and link:/docs/automate/jenkins/[Jenkins] for
+the surrounding job.
+
+== Making reports easy to find
+
+The interface is organised per Git repository and filtered by label. A report with neither is
+stored, but you can only reach it through the full report list.
+
+.updatecli.yaml
+[source,yaml]
+----
+{{< include "assets/code_example/docs/udash/sending-reports/updatecli.yaml" >}}
+----
+
+* An `scm` referenced through `scmid` files the pipeline under its Git repository and puts it on
+  the Git dashboard.
+* link:/docs/core/label/[Labels] feed the filters. See
+  link:/docs/udash/dashboards/#_choosing_labels[Choosing labels].
+
+Udash rejects a label with an empty value. Leave the label out instead of setting it to `""`.
+
+== When nothing arrives
+
+[cols="1,2", options="header"]
+|===
+| Symptom | Fix
+
+| No `UDASH - EXPERIMENTAL` section, no warning
+| Add `--experimental`.
+
+| `no Udash endpoint detected, skipping`
+| Run `updatecli udash login`, or set `UPDATECLI_UDASH_API_URL`. Add `--debug` to see which
+source Updatecli read.
+
+| `403` with `token is not allowed to perform this action`
+| Your token cannot write reports. Create a token with the `reports:write` scope, or ask the
+instance administrator for the `publisher` role.
+|===
+
+Problems on the server side, such as sign-in or tokens that are always rejected, are covered in the
+link:https://github.com/updatecli/udash[updatecli/udash] repository.
+
+== Go further
+
+* link:/docs/udash/dashboards/[Dashboards] - the filters these labels feed.
+* link:/docs/help/environment/["Environment variables"] - every variable Updatecli reads.
+* link:/docs/help/experimental/["Experimental features"] - what else `--experimental` turns on.

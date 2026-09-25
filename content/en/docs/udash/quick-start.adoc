@@ -1,0 +1,140 @@
+---
+title: "Quick start"
+description: "Run Udash locally with Docker Compose, point Updatecli at it, and publish your first pipeline report."
+lead: "Udash on your laptop in five minutes"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-24T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+weight: 20
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+This page runs Udash locally, then publishes a report to it from your own Updatecli runs. Nothing is
+authenticated, so do not expose this setup to anyone else.
+
+=== Requirement
+
+. Docker and Docker Compose
+. Updatecli, see link:/docs/prologue/installation/[Installation]
+
+== 1. Create the files
+
+Three files in one directory:
+
+[source,text]
+----
+.
+├── docker-compose.yaml
+├── udash
+│   └── config.yaml
+└── udash-front
+    └── config.json
+----
+
+.docker-compose.yaml
+[source,yaml]
+----
+{{< include "assets/code_example/docs/udash/quick-start/docker-compose.yaml" >}}
+----
+
+.udash/config.yaml
+[source,yaml]
+----
+{{< include "assets/code_example/docs/udash/quick-start/config.yaml" >}}
+----
+
+.udash-front/config.json
+[source,json]
+----
+{{< include "assets/code_example/docs/udash/quick-start/config.json" >}}
+----
+
+== 2. Start Udash
+
+[source,shell]
+----
+docker compose up -d
+----
+
+Open `http://localhost`. If the page does not load, `http://localhost/api/ping` tells you whether
+the API is up.
+
+[NOTE]
+====
+The server may restart a few times on the first start, while PostgreSQL gets ready. It recovers
+on its own within a few seconds.
+====
+
+== 3. Point Updatecli at it
+
+[source,shell]
+----
+updatecli udash login "http://localhost" --experimental
+----
+
+The instance has no authentication, so the command does not ask for a token. It only records the
+endpoint.
+
+== 4. Publish a report
+
+Run Updatecli as usual, with `--experimental` added:
+
+[source,shell]
+----
+updatecli diff --experimental
+----
+
+The run ends with one link per pipeline:
+
+[source,text]
+----
+UDASH - EXPERIMENTAL
+=====================
+
+Publishing report to Udash
+my pipeline:
+	=> "http://localhost/pipeline/reports/8f2b1c94-...."
+----
+
+[WARNING]
+====
+Without `--experimental`, nothing is published and nothing warns you. See the
+link:/docs/help/experimental/["Experimental features" page].
+====
+
+Refresh `http://localhost` and the report is there.
+
+If you have no manifest at hand, a published policy works too. Put this `updatecli-compose.yaml`
+in a repository you care about:
+
+.updatecli-compose.yaml
+[source,yaml]
+----
+{{< include "assets/code_example/docs/udash/quick-start/updatecli-compose.yaml" >}}
+----
+
+and run `updatecli compose diff --experimental`. Pulling a policy may require
+`docker login ghcr.io` first.
+
+== Cleaning up
+
+[source,shell]
+----
+docker compose down --volumes
+----
+
+== Go further
+
+* link:/docs/udash/sending-reports/[Sending reports] - connect Updatecli to a shared instance and to CI.
+* link:/docs/udash/dashboards/[Dashboards] - what to do with the reports once they are in.
+* link:https://github.com/updatecli/udash[updatecli/udash] - deploying a shared instance.

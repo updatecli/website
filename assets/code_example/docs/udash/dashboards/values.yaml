@@ -1,0 +1,17 @@
+scm:
+  enabled: true
+  kind: github
+  owner: my-org
+  repository: my-crate
+  branch: main
+
+# Pull request labels, applied on GitHub. Udash never sees these.
+labels:
+  - dependencies
+
+# Pipeline labels, stored with every report and offered by the Udash filters.
+pipeline:
+  labels:
+    ecosystem: cargo
+    policy: autodiscovery
+    team: platform

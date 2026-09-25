@@ -1,0 +1,73 @@
+---
+title: "Introduction"
+description: "What Udash is, what it shows you, and how Updatecli publishes its pipeline reports to it."
+lead: "The Updatecli dashboard"
+date: 2026-08-07T10:00:00+02:00
+lastmod: 2026-09-24T10:00:00+02:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "udash"
+    identifier: "udash-introduction"
+weight: 10
+toc: true
+---
+// <!-- Required for asciidoctor -->
+:toc:
+// Set toclevels to be at least your hugo [markup.tableOfContents.endLevel] config key
+:toclevels: 4
+
+== Description
+
+An Updatecli run prints its result to the console, and the result is lost unless the CI logs are
+kept. Udash stores it. At the end of a run, Updatecli publishes each pipeline's report to Udash, and
+the interface lets you look at every repository at once, filter by label or by result, and follow
+how a dependency moved over the past weeks.
+
+[WARNING]
+====
+Udash is experimental, on both sides. Publishing reports from Updatecli requires the
+`--experimental` flag, and the API and the interface can change without going through the
+deprecation cycle described on the link:/docs/help/deprecations/["Deprecations" page].
+====
+
+== How it works
+
+Udash is a web interface backed by an API and a PostgreSQL database. Updatecli sends its reports to
+the API over HTTP, from your laptop, from CI, or from a scheduled job. Nothing in your manifests has
+to change.
+
+Two things in a manifest decide how easily you find a report again:
+
+* an `scm`, because the interface is organised per Git repository
+* link:/docs/core/label/[labels], because the filters are built on them
+
+== See it running
+
+The Updatecli project publishes the reports of its own pipelines to a public instance,
+link:https://updatecli.uda.sh[updatecli.uda.sh]. Anyone can browse it without signing in, which
+makes it a quick way to see what Udash shows before running your own. Publishing to it is reserved
+for the Updatecli project.
+
+== Getting an instance
+
+To try Udash on your own pipelines, the link:/docs/udash/quick-start/[quick start] runs it locally with Docker Compose.
+
+For a shared instance, Udash is published as a Helm chart:
+
+[source,shell]
+----
+helm repo add updatecli https://updatecli.github.io/charts
+helm install udash updatecli/udash
+----
+
+Deployment options, authentication, configuration, the in-cluster agent, and the API reference are
+documented in the link:https://github.com/updatecli/udash[updatecli/udash] repository.
+
+== Go further
+
+* link:/docs/udash/quick-start/[Quick start] - run it locally in a few minutes.
+* link:/docs/udash/sending-reports/[Sending reports] - connect Updatecli to an instance.
+* link:/docs/udash/dashboards/[Dashboards] - what the interface offers once reports arrive.
+* link:https://github.com/updatecli/udash[updatecli/udash] - the source, the operator documentation, and the issue tracker.

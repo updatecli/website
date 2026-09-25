@@ -1,0 +1,52 @@
+name: "docs: update the Udash versions used by the documentation examples"
+pipelineid: "updatecli_udash_docs"
+
+# The Udash quick start pins the server and frontend images in its Docker Compose example.
+# Tags are read from the container registry rather than GitHub releases, so a version is
+# only proposed once its image can actually be pulled.
+
+labels:
+  monitor: active
+  ecosystem: docker
+  kind: documentation
+
+actions:
+  default:
+    title: "docs: update the Udash versions used by the documentation examples"
+    kind: github/pullrequest
+    spec:
+      merge:
+        strategy: auto
+      mergemethod: squash
+      reviewers:
+        - updatecli/core
+      labels:
+        - chore
+        - documentation
+    scmid: default
+
+scms:
+  default:
+    kind: github
+    spec:
+      branch: "{{ .scm.branch }}"
+      email: "{{ .scm.email }}"
+      owner: "{{ .scm.owner }}"
+      repository: "{{ .scm.repository }}"
+      user: "{{ .scm.user }}"
+      force: true
+    disabled: false
+
+autodiscovery:
+  groupby: all
+  scmid: default
+  actionid: default
+  crawlers:
+    dockercompose:
+      rootdir: assets/code_example
+      only:
+        - images:
+            - ghcr.io/updatecli/udash
+            - ghcr.io/updatecli/udash-front
+            - updatecli/udash
+            - updatecli/udash-front
