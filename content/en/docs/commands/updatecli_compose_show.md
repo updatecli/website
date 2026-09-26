@@ -32,6 +32,7 @@ updatecli compose show [flags]
       --labels stringArray               Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
       --only-policy-ids stringArray      Filter policies to apply by their policy IDs, accepted as a comma separated list
       --pipeline-ids stringArray         Filter pipelines to apply by their pipeline IDs, accepted a comma separated list
+      --relative-paths string            What the relative paths of a manifest resolve against: "workingdirectory" or "manifest" (env: UPDATECLI_RELATIVE_PATHS) (default "workingdirectory")
 ```
 
 ### Options inherited from parent commands

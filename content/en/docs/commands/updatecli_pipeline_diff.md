@@ -31,6 +31,7 @@ updatecli pipeline diff NAME[:TAG|@DIGEST] [flags]
   -h, --help                        help for diff
       --labels stringArray          Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
       --pipeline-ids stringArray    Filter pipelines to apply by their pipeline IDs, accepted a comma separated list
+      --relative-paths string       What the relative paths of a manifest resolve against: "workingdirectory" or "manifest" (env: UPDATECLI_RELATIVE_PATHS) (default "workingdirectory")
       --reportAPI string            Set the report API URL where to publish pipeline reports
       --secrets stringArray         Sets Sops secrets file uses for templating
       --validate-schema             Report manifest keys not matching the Updatecli schema as warnings (env: UPDATECLI_VALIDATE_SCHEMA)
