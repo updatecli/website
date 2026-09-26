@@ -22,6 +22,7 @@ updatecli manifest push [PATH] [flags]
 ### Options
 
 ```
+      --assets stringArray    Sets an asset file to push with the policy, such as a script or a data file. A manifest reaches it once pulled only with 'options.relativepaths: manifest'
   -c, --config stringArray    Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d' (default [updatecli.d])
       --disable-tls           Disable TLS verification like '--disable-tls=true'
   -h, --help                  help for push

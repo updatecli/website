@@ -13,13 +13,12 @@ toc: true
 
 ## updatecli manifest validate
 
-**Experimental** validate manifest(s) against the Updatecli schema
+validate manifest(s) against the Updatecli schema
 
 ### Synopsis
 
-**Experimental** validate reports the manifest keys that do not match the
-Updatecli schema, such as a misspelled one, which Updatecli would otherwise silently
-ignore.
+validate reports the manifest keys that do not match the Updatecli schema,
+such as a misspelled one, which Updatecli would otherwise silently ignore.
 
 A deprecated keyword, or a key Updatecli cannot check reliably, is reported as a warning
 and does not fail the command unless '--strict' is specified.
@@ -34,6 +33,7 @@ updatecli manifest validate [flags]
   -c, --config stringArray          Sets config file or directory. By default, Updatecli looks for a file named 'updatecli.yaml' or a directory named 'updatecli.d'
       --disable-templating          Disable manifest templating
   -h, --help                        help for validate
+      --relative-paths string       What the relative paths of a manifest resolve against: "workingdirectory" or "manifest" (env: UPDATECLI_RELATIVE_PATHS) (default "workingdirectory")
       --secrets stringArray         Sets secrets file uses for templating
       --strict                      Report warnings as errors
   -v, --values stringArray          Sets values file uses for templating
