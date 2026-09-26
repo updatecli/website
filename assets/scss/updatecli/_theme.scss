@@ -1,0 +1,58 @@
+// Updatecli theme
+//
+// Fonts and CSS custom properties built from `_tokens.scss`. Theme-agnostic, so it
+// keeps working when the site theme changes.
+//
+// The font files are mounted from the @fontsource packages into /fonts/ by
+// config/_default/module.toml.
+
+@import "tokens";
+
+// The attribute the site's colour-mode toggle sets on <html> for dark mode. The only
+// place this layer depends on the surrounding theme.
+$updatecli-dark-selector: '[data-theme="dark"]' !default;
+
+@mixin updatecli-font-face($family, $file, $weight) {
+    @font-face {
+        font-family: $family;
+        font-style: normal;
+        font-weight: $weight;
+        font-display: swap;
+        src: url("/fonts/#{$file}-latin-#{$weight}-normal.woff2") format("woff2");
+    }
+}
+
+@each $weight in (400, 500, 600, 700) {
+    @include updatecli-font-face("Space Grotesk", "space-grotesk/space-grotesk", $weight);
+}
+
+@include updatecli-font-face("Orbitron", "orbitron/orbitron", 700);
+
+@each $weight in (400, 500) {
+    @include updatecli-font-face("JetBrains Mono", "jetbrains-mono/jetbrains-mono", $weight);
+}
+
+@mixin updatecli-colors($palette) {
+    @each $name, $value in $palette {
+        --updatecli-#{$name}: #{$value};
+    }
+}
+
+:root {
+    @include updatecli-colors($updatecli-light);
+
+    --updatecli-font-sans: #{inspect($updatecli-font-sans)};
+    --updatecli-font-mono: #{inspect($updatecli-font-mono)};
+    --updatecli-font-wordmark: #{inspect($updatecli-font-wordmark)};
+}
+
+:root#{$updatecli-dark-selector} {
+    @include updatecli-colors($updatecli-dark);
+}
+
+// The product name where it stands as a logo, as in Udash's app bar.
+.updatecli-wordmark {
+    font-family: var(--updatecli-font-wordmark);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}

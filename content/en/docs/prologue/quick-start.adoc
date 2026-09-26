@@ -41,8 +41,9 @@ updatecli version
 Create an empty directory and work from there.
 Two files are needed: the data file to update, and the manifest describing how to update it.
 
-.The three stages of a pipeline
-image::/images/diagrams/pipeline.png["Updatecli Pipeline"]
+++++
+{{< pipeline-diagram caption="The stages of a pipeline. This Quick Start uses the first three." >}}
+++++
 
 === The data file
 

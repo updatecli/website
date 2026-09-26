@@ -3,7 +3,7 @@ title: "Updatecli Survey"
 date: 2024-07-12T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 
@@ -22,5 +22,5 @@ Thanks in advance for your help.
 ---
 
 <p align="center">
-  <img src="/images/blog/2024/07/cat.jpg" />
+  <img src="/images/blog/2024/07/cat.jpg" alt="An orange cat looking up with large, pleading eyes" />
 </p>

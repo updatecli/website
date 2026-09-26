@@ -3,7 +3,7 @@ title: "Updatecli v0.110.0 Released: GitHub Search SCM, Git branch cleanup & Doc
 date: 2025-11-05T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 

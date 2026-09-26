@@ -1,10 +1,34 @@
-// Updatecli branding — Bootstrap variable overrides.
-// Imported by the theme's app.scss before Bootstrap's own variables.
+// Doks adapter, remove with the theme.
+//
+// Maps the Updatecli theme tokens (assets/scss/updatecli/_tokens.scss) onto the
+// Bootstrap and Doks Sass variables. Imported by the theme's app.scss after
+// doks-core's `_variables-overrides.scss` and before Bootstrap's own variables, so
+// plain assignments here win over both.
 
-// Brand color: Updatecli uses a black primary with a magenta accent.
-$primary: #000;
+@import "updatecli/tokens";
 
-// Accent colors (available for custom rules)
-$pink-500: #d32e9d;
-$purple: #5d2f86;
-$yellow: #ffe000;
+// Fonts
+$font-family-sans-serif: $updatecli-font-sans;
+$font-family-monospace: $updatecli-font-mono;
+
+// Light colour mode
+$primary: map-get($updatecli-light, "primary");
+$secondary: map-get($updatecli-light, "secondary");
+$success: map-get($updatecli-light, "success");
+$info: map-get($updatecli-light, "info");
+$warning: map-get($updatecli-light, "warning");
+$danger: map-get($updatecli-light, "error");
+
+$body-bg: map-get($updatecli-light, "bg");
+$link-color: $primary;
+
+// Dark colour mode, the variables doks-core's `common/_dark.scss` reads
+$body-bg-dark: map-get($updatecli-dark, "bg");
+$border-dark: map-get($updatecli-dark, "surface");
+$light-bg-subtle-dark: map-get($updatecli-dark, "surface");
+
+$link-color-dark: map-get($updatecli-dark, "primary");
+$button-color-dark: $link-color-dark;
+
+$navbar-dark-hover-color: $link-color-dark;
+$navbar-dark-active-color: $link-color-dark;

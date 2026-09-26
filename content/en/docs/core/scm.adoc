@@ -28,7 +28,8 @@ current working directory, and a target that changes a file there gets its chang
 to a branch named after the pipeline `pipelineid`.
 
 A resource without an `scmid` simply works on the current working directory, and Updatecli neither
-clones nor commits anything for it.
+clones nor commits anything for it. A manifest can ask for its own directory to be used instead, with
+link:/docs/core/configuration/#_relative_paths[`options.relativepaths`].
 
 === The `local` scm
 

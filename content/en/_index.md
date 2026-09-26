@@ -1,9 +1,11 @@
 ---
 title : "Updatecli"
-description: "Updatecli is a tool used to apply file update strategies. Designed to be used from everywhere, each application \"run\" detects if a value needs to be updated using a custom strategy then apply changes according to the strategy."
-lead: "Continuously update everything"
+description: "Updatecli updates any value in any file from any source, checking your conditions first. One binary, on a laptop or in CI, with no server and no database."
+lead: "Update anything, anywhere"
 date: 2021-01-09T08:47:36+00:00
-lastmod: 2021-01-09T08:47:36+00:00
+lastmod: 2026-09-25T10:00:00+02:00
 draft: false
 images: []
+seo:
+  title: "Updatecli: update anything, anywhere"
 ---

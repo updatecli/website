@@ -3,7 +3,7 @@ title: "OpenTelemetry Tracing in Updatecli"
 date: 2026-04-01T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["lpostula"]
 ---
 

@@ -12,4 +12,4 @@ sidebar:
 
 Something not behaving as expected, a warning you do not recognise, or an itch to contribute? Start here.
 
-If none of the pages below answer your question, the [support page](/support/) lists the community channels and how to report a bug.
+If none of the pages below answer your question, the [support page](/docs/help/support/) lists the community channels and how to report a bug.

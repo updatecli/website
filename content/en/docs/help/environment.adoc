@@ -107,12 +107,15 @@ fails with `you cannot use both token and app authentication methods`.
 |===
 
 NOTE: Reporting to Udash requires `--experimental`. Without it the step is skipped silently, whatever
-these variables say. See link:/docs/help/experimental/["Experimental features" page].
+these variables say. See link:/docs/help/experimental/["Experimental features" page] and
+link:/docs/udash/sending-reports/["Sending reports"].
 
 == Flag defaults
 
-Two flags read a default from the environment, which is the practical way to set them once for a whole
-CI job rather than on every invocation. An unparsable value is ignored and logged at debug level.
+These flags read a default from the environment, which is the practical way to set them once for a whole
+CI job rather than on every invocation. An unparsable boolean value is ignored and logged at debug level.
+An invalid `UPDATECLI_RELATIVE_PATHS` value is not ignored: the run fails with
+`invalid manifest options: "<value>" is not a valid value for "relativepaths"`.
 
 [cols="1,1,2", options="header"]
 |===
@@ -125,6 +128,12 @@ CI job rather than on every invocation. An unparsable value is ignored and logge
 | `UPDATECLI_DISABLE_VERSION_CHECK`
 | `--disable-version-check`
 | Skip the check for a newer Updatecli release, which runs after the command completes.
+
+| `UPDATECLI_RELATIVE_PATHS`
+| `--relative-paths`
+| What the relative paths of a manifest resolve against, `workingdirectory` (the default) or
+`manifest`. A manifest setting `options.relativepaths` itself wins over this. See
+link:/docs/core/configuration/#_relative_paths["Relative paths"].
 |===
 
 == The `local` scm

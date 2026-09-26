@@ -1,0 +1,39 @@
+{{- /*
+  The stages of an Updatecli pipeline, drawn in HTML and CSS rather than as an
+  image, so it follows the colour mode, stays sharp, and stacks on small screens.
+  Styles: "Pipeline diagram" in assets/scss/common/_custom.scss.
+
+  Usage, in AsciiDoc wrap it in a passthrough block so it is not put in a paragraph:
+
+    ++++
+    {{< pipeline-diagram caption="The stages of a pipeline" >}}
+    ++++
+*/ -}}
+<figure class="pipeline-diagram">
+  <ol>
+    <li>
+      <code>sources</code>
+      <strong>Source</strong>
+      <span>Retrieves the value an update is based on, such as the latest release. It never modifies anything.</span>
+    </li>
+    <li>
+      <code>conditions</code>
+      <strong>Condition</strong>
+      <span>Checks that the update can be applied.</span>
+      <span class="pipeline-diagram-branch">Not met: the targets are skipped.</span>
+    </li>
+    <li>
+      <code>targets</code>
+      <strong>Target</strong>
+      <span>Writes the value where it belongs, such as a key in a YAML file or a line in a Dockerfile.</span>
+    </li>
+    <li class="pipeline-diagram-optional">
+      <code>actions</code>
+      <strong>Action</strong>
+      <span>Optional. With an SCM, commits the change to a working branch and opens the pull request.</span>
+    </li>
+  </ol>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>

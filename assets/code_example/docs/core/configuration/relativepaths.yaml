@@ -1,0 +1,22 @@
+name: Keep the chart image tag in sync
+
+options:
+  # "Chart.yaml" and "values.yaml" below are looked up next to this manifest,
+  # whatever directory updatecli was started from.
+  relativepaths: manifest
+
+sources:
+  version:
+    name: Read the chart version
+    kind: yaml
+    spec:
+      file: Chart.yaml
+      key: $.version
+
+targets:
+  tag:
+    name: Report it as the image tag
+    kind: yaml
+    spec:
+      file: values.yaml
+      key: $.image.tag
