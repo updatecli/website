@@ -3,12 +3,12 @@ title: "Highlight of the week"
 date: 2024-07-29T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 
 <p align="center">
-  <img src="/images/gopher_coffee.png" width="250"/>
+  <img src="/images/gopher_coffee.png" width="250" alt="The Go gopher holding a cup of coffee"/>
 </p>
 
 What a great way to start the week by not discovering one but two blog posts about Updatecli.

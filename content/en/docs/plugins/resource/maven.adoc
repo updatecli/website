@@ -72,7 +72,7 @@ spec:
   artifactid: jenkins-war
 ----
 
-NOTE: `repository` can carry Basic Auth credentials in the standard notation, `username:password@hostname`. Use link:/docs/core/templating/[templating] to keep the password out of the manifest.
+NOTE: `repository` can carry Basic Auth credentials in the standard notation, `username:password@hostname`. Use link:/docs/core/configuration/#_template_functions[template functions] to keep the password out of the manifest.
 
 == Example
 

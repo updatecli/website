@@ -32,7 +32,7 @@ For example:
 . Reusing the same updatecli manifest but with different parameters based on schedules such as for minor and patch updates every week and major updates every month.
 ___
 
-Updatecli allows publishing any updatecli policy to any OCI registry such as **link:https://ghcr.io[ghcr.io]**, **link://https://hub.docker.com/[dockerhub]**, **link:https://quay.io/[quay.io]**, etc..
+Updatecli allows publishing any updatecli policy to any OCI registry such as **link:https://ghcr.io[ghcr.io]**, **link:https://hub.docker.com/[dockerhub]**, **link:https://quay.io/[quay.io]**, etc..
 
 == Policy
 

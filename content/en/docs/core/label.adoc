@@ -241,7 +241,7 @@ The channel describes what the manifest allows, not the size of a bump that happ
 
 ==== `update.strategy`
 
-How the version was selected. Mirrors the resource's `versionfilter.kind`. See link:/docs/core/versionFilter/[versionFilter].
+How the version was selected. Mirrors the resource's `versionfilter.kind`. See link:/docs/core/versionfilter/[versionFilter].
 
 Common values: `semver`, `latest`, `regex`, `lexical`, `time`.
 

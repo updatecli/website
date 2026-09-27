@@ -1,1 +1,4 @@
+# Absolute URLs for the production site: canonical links, og:url, the sitemap and
+# robots.txt must not be relative. Deploy previews override this with -b.
+baseURL = "https://www.updatecli.io/"
 canonifyURLs = false

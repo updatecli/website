@@ -3,14 +3,25 @@ title = "Updatecli"
 titleAddition = "Continuously update everything"
 description = "Automatically open a PR on your GitOps repository when a third service publishes an updates"
 
+# Sections laid out as full-width docs pages: with containerBreakpoint = "fluid",
+# doks-core puts the section menu flush left and centres the content and table of
+# contents in the remaining space. Read by doks-core's baseof.html and single.html.
+mainSections = ["docs"]
+
+# Default link-preview image (og:image, twitter:image) for pages without their own.
+# Hugo's get-page-images falls back to site.Params.images.
+images = ["images/updatecli-social.png"]
+
 # Alert banner
 # The theme reads these from site.Params.*, not site.Params.doks.*, so they must
 # stay above the [doks] table header below.
-alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!</a>"
+alertText = "Like Updatecli? <a class=\"alert-link stretched-link\" href=\"https://github.com/updatecli/updatecli/stargazers\" target=\"_blank\" rel=\"noopener\">Star on GitHub</a>. Thanks!"
 
 # Footer
 footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
-copyRight = "Copyright (c) Updatecli Project"
+# Rendered as "© <build year> <copyRight>" by layouts/_partials/footer/footer.html,
+# matching the Udash footer.
+copyRight = "Updatecli Project"
 
 # Legacy image params consumed by the custom img/img-simple shortcodes.
 # Also read as site.Params.*, so they belong here rather than under a table.
@@ -60,7 +71,7 @@ bootstrapJavascript = true
 
 # Nav
 sectionSwitcher = false
-sectionNav = ["docs", "guides"]
+sectionNav = ["docs", "guides", "changelogs"]
 toTopButton = true
 breadcrumbTrail = false
 headlineHash = true
@@ -112,7 +123,8 @@ svgIcon = "favicon.svg"
 type = "Organization"
 name = "Updatecli"
 logo = "images/updatecli_512x512.png"
-images = ["twitter_cards.png"]
+images = ["images/updatecli-social.png"]
+blogPosting = ["blog"]
 sameAs = ["https://twitter.com/updatecliio", "https://github.com/updatecli"]
 
 # Social (used by SEO + social menu)

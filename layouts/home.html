@@ -1,58 +1,128 @@
+{{- /*
+  Home page. It serves engineers evaluating Updatecli first (hero, how it works,
+  why), then acts as a front door to the docs for practitioners.
+
+  The manifest and its output are the real Quick Start files, so the home page
+  never drifts from the documentation. The code frames reuse the AsciiDoc block
+  markup (listingblock) styled in assets/scss/common/_custom.scss.
+*/ -}}
 {{ define "main" }}
-<section class="section container-fluid mt-n3 pb-3">
-  <div class="row justify-content-center">
-    <div class="col-lg-12 text-center">
-      <h1 class="mt-0">{{ .Title }}</h1>
-    </div>
-    <div class="col-lg-9 col-xl-8 text-center">
-      <p class="lead">{{ .Params.lead | safeHTML }}</p>
-      <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ "docs/prologue/introduction/" | absURL }}" role="button">Get started</a>
-      <p class="meta">Open-source Apache-2.0 Licensed.</p>
-    </div>
-  </div>
-</section>
-{{ end }}
+{{- $manifest := resources.Get "code_example/docs/prologue/quickstart/updatecli.yaml" -}}
+{{- $highlighted := transform.Highlight $manifest.Content "yaml" "hl_inline=true" -}}
+{{- $highlighted = $highlighted | replaceRE `^<code[^>]*>` "" | replaceRE `</code>\s*$` "" -}}
 
-{{ define "sidebar-prefooter" }}
-<section class="section section-sm">
-  <div class="container">
-    <img src="/images/updatecli.png" class="mx-auto d-block img-fluid" alt="Responsive image">
+<main class="home-main">
+<section class="home-hero">
+  <h1 class="updatecli-wordmark">{{ .Title }}</h1>
+  <p class="lead home-lead">{{ .Params.lead }}</p>
+  <p class="home-intro">
+    Updatecli reads a YAML manifest, fetches a value from any source, checks your conditions,
+    then writes the value into any file and opens the pull request. One binary, on a laptop or
+    in any CI, with no server and no database.
+  </p>
+  <div class="home-actions">
+    <a class="btn btn-primary btn-lg px-4" href="{{ "docs/prologue/quick-start/" | relURL }}">Get started</a>
+    <p class="home-install">
+      <code>brew tap updatecli/updatecli &amp;&amp; brew install updatecli</code>
+      <a href="{{ "docs/prologue/installation/" | relURL }}">Other platforms</a>
+    </p>
   </div>
-  <div class="container">
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-5">
-        <h2 class="h4">Continuous Updates</h2>
-        <p>Continuously update everything, from your CI or the CLI.</p>
-      </div>
-      <div class="col-lg-5">
-        <h2 class="h4">Security</h2>
-        <p>Don't wait for your dependencies to be outdated.</p>
-      </div>
-      <div class="col-lg-5">
-        <h2 class="h4">Idempotent</h2>
-        <p>Run it many times, update only once.</p>
-      </div>
-    </div>
-    <div class="row justify-content-center text-center">
-      <div class="col-lg-5">
-        <h2 class="h4">Flexibility</h2>
-        <p>Compose custom update strategies that suit your need.</p>
-      </div>
-      <div class="col-lg-5">
-        <h2 class="h4">Extensible</h2>
-        <p>Easily add new resources.</p>
-      </div>
-    </div>
-  </div>
+  <p class="home-licence">Open source, Apache-2.0 licensed.</p>
 </section>
-{{ end }}
 
-{{ define "sidebar-footer" }}
-<section class="section section-sm container-fluid">
-  <div class="row justify-content-center text-center">
-    <div class="col-lg-9">
-      {{- .Content -}}
+<section class="home-section home-how" aria-labelledby="how-it-works">
+  <h2 id="how-it-works" class="home-heading">How it works</h2>
+  <div class="home-how-grid">
+    <div class="home-how-steps">
+      <p>A manifest declares what to update, where, and under which conditions. Each pipeline runs three stages, always in this order:</p>
+      <ol class="home-steps">
+        <li>
+          <h3>Source</h3>
+          <p>Retrieves the value an update is based on, such as the latest release of a dependency. A source never modifies anything.</p>
+        </li>
+        <li>
+          <h3>Condition</h3>
+          <p>Checks that everything required to apply the update holds true. If a condition is not met, the targets are skipped.</p>
+        </li>
+        <li>
+          <h3>Target</h3>
+          <p>Writes the source value where it belongs, such as a key in a YAML file or a line in a Dockerfile.</p>
+        </li>
+      </ol>
+      <p>An SCM block and an action then commit the change to a working branch and open the pull or merge request.</p>
+      <p><a href="{{ "docs/prologue/introduction/" | relURL }}">Read the introduction</a></p>
+    </div>
+    <div class="home-how-code">
+      <div class="listingblock">
+        <div class="title">updatecli.yaml</div>
+        <div class="content">
+          <pre class="highlight"><code class="chroma language-yaml" data-lang="yaml">{{ $highlighted | safeHTML }}</code></pre>
+        </div>
+      </div>
+      <div class="listingblock">
+        <div class="content">
+          <pre class="highlight"><code class="language-shell" data-lang="shell">$ updatecli diff
+
+source: jenkinsVersion
+✔ version "2.575" found for the Jenkins weekly release
+
+condition: dockerimage
+✔ docker image jenkins/jenkins:2.575 found
+
+target: dataFile
+⚠ - change detected:
+	* key "$.container.tag" should be updated from "2.475" to "2.575", in file "data.yaml"</code></pre>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<section class="home-section" aria-labelledby="why-updatecli">
+  <h2 id="why-updatecli" class="home-heading">Why Updatecli</h2>
+  <div class="home-claims">
+    <div>
+      <h3>Any value, in any file</h3>
+      <p>A YAML key, a Dockerfile, a Helm chart, <code>go.mod</code>, or a line in a text file. Values come from container registries, Maven repositories, Git, HTTP APIs, and more.</p>
+    </div>
+    <div>
+      <h3>Checks before it changes</h3>
+      <p>Conditions validate your assumptions first, so a version that is not published yet, or has <a href="{{ "docs/plugins/resource/vulnerability_osv/" | relURL }}">known vulnerabilities</a>, never reaches a pull request.</p>
+    </div>
+    <div>
+      <h3>No server, no database</h3>
+      <p>The same binary runs on a laptop or in any CI. The manifest and the files it updates are the only state.</p>
+    </div>
+  </div>
+  <p class="home-compare">
+    Updatecli updates related files together, in the order you choose, including the ones
+    no package manager knows about.
+    <a href="{{ "blog/but-why/" | relURL }}">Why Updatecli exists</a>
+  </p>
+</section>
+
+<section class="home-section" aria-labelledby="documentation">
+  <h2 id="documentation" class="home-heading">Documentation</h2>
+  <div class="home-docs">
+    <div>
+      <h3>Start here</h3>
+      <ul class="home-links">
+        <li><a href="{{ "docs/prologue/quick-start/" | relURL }}">Quick Start</a><span>Your first update pipeline, in two files and two commands.</span></li>
+        <li><a href="{{ "docs/prologue/installation/" | relURL }}">Installation</a><span>Homebrew, Linux packages, Windows, Docker, Go, and more.</span></li>
+        <li><a href="{{ "docs/plugins/" | relURL }}">Plugins</a><span>Every source, condition, target, SCM, and action.</span></li>
+        <li><a href="{{ "changelogs/updatecli/" | relURL }}">Changelogs</a><span>What changed in each release.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Go further</h3>
+      <ul class="home-links">
+        <li><a href="{{ "docs/core/autodiscovery/" | relURL }}">Autodiscovery</a><span>Let Updatecli scan a repository and generate the manifests.</span></li>
+        <li><a href="{{ "docs/core/shareandreuse/" | relURL }}">Policies</a><span>Package a manifest as an OCI artifact and reuse it across repositories.</span></li>
+        <li><a href="{{ "docs/core/compose/" | relURL }}">Compose</a><span>Run several policies together from one file.</span></li>
+        <li><a href="{{ "docs/udash/introduction/" | relURL }}">Udash</a> <span class="nav-badge">Experimental</span><span>A dashboard for the reports your pipelines publish.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
 {{ end }}

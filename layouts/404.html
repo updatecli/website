@@ -1,0 +1,18 @@
+{{- /*
+  The page Netlify serves for any missing URL (public/404.html). doks-core only
+  ships a 404 *content* template (layouts/404/single.html), which Hugo does not use
+  for the site-wide 404, so without this file Netlify's default page was shown.
+  The link list reuses the home page's .home-links style.
+*/ -}}
+{{ define "main" }}
+<main class="notfound">
+  <h1>Page not found</h1>
+  <p class="lead">This page does not exist, or it has moved. Search the documentation from the header, or start from one of these pages:</p>
+  <ul class="home-links">
+    <li><a href="{{ "docs/prologue/introduction/" | relURL }}">Documentation</a><span>What Updatecli is, and how a manifest works.</span></li>
+    <li><a href="{{ "docs/prologue/quick-start/" | relURL }}">Quick Start</a><span>Your first update pipeline, in two files and two commands.</span></li>
+    <li><a href="{{ "changelogs/updatecli/" | relURL }}">Changelogs</a><span>What changed in each release.</span></li>
+    <li><a href="{{ "docs/help/support/" | relURL }}">Support</a><span>Where to ask, and how to report a bug.</span></li>
+  </ul>
+</main>
+{{ end }}

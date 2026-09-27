@@ -1352,6 +1352,32 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * it cannot be combined with \"vulnerability\"."
+                                },
+                                "vulnerability": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "description": "\"url\" defines the OSV API URL.\n\ndefault:\n  https://api.osv.dev"
+                                        },
+                                        "strategy": {
+                                            "type": "string",
+                                            "description": "\"strategy\" defines the version a vulnerable dependency is updated to.\n\ndefault:\n  lowest\n\nremark:\n  * the only accepted value is \"lowest\": the lowest version without known vulnerabilities.\n  * the value is case insensitive."
+                                        },
+                                        "minseverity": {
+                                            "type": "string",
+                                            "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\nremark:\n  * accepted values are \"LOW\", \"MODERATE\", \"HIGH\" and \"CRITICAL\", in any case.\n  * \"MEDIUM\" is accepted as an alias of \"MODERATE\".\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                        },
+                                        "ignore": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array",
+                                            "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\nexample:\n  ```\n  ignore:\n    - GO-2025-3503\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516\n  ```"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "\"vulnerability\" switches the autodiscovery to security updates, based on the OSV database (https://osv.dev).\n\nEach Go module is updated to the lowest version without known vulnerabilities,\nand left untouched when it has none.\n\nremark:\n  * only security updates are generated, routine updates require a separate manifest.\n  * it cannot be combined with \"age\", \"versionfilter\" and \"onlygoversion\".\n  * the Go version and indirect modules are not covered.\n  * labels, such as \"security\", are set on the action used by the manifest.\n\nexample:\n  ```\n  vulnerability:\n    minseverity: high\n    ignore:\n      - GO-2025-3503\n  ```"
                                 }
                             },
                             "additionalProperties": false,
@@ -1485,6 +1511,32 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * it cannot be combined with \"vulnerability\"."
+                                },
+                                "vulnerability": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "description": "\"url\" defines the OSV API URL.\n\ndefault:\n  https://api.osv.dev"
+                                        },
+                                        "strategy": {
+                                            "type": "string",
+                                            "description": "\"strategy\" defines the version a vulnerable dependency is updated to.\n\ndefault:\n  lowest\n\nremark:\n  * the only accepted value is \"lowest\": the lowest version without known vulnerabilities.\n  * the value is case insensitive."
+                                        },
+                                        "minseverity": {
+                                            "type": "string",
+                                            "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\nremark:\n  * accepted values are \"LOW\", \"MODERATE\", \"HIGH\" and \"CRITICAL\", in any case.\n  * \"MEDIUM\" is accepted as an alias of \"MODERATE\".\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                        },
+                                        "ignore": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array",
+                                            "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\nexample:\n  ```\n  ignore:\n    - GO-2025-3503\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516\n  ```"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "\"vulnerability\" switches the autodiscovery to security updates, based on the OSV database (https://osv.dev).\n\nEach Go module is updated to the lowest version without known vulnerabilities,\nand left untouched when it has none.\n\nremark:\n  * only security updates are generated, routine updates require a separate manifest.\n  * it cannot be combined with \"age\", \"versionfilter\" and \"onlygoversion\".\n  * the Go version and indirect modules are not covered.\n  * labels, such as \"security\", are set on the action used by the manifest.\n\nexample:\n  ```\n  vulnerability:\n    minseverity: high\n    ignore:\n      - GO-2025-3503\n  ```"
                                 }
                             },
                             "additionalProperties": false,
@@ -1618,6 +1670,32 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * it cannot be combined with \"vulnerability\"."
+                                },
+                                "vulnerability": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "description": "\"url\" defines the OSV API URL.\n\ndefault:\n  https://api.osv.dev"
+                                        },
+                                        "strategy": {
+                                            "type": "string",
+                                            "description": "\"strategy\" defines the version a vulnerable dependency is updated to.\n\ndefault:\n  lowest\n\nremark:\n  * the only accepted value is \"lowest\": the lowest version without known vulnerabilities.\n  * the value is case insensitive."
+                                        },
+                                        "minseverity": {
+                                            "type": "string",
+                                            "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\nremark:\n  * accepted values are \"LOW\", \"MODERATE\", \"HIGH\" and \"CRITICAL\", in any case.\n  * \"MEDIUM\" is accepted as an alias of \"MODERATE\".\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                        },
+                                        "ignore": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array",
+                                            "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\nexample:\n  ```\n  ignore:\n    - GO-2025-3503\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516\n  ```"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "\"vulnerability\" switches the autodiscovery to security updates, based on the OSV database (https://osv.dev).\n\nEach Go module is updated to the lowest version without known vulnerabilities,\nand left untouched when it has none.\n\nremark:\n  * only security updates are generated, routine updates require a separate manifest.\n  * it cannot be combined with \"age\", \"versionfilter\" and \"onlygoversion\".\n  * the Go version and indirect modules are not covered.\n  * labels, such as \"security\", are set on the action used by the manifest.\n\nexample:\n  ```\n  vulnerability:\n    minseverity: high\n    ignore:\n      - GO-2025-3503\n  ```"
                                 }
                             },
                             "additionalProperties": false,
@@ -2539,6 +2617,32 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  ```\n  age:\n    minimum: 3d\n  ```\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * it is propagated to the generated npm sources.\n  * the default keeps Updatecli from suggesting a package version published less than three days ago.\n  * an empty \"age: {}\" disables the default.\n  * it cannot be combined with \"vulnerability\"."
+                                },
+                                "vulnerability": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "description": "\"url\" defines the OSV API URL.\n\ndefault:\n  https://api.osv.dev"
+                                        },
+                                        "strategy": {
+                                            "type": "string",
+                                            "description": "\"strategy\" defines the version a vulnerable dependency is updated to.\n\ndefault:\n  lowest\n\nremark:\n  * the only accepted value is \"lowest\": the lowest version without known vulnerabilities.\n  * the value is case insensitive."
+                                        },
+                                        "minseverity": {
+                                            "type": "string",
+                                            "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\nremark:\n  * accepted values are \"LOW\", \"MODERATE\", \"HIGH\" and \"CRITICAL\", in any case.\n  * \"MEDIUM\" is accepted as an alias of \"MODERATE\".\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                        },
+                                        "ignore": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array",
+                                            "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\nexample:\n  ```\n  ignore:\n    - GO-2025-3503\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516\n  ```"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "\"vulnerability\" switches the autodiscovery to security updates, based on the OSV database (https://osv.dev).\n\nA package is only updated when its current version has known vulnerabilities,\nto the lowest version without any.\n\nremark:\n  * only security updates are generated, routine updates require a separate manifest.\n  * it cannot be combined with \"age\", \"versionfilter\" and \"ignoreversionconstraints\".\n  * the default minimum release age does not apply, a fixed version is suggested as soon as it is known.\n  * the current version is the exact version from package.json or, for a version constraint,\n    the version resolved in the package-lock.json, pnpm-lock.yaml or yarn.lock next to it,\n    or at the root of its workspace. Packages without an identifiable current version are ignored.\n  * labels, such as \"security\", are set on the action used by the manifest.\n\nexample:\n  ```\n  vulnerability:\n    minseverity: high\n    ignore:\n      - GHSA-jr5f-v2jv-69x6\n  ```"
                                 }
                             },
                             "additionalProperties": false,
@@ -15083,6 +15187,212 @@
                             },
                             "kind": {
                                 "enum": [
+                                    "vulnerability/osv"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "\"addprefix\" defines a prefix added to the value.\n\nexample:\n  * addprefix: v"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "\"addsuffix\" defines a suffix added to the value.\n\nexample:\n  * addsuffix: -alpine"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "\"trimprefix\" defines a prefix removed from the value.\n\nexample:\n  * trimprefix: v"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "\"trimsuffix\" defines a suffix removed from the value.\n\nexample:\n  * trimsuffix: -alpine"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "\"from\" defines the text to replace.\n\nexample:\n  * from: \"_\""
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "\"to\" defines the text replacing \"from\".\n\nexample:\n  * to: \".\""
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer defines a text replacement."
+                                            },
+                                            "type": "array",
+                                            "description": "\"replacers\" defines a list of replacements applied to the value.\n\nremark:\n  * all replacements run in a single pass, so a replaced text is never replaced again.\n\nexample:\n  ```\n  replacers:\n    - from: \"_\"\n      to: \".\"\n    - from: \"v\"\n      to: \"\"\n  ```"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "\"from\" defines the text to replace.\n\nexample:\n  * from: \"_\""
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "\"to\" defines the text replacing \"from\".\n\nexample:\n  * to: \".\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "\"replacer\" defines a single replacement applied to the value.\n\nexample:\n  ```\n  replacer:\n    from: \"_\"\n    to: \".\"\n  ```"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "\"find\" defines a regular expression, and replaces the value with its first match.\n\nremark:\n  * when nothing matches, the value becomes empty.\n\nexample:\n  * find: \\d+\\.\\d+\\.\\d+"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "\"pattern\" defines the regular expression applied to the value.\n\nremark:\n  * when nothing matches, the value becomes empty.\n\nexample:\n  * pattern: 'v(\\d+)\\.(\\d+)'"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "\"captureindex\" defines the capture group to return.\n\ndefault:\n  0\n\nremark:\n  * 0 returns the whole match, and capture groups start at 1.\n  * an index without a matching capture group returns an empty value.\n  * ignored when \"capturepattern\" is set.\n\nexample:\n  * captureindex: 1"
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "\"capturepattern\" defines a template building the value from the capture groups.\n\nremark:\n  * \\0 is replaced by the whole match, \\1 by the first capture group, \\2 by the second, and so on.\n  * it takes precedence over \"captureindex\".\n\nexample:\n  * capturepattern: \\1.\\2"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "\"findsubmatch\" defines a regular expression, and replaces the value with one of its capture groups.\n\nexample:\n  ```\n  findsubmatch:\n    pattern: 'v(\\d+)\\.(\\d+)'\n    captureindex: 1\n  ```"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string",
+                                                    "description": "\"key\" defines the dasel query selecting the value in the json input.\n\nremark:\n  * the query uses the dasel v2 selector syntax.\n\nexample:\n  * key: .version\n  * key: .tags.all()"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "\"nomatchresult\" defines the value returned when the query matches nothing.\n\ndefault:\n  empty, which makes the transformer fail when nothing matches.\n\nremark:\n  * \"\u003cinput\u003e\" returns the transformer input.\n  * \"\u003cblank\u003e\" returns an empty value.\n  * any other value is returned as is."
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "\"joinmultiplematches\" defines the separator used to join the results when the query matches several values.\n\nremark:\n  * it takes precedence over \"multiplematchselector\".\n  * when both are empty, several matches make the transformer fail.\n\nexample:\n  * joinmultiplematches: \",\""
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "\"multiplematchselector\" defines which result to return when the query matches several values.\n\nremark:\n  * accepted values are \"first\", \"last\", or an index such as \"[1]\".\n  * a negative index counts from the end, so \"[-1]\" is the last result.\n  * when both \"joinmultiplematches\" and \"multiplematchselector\" are empty, several matches make the transformer fail.\n\nexample:\n  * multiplematchselector: first\n  * multiplematchselector: \"[0]\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ],
+                                            "description": "\"jsonmatch\" defines a query extracting a value from a json input.\n\nexample:\n  ```\n  jsonmatch:\n    key: .version\n  ```"
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "\"semverinc\" defines a comma separated list of semantic version components to increment.\n\nremark:\n  * accepted components are \"major\", \"minor\" and \"patch\", applied in the order given.\n  * the value must be a valid semantic version.\n  * spaces around the commas are not accepted.\n\nexample:\n  * semverinc: patch\n  * semverinc: minor,patch"
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "\"quote\" wraps the value in double quotes.\n\ndefault:\n  false\n\nremark:\n  * special characters in the value are escaped, following Go string syntax."
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "\"unquote\" removes the double quotes around the value.\n\ndefault:\n  false"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer defines a set of rules modifying a value."
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "description": "\"url\" defines the OSV API URL.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  https://api.osv.dev"
+                                    },
+                                    "ecosystem": {
+                                        "type": "string",
+                                        "description": "\"ecosystem\" defines the OSV ecosystem of the package.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * the value is case sensitive: the OSV API rejects \"pypi\" or \"debian\".\n  * \"ecosystem\" and \"name\" are required unless \"purl\" is set.\n  * \"ecosystem\" and \"purl\" are mutually exclusive.\n  * accepted values, as published by osv.dev at https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt, are:\n    AlmaLinux, Alpaquita, Alpine, Android, Azure Linux, BellSoft Hardened Containers, Bitnami, Chainguard,\n    CleanStart, CRAN, crates.io, Debian, Echo, GHC, GIT, GitHub Actions, Go, GSD, Hackage, Hex, Julia,\n    Linux, Mageia, Maven, MinimOS, npm, NuGet, opam, openEuler, openSUSE, OSS-Fuzz, Packagist, Pub, PyPI,\n    Red Hat, Rocky Linux, Root, RubyGems, SUSE, SwiftURL, TuxCare, Ubuntu, UVI, VSCode and Wolfi.\n  * Linux distributions accept a release suffix, such as \"Debian:12\" or \"Ubuntu:22.04:LTS\".\n  * GIT expects the repository URL as name and a tag as version, such as \"https://github.com/libarchive/libarchive.git\" and \"v3.7.4\".\n  * the source key \"fixedversion\" only supports Go, npm, crates.io, NuGet, Hex, Pub and PyPI.\n    Every ecosystem works with the source key \"ids\" and with conditions.\n\nexample:\n  * ecosystem: PyPI\n  * ecosystem: npm\n  * ecosystem: Go\n  * ecosystem: crates.io\n  * ecosystem: Debian:12\n  * ecosystem: Ubuntu:22.04:LTS"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "\"name\" defines the package name within the ecosystem.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * \"ecosystem\" and \"name\" are required unless \"purl\" is set.\n  * \"name\" and \"purl\" are mutually exclusive.\n\nexample:\n  * name: jinja2\n  * name: golang.org/x/net\n  * name: org.apache.logging.log4j:log4j-core\n  * name: \"@angular/core\""
+                                    },
+                                    "purl": {
+                                        "type": "string",
+                                        "description": "\"purl\" defines the package URL, without version.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * \"purl\" is mutually exclusive with \"ecosystem\" and \"name\".\n  * it must start with \"pkg:\" and must not contain a version.\n  * the ecosystem is derived from the package URL type: cargo (crates.io), composer (Packagist), gem (RubyGems),\n    golang (Go), hex (Hex), maven (Maven), npm (npm), nuget (NuGet), pub (Pub) and pypi (PyPI).\n    Vulnerabilities of other package URL types are only matched on the package URL itself,\n    and the source key \"fixedversion\" does not support them.\n\nexample:\n  * purl: pkg:pypi/jinja2\n  * purl: pkg:golang/golang.org/x/net\n  * purl: pkg:npm/%40angular/core"
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "\"version\" defines the package version to check.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  in a condition, the output of the associated source.\n\nremark:\n  * \"version\" is required in a source."
+                                    },
+                                    "key": {
+                                        "type": "string",
+                                        "description": "\"key\" defines the source output.\n\ncompatible:\n  * source\n\ndefault:\n  fixedversion\n\nremark:\n  * accepted values are:\n    * \"fixedversion\": the lowest version, from \"version\", without known vulnerabilities.\n      Supported ecosystems are Go, npm, crates.io, NuGet, Hex, Pub and PyPI.\n      Pre-release fixes are only considered when \"version\" is itself a pre-release.\n    * \"ids\": the comma separated IDs of the known vulnerabilities affecting \"version\".\n  * this source answers \"which version fixes the known vulnerabilities?\", not \"which version is the latest?\".\n    \"fixedversion\" returns the lowest version clearing the advisories affecting \"version\", so it is a security floor,\n    not a release tracker. Combine it with a source such as \"githubrelease\" to also stay current.\n  * its answers are only as good as osv.dev and deps.dev, which index published releases with some delay,\n    so a very recent release may be missing or not yet linked to an advisory.\n  * when no published version fixes every known vulnerability, the source is skipped.\n\nexample:\n  * key: ids"
+                                    },
+                                    "ignore": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\ncompatible:\n  * source\n  * condition\n\nexample:\n  * ignore:\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516"
+                                    },
+                                    "minseverity": {
+                                        "type": "string",
+                                        "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  empty, so every vulnerability is accounted for.\n\nremark:\n  * accepted values are LOW, MODERATE, MEDIUM, HIGH and CRITICAL. MEDIUM is an alias of MODERATE.\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "\"vulnerability/osv\" defines the specification for checking a package against the OSV vulnerability database (https://osv.dev)."
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
                                     "xml"
                                 ]
                             },
@@ -25263,6 +25573,221 @@
                                 "additionalProperties": false,
                                 "type": "object",
                                 "description": "\"toolversions\" defines the specification for manipulating .tool-versions files."
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "failwhen": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
+                                    "vulnerability/osv"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "\"addprefix\" defines a prefix added to the value.\n\nexample:\n  * addprefix: v"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "\"addsuffix\" defines a suffix added to the value.\n\nexample:\n  * addsuffix: -alpine"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "\"trimprefix\" defines a prefix removed from the value.\n\nexample:\n  * trimprefix: v"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "\"trimsuffix\" defines a suffix removed from the value.\n\nexample:\n  * trimsuffix: -alpine"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "\"from\" defines the text to replace.\n\nexample:\n  * from: \"_\""
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "\"to\" defines the text replacing \"from\".\n\nexample:\n  * to: \".\""
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer defines a text replacement."
+                                            },
+                                            "type": "array",
+                                            "description": "\"replacers\" defines a list of replacements applied to the value.\n\nremark:\n  * all replacements run in a single pass, so a replaced text is never replaced again.\n\nexample:\n  ```\n  replacers:\n    - from: \"_\"\n      to: \".\"\n    - from: \"v\"\n      to: \"\"\n  ```"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "\"from\" defines the text to replace.\n\nexample:\n  * from: \"_\""
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "\"to\" defines the text replacing \"from\".\n\nexample:\n  * to: \".\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "\"replacer\" defines a single replacement applied to the value.\n\nexample:\n  ```\n  replacer:\n    from: \"_\"\n    to: \".\"\n  ```"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "\"find\" defines a regular expression, and replaces the value with its first match.\n\nremark:\n  * when nothing matches, the value becomes empty.\n\nexample:\n  * find: \\d+\\.\\d+\\.\\d+"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "\"pattern\" defines the regular expression applied to the value.\n\nremark:\n  * when nothing matches, the value becomes empty.\n\nexample:\n  * pattern: 'v(\\d+)\\.(\\d+)'"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "\"captureindex\" defines the capture group to return.\n\ndefault:\n  0\n\nremark:\n  * 0 returns the whole match, and capture groups start at 1.\n  * an index without a matching capture group returns an empty value.\n  * ignored when \"capturepattern\" is set.\n\nexample:\n  * captureindex: 1"
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "\"capturepattern\" defines a template building the value from the capture groups.\n\nremark:\n  * \\0 is replaced by the whole match, \\1 by the first capture group, \\2 by the second, and so on.\n  * it takes precedence over \"captureindex\".\n\nexample:\n  * capturepattern: \\1.\\2"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "\"findsubmatch\" defines a regular expression, and replaces the value with one of its capture groups.\n\nexample:\n  ```\n  findsubmatch:\n    pattern: 'v(\\d+)\\.(\\d+)'\n    captureindex: 1\n  ```"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string",
+                                                    "description": "\"key\" defines the dasel query selecting the value in the json input.\n\nremark:\n  * the query uses the dasel v2 selector syntax.\n\nexample:\n  * key: .version\n  * key: .tags.all()"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "\"nomatchresult\" defines the value returned when the query matches nothing.\n\ndefault:\n  empty, which makes the transformer fail when nothing matches.\n\nremark:\n  * \"\u003cinput\u003e\" returns the transformer input.\n  * \"\u003cblank\u003e\" returns an empty value.\n  * any other value is returned as is."
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "\"joinmultiplematches\" defines the separator used to join the results when the query matches several values.\n\nremark:\n  * it takes precedence over \"multiplematchselector\".\n  * when both are empty, several matches make the transformer fail.\n\nexample:\n  * joinmultiplematches: \",\""
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "\"multiplematchselector\" defines which result to return when the query matches several values.\n\nremark:\n  * accepted values are \"first\", \"last\", or an index such as \"[1]\".\n  * a negative index counts from the end, so \"[-1]\" is the last result.\n  * when both \"joinmultiplematches\" and \"multiplematchselector\" are empty, several matches make the transformer fail.\n\nexample:\n  * multiplematchselector: first\n  * multiplematchselector: \"[0]\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ],
+                                            "description": "\"jsonmatch\" defines a query extracting a value from a json input.\n\nexample:\n  ```\n  jsonmatch:\n    key: .version\n  ```"
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "\"semverinc\" defines a comma separated list of semantic version components to increment.\n\nremark:\n  * accepted components are \"major\", \"minor\" and \"patch\", applied in the order given.\n  * the value must be a valid semantic version.\n  * spaces around the commas are not accepted.\n\nexample:\n  * semverinc: patch\n  * semverinc: minor,patch"
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "\"quote\" wraps the value in double quotes.\n\ndefault:\n  false\n\nremark:\n  * special characters in the value are escaped, following Go string syntax."
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "\"unquote\" removes the double quotes around the value.\n\ndefault:\n  false"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer defines a set of rules modifying a value."
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "description": "\"url\" defines the OSV API URL.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  https://api.osv.dev"
+                                    },
+                                    "ecosystem": {
+                                        "type": "string",
+                                        "description": "\"ecosystem\" defines the OSV ecosystem of the package.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * the value is case sensitive: the OSV API rejects \"pypi\" or \"debian\".\n  * \"ecosystem\" and \"name\" are required unless \"purl\" is set.\n  * \"ecosystem\" and \"purl\" are mutually exclusive.\n  * accepted values, as published by osv.dev at https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt, are:\n    AlmaLinux, Alpaquita, Alpine, Android, Azure Linux, BellSoft Hardened Containers, Bitnami, Chainguard,\n    CleanStart, CRAN, crates.io, Debian, Echo, GHC, GIT, GitHub Actions, Go, GSD, Hackage, Hex, Julia,\n    Linux, Mageia, Maven, MinimOS, npm, NuGet, opam, openEuler, openSUSE, OSS-Fuzz, Packagist, Pub, PyPI,\n    Red Hat, Rocky Linux, Root, RubyGems, SUSE, SwiftURL, TuxCare, Ubuntu, UVI, VSCode and Wolfi.\n  * Linux distributions accept a release suffix, such as \"Debian:12\" or \"Ubuntu:22.04:LTS\".\n  * GIT expects the repository URL as name and a tag as version, such as \"https://github.com/libarchive/libarchive.git\" and \"v3.7.4\".\n  * the source key \"fixedversion\" only supports Go, npm, crates.io, NuGet, Hex, Pub and PyPI.\n    Every ecosystem works with the source key \"ids\" and with conditions.\n\nexample:\n  * ecosystem: PyPI\n  * ecosystem: npm\n  * ecosystem: Go\n  * ecosystem: crates.io\n  * ecosystem: Debian:12\n  * ecosystem: Ubuntu:22.04:LTS"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "\"name\" defines the package name within the ecosystem.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * \"ecosystem\" and \"name\" are required unless \"purl\" is set.\n  * \"name\" and \"purl\" are mutually exclusive.\n\nexample:\n  * name: jinja2\n  * name: golang.org/x/net\n  * name: org.apache.logging.log4j:log4j-core\n  * name: \"@angular/core\""
+                                    },
+                                    "purl": {
+                                        "type": "string",
+                                        "description": "\"purl\" defines the package URL, without version.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * \"purl\" is mutually exclusive with \"ecosystem\" and \"name\".\n  * it must start with \"pkg:\" and must not contain a version.\n  * the ecosystem is derived from the package URL type: cargo (crates.io), composer (Packagist), gem (RubyGems),\n    golang (Go), hex (Hex), maven (Maven), npm (npm), nuget (NuGet), pub (Pub) and pypi (PyPI).\n    Vulnerabilities of other package URL types are only matched on the package URL itself,\n    and the source key \"fixedversion\" does not support them.\n\nexample:\n  * purl: pkg:pypi/jinja2\n  * purl: pkg:golang/golang.org/x/net\n  * purl: pkg:npm/%40angular/core"
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "\"version\" defines the package version to check.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  in a condition, the output of the associated source.\n\nremark:\n  * \"version\" is required in a source."
+                                    },
+                                    "key": {
+                                        "type": "string",
+                                        "description": "\"key\" defines the source output.\n\ncompatible:\n  * source\n\ndefault:\n  fixedversion\n\nremark:\n  * accepted values are:\n    * \"fixedversion\": the lowest version, from \"version\", without known vulnerabilities.\n      Supported ecosystems are Go, npm, crates.io, NuGet, Hex, Pub and PyPI.\n      Pre-release fixes are only considered when \"version\" is itself a pre-release.\n    * \"ids\": the comma separated IDs of the known vulnerabilities affecting \"version\".\n  * this source answers \"which version fixes the known vulnerabilities?\", not \"which version is the latest?\".\n    \"fixedversion\" returns the lowest version clearing the advisories affecting \"version\", so it is a security floor,\n    not a release tracker. Combine it with a source such as \"githubrelease\" to also stay current.\n  * its answers are only as good as osv.dev and deps.dev, which index published releases with some delay,\n    so a very recent release may be missing or not yet linked to an advisory.\n  * when no published version fixes every known vulnerability, the source is skipped.\n\nexample:\n  * key: ids"
+                                    },
+                                    "ignore": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\ncompatible:\n  * source\n  * condition\n\nexample:\n  * ignore:\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516"
+                                    },
+                                    "minseverity": {
+                                        "type": "string",
+                                        "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  empty, so every vulnerability is accounted for.\n\nremark:\n  * accepted values are LOW, MODERATE, MEDIUM, HIGH and CRITICAL. MEDIUM is an alias of MODERATE.\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "\"vulnerability/osv\" defines the specification for checking a package against the OSV vulnerability database (https://osv.dev)."
                             },
                             "scmid": {
                                 "type": "string",
@@ -35904,6 +36429,230 @@
                             },
                             "kind": {
                                 "enum": [
+                                    "vulnerability/osv"
+                                ]
+                            },
+                            "transformers": {
+                                "items": {
+                                    "properties": {
+                                        "addprefix": {
+                                            "type": "string",
+                                            "description": "\"addprefix\" defines a prefix added to the value.\n\nexample:\n  * addprefix: v"
+                                        },
+                                        "addsuffix": {
+                                            "type": "string",
+                                            "description": "\"addsuffix\" defines a suffix added to the value.\n\nexample:\n  * addsuffix: -alpine"
+                                        },
+                                        "trimprefix": {
+                                            "type": "string",
+                                            "description": "\"trimprefix\" defines a prefix removed from the value.\n\nexample:\n  * trimprefix: v"
+                                        },
+                                        "trimsuffix": {
+                                            "type": "string",
+                                            "description": "\"trimsuffix\" defines a suffix removed from the value.\n\nexample:\n  * trimsuffix: -alpine"
+                                        },
+                                        "replacers": {
+                                            "items": {
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "description": "\"from\" defines the text to replace.\n\nexample:\n  * from: \"_\""
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "description": "\"to\" defines the text replacing \"from\".\n\nexample:\n  * to: \".\""
+                                                    }
+                                                },
+                                                "additionalProperties": false,
+                                                "type": "object",
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "description": "Replacer defines a text replacement."
+                                            },
+                                            "type": "array",
+                                            "description": "\"replacers\" defines a list of replacements applied to the value.\n\nremark:\n  * all replacements run in a single pass, so a replaced text is never replaced again.\n\nexample:\n  ```\n  replacers:\n    - from: \"_\"\n      to: \".\"\n    - from: \"v\"\n      to: \"\"\n  ```"
+                                        },
+                                        "replacer": {
+                                            "properties": {
+                                                "from": {
+                                                    "type": "string",
+                                                    "description": "\"from\" defines the text to replace.\n\nexample:\n  * from: \"_\""
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "description": "\"to\" defines the text replacing \"from\".\n\nexample:\n  * to: \".\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "from",
+                                                "to"
+                                            ],
+                                            "description": "\"replacer\" defines a single replacement applied to the value.\n\nexample:\n  ```\n  replacer:\n    from: \"_\"\n    to: \".\"\n  ```"
+                                        },
+                                        "find": {
+                                            "type": "string",
+                                            "description": "\"find\" defines a regular expression, and replaces the value with its first match.\n\nremark:\n  * when nothing matches, the value becomes empty.\n\nexample:\n  * find: \\d+\\.\\d+\\.\\d+"
+                                        },
+                                        "findsubmatch": {
+                                            "properties": {
+                                                "pattern": {
+                                                    "type": "string",
+                                                    "description": "\"pattern\" defines the regular expression applied to the value.\n\nremark:\n  * when nothing matches, the value becomes empty.\n\nexample:\n  * pattern: 'v(\\d+)\\.(\\d+)'"
+                                                },
+                                                "captureindex": {
+                                                    "type": "integer",
+                                                    "description": "\"captureindex\" defines the capture group to return.\n\ndefault:\n  0\n\nremark:\n  * 0 returns the whole match, and capture groups start at 1.\n  * an index without a matching capture group returns an empty value.\n  * ignored when \"capturepattern\" is set.\n\nexample:\n  * captureindex: 1"
+                                                },
+                                                "capturepattern": {
+                                                    "type": "string",
+                                                    "description": "\"capturepattern\" defines a template building the value from the capture groups.\n\nremark:\n  * \\0 is replaced by the whole match, \\1 by the first capture group, \\2 by the second, and so on.\n  * it takes precedence over \"captureindex\".\n\nexample:\n  * capturepattern: \\1.\\2"
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "pattern"
+                                            ],
+                                            "description": "\"findsubmatch\" defines a regular expression, and replaces the value with one of its capture groups.\n\nexample:\n  ```\n  findsubmatch:\n    pattern: 'v(\\d+)\\.(\\d+)'\n    captureindex: 1\n  ```"
+                                        },
+                                        "jsonmatch": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string",
+                                                    "description": "\"key\" defines the dasel query selecting the value in the json input.\n\nremark:\n  * the query uses the dasel v2 selector syntax.\n\nexample:\n  * key: .version\n  * key: .tags.all()"
+                                                },
+                                                "nomatchresult": {
+                                                    "type": "string",
+                                                    "description": "\"nomatchresult\" defines the value returned when the query matches nothing.\n\ndefault:\n  empty, which makes the transformer fail when nothing matches.\n\nremark:\n  * \"\u003cinput\u003e\" returns the transformer input.\n  * \"\u003cblank\u003e\" returns an empty value.\n  * any other value is returned as is."
+                                                },
+                                                "joinmultiplematches": {
+                                                    "type": "string",
+                                                    "description": "\"joinmultiplematches\" defines the separator used to join the results when the query matches several values.\n\nremark:\n  * it takes precedence over \"multiplematchselector\".\n  * when both are empty, several matches make the transformer fail.\n\nexample:\n  * joinmultiplematches: \",\""
+                                                },
+                                                "multiplematchselector": {
+                                                    "type": "string",
+                                                    "description": "\"multiplematchselector\" defines which result to return when the query matches several values.\n\nremark:\n  * accepted values are \"first\", \"last\", or an index such as \"[1]\".\n  * a negative index counts from the end, so \"[-1]\" is the last result.\n  * when both \"joinmultiplematches\" and \"multiplematchselector\" are empty, several matches make the transformer fail.\n\nexample:\n  * multiplematchselector: first\n  * multiplematchselector: \"[0]\""
+                                                }
+                                            },
+                                            "additionalProperties": false,
+                                            "type": "object",
+                                            "required": [
+                                                "key"
+                                            ],
+                                            "description": "\"jsonmatch\" defines a query extracting a value from a json input.\n\nexample:\n  ```\n  jsonmatch:\n    key: .version\n  ```"
+                                        },
+                                        "semverinc": {
+                                            "type": "string",
+                                            "description": "\"semverinc\" defines a comma separated list of semantic version components to increment.\n\nremark:\n  * accepted components are \"major\", \"minor\" and \"patch\", applied in the order given.\n  * the value must be a valid semantic version.\n  * spaces around the commas are not accepted.\n\nexample:\n  * semverinc: patch\n  * semverinc: minor,patch"
+                                        },
+                                        "quote": {
+                                            "type": "boolean",
+                                            "description": "\"quote\" wraps the value in double quotes.\n\ndefault:\n  false\n\nremark:\n  * special characters in the value are escaped, following Go string syntax."
+                                        },
+                                        "unquote": {
+                                            "type": "boolean",
+                                            "description": "\"unquote\" removes the double quotes around the value.\n\ndefault:\n  false"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "Transformer defines a set of rules modifying a value."
+                                },
+                                "type": "array",
+                                "description": "transformers defines how the default input value need to be transformed"
+                            },
+                            "spec": {
+                                "$schema": "http://json-schema.org/draft-04/schema",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "description": "\"url\" defines the OSV API URL.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  https://api.osv.dev"
+                                    },
+                                    "ecosystem": {
+                                        "type": "string",
+                                        "description": "\"ecosystem\" defines the OSV ecosystem of the package.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * the value is case sensitive: the OSV API rejects \"pypi\" or \"debian\".\n  * \"ecosystem\" and \"name\" are required unless \"purl\" is set.\n  * \"ecosystem\" and \"purl\" are mutually exclusive.\n  * accepted values, as published by osv.dev at https://osv-vulnerabilities.storage.googleapis.com/ecosystems.txt, are:\n    AlmaLinux, Alpaquita, Alpine, Android, Azure Linux, BellSoft Hardened Containers, Bitnami, Chainguard,\n    CleanStart, CRAN, crates.io, Debian, Echo, GHC, GIT, GitHub Actions, Go, GSD, Hackage, Hex, Julia,\n    Linux, Mageia, Maven, MinimOS, npm, NuGet, opam, openEuler, openSUSE, OSS-Fuzz, Packagist, Pub, PyPI,\n    Red Hat, Rocky Linux, Root, RubyGems, SUSE, SwiftURL, TuxCare, Ubuntu, UVI, VSCode and Wolfi.\n  * Linux distributions accept a release suffix, such as \"Debian:12\" or \"Ubuntu:22.04:LTS\".\n  * GIT expects the repository URL as name and a tag as version, such as \"https://github.com/libarchive/libarchive.git\" and \"v3.7.4\".\n  * the source key \"fixedversion\" only supports Go, npm, crates.io, NuGet, Hex, Pub and PyPI.\n    Every ecosystem works with the source key \"ids\" and with conditions.\n\nexample:\n  * ecosystem: PyPI\n  * ecosystem: npm\n  * ecosystem: Go\n  * ecosystem: crates.io\n  * ecosystem: Debian:12\n  * ecosystem: Ubuntu:22.04:LTS"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "\"name\" defines the package name within the ecosystem.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * \"ecosystem\" and \"name\" are required unless \"purl\" is set.\n  * \"name\" and \"purl\" are mutually exclusive.\n\nexample:\n  * name: jinja2\n  * name: golang.org/x/net\n  * name: org.apache.logging.log4j:log4j-core\n  * name: \"@angular/core\""
+                                    },
+                                    "purl": {
+                                        "type": "string",
+                                        "description": "\"purl\" defines the package URL, without version.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * \"purl\" is mutually exclusive with \"ecosystem\" and \"name\".\n  * it must start with \"pkg:\" and must not contain a version.\n  * the ecosystem is derived from the package URL type: cargo (crates.io), composer (Packagist), gem (RubyGems),\n    golang (Go), hex (Hex), maven (Maven), npm (npm), nuget (NuGet), pub (Pub) and pypi (PyPI).\n    Vulnerabilities of other package URL types are only matched on the package URL itself,\n    and the source key \"fixedversion\" does not support them.\n\nexample:\n  * purl: pkg:pypi/jinja2\n  * purl: pkg:golang/golang.org/x/net\n  * purl: pkg:npm/%40angular/core"
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "\"version\" defines the package version to check.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  in a condition, the output of the associated source.\n\nremark:\n  * \"version\" is required in a source."
+                                    },
+                                    "key": {
+                                        "type": "string",
+                                        "description": "\"key\" defines the source output.\n\ncompatible:\n  * source\n\ndefault:\n  fixedversion\n\nremark:\n  * accepted values are:\n    * \"fixedversion\": the lowest version, from \"version\", without known vulnerabilities.\n      Supported ecosystems are Go, npm, crates.io, NuGet, Hex, Pub and PyPI.\n      Pre-release fixes are only considered when \"version\" is itself a pre-release.\n    * \"ids\": the comma separated IDs of the known vulnerabilities affecting \"version\".\n  * this source answers \"which version fixes the known vulnerabilities?\", not \"which version is the latest?\".\n    \"fixedversion\" returns the lowest version clearing the advisories affecting \"version\", so it is a security floor,\n    not a release tracker. Combine it with a source such as \"githubrelease\" to also stay current.\n  * its answers are only as good as osv.dev and deps.dev, which index published releases with some delay,\n    so a very recent release may be missing or not yet linked to an advisory.\n  * when no published version fixes every known vulnerability, the source is skipped.\n\nexample:\n  * key: ids"
+                                    },
+                                    "ignore": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\ncompatible:\n  * source\n  * condition\n\nexample:\n  * ignore:\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516"
+                                    },
+                                    "minseverity": {
+                                        "type": "string",
+                                        "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\ncompatible:\n  * source\n  * condition\n\ndefault:\n  empty, so every vulnerability is accounted for.\n\nremark:\n  * accepted values are LOW, MODERATE, MEDIUM, HIGH and CRITICAL. MEDIUM is an alias of MODERATE.\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "type": "object",
+                                "description": "\"vulnerability/osv\" defines the specification for checking a package against the OSV vulnerability database (https://osv.dev)."
+                            },
+                            "scmid": {
+                                "type": "string",
+                                "description": "scmid specifies the scm configuration key associated to the current resource"
+                            },
+                            "dependsonchange": {
+                                "type": "boolean"
+                            },
+                            "disablesourceinput": {
+                                "type": "boolean"
+                            },
+                            "sourceid": {
+                                "type": "string"
+                            },
+                            "deprecatedconditionids": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "disableconditions": {
+                                "type": "boolean"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "type": "object",
+                        "required": [
+                            "kind"
+                        ]
+                    },
+                    {
+                        "$schema": "http://json-schema.org/draft-04/schema",
+                        "properties": {
+                            "dependson": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array",
+                                "description": "\"dependson\" allows to specify the order of execution of resources.\nIt accepts a list of rules like \"(resourceType#)resourceId(:booleanOperator)\".\n\nThe resourceType is optional and can be one of \"condition\", \"source\" or \"target\"\nBy default the resourceType is the current resource type\n\nThe resourceId is the name of the resource to depend on\n\nThe booleanOperator is optional and can be \"AND\" or \"OR\"\n\nexamples:\n   dependson:\n     * condition#myCondition:and\n     * source#mySource\n\nremarks:\n * The parameters \"sourceid\" and \"conditionsids\" affect the order of resource execution.\n * To avoid circular dependencies, the depended resource may need to remove any conditionids or set \"disablesourceinput to true\"."
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "name specifies the resource name"
+                            },
+                            "kind": {
+                                "enum": [
                                     "xml"
                                 ]
                             },
@@ -36340,6 +37089,21 @@
         "version": {
             "type": "string",
             "description": "\"version\" defines the minimum Updatecli version compatible with the manifest"
+        },
+        "options": {
+            "properties": {
+                "relativepaths": {
+                    "type": "string",
+                    "enum": [
+                        "workingdirectory",
+                        "manifest"
+                    ],
+                    "description": "\"relativepaths\" defines what the relative paths of this manifest resolve against.\n\naccepted values:\n\t* \"workingdirectory\": relative to the directory updatecli was started from. Default.\n\t* \"manifest\": relative to the directory holding this manifest.\n\nexample:\n---\noptions:\n  relativepaths: manifest\nsources:\n  version:\n    kind: json\n    spec:\n      # resolved next to this manifest rather than next to the shell that ran updatecli\n      file: package.json\n      key: .version\n---\n\nremark:\n\t* a resource with an \"scmid\" resolves its file paths against the scm checkout,\n\t  whatever this setting says.\n\t* with \"manifest\", a relative scm \"directory\" also resolves from the manifest\n\t  directory, and so does the \"path\" of the gittag, gitbranch and gitcommit\n\t  resources, even when they have an \"scmid\".\n\t* with \"manifest\", autodiscovery without an scm searches the manifest directory,\n\t  and the \"local\" scm is guessed from the git repository holding the manifest. A\n\t  manifest outside a git repository cannot use \"scmid: local\".\n\t* it overrides the \"--relative-paths\" command line flag."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "description": "\"options\" defines the manifest level settings that change how Updatecli behaves,\nas opposed to the keys describing what the pipeline is made of.\n\nexample:\n---\noptions:\n  relativepaths: manifest\n---"
         },
         "labels": {
             "additionalProperties": {

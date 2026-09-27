@@ -41,7 +41,7 @@ Not supported - a target fails with `target not supported for the plugin GitLab 
 
 NOTE: An `scm` attached to a condition is ignored, with a warning. The lookup always goes to the GitLab API.
 
-TIP: To work with tags over the git protocol instead, on any host (and to *create* one), use link:/docs/plugins/resource/gitTag/[`gittag`].
+TIP: To work with tags over the git protocol instead, on any host (and to *create* one), use link:/docs/plugins/resource/gittag/[`gittag`].
 
 == Parameters
 

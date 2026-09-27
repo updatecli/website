@@ -1,12 +1,21 @@
 {{/*
-  Verbatim copy of @thulite/doks-core 1.9.3
-  layouts/_partials/header/header.html, with ONE change: the "Social menu"
-  block near the bottom groups the community links into a dropdown.
+  Copy of @thulite/doks-core 1.9.3 layouts/_partials/header/header.html, with
+  these changes:
 
-  doks exposes no hook for that block, so overriding the whole partial is the
-  only way to restructure it. Keep the rest of this file identical to upstream:
-  on a doks upgrade, diff the new upstream file against this one and re-apply
-  only the social-menu change.
+  1. The "Social menu" block near the bottom groups the community links into a
+     dropdown.
+  2. The site title is the Updatecli brand: the logo plus the name in the
+     wordmark face (assets/scss/updatecli/_theme.scss). The name comes from
+     site.Params.title, since the site defines no top-level title; the mobile
+     menu title uses it too, so that menu is not left unnamed.
+  3. A main menu entry can carry a `badge` param, rendered after its name, and an
+     `activePath` param: on pages under that URL prefix the entry is the only
+     active one, so "Docs" is not also marked active (see menus.en.toml).
+  4. The navbar button uses the site's regular button shape instead of a pill.
+
+  doks exposes no hooks for these, so overriding the whole partial is the only
+  way. Keep the rest of this file identical to upstream: on a doks upgrade, diff
+  the new upstream file against this one and re-apply the changes above.
 */ -}}
 {{ if site.Params.doks.alert -}}
   {{ partial "header/alert.html" . }}
@@ -28,7 +37,10 @@
   {{ end -}}
 
     <!-- Site title -->
-    <a class="navbar-brand me-auto me-lg-3" href="{{ relLangURL "" }}">{{ .Site.Title }}</a>
+    <a class="navbar-brand navbar-brand-updatecli me-auto me-lg-3" href="{{ relLangURL "" }}">
+      <img src="{{ "images/updatecli_64.png" | relURL }}" width="32" height="32" alt="">
+      <span class="updatecli-wordmark">{{ site.Params.title | default site.Title }}</span>
+    </a>
 
     <!-- FlexSearch mobile -->
     {{ partial "main/showFlexSearch" . }}
@@ -95,7 +107,7 @@
         <div class="header-bar d-lg-none"></div>
       {{ end -}}
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">{{ site.Title }}</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavMainLabel">{{ site.Params.title | default site.Title }}</h5>
         <button type="button" class="btn btn-link nav-link p-0 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -120,11 +132,18 @@
         <ul class="navbar-nav flex-grow-1">
           {{- $current := . -}}
           {{- $section := $current.Section -}}
+          {{- $claimed := "" -}}
+          {{- range .Site.Menus.main -}}
+            {{- with .Params.activePath -}}
+              {{- if hasPrefix $current.RelPermalink . }}{{ $claimed = . }}{{ end -}}
+            {{- end -}}
+          {{- end -}}
           {{ range .Site.Menus.main -}}
             {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
             {{- $active = or $active (eq .Name $current.Title) -}}
             {{- $active = or $active (eq .Name ($section | humanize)) -}}
             {{- $active = or $active (and (eq .Name "Blog") (eq $current.Section "blog" "authors")) -}}
+            {{- if $claimed }}{{ $active = eq .Params.activePath $claimed }}{{ end -}}
             {{ if .HasChildren -}}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -143,7 +162,7 @@
               </li>
             {{ else -}}
               <li class="nav-item">
-                <a class="nav-link{{ if $active }} active{{ end }}" href="{{ .URL | absURL }}"{{ if $active }} aria-current="true"{{ end }}>{{ .Name }}</a>
+                <a class="nav-link{{ if $active }} active{{ end }}" href="{{ .URL | absURL }}"{{ if $active }} aria-current="true"{{ end }}>{{ .Name }}{{ with .Params.badge }} <span class="nav-badge">{{ . }}</span>{{ end }}</a>
               </li>
             {{ end -}}
           {{ end -}}
@@ -253,47 +272,18 @@
 
         <!-- Social menu -->
         {{/*
-          CHANGED FROM UPSTREAM. Entries carrying `params.group = "community"`
-          in config/_default/menus/menus.en.toml are collapsed into a single
-          dropdown, so the navbar shows a handful of icons instead of a row of
-          seven near-identical glyphs. Everything else (GitHub above all, since
-          it is the highest-intent link in the header) stays top level.
-
-          Below lg the navbar is an offcanvas panel with room to spare, so there
-          the grouped entries stay flat and the dropdown is hidden instead.
+          CHANGED FROM UPSTREAM. Only social entries without
+          `params.placement = "footer"` in config/_default/menus/menus.en.toml
+          render here, which leaves GitHub, the highest-intent link in the header.
+          The community links and Udash are listed in the footer instead, see
+          layouts/_partials/footer/footer.html.
         */ -}}
-        {{ if .Site.Menus.social -}}
-        {{ $community := where .Site.Menus.social "Params.group" "community" -}}
+        {{ with where .Site.Menus.social "Params.placement" "!=" "footer" -}}
         <ul id="socialMenu" class="nav flex-row order-lg-4">
-          {{ range .Site.Menus.social -}}
-            <li class="nav-item{{ if eq (.Params.group | default "") "community" }} d-lg-none{{ end }}">
+          {{ range . -}}
+            <li class="nav-item">
               <a class="nav-link social-link" href="{{ .URL | relURL }}">{{ .Pre | safeHTML }}<small class="ms-2 visually-hidden">{{ .Name | safeHTML }}</small></a>
             </li>
-          {{ end -}}
-          {{ with $community -}}
-          <li class="nav-item dropdown d-none d-lg-block">
-            {{/* `data-bs-display="static"` skips Popper and lets the stylesheet
-                 place the menu, which is what the language and version dropdowns
-                 above already do. It is what makes `dropdown-menu-end` right-align
-                 the panel; left-aligned, it would run off the edge of the viewport
-                 because this trigger sits at the far right of the navbar. */ -}}
-            <a class="nav-link social-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" aria-label="Community links">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
-              </svg>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow rounded border-0">
-              {{ range . -}}
-                <li>
-                  <a class="dropdown-item social-dropdown-item" href="{{ .URL | relURL }}">{{ .Pre | safeHTML }}<span>{{ .Name | safeHTML }}</span></a>
-                </li>
-              {{ end -}}
-            </ul>
-          </li>
           {{ end -}}
         </ul>
         {{ end -}}
@@ -301,14 +291,14 @@
 
         <!-- Navbar button mobile -->
         {{ if site.Params.doks.navBarButton -}}
-          <a class="btn btn-primary rounded-pill mt-2 btn-block d-lg-none" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
+          <a class="btn btn-primary mt-2 btn-block d-lg-none" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
         {{ end -}}
       </div>
     </div>
 
     <!-- Navbar button desktop -->
     {{ if site.Params.doks.navBarButton -}}
-      <a class="btn btn-primary rounded-pill ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
+      <a class="btn btn-primary ms-3 me-2 px-4 order-lg-3 d-none d-lg-block" href="{{ site.Params.doks.navBarButtonUrl | absURL }}" role="button">{{ site.Params.doks.navBarButtonText }}</a>
     {{ end -}}
 
   </div>

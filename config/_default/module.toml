@@ -94,6 +94,23 @@
   source = "node_modules/@thulite/doks-core/static"
   target = "static"
 
+# Updatecli theme fonts, self-hosted because the CSP only allows `font-src 'self'`.
+# Only the latin woff2 files that assets/scss/updatecli/_theme.scss references.
+[[mounts]]
+  files = ['space-grotesk-latin-{400,500,600,700}-normal.woff2']
+  source = "node_modules/@fontsource/space-grotesk/files"
+  target = "static/fonts/space-grotesk"
+
+[[mounts]]
+  files = ['orbitron-latin-700-normal.woff2']
+  source = "node_modules/@fontsource/orbitron/files"
+  target = "static/fonts/orbitron"
+
+[[mounts]]
+  files = ['jetbrains-mono-latin-{400,500}-normal.woff2']
+  source = "node_modules/@fontsource/jetbrains-mono/files"
+  target = "static/fonts/jetbrains-mono"
+
 [[mounts]]
   source = "static"
   target = "static"

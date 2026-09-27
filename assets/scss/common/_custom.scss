@@ -1,6 +1,68 @@
 // Put your custom SCSS code here
 
 // -----------------------------------------------------------------------------
+// Updatecli theme
+//
+// Fonts, colour tokens and the wordmark live in assets/scss/updatecli/ and do not
+// depend on Doks. Doks' colour-mode toggle marks dark mode with `data-bs-theme`.
+// -----------------------------------------------------------------------------
+
+$updatecli-dark-selector: '[data-bs-theme="dark"]';
+
+@import "updatecli/theme";
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Code blocks, the sidebar and the search modal read the Starlight `--sl-color-*`
+// tokens from doks-core's `common/_colors.scss`, which are a fixed blue-grey scale.
+// Point the background end of that scale and the accent at the Updatecli tokens.
+// The scale is inverted between modes: in dark mode `black` is the page, in light
+// mode `black` is white and `gray-7` is the page. Doks puts the dark values on
+// `:root` and the light ones on `:root[data-bs-theme="light"]`; these rules have the
+// same specificity and load later, so they win.
+// -----------------------------------------------------------------------------
+
+:root {
+    --sl-font: var(--updatecli-font-sans);
+    --sl-font-mono: var(--updatecli-font-mono);
+
+    --sl-color-black: var(--updatecli-bg);
+    --sl-color-gray-6: var(--updatecli-surface);
+    --sl-color-gray-5: color-mix(in srgb, var(--updatecli-surface), white 10%);
+
+    --sl-color-accent-low: color-mix(in srgb, var(--updatecli-primary), black 70%);
+    --sl-color-accent: var(--updatecli-primary-strong);
+    --sl-color-accent-high: var(--updatecli-primary);
+}
+
+:root[data-bs-theme="light"] {
+    --sl-color-black: var(--updatecli-surface);
+    --sl-color-gray-7: var(--updatecli-bg);
+    --sl-color-gray-6: color-mix(in srgb, var(--updatecli-bg), var(--updatecli-secondary) 6%);
+    --sl-color-gray-5: color-mix(in srgb, var(--updatecli-bg), var(--updatecli-secondary) 18%);
+
+    --sl-color-accent-low: color-mix(in srgb, var(--updatecli-primary), white 80%);
+    --sl-color-accent: var(--updatecli-primary);
+    --sl-color-accent-high: var(--updatecli-primary-strong);
+}
+
+// doks-core hard-codes its old purple (#5d2f86) as the accent line of code-block
+// tabs in light mode, for both the system preference and the toggle
+// (`components/_expressive-code.scss`). Point it back at the Updatecli accent. The
+// selectors match doks-core's specificity and load later, so they win.
+:root[data-bs-theme="light"],
+:root[data-bs-theme="light"] .expressive-code {
+    --ec-frm-edActTabIndTopCol: var(--sl-color-accent);
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-bs-theme="dark"]) {
+        --ec-frm-edActTabIndTopCol: var(--sl-color-accent);
+    }
+}
+
+// -----------------------------------------------------------------------------
 // Code-block "copy to clipboard" button
 //
 // doks-core's clipboard.js injects
@@ -322,20 +384,95 @@
 
 // Asciidoctor renders an admonition ([NOTE], [WARNING], …) as a two-cell table
 // with no colgroup, so the icon column needs a width of its own, otherwise the
-// label and the body split the block evenly.
+// label and the body split the block evenly. 7.5rem fits the longest label,
+// "Important", in Space Grotesk without breaking it.
 .admonitionblock > table td.icon {
-  width: 6rem;
+  width: 7.5rem;
 }
 
-// Wrapper the `*parameters` shortcodes put around their table. The min-width
-// keeps the four columns readable on a phone by scrolling the table instead of
-// squeezing every cell down to broken words; the scroll stays inside this box,
-// so the page itself never scrolls sideways.
+// Wrapper the `*parameters` shortcodes put around their table (Name, Type,
+// Description, Required). From md up it stays a table: the min-width keeps the
+// four columns from squeezing into broken words, and any overflow scrolls inside
+// this box rather than the page.
+//
+// Below md, a 34rem table scrolled sideways hides half of every row with no hint
+// that it scrolls, so each row becomes a stacked block instead: name and type on
+// the first line, the description underneath at full width. The header row is
+// dropped, since the name/type line needs no labels, and so is an empty Required
+// cell: the schema does not set `required` per property, so the column is empty
+// in practice. If it is ever filled, it shows up labelled.
 .table-scroll {
   overflow-x: auto;
 
   > table {
     min-width: 34rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    overflow-x: visible;
+
+    > table {
+      display: block;
+      min-width: 0;
+
+      colgroup,
+      tr:has(> th) {
+        display: none;
+      }
+
+      tbody {
+        display: block;
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 0.75rem;
+        padding: 0.875rem 0;
+        border-bottom: 1px solid var(--sl-color-gray-5);
+      }
+
+      td {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      // Name. Nested properties keep the &nbsp; indent the shortcodes write.
+      td:nth-child(1) {
+        overflow-wrap: anywhere;
+      }
+
+      // Type, in the machine voice.
+      td:nth-child(2) {
+        align-self: center;
+        color: var(--bs-secondary-color);
+        font-family: var(--updatecli-font-mono);
+        font-size: 0.8125rem;
+      }
+
+      // Description.
+      td:nth-child(3) {
+        grid-column: 1 / -1;
+        margin-top: 0.375rem;
+      }
+
+      // Required.
+      td:nth-child(4):empty {
+        display: none;
+      }
+
+      td:nth-child(4):not(:empty) {
+        grid-column: 1 / -1;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+
+        &::before {
+          content: "Required: ";
+          color: var(--bs-secondary-color);
+        }
+      }
+    }
   }
 }
 
@@ -380,29 +517,51 @@
 }
 
 // -----------------------------------------------------------------------------
-// Navbar "Community" dropdown
+// Footer community links
 //
-// The social-menu block in `layouts/_partials/header/header.html` groups the
-// entries tagged `params.group = "community"` behind one trigger, so the navbar
-// carries a few distinguishable icons rather than a row of near-identical ones.
-//
-// Only the menu items need styling: the theme already hides Bootstrap's caret
-// (`.dropdown-toggle::after { display: none }` in `components/_buttons.scss`)
-// and already makes dropdowns render inline below lg, and the trigger reuses
-// `.social-link` so it lines up with the icons beside it.
-//
-// Inside the dropdown the entry names are visible text rather than the
-// `visually-hidden` labels the flat list uses, so lay the icon out beside them.
+// `layouts/_partials/footer/footer.html` lists the social menu entries marked
+// `params.placement = "footer"` above the footer columns, icon and name side by
+// side, centred, and separated from the columns by a hairline.
 // -----------------------------------------------------------------------------
 
-.dropdown-item.social-dropdown-item {
-  display: flex;
-  gap: 0.625rem;
-  align-items: center;
+.footer-community {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--sl-color-gray-5);
+  text-align: center;
 
-  // The icons are inline SVGs from the menu config, sized 20x20 there.
-  > svg {
-    flex: 0 0 auto;
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1.5rem;
+  }
+
+  .list-inline-item:not(:last-child) {
+    margin-right: 0;
+  }
+
+  a {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding-block: 0.5rem;
+    text-decoration: none;
+    transition: color 0.15s ease-out;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--updatecli-primary) !important;
+    }
+
+    // The icons are inline SVGs from the menu config, sized 20x20 there.
+    > svg {
+      flex: 0 0 auto;
+    }
+  }
+
+  .nav-badge {
+    margin-inline-start: 0;
   }
 }
 
@@ -430,4 +589,532 @@
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
   }
+}
+
+// -----------------------------------------------------------------------------
+// Footer pinned to the bottom of short pages
+//
+// The body is a full-height column and the footer takes the leftover space above
+// it, so on a page shorter than the viewport the footer sits on the bottom edge
+// instead of halfway up. Long pages are unaffected.
+// -----------------------------------------------------------------------------
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+body > .footer {
+    margin-top: auto;
+}
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Docs page columns on wide screens
+//
+// With `mainSections = ["docs"]`, doks-core's `single.html` wraps the content and
+// the "On this page" column in `.container-fw`, capped at 1200px and centred in the
+// space right of the section menu. Lift the cap so the "On this page" column sits
+// on the right edge, mirroring the menu on the left, and centre the content in the
+// space between them. The content then takes all the width between the two
+// columns, which gives wide parameter tables and code blocks room to breathe.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-up(xl) {
+    .container-fw {
+        max-width: none;
+    }
+
+    .container-fw > .docs-content {
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+    }
+
+    // doks-core puts 3rem before the column. 3.5rem makes the visible gap between
+    // the text and the column match the 4.5rem between the menu's border and the
+    // text (measured on the rendered page, the gutters do not add up on this side).
+    .container-fw .docs-toc {
+        margin-left: 3.5rem;
+    }
+}
+
+// Separate the text from the section menu: the grid gutter alone leaves 1.5rem
+// after the menu's border, which reads as cramped. With the padding below, the text
+// sits 4.5rem (72px) from the menu's border, and the xl rule further down gives the
+// "On this page" column the same 4.5rem on the other side.
+//
+// The collapsible "On this page" bar shown below xl bleeds into that padding with a
+// negative margin (doks-core `components/_toc.scss`, including a variant keyed to
+// the `#announcement` banner). Widen its bleed to cover that padding plus the
+// 1.5rem gutter of the `.container-fw` wrapper, so the bar meets the menu's border.
+@include media-breakpoint-up(lg) {
+    .docs-content {
+        padding-inline-start: 3rem;
+    }
+
+    .docs-content > .toc-mobile-sticky,
+    #announcement ~ * .docs-content > .toc-mobile-sticky {
+        margin-inline-start: -4.5rem;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Navbar brand and menu badges
+//
+// The brand in `layouts/_partials/header/header.html` is the logo followed by the
+// product name in the wordmark face, as in Udash's app bar. A main menu entry with
+// a `badge` param (the Udash entry: "Experimental") shows it as a small outlined
+// label in the warning colour, a real status rather than a signal, so never green.
+// -----------------------------------------------------------------------------
+
+.navbar-brand-updatecli {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    > img {
+        flex: 0 0 auto;
+    }
+}
+
+.nav-badge {
+    display: inline-block;
+    margin-inline-start: 0.25rem;
+    padding: 0 0.375rem;
+    border: 1px solid color-mix(in srgb, var(--updatecli-warning), transparent 50%);
+    border-radius: 0.25rem;
+    color: var(--updatecli-warning);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    vertical-align: 0.15em;
+}
+
+// -----------------------------------------------------------------------------
+// Changelog pages
+//
+// `layouts/changelogs/` renders the generated release notes in the docs shell. The
+// release list on the index is built from the pages; the badge on the newest one
+// is a plain label in the ink colour, since "Latest" is neither a warning nor
+// something to act on.
+// -----------------------------------------------------------------------------
+
+.nav-badge-neutral {
+    border-color: color-mix(in srgb, currentColor, transparent 60%);
+    color: inherit;
+}
+
+.changelog-list {
+    margin: 0;
+
+    li {
+        display: flex;
+        gap: 0.75rem;
+        align-items: baseline;
+        padding: 0.625rem 0;
+        border-bottom: 1px solid var(--sl-color-gray-5);
+    }
+
+    time {
+        margin-inline-start: auto;
+        color: var(--bs-secondary-color);
+        font-size: 0.875rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+}
+
+.changelog-meta {
+    color: var(--bs-secondary-color);
+}
+
+// Below xl, docs pages open with the collapsible "On this page" bar, and doks-core
+// drops the title's top margin to sit under it. Release pages have no such bar, so
+// give the title the room back.
+@include media-breakpoint-down(xl) {
+    body.changelogs .docs-content {
+        padding-top: 1.5rem;
+    }
+}
+
+// The generator opens every release with an italic "(bot) released this <date>"
+// line and an empty "Description" heading followed by a rule. The meta line above
+// already gives the date, so hide them. These selectors are narrow on purpose: if
+// the generated markup changes, they stop matching and nothing else is affected.
+.changelog-body > .paragraph:first-child:has(> p > em:only-child),
+.changelog-body h3#_description,
+.changelog-body h3#_description + hr {
+    display: none;
+}
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// doks-core's baseof.html wraps every list page, and every page outside
+// `mainSections`, in a centred `.container`. Changelog pages carry their own docs
+// shell, so let that wrapper span the page and keep the release menu flush left.
+// -----------------------------------------------------------------------------
+
+body.changelogs .wrap > .content > .container {
+    max-width: none;
+}
+
+// doks-core's `.list.section .content` adds 1rem above every list page. Drop it on
+// the changelog index so its menu and title line up with the release pages.
+body.changelogs.list .wrap > .content {
+    padding-top: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Home page (layouts/home.html)
+//
+// A hero, then "How it works" with the real Quick Start manifest and output,
+// "Why Updatecli", and a documentation front door. Sections are separated by a
+// hairline and share one measure; there are no cards and no shadows. The code
+// frames are the AsciiDoc `.listingblock` frames styled earlier in this file.
+// -----------------------------------------------------------------------------
+
+.home-hero {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 2rem 0 3.5rem;
+    text-align: center;
+
+    h1 {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.home-lead {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.home-intro {
+    margin: 0 auto 2rem;
+    max-width: 38rem;
+    color: var(--bs-secondary-color);
+}
+
+.home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.home-install {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: center;
+    align-items: baseline;
+    margin: 0;
+    font-size: 0.875rem;
+
+    code {
+        user-select: all;
+    }
+}
+
+.home-licence {
+    margin: 1.5rem 0 0;
+    color: var(--bs-secondary-color);
+    font-size: 0.875rem;
+}
+
+.home-section {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--sl-color-gray-5);
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.125rem;
+    }
+}
+
+.home-heading {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+}
+
+// One explicit shrinkable column on small screens: an implicit grid column sizes
+// to the longest code line and pushes the page sideways.
+.home-how-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 4rem;
+    }
+}
+
+// The order of the stages is part of the model, so the list is numbered.
+.home-steps {
+    margin: 1.5rem 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: home-step;
+
+    li {
+        position: relative;
+        padding: 0 0 1.25rem 2.75rem;
+        counter-increment: home-step;
+
+        &::before {
+            content: counter(home-step);
+            position: absolute;
+            inset-inline-start: 0;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border: 1px solid var(--sl-color-gray-5);
+            border-radius: 50%;
+            font-family: var(--updatecli-font-mono);
+            font-size: 0.8125rem;
+            line-height: 1.625rem;
+            text-align: center;
+        }
+
+        h3 {
+            margin: 0 0 0.25rem;
+            line-height: 1.75rem;
+        }
+
+        p {
+            margin: 0;
+            color: var(--bs-secondary-color);
+        }
+    }
+}
+
+.home-how-code .listingblock:first-child {
+    margin-top: 0;
+}
+
+// Chroma sets its own background on `.chroma`; the frame already paints one.
+.home-how-code code.chroma {
+    background: none;
+}
+
+.home-claims {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    p {
+        margin: 0;
+        color: var(--bs-secondary-color);
+    }
+}
+
+.home-compare {
+    margin: 2.5rem 0 0;
+    max-width: 48rem;
+}
+
+.home-docs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem 4rem;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.home-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--sl-color-gray-5);
+    }
+
+    a {
+        font-weight: 500;
+    }
+
+    span:not(.nav-badge) {
+        display: block;
+        color: var(--bs-secondary-color);
+        font-size: 0.9375rem;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Pipeline diagram (layouts/_shortcodes/pipeline-diagram.html)
+//
+// The stages of a pipeline as square, bordered panels joined by arrows: a row on
+// wide screens, a column on narrow ones. Each panel names the manifest key in the
+// machine voice. The optional Action stage has a dashed border, and the arrow is
+// drawn with the same mask technique as the code-block copy icon.
+// -----------------------------------------------------------------------------
+
+.pipeline-diagram {
+    --pipeline-gap: 2.25rem;
+
+    margin: 2rem 0;
+
+    ol {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--pipeline-gap);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    li {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem;
+        background: var(--sl-color-black);
+        border: 1px solid var(--sl-color-gray-5);
+        font-size: 0.875rem;
+        line-height: 1.5;
+
+        > span {
+            color: var(--bs-secondary-color);
+        }
+    }
+
+    // Below each panel on narrow screens, to its right on wide ones.
+    li:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        width: 1rem;
+        height: var(--pipeline-gap);
+        transform: translateX(-50%) rotate(90deg);
+        background-color: var(--sl-color-gray-3);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E") no-repeat 50% 50%;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+
+        @include media-breakpoint-up(md) {
+            left: 100%;
+            top: 50%;
+            width: var(--pipeline-gap);
+            height: 1rem;
+            transform: translateY(-50%);
+        }
+    }
+
+    code {
+        align-self: flex-start;
+        padding: 0;
+        background: none;
+        color: var(--bs-secondary-color);
+        font-size: 0.75rem;
+    }
+
+    strong {
+        font-size: 1rem;
+    }
+
+    .pipeline-diagram-branch {
+        margin-top: auto;
+        padding-top: 0.5rem;
+        border-top: 1px dashed var(--sl-color-gray-5);
+        font-size: 0.8125rem;
+    }
+
+    .pipeline-diagram-optional {
+        background: transparent;
+        border-style: dashed;
+    }
+
+    figcaption {
+        margin-top: 0.75rem;
+        color: var(--bs-secondary-color);
+        font-size: 0.875rem;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Keyboard focus
+//
+// doks-core turns Bootstrap's focus rings off (`$input-btn-focus-box-shadow: none`)
+// and its `components/_buttons.scss` removes the outline on `.btn-link:focus`,
+// which also wins over `.nav-link:focus-visible`. The header's icon buttons
+// (search, colour mode, menus) and the primary buttons were left with no visible
+// focus at all, and the link ring that survived was a baked-in 25% day green,
+// nearly invisible in dark mode. One outline in the accent token covers them all
+// and follows the colour mode.
+// -----------------------------------------------------------------------------
+
+.btn:focus-visible,
+.btn-link:focus-visible,
+.nav-link:focus-visible,
+.dropdown-item:focus-visible {
+    outline: 2px solid var(--updatecli-primary);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+// -----------------------------------------------------------------------------
+// Doks adapter, remove with the theme.
+//
+// Touch targets in the mobile menus
+//
+// Below lg the menus live in offcanvas panels, where doks-core's desktop spacing
+// leaves links about 27px tall and the colour-mode toggle a bare 24px icon.
+// Bring both up to a 44px target without changing the desktop layout.
+// -----------------------------------------------------------------------------
+
+@include media-breakpoint-down(lg) {
+    .offcanvas .section-nav a {
+        margin: 0;
+        padding-block: 0.5625rem;
+    }
+
+    #buttonColorMode {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Not found page (layouts/404.html)
+// -----------------------------------------------------------------------------
+
+.notfound {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 3rem 0 4rem;
+
+    .lead {
+        margin-bottom: 2rem;
+    }
 }

@@ -1,13 +1,24 @@
+{{- /*
+  A release page, in the same shell as a docs page (see doks-core
+  layouts/single.html): the release menu on the left, the content beside it.
+  No "On this page" column, since the generated release notes carry no heading
+  ids to link to. The release date comes from the page date, not the content.
+*/ -}}
 {{ define "main" }}
-<div class="row justify-content-center">
-  <div class="col-md-12 col-lg-10 col-xl-8">
-    <article>
-      <div class="blog-header">
+<div class="row flex-xl-nowrap">
+  <div class="col-lg-5 col-xl-4 docs-sidebar d-none d-lg-block">
+    {{ partial "sidebar/section-menu.html" . }}
+  </div>
+  <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
+    <main class="docs-content col-lg-16 col-xl-9">
+      <div class="page-header">
         <h1>{{ .Title }}</h1>
+        <p class="changelog-meta">Released <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>{{ with .Parent }} &middot; <a href="{{ .RelPermalink }}">All releases</a>{{ end }}</p>
       </div>
-      <p class="lead">{{ .Params.lead | safeHTML }}</p>
-      {{ .Content }}
-    </article>
+      <div class="changelog-body">
+        {{ .Content }}
+      </div>
+    </main>
   </div>
 </div>
 {{ end }}

@@ -28,6 +28,7 @@ updatecli pipeline prepare NAME[:TAG|@DIGEST] [flags]
   -h, --help                        help for prepare
       --labels stringArray          Filter pipelines to apply by their labels, accepted as a comma separated list (key:value)
       --pipeline-ids stringArray    Filter pipelines to apply by their pipeline IDs, accepted a comma separated list
+      --relative-paths string       What the relative paths of a manifest resolve against: "workingdirectory" or "manifest" (env: UPDATECLI_RELATIVE_PATHS) (default "workingdirectory")
       --secrets stringArray         Sets Sops secrets file uses for templating
   -v, --values stringArray          Sets values file uses for templating
   -i, --values-inline stringArray   Sets inline values uses for templating, accepted valid json/yaml string

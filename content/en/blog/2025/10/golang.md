@@ -3,7 +3,7 @@ title: "Automating Golang Project Updates with Updatecli"
 date: 2025-10-24T00:00:00+00:00
 draft: false
 weight: 50
-images: [""]
+images: []
 contributors: ["olblak"]
 ---
 
@@ -16,7 +16,7 @@ With that being said, let's dive in.
 ---
 
 <p align="center">
-  <img style="max-height:600px;" src="/images/blog/2025/10/golang_updatecli.png" alt="show Updatecli love Golang"/>
+  <img style="max-height:600px;" src="/images/blog/2025/10/golang_updatecli.webp" alt="show Updatecli love Golang"/>
 </p>
 
 Keeping your Go projects up to date—whether it’s module versions, replace directives, or the Go toolchain version—can be tedious and error-prone, especially as your codebase grows or you manage multiple repositories. **Updatecli** is a powerful, CI-friendly tool that helps automate these updates, ensuring your dependencies and configurations stay current with minimal manual effort.
@@ -459,10 +459,10 @@ Updatecli can integrate with GitHub, Gitlab, Bitbucket, Gitea, and Stash. Each S
 
 You can go deeper within the Updatecli integration with Golang project by looking specifically at:
 
-- [Golang Autodiscovery documentation](http://updatecli.io/docs/plugins/autodiscovery/golang/)
-- [Golang Plugin](http://updatecli.io/docs/plugins/resource/golang/)
-- [Go.mod Plugin](http://updatecli.io/docs/plugins/resource/gomod/)
-- [Golang module](http://updatecli.io/docs/plugins/resource/gomodule/)
+- [Golang Autodiscovery documentation](https://www.updatecli.io/docs/plugins/autodiscovery/golang/)
+- [Golang Plugin](https://www.updatecli.io/docs/plugins/resource/golang/)
+- [Go.mod Plugin](https://www.updatecli.io/docs/plugins/resource/gomod/)
+- [Golang module](https://www.updatecli.io/docs/plugins/resource/gomodule/)
 
 ### Feedback
 

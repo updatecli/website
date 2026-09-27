@@ -37,7 +37,7 @@ Returns the latest release, sorted by release date.
 Checks that `tag` corresponds to a published release.
 
 **target**::
-Not supported - a target fails with `target not supported for the plugin GitHub Release`. Updatecli does not publish releases; to create a tag, use link:/docs/plugins/resource/gitTag/[`gittag`].
+Not supported - a target fails with `target not supported for the plugin GitHub Release`. Updatecli does not publish releases; to create a tag, use link:/docs/plugins/resource/gittag/[`gittag`].
 
 NOTE: An `scm` attached to a condition is ignored, with the warning `condition not supported for plugin GitHub Release used with scm`.
 
