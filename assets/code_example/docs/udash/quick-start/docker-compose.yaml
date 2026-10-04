@@ -26,7 +26,7 @@ services:
       - "traefik.http.services.server.loadbalancer.server.port=8080"
 
   front:
-    image: ghcr.io/updatecli/udash-front:v0.27.0@sha256:e45e7c75aa5732e935a98dc239b9016bee6ba95ea458cdd196b05360b6a719c9
+    image: ghcr.io/updatecli/udash-front:v0.27.1@sha256:b5e8107d6edd5329275cbcd33144d712aeea6c4e958ccc072db3c7e9968854a5
     restart: always
     volumes:
       - "./udash-front/config.json:/usr/share/nginx/html/config.json"
