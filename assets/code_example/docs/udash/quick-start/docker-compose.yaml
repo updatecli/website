@@ -10,7 +10,7 @@ services:
       - 5432
 
   server:
-    image: ghcr.io/updatecli/udash:v0.19.1@sha256:45e2285583879ef356e8138b14776defb6e42c3242b9b4fdfa07eb286d1ec03b
+    image: ghcr.io/updatecli/udash:v0.20.0@sha256:e208c1b4e94ca6cd0951eafcc1e79b1a58444f9057b995369886164289c2f4c2
     command: server start
     restart: always
     environment:
