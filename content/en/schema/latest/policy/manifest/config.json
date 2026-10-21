@@ -14288,7 +14288,7 @@
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"platforms\" defines the target platforms to request package checksums for.\n\ncompatible:\n  * condition\n  * target\n\nremark:\n  * \"platforms\" is required.\n\nexample:\n  * platforms:\n    - linux_amd64\n    - darwin_arm64"
+                                        "description": "\"platforms\" defines the target platforms to request package checksums for.\n\ncompatible:\n  * condition\n  * target\n\nremark:\n  * when empty, the hashes of every platform published by the registry are recorded,\n    which requires a registry publishing h1 hashes, such as registry.opentofu.org.\n  * with registry.opentofu.org, the hashes of every published platform are always recorded, like \"tofu init\" does,\n    and \"platforms\" is only used as a fallback if the registry metadata can't be retrieved.\n\nexample:\n  * platforms:\n    - linux_amd64\n    - darwin_arm64"
                                     },
                                     "skipconstraints": {
                                         "type": "boolean",
@@ -24666,7 +24666,7 @@
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"platforms\" defines the target platforms to request package checksums for.\n\ncompatible:\n  * condition\n  * target\n\nremark:\n  * \"platforms\" is required.\n\nexample:\n  * platforms:\n    - linux_amd64\n    - darwin_arm64"
+                                        "description": "\"platforms\" defines the target platforms to request package checksums for.\n\ncompatible:\n  * condition\n  * target\n\nremark:\n  * when empty, the hashes of every platform published by the registry are recorded,\n    which requires a registry publishing h1 hashes, such as registry.opentofu.org.\n  * with registry.opentofu.org, the hashes of every published platform are always recorded, like \"tofu init\" does,\n    and \"platforms\" is only used as a fallback if the registry metadata can't be retrieved.\n\nexample:\n  * platforms:\n    - linux_amd64\n    - darwin_arm64"
                                     },
                                     "skipconstraints": {
                                         "type": "boolean",
@@ -35440,7 +35440,7 @@
                                             "type": "string"
                                         },
                                         "type": "array",
-                                        "description": "\"platforms\" defines the target platforms to request package checksums for.\n\ncompatible:\n  * condition\n  * target\n\nremark:\n  * \"platforms\" is required.\n\nexample:\n  * platforms:\n    - linux_amd64\n    - darwin_arm64"
+                                        "description": "\"platforms\" defines the target platforms to request package checksums for.\n\ncompatible:\n  * condition\n  * target\n\nremark:\n  * when empty, the hashes of every platform published by the registry are recorded,\n    which requires a registry publishing h1 hashes, such as registry.opentofu.org.\n  * with registry.opentofu.org, the hashes of every published platform are always recorded, like \"tofu init\" does,\n    and \"platforms\" is only used as a fallback if the registry metadata can't be retrieved.\n\nexample:\n  * platforms:\n    - linux_amd64\n    - darwin_arm64"
                                     },
                                     "skipconstraints": {
                                         "type": "boolean",
