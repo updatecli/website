@@ -7950,6 +7950,10 @@
                                     "key": {
                                         "type": "string",
                                         "description": "\"key\" defines which attribute of the branch the source returns.\n\ncompatible:\n  * source\n\ndefault:\n  name\n\nremark:\n  * accepted values are \"name\", \"hash\" or empty.\n\nexample:\n  * key: hash"
+                                    },
+                                    "lsremote": {
+                                        "type": "boolean",
+                                        "description": "\"lsremote\" lists the remote branches without cloning the repository.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * requires \"url\", and can't be used with \"path\" or \"age\".\n  * branches are sorted by name, so the version filter \"latest\" returns the last one alphabetically."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -18085,6 +18089,10 @@
                                     "key": {
                                         "type": "string",
                                         "description": "\"key\" defines which attribute of the branch the source returns.\n\ncompatible:\n  * source\n\ndefault:\n  name\n\nremark:\n  * accepted values are \"name\", \"hash\" or empty.\n\nexample:\n  * key: hash"
+                                    },
+                                    "lsremote": {
+                                        "type": "boolean",
+                                        "description": "\"lsremote\" lists the remote branches without cloning the repository.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * requires \"url\", and can't be used with \"path\" or \"age\".\n  * branches are sorted by name, so the version filter \"latest\" returns the last one alphabetically."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -28616,6 +28624,10 @@
                                     "key": {
                                         "type": "string",
                                         "description": "\"key\" defines which attribute of the branch the source returns.\n\ncompatible:\n  * source\n\ndefault:\n  name\n\nremark:\n  * accepted values are \"name\", \"hash\" or empty.\n\nexample:\n  * key: hash"
+                                    },
+                                    "lsremote": {
+                                        "type": "boolean",
+                                        "description": "\"lsremote\" lists the remote branches without cloning the repository.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * requires \"url\", and can't be used with \"path\" or \"age\".\n  * branches are sorted by name, so the version filter \"latest\" returns the last one alphabetically."
                                     }
                                 },
                                 "additionalProperties": false,
