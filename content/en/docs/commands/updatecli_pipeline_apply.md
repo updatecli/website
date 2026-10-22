@@ -36,8 +36,8 @@ updatecli pipeline apply NAME[:TAG|@DIGEST] [flags]
       --pipeline-ids stringArray    Filter pipelines to apply by their IDs, accepted as a comma separated list
       --push                        Update remote refs '--push=false' (default true)
       --relative-paths string       What the relative paths of a manifest resolve against: "workingdirectory" or "manifest" (env: UPDATECLI_RELATIVE_PATHS) (default "workingdirectory")
-      --reportAPI string            Set the report API URL where to publish pipeline reports
       --secrets stringArray         Sets Sops secrets file uses for templating
+      --udash-api-url string        Udash API URL selecting which service stored by udash login receives pipeline reports
       --validate-schema             Report manifest keys not matching the Updatecli schema as warnings (env: UPDATECLI_VALIDATE_SCHEMA)
   -v, --values stringArray          Sets values file uses for templating
   -i, --values-inline stringArray   Sets inline values uses for templating, accepted valid json/yaml string
