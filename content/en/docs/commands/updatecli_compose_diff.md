@@ -34,7 +34,7 @@ updatecli compose diff [flags]
       --only-policy-ids stringArray      Filter policies to apply by their policy IDs, accepted as a comma separated list
       --pipeline-ids stringArray         Filter pipelines to apply by their IDs, accepted a comma separated list
       --relative-paths string            What the relative paths of a manifest resolve against: "workingdirectory" or "manifest" (env: UPDATECLI_RELATIVE_PATHS) (default "workingdirectory")
-      --reportAPI string                 Set the report API URL where to publish pipeline reports
+      --udash-api-url string             Udash API URL selecting which service stored by udash login receives pipeline reports
       --validate-schema                  Report manifest keys not matching the Updatecli schema as warnings (env: UPDATECLI_VALIDATE_SCHEMA)
 ```
 
