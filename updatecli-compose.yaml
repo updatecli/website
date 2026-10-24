@@ -22,7 +22,7 @@ policies:
       automerge: true
 
   - name: Handle HUGO version in netlify
-    policy: ghcr.io/updatecli/policies/hugo/netlify:0.10.1@sha256:1f8e3c699605590da3f48ace142f46e10c21bbabbcf26864dcc7ad141dc359ab
+    policy: ghcr.io/updatecli/policies/hugo/netlify:0.11.0@sha256:7a01a6b7a63ecb93b55becfe82ec20e3e5093645cdcd5ca2f7c1e4532e70ceb5
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
