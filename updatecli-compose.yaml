@@ -6,7 +6,7 @@ policies:
       - updatecli/values.d/scm.yaml
 
   - name: Handle Nodejs version in githubaction
-    policy: ghcr.io/updatecli/policies/nodejs/githubaction:0.11.1@sha256:812c245adc1f20767ca912baf3087022c78e8153a3f27d43729dd8931864f8e3
+    policy: ghcr.io/updatecli/policies/nodejs/githubaction:0.12.0@sha256:9bd7725a2f31dc104bb8086458febb7fce9d66347dff560ba3d45053d97d9b19
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
@@ -14,7 +14,7 @@ policies:
       automerge: true
 
   - name: Handle Nodejs version in Netlify
-    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.10.1@sha256:3bc908b4bfc7c44cb4a1ff9c1cad0c61c16f37b9c8e45b50bd632eb05f54521f
+    policy: ghcr.io/updatecli/policies/nodejs/netlify:0.11.0@sha256:d6b558c5cec0068885b84c3dcbd0cb2e297a8a14d6f909ceb28c5a27e12d7baa
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
@@ -22,28 +22,28 @@ policies:
       automerge: true
 
   - name: Handle HUGO version in netlify
-    policy: ghcr.io/updatecli/policies/hugo/netlify:0.10.1@sha256:1f8e3c699605590da3f48ace142f46e10c21bbabbcf26864dcc7ad141dc359ab
+    policy: ghcr.io/updatecli/policies/hugo/netlify:0.11.0@sha256:7a01a6b7a63ecb93b55becfe82ec20e3e5093645cdcd5ca2f7c1e4532e70ceb5
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
       automerge: true
 
   - name: Handle HUGO version in GitHub action
-    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.11.1@sha256:44ced9f1f19b601502194b9c4d3400efb8cd54ea7ab5008b96902ad8ec931fee
+    policy: ghcr.io/updatecli/policies/hugo/githubaction:0.12.0@sha256:0178e0dd1072ffe8d358123eae1561740af127955a1a051e447e03666a1f9f78
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
       automerge: true
 
   - name: Handle NPM version in netlify
-    policy: ghcr.io/updatecli/policies/npm/netlify:0.11.1@sha256:8fda888dd1e0ec3a4f855817529ece27472bbb77ab59f15dd2ee593df128e284
+    policy: ghcr.io/updatecli/policies/npm/netlify:0.12.0@sha256:4ac30401a48a314ca203c9890d885a3fe12588da2f951f70fbbe8a33e12399f2
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
       automerge: true
 
   - name: NPM autodiscovery
-    policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.12.1@sha256:ab02848169d584d7510ab974ec4a27309d9737068b1d888df6a8388a3dad26fc
+    policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.13.0@sha256:a6ae41383d6e0ebd8a139b44f441134b9a6e881aa30393e1298529d73df27d83
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
@@ -53,7 +53,7 @@ policies:
         ignoreversionconstraints: true
 
   - name: Handle Updatecli version in GitHub action
-    policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.9.1@sha256:49c07d724474ff7976f7ad5ecb0db9aa46448b456d08f82717913b403a0f02d8
+    policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.10.0@sha256:666a807c7e1f260fa3d9357fd2b60c57f5dedbd6f29f97b6f82d882ed4058608
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
@@ -65,7 +65,7 @@ policies:
           policy: gha
 
   - name: Update Updatecli policies
-    policy: ghcr.io/updatecli/policies/updatecli/autodiscovery:0.8.1@sha256:f8edda1a6cbf0d7274e2b847ede29fc4dc70dd5302ccb8575ae21b069cc0d8a0
+    policy: ghcr.io/updatecli/policies/updatecli/autodiscovery:0.9.0@sha256:67026697434a99f6e01a662caa662e8ed02e39e8abf8f7399ab673d113abb360
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
@@ -79,13 +79,13 @@ policies:
           ecosystem: updatecli
 
   - name: Update githubactions
-    policy: ghcr.io/updatecli/policies/autodiscovery/githubaction:0.4.1@sha256:869b676074f9fee7edd5d488140a12c3b09a5f8a175f12f26ea85a4f8bd0a9d1
+    policy: ghcr.io/updatecli/policies/autodiscovery/githubaction:0.5.0@sha256:7dd97c132950994dc3fb89e0bc77037358e9168d8e6980705b2a06e444270626
     values:
       - updatecli/values.d/scm.yaml
 
   - name: Configure Updatecli workflows
     id: updatecli
-    policy: ghcr.io/updatecli/policies/updatecli/githubaction/scaffold:0.1.1@sha256:121dfef5a33bc5cad4eced09ae1fd2305319ce2fd6d23ff661b5c99d11d0d9d2
+    policy: ghcr.io/updatecli/policies/updatecli/githubaction/scaffold:0.2.0@sha256:abfecc050f1598f0ee835d673ddc06c89f71319c64672486e608d6f47f0d8987
     valuesinline:
       gha:
         npm:

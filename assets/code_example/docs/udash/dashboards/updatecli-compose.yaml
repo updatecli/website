@@ -1,5 +1,5 @@
 policies:
   - name: Rust dependencies
-    policy: ghcr.io/updatecli/policies/autodiscovery/cargo:0.9.1@sha256:237c49b0541ad1a5ce9bcdfef0a525dd47ff854436dee61985b56f2c981c828d
+    policy: ghcr.io/updatecli/policies/autodiscovery/cargo:0.10.0@sha256:cbd79db106968e8c9732082b300fc580d2837165b0e49e0668ec1d811242c665
     values:
       - values.yaml
