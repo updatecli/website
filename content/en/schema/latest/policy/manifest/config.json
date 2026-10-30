@@ -3871,11 +3871,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "sourcebranch": {
                                         "type": "string",
@@ -4812,11 +4812,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "commitmessage": {
                                         "properties": {
@@ -8349,11 +8349,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -8587,11 +8587,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -8860,11 +8860,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -18506,11 +18506,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -18753,11 +18753,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -19035,11 +19035,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -29059,11 +29059,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -29315,11 +29315,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
@@ -29606,11 +29606,11 @@
                                     },
                                     "username": {
                                         "type": "string",
-                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"username\" defines the username used to authenticate with the Gitea API.\n\nremark:\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_USERNAME\" is used.\n  * when still unset and a token is available, \"oauth2\" is used."
                                     },
                                     "token": {
                                         "type": "string",
-                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"GITEA_TOKEN\" }}` retrieves the token from the environment variable \"GITEA_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset."
+                                        "description": "\"token\" defines the credential used to authenticate with the Gitea API.\n\nremark:\n  * a token is sensitive information. Do not set it directly in the manifest.\n    Use an environment variable or a SOPS file instead.\n  * `{{ requiredEnv \"MY_TOKEN\" }}` retrieves the token from the environment variable \"MY_TOKEN\".\n  * `{{ .gitea.token }}` retrieves the token from a SOPS file.\n    See https://github.com/getsops/sops for more information about SOPS files.\n  * in a \"gitea/pullrequest\" action, the value is inherited from the scm when unset.\n  * when unset, the environment variable \"UPDATECLI_GITEA_TOKEN\" is used.\n    It applies to every Gitea server used by a pipeline."
                                     },
                                     "owner": {
                                         "type": "string",
