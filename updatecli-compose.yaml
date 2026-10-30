@@ -36,7 +36,7 @@ policies:
       automerge: true
 
   - name: Handle NPM version in netlify
-    policy: ghcr.io/updatecli/policies/npm/netlify:0.11.1@sha256:8fda888dd1e0ec3a4f855817529ece27472bbb77ab59f15dd2ee593df128e284
+    policy: ghcr.io/updatecli/policies/npm/netlify:0.12.0@sha256:4ac30401a48a314ca203c9890d885a3fe12588da2f951f70fbbe8a33e12399f2
     values:
       - updatecli/values.d/scm.yaml
     valuesinline:
