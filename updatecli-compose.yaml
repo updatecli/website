@@ -52,6 +52,24 @@ policies:
       spec:
         ignoreversionconstraints: true
 
+  - name: NPM vulnerability
+    id: npm_vulnerability
+    policy: ghcr.io/updatecli/policies/npm/autodiscovery:0.13.0@sha256:a6ae41383d6e0ebd8a139b44f441134b9a6e881aa30393e1298529d73df27d83
+    valuesinline:
+      pipelineid: "npm/vulnerability"
+      groupby: individual
+      spec:
+        vulnerability:
+          minseverity: "high"
+      pipeline:
+        labels:
+          ecosystem: npm
+          policy: autodiscovery
+          vulnerability: minhigh
+          monitor: active
+    values:
+      - updatecli/values.d/scm.yaml
+
   - name: Handle Updatecli version in GitHub action
     policy: ghcr.io/updatecli/policies/updatecli/githubaction:0.10.0@sha256:666a807c7e1f260fa3d9357fd2b60c57f5dedbd6f29f97b6f82d882ed4058608
     values:
