@@ -1026,7 +1026,7 @@
                                 },
                                 "digest": {
                                     "type": "boolean",
-                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub actions and Docker images, not yet for Gitea and Forgejo actions.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped."
+                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub, Gitea and Forgejo actions, and Docker images.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped."
                                 }
                             },
                             "additionalProperties": false,
@@ -1218,7 +1218,7 @@
                                 },
                                 "digest": {
                                     "type": "boolean",
-                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub actions and Docker images, not yet for Gitea and Forgejo actions.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped."
+                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub, Gitea and Forgejo actions, and Docker images.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped."
                                 }
                             },
                             "additionalProperties": false,
