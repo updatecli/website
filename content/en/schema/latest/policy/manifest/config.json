@@ -957,7 +957,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "\"age\" defines the minimum or maximum age of a release, tag, or branch to be considered valid.\n\nIt is the \"dependency cooldown\" setting: setting \"minimum\" keeps Updatecli from\nsuggesting a version that has just been published.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * the age filter is not applied to the Docker images referenced by a workflow.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        age:\n          minimum: '7d'\n  ```"
+                                    "description": "\"age\" defines the minimum or maximum age of a release, tag, or branch to be considered valid.\n\nIt is the \"dependency cooldown\" setting: setting \"minimum\" keeps Updatecli from\nsuggesting a version that has just been published.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * a semver reference such as \"v4.2.1\" is never updated to a lower version, unless the\n    \"versionfilter\" kind isn't semver, such as \"latest\". While every newer release is\n    too recent, the update is skipped. Set \"allowdowngrade\" to true to fall back to the\n    newest release old enough instead.\n  * the age filter is not applied to the Docker images referenced by a workflow.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        age:\n          minimum: '7d'\n  ```"
                                 },
                                 "credentials": {
                                     "additionalProperties": {
@@ -1026,7 +1026,7 @@
                                 },
                                 "digest": {
                                     "type": "boolean",
-                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub, Gitea and Forgejo actions, and Docker images.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped."
+                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub, Gitea and Forgejo actions, and Docker images.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped.\n  * when unset, the actions of a workflow listed in \".github/workflows/actions.lock\" are not\n    pinned, since the lockfile records their commit. An action already pinned stays pinned."
                                 }
                             },
                             "additionalProperties": false,
@@ -1149,7 +1149,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "\"age\" defines the minimum or maximum age of a release, tag, or branch to be considered valid.\n\nIt is the \"dependency cooldown\" setting: setting \"minimum\" keeps Updatecli from\nsuggesting a version that has just been published.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * the age filter is not applied to the Docker images referenced by a workflow.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        age:\n          minimum: '7d'\n  ```"
+                                    "description": "\"age\" defines the minimum or maximum age of a release, tag, or branch to be considered valid.\n\nIt is the \"dependency cooldown\" setting: setting \"minimum\" keeps Updatecli from\nsuggesting a version that has just been published.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * a semver reference such as \"v4.2.1\" is never updated to a lower version, unless the\n    \"versionfilter\" kind isn't semver, such as \"latest\". While every newer release is\n    too recent, the update is skipped. Set \"allowdowngrade\" to true to fall back to the\n    newest release old enough instead.\n  * the age filter is not applied to the Docker images referenced by a workflow.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        age:\n          minimum: '7d'\n  ```"
                                 },
                                 "credentials": {
                                     "additionalProperties": {
@@ -1218,7 +1218,7 @@
                                 },
                                 "digest": {
                                     "type": "boolean",
-                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub, Gitea and Forgejo actions, and Docker images.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped."
+                                    "description": "\"digest\" defines whether the generated manifests pin the digest instead of the branch or tag.\n\ndefault:\n  true\n\nremark:\n  * digest pinning is supported for GitHub, Gitea and Forgejo actions, and Docker images.\n  * when false, actions referenced by \"main\", \"master\" or \"latest\" are skipped.\n  * when unset, the actions of a workflow listed in \".github/workflows/actions.lock\" are not\n    pinned, since the lockfile records their commit. An action already pinned stays pinned."
                                 }
                             },
                             "additionalProperties": false,
@@ -1351,7 +1351,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * it cannot be combined with \"vulnerability\"."
+                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * with a semver \"versionfilter\", the default, a version lower than the one in go.mod\n    is never suggested. While every newer release is too recent, the update is skipped.\n    Set \"allowdowngrade\" to true to fall back to the newest release old enough instead.\n    Other kinds, such as \"latest\", can't exclude lower versions.\n  * it cannot be combined with \"vulnerability\"."
                                 },
                                 "vulnerability": {
                                     "properties": {
@@ -1510,7 +1510,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * it cannot be combined with \"vulnerability\"."
+                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * with a semver \"versionfilter\", the default, a version lower than the one in go.mod\n    is never suggested. While every newer release is too recent, the update is skipped.\n    Set \"allowdowngrade\" to true to fall back to the newest release old enough instead.\n    Other kinds, such as \"latest\", can't exclude lower versions.\n  * it cannot be combined with \"vulnerability\"."
                                 },
                                 "vulnerability": {
                                     "properties": {
@@ -1669,7 +1669,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * it cannot be combined with \"vulnerability\"."
+                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  empty, no age filtering.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\" or \"1w\".\n  * with a semver \"versionfilter\", the default, a version lower than the one in go.mod\n    is never suggested. While every newer release is too recent, the update is skipped.\n    Set \"allowdowngrade\" to true to fall back to the newest release old enough instead.\n    Other kinds, such as \"latest\", can't exclude lower versions.\n  * it cannot be combined with \"vulnerability\"."
                                 },
                                 "vulnerability": {
                                     "properties": {
@@ -2616,7 +2616,7 @@
                                     },
                                     "additionalProperties": false,
                                     "type": "object",
-                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  ```\n  age:\n    minimum: 3d\n  ```\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * it is propagated to the generated npm sources.\n  * the default keeps Updatecli from suggesting a package version published less than three days ago.\n  * an empty \"age: {}\" disables the default.\n  * it cannot be combined with \"vulnerability\"."
+                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ndefault:\n  ```\n  age:\n    minimum: 3d\n  ```\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * it is propagated to the generated npm sources.\n  * the default keeps Updatecli from suggesting a package version published less than three days ago.\n  * an empty \"age: {}\" disables the default.\n  * with a semver \"versionfilter\", the default, a version lower than the installed one\n    is never suggested. While every newer release is too recent, the update is skipped.\n    For a version constraint, such as \"^1.2.0\", the installed version is read from the\n    lock file. Set \"allowdowngrade\" to true to fall back to the newest release old enough\n    instead. Other kinds, such as \"latest\", can't exclude lower versions.\n  * it cannot be combined with \"vulnerability\"."
                                 },
                                 "vulnerability": {
                                     "properties": {
