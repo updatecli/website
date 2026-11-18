@@ -953,6 +953,10 @@
                                         "maximum": {
                                             "type": "string",
                                             "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1145,6 +1149,10 @@
                                         "maximum": {
                                             "type": "string",
                                             "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1347,6 +1355,10 @@
                                         "maximum": {
                                             "type": "string",
                                             "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1506,6 +1518,10 @@
                                         "maximum": {
                                             "type": "string",
                                             "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -1665,6 +1681,10 @@
                                         "maximum": {
                                             "type": "string",
                                             "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2342,6 +2362,51 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "description": "\"versionfilter\" defines the version filter used by the generated manifests.\n\ndefault:\n  kind \"latest\", the latest version.\n\nremark:\n  * with kind \"semver\", \"pattern\" accepts:\n    * \"prerelease\": the latest prerelease of the current version.\n    * \"patch\": patch updates only.\n    * \"minor\": patch and minor updates.\n    * \"minoronly\": minor updates only.\n    * \"major\": patch, minor and major updates.\n    * \"majoronly\": major updates only.\n    * a version constraint, such as \"\u003e= 1.0.0\".\n  * with kind \"regex\", \"pattern\" accepts a regular expression.\n  * more examples at https://www.updatecli.io/docs/core/versionfilter/\n\nexample:\n  ```\n  versionfilter:\n    kind: semver\n    pattern: minor\n  ```"
+                                },
+                                "age": {
+                                    "properties": {
+                                        "minimum": {
+                                            "type": "string",
+                                            "description": "\"minimum\" defines the minimum age a release must have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * minimum: 24h\n  * minimum: 7d\n  * minimum: 3w"
+                                        },
+                                        "maximum": {
+                                            "type": "string",
+                                            "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * it is propagated to the generated maven sources.\n  * a release's age is the Last-Modified date the repository reports for its pom file.\n    On a repository reporting none, the generated sources are skipped.\n  * by default, the age filter doesn't make an update fall back to a version lower than\n    the one in pom.xml. A semver \"versionfilter\" excludes lower versions when the version\n    in pom.xml is a semantic version. Otherwise, such as with the default \"latest\" kind or\n    a version such as \"5.3.0.Final\", the update waits until the version in pom.xml reaches\n    the \"minimum\" age. The \"latest\" kind can still pick a lower version the repository\n    released last, such as a backport. Set \"allowdowngrade\" to true to fall back to the\n    newest release old enough instead.\n  * security fixes don't wait for it, see \"vulnerability\".\n\nexample:\n  ```\n  age:\n    minimum: 7d\n  ```"
+                                },
+                                "vulnerability": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "description": "\"url\" defines the OSV API URL.\n\ndefault:\n  https://api.osv.dev"
+                                        },
+                                        "strategy": {
+                                            "type": "string",
+                                            "description": "\"strategy\" defines the version a vulnerable dependency is updated to.\n\ndefault:\n  lowest\n\nremark:\n  * the only accepted value is \"lowest\": the lowest version without known vulnerabilities.\n  * the value is case insensitive."
+                                        },
+                                        "minseverity": {
+                                            "type": "string",
+                                            "description": "\"minseverity\" defines the minimum severity of the vulnerabilities to account for.\n\nremark:\n  * accepted values are \"LOW\", \"MODERATE\", \"HIGH\" and \"CRITICAL\", in any case.\n  * \"MEDIUM\" is accepted as an alias of \"MODERATE\".\n  * the severity comes from GitHub advisories. Vulnerabilities without one are always accounted for.\n\nexample:\n  * minseverity: HIGH"
+                                        },
+                                        "ignore": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array",
+                                            "description": "\"ignore\" defines the vulnerability IDs or aliases to disregard.\n\nexample:\n  ```\n  ignore:\n    - GO-2025-3503\n    - GHSA-cpwx-vrp4-4pq7\n    - CVE-2025-27516\n  ```"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "description": "\"vulnerability\" switches the autodiscovery to security updates, based on the OSV database (https://osv.dev).\n\nA Maven artifact is only updated when its current version has known vulnerabilities,\nto the lowest version without any.\n\nremark:\n  * only security updates are generated, routine updates require a separate manifest.\n  * it cannot be combined with:\n    * \"age\", as a fixed version is suggested as soon as it is known.\n    * \"versionfilter\", as the version is the lowest one without known vulnerabilities.\n  * dependencies, managed dependencies and the parent pom are covered.\n  * the current version is the version written in pom.xml. When it is a property, such as\n    \"${log4j.version}\", defined in the same pom.xml, the property is updated instead.\n    Artifacts relying on a property defined elsewhere, or on a version range, such as \"[1.0,2.0)\", are ignored.\n  * several artifacts sharing a property each get their own manifest updating that property.\n    Once one manifest updates it, the others are skipped, and the next run checks the new version.\n  * BOM imports are ignored, as OSV knows about the artifacts they manage, not the BOM itself.\n  * labels, such as \"security\", are set on the action used by the manifest.\n\nexample:\n  ```\n  vulnerability:\n    minseverity: high\n    ignore:\n      - CVE-2021-44228\n  ```"
                                 }
                             },
                             "additionalProperties": false,
@@ -2612,6 +2677,10 @@
                                         "maximum": {
                                             "type": "string",
                                             "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                        },
+                                        "allowdowngrade": {
+                                            "type": "boolean",
+                                            "description": "\"allowdowngrade\" defines whether an update can lower the version in use.\n\ndefault: false\n\nremark:\n  * by default, an update never lowers the version in use. While every newer\n    release is too recent, the update is skipped.\n  * when set to true, an update lowers the version in use when it doesn't match the\n    age filter, to the newest release that does.\n  * it only applies with a \"minimum\" or \"maximum\" age."
                                         }
                                     },
                                     "additionalProperties": false,
@@ -2925,6 +2994,13 @@
                                                 },
                                                 "type": "object",
                                                 "description": "\"packages\" defines the Python packages to match, keyed by package name.\n\nremark:\n  * an empty value matches any version.\n  * otherwise the value is a PEP 440 version specifier, such as \"\u003e=2.0,\u003c3.0\".\n  * when the version or the specifier cannot be parsed, the value must equal the version."
+                                            },
+                                            "dependencygroups": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "\"dependencygroups\" defines the PEP 735 \"[dependency-groups]\" names to match, such as \"dev\".\n\nremark:\n  * each value is a pattern following the Go filepath.Match syntax, so \"*\" matches any group.\n  * names are compared once normalized as PEP 735 requires, ignoring case and treating\n    runs of \"-\", \"_\" and \".\" alike, so \"dev-tools\" matches a group declared as \"Dev_Tools\".\n  * patterns are normalized the same way, including inside brackets, so \"[_.]\" means \"[-]\".\n  * a group including another one through {include-group = \"...\"} contains its dependencies\n    too, as PEP 735 defines, so \"dev\" matches the dependencies \"dev\" includes from \"test\".\n  * dependencies from \"[project.dependencies]\" and \"[project.optional-dependencies]\"\n    belong to no dependency group, so they never match this field.\n\nexample:\n  ```\n  only:\n    - dependencygroups:\n        - dev\n  ```"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -2947,6 +3023,13 @@
                                                 },
                                                 "type": "object",
                                                 "description": "\"packages\" defines the Python packages to match, keyed by package name.\n\nremark:\n  * an empty value matches any version.\n  * otherwise the value is a PEP 440 version specifier, such as \"\u003e=2.0,\u003c3.0\".\n  * when the version or the specifier cannot be parsed, the value must equal the version."
+                                            },
+                                            "dependencygroups": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "\"dependencygroups\" defines the PEP 735 \"[dependency-groups]\" names to match, such as \"dev\".\n\nremark:\n  * each value is a pattern following the Go filepath.Match syntax, so \"*\" matches any group.\n  * names are compared once normalized as PEP 735 requires, ignoring case and treating\n    runs of \"-\", \"_\" and \".\" alike, so \"dev-tools\" matches a group declared as \"Dev_Tools\".\n  * patterns are normalized the same way, including inside brackets, so \"[_.]\" means \"[-]\".\n  * a group including another one through {include-group = \"...\"} contains its dependencies\n    too, as PEP 735 defines, so \"dev\" matches the dependencies \"dev\" includes from \"test\".\n  * dependencies from \"[project.dependencies]\" and \"[project.optional-dependencies]\"\n    belong to no dependency group, so they never match this field.\n\nexample:\n  ```\n  only:\n    - dependencygroups:\n        - dev\n  ```"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3023,6 +3106,13 @@
                                                 },
                                                 "type": "object",
                                                 "description": "\"packages\" defines the Python packages to match, keyed by package name.\n\nremark:\n  * an empty value matches any version.\n  * otherwise the value is a PEP 440 version specifier, such as \"\u003e=2.0,\u003c3.0\".\n  * when the version or the specifier cannot be parsed, the value must equal the version."
+                                            },
+                                            "dependencygroups": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "\"dependencygroups\" defines the PEP 735 \"[dependency-groups]\" names to match, such as \"dev\".\n\nremark:\n  * each value is a pattern following the Go filepath.Match syntax, so \"*\" matches any group.\n  * names are compared once normalized as PEP 735 requires, ignoring case and treating\n    runs of \"-\", \"_\" and \".\" alike, so \"dev-tools\" matches a group declared as \"Dev_Tools\".\n  * patterns are normalized the same way, including inside brackets, so \"[_.]\" means \"[-]\".\n  * a group including another one through {include-group = \"...\"} contains its dependencies\n    too, as PEP 735 defines, so \"dev\" matches the dependencies \"dev\" includes from \"test\".\n  * dependencies from \"[project.dependencies]\" and \"[project.optional-dependencies]\"\n    belong to no dependency group, so they never match this field.\n\nexample:\n  ```\n  only:\n    - dependencygroups:\n        - dev\n  ```"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3045,6 +3135,13 @@
                                                 },
                                                 "type": "object",
                                                 "description": "\"packages\" defines the Python packages to match, keyed by package name.\n\nremark:\n  * an empty value matches any version.\n  * otherwise the value is a PEP 440 version specifier, such as \"\u003e=2.0,\u003c3.0\".\n  * when the version or the specifier cannot be parsed, the value must equal the version."
+                                            },
+                                            "dependencygroups": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array",
+                                                "description": "\"dependencygroups\" defines the PEP 735 \"[dependency-groups]\" names to match, such as \"dev\".\n\nremark:\n  * each value is a pattern following the Go filepath.Match syntax, so \"*\" matches any group.\n  * names are compared once normalized as PEP 735 requires, ignoring case and treating\n    runs of \"-\", \"_\" and \".\" alike, so \"dev-tools\" matches a group declared as \"Dev_Tools\".\n  * patterns are normalized the same way, including inside brackets, so \"[_.]\" means \"[-]\".\n  * a group including another one through {include-group = \"...\"} contains its dependencies\n    too, as PEP 735 defines, so \"dev\" matches the dependencies \"dev\" includes from \"test\".\n  * dependencies from \"[project.dependencies]\" and \"[project.optional-dependencies]\"\n    belong to no dependency group, so they never match this field.\n\nexample:\n  ```\n  only:\n    - dependencygroups:\n        - dev\n  ```"
                                             }
                                         },
                                         "additionalProperties": false,
@@ -3907,6 +4004,28 @@
                                         },
                                         "type": "array",
                                         "description": "\"assignees\" defines the list of users assigned to the pull request.\n\ndefault:\n  no assignee.\n\nremark:\n  * each user must have access to the repository.\n\nexample:\n```\n  assignees:\n    - alice\n    - bob\n```"
+                                    },
+                                    "reviewers": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array",
+                                        "description": "\"reviewers\" defines the usernames to request a review from.\n\ndefault:\n  no review requests.\n\nremark:\n  * requests are added when target changes create or update a pull request.\n  * users who have already reviewed or been requested are left unchanged.\n  * removing a username does not remove its review or request.\n  * a failed review request stops the action before requesting auto-merge.\n\nexample:\n```\n  reviewers:\n    - alice\n    - bob\n```"
+                                    },
+                                    "merge": {
+                                        "properties": {
+                                            "strategy": {
+                                                "type": "string",
+                                                "description": "\"strategy\" defines how the pull request is merged.\n\ndefault:\n  manual\n\nremark:\n  * accepted values are \"auto\", \"manual\" or empty, case-insensitive.\n  * \"manual\" and empty neither request nor cancel auto-merge.\n  * \"auto\" requests server-side auto-merge. Use Gitea 1.22+ or Forgejo 8+.\n  * settings are applied when target changes trigger the action. Runs without target changes only report an existing PR.\n  * configure required checks and branch protections on the repository. Merging may be immediate.\n  * an existing auto-merge schedule is left unchanged.\n  * auto-merge isn't requested on a draft pull request."
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"merge\" defines how Updatecli merges the pull request.\n\ndefault:\n  strategy manual\n\nexample:\n```\n  merge:\n    strategy: auto\n```"
+                                    },
+                                    "mergemethod": {
+                                        "type": "string",
+                                        "description": "\"mergemethod\" defines the merge method used with \"merge.strategy: auto\".\n\ndefault:\n  empty, which uses the repository's default merge style.\n\nremark:\n  * accepted values are \"merge\", \"rebase\", \"rebase-merge\", \"squash\", \"fast-forward-only\" or empty, case-insensitive.\n  * the server enforces which merge methods are allowed on the repository.\n  * changing this value does not change the method of an existing auto-merge schedule."
                                     }
                                 },
                                 "additionalProperties": false,
@@ -12249,6 +12368,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "\"versionfilter\" defines the version pattern and its kind, such as \"regex\", \"semver\" or \"latest\".\n\ncompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "\"minimum\" defines the minimum age a release must have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * minimum: 24h\n  * minimum: 7d\n  * minimum: 3w"
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * a release's age is based on the Last-Modified date the repository reports for its pom file.\n  * with the kind \"latest\", the highest release below the latest one is used when the latest\n    one doesn't match the age filter, as the pypi resource does. Releases are preferred to\n    pre-releases, unless the latest one is a pre-release.\n  * releases are checked from the one the versionfilter selects downwards, at most 20 per\n    repository. Releases whose pom file isn't found, such as SNAPSHOT versions, have no date\n    and are ignored. The source is skipped when the age filter discards every release checked,\n    or when none of them has a date.\n  * a repository answering with an error other than \"not found\" fails the source,\n    rather than an older release being returned.\n  * a condition doesn't match a version without date.\n\nexample:\n  age:\n    minimum: 7d"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -22550,6 +22684,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "\"versionfilter\" defines the version pattern and its kind, such as \"regex\", \"semver\" or \"latest\".\n\ncompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "\"minimum\" defines the minimum age a release must have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * minimum: 24h\n  * minimum: 7d\n  * minimum: 3w"
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * a release's age is based on the Last-Modified date the repository reports for its pom file.\n  * with the kind \"latest\", the highest release below the latest one is used when the latest\n    one doesn't match the age filter, as the pypi resource does. Releases are preferred to\n    pre-releases, unless the latest one is a pre-release.\n  * releases are checked from the one the versionfilter selects downwards, at most 20 per\n    repository. Releases whose pom file isn't found, such as SNAPSHOT versions, have no date\n    and are ignored. The source is skipped when the age filter discards every release checked,\n    or when none of them has a date.\n  * a repository answering with an error other than \"not found\" fails the source,\n    rather than an older release being returned.\n  * a condition doesn't match a version without date.\n\nexample:\n  age:\n    minimum: 7d"
                                     }
                                 },
                                 "additionalProperties": false,
@@ -33247,6 +33396,21 @@
                                         "additionalProperties": false,
                                         "type": "object",
                                         "description": "\"versionfilter\" defines the version pattern and its kind, such as \"regex\", \"semver\" or \"latest\".\n\ncompatible:\n  * source"
+                                    },
+                                    "age": {
+                                        "properties": {
+                                            "minimum": {
+                                                "type": "string",
+                                                "description": "\"minimum\" defines the minimum age a release must have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * minimum: 24h\n  * minimum: 7d\n  * minimum: 3w"
+                                            },
+                                            "maximum": {
+                                                "type": "string",
+                                                "description": "\"maximum\" defines the maximum age a release may have to be considered.\n\nremark:\n  * accepted units are \"d\" for days, \"w\" for weeks, \"mo\" for months and \"y\" for years,\n    plus the Go duration units such as \"h\", \"m\" and \"s\".\n  * a unit is required.\n  * a month counts as 1/12 of a year and a year as 365 days.\n\nexample:\n  * maximum: 6mo\n  * maximum: 1y"
+                                            }
+                                        },
+                                        "additionalProperties": false,
+                                        "type": "object",
+                                        "description": "\"age\" defines the minimum or maximum age of a release to be considered valid.\n\ncompatible:\n  * source\n  * condition\n\nremark:\n  * it accepts a duration string, such as \"24h\", \"7d\", \"3w\" or \"1y\".\n  * a release's age is based on the Last-Modified date the repository reports for its pom file.\n  * with the kind \"latest\", the highest release below the latest one is used when the latest\n    one doesn't match the age filter, as the pypi resource does. Releases are preferred to\n    pre-releases, unless the latest one is a pre-release.\n  * releases are checked from the one the versionfilter selects downwards, at most 20 per\n    repository. Releases whose pom file isn't found, such as SNAPSHOT versions, have no date\n    and are ignored. The source is skipped when the age filter discards every release checked,\n    or when none of them has a date.\n  * a repository answering with an error other than \"not found\" fails the source,\n    rather than an older release being returned.\n  * a condition doesn't match a version without date.\n\nexample:\n  age:\n    minimum: 7d"
                                     }
                                 },
                                 "additionalProperties": false,
