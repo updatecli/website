@@ -3,7 +3,7 @@ title: "Gitea Pull Request"
 description: "Open or update a Gitea pull request once a target changed a file"
 lead: "kind: gitea/pullrequest"
 date: 2022-07-25T21:09:01+02:00
-lastmod: 2026-07-29T10:00:00+02:00
+lastmod: 2026-10-28T00:00:00Z
 draft: false
 images: []
 menu:
@@ -35,18 +35,34 @@ include::content/en/docs/plugins/_actionScm.adoc[]
 
 {{< resourceparameters "actions" "gitea/pullrequest" >}}
 
-The spec is small - `title`, `body`, and `assignees`, on top of the identity fields inherited from the scm. Labels, reviewers, and merge automation are not exposed by this plugin.
+The spec includes `title`, `body`, `assignees`, `merge`, and `mergemethod`, on top of the identity fields inherited from the scm. Labels and reviewers are not exposed by this plugin.
 
 `body`:: Replaces the description Updatecli generates from the pipeline run. Useful to add context a reviewer needs, such as a changelog URL.
 `assignees`:: Gitea usernames, who must have access to the repository. They are set when the pull request is created and not reapplied afterwards.
 
+=== Merge behaviour
+
+`merge.strategy` accepts the following values (case-insensitive):
+
+`manual`::
+The default, also used when `merge` is omitted or `strategy` is empty. Updatecli opens the pull request without requesting or cancelling auto-merge.
+
+`auto`::
+Requests server-side auto-merge for a new or existing pull request. This requires Gitea 1.22+ or Forgejo 8+. Configure required checks and branch protections on the repository. A pull request that is already mergeable may merge immediately.
+
+`mergemethod` selects how the merge is performed: `merge`, `rebase`, `rebase-merge`, `squash`, or `fast-forward-only`. Leave it empty to use the repository's default merge style. Values are case-insensitive, and the selected method must be allowed on the repository.
+
+Existing auto-merge schedules are left unchanged. Changing `mergemethod` does not change the method of an already scheduled pull request.
+
+Updatecli only requests auto-merge when target changes trigger the action. A run without target changes reports the existing pull request without retrying a rejected auto-merge request. Dry-runs do not request auto-merge.
+
 === Updating an existing pull request
 
-When a pull request is already open between the two branches, this plugin *leaves it untouched* - it does not refresh the title or the description with the latest run, unlike the GitHub, GitLab, Bitbucket Cloud, and Azure DevOps plugins. The report still links to it.
+When a pull request is already open between the two branches in the same repository, this plugin does not refresh its title or description with the latest run, unlike the GitHub, GitLab, Bitbucket Cloud, and Azure DevOps plugins. The report still links to it. With `merge.strategy: auto`, the action also requests auto-merge as described above.
 
 [WARNING]
 ====
-If the API call creating the pull request fails, for any reason, Updatecli logs `Gitea pullrequest not created, skipping` and the pipeline still reports success. Run with `--debug` to see the response body when a pull request you expected does not appear. The other action plugins only swallow a "not found" response this way.
+With `merge.strategy: auto`, errors from creating the pull request or requesting auto-merge fail the action. With `manual` or an empty strategy, a failed creation call logs `Gitea pullrequest not created, skipping` without failing the pipeline. Run with `--debug` to see the response body when a pull request you expected does not appear.
 ====
 
 [WARNING]
@@ -61,6 +77,8 @@ Cleanup is *not implemented* for this plugin. `updatecli apply --clean-git-branc
 The same goes for the options this plugin does not expose, such as labels and reviewers. If closing stale pull requests, or anything else missing here, is something you would use, say so on link:https://github.com/updatecli/updatecli/issues[the Updatecli issue tracker] (these gaps are unimplemented rather than deliberate, and interest is what gets them prioritised).
 
 == Example
+
+The manifest below opens a pull request and requests auto-merge using the `squash` method.
 
 [source,yaml]
 ----
