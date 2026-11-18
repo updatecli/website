@@ -28,7 +28,7 @@ updatecli udash login app.updatecli.io
 ### Options
 
 ```
-      --api-url string   api-url defines the udash API URL
+      --api-url string   api-url defines the udash API URL, <url>/api/v1beta1 by default
   -h, --help             help for login
       --token string     token defines the Udash API token. Without it, Updatecli prompts for one
 ```
