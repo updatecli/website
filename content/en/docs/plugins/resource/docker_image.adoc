@@ -77,6 +77,43 @@ Accepted forms:
 * `windows/amd64`
 * `linux/arm/v7`
 
+== Age
+
+`age` limits a source to tags created within a time window, and makes a condition fail for a tag outside it. With `minimum: 7d`, a source passes over a tag published yesterday and returns the previous one.
+
+[source,yaml]
+----
+sources:
+  updatecli:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/updatecli
+      architecture: amd64
+      versionfilter:
+        kind: semver
+      age:
+        minimum: 7d
+----
+
+A tag is dated by the first of these that is set:
+
+. the `org.opencontainers.image.created` annotation of the image index
+. the `org.opencontainers.image.created` annotation of the image manifest
+. the `created` field of the image configuration
+
+Remarks:
+
+* When an architecture is set, the image for that platform is dated. A source dates the first platform of the list, a condition checks every one.
+* Each tag costs requests to the registry, so a source checks at most 20 tags, in the order the version filter prefers them.
+* A source is skipped, not failed, when every matching tag is outside the window or none of them has a date.
+
+[IMPORTANT]
+====
+Reproducible builds set the creation date to the Unix epoch, 1970-01-01, and Updatecli treats that as no date. Unless such an image carries the `org.opencontainers.image.created` annotation, it can't be filtered by age: a source with `age` set skips it every time.
+
+The `gcr.io/distroless` images are in this case. Leave `age` unset for them.
+====
+
 == Authentication
 
 Depending on the Docker Registry, authentication may be required. The way to retrieve the token depends on the registry.
