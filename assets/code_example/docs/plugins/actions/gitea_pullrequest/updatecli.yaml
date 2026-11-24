@@ -37,3 +37,7 @@ actions:
     kind: gitea/pullrequest
     scmid: gitea
     title: Bump axios version
+    spec:
+      merge:
+        strategy: auto
+      mergemethod: squash
