@@ -4375,7 +4375,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -4575,7 +4575,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -4668,7 +4668,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -4841,7 +4841,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -4941,7 +4941,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -5146,7 +5146,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -5318,7 +5318,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -5434,7 +5434,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -5642,7 +5642,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
@@ -5739,7 +5739,7 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/"
+                                                "description": "\"type\" defines the conventional commit type, such as \"chore\", \"fix\" or \"feat\".\n\ndefault:\n  chore\n\nremark:\n  * see https://www.conventionalcommits.org/en/\n  * set type to an explicit empty string to omit the type prefix;\n    with a scope, the title is formatted as \"scope: title\"."
                                             },
                                             "scope": {
                                                 "type": "string",
