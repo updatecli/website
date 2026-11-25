@@ -1003,7 +1003,7 @@
                                         "type": "object"
                                     },
                                     "type": "object",
-                                    "description": "\"credentials\" defines the credentials used to authenticate with each git provider, keyed by git provider domain.\n\nremark:\n  * without an entry, \"gitea.com\", \"codeberg.org\" and \"code.forgejo.org\" use kind \"gitea\",\n    and any other domain uses kind \"github\" with the \"github.com\" credentials.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        credentials:\n          \"code.forgejo.com\":\n            kind: gitea\n            token: xxx\n          \"github.com\":\n            kind: github\n            token: '{{ requiredEnv \"GITHUB_TOKEN\" }}'\n  ```"
+                                    "description": "\"credentials\" defines the credentials used to authenticate with each git provider, keyed by git provider domain.\n\nremark:\n  * without an entry, \"gitea.com\", \"codeberg.org\", \"code.forgejo.org\" and \"data.forgejo.org\" use kind \"gitea\",\n    and any other domain uses kind \"github\" with the \"github.com\" credentials.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        credentials:\n          \"code.forgejo.org\":\n            kind: gitea\n            token: xxx\n          \"github.com\":\n            kind: github\n            token: '{{ requiredEnv \"GITHUB_TOKEN\" }}'\n  ```"
                                 },
                                 "credentialsdocker": {
                                     "additionalProperties": {
@@ -1199,7 +1199,7 @@
                                         "type": "object"
                                     },
                                     "type": "object",
-                                    "description": "\"credentials\" defines the credentials used to authenticate with each git provider, keyed by git provider domain.\n\nremark:\n  * without an entry, \"gitea.com\", \"codeberg.org\" and \"code.forgejo.org\" use kind \"gitea\",\n    and any other domain uses kind \"github\" with the \"github.com\" credentials.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        credentials:\n          \"code.forgejo.com\":\n            kind: gitea\n            token: xxx\n          \"github.com\":\n            kind: github\n            token: '{{ requiredEnv \"GITHUB_TOKEN\" }}'\n  ```"
+                                    "description": "\"credentials\" defines the credentials used to authenticate with each git provider, keyed by git provider domain.\n\nremark:\n  * without an entry, \"gitea.com\", \"codeberg.org\", \"code.forgejo.org\" and \"data.forgejo.org\" use kind \"gitea\",\n    and any other domain uses kind \"github\" with the \"github.com\" credentials.\n\nexample:\n  ```\n  autodiscovery:\n    crawlers:\n      github/action:\n        credentials:\n          \"code.forgejo.org\":\n            kind: gitea\n            token: xxx\n          \"github.com\":\n            kind: github\n            token: '{{ requiredEnv \"GITHUB_TOKEN\" }}'\n  ```"
                                 },
                                 "credentialsdocker": {
                                     "additionalProperties": {
