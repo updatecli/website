@@ -67,7 +67,7 @@ targets:
     kind: file
     spec:
       file: content/en/docs/automate/github_action.adoc
-      matchpattern: 'such as `v\d+\.\d+\.\d+`'
+      matchpattern: 'such as `v\d+\.\d+\.\d+(-rc.*)?`'
       replacepattern: 'such as `{{ source "updatecli" }}`'
     scmid: default
     sourceid: updatecli
