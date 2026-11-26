@@ -79,7 +79,7 @@ Accepted forms:
 
 == Age
 
-`age` limits a source to tags created within a time window, and makes a condition fail for a tag outside it. With `minimum: 7d`, a source passes over a tag published yesterday and returns the previous one.
+`age` limits a source to tags created within a time window, and makes a condition fail for a tag outside it. With `minimum: 7d`, a source passes over a tag created yesterday and returns the previous one.
 
 [source,yaml]
 ----
@@ -103,9 +103,15 @@ A tag is dated by the first of these that is set:
 
 Remarks:
 
-* When an architecture is set, the image for that platform is dated. A source dates the first platform of the list, a condition checks every one.
+* A tag is dated for every platform of `architectures`, and must exist and be inside the window for all of them. This holds for a source and a condition alike. Without a platform, an image index is dated by its `linux/amd64` image, or else its first image.
+* A source needs a version filter that orders tags, such as `semver`. Registries list tags alphabetically, so the `latest` kind with the `latest` pattern is refused.
 * Each tag costs requests to the registry, so a source checks at most 20 tags, in the order the version filter prefers them.
-* A source is skipped, not failed, when every matching tag is outside the window or none of them has a date.
+* A source is skipped, not failed, when every matching tag is outside the window, none of them has a date, none of them is supported (schema1 images are not), or the registry fails to answer for a tag after answering for a preferred one. It fails when the registry fails for the first tag.
+
+[IMPORTANT]
+====
+The date is set by the publisher when the image is built, not by the registry when the tag is pushed. An image built long before its release, such as a promoted or retagged one, looks older than it is and can pass a `minimum` age on its first day. A malicious image can also claim any date, so unlike the age filter for npm or PyPI, it is not a protection against a compromised release.
+====
 
 [IMPORTANT]
 ====
