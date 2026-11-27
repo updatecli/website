@@ -77,6 +77,49 @@ Accepted forms:
 * `windows/amd64`
 * `linux/arm/v7`
 
+== Age
+
+`age` limits a source to tags created within a time window, and makes a condition fail for a tag outside it. With `minimum: 7d`, a source passes over a tag created yesterday and returns the previous one.
+
+[source,yaml]
+----
+sources:
+  updatecli:
+    kind: dockerimage
+    spec:
+      image: ghcr.io/updatecli/updatecli
+      architecture: amd64
+      versionfilter:
+        kind: semver
+      age:
+        minimum: 7d
+----
+
+A tag is dated by the first of these that is set:
+
+. the `org.opencontainers.image.created` annotation of the image index
+. the `org.opencontainers.image.created` annotation of the image manifest
+. the `created` field of the image configuration
+
+Remarks:
+
+* A tag is dated for every platform of `architectures`, and must exist and be inside the window for all of them. This holds for a source and a condition alike. Without a platform, an image index is dated by its `linux/amd64` image, or else its first image.
+* A source needs a version filter that orders tags, such as `semver`. Registries list tags alphabetically, so the `latest` kind with the `latest` pattern is refused.
+* Each tag costs requests to the registry, so a source checks at most 20 tags, in the order the version filter prefers them.
+* A source is skipped, not failed, when every matching tag is outside the window, none of them has a date, none of them is supported (schema1 images are not), or the registry fails to answer for a tag after answering for a preferred one. It fails when the registry fails for the first tag.
+
+[IMPORTANT]
+====
+The date is set by the publisher when the image is built, not by the registry when the tag is pushed. An image built long before its release, such as a promoted or retagged one, looks older than it is and can pass a `minimum` age on its first day. A malicious image can also claim any date, so unlike the age filter for npm or PyPI, it is not a protection against a compromised release.
+====
+
+[IMPORTANT]
+====
+Reproducible builds set the creation date to the Unix epoch, 1970-01-01, and Updatecli treats that as no date. Unless such an image carries the `org.opencontainers.image.created` annotation, it can't be filtered by age: a source with `age` set skips it every time.
+
+The `gcr.io/distroless` images are in this case. Leave `age` unset for them.
+====
+
 == Authentication
 
 Depending on the Docker Registry, authentication may be required. The way to retrieve the token depends on the registry.
